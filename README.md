@@ -7,9 +7,7 @@ This Ember CLI addon provides you with a native HTML select box component. But, 
 ember install ember-cli-select-box
 ```
 
-### Native select box
-
-Basic usage:
+#### Native select box
 
 ```handlebars
 {{#select-box/native as |sb|}}
@@ -18,11 +16,8 @@ Basic usage:
   {{sb.option value=3 label='Three'}}
 {{/select-box/native}}
 ```
-Options will be marked as `selected` automatically based on the `value` attribute.
 
-### Faux select box
-
-Basic usage:
+#### Faux Select box
 
 ```handlebars
 {{#select-box as |sb|}}
@@ -32,16 +27,12 @@ Basic usage:
 {{/select-box}}
 ```
 
-The selected item will have a class name `is-selected`
-
-#### Usage
-
 Attributes
 
 * `value` this value is used to determine which option is selected
 * `multiple` if true, `value` should be an array
 * `disabled` if true adds an `is-disabled` class 
-* `is-open` if true adds an `is-open` class
+* `is-open` controlsl the open/closed state
 * `on-select` will be fired when an option is clicked, or enter is pressed.
 * `on-after-select` useful for being able to inspect the new state of the select box after a selection has been made.
 * `on-ready` fired when all options have rendered
@@ -62,7 +53,7 @@ Attributes
 
 Yielded API
 
-* `sb.isSearching` whether the promise return from the `on-search` action is running
+* `sb.isSearching` whether the promise returned from the `on-search` action is running
 * `sb.isSlowSearch` true if the search was taking a while
 * `sb.open` opens the select box, adding `is-open` class name
 * `sb.close` closes the select box removing the `is-open` class name
@@ -72,7 +63,7 @@ Yielded API
 * `sb.selectActiveOption` selects the value of whichever option is currently active
 * `sb.search` runs an arbitrary search using the search function provided by `on-search`
 * `sb.setInputValue` lets you update the input value, useful for when a selection has been made
-* `sb.focusInput`
+* `sb.focusInput` Focuses the input
 * `sb.activateOptionAtIndex` adds an `is-active` class to the option at the index
 * `sb.activateNextOption` activates the next option (pass in true to scroll if necessary too)
 * `sb.activatePreviousOption` as above but reverse
@@ -82,17 +73,19 @@ Yielded API
 * `sb.activatePreviousSelectedOption` as above but reverse
 * `sb.deactivateSelectedOptions` makes no selected option be active
 
-###### Option
+##### Option
 
 
 ```handlebars
 {{sb.option value=1 label='One'}}
-{{sb.option value=2}}Two{{/sb.option}}
+{{sb.option value=2 as |o|}} Two {{/sb.option}}
 {{sb.option value=3 component='my-option'}}
 ```
 
 Attributes
 
+* `title`
+* `style`
 * `on-select` useful for firing one-off actions when an option is selected
 * `value` can be anything
 * `label` used as the display text
@@ -105,7 +98,7 @@ Yielded API
 * `o.index` the index of the option amongst the options
 
 
-###### Group
+##### Group
 
 ```handlebars
 {{sb.group label='Things'}}
@@ -116,7 +109,7 @@ Yielded API
 Self explanitory, just wraps the options in extra markup.
 
 
-###### Options
+##### Options
 
 ```handlebars
 {{#sb.options}}
@@ -125,10 +118,14 @@ Self explanitory, just wraps the options in extra markup.
 {{/sb.options}}
 ```
 
+Attributes
+
+* `style`
+
 You only need to wrap the options up in with `sb.options` if you require extra markup for styling, or you want the options to be navigatable.
 
 
-###### Input
+##### Input
 
 ```handlebars
 {{sb.input}}
@@ -136,20 +133,32 @@ You only need to wrap the options up in with `sb.options` if you require extra m
 
 Attributes
 
+* `type`
+* `value`
+* `size`
+* `autofocus`
+* `placeholder`
+* `readonly`
+* `disabled`
 * `on-input` fired when text is input
 * `on-delete` fired when there is no text, but backspace is pressed
 * `on-clear` fired when text is cleared
 
 
-###### Selected option
+##### Selected option
 
 ```handlebars
 {{sb.selected-option}}
 ```
 
+Attributes
+
+* `title`
+* `style`
+
 Does not render the selected option automatically, but rather just provides a way for you to render the option(s) that have been selected.
 
-###### Selected options
+##### Selected options
 
 ```handlebars
 {{#sb.selected-options}}
@@ -158,9 +167,13 @@ Does not render the selected option automatically, but rather just provides a wa
 {{/sb.selected-options}}
 ```
 
+Attributes
+
+* `style`
+
 Provides a container for options that the user selected. Does not do anything by default, but it is possible to activate selected options using the API, thereby allowing you to create your own navigatable select box.
 
-#### Customising
+### Customising
 
 1. We recommend you compose your own select box like so:
 
