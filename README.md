@@ -2,6 +2,8 @@
 
 This Ember CLI addon provides you with a native HTML select box component. But, it also comes with a faux-select box made from divs.
 
+Select boxes solutions are rarely perfect for what you want, ember-cli-select-box is designed so you can _compose your own_ as easily as possible.
+
 <a href="http://andrewkirwin.me/ember-cli-select-box/native-single-select" target="_blank">Demo of flexibility</a>
 
 
@@ -82,7 +84,7 @@ Yielded API
 
 ```handlebars
 {{sb.option value=1 label='One'}}
-{{sb.option value=2 as |o|}} Two {{/sb.option}}
+{{#sb.option value=2 as |o|}} Two {{/sb.option}}
 {{sb.option value=3 component='my-option'}}
 ```
 
@@ -107,7 +109,7 @@ Yielded API
 Self explanitory, just wraps the options in extra markup.
 
 ```handlebars
-{{sb.group label='Things'}}
+{{#sb.group label='Things'}}
   {{sb.option value=thing label=thing.name}}
 {{/sb.group}}
 ```
