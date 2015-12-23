@@ -29,7 +29,7 @@ ember install ember-cli-select-box
 
 Attributes
 
-* `value` this value is used to determine which option is selected
+* `value` used to determine which option is selected
 * `multiple` if true, `value` should be an array
 * `disabled` if true adds an `is-disabled` class 
 * `is-open` controlsl the open/closed state
@@ -54,7 +54,7 @@ Attributes
 Yielded API
 
 * `sb.isSearching` whether the promise returned from the `on-search` action is running
-* `sb.isSlowSearch` true if the search was taking a while
+* `sb.isSlowSearch` true if the promised search results are taking a while
 * `sb.open` opens the select box, adding `is-open` class name
 * `sb.close` closes the select box removing the `is-open` class name
 * `sb.toggle` opens or closes the select box
@@ -63,7 +63,7 @@ Yielded API
 * `sb.selectActiveOption` selects the value of whichever option is currently active
 * `sb.search` runs an arbitrary search using the search function provided by `on-search`
 * `sb.setInputValue` lets you update the input value, useful for when a selection has been made
-* `sb.focusInput` Focuses the input
+* `sb.focusInput` focuses the input
 * `sb.activateOptionAtIndex` adds an `is-active` class to the option at the index
 * `sb.activateNextOption` activates the next option (pass in true to scroll if necessary too)
 * `sb.activatePreviousOption` as above but reverse
@@ -88,8 +88,8 @@ Attributes
 * `style`
 * `on-select` useful for firing one-off actions when an option is selected
 * `value` can be anything
-* `label` used as the display text
-* `component` name of a component to use for the option's display text
+* `label` used as the display text by default
+* `component` optional name of a component to use for the option's display text
 
 Yielded API
 
@@ -100,16 +100,18 @@ Yielded API
 
 ##### Group
 
+Self explanitory, just wraps the options in extra markup.
+
 ```handlebars
 {{sb.group label='Things'}}
   {{sb.option value=thing label=thing.name}}
 {{/sb.group}}
 ```
 
-Self explanitory, just wraps the options in extra markup.
-
 
 ##### Options
+
+You only need to wrap the options up in with `sb.options` if you require extra markup for styling, or you want the options to be navigatable.
 
 ```handlebars
 {{#sb.options}}
@@ -122,10 +124,10 @@ Attributes
 
 * `style`
 
-You only need to wrap the options up in with `sb.options` if you require extra markup for styling, or you want the options to be navigatable.
-
 
 ##### Input
+
+Allows you to input text into the select box, usually for running searches/filtering
 
 ```handlebars
 {{sb.input}}
@@ -147,6 +149,8 @@ Attributes
 
 ##### Selected option
 
+Does _not_ render the user's selected option automatically, but rather just provides a way for you to render the option(s) that have been selected.
+
 ```handlebars
 {{sb.selected-option}}
 ```
@@ -156,7 +160,6 @@ Attributes
 * `title`
 * `style`
 
-Does not render the selected option automatically, but rather just provides a way for you to render the option(s) that have been selected.
 
 ##### Selected options
 
@@ -172,6 +175,7 @@ Attributes
 * `style`
 
 Provides a container for options that the user selected. Does not do anything by default, but it is possible to activate selected options using the API, thereby allowing you to create your own navigatable select box.
+
 
 ### Customising
 
