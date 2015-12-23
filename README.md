@@ -84,8 +84,10 @@ Yielded API
 
 ```handlebars
 {{sb.option value=1 label='One'}}
-{{#sb.option value=2 as |o|}} Two {{/sb.option}}
-{{sb.option value=3 component='my-option'}}
+{{sb.option value=2 label='Two' component='my-option'}}
+{{#sb.option value=3 label='Three' as |o|}}
+  {{o.label}}
+{{/sb.option}}
 ```
 
 Attributes
@@ -158,7 +160,11 @@ Attributes
 Does _not_ render the user's selected option automatically, but rather just provides a way for you to render the option(s) that have been selected.
 
 ```handlebars
-{{sb.selected-option}}
+{{sb.selected-option value=1 label='One'}}
+{{sb.selected-option value=2 label='Two' component='my-selected-option'}}
+{{#sb.selected-option value=3 label='Three' as |o|}}
+  {{o.label}}
+{{/sb.selected-option}}
 ```
 
 Attributes
