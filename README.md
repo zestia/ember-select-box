@@ -201,17 +201,17 @@ Provides a container for options that the user selected. Does not do anything by
 {{/select-box}}
 ```
 
-...and then use it like so:
+...and then use it like this:
 
 ```handlebars
-{{#my-select value=thing on-select=action('selectedAThing') as |sb|}}
+{{#my-select value=thing on-select=(action 'selectedAThing') as |sb|}}
   {{#each things as |thing|}}
     {{sb.option value=thing label=thing.name}}
   {{/each}}
 {{/my-select}}
 ```
 
-Will render...
+...will render...
 
 ```html
 <div class="my-select">
