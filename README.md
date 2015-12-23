@@ -162,8 +162,8 @@ Does _not_ render the user's selected option automatically, but rather just prov
 ```handlebars
 {{sb.selected-option value=1 label='One'}}
 {{sb.selected-option value=2 label='Two' component='my-selected-option'}}
-{{#sb.selected-option value=3 label='Three' as |o|}}
-  {{o.label}}
+{{#sb.selected-option value=3 label='Three' as |so|}}
+  {{so.label}}
 {{/sb.selected-option}}
 ```
 
