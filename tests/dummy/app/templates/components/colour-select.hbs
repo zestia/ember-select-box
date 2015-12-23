@@ -1,0 +1,20 @@
+{{#select-box
+  class-prefix='colour'
+  value=attrs.value
+  on-select=attrs.on-select
+  on-click-outside=(action 'close')
+  on-press-escape=(action 'close') as |sb|}}
+  {{sb.selected-option
+    click=sb.open
+    value=sb.value
+    label=sb.value
+    style=(concat 'background:' sb.value)}}
+  {{#sb.options}}
+    {{#each colours as |colour|}}
+      {{~sb.option
+        value=colour
+        label=colour
+        style=(concat 'background:' colour)~}}
+    {{/each}}
+  {{/sb.options}}
+{{/select-box}}

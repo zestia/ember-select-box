@@ -1,0 +1,13 @@
+<div class="simple-select-display-label">
+  {{displayLabel}}
+</div>
+{{#select-box/native
+  class-prefix='simple'
+  value=attrs.value
+  on-focus-in=(action 'focusIn')
+  on-focus-out=(action 'focusOut')
+  on-ready=(action 'updateDisplayLabel')
+  on-after-select=(action 'updateDisplayLabel')
+  on-select=attrs.on-select as |sb|}}
+  {{yield sb}}
+{{/select-box/native}}

@@ -1,0 +1,18 @@
+<p>
+  Selected dessert: {{selectedDessert.name}}
+</p>
+
+{{#select-box/native
+  value=selectedDessert
+  on-select=(action 'selectedDessert') as |sb|}}
+  {{#sb.group label='Cakes'}}
+    {{#each selectableCakes as |cake|}}
+      {{sb.option value=cake label=cake.name}}
+    {{/each}}
+  {{/sb.group}}
+  {{#sb.group label='Puddings'}}
+    {{#each selectablePuddings as |pudding|}}
+      {{sb.option value=pudding label=pudding.name}}
+    {{/each}}
+  {{/sb.group}}
+{{/select-box/native}}

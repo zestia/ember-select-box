@@ -1,0 +1,42 @@
+{{#select-box
+  value=attrs.value
+  class-prefix='tag'
+  on-press-escape=(action 'close')
+  on-press-down=(action 'pressedDown')
+  on-press-up=(action 'pressedUp')
+  on-click-outside=(action 'close')
+  on-select=(action 'addTag')
+  on-search=(action 'updateAvailableTags' attrs.on-search)
+  search-min-chars=0
+  search-delay-time=0 as |sb|}}
+
+  {{#sb.selected-options}}
+    {{#each attrs.value as |tag|}}
+      {{#sb.selected-option}}
+        {{tag}}
+        <span onclick={{action 'removeTag' tag}}
+          class='tag-select-box-remove'>&times;</span>{{/sb.selected-option}}
+    {{/each}}
+  {{/sb.selected-options}}
+
+  {{sb.input
+    click=(action 'reveal' sb attrs.on-search)
+    on-input=sb.open
+    on-delete=(action 'removeTag' sb.value.lastObject)
+    autofocus=true}}
+
+  {{#if availableTags.length}}
+    {{#sb.options}}
+      {{#each availableTags as |tag|}}
+        {{sb.option value=tag label=tag}}
+      {{/each}}
+    {{/sb.options}}
+  {{else if newTag}}
+    {{#sb.options}}
+      {{#sb.option value=newTag label=newTag}}
+        No tag found<br>
+        Add {{newTag}}...
+      {{/sb.option}}
+    {{/sb.options}}
+  {{/if}}
+{{/select-box}}

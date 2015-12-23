@@ -1,0 +1,11 @@
+{{#if hasBlock}}
+  {{~yield (hash
+    value=(readonly value)
+    label=(readonly label)
+    index=(readonly index)
+  )~}}
+{{else if attrs.component}}
+  {{~component attrs.component value=value label=label~}}
+{{else}}
+  {{~label~}}
+{{/if}}

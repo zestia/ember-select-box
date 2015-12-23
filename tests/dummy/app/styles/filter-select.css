@@ -1,0 +1,34 @@
+.filter-select {
+  display: inline-block;
+  min-width: 200px;
+}
+.filter-select * {
+  border: 1px solid silver;
+  margin: 2px;
+  padding: 2px;
+}
+.filter-select-box.is-focused {
+  border-color: #666;
+  outline: none
+}
+.filter-select-box-input {
+  border: 0;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+.filter-select-box.is-focused .filter-select-box-selected {
+  border-color: #666
+}
+.filter-select-box:not(.is-open) .filter-select-box-options {
+  display: none
+}
+.filter-select-box-option {
+  cursor: pointer;
+}
+.filter-select-box-option.is-active {
+  border-color: green
+}
+.filter-select-box-option.is-selected {
+  border-color: red
+}

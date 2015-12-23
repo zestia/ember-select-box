@@ -1,0 +1,8 @@
+{{#if hasBlock}}
+  {{~yield (hash
+    value=(readonly value)
+    label=(readonly label)
+  )~}}
+{{else}}
+  {{~label~}}
+{{/if}}

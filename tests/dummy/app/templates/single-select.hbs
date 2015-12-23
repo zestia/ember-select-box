@@ -1,0 +1,12 @@
+<p>
+  Selected bread: {{selectedBread.name}}
+</p>
+
+{{#select-box
+  value=selectedBread
+  class='single-select'
+  on-select=(action 'selectedBread') as |sb|}}
+  {{#each selectableBreads as |bread|}}
+    {{sb.option value=bread label=bread.name}}
+  {{/each}}
+{{/select-box}}

@@ -1,0 +1,12 @@
+<p>
+  Selected pudding: {{selectedPudding.name}}
+</p>
+
+{{#simple-select
+  value=selectedPudding
+  label-key='name'
+  on-select=(action 'selectedPudding') as |sb|}}
+  {{#each selectablePuddings as |pudding|}}
+    {{sb.option value=pudding label=pudding.name}}
+  {{/each}}
+{{/simple-select}}

@@ -1,0 +1,22 @@
+{{#select-box
+  class-prefix='simple'
+  value=attrs.value
+  is-open=isOpen
+  on-press-down=(action 'pressedDown')
+  on-press-up=(action 'pressedUp')
+  on-press-escape=(action 'close')
+  on-focus-out=(action 'close')
+  on-select=(action 'selected' attrs.on-select)
+  on-after-select=(action 'updateDisplayLabel') as |sb|}}
+  <div class="simple-select-box-display-label"
+    onclick={{action sb.open}}>
+    {{#if displayLabel}}
+      {{displayLabel}}
+    {{else}}
+      &nbsp;
+    {{/if}}
+  </div>
+  {{#sb.options}}
+    {{yield sb}}
+  {{/sb.options}}
+{{/select-box}}

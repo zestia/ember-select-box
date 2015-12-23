@@ -1,0 +1,17 @@
+{{#select-box
+  class-prefix='filter'
+  value=attrs.value
+  on-press-down=(action 'pressedDown')
+  on-press-up=(action 'pressedUp')
+  on-click-outside=(action 'close')
+  on-press-escape=(action 'close')
+  on-search=attrs.on-search
+  on-select=attrs.on-select
+  on-after-select=(action 'selected')
+  search-min-chars=0
+  search-delay-time=0 as |sb|}}
+  {{sb.input focusIn=sb.open on-input=sb.open}}
+  {{#sb.options}}
+    {{yield sb}}
+  {{/sb.options}}
+{{/select-box}}

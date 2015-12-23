@@ -1,0 +1,23 @@
+{{#select-box
+  class-prefix='search'
+  value=attrs.value
+  on-press-escape=(action 'close')
+  on-press-down=(action 'pressedDown')
+  on-press-up=(action 'pressedUp')
+  on-click-outside=(action 'close')
+  on-select=attrs.on-select
+  on-search=attrs.on-search
+  on-searched=(action 'searched')
+  search-slow-time=1000 as |sb|}}
+  {{sb.input}}
+  {{#if sb.isSearching}}
+    {{#sb.option}}
+      Please wait...
+      {{if sb.isSlowSearch '(hold tight!)'}}
+    {{/sb.option}}
+  {{else}}
+    {{#sb.options}}
+      {{yield sb lastQuery}}
+    {{/sb.options}}
+  {{/if}}
+{{/select-box}}

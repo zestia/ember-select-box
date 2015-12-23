@@ -1,0 +1,49 @@
+import Ember from 'ember';
+import Controller from 'ember-controller';
+import { mapBy, max } from 'ember-computed';
+import { A as emberA } from 'ember-array/utils';
+import { tags } from '../utils/dummy-data';
+const { RSVP } = Ember;
+
+export default Controller.extend({
+  selectedTagIDs: mapBy('selectedTags', 'id'),
+  selectedTagNames: mapBy('selectedTags', 'name'),
+  maxTagID: max('selectedTagIDs'),
+
+  init() {
+    this.set('selectedTags', emberA(tags));
+  },
+
+  _findTags(query) {
+    let tags = emberA(this.get('selectedTags').filter((tag) => {
+      return tag.name.toLowerCase().indexOf(query.toLowerCase()) >= 0;
+    }));
+    return RSVP.resolve(tags.mapBy('name'));
+  },
+
+  actions: {
+    findTags(query) {
+      return this._findTags(query);
+    },
+
+    tag(name) {
+      let selectedTags = this.get('selectedTags');
+      let tag = selectedTags.findBy('name', name);
+      if (!tag) {
+        tag = {
+          id: this.get('maxTagID') + 1,
+          name: name
+        };
+      }
+      selectedTags.addObject(tag);
+    },
+
+    detag(name) {
+      let selectedTags = this.get('selectedTags');
+      let tag = selectedTags.findBy('name', name);
+      if (tag) {
+        selectedTags.removeObject(tag);
+      }
+    }
+  }
+});

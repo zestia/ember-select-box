@@ -1,0 +1,11 @@
+<p>
+  Selected biscuit: {{selectedBiscuit.name}}
+</p>
+
+{{#native-simple-select
+  value=selectedBiscuit
+  on-select=(action 'selectedBiscuit') as |sb|}}
+  {{#each selectableBiscuits as |biscuit|}}
+    {{sb.option value=biscuit label=biscuit.name}}
+  {{/each}}
+{{/native-simple-select}}

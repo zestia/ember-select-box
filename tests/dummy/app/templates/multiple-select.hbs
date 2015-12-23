@@ -1,0 +1,26 @@
+<p>
+  Selected snacks:
+</p>
+
+<ul>
+  {{#each selectedSnacks as |snack|}}
+    <li>{{snack.name}}</li>
+  {{/each}}
+</ul>
+
+{{#select-box
+  multiple=true
+  value=selectedSnacks
+  class='basic-select'
+  on-select=(action 'selectedSnacks') as |sb|}}
+  {{#sb.group label='Biscuits'}}
+    {{#each selectableBiscuits as |biscuit|}}
+      {{sb.option value=biscuit label=biscuit.name on-select=(action sb.add biscuit)}}
+    {{/each}}
+  {{/sb.group}}
+  {{#sb.group label='Pastries'}}
+    {{#each selectablePastries as |pasrty|}}
+      {{sb.option value=pasrty label=pasrty.name}}
+    {{/each}}
+  {{/sb.group}}
+{{/select-box}}

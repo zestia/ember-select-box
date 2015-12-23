@@ -1,0 +1,42 @@
+.tag-select {
+  display: inline-block;
+  min-width: 200px;
+}
+.tag-select * {
+  border: 1px solid silver;
+  margin: 2px;
+  padding: 2px;
+}
+.tag-select-box.is-focused {
+  border-color: #666;
+  outline: none;
+}
+.tag-select-box-input {
+  border: 0;
+  outline: none;
+  box-sizing: border-box;
+}
+.tag-select-box:not(.is-open) .tag-select-box-options {
+  display: none
+}
+.tag-select-box-option {
+  cursor: pointer;
+}
+.tag-select-box-remove {
+  cursor: pointer;
+  display: inline-block;
+}
+.tag-select-box-selected-option {
+  display: inline-block;
+}
+.tag-select-box-selected-options {
+  font-size: small;
+  display: inline-block;
+  border: 0;
+  margin: 0;
+  padding: 0
+}
+.tag-select-box-option.is-active,
+.tag-select-box-selected-option.is-active {
+  border-color: green
+}

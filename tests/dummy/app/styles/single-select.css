@@ -1,0 +1,21 @@
+.single-select,
+.single-select * {
+  border: 1px solid silver;
+  margin: 2px;
+  padding: 2px;
+}
+.single-select.select-box {
+  outline: none
+}
+.single-select.select-box.is-focused {
+  border-color: #666
+}
+.single-select .select-box-option {
+  cursor: pointer;
+}
+.single-select .select-box-option.is-active {
+  border-color: green
+}
+.single-select .select-box-option.is-selected {
+  border-color: red
+}

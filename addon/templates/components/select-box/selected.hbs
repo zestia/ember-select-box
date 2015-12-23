@@ -1,0 +1,7 @@
+{{#if selectedOptions.length}}
+  {{#each selectedOptions as |selected|}}
+    {{yield selected}}
+  {{/each}}
+{{else}}
+  {{yield to="inverse"}}
+{{/if}}
