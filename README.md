@@ -2,7 +2,7 @@
 
 This Ember CLI addon provides you with a native HTML select box component. But, it also comes with a faux-select box made from divs.
 
-<a href="http://andrewkirwin.me/ember-cli-select-box/" target="_blank">Demo of flexibility</a>
+<a href="http://andrewkirwin.me/ember-cli-select-box/native-single-select" target="_blank">Demo of flexibility</a>
 
 ### Installation
 ```
