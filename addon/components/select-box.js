@@ -38,5 +38,11 @@ export default Component.extend(
   layout: layout,
   ariaRole: 'listbox',
   attributeBindings: ['aria-label'],
-  classNameBindings: ['isFocused', 'isDisabled']
+  classNameBindings: [
+    'isOpen',
+    'isFocused',
+    'isDisabled',
+    'isSearching',
+    'isSlowSearch'
+  ]
 });

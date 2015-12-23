@@ -5,8 +5,6 @@ import { bind, debounce } from 'ember-runloop';
 const { trim } = jQuery;
 
 export default Mixin.create({
-  classNameBindings: ['isSearching', 'isSlowSearch'],
-
   didInitAttrs() {
     this._super(...arguments);
     this.set('isSearchable', !!this.getAttr('on-search'));
