@@ -7,12 +7,6 @@ export default Component.extend({
   classNames: ['filter-select'],
 
   actions: {
-    pressedUp() {
-      // sb.navigateOptionsUp();
-    },
-    pressedDown() {
-      // sb.navigateOptionsDown();
-    },
     close(e, sb) {
       sb.close();
     },

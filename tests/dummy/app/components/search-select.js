@@ -6,12 +6,6 @@ export default Component.extend({
   classNames: ['search-select'],
 
   actions: {
-    pressedUp() {
-      // sb.navigateOptionsUp();
-    },
-    pressedDown() {
-      // sb.navigateOptionsDown();
-    },
     close(e, sb) {
       sb.close();
     },

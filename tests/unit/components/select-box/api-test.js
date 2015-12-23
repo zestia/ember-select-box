@@ -22,6 +22,7 @@ test('api', function(assert) {
     'toggle',
     'select',
     'update',
+    'selectActiveOption',
     'search',
     'setInputValue',
     'focusInput',
@@ -32,9 +33,7 @@ test('api', function(assert) {
     'activateSelectedOptionAtIndex',
     'activateNextSelectedOption',
     'activatePreviousSelectedOption',
-    'deactivateSelectedOptions',
-    'navigateOptionsUp',
-    'navigateOptionsDown'
+    'deactivateSelectedOptions'
   ]);
 });
 

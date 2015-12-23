@@ -22,9 +22,7 @@ export default Mixin.create({
       'activateSelectedOptionAtIndex',
       'activateNextSelectedOption',
       'activatePreviousSelectedOption',
-      'deactivateSelectedOptions',
-      'navigateOptionsUp',
-      'navigateOptionsDown'
+      'deactivateSelectedOptions'
     ].forEach((actionName) => {
       expose[actionName] = bind(this, this.get(`actions.${actionName}`));
     });

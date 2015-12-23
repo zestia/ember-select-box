@@ -4,6 +4,8 @@ This Ember CLI addon provides you with a native HTML select box component. But, 
 
 <a href="http://andrewkirwin.me/ember-cli-select-box/native-single-select" target="_blank">Demo of flexibility</a>
 
+
+
 ### Installation
 ```
 ember install ember-cli-select-box
