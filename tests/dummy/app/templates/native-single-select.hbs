@@ -1,7 +1,3 @@
-<p>
-  Selected dessert: {{selectedDessert.name}}
-</p>
-
 {{#select-box/native
   value=selectedDessert
   on-select=(action 'selectedDessert') as |sb|}}
@@ -16,3 +12,8 @@
     {{/each}}
   {{/sb.group}}
 {{/select-box/native}}
+
+
+<p>
+  Selected dessert: {{selectedDessert.name}}
+</p>

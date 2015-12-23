@@ -1,13 +1,3 @@
-<p>
-  Selected snacks:
-</p>
-
-<ul>
-  {{#each selectedSnacks as |snack|}}
-    <li>{{snack.name}}</li>
-  {{/each}}
-</ul>
-
 {{#select-box
   multiple=true
   value=selectedSnacks
@@ -24,3 +14,14 @@
     {{/each}}
   {{/sb.group}}
 {{/select-box}}
+
+
+<p>
+  Selected snacks:
+</p>
+
+<ul>
+  {{#each selectedSnacks as |snack|}}
+    <li>{{snack.name}}</li>
+  {{/each}}
+</ul>

@@ -1,3 +1,10 @@
+{{tag-select
+  value=selectedTagNames
+  on-tag=(action 'tag')
+  on-detag=(action 'detag')
+  on-search=(action 'findTags')}}
+
+
 <p>
   Selected tags:
 </p>
@@ -7,10 +14,3 @@
     <li>id = {{tag.id}}, name= {{tag.name}}</li>
   {{/each}}
 </ul>
-
-{{tag-select
-  value=selectedTagNames
-  on-tag=(action 'tag')
-  on-detag=(action 'detag')
-  on-search=(action 'findTags')}}
-

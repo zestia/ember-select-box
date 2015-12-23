@@ -1,13 +1,3 @@
-<p>
-  Selected desserts:
-</p>
-
-<ul>
-  {{#each selectedDesserts as |dessert|}}
-    <li>{{dessert.name}}</li>
-  {{/each}}
-</ul>
-
 {{#select-box/native
   size=12
   multiple=true
@@ -24,3 +14,13 @@
     {{/each}}
   {{/sb.group}}
 {{/select-box/native}}
+
+<p>
+  Selected desserts:
+</p>
+
+<ul>
+  {{#each selectedDesserts as |dessert|}}
+    <li>{{dessert.name}}</li>
+  {{/each}}
+</ul>

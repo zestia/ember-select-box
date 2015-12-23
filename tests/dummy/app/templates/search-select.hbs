@@ -1,11 +1,3 @@
-<p>
-  Selected bread: {{selectedBread.name}}
-</p>
-
-<p>
-  New bread: {{newBread}}
-</p>
-
 {{#search-select
   on-search=(action 'findBread')
   on-select=(action 'selectedBread') as |sb newBread|}}
@@ -18,3 +10,12 @@
     {{/sb.option}}
   {{/each}}
 {{/search-select}}
+
+
+<p>
+  Selected bread: {{selectedBread.name}}
+</p>
+
+<p>
+  New bread: {{newBread}}
+</p>

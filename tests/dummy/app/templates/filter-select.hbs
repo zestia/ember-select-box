@@ -1,7 +1,3 @@
-<p>
-  Selected pie: {{selectedPie.name}}
-</p>
-
 {{#filter-select
   label-key='name'
   on-search=(action 'filterPies')
@@ -12,3 +8,7 @@
     {{#sb.option}}No pies found{{/sb.option}}
   {{/each}}
 {{/filter-select}}
+
+<p>
+  Selected pie: {{selectedPie.name}}
+</p>
