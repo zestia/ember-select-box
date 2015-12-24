@@ -1,7 +1,7 @@
 {
   "name": "ember-cli-select-box",
-  "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "version": "0.0.1",
+  "description": "A faux select box for Ember apps",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -36,7 +36,10 @@
     "ember-try": "~0.0.8"
   },
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "select",
+    "select-box",
+    "dropdown"
   ],
   "dependencies": {
     "ember-cli-babel": "^5.1.5",
@@ -44,5 +47,9 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/amk221/ember-cli-select-box/issues"
+  },
+  "homepage": "https://github.com/amk221/ember-cli-select-box"
 }
