@@ -1,8 +1,6 @@
 {{#select-box
-  class-prefix='filter'
+  class-prefix='filter-select-box'
   value=attrs.value
-  on-press-down=(action 'pressedDown')
-  on-press-up=(action 'pressedUp')
   on-click-outside=(action 'close')
   on-press-escape=(action 'close')
   on-search=attrs.on-search

@@ -1,9 +1,7 @@
 {{#select-box
-  class-prefix='search'
+  class-prefix='search-select-box'
   value=attrs.value
   on-press-escape=(action 'close')
-  on-press-down=(action 'pressedDown')
-  on-press-up=(action 'pressedUp')
   on-click-outside=(action 'close')
   on-select=attrs.on-select
   on-search=attrs.on-search

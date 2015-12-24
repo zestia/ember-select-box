@@ -21,7 +21,7 @@ test('class prefix', function(assert) {
 
   this.render(hbs `{{select-box/native class-prefix='foo'}}`);
 
-  assert.equal(this.$('.foo-select-box').length, 1,
+  assert.equal(this.$('.foo').length, 1,
     'can add a class prefix');
 
   this.render(hbs `
@@ -33,8 +33,8 @@ test('class prefix', function(assert) {
   `);
 
   assert.ok(
-    this.$('.foo-select-box-group').length === 1 &&
-    this.$('.foo-select-box-option').length === 1,
+    this.$('.foo-group').length === 1 &&
+    this.$('.foo-option').length === 1,
     'class prefix trickles down to children'
   );
 });

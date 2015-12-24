@@ -34,15 +34,15 @@ test('class prefix attr', function(assert) {
     {{/select-box}}
   `);
 
-  assert.equal(this.$('.foo-select-box').length, 1);
-  assert.equal(this.$('.foo-select-box-input').length, 1);
-  assert.equal(this.$('.foo-select-box-options').length, 1);
-  assert.equal(this.$('.foo-select-box-selected-options').length, 1);
-  assert.equal(this.$('.foo-select-box-group').length, 1);
-  assert.equal(this.$('.foo-select-box-group-label').length, 1);
-  assert.equal(this.$('.foo-select-box-group-options').length, 1);
-  assert.equal(this.$('.foo-select-box-option').length, 1);
-  assert.equal(this.$('.foo-select-box-selected-option').length, 1);
+  assert.equal(this.$('.foo').length, 1);
+  assert.equal(this.$('.foo-input').length, 1);
+  assert.equal(this.$('.foo-options').length, 1);
+  assert.equal(this.$('.foo-selected-options').length, 1);
+  assert.equal(this.$('.foo-group').length, 1);
+  assert.equal(this.$('.foo-group-label').length, 1);
+  assert.equal(this.$('.foo-group-options').length, 1);
+  assert.equal(this.$('.foo-option').length, 1);
+  assert.equal(this.$('.foo-selected-option').length, 1);
 });
 
 
@@ -57,7 +57,7 @@ test('extending with class prefix', function(assert) {
 
   this.render(hbs `{{select-box/foo}}`);
 
-  assert.ok(this.$('.foo-select-box').length, 1,
+  assert.ok(this.$('.foo').length, 1,
     'can set the class name prefix to create custom select boxes');
 });
 

@@ -12,17 +12,7 @@ test('defaults', function(assert) {
   this.render(hbs `{{select-box-class}}`);
 
   assert.equal(this.$().html(), 'select-box',
-    'outputs the default select-box class name');
-});
-
-
-test('escaping', function(assert) {
-  assert.expect(1);
-
-  this.render(hbs `{{select-box-class '<script>' '</script>'}}`);
-
-  assert.equal(this.$().html(), '&lt;script&gt;-select-box-&lt;/script&gt;',
-    'the values are escaped');
+    'outputs the default class name');
 });
 
 
@@ -32,12 +22,12 @@ test('prefix', function(assert) {
   this.render(hbs `{{select-box-class ''}}`);
 
   assert.equal(this.$().html(), 'select-box',
-    'does not prefix with a dash');
+    'generates the default class name');
 
   this.render(hbs `{{select-box-class 'foo'}}`);
 
-  assert.equal(this.$().html(), 'foo-select-box',
-    'prefixes the class name with a string, separating with a dash');
+  assert.equal(this.$().html(), 'foo',
+    'uses the specified class name instead');
 });
 
 
@@ -47,12 +37,12 @@ test('suffix', function(assert) {
   this.render(hbs `{{select-box-class '' ''}}`);
 
   assert.equal(this.$().html(), 'select-box',
-    'does not suffix with a dash');
+    'generates the default class name, does add extraneous dash');
 
   this.render(hbs `{{select-box-class '' 'foo'}}`);
 
   assert.equal(this.$().html(), 'select-box-foo',
-    'suffixes the class name with a string, separating with a dash');
+    'adds suffix to default class name');
 });
 
 
@@ -61,6 +51,17 @@ test('prefix and suffix', function(assert) {
 
   this.render(hbs `{{select-box-class 'foo' 'bar'}}`);
 
-  assert.equal(this.$().html(), 'foo-select-box-bar',
-    'prefixes and suffixes the class name, separating with a dash');
+  assert.equal(this.$().html(), 'foo-bar',
+    'uses custom prefix and suffix, separating with a dash');
 });
+
+
+test('escaping', function(assert) {
+  assert.expect(1);
+
+  this.render(hbs `{{select-box-class '<script>' '</script>'}}`);
+
+  assert.equal(this.$().html(), '&lt;script&gt;-&lt;/script&gt;',
+    'the values are escaped');
+});
+

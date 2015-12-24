@@ -1,12 +1,11 @@
-export default function className(prefix = '', suffix = '') {
-  let name = 'select-box';
+export default function className(prefix, suffix) {
 
-  if (prefix) {
-    name = `${prefix}-${name}`;
-  }
+  let name = prefix || 'select-box';
+  let array = [name];
+
   if (suffix) {
-    name = `${name}-${suffix}`;
+    array.push(suffix);
   }
 
-  return name;
+  return array.join('-');
 }

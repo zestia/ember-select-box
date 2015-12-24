@@ -21,7 +21,7 @@ test('class prefix', function(assert) {
 
   this.render(hbs `{{select-box/native/group class-prefix='foo'}}`);
 
-  assert.equal(this.$('.foo-select-box-group').length, 1,
+  assert.equal(this.$('.foo-group').length, 1,
     'can add a class prefix');
 });
 
