@@ -11,7 +11,7 @@ const { trim } = jQuery;
 export default Mixin.create({
   didInitAttrs() {
     this._super(...arguments);
-    this.set('isSearchable', !!this.getAttr('on-search'));
+    this.set('isSearchable', typeof this.getAttr('on-search') === 'function');
   },
 
   searchDelayTime: computed(function() {
