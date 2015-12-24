@@ -188,7 +188,7 @@ Provides a container for options that the user selected. Does not do anything by
 
 ### Customising
 
-* We recommend you compose your own select box like so:
+* It's recommended that you compose your own select box like so:
 
 ```handlebars
 {{#select-box value=attrs.value on-select=attrs.on-select class-prefix='my-select-box' as |sb|}}}
