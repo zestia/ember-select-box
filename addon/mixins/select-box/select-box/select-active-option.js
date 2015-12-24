@@ -3,7 +3,10 @@ import Mixin from 'ember-metal/mixin';
 export default Mixin.create({
   actions: {
     selectActiveOption() {
-      this.send('select', this.get('activeOption.value'));
+      let activeOption = this.get('activeOption');
+      if (activeOption) {
+        activeOption.send('select');
+      }
     }
   }
 });

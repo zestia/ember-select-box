@@ -2,6 +2,15 @@
   value=selectedBread
   class='single-select'
   on-select=(action 'selectedBread') as |sb|}}
+
+  {{#sb.option value=bloomer on-select=(action 'action1')}}
+    {{bloomer.name}} (Misc action 1)
+  {{/sb.option}}
+
+  {{#sb.option value=brioche on-select=(action 'action2')}}
+    {{brioche.name}} (Misc action 2)
+  {{/sb.option}}
+
   {{#each selectableBreads as |bread|}}
     {{sb.option value=bread label=bread.name}}
   {{/each}}
@@ -10,4 +19,12 @@
 
 <p>
   Selected bread: {{selectedBread.name}}
+</p>
+
+<p>
+  Called misc action 1: {{action1}}
+</p>
+
+<p>
+  Called misc action 2: {{action2}}
 </p>

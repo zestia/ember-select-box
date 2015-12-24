@@ -136,17 +136,22 @@ test('selecting multiple options', function(assert) {
 
 
 test('press enter to select active option', function(assert) {
-  assert.expect(1);
+  assert.expect(2);
 
   this.on('selected', (value) => {
     assert.equal(value, 'bar',
-      'the active option is selected when enter is pressed');
+      'the select box acknowledges the selection');
+  });
+
+  this.on('selectedBar', (value) => {
+    assert.equal(value, 'bar',
+      'the selected option acknowledges the selection');
   });
 
   this.render(hbs`
     {{#select-box on-select=(action 'selected') as |sb|}}
       {{sb.option value='foo'}}
-      {{sb.option value='bar'}}
+      {{sb.option value='bar' on-select=(action 'selectedBar')}}
     {{/select-box}}
   `);
 
