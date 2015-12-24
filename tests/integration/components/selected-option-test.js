@@ -23,7 +23,7 @@ test('class prefix', function(assert) {
   this.render(hbs `{{select-box/selected-option class-prefix='foo'}}`);
 
   assert.equal(this.$('.foo-selected-option').length, 1,
-    'can add a class prefix');
+    'can override the class prefix');
 });
 
 

@@ -23,7 +23,7 @@ test('class prefix', function(assert) {
   this.render(hbs`{{select-box/group class-prefix='foo'}}`);
 
   assert.equal(this.$('.foo-group').length, 1,
-    "can customise a select box group's class name");
+    'can override the class prefix');
 
   assert.ok(this.$('.foo-group-label').length, 1,
     'child group label of a group has the prefix too');
