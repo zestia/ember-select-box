@@ -27,12 +27,9 @@ test('class prefix', function(assert) {
 
 
 test('label', function(assert) {
-  assert.expect(2);
+  assert.expect(1);
 
   this.render(hbs `{{select-box/native/group label='Foo'}}`);
-
-  assert.equal(this.$('optgroup.select-box-group').length, 1,
-    'native select box option groups use native tag name');
 
   assert.equal(this.$('.select-box-group').attr('label'), 'Foo',
     'the specified label is applied as an HTML attribute');

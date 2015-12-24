@@ -19,8 +19,8 @@ test('changing the value attribute', function(assert) {
 
   this.render(hbs`
     {{#select-box on-select=(action 'selected') value=selectedValue as |sb|}}
-      {{sb.option label='Foo'}}
-      {{sb.option label='Bar'}}
+      {{sb.option value='Foo'}}
+      {{sb.option value='Bar'}}
     {{/select-box}}
   `);
 
