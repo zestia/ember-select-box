@@ -192,8 +192,8 @@ Provides a container for options that the user selected. Does not do anything by
 
 ```handlebars
 {{#select-box value=attrs.value on-select=attrs.on-select class-prefix='my-select' as |sb|}}}
-  <button onclick={{action sb.toggle}}>Toggle</button>
   {{sb.selected-option label=sb.value.name}}
+  <button onclick={{action sb.toggle}}>Toggle</button>
   {{yield sb}}
 {{/select-box}}
 ```
@@ -214,6 +214,7 @@ Provides a container for options that the user selected. Does not do anything by
 <div class="my-select">
   <div class="my-select-box">
     <div class="my-select-box-selected-option">Foo</div>
+    <button>Toggle</button>
     <div class="my-select-box-option is-selected">Foo</div>
     <div class="my-select-box-option">Bar</div>
     <div class="my-select-box-option">Baz</div>
