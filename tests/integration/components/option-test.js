@@ -67,24 +67,40 @@ test('component attr', function(assert) {
 test('yield', function(assert) {
   assert.expect(1);
 
-  this.set('items', [
+  this.set('group1', [
     { myValue: 'foo', myLabel: 'Foo' },
     { myValue: 'bar', myLabel: 'Bar' }
   ]);
 
+  this.set('group2', [
+    { myValue: 'baz', myLabel: 'Baz' },
+    { myValue: 'qux', myLabel: 'Qux' }
+  ]);
+
   this.render(hbs`
     {{#select-box as |sb|}}
-      {{#each items as |item|}}
-        {{#sb.option value=item.myValue label=item.myLabel as |o|~}}
-          {{o.label}}={{o.value}} ({{o.index}})
-        {{~/sb.option}}
-      {{/each}}
+      {{#sb.group label='Group 1'}}
+        {{#each group1 as |item i|}}
+          {{#sb.option value=item.myValue label=item.myLabel as |o|~}}
+            {{o.label}}={{o.value}} {{i}} ({{o.index}})
+          {{~/sb.option}}
+        {{/each}}
+      {{/sb.group}}
+      {{#sb.group label='Group 2'}}
+        {{#each group2 as |item i|}}
+          {{#sb.option value=item.myValue label=item.myLabel as |o|~}}
+            {{o.label}}={{o.value}} {{i}} ({{o.index}})
+          {{~/sb.option}}
+        {{/each}}
+      {{/sb.group}}
     {{/select-box}}
   `);
 
   assert.ok(
-    this.$('.select-box-option:eq(0)').text() === 'Foo=foo (0)' &&
-    this.$('.select-box-option:eq(1)').text() === 'Bar=bar (1)',
+    this.$('.select-box-option:eq(0)').text() === 'Foo=foo 0 (0)' &&
+    this.$('.select-box-option:eq(1)').text() === 'Bar=bar 1 (1)' &&
+    this.$('.select-box-option:eq(2)').text() === 'Baz=baz 0 (2)' &&
+    this.$('.select-box-option:eq(3)').text() === 'Qux=qux 1 (3)',
     'select box options can yield their label, value & index'
   );
 });
