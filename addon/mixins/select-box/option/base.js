@@ -1,6 +1,7 @@
 import Mixin from 'ember-metal/mixin';
 import Nameable from  '../general/nameable';
 import Registerable from  '../general/registerable';
+import { isBlank } from 'ember-utils';
 
 export default Mixin.create(
   Nameable,
@@ -8,9 +9,13 @@ export default Mixin.create(
 
   didReceiveAttrs() {
     this._super(...arguments);
-    this.setProperties({
-      label: this.getAttr('label'),
-      value: this.getAttr('value') || this.getAttr('label')
-    });
+    let label = this.getAttr('label');
+    let value = this.getAttr('value');
+
+    if (isBlank(label)) {
+      label = value;
+    }
+
+    this.setProperties({ label, value });
   }
 });

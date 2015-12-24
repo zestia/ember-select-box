@@ -233,23 +233,19 @@ test('selecting non primitives', function(assert) {
 });
 
 
-test('selecting options with no value', function(assert) {
-  assert.expect(2);
+test('options with no label', function(assert) {
+  assert.expect(1);
 
   this.render(hbs`
     {{#select-box/native as |sb|}}
-      {{sb.option label='foo'}}
-      {{#sb.option label='bar' as |o|}}
-        {{~o.value~}}
+      {{#sb.option value='foo' as |o|}}
+        {{~o.label~}}
       {{/sb.option}}
     {{/select-box/native}}
   `);
 
-  assert.equal(this.$('.select-box').val(), 'foo',
-    "the select box's value is take from the label if no value is specified");
-
-  assert.equal(this.$('.select-box-option:eq(1)').text(), 'bar',
-    "the option component's value is the label if no value is specified");
+  assert.equal(this.$('.select-box-option:eq(0)').text(), 'foo',
+    "a native select box option's label defaults to it's value");
 });
 
 

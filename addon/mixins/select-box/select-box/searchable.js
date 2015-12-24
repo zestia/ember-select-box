@@ -2,7 +2,9 @@ import jQuery from 'jquery';
 import Mixin from 'ember-metal/mixin';
 import computed from 'ember-computed';
 import { bind, debounce } from 'ember-runloop';
+import { isNone } from 'ember-utils';
 const { trim } = jQuery;
+
 
 export default Mixin.create({
   didInitAttrs() {
@@ -12,17 +14,17 @@ export default Mixin.create({
 
   searchDelayTime: computed(function() {
     let ms = this.getAttr('search-delay-time');
-    return ms === undefined ? 100 : ms;
+    return isNone(ms) ? 100 : ms;
   }),
 
   searchSlowTime: computed(function() {
     let ms = this.getAttr('search-slow-time');
-    return ms === undefined ? 500 : ms;
+    return isNone(ms) ? 500 : ms;
   }),
 
   searchMinChars: computed(function() {
     let min = this.getAttr('search-min-chars');
-    return min === undefined ? 1 : min;
+    return isNone(min) ? 1 : min;
   }),
 
   queryOK(query) {

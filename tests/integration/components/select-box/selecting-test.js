@@ -155,28 +155,22 @@ test('press enter to select active option', function(assert) {
 });
 
 
-test('selecting options with no value', function(assert) {
-  assert.expect(2);
-
-  this.on('selected', (value) => {
-    this.set('selectedValue', value);
-  });
+test('options with no label', function(assert) {
+  assert.expect(1);
 
   this.render(hbs`
-    {{#select-box on-select=(action 'selected') as |sb|}}
-      {{sb.option label='Foo'}}
-      {{#sb.option label='Bar' as |o|}}
-        {{~o.value~}}
+    {{#select-box as |sb|}}
+      {{#sb.option value='foo' as |o|}}
+        {{~o.label~}}
       {{/sb.option}}
     {{/select-box}}
   `);
 
-  this.$('.select-box-option:eq(0)').click();
-
-  assert.equal(this.get('selectedValue'), 'Foo',
-    'the value of an option is taken from its label if no value is set');
-
-  assert.equal(this.$('.select-box-option:eq(1)').text(), 'Bar',
-    'yielded option api reports the expected value');
+  assert.equal(this.$('.select-box-option:eq(0)').text(), 'foo',
+    "a select box option's label defaults to it's value");
 });
+
+
+
+
 
