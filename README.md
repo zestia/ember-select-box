@@ -33,12 +33,12 @@ ember install ember-cli-select-box
 {{/select-box}}
 ```
 
-Attributes
+Attributes:
 
 * `value` used to determine which option is selected
 * `multiple` if true, `value` should be an array
 * `disabled` if true adds an `is-disabled` class 
-* `is-open` controlsl the open/closed state
+* `is-open` controls the open/closed state
 * `on-select` will be fired when an option is clicked, or enter is pressed.
 * `on-after-select` useful for being able to inspect the new state of the select box after a selection has been made.
 * `on-ready` fired when all options have rendered
@@ -57,7 +57,7 @@ Attributes
 * `on-press-right`
 * `on-press-down`
 
-Yielded API
+Yielded API:
 
 * `sb.isSearching` whether the promise returned from the `on-search` action is running
 * `sb.isSlowSearch` true if the promised search results are taking a while
@@ -81,7 +81,6 @@ Yielded API
 
 ##### Option
 
-
 ```handlebars
 {{sb.option value=1 label='One'}}
 {{sb.option value=2 label='Two' component='my-option'}}
@@ -90,7 +89,7 @@ Yielded API
 {{/sb.option}}
 ```
 
-Attributes
+Attributes:
 
 * `title`
 * `style`
@@ -99,12 +98,11 @@ Attributes
 * `label` used as the display text by default
 * `component` optional name of a component to use for the option's display text
 
-Yielded API
+Yielded API:
 
 * `o.value` the value of the option
 * `o.label` the label of the option
 * `o.index` the index of the option amongst the options
-
 
 ##### Group
 
@@ -115,7 +113,6 @@ Self explanitory, just wraps the options in extra markup.
   {{sb.option value=thing label=thing.name}}
 {{/sb.group}}
 ```
-
 
 ##### Options
 
@@ -128,7 +125,7 @@ You only need to wrap the options up in with `sb.options` if you require extra m
 {{/sb.options}}
 ```
 
-Attributes
+Attributes:
 
 * `style`
 
@@ -141,7 +138,7 @@ Allows you to input text into the select box, usually for running searches/filte
 {{sb.input}}
 ```
 
-Attributes
+Attributes:
 
 * `type`
 * `value`
@@ -167,7 +164,7 @@ Does _not_ render the user's selected option automatically, but rather just prov
 {{/sb.selected-option}}
 ```
 
-Attributes
+Attributes:
 
 * `title`
 * `style`
@@ -182,7 +179,7 @@ Attributes
 {{/sb.selected-options}}
 ```
 
-Attributes
+Attributes:
 
 * `style`
 
