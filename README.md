@@ -191,7 +191,7 @@ Provides a container for options that the user selected. Does not do anything by
 * We recommend you compose your own select box like so:
 
 ```handlebars
-{{#select-box value=attrs.value on-select=attrs.on-select class-prefix='my-select' as |sb|}}}
+{{#select-box value=attrs.value on-select=attrs.on-select class-prefix='my-select-box' as |sb|}}}
   {{sb.selected-option label=sb.value.name}}
   <button onclick={{action sb.toggle}}>Toggle</button>
   {{yield sb}}
