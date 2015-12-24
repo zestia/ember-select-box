@@ -3,6 +3,8 @@ import Mixin from 'ember-metal/mixin';
 import computed from 'ember-computed';
 import { bind, debounce } from 'ember-runloop';
 import { isNone } from 'ember-utils';
+import Ember from 'ember';
+const { RSVP } = Ember;
 const { trim } = jQuery;
 
 
@@ -51,12 +53,12 @@ export default Mixin.create({
   },
 
   _search(query = '') {
-    let search = this.getAttr('on-search');
     this.set('isSearching', true);
     this.incrementProperty('searchID');
     debounce(this, '_checkSlowSearch', this.get('searchSlowTime'));
 
-    return search(query, this.get('api'))
+    let search = this.getAttr('on-search');
+    return RSVP.resolve(search(query, this.get('api')))
       .then(bind(this, '_searchCompleted', this.get('searchID'), query))
       .catch(bind(this, '_searchFailed', query))
       .finally(bind(this, '_searchFinished', query));

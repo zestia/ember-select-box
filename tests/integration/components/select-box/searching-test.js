@@ -10,6 +10,32 @@ moduleForComponent('', 'select-box (searching)', {
 });
 
 
+
+test('searching (promise)', function(assert) {
+  assert.expect(1);
+
+  this.on('findItems', () => {
+    this.set('items', ['foo']);
+  });
+
+  this.render(hbs`
+    {{#select-box on-search=(action 'findItems') as |sb|}}
+      {{sb.input}}
+      {{#each items as |item|}}
+        {{sb.option value=item}}
+      {{/each}}
+    {{/select-box}}
+  `);
+
+  this.$('.select-box-input').val('foo').trigger('input');
+
+  return wait().then(() => {
+    assert.equal(this.$(".select-box-option:contains('foo')").length, 1,
+      "resovles results even if the on-search action doesn't return a promise");
+  });
+});
+
+
 test('searching (success)', function(assert) {
   assert.expect(2);
 
@@ -359,4 +385,36 @@ test('manually running a search', function(assert) {
   `);
 
   this.$('button').trigger('click');
+});
+
+
+test('destroying mid-search', function(assert) {
+  assert.expect(1);
+
+  this.set('display', true);
+
+  this.on('findItems', () => {
+    return new RSVP.Promise((resolve) => {
+      later(resolve, 200);
+    });
+  });
+
+  this.render(hbs`
+    {{#if display}}
+      {{#select-box on-search=(action 'findItems') as |sb|}}
+        {{sb.input}}
+      {{/select-box}}
+    {{/if}}
+  `);
+
+  this.$('.select-box-input').val('foo').trigger('input');
+
+  later(() => {
+    this.set('display', false);
+  }, 100);
+
+  return wait().then(() => {
+    assert.ok(true,
+      'does not blow up when a search resolves, but the component is gone');
+  });
 });
