@@ -30,7 +30,7 @@ test('does not blow up', function(assert) {
 
 
 test('scroll up', function(assert) {
-  assert.expect(2);
+  assert.expect(3);
 
   $container.scrollTop(20);
 
@@ -41,11 +41,16 @@ test('scroll up', function(assert) {
 
   assert.equal($container.scrollTop(), 0,
     'scrolls the height of the item');
+
+  scrollIntoView($top, $container);
+
+  assert.equal($container.scrollTop(), 0,
+    'does not scroll past lower boundary');
 });
 
 
 test('scroll down', function(assert) {
-  assert.expect(2);
+  assert.expect(3);
 
   assert.equal($container.scrollTop(), 0,
     'precondition, not scrolled');
@@ -54,4 +59,9 @@ test('scroll down', function(assert) {
 
   assert.equal($container.scrollTop(), 20,
     'scrolls the height of the item');
+
+  scrollIntoView($bottom, $container);
+
+  assert.equal($container.scrollTop(), 20,
+    'does not scroll past upper boundary');
 });
