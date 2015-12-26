@@ -34,3 +34,5 @@ test('style', function(assert) {
   assert.ok(this.$().html().match('style="color:red&amp;lt;script&amp;gt;"'),
     'options container can be styled, value is escaped');
 });
+
+

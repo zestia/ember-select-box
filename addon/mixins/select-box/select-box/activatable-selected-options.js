@@ -30,9 +30,10 @@ export default Mixin.create({
     );
   },
 
-  activeSelectedOption: computed('activeSelectedOptionIndex', 'options',
-    function() {
-    return this.get('options').objectAt(this.get('activeSelectedOptionIndex'));
+  activeSelectedOption: computed('activeSelectedOptionIndex', 'selectedOptions',
+  function() {
+    let index = this.get('activeSelectedOptionIndex');
+    return this.get('selectedOptions').objectAt(index);
   }),
 
   actions: {

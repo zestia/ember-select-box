@@ -14,6 +14,7 @@ export default Component.extend(
   Activatable, {
 
   layout: layout,
+  ariaRole: 'option',
   attributeBindings: ['title'],
   classNameBindings: ['isActive', 'isSelected'],
   classNameSuffix: 'option',

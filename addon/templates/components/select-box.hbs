@@ -1,6 +1,7 @@
 {{yield (hash
   selected-options=(component 'select-box/selected-options'
     class-prefix=attrs.class-prefix
+    aria-activedescendant=activeSelectedOption.elementId
     -register=(action 'registerSelectedOptionsContainer')
     -deregister=(action 'deregisterSelectedOptionsContainer'))
   selected-option=(component 'select-box/selected-option'
@@ -12,6 +13,7 @@
     -deregister=(action 'deregisterSelectedOption'))
   options=(component 'select-box/options'
     class-prefix=attrs.class-prefix
+    aria-activedescendant=activeOption.elementId
     -register=(action 'registerOptionsContainer')
     -deregister=(action 'deregisterOptionsContainer'))
   option=(component 'select-box/option'

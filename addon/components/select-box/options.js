@@ -10,5 +10,6 @@ export default Component.extend(
   Registerable, {
 
   layout: layout,
-  classNameSuffix: 'options'
+  classNameSuffix: 'options',
+  attributeBindings: ['aria-activedescendant']
 });

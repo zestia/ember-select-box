@@ -27,6 +27,16 @@ test('class prefix', function(assert) {
 });
 
 
+test('aria', function(assert) {
+  assert.expect(1);
+
+  this.render(hbs `{{select-box/option}}`);
+
+  assert.equal(this.$('.select-box-option').attr('role'), 'option',
+    'a select box option has an appropriate aria role');
+});
+
+
 test('title', function(assert) {
   assert.expect(1);
 
