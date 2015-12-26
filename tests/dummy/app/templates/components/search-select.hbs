@@ -7,7 +7,7 @@
   on-search=attrs.on-search
   on-searched=(action 'searched')
   search-slow-time=1000 as |sb|}}
-  {{sb.input}}
+  {{sb.input autofocus=true}}
   {{#if sb.isSearching}}
     {{#sb.option}}
       Please wait...

@@ -8,7 +8,7 @@
   on-after-select=(action 'selected')
   search-min-chars=0
   search-delay-time=0 as |sb|}}
-  {{sb.input focusIn=sb.open on-input=sb.open}}
+  {{sb.input autofocus=true click=sb.open on-input=sb.open}}
   {{#sb.options}}
     {{yield sb}}
   {{/sb.options}}
