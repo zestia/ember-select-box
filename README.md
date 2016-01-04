@@ -43,11 +43,10 @@ Attributes:
 
 * `value` used to determine which option is selected
 * `multiple` if true, `value` should be an array
-* `disabled` if true adds an `is-disabled` class 
+* `disabled` if true adds an `is-disabled` class
 * `is-open` controls the open/closed state
 * `on-select` will be fired when an option is clicked, or enter is pressed.
-* `on-after-select` useful for being able to inspect the new state of the select box after a selection has been made.
-* `on-ready` fired when all options have rendered
+* `on-update` fired when the selected value is updated
 * `on-search` fired when the select box decides to run a search
 * `search-min-chars` prevents the on-search action from firing until there are enough chars
 * `search-delay-time` milliseconds to debounce the on-search action from firing

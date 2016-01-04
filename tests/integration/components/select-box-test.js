@@ -72,3 +72,38 @@ test('aria', function(assert) {
 });
 
 
+test('initial update action', function(assert) {
+  assert.expect(1);
+
+  this.on('updated', (value) => {
+    assert.strictEqual(value, undefined,
+      'fires an initial update action with the selected value');
+  });
+
+  this.render(hbs `{{select-box on-update=(action 'updated')}}`);
+});
+
+
+test('subsequent update actions', function(assert) {
+  assert.expect(1);
+
+  let count = 0;
+
+  this.set('selectedValue', 'foo');
+
+  this.on('updated', (value) => {
+    count++;
+    if (count === 2) {
+      assert.strictEqual(value, 'bar',
+        'fires an update action when the value changes');
+    }
+  });
+
+  this.render(hbs `
+    {{select-box
+      value=selectedValue
+      on-update=(action 'updated')}}
+  `);
+
+  this.set('selectedValue', 'bar');
+});
