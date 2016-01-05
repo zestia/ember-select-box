@@ -6,8 +6,8 @@ const { escapeExpression } = Ember.Handlebars.Utils;
 export default Mixin.create({
   attributeBindings: ['customCSS:style'],
 
-  didReceiveAttrs(...args) {
-    this._super(...args);
+  didReceiveAttrs() {
+    this._super(...arguments);
     this._setStyle(this.getAttr('style'));
   },
 

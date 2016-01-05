@@ -1,6 +1,5 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Component from 'ember-component';
 
 moduleForComponent('', 'select-box/option', {
   integration: true
@@ -54,23 +53,6 @@ test('style', function(assert) {
 
   assert.ok(this.$().html().match('style="color:red&amp;lt;script&amp;gt;"'),
     'an option can be styled, value is escaped');
-});
-
-
-test('component attr', function(assert) {
-  assert.expect(1);
-
-  this.registry.register('component:x-foo', Component.extend({
-    layout: hbs`Foo:{{label}}`,
-    classNames: ['x-foo']
-  }));
-
-  this.render(hbs `
-    {{select-box/option value=123 label=456 component='x-foo'}}
-  `);
-
-  assert.ok(this.$('.select-box-option > .x-foo').text().match('Foo:456'),
-    'can specify a component to render inside the option');
 });
 
 

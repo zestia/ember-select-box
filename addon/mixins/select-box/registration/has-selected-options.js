@@ -3,8 +3,8 @@ import { A as emberA } from 'ember-array/utils';
 import { scheduleOnce } from 'ember-runloop';
 
 export default Mixin.create({
-  init(...args) {
-    this._super(...args);
+  init() {
+    this._super(...arguments);
     this.set('_selectedOptions', emberA());
     this.set('selectedOptions', emberA());
   },

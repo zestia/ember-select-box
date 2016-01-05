@@ -13,10 +13,10 @@ const keys = {
 };
 
 export default Mixin.create({
-  keyDown(...args) {
-    this._super(...args);
-    this._runKeyPressAction(...args);
-    this._runKeyPressMethod(...args);
+  keyDown() {
+    this._super(...arguments);
+    this._runKeyPressAction(...arguments);
+    this._runKeyPressMethod(...arguments);
   },
 
   _runKeyPressAction(e) {

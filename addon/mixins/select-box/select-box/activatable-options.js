@@ -3,8 +3,8 @@ import computed from 'ember-computed';
 import scrollIntoView from '../../../utils/select-box/scroll-into-view';
 
 export default Mixin.create({
-  init(...args) {
-    this._super(...args);
+  init() {
+    this._super(...arguments);
     this._deactivateOptions();
   },
 

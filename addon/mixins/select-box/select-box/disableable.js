@@ -1,8 +1,8 @@
 import Mixin from 'ember-metal/mixin';
 
 export default Mixin.create({
-  didReceiveAttrs(...args) {
-    this._super(...args);
+  didReceiveAttrs() {
+    this._super(...arguments);
 
     let tabIndex   = this.get('tabIndex');
     let isDisabled = this.getAttr('disabled');
