@@ -5,8 +5,8 @@ import className from '../utils/select-box/class-name';
 const { escapeExpression } = Ember.Handlebars.Utils;
 
 
-export default helper(function() {
-  let string = className(...arguments);
+export default helper(function(args = []) {
+  let string = className(...args);
   string = escapeExpression(string);
   return htmlSafe(string);
 });

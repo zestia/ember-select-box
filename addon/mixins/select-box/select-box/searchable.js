@@ -47,7 +47,7 @@ export default Mixin.create({
 
   _runSearch(query) {
     query = trim(query);
-    if (this.queryOK(query)) {
+    if (this.queryOK(query) && !this.get('isDestroyed')) {
       this._search(query);
     }
   },
