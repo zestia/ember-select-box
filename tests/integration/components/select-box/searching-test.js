@@ -418,3 +418,30 @@ test('destroying mid-search', function(assert) {
       'does not blow up when a search resolves, but the component is gone');
   });
 });
+
+
+test('set input value', function(assert) {
+  assert.expect(3);
+
+  this.on('inputted', (value) => {
+    assert.equal(value, 'bar',
+      'using the api to update the input value triggers an input event');
+  });
+
+  this.render(hbs`
+    {{#select-box as |sb|}}
+      {{sb.input value='foo' on-input=(action 'inputted')}}
+      <button onclick={{action sb.setInputValue 'bar'}}>Reset</button>
+    {{/select-box}}
+  `);
+
+  let $input = this.$('.select-box-input');
+
+  assert.equal($input.val(), 'foo',
+    'precondition, has a value');
+
+  this.$('button').trigger('click');
+
+  assert.equal($input.val(), 'bar',
+    'exposes ability to change the input value');
+});
