@@ -10,6 +10,19 @@ moduleForComponent('', 'select-box (searching)', {
 });
 
 
+test('autocomplete', function(assert) {
+  assert.expect(1);
+
+  this.render(hbs `
+    {{#select-box as |sb|}}
+      {{sb.input}}
+    {{/select-box}}
+  `);
+
+  assert.equal(this.$('.select-box-input').attr('autocomplete'), 'off',
+    'autocompletion off by default');
+});
+
 
 test('searching (promise)', function(assert) {
   assert.expect(1);

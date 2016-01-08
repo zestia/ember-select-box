@@ -15,7 +15,8 @@ export default Component.extend(
     'autofocus',
     'placeholder',
     'readonly',
-    'disabled'
+    'disabled',
+    'autocomplete'
   ],
 
   input() {
