@@ -1,5 +1,9 @@
 # Changelog
 
+0.1.2
+
+* Improve `scrollIntoView`
+
 0.1.1
 
 * Fix `setInputValue` not working correctly

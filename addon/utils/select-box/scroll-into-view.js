@@ -8,8 +8,8 @@ export default function scrollIntoView(element, parent) {
   let scroll            = $scroller.scrollTop();
   let elementTop        = $element.offset().top;
   let scrollerTop       = $scroller.offset().top;
-  let elementBottom     = elementTop + $element.height();
-  let scrollerBottom    = scrollerTop + $scroller.height();
+  let elementBottom     = elementTop + $element.outerHeight();
+  let scrollerBottom    = scrollerTop + $scroller.innerHeight();
   let outOfBoundsTop    = elementTop - scrollerTop < 0;
   let outOfBoundsBottom = elementBottom > scrollerBottom;
 
