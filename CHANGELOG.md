@@ -1,5 +1,14 @@
 # Changelog
 
+0.1.6
+
+* remove `on-activate` from selected options
+* fix `on-activate` usage for exposed api
+
+0.1.5
+
+* add `on-activate` to options and selected options
+
 0.1.4
 
 * `setInputValue` no longer triggers input event

@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-select-box",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "A faux select box for Ember apps",
   "directories": {
     "doc": "doc",
