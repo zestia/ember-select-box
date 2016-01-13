@@ -7,21 +7,13 @@ moduleForComponent('', 'select-box (activating options)', {
 
 
 test('mouseover activates options', function(assert) {
-  assert.expect(7);
-
-  this.on('activated', (value, sb) => {
-    assert.equal(value, 'foo',
-      'activating an option sends an sends an action with the value');
-
-    assert.ok(typeof sb === 'object',
-      'sends the api');
-  });
+  assert.expect(5);
 
   this.render(hbs`
     {{#select-box as |sb|}}
       {{#sb.options}}
-        {{sb.option value='foo' on-activate=(action 'activated')}}
-        {{sb.option value='bar'}}
+        {{sb.option}}
+        {{sb.option}}
       {{/sb.options}}
     {{/select-box}}
   `);
@@ -52,4 +44,31 @@ test('mouseover activates options', function(assert) {
 
   assert.ok(!$one.hasClass('is-active') && $two.hasClass('is-active'),
     'mousing over another option moves the active class');
+});
+
+
+
+test('on-activate action', function(assert) {
+  assert.expect(2);
+
+  this.on('activated', (value, sb) => {
+    assert.equal(value, 'foo',
+      'activating an option sends an sends an action with the value');
+
+    assert.ok(typeof sb === 'object',
+      'sends the api');
+  });
+
+  this.render(hbs`
+    {{#select-box as |sb|}}
+      {{sb.option value='foo' on-activate=(action 'activated')}}
+      <button onclick={{action sb.activateOptionAtIndex 0}}>
+        Activate foo
+      </button>
+    {{/select-box}}
+  `);
+
+  let $foo = this.$('.select-box-option:eq(0)');
+
+  $foo.trigger('click');
 });

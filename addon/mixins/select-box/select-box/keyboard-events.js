@@ -15,18 +15,18 @@ const keys = {
 export default Mixin.create({
   keyDown() {
     this._super(...arguments);
-    this._runKeyPressAction(...arguments);
-    this._runKeyPressMethod(...arguments);
+    this._keyPressAction(...arguments);
+    this._keyPressMethod(...arguments);
   },
 
-  _runKeyPressAction(e) {
+  _keyPressAction(e) {
     let key = keys[e.which];
     if (!key) { return; }
     let actionName = `on-press-${key}`;
     this.sendAction(actionName, e, this.get('api'));
   },
 
-  _runKeyPressMethod(e) {
+  _keyPressMethod(e) {
     let key = capitalize(keys[e.which] || '');
     if (!key) { return; }
     let methodName = `press${key}`;

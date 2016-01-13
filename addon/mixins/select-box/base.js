@@ -16,11 +16,11 @@ export default Mixin.create(
     this.send('update', this.getAttr('value'));
   },
 
-  _select() {
+  _selected() {
     this.sendAction('on-select', this.get('selectedValue'), this.get('api'));
   },
 
-  _update() {
+  _updated() {
     this.sendAction('on-update', this.get('selectedValue'), this.get('api'));
   },
 
@@ -35,12 +35,12 @@ export default Mixin.create(
     update(value) {
       value = this._normaliseValue(value);
       this.set('selectedValue', value);
-      scheduleOnce('afterRender', this, '_update');
+      scheduleOnce('afterRender', this, '_updated');
     },
 
     select(value) {
       this.send('update', value);
-      this._select();
+      this._selected();
     }
   }
 });
