@@ -98,6 +98,7 @@ Attributes:
 * `title`
 * `style`
 * `on-select` useful for firing one-off actions when an option is selected
+* `on-activate`
 * `value` can be anything
 * `label` used as the display text by default
 * `component` optional name of a component to use for the option's display text
@@ -171,6 +172,7 @@ Attributes:
 
 * `title`
 * `style`
+* `on-activate`
 
 
 ##### Selected options

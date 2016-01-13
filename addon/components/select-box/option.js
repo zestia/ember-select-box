@@ -31,6 +31,11 @@ export default Component.extend(
     select() {
       this._super(...arguments);
       this.sendAction('on-select', this.get('value'), this.getAttr('-api'));
+    },
+
+    activate() {
+      this._super(...arguments);
+      this.sendAction('on-activate', this.get('value'), this.getAttr('-api'));
     }
   }
 });

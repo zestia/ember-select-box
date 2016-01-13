@@ -7,13 +7,21 @@ moduleForComponent('', 'select-box (activating options)', {
 
 
 test('mouseover activates options', function(assert) {
-  assert.expect(5);
+  assert.expect(7);
+
+  this.on('activated', (value, sb) => {
+    assert.equal(value, 'foo',
+      'activating an option sends an sends an action with the value');
+
+    assert.ok(typeof sb === 'object',
+      'sends the api');
+  });
 
   this.render(hbs`
     {{#select-box as |sb|}}
       {{#sb.options}}
-        {{sb.option}}
-        {{sb.option}}
+        {{sb.option value='foo' on-activate=(action 'activated')}}
+        {{sb.option value='bar'}}
       {{/sb.options}}
     {{/select-box}}
   `);

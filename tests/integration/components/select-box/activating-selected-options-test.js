@@ -9,11 +9,19 @@ moduleForComponent('', 'select-box (activating selected options)', {
 test('activating selected options', function(assert) {
   assert.expect(4);
 
+  this.on('activated', (value, sb) => {
+    assert.ok(typeof sb === 'object',
+      'activating a selected option sends an sends an action with api');
+  });
+
   this.render(hbs`
     {{#select-box as |sb|}}
       {{#sb.selected-options}}
-        {{sb.selected-option click=(action sb.activateSelectedOptionAtIndex 0)}}
-        {{sb.selected-option click=(action sb.activateSelectedOptionAtIndex 1)}}
+        {{sb.selected-option
+          on-activate=(action 'activated')
+          click=(action sb.activateSelectedOptionAtIndex 0)}}
+        {{sb.selected-option
+          click=(action sb.activateSelectedOptionAtIndex 1)}}
       {{/sb.selected-options}}
     {{/select-box}}
   `);

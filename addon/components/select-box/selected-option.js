@@ -14,5 +14,12 @@ export default Component.extend(
   layout: layout,
   attributeBindings: ['title'],
   classNameSuffix: 'selected-option',
-  classNameBindings: ['isActive']
+  classNameBindings: ['isActive'],
+
+  actions: {
+    activate() {
+      this._super(...arguments);
+      this.sendAction('on-activate', this.get('-api'));
+    }
+  }
 });
