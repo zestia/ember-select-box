@@ -25,5 +25,12 @@ export default Component.extend(
 
   click() {
     this.send('select');
+  },
+
+  actions: {
+    select() {
+      this._super(...arguments);
+      this.sendAction('on-select', this.get('value'), this.getAttr('-api'));
+    }
   }
 });

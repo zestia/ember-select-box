@@ -176,6 +176,30 @@ test('options with no label', function(assert) {
 });
 
 
+test('selecting via the api', function(assert) {
+  assert.expect(1);
+
+  this.on('selected', (value) => {
+    assert.equal(value, 'foo',
+      'the select box acknowledges the selection');
+  });
+
+  this.on('selectedFoo', () => {
+    assert.ok(true,
+      'the selected option does not fire a on-select action');
+  });
+
+  this.render(hbs`
+    {{#select-box on-select=(action 'selected') as |sb|}}
+      {{sb.option value='foo' on-select=(action 'selectedFoo')}}
+      <button onclick={{action sb.select 'foo'}}>
+        Select foo
+      </button>
+    {{/select-box}}
+  `);
+
+  this.$('button').trigger('click');
+});
 
 
 

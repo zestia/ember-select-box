@@ -15,6 +15,10 @@ export default Mixin.create({
     activate() {
       this._super(...arguments);
       this.sendAction('-activate', this.get('index'));
+    },
+
+    _activate() {
+      this.sendAction('on-activate', this.get('value'), this.getAttr('-api'));
     }
   }
 });

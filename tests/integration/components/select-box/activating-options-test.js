@@ -47,8 +47,7 @@ test('mouseover activates options', function(assert) {
 });
 
 
-
-test('on-activate action', function(assert) {
+test('activating via the api', function(assert) {
   assert.expect(2);
 
   this.on('activated', (value, sb) => {
@@ -68,7 +67,5 @@ test('on-activate action', function(assert) {
     {{/select-box}}
   `);
 
-  let $foo = this.$('.select-box-option:eq(0)');
-
-  $foo.trigger('click');
+  this.$('button').trigger('click');
 });

@@ -21,7 +21,6 @@ export default Mixin.create({
     select() {
       this._super(...arguments);
       this.sendAction('-select', this.get('value'));
-      this.sendAction('on-select', this.get('value'), this.getAttr('-api'));
     }
   }
 });
