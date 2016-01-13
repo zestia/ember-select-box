@@ -35,6 +35,9 @@ export default Mixin.create({
   }),
 
   actions: {
+    _activateOptionAtIndex(index) {
+      this._activateOptionAtIndex(index);
+    },
     activateOptionAtIndex(index, scroll) {
       this._activateOptionAtIndex(index, scroll);
     },

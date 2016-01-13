@@ -3,7 +3,7 @@ import { assert } from 'ember-metal/utils';
 
 export default Mixin.create({
   actions: {
-    registerSelectedOptionsContainer(container) {
+    _registerSelectedOptionsContainer(container) {
       assert(
         'A select box can only have 1 selected options container',
         !this.get('selectedOptionsContainer')
@@ -11,7 +11,7 @@ export default Mixin.create({
       this.set('selectedOptionsContainer', container);
     },
 
-    deregisterSelectedOptionsContainer() {
+    _deregisterSelectedOptionsContainer() {
       this.set('selectedOptionsContainer', null);
     }
   }

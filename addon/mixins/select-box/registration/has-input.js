@@ -3,14 +3,14 @@ import { assert } from 'ember-metal/utils';
 
 export default Mixin.create({
   actions: {
-    registerInput(input) {
+    _registerInput(input) {
       if (this.get('input')) {
         assert('select-box can only have 1 input', !this.get('input'));
       }
       this.set('input', input);
     },
 
-    deregisterInput() {
+    _deregisterInput() {
       this.set('input', null);
     }
   }

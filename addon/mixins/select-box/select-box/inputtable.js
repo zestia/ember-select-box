@@ -11,7 +11,7 @@ export default Mixin.create({
   actions: {
     inputText: K,
 
-    registerInput() {
+    _registerInput() {
       this._super(...arguments);
       scheduleOnce('afterRender', this, '_overrideTabIndex');
     }
