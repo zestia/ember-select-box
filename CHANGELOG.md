@@ -1,5 +1,9 @@
 # Changelog
 
+0.1.4
+
+* `setInputValue` no longer triggers input event
+
 0.1.3
 
 * Add `autocomplete='off'` to search input

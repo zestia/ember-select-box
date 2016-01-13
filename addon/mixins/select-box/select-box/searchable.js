@@ -95,7 +95,7 @@ export default Mixin.create({
     },
 
     setInputValue(value) {
-      this.get('input').$().val(value).trigger('input');
+      this.get('input').$().val(value);
     },
 
     focusInput() {

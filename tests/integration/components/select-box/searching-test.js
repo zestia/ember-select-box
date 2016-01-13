@@ -434,11 +434,12 @@ test('destroying mid-search', function(assert) {
 
 
 test('set input value', function(assert) {
-  assert.expect(3);
+  assert.expect(2);
 
   this.on('inputted', (value) => {
-    assert.equal(value, 'bar',
-      'using the api to update the input value triggers an input event');
+    assert.ok(value, true,
+      'using the api to update the input does not trigger an input event' +
+      '(that is likely to cause recursive searches in most scenarios)');
   });
 
   this.render(hbs`
