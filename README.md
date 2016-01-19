@@ -244,4 +244,3 @@ let MySelectBox = SelectBox.extend({
 ```javascript
 let MySelectBox = Component.extend(BaseSelectBox, Toggleable, Searchable);
 ```
-
