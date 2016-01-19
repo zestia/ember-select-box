@@ -1,5 +1,9 @@
 # Changelog
 
+0.1.8
+
+* improve slow search detection
+
 0.1.7
 
 * add `stopSearching`

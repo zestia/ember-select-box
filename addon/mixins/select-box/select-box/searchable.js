@@ -60,8 +60,7 @@ export default Mixin.create({
     let search = this.getAttr('on-search');
     return RSVP.resolve(search(query, this.get('api')))
       .then(bind(this, '_searchCompleted', this.get('searchID'), query))
-      .catch(bind(this, '_searchFailed', query))
-      .finally(bind(this, '_searchFinished', query));
+      .catch(bind(this, '_searchFailed', query));
   },
 
   _searchCompleted(id, query, result) {
@@ -71,15 +70,16 @@ export default Mixin.create({
     if (superseded) { return; }
 
     this.sendAction('on-searched', result, query, this.get('api'));
+    this._searchFinished();
   },
 
   _searchFailed(query, error) {
     if (this.get('isDestroyed')) { return; }
     this.sendAction('on-search-error', error, query, this.get('api'));
+    this._searchFinished();
   },
 
   _searchFinished() {
-    if (this.get('isDestroyed')) { return; }
     this.set('isSearching', false);
     this.set('isSlowSearch', false);
   },
