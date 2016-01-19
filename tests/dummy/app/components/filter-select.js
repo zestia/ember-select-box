@@ -4,13 +4,14 @@ import get from 'ember-metal/get';
 
 export default Component.extend({
   layout: layout,
-  classNames: ['filter-select'],
+  tagName: '',
 
   actions: {
     close(e, sb) {
       sb.close();
     },
-    selected(value, sb) {
+    selected(select, value, sb) {
+      select(value);
       sb.setInputValue(get(value, this.getAttr('label-key')));
       sb.close();
     }

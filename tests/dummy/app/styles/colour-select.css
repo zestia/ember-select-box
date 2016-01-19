@@ -6,26 +6,26 @@
   margin: 2px;
   padding: 2px;
 }
-.colour-select-box.is-focused {
+.colour-select.is-focused {
   border-color: #666;
   outline: none
 }
-.colour-select-box:not(.is-open) .colour-select-box-options {
+.colour-select:not(.is-open) .colour-select-options {
   display: none
 }
-.colour-select-box-option,
-.colour-select-box-selected-option {
+.colour-select-option,
+.colour-select-selected-option {
   cursor: pointer;
   width: 20px;
   height: 20px;
   text-indent: -1000%;
 }
-.colour-select-box-option {
+.colour-select-option {
   display: inline-block;
 }
-.colour-select-box-option.is-active {
+.colour-select-option.is-active {
   border-color: green
 }
-.colour-select-box-option.is-selected {
+.colour-select-option.is-selected {
   border-color: red
 }

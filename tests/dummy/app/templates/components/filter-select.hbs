@@ -1,14 +1,14 @@
 {{#select-box
-  class-prefix='filter-select-box'
+  class-prefix='filter-select'
   value=attrs.value
   on-click-outside=(action 'close')
   on-press-escape=(action 'close')
   on-search=attrs.on-search
-  on-select=attrs.on-select
-  on-after-select=(action 'selected')
+  on-select=(action 'selected' attrs.on-select)
+  label-key='name'
   search-min-chars=0
   search-delay-time=0 as |sb|}}
-  {{sb.input autofocus=true click=sb.open on-input=sb.open}}
+  {{sb.input click=sb.open on-input=sb.open}}
   {{#sb.options}}
     {{yield sb}}
   {{/sb.options}}

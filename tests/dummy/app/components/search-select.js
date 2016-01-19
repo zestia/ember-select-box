@@ -3,7 +3,7 @@ import layout from '../templates/components/search-select';
 
 export default Component.extend({
   layout: layout,
-  classNames: ['search-select'],
+  tagName: '',
 
   actions: {
     close(e, sb) {

@@ -4,7 +4,7 @@ import { colours } from '../utils/dummy-data';
 
 export default Component.extend({
   layout: layout,
-  classNames: ['colour-select'],
+  tagName: '',
   colours: colours,
 
   actions: {

@@ -1,6 +1,6 @@
 {{#select-box
   value=attrs.value
-  class-prefix='tag-select-box'
+  class-prefix='tag-select'
   on-press-escape=(action 'close')
   on-press-down=(action 'pressedDown')
   on-press-up=(action 'pressedUp')
@@ -15,7 +15,7 @@
       {{#sb.selected-option}}
         {{tag}}
         <span onclick={{action 'removeTag' tag}}
-          class='tag-select-box-remove'>&times;</span>{{/sb.selected-option}}
+          class='tag-select-remove'>&times;</span>{{/sb.selected-option}}
     {{/each}}
   {{/sb.selected-options}}
 

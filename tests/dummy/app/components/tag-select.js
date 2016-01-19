@@ -3,7 +3,7 @@ import layout from '../templates/components/tag-select';
 
 export default Component.extend({
   layout: layout,
-  classNames: ['tag-select'],
+  tagName: '',
 
   actions: {
     pressedUp(e, sb) {

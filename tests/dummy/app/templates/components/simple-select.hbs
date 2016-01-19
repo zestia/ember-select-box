@@ -1,5 +1,5 @@
 {{#select-box
-  class-prefix='simple-select-box'
+  class-prefix='simple-select'
   value=attrs.value
   is-open=isOpen
   on-press-down=(action 'pressedDown')
@@ -7,15 +7,14 @@
   on-press-escape=(action 'close')
   on-focus-out=(action 'close')
   on-select=(action 'selected' attrs.on-select)
-  on-after-select=(action 'updateDisplayLabel') as |sb|}}
-  <div class="simple-select-box-display-label"
-    onclick={{action sb.open}}>
+  on-update=(action 'updateDisplayLabel') as |sb|}}
+  {{#sb.selected-option click=sb.open}}
     {{#if displayLabel}}
       {{displayLabel}}
     {{else}}
       &nbsp;
     {{/if}}
-  </div>
+  {{/sb.selected-option}}
   {{#sb.options}}
     {{yield sb}}
   {{/sb.options}}

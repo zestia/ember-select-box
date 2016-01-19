@@ -1,5 +1,5 @@
 {{#select-box
-  class-prefix='search-select-box'
+  class-prefix='search-select'
   value=attrs.value
   on-press-escape=(action 'close')
   on-click-outside=(action 'close')
@@ -7,7 +7,7 @@
   on-search=attrs.on-search
   on-searched=(action 'searched')
   search-slow-time=1000 as |sb|}}
-  {{sb.input autofocus=true}}
+  {{sb.input}}
   {{#if sb.isSearching}}
     {{#sb.option}}
       Please wait...

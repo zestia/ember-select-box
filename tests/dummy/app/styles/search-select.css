@@ -2,30 +2,31 @@
   display: inline-block;
   min-width: 200px;
 }
+.search-select,
 .search-select * {
   border: 1px solid silver;
   margin: 2px;
   padding: 2px;
 }
-.search-select-box.is-focused {
+.search-select.is-focused {
   border-color: #666;
   outline: none;
 }
-.search-select-box-input {
+.search-select-input {
   border: 0;
   outline: none;
   width: 100%;
   box-sizing: border-box;
 }
-.search-select-box:not(.is-open) .search-select-box-options {
+.search-select:not(.is-open) .search-select-options {
   display: none
 }
-.search-select-box-option {
+.search-select-option {
   cursor: pointer;
 }
-.search-select-box-option.is-active {
+.search-select-option.is-active {
   border-color: green
 }
-.search-select-box-option.is-selected {
+.search-select-option.is-selected {
   border-color: red
 }

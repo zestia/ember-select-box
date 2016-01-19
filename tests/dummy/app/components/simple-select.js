@@ -4,28 +4,24 @@ import get from 'ember-metal/get';
 
 export default Component.extend({
   layout: layout,
-  classNames: ['simple-select'],
-  isOpen: false,
+  tagName: '',
 
   actions: {
     pressedUp(e, sb) {
       sb.activatePreviousOption(true);
     },
     pressedDown(e, sb) {
-      if (this.get('isOpen')) {
-        sb.activateNextOption(true);
-      } else {
-        this.set('isOpen', true);
-      }
+      sb.activateNextOption(true);
+      sb.open();
     },
-    close() {
-      this.set('isOpen', false);
+    close(e, sb) {
+      sb.close();
     },
-    selected(select, value) {
+    selected(select, value, sb) {
       select(value);
-      this.send('close');
+      sb.close();
     },
-    updateDisplayLabel(value) {
+    updateDisplayLabel(value = {}) {
       this.set('displayLabel', get(value, this.getAttr('label-key')));
     }
   }
