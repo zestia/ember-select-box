@@ -5,6 +5,15 @@ import { later, next } from 'ember-runloop';
 import Ember from 'ember';
 const { RSVP } = Ember;
 
+let resolveIn = (ms, payload) => {
+  return new RSVP.Promise((resolve) => {
+    later(() => {
+      resolve(payload);
+    }, ms);
+  });
+};
+
+
 moduleForComponent('', 'select-box (searching)', {
   integration: true
 });
@@ -44,21 +53,13 @@ test('searching (promise)', function(assert) {
 
   return wait().then(() => {
     assert.equal(this.$(".select-box-option:contains('foo')").length, 1,
-      "resovles results even if the on-search action doesn't return a promise");
+      "resolves results even if the on-search action doesn't return a promise");
   });
 });
 
 
 test('searching (success)', function(assert) {
   assert.expect(2);
-
-  let resolveIn = (ms, payload) => {
-    return new RSVP.Promise((resolve) => {
-      later(() => {
-        resolve(payload);
-      }, ms);
-    });
-  };
 
   this.on('findItems', (query) => {
     if (query === 'first') {
@@ -458,4 +459,42 @@ test('set input value', function(assert) {
 
   assert.equal($input.val(), 'bar',
     'exposes ability to change the input value');
+});
+
+
+test('stopping searching', function(assert) {
+  assert.expect(2);
+
+  this.on('findItems', () => {
+    return resolveIn(200);
+  });
+
+  this.on('foundItems', () => {
+    assert.ok(true,
+      'callback should not be fired, searches were cancelled');
+  });
+
+  this.render(hbs`
+    {{#select-box
+      search-delay-time=0
+      on-search=(action 'findItems')
+      on-searched=(action 'foundItems') as |sb|}}
+      {{sb.input value=myValue on-clear=sb.stopSearching}}
+    {{/select-box}}
+  `);
+
+  let $selectBox = this.$('.select-box');
+  let $input = this.$('.select-box-input');
+
+  $input.val('foo').trigger('input');
+
+  assert.ok($selectBox.hasClass('is-searching'),
+    'precondition, select box is in the middle of searching');
+
+  $input.val('').trigger('input');
+
+  assert.ok(!$selectBox.hasClass('is-searching'),
+    'select box is no longer searching');
+
+  return wait();
 });

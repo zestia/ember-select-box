@@ -73,6 +73,7 @@ Yielded API:
 * `sb.update` updates the selected value, but does not fire the `on-select` action
 * `sb.selectActiveOption` selects the value of whichever option is currently active
 * `sb.search` runs an arbitrary search using the search function provided by `on-search`
+* `sb.stopSearching` 'cancels' searches currently in progress
 * `sb.setInputValue` lets you update the input value, useful for when a selection has been made
 * `sb.focusInput` focuses the input
 * `sb.activateOptionAtIndex` adds an `is-active` class to the option at the index

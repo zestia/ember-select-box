@@ -13,6 +13,7 @@ export default Mixin.create({
       'update',
       'selectActiveOption',
       'search',
+      'stopSearching',
       'setInputValue',
       'focusInput',
       'activateOptionAtIndex',

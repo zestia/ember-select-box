@@ -94,6 +94,11 @@ export default Mixin.create({
       return this._search(query);
     },
 
+    stopSearching() {
+      this.incrementProperty('searchID');
+      this._searchFinished();
+    },
+
     setInputValue(value) {
       this.get('input').$().val(value);
     },

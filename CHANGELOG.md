@@ -1,5 +1,9 @@
 # Changelog
 
+0.1.7
+
+* add `stopSearching`
+
 0.1.6
 
 * remove `on-activate` from selected options

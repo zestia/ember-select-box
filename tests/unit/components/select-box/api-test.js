@@ -24,6 +24,7 @@ test('api', function(assert) {
     'update',
     'selectActiveOption',
     'search',
+    'stopSearching',
     'setInputValue',
     'focusInput',
     'activateOptionAtIndex',
