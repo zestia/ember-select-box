@@ -48,6 +48,7 @@ Attributes:
 * `on-select` will be fired when an option is clicked, or enter is pressed.
 * `on-update` fired when the selected value is updated
 * `on-search` fired when the select box decides to run a search
+* `on-searched` fired after the last succesful search attempt
 * `search-min-chars` prevents the on-search action from firing until there are enough chars (default 1)
 * `search-delay-time` milliseconds to debounce the on-search action from firing (default 100)
 * `search-slow-time` milliseconds considered for a search to be taking too long (default 500)
