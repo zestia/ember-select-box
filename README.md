@@ -1,6 +1,6 @@
 # ember-cli-select-box
 
-![Ember Observer score](http://emberobserver.com/badges/ember-cli-select-box.svg)
+<a href="http://emberobserver.com/addons/ember-cli-select-box"><img src="http://emberobserver.com/badges/ember-cli-select-box.svg"></a>
 
 This Ember CLI addon provides you with a native HTML select component. But, it also comes with a faux-select box made from divs.
 
