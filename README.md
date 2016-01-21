@@ -10,7 +10,8 @@ Thanks to contextual components there is not a truth helper in sight.
 
 This project will never come with built-in styles.
 
-<a href="http://andrewkirwin.me/ember-cli-select-box/native-single-select" target="_blank">Demo of flexibility</a>
+* <a href="http://andrewkirwin.me/ember-cli-select-box/native-single-select" target="_blank">Demo of flexibility</a>
+* <a href="https://github.com/amk221/ember-cli-select-box/tree/master/tests/dummy/app/components">Code for example scenarios</a>
 
 
 
