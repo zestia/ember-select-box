@@ -1,6 +1,6 @@
 # ember-cli-select-box
 
-<a href="http://emberobserver.com/addons/ember-cli-select-box"><img src="http://emberobserver.com/badges/ember-cli-select-box.svg"></a>
+<a href="http://emberobserver.com/addons/ember-cli-select-box"><img src="http://emberobserver.com/badges/ember-cli-select-box.svg"></a> &nbsp; <a href="https://david-dm.org/amk221/ember-cli-select-box#badge-embed"><img src="https://david-dm.org/amk221/ember-cli-select-box.svg"></a> &nbsp; <a href="https://david-dm.org/amk221/ember-cli-select-box#dev-badge-embed"><img src="https://david-dm.org/amk221/ember-cli-select-box/dev-status.svg"></a>
 
 This Ember CLI addon provides you with a native HTML select component. But, it also comes with a faux-select box made from divs.
 
@@ -16,6 +16,9 @@ This project will never come with built-in styles.
 
 
 ### Installation
+
+Requires [Contextual Components](http://emberjs.com/blog/2016/01/15/ember-2-3-released.html#toc_contextual-components) (Ember 2.3 or greater)
+
 ```
 ember install ember-cli-select-box
 ```
