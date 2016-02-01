@@ -1,6 +1,6 @@
 # ember-cli-select-box
 
-<a href="http://emberobserver.com/addons/ember-cli-select-box"><img src="http://emberobserver.com/badges/ember-cli-select-box.svg"></a> &nbsp; <a href="https://david-dm.org/amk221/ember-cli-select-box#badge-embed"><img src="https://david-dm.org/amk221/ember-cli-select-box.svg"></a> &nbsp; <a href="https://david-dm.org/amk221/ember-cli-select-box#dev-badge-embed"><img src="https://david-dm.org/amk221/ember-cli-select-box/dev-status.svg"></a> &nbsp; <a href="https://codeclimate.com/repos/569e6d5aacd884006d003776/feed"><img src="https://codeclimate.com/repos/569e6d5aacd884006d003776/badges/464bfb7799157d3ffdca/gpa.svg" /></a>
+<a href="http://emberobserver.com/addons/ember-cli-select-box"><img src="http://emberobserver.com/badges/ember-cli-select-box.svg"></a> &nbsp; <a href="https://david-dm.org/amk221/ember-cli-select-box#badge-embed"><img src="https://david-dm.org/amk221/ember-cli-select-box.svg"></a> &nbsp; <a href="https://david-dm.org/amk221/ember-cli-select-box#dev-badge-embed"><img src="https://david-dm.org/amk221/ember-cli-select-box/dev-status.svg"></a> &nbsp; <a href="https://codeclimate.com/github/amk221/ember-cli-select-box"><img src="https://codeclimate.com/github/amk221/ember-cli-select-box/badges/gpa.svg" /></a>
 
 This Ember CLI addon provides you with a native HTML select component. But, it also comes with a faux-select box made from divs.
 
