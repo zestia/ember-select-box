@@ -199,7 +199,15 @@ Provides a container for options that the user selected. Does not do anything by
 
 ### Customising
 
-* It's recommended that you compose your own select box like so:
+There are 3 ways to get what you want
+
+1. [Compose it](#compose)
+2. OR [Extend it](#extend)
+3. OR [Make your own](#mixins) from the mixins
+
+#### Compose
+<a id="compose"></a>
+It's recommended that you compose your own select box like so :
 
 ```handlebars
 {{#select-box value=attrs.value on-select=attrs.on-select class-prefix='my-select-box' as |sb|}}}
@@ -233,7 +241,9 @@ Provides a container for options that the user selected. Does not do anything by
 </div>
 ```
 
-* OR, if you need even more flexibility, you can extend the select box:
+#### Extend
+<a id="compose"></a>
+If you need even more flexibility, you can extend the select box:
 
 ```javascript
 let MySelectBox = SelectBox.extend({
@@ -243,7 +253,9 @@ let MySelectBox = SelectBox.extend({
 })
 ```
 
-* OR, if you need _even more_ flexibility you can create your own select box using the mixins
+#### Make your own
+<a id="mixins"></a>
+if you need _even more_ flexibility you can create your own select box using the mixins
 
 ```javascript
 let MySelectBox = Component.extend(BaseSelectBox, Toggleable, Searchable);
