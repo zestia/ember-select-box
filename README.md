@@ -201,12 +201,11 @@ Provides a container for options that the user selected. Does not do anything by
 
 There are 3 ways to get what you want
 
-1. [Compose it](#compose)
-2. OR [Extend it](#extend)
-3. OR [Make your own](#mixins) from the mixins
+1. [compose](#compose) a new one
+2. OR [extend](#extend) an existing one
+3. OR create a new one from the [mixins](#mixins)
 
 #### Compose
-<a id="compose"></a>
 It's recommended that you compose your own select box like so :
 
 ```handlebars
@@ -242,7 +241,6 @@ It's recommended that you compose your own select box like so :
 ```
 
 #### Extend
-<a id="compose"></a>
 If you need even more flexibility, you can extend the select box:
 
 ```javascript
@@ -253,8 +251,7 @@ let MySelectBox = SelectBox.extend({
 })
 ```
 
-#### Make your own
-<a id="mixins"></a>
+#### Mixins
 if you need _even more_ flexibility you can create your own select box using the mixins
 
 ```javascript
