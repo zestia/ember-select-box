@@ -8,12 +8,13 @@ export default Mixin.create({
 
   didReceiveAttrs() {
     this._super(...arguments);
-    this._setStyle(this.getAttr('style'));
+    this._updateStyle();
   },
 
-  _setStyle(css) {
-    css = escapeExpression(css);
-    css = htmlSafe(css);
+  _updateStyle() {
+    let style = this.getAttr('style');
+    if (!style) { return; }
+    let css = htmlSafe(escapeExpression(style));
     this.set('customCSS', css);
   }
 });

@@ -255,3 +255,17 @@ if you need _even more_ flexibility you can create your own select box using the
 ```javascript
 let MySelectBox = Component.extend(BaseSelectBox, Toggleable, Searchable);
 ```
+
+### Wormhole
+
+ember-cli-select-box works well with <a href="https://github.com/yapplabs/ember-wormhole">ember-wormhole</a>. In most cases, this isn't needed - but it can be useful to render your `<options>`'s elsewhere in the DOM if you find yourself with `overflow:hidden` style issues for example.
+
+```handlebars
+{{#select-box class-prefix='worm-select' as |sb|}}
+  {{#ember-wormhole to='destination'}}
+    {{#sb.options}}
+	   {{yield sb}}
+	 {{/sb.options}}
+  {{/ember-wormhole}}
+{{/select-box}}
+```

@@ -1,5 +1,13 @@
 # Changelog
 
+0.1.10
+
+* prevent content security warnings in test suite
+
+0.1.9
+
+* upgrade deps
+
 0.1.8
 
 * improve slow search detection
