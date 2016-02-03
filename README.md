@@ -265,7 +265,7 @@ ember-cli-select-box works well with <a href="https://github.com/yapplabs/ember-
   {{#ember-wormhole to='destination'}}
     {{#sb.options}}
 	   {{yield sb}}
-	 {{/sb.options}}
+    {{/sb.options}}
   {{/ember-wormhole}}
 {{/select-box}}
 ```
