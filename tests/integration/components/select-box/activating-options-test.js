@@ -52,7 +52,7 @@ test('activating via the api', function(assert) {
 
   this.on('activated', (value, sb) => {
     assert.equal(value, 'foo',
-      'activating an option sends an sends an action with the value');
+      'activating an option sends an action with the value');
 
     assert.ok(typeof sb === 'object',
       'sends the api');
