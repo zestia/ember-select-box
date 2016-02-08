@@ -10,6 +10,7 @@ Select box solutions are rarely perfect for what you want. Rather than having a 
 * With just a few lines of code you can create an autocompleter using the [input](#input) component.
 * Thanks to contextual components there is not a truth helper in sight.
 * This project will never come with built-in styles.
+* The select box's primitives are available to you via the yielded [API](#API) and as an argument to action handlers, so you should never feel held-back when creating your select box
 
 ##### Examples
 * <a href="http://andrewkirwin.me/ember-cli-select-box/native-single-select" target="_blank">Demo of flexibility</a>
@@ -195,6 +196,22 @@ Attributes:
 * `style`
 
 Provides a container for options that the user selected. Does not do anything by default, but it is possible to activate selected options using the API, thereby allowing you to create your own navigatable select box.
+
+### API
+
+The select boxes that come with this addon expose an API to you as an argument to action handlers like so:
+
+```handlebars
+{{select-box on-select=(action 'selectedAnOption')}}
+```
+
+```javascript
+actions: {
+  selectedAnOption(value, api) {
+    api.close(); // for example.
+  }
+}
+```
 
 
 ### Customising
