@@ -7,13 +7,19 @@ moduleForComponent('', 'select-box (activating selected options)', {
 
 
 test('activating selected options', function(assert) {
-  assert.expect(4);
+  assert.expect(5);
 
   this.render(hbs`
     {{#select-box as |sb|}}
       {{#sb.selected-options}}
-        {{sb.selected-option click=(action sb.activateSelectedOptionAtIndex 0)}}
-        {{sb.selected-option click=(action sb.activateSelectedOptionAtIndex 1)}}
+        {{#sb.selected-option
+          click=(action sb.activateSelectedOptionAtIndex 0)~}}
+          One
+        {{~/sb.selected-option}}
+        {{#sb.selected-option
+          click=(action sb.activateSelectedOptionAtIndex 1)~}}
+          Two
+        {{/sb.selected-option}}
       {{/sb.selected-options}}
     {{/select-box}}
   `);
@@ -31,6 +37,11 @@ test('activating selected options', function(assert) {
     'selected option gets an active class name');
 
   let [id] = $selectedOptions.attr('aria-activedescendant').match(/\d+/);
+
+  assert.equal(
+    this.$('.select-box-selected-option[aria-current="true"]').text(), 'One',
+    'receives an aria current attribute when active'
+  );
 
   assert.ok(id,
     'active selected option id is added to the selected options container');

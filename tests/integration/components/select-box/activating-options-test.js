@@ -7,13 +7,13 @@ moduleForComponent('', 'select-box (activating options)', {
 
 
 test('mouseover activates options', function(assert) {
-  assert.expect(5);
+  assert.expect(6);
 
   this.render(hbs`
     {{#select-box as |sb|}}
       {{#sb.options}}
-        {{sb.option}}
-        {{sb.option}}
+        {{sb.option value=1 label='One'}}
+        {{sb.option value=2 label='Two'}}
       {{/sb.options}}
     {{/select-box}}
   `);
@@ -34,6 +34,9 @@ test('mouseover activates options', function(assert) {
 
   assert.ok(id,
     'active option id is added to the options container');
+
+  assert.equal(this.$('.select-box-option[aria-current="true"]').text(), 'One',
+    'receives an aria current attribute when active');
 
   $two.trigger('mouseover');
 

@@ -62,7 +62,7 @@ test('extending with class prefix', function(assert) {
 });
 
 
-test('aria', function(assert) {
+test('aria role', function(assert) {
   assert.expect(1);
 
   this.render(hbs `{{select-box}}`);

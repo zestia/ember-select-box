@@ -6,7 +6,7 @@ moduleForComponent('', 'select-box (disabling)', {
 });
 
 
-test('disabled class name', function(assert) {
+test('disabling and enabling', function(assert) {
   assert.expect(4);
 
   let isDisabled = () => {
@@ -38,4 +38,21 @@ test('disabled class name', function(assert) {
 
   assert.ok(this.$('.select-box-input').is(':disabled'),
     "a select box's input element is disabled if the select box is disabled");
+});
+
+
+test('aria disabled', function(assert) {
+  assert.expect(2);
+
+  this.set('disabled', true);
+
+  this.render(hbs `{{select-box disabled=disabled}}`);
+
+  assert.ok(this.$('.select-box').attr('aria-disabled'), 'true',
+    'receives an aria disabled attribute when disabled');
+
+  this.set('disabled', false);
+
+  assert.ok(this.$('.select-box').attr('aria-disabled'), 'false',
+    'aria disabled attribute is removed when enabled');
 });

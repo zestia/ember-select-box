@@ -12,7 +12,7 @@ export default Component.extend(
   Activatable, {
 
   layout: layout,
-  attributeBindings: ['title'],
   classNameSuffix: 'selected-option',
+  attributeBindings: ['title', 'isActive:aria-current'],
   classNameBindings: ['isActive']
 });

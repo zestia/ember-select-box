@@ -40,7 +40,7 @@ test('class prefix', function(assert) {
 });
 
 
-test('aria', function(assert) {
+test('aria label', function(assert) {
   assert.expect(1);
 
   this.render(hbs `{{select-box/native aria-label='Something'}}`);

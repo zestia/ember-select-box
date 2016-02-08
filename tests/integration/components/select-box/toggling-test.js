@@ -6,8 +6,8 @@ moduleForComponent('', 'select-box (toggling)', {
 });
 
 
-test('is-open class name', function(assert) {
-  assert.expect(3);
+test('opening an closing', function(assert) {
+  assert.expect(6);
 
   this.render(hbs `{{select-box}}`);
 
@@ -15,6 +15,9 @@ test('is-open class name', function(assert) {
 
   assert.ok(!$selectBox.hasClass('is-open'),
     'a select box is closed by default');
+
+  assert.strictEqual($selectBox.attr('aria-expanded'), undefined,
+    'not expanded by default');
 
   this.set('isOpen', true);
 
@@ -25,9 +28,15 @@ test('is-open class name', function(assert) {
   assert.ok($selectBox.hasClass('is-open'),
     'the initial open state can be set');
 
+  assert.strictEqual($selectBox.attr('aria-expanded'), 'true',
+    'receives an aria-expanded attribute when open');
+
   this.set('isOpen', false);
 
   assert.ok(!$selectBox.hasClass('is-open'),
     'the open state can be changed via an is-open attribute');
+
+  assert.strictEqual($selectBox.attr('aria-expanded'), 'false',
+    'open state is reflected as aria expanded attribute');
 });
 

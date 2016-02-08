@@ -26,7 +26,7 @@ test('class prefix', function(assert) {
 });
 
 
-test('aria', function(assert) {
+test('aria role', function(assert) {
   assert.expect(1);
 
   this.render(hbs `{{select-box/option}}`);
@@ -53,6 +53,28 @@ test('style', function(assert) {
 
   assert.ok(this.$().html().match('style="color:red&amp;lt;script&amp;gt;"'),
     'an option can be styled, value is escaped');
+});
+
+
+test('aria selected', function(assert) {
+  assert.expect(2);
+
+  this.set('value', 1);
+
+  this.render(hbs `
+    {{#select-box value=value as |sb|}}
+      {{sb.option value=1 label='One'}}
+      {{sb.option value=2 label='Two'}}
+    {{/select-box}}
+  `);
+
+  assert.equal(this.$('.select-box-option[aria-selected="true"]').text(), 'One',
+    'the selected option receives an aria selected attribute');
+
+  this.set('value', 2);
+
+  assert.equal(this.$('.select-box-option[aria-selected="true"]').text(), 'Two',
+    'the aria selected attribute is redetermined when the value changes');
 });
 
 

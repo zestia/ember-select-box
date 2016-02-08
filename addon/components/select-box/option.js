@@ -14,10 +14,17 @@ export default Component.extend(
   Activatable, {
 
   layout: layout,
-  ariaRole: 'option',
-  attributeBindings: ['title'],
-  classNameBindings: ['isActive', 'isSelected'],
   classNameSuffix: 'option',
+  ariaRole: 'option',
+  attributeBindings: [
+    'title',
+    'isSelected:aria-selected',
+    'isActive:aria-current'
+  ],
+  classNameBindings: [
+    'isActive',
+    'isSelected'
+  ],
 
   mouseEnter() {
     this.send('activate');

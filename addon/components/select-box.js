@@ -37,7 +37,11 @@ export default Component.extend(
 
   layout: layout,
   ariaRole: 'listbox',
-  attributeBindings: ['aria-label'],
+  attributeBindings: [
+    'aria-label',
+    'isOpen:aria-expanded',
+    'isDisabled:aria-disabled'
+  ],
   classNameBindings: [
     'isOpen',
     'isFocused',

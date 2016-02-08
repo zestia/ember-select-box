@@ -1,5 +1,9 @@
 # Changelog
 
+0.1.11
+
+* add more aria attributes
+
 0.1.10
 
 * prevent content security warnings in test suite
