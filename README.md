@@ -10,7 +10,7 @@ Select box solutions are rarely perfect for what you want. Rather than having a 
 * With just a few lines of code you can create an autocompleter using the [input](#input) component.
 * Thanks to contextual components there is not a truth helper in sight.
 * This project will never come with built-in styles.
-* The select box's primitives are available to you via the yielded [API](#API) and as an argument to action handlers, so you should never feel held-back when creating your select box
+* The select box's primitives are available to you via the yielded [API](#api) and as an argument to action handlers, so you should never feel held-back when creating your select box
 
 ##### Examples
 * <a href="http://andrewkirwin.me/ember-cli-select-box/native-single-select" target="_blank">Demo of flexibility</a>
