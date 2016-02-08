@@ -6,10 +6,12 @@ This Ember CLI addon provides you with a native HTML select component. But, it a
 
 Select box solutions are rarely perfect for what you want. Rather than having a myriad of options to configure for every possible situation, `ember-cli-select-box` is designed so you can easily _compose your own_.
 
-Thanks to contextual components there is not a truth helper in sight.
+##### Things to note
+* With just a few lines of code you can create an autocompleter using the [input](#input) component.
+* Thanks to contextual components there is not a truth helper in sight.
+* This project will never come with built-in styles.
 
-This project will never come with built-in styles.
-
+##### Examples
 * <a href="http://andrewkirwin.me/ember-cli-select-box/native-single-select" target="_blank">Demo of flexibility</a>
 * <a href="https://github.com/amk221/ember-cli-select-box/tree/master/tests/dummy/app/components">Code for example scenarios</a>
 
