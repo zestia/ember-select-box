@@ -16,6 +16,10 @@ Select box solutions are rarely perfect for what you want. Rather than having a 
 * <a href="http://andrewkirwin.me/ember-cli-select-box/native-single-select" target="_blank">Demo of flexibility</a>
 * <a href="https://github.com/amk221/ember-cli-select-box/tree/master/tests/dummy/app/components">Code for example scenarios</a>
 
+##### FAQ
+Q: Why aren't the native and faux select boxes two addons.<br>
+A: Less effort maintaining 1 addon. Splitting out would be trivial though.
+
 
 
 ### Installation
