@@ -1,10 +1,10 @@
-# ember-cli-select-box
+# ember-select-box
 
-<a href="http://emberobserver.com/addons/ember-cli-select-box"><img src="http://emberobserver.com/badges/ember-cli-select-box.svg"></a> &nbsp; <a href="https://david-dm.org/amk221/ember-cli-select-box#badge-embed"><img src="https://david-dm.org/amk221/ember-cli-select-box.svg"></a> &nbsp; <a href="https://david-dm.org/amk221/ember-cli-select-box#dev-badge-embed"><img src="https://david-dm.org/amk221/ember-cli-select-box/dev-status.svg"></a> &nbsp; <a href="https://codeclimate.com/github/amk221/ember-cli-select-box"><img src="https://codeclimate.com/github/amk221/ember-cli-select-box/badges/gpa.svg" /></a> &nbsp; <a href="http://travis-ci.org/amk221/ember-cli-select-box"><img src="https://travis-ci.org/amk221/ember-cli-select-box.svg?branch=master"></a> &nbsp; <a href="http://emberjs.com/blog/2016/01/15/ember-2-3-released.html#toc_contextual-components"><img src="http://embadge.io/v1/badge.svg?label=ember&range=%3E=2.3.0"></a>
+<a href="http://emberobserver.com/addons/ember-select-box"><img src="http://emberobserver.com/badges/ember-select-box.svg"></a> &nbsp; <a href="https://david-dm.org/amk221/ember-select-box#badge-embed"><img src="https://david-dm.org/amk221/ember-select-box.svg"></a> &nbsp; <a href="https://david-dm.org/amk221/ember-select-box#dev-badge-embed"><img src="https://david-dm.org/amk221/ember-select-box/dev-status.svg"></a> &nbsp; <a href="https://codeclimate.com/github/amk221/ember-select-box"><img src="https://codeclimate.com/github/amk221/ember-select-box/badges/gpa.svg" /></a> &nbsp; <a href="http://travis-ci.org/amk221/ember-select-box"><img src="https://travis-ci.org/amk221/ember-select-box.svg?branch=master"></a> &nbsp; <a href="http://emberjs.com/blog/2016/01/15/ember-2-3-released.html#toc_contextual-components"><img src="http://embadge.io/v1/badge.svg?label=ember&range=%3E=2.3.0"></a>
 
 This Ember CLI addon provides you with a native HTML select component. But, it also comes with a faux-select box made from divs.
 
-Select box solutions are rarely perfect for what you want. Rather than having a myriad of options to configure for every possible situation, `ember-cli-select-box` is designed so you can easily _compose your own_.
+Select box solutions are rarely perfect for what you want. Rather than having a myriad of options to configure for every possible situation, `ember-select-box` is designed so you can easily _compose your own_.
 
 ##### Things to note
 * With just a few lines of code you can create an autocompleter using the [input](#input) component.
@@ -13,8 +13,8 @@ Select box solutions are rarely perfect for what you want. Rather than having a 
 * The select box's primitives are available to you via the yielded [API](#api) and as an argument to action handlers, so you should never feel held-back when creating your select box
 
 ##### Examples
-* <a href="http://andrewkirwin.me/ember-cli-select-box/native-single-select" target="_blank">Demo of flexibility</a>
-* <a href="https://github.com/amk221/ember-cli-select-box/tree/master/tests/dummy/app/components">Code for example scenarios</a>
+* <a href="http://andrewkirwin.me/ember-select-box/native-single-select" target="_blank">Demo of flexibility</a>
+* <a href="https://github.com/amk221/ember-select-box/tree/master/tests/dummy/app/components">Code for example scenarios</a>
 
 ##### FAQ
 Q: Why aren't the native and faux select boxes two addons.<br>
@@ -25,7 +25,7 @@ A: Less effort maintaining 1 addon. Splitting out would be trivial though.
 ### Installation
 
 ```
-ember install ember-cli-select-box
+ember install ember-select-box
 ```
 
 #### Native select box
@@ -281,7 +281,7 @@ let MySelectBox = Component.extend(BaseSelectBox, Toggleable, Searchable);
 
 ### Wormhole
 
-ember-cli-select-box works well with <a href="https://github.com/yapplabs/ember-wormhole">ember-wormhole</a>. In most cases, this isn't needed - but it can be useful to render your `<options>`'s elsewhere in the DOM if you find yourself with `overflow:hidden` style issues for example.
+ember-select-box works well with <a href="https://github.com/yapplabs/ember-wormhole">ember-wormhole</a>. In most cases, this isn't needed - but it can be useful to render your `<options>`'s elsewhere in the DOM if you find yourself with `overflow:hidden` style issues for example.
 
 ```handlebars
 {{#select-box class-prefix='worm-select' as |sb|}}

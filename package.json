@@ -1,5 +1,5 @@
 {
-  "name": "ember-cli-select-box",
+  "name": "ember-select-box",
   "version": "0.1.11",
   "description": "A faux select box for Ember apps",
   "directories": {
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/amk221/ember-cli-select-box.git"
+    "url": "https://github.com/amk221/ember-select-box.git"
   },
   "engines": {
     "node": ">= 0.10.0"
@@ -53,7 +53,7 @@
     "configPath": "tests/dummy/config"
   },
   "bugs": {
-    "url": "https://github.com/amk221/ember-cli-select-box/issues"
+    "url": "https://github.com/amk221/ember-select-box/issues"
   },
-  "homepage": "https://github.com/amk221/ember-cli-select-box"
+  "homepage": "https://github.com/amk221/ember-select-box"
 }

@@ -1,1 +1,1 @@
-export { default } from 'ember-cli-select-box/components/select-box/api';
+export { default } from 'ember-select-box/components/select-box/api';

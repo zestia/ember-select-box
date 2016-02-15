@@ -2,5 +2,5 @@
 'use strict';
 
 module.exports = {
-  name: 'ember-cli-select-box'
+  name: 'ember-select-box'
 };

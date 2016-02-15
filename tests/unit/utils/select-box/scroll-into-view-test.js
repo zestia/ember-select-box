@@ -1,4 +1,4 @@
-import scrollIntoView from 'ember-cli-select-box/utils/select-box/scroll-into-view';
+import scrollIntoView from 'ember-select-box/utils/select-box/scroll-into-view';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
