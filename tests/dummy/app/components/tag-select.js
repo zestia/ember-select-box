@@ -7,9 +7,11 @@ export default Component.extend({
 
   actions: {
     pressedUp(e, sb) {
+      e.preventDefault();
       sb.activatePreviousOption(true);
     },
     pressedDown(e, sb) {
+      e.preventDefault();
       sb.activateNextOption(true);
       sb.open();
     },
