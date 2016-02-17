@@ -1,5 +1,9 @@
 # Changelog
 
+0.1.12
+
+* upgrade addon to ember-cli 2.3.0
+
 0.1.11
 
 * add more aria attributes
