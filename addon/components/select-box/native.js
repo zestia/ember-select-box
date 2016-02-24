@@ -6,7 +6,7 @@ import { A as emberA } from 'ember-array/utils';
 export default Component.extend(BaseSelectBox, {
   layout: layout,
   tagName: 'select',
-  attributeBindings: ['tabindex', 'disabled', 'size', 'multiple', 'aria-label'],
+  attributeBindings: ['name', 'tabindex', 'disabled', 'size', 'multiple', 'aria-label'],
 
   change() {
     let options = this._getSelectedOptions();
