@@ -1,5 +1,9 @@
 # Changelog
 
+0.1.13
+
+* add `name` attribute to native select box
+
 0.1.12
 
 * upgrade addon to ember-cli 2.3.0

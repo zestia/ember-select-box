@@ -40,6 +40,16 @@ test('class prefix', function(assert) {
 });
 
 
+test('name', function(assert) {
+  assert.expect(1);
+
+  this.render(hbs `{{select-box/native name='foo'}}`);
+
+  assert.equal(this.$('.select-box').attr('name'), 'foo',
+    'can set a name attribute');
+});
+
+
 test('aria label', function(assert) {
   assert.expect(1);
 
