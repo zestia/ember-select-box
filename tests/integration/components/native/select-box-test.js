@@ -127,17 +127,17 @@ test('changing the selected value', function(assert) {
   let $foo = this.$(".select-box-option[value='foo']");
   let $bar = this.$(".select-box-option[value='bar']");
 
-  assert.ok($foo.is(':selected') && !$bar.is(':selected'),
+  assert.ok($foo.is(':selected') && $bar.not(':selected'),
     'the option with the matching value is selected initially');
 
   this.set('selectedValue', 'bar');
 
-  assert.ok(!$foo.is(':selected') && $bar.is(':selected'),
+  assert.ok($foo.not(':selected') && $bar.is(':selected'),
     'changing the value causes the options to re-compute which is selected');
 
   this.set('selectedValue', null);
 
-  assert.ok($foo.is(':selected') && !$bar.is(':selected'),
+  assert.ok($foo.is(':selected') && $bar.not(':selected'),
     "setting no value results in the first option being selected");
 });
 

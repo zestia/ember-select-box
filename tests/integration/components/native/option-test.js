@@ -48,7 +48,7 @@ test('disabling', function(assert) {
 
   this.set('optionDisabled', false);
 
-  assert.ok(!this.$('.select-box-option').is(':disabled'),
+  assert.ok(this.$('.select-box-option').not(':disabled'),
     'a native select box option can be re-enabled');
 });
 

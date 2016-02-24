@@ -48,6 +48,6 @@ test('disabling', function(assert) {
 
   this.set('groupDisabled', false);
 
-  assert.ok(!this.$('.select-box-group').is(':disabled'),
+  assert.ok(this.$('.select-box-group').not(':disabled'),
     'a select box group can be re-enabled');
 });
