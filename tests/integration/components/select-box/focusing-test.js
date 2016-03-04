@@ -31,6 +31,41 @@ test('focus class name', function(assert) {
 });
 
 
+
+test('focus actions', function(assert) {
+  assert.expect(2);
+
+  let sentFocusIn, sentFocusOut;
+
+  this.on('focused', () => {
+    sentFocusIn = true;
+  });
+
+  this.on('blurred', () => {
+    sentFocusOut = true;
+  });
+
+  this.render(hbs `
+    {{#select-box
+      on-focus-in=(action 'focused')
+      on-focus-out=(action 'blurred')}}
+      <button></button>
+    {{/select-box}}
+  `);
+
+  this.$('button').trigger('focus');
+
+  assert.ok(sentFocusIn, true,
+    'sends a focus in action');
+
+  this.$('button').trigger('blur');
+
+  assert.ok(sentFocusOut, true,
+    'sends a focus out action');
+});
+
+
+
 test('tabindex', function(assert) {
   assert.expect(4);
 

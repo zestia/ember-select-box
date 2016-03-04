@@ -63,6 +63,8 @@ Attributes:
 * `search-slow-time` milliseconds considered for a search to be taking too long (default 500)
 * `class-prefix` adds a prefix to the class name of all child select-box components
 * `on-click-outside` useful for closing the select box
+* `on-focus-in`
+* `on-focus-out`
 * `on-press-backspace`
 * `on-press-tab`
 * `on-press-enter`
