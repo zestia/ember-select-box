@@ -163,9 +163,10 @@ Attributes:
 * `placeholder`
 * `readonly`
 * `disabled`
-* `on-input` fired when text is input
-* `on-delete` fired when there is no text, but backspace is pressed
 * `on-clear` fired when text is cleared
+* `on-delete` fired when there is no text, but backspace is pressed
+* `on-focus` fired when input gets focus
+* `on-input` fired when text is input
 
 
 ##### Selected option

@@ -34,5 +34,13 @@ export default Component.extend(
     if (e.which === 8 && !this.$().val()) {
       this.sendAction('on-delete', this.getAttr('-api'));
     }
+  },
+
+  focusIn: function() {
+    this._super(...arguments);
+    let func = this.attrs['focus-in'];
+    if (typeof func === 'function') {
+      func();
+    }
   }
 });

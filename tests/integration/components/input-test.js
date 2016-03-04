@@ -186,3 +186,29 @@ test('on-delete action', function(assert) {
     'delete action is only fired when value is blank & backspace is pressed');
 });
 
+test('on-focus action', function(assert) {
+  assert.expect(1);
+
+  let count = 0;
+
+  this.on('focused', () => {
+    count++;
+  });
+
+  this.render(hbs `
+    {{#select-box as |sb|}}
+      {{sb.input value='f' focus-in=(action 'focused')}}
+    {{/select-box}}
+  `);
+  this.$('.select-box-input').trigger('focus');
+
+  this.render(hbs `
+    {{#select-box as |sb|}}
+      {{sb.input value='f'}}
+    {{/select-box}}
+  `);
+  this.$('.select-box-input').trigger('focus');
+
+  assert.equal(count, 1, 'fires focus-in callback on focusIn event only when focus-in value is a function');
+});
+
