@@ -382,7 +382,7 @@ Allows you to input text into the select box, usually for running searches/filte
     <td>Fired when there is no text present, but backspace is pressed</td>
   </tr>
   <tr>
-    <td>on-delete</td>
+    <td>on-clear</td>
     <td>Fired when text is cleared completely</td>
   </tr>
 </table>
@@ -428,6 +428,9 @@ Does _not_ render the user's selected option automatically, but rather just prov
 {{/sb.selected-options}}
 ```
 
+Provides a container for options that the user selected. Does not do anything by default, but it is possible to activate selected options using the API, thereby allowing you to create your own navigatable select box.
+
+
 <table>
   <caption>Attributes</caption>
   <tr>
@@ -440,10 +443,9 @@ Does _not_ render the user's selected option automatically, but rather just prov
   </tr>
 </table>
 
+<br>
 <hr>
 
-
-Provides a container for options that the user selected. Does not do anything by default, but it is possible to activate selected options using the API, thereby allowing you to create your own navigatable select box.
 
 ### API
 
