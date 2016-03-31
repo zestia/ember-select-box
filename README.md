@@ -68,7 +68,7 @@ ember install ember-select-box
   </tr>
   <tr>
     <td>is-open</td>
-    <td>controls the open/closed state</td>
+    <td>Controls the open/closed state</td>
   </tr>
   <tr>
     <td>on-select</td>
@@ -192,7 +192,7 @@ ember install ember-select-box
   </tr>
   <tr>
     <td>sb.stopSearching</td>
-    <td>'cancels' searches currently in progress (even though promises are not cancelable)</td>
+    <td>'Cancels' searches currently in progress (even though promises are not cancelable)</td>
   </tr>
   <tr>
     <td>sb.setInputValue</td>
