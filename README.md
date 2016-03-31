@@ -240,6 +240,7 @@ ember install ember-select-box
 
 ```handlebars
 {{sb.option value=1 label='One'}}
+
 {{#sb.option value=2 label='Two' as |o|}}
   {{o.label}}
 {{/sb.option}}
@@ -392,6 +393,7 @@ Does _not_ render the user's selected option automatically, but rather just prov
 
 ```handlebars
 {{sb.selected-option value=1 label='One'}}
+
 {{#sb.selected-option value=2 label='Two' as |so|}}
   {{so.label}}
 {{/sb.selected-option}}
