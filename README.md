@@ -276,10 +276,6 @@ ember install ember-select-box
     <td>label</td>
     <td>Used as the display text by default</td>
   </tr>
-  <tr>
-    <td>component</td>
-    <td>Optional name of a component to use for the option's display text</td>
-  </tr>
 </table>
 
 <table>
