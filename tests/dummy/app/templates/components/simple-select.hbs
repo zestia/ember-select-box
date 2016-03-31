@@ -5,7 +5,7 @@
   on-press-down=(action 'pressedDown')
   on-press-up=(action 'pressedUp')
   on-press-escape=(action 'close')
-  on-focus-out=(action 'close')
+  on-click-outside=(action 'close')
   on-select=(action 'selected' attrs.on-select)
   on-update=(action 'updateDisplayLabel') as |sb|}}
   {{#sb.selected-option click=sb.open}}
