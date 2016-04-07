@@ -203,7 +203,7 @@ Provides a container for options that the user selected. Does not do anything by
 
 ### API
 
-The select boxes that come with this addon expose an API to you as an argument to action handlers like so:
+The select boxes that come with this addon exposes an API to you as an argument to action handlers like so:
 
 ```handlebars
 {{select-box on-select=(action 'selectedAnOption')}}
