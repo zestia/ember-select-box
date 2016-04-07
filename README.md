@@ -6,20 +6,11 @@ This Ember CLI addon provides you with a native HTML select component. But, it a
 
 Select box solutions are rarely perfect for what you want. Rather than having a myriad of options to configure for every possible situation, `ember-select-box` is designed so you can easily _compose your own_.
 
-##### Things to note
-* With just a few lines of code you can create an autocompleter using the [input](#input) component.
-* Thanks to contextual components there is not a truth helper in sight.
-* This project will never come with built-in styles.
-* The select box's primitives are available to you via the yielded [API](#api) and as an argument to action handlers, so you should never feel held-back when creating your select box
-
-##### Examples
+* [Ways to achieve what you want](#customising)
 * <a href="http://andrewkirwin.me/ember-select-box/native-single-select" target="_blank">Demo of flexibility</a>
-* <a href="https://github.com/amk221/ember-select-box/tree/master/tests/dummy/app/components">Code for example scenarios</a>
-
-##### FAQ
-Q: Why aren't the native and faux select boxes two addons.<br>
-A: Less effort maintaining 1 addon. Splitting out would be trivial though.
-
+* <a href="https://github.com/amk221/ember-select-box/tree/master/tests/dummy/app/components" target="_blank">Code for example scenarios</a>
+* [Things to note](#things-to-note)
+* [FAQ](#faq)
 
 
 ### Installation
@@ -292,3 +283,16 @@ ember-select-box works well with <a href="https://github.com/yapplabs/ember-worm
   {{/ember-wormhole}}
 {{/select-box}}
 ```
+
+<hr>
+
+##### Things to note
+* With just a few lines of code you can create an autocompleter using the [input](#input) component.
+* Thanks to contextual components there is not a truth helper in sight.
+* This project will never come with built-in styles.
+* The select box's primitives are available to you via the yielded [API](#api) and as an argument to action handlers, so you should never feel held-back when creating your select box
+
+
+##### FAQ
+Q: Why aren't the native and faux select boxes two addons.<br>
+A: Less effort maintaining 1 addon. Splitting out would be trivial though.
