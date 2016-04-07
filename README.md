@@ -2,11 +2,16 @@
 
 <a href="http://emberobserver.com/addons/ember-select-box"><img src="http://emberobserver.com/badges/ember-select-box.svg"></a> &nbsp; <a href="https://david-dm.org/amk221/ember-select-box#badge-embed"><img src="https://david-dm.org/amk221/ember-select-box.svg"></a> &nbsp; <a href="https://david-dm.org/amk221/ember-select-box#dev-badge-embed"><img src="https://david-dm.org/amk221/ember-select-box/dev-status.svg"></a> &nbsp; <a href="https://codeclimate.com/github/amk221/ember-select-box"><img src="https://codeclimate.com/github/amk221/ember-select-box/badges/gpa.svg" /></a> &nbsp; <a href="http://travis-ci.org/amk221/ember-select-box"><img src="https://travis-ci.org/amk221/ember-select-box.svg?branch=master"></a> &nbsp; <a href="http://emberjs.com/blog/2016/01/15/ember-2-3-released.html#toc_contextual-components"><img src="http://embadge.io/v1/badge.svg?label=ember&range=%3E=2.3.0"></a>
 
-This Ember CLI addon provides you with a native HTML select component. But, it also comes with a faux-select box made from divs.
 
-Select box solutions are rarely perfect for what you want. Rather than having a myriad of options to configure for every possible situation, `ember-select-box` is designed so you can easily _compose your own_.
+Select box solutions are rarely perfect for what you want.
 
-* [Ways to achieve what you want](#customising)
+They come with a myriad of options to configure every possible situation, and they make too many assumptions about how your select-box behaves.
+
+This addon does less, and gives you the primitives to easily _compose your own_.
+
+
+
+* **[Ways to achieve what you want](#customising)**
 * <a href="http://andrewkirwin.me/ember-select-box/native-single-select" target="_blank">Demo of flexibility</a>
 * <a href="https://github.com/amk221/ember-select-box/tree/master/tests/dummy/app/components" target="_blank">Code for example scenarios</a>
 * [Things to note](#things-to-note)
