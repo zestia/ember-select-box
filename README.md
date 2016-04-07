@@ -39,79 +39,253 @@ ember install ember-select-box
 {{/select-box}}
 ```
 
-Attributes:
+<table>
+  <caption>Attributes</caption>
+  <tr>
+    <th>Attribute</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>value</td>
+    <td>Used to determine which option is selected</td>
+  </tr>
+  <tr>
+    <td>multiple</td>
+    <td>If true, `value` should be an array</td>
+  </tr>
+  <tr>
+    <td>disabled</td>
+    <td>If true adds an `is-disabled` class</td>
+  </tr>
+  <tr>
+    <td>is-open</td>
+    <td>Controls the open/closed state</td>
+  </tr>
+  <tr>
+    <td>on-select</td>
+    <td>Will be fired when an option is clicked, or enter is pressed</td>
+  </tr>
+  <tr>
+    <td>on-update</td>
+    <td>Fired when the selected value is updated</td>
+  </tr>
+  <tr>
+    <td>on-search</td>
+    <td>Fired when the select box decides to run a search</td>
+  </tr>
+  <tr>
+    <td>on-searched</td>
+    <td>Fired after the last succesful search attempt</td>
+  </tr>
+  <tr>
+    <td>search-min-chars</td>
+    <td>Prevents the on-search action from firing until there are enough chars (default 1)</td>
+  </tr>
+  <tr>
+    <td>search-delay-time</td>
+    <td>Milliseconds to debounce the on-search action from firing (default 100)</td>
+  </tr>
+  <tr>
+    <td>search-slow-time</td>
+    <td>Milliseconds considered for a search to be taking too long (default 500)</td>
+  </tr>
+  <tr>
+    <td>class-prefix</td>
+    <td>Adds a prefix to the class name of all child select-box components</td>
+  </tr>
+  <tr>
+    <td>on-click-outside</td>
+    <td>Useful for closing the select box</td>
+  </tr>
+  <tr>
+    <td>on-focus-in</td>
+    <td>Fired when focus enters the select box, normalised if it contains an input</td>
+  </tr>
+  <tr>
+    <td>on-focus-out</td>
+    <td>Fired when focus leaves the select box</td>
+  </tr>
+  <tr>
+    <td>on-press-backspace</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>on-press-tab</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>on-press-enter</td>
+    <td>Useful for preventing default action of event</td>
+  </tr>
+  <tr>
+    <td>on-press-escape</td>
+    <td>Useful for closing and/or resetting a select box</td>
+  </tr>
+  <tr>
+    <td>on-press-left</td>
+    <td>Useful for navigating multi-select boxes</td>
+  </tr>
+  <tr>
+    <td>on-press-up</td>
+    <td>Useful for navigating up</td>
+  </tr>
+  <tr>
+    <td>on-press-right</td>
+    <td>Useful for navigating multi-select boxes</td>
+  </tr>
+  <tr>
+    <td>on-press-down</td>
+    <td>Useful for navigating down</td>
+  </tr>
+</table>
 
-* `value` used to determine which option is selected
-* `multiple` if true, `value` should be an array
-* `disabled` if true adds an `is-disabled` class
-* `is-open` controls the open/closed state
-* `on-select` will be fired when an option is clicked, or enter is pressed.
-* `on-update` fired when the selected value is updated
-* `on-search` fired when the select box decides to run a search
-* `on-searched` fired after the last succesful search attempt
-* `search-min-chars` prevents the on-search action from firing until there are enough chars (default 1)
-* `search-delay-time` milliseconds to debounce the on-search action from firing (default 100)
-* `search-slow-time` milliseconds considered for a search to be taking too long (default 500)
-* `class-prefix` adds a prefix to the class name of all child select-box components
-* `on-click-outside` useful for closing the select box
-* `on-press-backspace`
-* `on-press-tab`
-* `on-press-enter`
-* `on-press-escape`
-* `on-press-left`
-* `on-press-up`
-* `on-press-right`
-* `on-press-down`
+<table>
+  <caption>Yielded API</caption>
+  <tr>
+    <th>Property</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>sb.isSearching</td>
+    <td>Whether the promise returned from the `on-search` action is running</td>
+  </tr>
+  <tr>
+    <td>sb.isSlowSearch</td>
+    <td>True if the promised search results are taking a while</td>
+  </tr>
+  <tr>
+    <td>sb.open</td>
+    <td>Opens the select box, adding `is-open` class name</td>
+  </tr>
+  <tr>
+    <td>sb.close</td>
+    <td>Closes the select box removing the `is-open` class name</td>
+  </tr>
+  <tr>
+    <td>sb.toggle</td>
+    <td>Opens or closes the select box</td>
+  </tr>
+  <tr>
+    <td>sb.select</td>
+    <td>Selects an arbitrary value and fires the `on-select` action</td>
+  </tr>
+  <tr>
+    <td>sb.update</td>
+    <td>Updates the selected value, but does not fire the `on-select` action</td>
+  </tr>
+  <tr>
+    <td>sb.selectActiveOption</td>
+    <td>Selects the value of whichever option is currently active</td>
+  </tr>
+  <tr>
+    <td>sb.search</td>
+    <td>Runs an arbitrary search using the search function provided by `on-search</td>
+  </tr>
+  <tr>
+    <td>sb.stopSearching</td>
+    <td>'Cancels' searches currently in progress (even though promises are not cancelable)</td>
+  </tr>
+  <tr>
+    <td>sb.setInputValue</td>
+    <td>Lets you update the input value, useful for when a selection has been made</td>
+  </tr>
+  <tr>
+    <td>sb.focusInput</td>
+    <td>Focuses the input associated with the select box</td>
+  </tr>
+  <tr>
+    <td>sb.activateOptionAtIndex</td>
+    <td>Adds an `is-active` class to the option at the index</td>
+  </tr>
+  <tr>
+    <td>sb.activateNextOption</td>
+    <td>Activates the next option (pass in true to scroll if necessary too)</td>
+  </tr>
+  <tr>
+    <td>sb.activatePreviousOption</td>
+    <td>As above but reverse</td>
+  </tr>
+  <tr>
+    <td>sb.deactivateOptions</td>
+    <td>Makes no option be active</td>
+  </tr>
+  <tr>
+    <td>sb.activateSelectedOptionAtIndex</td>
+    <td>Activates the selected option at the index</td>
+  </tr>
+  <tr>
+    <td>sb.activateNextSelectedOption</td>
+    <td>Activates the next selected option</td>
+  </tr>
+  <tr>
+    <td>sb.activatePreviousSelectedOption</td>
+    <td>As above but reverse</td>
+  </tr>
+  <tr>
+    <td>sb.deactivateSelectedOptions</td>
+    <td>Makes no selected option be active</td>
+  </tr>
+</table>
 
-Yielded API:
-
-* `sb.isSearching` whether the promise returned from the `on-search` action is running
-* `sb.isSlowSearch` true if the promised search results are taking a while
-* `sb.open` opens the select box, adding `is-open` class name
-* `sb.close` closes the select box removing the `is-open` class name
-* `sb.toggle` opens or closes the select box
-* `sb.select` selects an arbitrary value and fires the `on-select` action
-* `sb.update` updates the selected value, but does not fire the `on-select` action
-* `sb.selectActiveOption` selects the value of whichever option is currently active
-* `sb.search` runs an arbitrary search using the search function provided by `on-search`
-* `sb.stopSearching` 'cancels' searches currently in progress
-* `sb.setInputValue` lets you update the input value, useful for when a selection has been made
-* `sb.focusInput` focuses the input
-* `sb.activateOptionAtIndex` adds an `is-active` class to the option at the index
-* `sb.activateNextOption` activates the next option (pass in true to scroll if necessary too)
-* `sb.activatePreviousOption` as above but reverse
-* `sb.deactivateOptions` makes no option be active
-* `sb.activateSelectedOptionAtIndex` activates the selected option at the index
-* `sb.activateNextSelectedOption` activates the next selected option
-* `sb.activatePreviousSelectedOption` as above but reverse
-* `sb.deactivateSelectedOptions` makes no selected option be active
-
-##### Option
+#### Option
 
 ```handlebars
 {{sb.option value=1 label='One'}}
+
 {{#sb.option value=2 label='Two' as |o|}}
   {{o.label}}
 {{/sb.option}}
 ```
 
-Attributes:
+<table>
+  <caption>Attributes</caption>
+  <tr>
+    <th>Attribute</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>title</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>style</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>on-select</td>
+    <td>Useful for firing one-off actions when an option is selected</td>
+  </tr>
+  <tr>
+    <td>on-activate</td>
+    <td>Fired when an individual option is activated</td>
+  </tr>
+  <tr>
+    <td>value</td>
+    <td>Can be anything</td>
+  </tr>
+  <tr>
+    <td>label</td>
+    <td>Used as the display text by default</td>
+  </tr>
+</table>
 
-* `title`
-* `style`
-* `on-select` useful for firing one-off actions when an option is selected
-* `on-activate`
-* `value` can be anything
-* `label` used as the display text by default
-* `component` optional name of a component to use for the option's display text
+<table>
+  <caption>Yielded API</caption>
+  <tr>
+    <td>o.value</td>
+    <td>The value of the option</td>
+  </tr>
+  <tr>
+    <td>o.label</td>
+    <td>The label of the option</td>
+  </tr>
+  <tr>
+    <td>o.index</td>
+    <td>The index of the option amongst the options</td>
+  </tr>
+</table>
 
-Yielded API:
-
-* `o.value` the value of the option
-* `o.label` the label of the option
-* `o.index` the index of the option amongst the options
-
-##### Group
+#### Group
 
 Self explanitory, just wraps the options in extra markup.
 
@@ -121,7 +295,7 @@ Self explanitory, just wraps the options in extra markup.
 {{/sb.group}}
 ```
 
-##### Options
+#### Options
 
 You only need to wrap the options up in with `sb.options` if you require extra markup for styling, or you want the options to be navigatable.
 
@@ -132,12 +306,19 @@ You only need to wrap the options up in with `sb.options` if you require extra m
 {{/sb.options}}
 ```
 
-Attributes:
+<table>
+  <caption>Attributes</caption>
+  <tr>
+    <th>Attribute</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>style</td>
+    <td>Useful for customising the style of the options container</td>
+  </tr>
+</table>
 
-* `style`
-
-
-##### Input
+#### Input
 
 Allows you to input text into the select box, usually for running searches/filtering
 
@@ -145,39 +326,87 @@ Allows you to input text into the select box, usually for running searches/filte
 {{sb.input}}
 ```
 
-Attributes:
+<table>
+  <caption>Attributes</caption>
+  <tr>
+    <th>Attribute</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>type</td>
+    <td>Sets the type of input text/search etc...</td>
+  </tr>
+  <tr>
+    <td>value</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>size</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>autofocus</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>placeholder</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>readonly</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>disabled</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>on-input</td>
+    <td>Fired when text is input</td>
+  </tr>
+  <tr>
+    <td>on-delete</td>
+    <td>Fired when there is no text present, but backspace is pressed</td>
+  </tr>
+  <tr>
+    <td>on-clear</td>
+    <td>Fired when text is cleared completely</td>
+  </tr>
+</table>
 
-* `type`
-* `value`
-* `size`
-* `autofocus`
-* `placeholder`
-* `readonly`
-* `disabled`
-* `on-input` fired when text is input
-* `on-delete` fired when there is no text, but backspace is pressed
-* `on-clear` fired when text is cleared
-
-
-##### Selected option
+#### Selected option
 
 Does _not_ render the user's selected option automatically, but rather just provides a way for you to render the option(s) that have been selected.
 
 ```handlebars
 {{sb.selected-option value=1 label='One'}}
+
 {{#sb.selected-option value=2 label='Two' as |so|}}
   {{so.label}}
 {{/sb.selected-option}}
 ```
 
-Attributes:
+<table>
+  <caption>Attributes</caption>
+  <tr>
+    <th>Attribute</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>title</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>style</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>on-activate</td>
+    <td>Fired when a selected option is activated</td>
+  </tr>
+</table>
 
-* `title`
-* `style`
-* `on-activate`
-
-
-##### Selected options
+#### Selected options
 
 ```handlebars
 {{#sb.selected-options}}
@@ -186,11 +415,24 @@ Attributes:
 {{/sb.selected-options}}
 ```
 
-Attributes:
-
-* `style`
-
 Provides a container for options that the user selected. Does not do anything by default, but it is possible to activate selected options using the API, thereby allowing you to create your own navigatable select box.
+
+
+<table>
+  <caption>Attributes</caption>
+  <tr>
+    <th>Attribute</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>style</td>
+    <td>Useful for one-off styling of selected options</td>
+  </tr>
+</table>
+
+<br>
+<hr>
+
 
 ### API
 
