@@ -200,6 +200,8 @@ test('usage with mut helper', function(assert) {
 test('usage with unbound helper', function(assert) {
   assert.expect(1);
 
+  this.set('selectedValue', 'foo');
+
   this.render(hbs`
     {{#select-box/native value=(unbound selectedValue) as |sb|}}
       {{sb.option value='foo'}}
