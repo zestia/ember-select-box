@@ -10,10 +10,21 @@ export default Mixin.create(
   HasOptions,
   Focusable, {
 
+  didInitAttrs() {
+    this._super(...arguments);
+    this.send('update', this.getAttr('value'));
+  },
+
+  didUpdateAttrs() {
+    this._super(...arguments);
+    if (this.getAttr('value') !== this.get('selectedValue')) {
+      this.send('update', this.getAttr('value'));
+    }
+  },
+
   didReceiveAttrs() {
     this._super(...arguments);
     this.set('isMultiple', this.getAttr('multiple'));
-    this.send('update', this.getAttr('value'));
   },
 
   _selected() {

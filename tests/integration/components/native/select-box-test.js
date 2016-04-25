@@ -197,6 +197,24 @@ test('usage with mut helper', function(assert) {
 });
 
 
+test('usage with unbound helper', function(assert) {
+  assert.expect(1);
+
+  this.render(hbs`
+    {{#select-box/native value=(unbound selectedValue) as |sb|}}
+      {{sb.option value='foo'}}
+      {{sb.option value='bar'}}
+      {{sb.option value='baz'}}
+    {{/select-box/native}}
+  `);
+
+  this.set('selectedValue', 'bar');
+
+  assert.equal(this.$('.select-box').val(), 'foo',
+    'value should not change');
+});
+
+
 test('multiple selection', function(assert) {
   assert.expect(2);
 
