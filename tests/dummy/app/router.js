@@ -9,6 +9,7 @@ Router.map(function() {
   this.route('native-single-select');
   this.route('native-multiple-select');
   this.route('native-simple-select');
+  this.route('fast-native-single-select');
   this.route('single-select');
   this.route('simple-select');
   this.route('filter-select');

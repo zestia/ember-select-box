@@ -1,0 +1,14 @@
+{{#select-box/native
+  value=selectedModel
+  on-select=(action 'selectedModel') as |sb|}}
+  {{#each options as |option|}}
+    <option value={{option}} selected={{option.selected}}>
+      {{option.model.name}}
+    </option>
+  {{/each}}
+{{/select-box/native}}
+
+
+<p>
+  Selected model: {{selectedModel.name}}
+</p>
