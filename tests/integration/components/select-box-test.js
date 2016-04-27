@@ -107,3 +107,26 @@ test('subsequent update actions', function(assert) {
 
   this.set('selectedValue', 'bar');
 });
+
+
+test('update action', function(assert) {
+  assert.expect(1);
+
+  let count = 0;
+
+  this.on('updated', () => {
+    count++;
+  });
+
+  this.render(hbs `
+    {{select-box
+      disabled=isDisabled
+      on-update=(action 'updated')}}
+  `);
+
+  this.set('isDisabled', true);
+
+  assert.equal(count, 1,
+    'updating attributes other than the `value` ' +
+    'should not fire update action');
+});

@@ -1,5 +1,9 @@
 # Changelog
 
+0.1.14
+
+* bugfix - make sure `on-update` only fires when `value` changes
+
 0.1.13
 
 * add `name` attribute to native select box
@@ -53,7 +57,7 @@
 
 * Fix `setInputValue` not working correctly
 
-0.1.0 
+0.1.0
 
 * Remove `on-ready` and `on-after-update` in favour of `on-update`
 

@@ -68,11 +68,18 @@ ember install ember-select-box
   </tr>
   <tr>
     <td>on-select</td>
-    <td>Will be fired when an option is clicked, or enter is pressed</td>
+    <td>
+      Fired when an option is clicked, or enter is pressed regardless as
+      to whether the value changed or not.<br>
+      Subsequently fired by use of the `select` API.
+    </td>
   </tr>
   <tr>
     <td>on-update</td>
-    <td>Fired when the selected value is updated</td>
+    <td>
+      Fired once upon initialisation of the select box (as its initial value is set).<br>
+      Subsequently fired by use of the `update` API or if the value attribute changes.
+    </td>
   </tr>
   <tr>
     <td>on-search</td>
