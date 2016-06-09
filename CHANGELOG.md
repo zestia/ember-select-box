@@ -1,5 +1,9 @@
 # Changelog
 
+0.1.15
+
+* phase out use of `didInitAttrs`
+
 0.1.14
 
 * bugfix - make sure `on-update` only fires when `value` changes

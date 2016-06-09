@@ -1,6 +1,6 @@
 {
   "name": "ember-select-box",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "description": "A faux select box for Ember apps",
   "directories": {
     "doc": "doc",
