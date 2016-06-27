@@ -1,13 +1,9 @@
 import Mixin from 'ember-metal/mixin';
 import DocumentClick from './document-click';
 import jQuery from 'jquery';
-import Ember from 'ember';
 const { contains } = jQuery;
-const { K } = Ember;
 
 export default Mixin.create(DocumentClick, {
-  clickOutside: K,
-
   clickDocument(e) {
     this._super(...arguments);
     let el = this.get('element');
@@ -17,5 +13,7 @@ export default Mixin.create(DocumentClick, {
     if (clickedOutside) {
       this.clickOutside();
     }
-  }
+  },
+
+  clickOutside() {}
 });

@@ -1,21 +1,23 @@
 import Mixin from 'ember-metal/mixin';
-import { bind } from 'ember-runloop';
+import run from 'ember-runloop';
+import { guidFor } from 'ember-metal/utils';
 import jQuery from 'jquery';
-import Ember from 'ember';
-const { K } = Ember;
 
 export default Mixin.create({
-  clickDocument: K,
-  $document: jQuery(document),
+  $document: jQuery(document.body),
+
+  clickDocument() {},
 
   didInsertElement() {
     this._super(...arguments);
-    let name = 'click.doc-' + this.get('elementId');
-    this.$document.on(name, bind(this, 'clickDocument'));
+    this.set('clickEventName', 'click.' + guidFor(this));
+    this.$document.on(this.get('clickEventName'), args => {
+      run(this, 'clickDocument', args);
+    });
   },
 
   willDestroyElement() {
     this._super(...arguments);
-    this.$document.off('click.doc-' + this.get('elementId'));
+    this.$document.off(this.get('clickEventName'));
   }
 });
