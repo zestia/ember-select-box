@@ -1,5 +1,13 @@
 # Changelog
 
+0.1.17
+
+* Upgrade ember-cli
+
+0.1.16
+
+* Dodgy build
+
 0.1.15
 
 * phase out use of `didInitAttrs`
