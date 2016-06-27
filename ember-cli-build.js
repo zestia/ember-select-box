@@ -4,10 +4,7 @@ var EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 
 module.exports = function(defaults) {
   var app = new EmberAddon(defaults, {
-    fingerprint: {
-      enabled: false
-    },
-    locationType: 'hash'
+    // Add options here
   });
 
   /*

@@ -4,7 +4,7 @@ import { guidFor } from 'ember-metal/utils';
 import jQuery from 'jquery';
 
 export default Mixin.create({
-  $document: jQuery(document.body),
+  $document: jQuery(document),
 
   clickDocument() {},
 
