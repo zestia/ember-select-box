@@ -8,9 +8,13 @@ export default Mixin.create({
 
   clickDocument() {},
 
-  didInsertElement() {
+  init() {
     this._super(...arguments);
     this.set('clickEventName', 'click.' + guidFor(this));
+  },
+
+  didInsertElement() {
+    this._super(...arguments);
     this.$document.on(this.get('clickEventName'), args => {
       run(this, 'clickDocument', args);
     });
