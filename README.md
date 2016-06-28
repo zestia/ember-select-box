@@ -44,8 +44,7 @@ ember install ember-select-box
 {{/select-box}}
 ```
 
-<table>
-  <caption>Attributes</caption>
+<table style="display: table; width: 100%; font-size: small">
   <tr>
     <th>Attribute</th>
     <th>Description</th>
@@ -151,8 +150,7 @@ ember install ember-select-box
   </tr>
 </table>
 
-<table>
-  <caption>Yielded API</caption>
+<table style="display: table; width: 100%; font-size: small">
   <tr>
     <th>Property</th>
     <th>Description</th>
@@ -249,8 +247,7 @@ ember install ember-select-box
 {{/sb.option}}
 ```
 
-<table>
-  <caption>Attributes</caption>
+<table style="display: table; width: 100%; font-size: small">
   <tr>
     <th>Attribute</th>
     <th>Description</th>
@@ -281,8 +278,11 @@ ember install ember-select-box
   </tr>
 </table>
 
-<table>
-  <caption>Yielded API</caption>
+<table style="display: table; width: 100%; font-size: small">
+  <tr>
+    <th>Property</th>
+    <th>Description</th>
+  </tr>
   <tr>
     <td>o.value</td>
     <td>The value of the option</td>
@@ -318,8 +318,7 @@ You only need to wrap the options up in with `sb.options` if you require extra m
 {{/sb.options}}
 ```
 
-<table>
-  <caption>Attributes</caption>
+<table style="display: table; width: 100%; font-size: small">
   <tr>
     <th>Attribute</th>
     <th>Description</th>
@@ -338,8 +337,7 @@ Allows you to input text into the select box, usually for running searches/filte
 {{sb.input}}
 ```
 
-<table>
-  <caption>Attributes</caption>
+<table style="display: table; width: 100%; font-size: small">
   <tr>
     <th>Attribute</th>
     <th>Description</th>
@@ -398,8 +396,7 @@ Does _not_ render the user's selected option automatically, but rather just prov
 {{/sb.selected-option}}
 ```
 
-<table>
-  <caption>Attributes</caption>
+<table style="display: table; width: 100%; font-size: small">
   <tr>
     <th>Attribute</th>
     <th>Description</th>
@@ -430,8 +427,7 @@ Does _not_ render the user's selected option automatically, but rather just prov
 Provides a container for options that the user selected. Does not do anything by default, but it is possible to activate selected options using the API, thereby allowing you to create your own navigatable select box.
 
 
-<table>
-  <caption>Attributes</caption>
+<table style="display: table; width: 100%; font-size: small">
   <tr>
     <th>Attribute</th>
     <th>Description</th>
