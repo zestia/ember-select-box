@@ -1,4 +1,4 @@
-# ember-select-box
+# :capitcal_abcd: ember-select-box
 
 <a href="http://emberobserver.com/addons/ember-select-box"><img src="http://emberobserver.com/badges/ember-select-box.svg"></a> &nbsp; <a href="https://david-dm.org/amk221/ember-select-box#badge-embed"><img src="https://david-dm.org/amk221/ember-select-box.svg"></a> &nbsp; <a href="https://david-dm.org/amk221/ember-select-box#dev-badge-embed"><img src="https://david-dm.org/amk221/ember-select-box/dev-status.svg"></a> &nbsp; <a href="https://codeclimate.com/github/amk221/ember-select-box"><img src="https://codeclimate.com/github/amk221/ember-select-box/badges/gpa.svg" /></a> &nbsp; <a href="http://travis-ci.org/amk221/ember-select-box"><img src="https://travis-ci.org/amk221/ember-select-box.svg?branch=master"></a> &nbsp; <a href="http://emberjs.com/blog/2016/01/15/ember-2-3-released.html#toc_contextual-components"><img src="http://embadge.io/v1/badge.svg?label=ember&range=%3E=2.3.0"></a>
 
