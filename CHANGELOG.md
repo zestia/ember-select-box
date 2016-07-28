@@ -1,5 +1,9 @@
 # Changelog
 
+0.1.18
+
+* Upgrade ember-cli
+
 0.1.17
 
 * Upgrade ember-cli
@@ -10,48 +14,48 @@
 
 0.1.15
 
-* phase out use of `didInitAttrs`
+* Phase out use of `didInitAttrs`
 
 0.1.14
 
-* bugfix - make sure `on-update` only fires when `value` changes
+* Bugfix - make sure `on-update` only fires when `value` changes
 
 0.1.13
 
-* add `name` attribute to native select box
+* Add `name` attribute to native select box
 
 0.1.12
 
-* upgrade addon to ember-cli 2.3.0
+* Upgrade addon to ember-cli 2.3.0
 
 0.1.11
 
-* add more aria attributes
+* Add more aria attributes
 
 0.1.10
 
-* prevent content security warnings in test suite
+* Prevent content security warnings in test suite
 
 0.1.9
 
-* upgrade deps
+* Upgrade deps
 
 0.1.8
 
-* improve slow search detection
+* Improve slow search detection
 
 0.1.7
 
-* add `stopSearching`
+* Add `stopSearching`
 
 0.1.6
 
-* remove `on-activate` from selected options
-* fix `on-activate` usage for exposed api
+* Remove `on-activate` from selected options
+* Fix `on-activate` usage for exposed api
 
 0.1.5
 
-* add `on-activate` to options and selected options
+* Add `on-activate` to options and selected options
 
 0.1.4
 
