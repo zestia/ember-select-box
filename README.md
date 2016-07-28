@@ -156,7 +156,6 @@ ember install ember-select-box
 <details>
   <summary>View yielded API</summary>
   <table>
-    <caption>Yielded API</caption>
     <tr>
       <th>Property</th>
       <th>Description</th>
