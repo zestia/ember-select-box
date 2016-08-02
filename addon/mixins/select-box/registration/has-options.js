@@ -18,12 +18,12 @@ export default Mixin.create({
   },
 
   actions: {
-    _registerOption: function(option) {
+    _registerOption(option) {
       this.get('_options').addObject(option);
       this._scheduleUpdateOptions();
     },
 
-    _deregisterOption: function(option) {
+    _deregisterOption(option) {
       this.get('_options').removeObject(option);
       this._scheduleUpdateOptions();
     }
