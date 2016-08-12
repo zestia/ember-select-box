@@ -361,7 +361,7 @@ Allows you to input text into the select box, usually for running searches/filte
 ```
 
 <details>
-  <summary>View attributes></summary>
+  <summary>View attributes</summary>
   <table>
     <tr>
       <th>Attribute</th>
