@@ -295,6 +295,10 @@ ember install ember-select-box
     <th>Description</th>
   </tr>
   <tr>
+    <td>o.selected</td>
+    <td>Whether or not the option is currently selected</td>
+  </tr>
+  <tr>
     <td>o.value</td>
     <td>The value of the option</td>
   </tr>

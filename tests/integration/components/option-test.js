@@ -81,29 +81,27 @@ test('aria selected', function(assert) {
 test('yield', function(assert) {
   assert.expect(1);
 
-  this.set('group1', [
-    { myValue: 'foo', myLabel: 'Foo' },
-    { myValue: 'bar', myLabel: 'Bar' }
-  ]);
+  let foo = { myValue: 'foo', myLabel: 'Foo' };
+  let bar = { myValue: 'bar', myLabel: 'Bar' };
+  let baz = { myValue: 'baz', myLabel: 'Baz' };
+  let qux = { myValue: 'qux', myLabel: 'Qux' };
 
-  this.set('group2', [
-    { myValue: 'baz', myLabel: 'Baz' },
-    { myValue: 'qux', myLabel: 'Qux' }
-  ]);
+  this.set('group1', [foo, bar]);
+  this.set('group2', [baz, qux]);
 
   this.render(hbs`
-    {{#select-box as |sb|}}
+    {{#select-box value='baz' as |sb|}}
       {{#sb.group label='Group 1'}}
         {{#each group1 as |item i|}}
           {{#sb.option value=item.myValue label=item.myLabel as |o|~}}
-            {{o.label}}={{o.value}} {{i}} ({{o.index}})
+            {{o.label}}={{o.value}} {{i}} ({{o.index}}) {{o.selected}}
           {{~/sb.option}}
         {{/each}}
       {{/sb.group}}
       {{#sb.group label='Group 2'}}
         {{#each group2 as |item i|}}
           {{#sb.option value=item.myValue label=item.myLabel as |o|~}}
-            {{o.label}}={{o.value}} {{i}} ({{o.index}})
+            {{o.label}}={{o.value}} {{i}} ({{o.index}}) {{o.selected}}
           {{~/sb.option}}
         {{/each}}
       {{/sb.group}}
@@ -111,10 +109,10 @@ test('yield', function(assert) {
   `);
 
   assert.ok(
-    this.$('.select-box-option:eq(0)').text() === 'Foo=foo 0 (0)' &&
-    this.$('.select-box-option:eq(1)').text() === 'Bar=bar 1 (1)' &&
-    this.$('.select-box-option:eq(2)').text() === 'Baz=baz 0 (2)' &&
-    this.$('.select-box-option:eq(3)').text() === 'Qux=qux 1 (3)',
-    'select box options can yield their label, value & index'
+    this.$('.select-box-option:eq(0)').text() === 'Foo=foo 0 (0) false' &&
+    this.$('.select-box-option:eq(1)').text() === 'Bar=bar 1 (1) false' &&
+    this.$('.select-box-option:eq(2)').text() === 'Baz=baz 0 (2) true' &&
+    this.$('.select-box-option:eq(3)').text() === 'Qux=qux 1 (3) false',
+    'select box options can yield their label, value, index and selected state'
   );
 });
