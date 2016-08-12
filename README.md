@@ -45,7 +45,7 @@ ember install ember-select-box
 ```
 
 <details>
-  <summary>View options</summary>
+  <summary>View attributes</summary>
   <table>
     <tr>
       <th>Attribute</th>
@@ -253,64 +253,69 @@ ember install ember-select-box
 {{/sb.option}}
 ```
 
-<table>
-  <tr>
-    <th>Attribute</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td>selected</td>
-    <td>Used for manually selecting an option. (Most of the time you won't need to use this because the options automatically know whether or not they are selected based on the value attrbute set on the select box component itself)</td>
-  </tr>
-  <tr>
-    <td>title</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>style</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>on-select</td>
-    <td>Useful for firing one-off actions when an option is selected</td>
-  </tr>
-  <tr>
-    <td>on-activate</td>
-    <td>Fired when an individual option is activated</td>
-  </tr>
-  <tr>
-    <td>value</td>
-    <td>Can be anything</td>
-  </tr>
-  <tr>
-    <td>label</td>
-    <td>Used as the display text by default</td>
-  </tr>
-</table>
+<details>
+  <summary>View attributes</summary>
+  <table>
+    <tr>
+      <th>Attribute</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>selected</td>
+      <td>Used for manually selecting an option. (Most of the time you won't need to use this because the options automatically know whether or not they are selected based on the value attrbute set on the select box component itself)</td>
+    </tr>
+    <tr>
+      <td>title</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>style</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>on-select</td>
+      <td>Useful for firing one-off actions when an option is selected</td>
+    </tr>
+    <tr>
+      <td>on-activate</td>
+      <td>Fired when an individual option is activated</td>
+    </tr>
+    <tr>
+      <td>value</td>
+      <td>Can be anything</td>
+    </tr>
+    <tr>
+      <td>label</td>
+      <td>Used as the display text by default</td>
+    </tr>
+  </table>
+</details>
 
-<table>
-  <caption>Yielded API</caption>
-  <tr>
-    <th>Property</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td>o.selected</td>
-    <td>Whether or not the option is currently selected</td>
-  </tr>
-  <tr>
-    <td>o.value</td>
-    <td>The value of the option</td>
-  </tr>
-  <tr>
-    <td>o.label</td>
-    <td>The label of the option</td>
-  </tr>
-  <tr>
-    <td>o.index</td>
-    <td>The index of the option amongst the options</td>
-  </tr>
-</table>
+<details>
+  <summary>View yielded API</summary>
+  <table>
+    <tr>
+      <th>Property</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>o.selected</td>
+      <td>Whether or not the option is currently selected</td>
+    </tr>
+    <tr>
+      <td>o.value</td>
+      <td>The value of the option</td>
+    </tr>
+    <tr>
+      <td>o.label</td>
+      <td>The label of the option</td>
+    </tr>
+    <tr>
+      <td>o.index</td>
+      <td>The index of the option amongst the options</td>
+    </tr>
+  </table>
+</details>
 
 #### Group
 
@@ -333,16 +338,19 @@ You only need to wrap the options up in with `sb.options` if you require extra m
 {{/sb.options}}
 ```
 
-<table>
-  <tr>
-    <th>Attribute</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td>style</td>
-    <td>Useful for customising the style of the options container</td>
-  </tr>
-</table>
+<details>
+  <summary>View attributes</summary>
+  <table>
+    <tr>
+      <th>Attribute</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>style</td>
+      <td>Useful for customising the style of the options container</td>
+    </tr>
+  </table>
+</details>
 
 #### Input
 
@@ -352,52 +360,55 @@ Allows you to input text into the select box, usually for running searches/filte
 {{sb.input}}
 ```
 
-<table>
-  <tr>
-    <th>Attribute</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td>type</td>
-    <td>Sets the type of input text/search etc...</td>
-  </tr>
-  <tr>
-    <td>value</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>size</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>autofocus</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>placeholder</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>readonly</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>disabled</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>on-input</td>
-    <td>Fired when text is input</td>
-  </tr>
-  <tr>
-    <td>on-delete</td>
-    <td>Fired when there is no text present, but backspace is pressed</td>
-  </tr>
-  <tr>
-    <td>on-clear</td>
-    <td>Fired when text is cleared completely</td>
-  </tr>
-</table>
+<details>
+  <summary>View attributes></summary>
+  <table>
+    <tr>
+      <th>Attribute</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>type</td>
+      <td>Sets the type of input text/search etc...</td>
+    </tr>
+    <tr>
+      <td>value</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>size</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>autofocus</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>placeholder</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>readonly</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>disabled</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>on-input</td>
+      <td>Fired when text is input</td>
+    </tr>
+    <tr>
+      <td>on-delete</td>
+      <td>Fired when there is no text present, but backspace is pressed</td>
+    </tr>
+    <tr>
+      <td>on-clear</td>
+      <td>Fired when text is cleared completely</td>
+    </tr>
+  </table>
+</details>
 
 #### Selected option
 
@@ -411,24 +422,27 @@ Does _not_ render the user's selected option automatically, but rather just prov
 {{/sb.selected-option}}
 ```
 
-<table>
-  <tr>
-    <th>Attribute</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td>title</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>style</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>on-activate</td>
-    <td>Fired when a selected option is activated</td>
-  </tr>
-</table>
+<details>
+  <summary>View attributes</summary>
+  <table>
+    <tr>
+      <th>Attribute</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>title</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>style</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>on-activate</td>
+      <td>Fired when a selected option is activated</td>
+    </tr>
+  </table>
+</details>
 
 #### Selected options
 
@@ -441,16 +455,19 @@ Does _not_ render the user's selected option automatically, but rather just prov
 
 Provides a container for options that the user selected. Does not do anything by default, but it is possible to activate selected options using the API, thereby allowing you to create your own navigatable select box.
 
-<table>
-  <tr>
-    <th>Attribute</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td>style</td>
-    <td>Useful for one-off styling of selected options</td>
-  </tr>
-</table>
+<details>
+  <summary>View attributes</summary>
+  <table>
+    <tr>
+      <th>Attribute</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>style</td>
+      <td>Useful for one-off styling of selected options</td>
+    </tr>
+  </table>
+</details>
 
 <br>
 <hr>
