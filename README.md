@@ -259,6 +259,10 @@ ember install ember-select-box
     <th>Description</th>
   </tr>
   <tr>
+    <td>selected</td>
+    <td>Used for manually selecting an option. (Most of the time you won't need to use this because the options automatically know whether or not they are selected based on the value attrbute set on the select box component itself)</td>
+  </tr>
+  <tr>
     <td>title</td>
     <td></td>
   </tr>
