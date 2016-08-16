@@ -18,11 +18,13 @@ This addon does less, and gives you the primitives to easily _compose your own_.
 * [FAQ](#faq)
 
 
-### Installation
+## Installation
 
 ```
 ember install ember-select-box
 ```
+
+<hr>
 
 #### Native select box
 
@@ -243,6 +245,8 @@ ember install ember-select-box
   </table>
 </details>
 
+<hr>
+
 #### Option
 
 ```handlebars
@@ -317,6 +321,8 @@ ember install ember-select-box
   </table>
 </details>
 
+<hr>
+
 #### Group
 
 Self explanitory, just wraps the options in extra markup.
@@ -326,6 +332,8 @@ Self explanitory, just wraps the options in extra markup.
   {{sb.option value=thing label=thing.name}}
 {{/sb.group}}
 ```
+
+<hr>
 
 #### Options
 
@@ -351,6 +359,8 @@ You only need to wrap the options up in with `sb.options` if you require extra m
     </tr>
   </table>
 </details>
+
+<hr>
 
 #### Input
 
@@ -409,6 +419,8 @@ Allows you to input text into the select box, usually for running searches/filte
     </tr>
   </table>
 </details>
+
+<hr>
 
 #### Selected option
 
@@ -469,9 +481,7 @@ Provides a container for options that the user selected. Does not do anything by
   </table>
 </details>
 
-<br>
 <hr>
-
 
 ### API
 
@@ -489,6 +499,7 @@ actions: {
 }
 ```
 
+<hr>
 
 ### Customising
 
@@ -498,7 +509,7 @@ There are 3 ways to get what you want
 2. OR [extend](#extend) an existing one
 3. OR create a new one from the [mixins](#mixins)
 
-#### Compose
+##### Compose
 It's recommended that you compose your own select box like so :
 
 ```handlebars
@@ -533,7 +544,7 @@ It's recommended that you compose your own select box like so :
 </div>
 ```
 
-#### Extend
+##### Extend
 If you need even more flexibility, you can extend the select box:
 
 ```javascript
@@ -544,12 +555,14 @@ let MySelectBox = SelectBox.extend({
 })
 ```
 
-#### Mixins
+##### Mixins
 if you need _even more_ flexibility you can create your own select box using the mixins
 
 ```javascript
 let MySelectBox = Component.extend(BaseSelectBox, Toggleable, Searchable);
 ```
+
+<hr>
 
 ### Wormhole
 
@@ -573,6 +586,7 @@ ember-select-box works well with <a href="https://github.com/yapplabs/ember-worm
 * This project will never come with built-in styles.
 * The select box's primitives are available to you via the yielded [API](#api) and as an argument to action handlers, so you should never feel held-back when creating your select box
 
+<hr>
 
 ##### FAQ
 Q: Why aren't the native and faux select boxes two addons.<br>
