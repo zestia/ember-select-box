@@ -456,6 +456,8 @@ Does _not_ render the user's selected option automatically, but rather just prov
   </table>
 </details>
 
+<hr>
+
 #### Selected options
 
 ```handlebars
