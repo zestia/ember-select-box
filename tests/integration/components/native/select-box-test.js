@@ -279,5 +279,43 @@ test('options with no label', function(assert) {
 });
 
 
+test('manual selection (initial value)', function(assert) {
+  assert.expect(1);
 
+  this.set('barSelected', true);
+
+  this.render(hbs`
+    {{#select-box/native value='baz' as |sb|}}
+      {{sb.option value='foo' selected=false}}
+      {{sb.option value='bar' selected=true}}
+      {{sb.option value='baz' selected=false}}
+    {{/select-box/native}}
+  `);
+
+  assert.equal(this.$('.select-box').val(), 'bar',
+    'manually selected values take priority over the initial value');
+});
+
+
+test('manual selection (multiple values)', function(assert) {
+  assert.expect(2);
+
+  this.set('barSelected', true);
+
+  this.render(hbs`
+    {{#select-box/native multiple=true as |sb|}}
+      {{sb.option value='foo'}}
+      {{sb.option value='bar' selected=barSelected}}
+      {{sb.option value='baz' selected=bazSelected}}
+    {{/select-box/native}}
+  `);
+
+  assert.deepEqual(this.$('.select-box').val(), ['bar'],
+    'can manually specify a selected value');
+
+  this.set('bazSelected', true);
+
+  assert.deepEqual(this.$('.select-box').val(), ['bar', 'baz'],
+    'can manually select multiple values');
+});
 

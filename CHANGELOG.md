@@ -1,5 +1,9 @@
 # Changelog
 
+0.2.1
+
+* Adds ability to set `selected` attribute of options
+
 0.1.18
 
 * Upgrade ember-cli

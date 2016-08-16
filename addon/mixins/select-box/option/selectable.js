@@ -5,17 +5,26 @@ import { A as emberA } from 'ember-array/utils';
 export default Mixin.create({
   didReceiveAttrs() {
     this._super(...arguments);
-    this.set('isMultiple', this.getAttr('-multiple'));
+    this.set('manualSelection', this.getAttr('selected'));
     this.set('selectedValue', this.getAttr('-selected-value'));
+    this.set('isMultiple', this.getAttr('-multiple'));
   },
 
-  isSelected: computed('value', 'selectedValue', 'isMultiple', function() {
-    if (this.get('isMultiple')) {
-      return emberA(this.get('selectedValue')).contains(this.get('value'));
-    } else {
-      return this.get('value') === this.get('selectedValue');
+  isSelected: computed(
+    'value',
+    'selectedValue',
+    'isMultiple',
+    'manualSelection',
+    function() {
+      if (this.get('manualSelection') !== undefined) {
+        return this.get('manualSelection');
+      } else if (this.get('isMultiple')) {
+        return emberA(this.get('selectedValue')).contains(this.get('value'));
+      } else {
+        return this.get('value') === this.get('selectedValue');
+      }
     }
-  }),
+  ),
 
   actions: {
     select() {

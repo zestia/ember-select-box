@@ -202,4 +202,39 @@ test('selecting via the api', function(assert) {
 });
 
 
+test('manual selection', function(assert) {
+  assert.expect(3);
+
+  this.render(hbs`
+    {{#select-box value='baz' as |sb|}}
+      {{sb.option value='foo'}}
+      {{sb.option value='bar' selected=true}}
+      {{sb.option value='baz' selected=false}}
+    {{/select-box}}
+  `);
+
+  let $bar = this.$(".select-box-option:contains('bar')");
+  let $baz = this.$(".select-box-option:contains('baz')");
+
+  assert.ok($bar.hasClass('is-selected'),
+    'manually selected options are selected');
+
+  assert.ok(!$baz.hasClass('is-selected'),
+    'initially selected options are not selected if manually overridden');
+
+  this.set('barSelected', true);
+
+  this.render(hbs`
+    {{#select-box as |sb|}}
+      {{sb.option value='foo'}}
+      {{sb.option value='bar' selected=barSelected}}
+      {{sb.option value='baz'}}
+    {{/select-box}}
+  `);
+
+  this.set('barSelected', false);
+
+  assert.equal(this.$('.select-box-option.is-selected').length, 0,
+    'can manually deselect an option');
+});
 
