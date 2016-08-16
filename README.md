@@ -18,7 +18,7 @@ This addon does less, and gives you the primitives to easily _compose your own_.
 * [FAQ](#faq)
 
 
-## Installation
+### Installation
 
 ```
 ember install ember-select-box
