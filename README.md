@@ -194,7 +194,7 @@ ember install ember-select-box
     </tr>
     <tr>
       <td>sb.search</td>
-      <td>Runs an arbitrary search using the search function provided by `on-search</td>
+      <td>Runs an arbitrary search using the search function provided by `on-search`</td>
     </tr>
     <tr>
       <td>sb.stopSearching</td>
