@@ -8,6 +8,6 @@ export default Mixin.create({
     let suffix = this.get('classNameSuffix');
     let name   = className(prefix, suffix);
 
-    this.get('classNames').pushObject(name);
+    this.get('classNames').push(name);
   }
 });

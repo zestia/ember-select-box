@@ -1,5 +1,9 @@
 # Changelog
 
+0.2.3
+
+* Make compatible with Glimmer Alpha
+
 0.2.1
 
 * Adds ability to set `selected` attribute of options
