@@ -1,7 +1,5 @@
-{{#if selectedOptions.length}}
-  {{#each selectedOptions as |selected|}}
-    {{yield selected}}
-  {{/each}}
+{{#each selectedOptions as |selected|}}
+  {{yield selected}}
 {{else}}
   {{yield to="inverse"}}
-{{/if}}
+{{/each}}
