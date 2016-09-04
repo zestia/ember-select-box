@@ -1,5 +1,9 @@
 # Changelog
 
+1.0.0
+
+* Add title attribute to native select box
+
 0.2.3
 
 * Make compatible with Glimmer Alpha
