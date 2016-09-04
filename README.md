@@ -269,20 +269,40 @@ ember install ember-select-box
       <td>Used for manually selecting an option. (Most of the time you won't need to use this because the options automatically know whether or not they are selected based on the value attrbute set on the select box component itself)</td>
     </tr>
     <tr>
+      <td>name</td>
+      <td></td>
+    </tr>
+    <tr>
       <td>title</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>tabindex</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>disabled</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>size</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>tabindex</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>multiple</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>aria-label</td>
       <td></td>
     </tr>
     <tr>
       <td>style</td>
       <td></td>
-    </tr>
-    <tr>
-      <td>on-select</td>
-      <td>Useful for firing one-off actions when an option is selected</td>
-    </tr>
-    <tr>
-      <td>on-activate</td>
-      <td>Fired when an individual option is activated</td>
     </tr>
     <tr>
       <td>value</td>
@@ -291,6 +311,14 @@ ember install ember-select-box
     <tr>
       <td>label</td>
       <td>Used as the display text by default</td>
+    </tr>
+    <tr>
+      <td>on-select</td>
+      <td>Useful for firing one-off actions when an option is selected</td>
+    </tr>
+    <tr>
+      <td>on-activate</td>
+      <td>Fired when an individual option is activated</td>
     </tr>
   </table>
 </details>

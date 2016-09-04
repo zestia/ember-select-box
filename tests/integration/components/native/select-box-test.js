@@ -50,6 +50,16 @@ test('name', function(assert) {
 });
 
 
+test('title', function(assert) {
+  assert.expect(1);
+
+  this.render(hbs `{{select-box/native title='foo'}}`);
+
+  assert.equal(this.$('.select-box').attr('title'), 'foo',
+    'can set a title attribute');
+});
+
+
 test('aria label', function(assert) {
   assert.expect(1);
 

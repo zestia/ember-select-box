@@ -8,6 +8,7 @@ export default Component.extend(BaseSelectBox, {
   tagName: 'select',
   attributeBindings: [
     'name',
+    'title',
     'tabindex',
     'disabled',
     'size',
