@@ -68,12 +68,12 @@ test('aria selected', function(assert) {
     {{/select-box}}
   `);
 
-  assert.equal(this.$('.select-box-option[aria-selected="true"]').text(), 'One',
+  assert.equal(this.$('.select-box-option[aria-selected]').text(), 'One',
     'the selected option receives an aria selected attribute');
 
   this.set('value', 2);
 
-  assert.equal(this.$('.select-box-option[aria-selected="true"]').text(), 'Two',
+  assert.equal(this.$('.select-box-option[aria-selected]').text(), 'Two',
     'the aria selected attribute is redetermined when the value changes');
 });
 

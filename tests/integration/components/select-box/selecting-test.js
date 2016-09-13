@@ -45,11 +45,12 @@ test('changing the value attribute', function(assert) {
 test('click to select option', function(assert) {
   assert.expect(4);
 
+  let selectedValue;
+
   this.set('initialSelectedValue', null);
-  this.set('selectedValue', null);
 
   this.on('selected', (value) => {
-    this.set('selectedValue', value);
+    selectedValue = value;
   });
 
   this.render(hbs`
@@ -69,7 +70,7 @@ test('click to select option', function(assert) {
   assert.strictEqual(this.get('initialSelectedValue'), null,
     'does not mutate the initial selected value');
 
-  assert.equal(this.get('selectedValue'), 'foo',
+  assert.equal(selectedValue, 'foo',
     'sends an action with the selected value');
 
   assert.ok($foo.hasClass('is-selected'),
