@@ -35,7 +35,7 @@ test('mouseover activates options', function(assert) {
   assert.ok(id,
     'active option id is added to the options container');
 
-  assert.equal(this.$('.select-box-option[aria-current="true"]').text(), 'One',
+  assert.equal(this.$('.select-box-option[aria-current]').text(), 'One',
     'receives an aria current attribute when active');
 
   $two.trigger('mouseover');

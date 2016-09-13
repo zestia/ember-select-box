@@ -39,7 +39,7 @@ test('activating selected options', function(assert) {
   let [id] = $selectedOptions.attr('aria-activedescendant').match(/\d+/);
 
   assert.equal(
-    this.$('.select-box-selected-option[aria-current="true"]').text(), 'One',
+    this.$('.select-box-selected-option[aria-current]').text(), 'One',
     'receives an aria current attribute when active'
   );
 

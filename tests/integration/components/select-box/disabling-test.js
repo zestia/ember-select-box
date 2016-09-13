@@ -48,11 +48,11 @@ test('aria disabled', function(assert) {
 
   this.render(hbs `{{select-box disabled=disabled}}`);
 
-  assert.ok(this.$('.select-box').attr('aria-disabled'), 'true',
+  assert.ok(this.$('.select-box').get(0).hasAttribute('aria-disabled'),
     'receives an aria disabled attribute when disabled');
 
   this.set('disabled', false);
 
-  assert.ok(this.$('.select-box').attr('aria-disabled'), 'false',
+  assert.ok(!this.$('.select-box').get(0).hasAttribute('aria-disabled'),
     'aria disabled attribute is removed when enabled');
 });

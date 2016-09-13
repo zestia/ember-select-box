@@ -16,7 +16,7 @@ test('opening an closing', function(assert) {
   assert.ok(!$selectBox.hasClass('is-open'),
     'a select box is closed by default');
 
-  assert.strictEqual($selectBox.attr('aria-expanded'), undefined,
+  assert.ok(!$selectBox.get(0).hasAttribute('aria-expanded'),
     'not expanded by default');
 
   this.set('isOpen', true);
@@ -36,7 +36,7 @@ test('opening an closing', function(assert) {
   assert.ok(!$selectBox.hasClass('is-open'),
     'the open state can be changed via an is-open attribute');
 
-  assert.strictEqual($selectBox.attr('aria-expanded'), 'false',
+  assert.ok(!$selectBox.get(0).hasAttribute('aria-expanded'),
     'open state is reflected as aria expanded attribute');
 });
 
