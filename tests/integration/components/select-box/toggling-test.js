@@ -36,7 +36,7 @@ test('opening an closing', function(assert) {
   assert.ok(!$selectBox.hasClass('is-open'),
     'the open state can be changed via an is-open attribute');
 
-  assert.ok(!$selectBox.get(0).hasAttribute('aria-expanded'),
+  assert.strictEqual($selectBox.attr('aria-expanded'), 'false',
     'open state is reflected as aria expanded attribute');
 });
 
