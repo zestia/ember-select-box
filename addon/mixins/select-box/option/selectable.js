@@ -19,7 +19,7 @@ export default Mixin.create({
       if (this.get('manualSelection') !== undefined) {
         return this.get('manualSelection');
       } else if (this.get('isMultiple')) {
-        return emberA(this.get('selectedValue')).contains(this.get('value'));
+        return emberA(this.get('selectedValue')).includes(this.get('value'));
       } else {
         return this.get('value') === this.get('selectedValue');
       }
