@@ -1,11 +1,15 @@
 import Mixin from 'ember-metal/mixin';
+import { isPresent } from 'ember-utils';
 
 export default Mixin.create({
   isOpen: false,
 
   didReceiveAttrs() {
     this._super(...arguments);
-    this.set('isOpen', this.getAttr('is-open'));
+    let open = this.getAttr('is-open');
+    if (isPresent(open)) {
+      this.set('isOpen', open);
+    }
   },
 
   actions: {

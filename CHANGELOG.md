@@ -1,5 +1,9 @@
 # Changelog
 
+1.0.1
+
+* Bug fix `open` action not working in combination with `is-open` attr
+
 1.0.0
 
 * Add title attribute to native select box
