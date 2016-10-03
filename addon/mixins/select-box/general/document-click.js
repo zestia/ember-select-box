@@ -15,8 +15,8 @@ export default Mixin.create({
 
   didInsertElement() {
     this._super(...arguments);
-    this.$document.on(this.get('clickEventName'), args => {
-      run(this, 'clickDocument', args);
+    this.$document.on(this.get('clickEventName'), (...args) => {
+      run(this, 'clickDocument', ...args);
     });
   },
 
