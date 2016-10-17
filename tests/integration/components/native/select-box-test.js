@@ -70,6 +70,16 @@ test('aria label', function(assert) {
 });
 
 
+test('autofocus', function(assert) {
+  assert.expect(1);
+
+  this.render(hbs `{{select-box/native autofocus=true}}`);
+
+  assert.equal(this.$('.select-box').prop('autofocus'), true,
+    'can autofocus a native select box');
+});
+
+
 test('disabling', function(assert) {
   assert.expect(3);
 

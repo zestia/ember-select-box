@@ -13,6 +13,7 @@ export default Component.extend(BaseSelectBox, {
     'disabled',
     'size',
     'multiple',
+    'autofocus',
     'aria-label'
   ],
 
