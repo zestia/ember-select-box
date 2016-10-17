@@ -80,6 +80,16 @@ test('autofocus', function(assert) {
 });
 
 
+test('required', function(assert) {
+  assert.expect(1);
+
+  this.render(hbs `{{select-box/native required=true}}`);
+
+  assert.equal(this.$('.select-box').prop('required'), true,
+    'can set the required attribute');
+});
+
+
 test('disabling', function(assert) {
   assert.expect(3);
 

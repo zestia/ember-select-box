@@ -1,5 +1,9 @@
 # Changelog
 
+1.0.3
+
+* Add `required` attribute binding for native select box
+
 1.0.2
 
 * Add `autofocus` attribute binding for native select box

@@ -14,6 +14,7 @@ export default Component.extend(BaseSelectBox, {
     'size',
     'multiple',
     'autofocus',
+    'required',
     'aria-label'
   ],
 
