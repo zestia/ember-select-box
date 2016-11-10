@@ -7,7 +7,10 @@ export default Mixin.create({
     let prefix = this.getAttr('class-prefix') || this.get('classNamePrefix');
     let suffix = this.get('classNameSuffix');
     let name   = className(prefix, suffix);
+    let names  = this.get('classNames').slice();
 
-    this.get('classNames').push(name);
+    names.push(name);
+
+    this.set('classNames', names);
   }
 });

@@ -1,5 +1,9 @@
 # Changelog
 
+1.0.4
+
+* Fix adding class to `classNames` (which is frozen in future versions of Ember)
+
 1.0.3
 
 * Add `required` attribute binding for native select box
