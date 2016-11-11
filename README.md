@@ -12,7 +12,7 @@ This addon does less, and gives you the primitives to easily _compose your own_.
 
 
 * **[Ways to achieve what you want](#customising)**
-* <a href="http://andrewkirwin.me/ember-select-box/native-single-select" target="_blank">Demo of flexibility</a>
+* <a href="http://andrewkirwin.co.uk/ember-select-box/native-single-select" target="_blank">Demo of flexibility</a>
 * <a href="https://github.com/amk221/ember-select-box/tree/master/tests/dummy/app/components" target="_blank">Code for example scenarios</a>
 * [Things to note](#things-to-note)
 * [FAQ](#faq)
