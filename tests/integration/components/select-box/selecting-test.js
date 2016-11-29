@@ -241,31 +241,12 @@ test('manual selection', function(assert) {
 
 
 test('usage with mut helper', function(assert) {
-  assert.expect(4);
+  assert.expect(2);
 
   this.set('external', null);
 
-  this.on('updateExternal', value => {
-    this.set('external', value);
-  });
-
   this.render(hbs`
-    {{#select-box on-select=(action 'updateExternal') as |sb|}}
-      internal: {{sb.value}}
-      {{sb.option value='foo'}}
-      {{sb.option value='bar'}}
-    {{/select-box}}
-  `);
-
-  this.$('.select-box-option:contains("foo")').trigger('click');
-
-  assert.ok(this.$('.select-box').text().match('internal: foo'),
-    'sanity check, can be used with actions');
-
-  assert.equal(this.get('external'), 'foo',
-    'select action updated the value');
-
-  this.render(hbs`
+    external: {{external}}
     {{#select-box on-select=(action (mut external)) as |sb|}}
       internal: {{sb.value}}
       {{sb.option value='foo'}}
@@ -275,9 +256,9 @@ test('usage with mut helper', function(assert) {
 
   this.$('.select-box-option:contains("bar")').trigger('click');
 
-  assert.ok(this.$('.select-box').text().match('internal: bar'),
-    'can be used with the mut helper');
+  assert.ok(this.$().text().match('external: bar'),
+    'mut helper updates the external value');
 
-  assert.equal(this.get('external'), 'bar',
-    'mut helper updated the value');
+  assert.ok(this.$('.select-box').text().match('internal: bar'),
+    'internal value is updated (regression test)');
 });
