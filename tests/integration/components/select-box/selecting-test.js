@@ -238,3 +238,25 @@ test('manual selection', function(assert) {
   assert.equal(this.$('.select-box-option.is-selected').length, 0,
     'can manually deselect an option');
 });
+
+
+test('yielded selected value', function(assert) {
+  assert.expect(1);
+
+  this.on('doSomething', () => {});
+
+  this.render(hbs`
+    {{#select-box on-select=(action 'doSomething') as |sb|}}
+      selected value: {{sb.value}}
+      {{#sb.options}}
+        {{sb.option value='foo'}}
+        {{sb.option value='bar'}}
+      {{/sb.options}}
+    {{/select-box}}
+  `);
+
+  this.$('.select-box-option:contains("bar")').trigger('click');
+
+  assert.ok(this.$('.select-box').text().match('selected value: bar'),
+    'sanity check for internal selected value');
+});
