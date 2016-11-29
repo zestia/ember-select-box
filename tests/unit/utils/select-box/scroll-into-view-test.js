@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import scrollIntoView from 'ember-select-box/utils/select-box/scroll-into-view';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';

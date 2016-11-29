@@ -4,8 +4,8 @@ export default Mixin.create({
   didReceiveAttrs() {
     this._super(...arguments);
 
-    let tabIndex   = this.get('tabIndex');
-    let isDisabled = this.getAttr('disabled');
+    const isDisabled = this.getAttr('disabled');
+    let tabIndex = this.get('tabIndex');
 
     if (isDisabled) {
       tabIndex = -1;

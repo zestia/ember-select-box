@@ -9,7 +9,7 @@ moduleForComponent('', 'select-box (keyboard actions)', {
 });
 
 
-let templates = {
+const templates = {
    backspace: hbs`{{select-box on-press-backspace=(action 'ranAction')}}`,
    tab: hbs`{{select-box on-press-tab=(action 'ranAction')}}`,
    enter: hbs`{{select-box on-press-enter=(action 'ranAction')}}`,
@@ -21,10 +21,10 @@ let templates = {
 };
 
 
-keys(templates).forEach((key) => {
+keys(templates).forEach(key => {
 
-  let template = templates[key];
-  let actionName = `on-press-${key}`;
+  const template = templates[key];
+  const actionName = `on-press-${key}`;
 
   test(`${actionName} action`, function(assert) {
     assert.expect(2);
@@ -43,4 +43,3 @@ keys(templates).forEach((key) => {
   });
 
 });
-

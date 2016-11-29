@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import Controller from 'ember-controller';
 import computed from 'ember-computed';
 

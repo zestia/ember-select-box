@@ -7,10 +7,10 @@ const { RSVP } = Ember;
 
 export default Controller.extend({
   _findBread(query) {
-    let bread = emberA(breads).filter((bread) => {
+    const bread = emberA(breads).filter(bread => {
       return bread.name.toLowerCase().indexOf(query.toLowerCase()) >= 0;
     });
-    return new RSVP.Promise((resolve) => {
+    return new RSVP.Promise(resolve => {
       later(() => {
         resolve(bread);
       }, 2000);
@@ -19,7 +19,7 @@ export default Controller.extend({
 
   actions: {
     findBread(query) {
-      return this._findBread(query).then((breads) => {
+      return this._findBread(query).then(breads => {
         this.set('selectableBreads', breads);
         return breads;
       });

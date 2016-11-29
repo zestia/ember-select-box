@@ -154,8 +154,8 @@ test('changing the selected value', function(assert) {
     {{/select-box/native}}
   `);
 
-  let $foo = this.$(".select-box-option[value='foo']");
-  let $bar = this.$(".select-box-option[value='bar']");
+  const $foo = this.$(".select-box-option[value='foo']");
+  const $bar = this.$(".select-box-option[value='bar']");
 
   assert.ok($foo.is(':selected') && $bar.not(':selected'),
     'the option with the matching value is selected initially');
@@ -168,7 +168,7 @@ test('changing the selected value', function(assert) {
   this.set('selectedValue', null);
 
   assert.ok($foo.is(':selected') && $bar.not(':selected'),
-    "setting no value results in the first option being selected");
+    'setting no value results in the first option being selected');
 });
 
 
@@ -178,7 +178,7 @@ test('change event selects an option', function(assert) {
   this.set('initialSelectedValue', null);
   this.set('selectedValue', null);
 
-  this.on('selected', (value) => {
+  this.on('selected', value => {
     this.set('selectedValue', value);
   });
 
@@ -250,7 +250,7 @@ test('usage with unbound helper', function(assert) {
 test('multiple selection', function(assert) {
   assert.expect(2);
 
-  this.on('selected', (value) => {
+  this.on('selected', value => {
     assert.deepEqual(value, ['foo', 'bar'],
       'sends an action with the values of the selected options');
   });
@@ -276,7 +276,7 @@ test('selecting non primitives', function(assert) {
   this.set('foo', ['foo']);
   this.set('bar', { bar: 'baz' });
 
-  this.on('selected', (value) => {
+  this.on('selected', value => {
     assert.deepEqual(value, [['foo'], { bar: 'baz' }],
       'can select options with non primitive values');
   });
@@ -348,4 +348,3 @@ test('manual selection (multiple values)', function(assert) {
   assert.deepEqual(this.$('.select-box').val(), ['bar', 'baz'],
     'can manually select multiple values');
 });
-

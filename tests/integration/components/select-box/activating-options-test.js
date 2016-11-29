@@ -18,9 +18,9 @@ test('mouseover activates options', function(assert) {
     {{/select-box}}
   `);
 
-  let $options = this.$('.select-box-options');
-  let $one = this.$('.select-box-option:eq(0)');
-  let $two = this.$('.select-box-option:eq(1)');
+  const $options = this.$('.select-box-options');
+  const $one = this.$('.select-box-option:eq(0)');
+  const $two = this.$('.select-box-option:eq(1)');
 
   assert.equal(this.$('.select-box-option.is-active').length, 0,
     'precondition, there are no active options');
@@ -30,7 +30,7 @@ test('mouseover activates options', function(assert) {
   assert.ok($one.hasClass('is-active'),
     'mousing over an option gives it an active class name');
 
-  let [id] = $options.attr('aria-activedescendant').match(/\d+/);
+  const [id] = $options.attr('aria-activedescendant').match(/\d+/);
 
   assert.ok(id,
     'active option id is added to the options container');
@@ -40,7 +40,7 @@ test('mouseover activates options', function(assert) {
 
   $two.trigger('mouseover');
 
-  let [nextID] = $options.attr('aria-activedescendant').match(/\d+/);
+  const [nextID] = $options.attr('aria-activedescendant').match(/\d+/);
 
   assert.notEqual(id, nextID,
     'the active descendant is updated');

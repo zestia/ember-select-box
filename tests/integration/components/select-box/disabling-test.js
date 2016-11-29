@@ -9,7 +9,7 @@ moduleForComponent('', 'select-box (disabling)', {
 test('disabling and enabling', function(assert) {
   assert.expect(4);
 
-  let isDisabled = () => {
+  const isDisabled = () => {
     return this.$('.select-box').hasClass('is-disabled');
   };
 

@@ -10,7 +10,7 @@ moduleForComponent('', 'select-box (focusing)', {
 test('focus class name', function(assert) {
   assert.expect(3);
 
-  let isFocused = () => {
+  const isFocused = () => {
     return this.$('.select-box').hasClass('is-focused');
   };
 
@@ -69,7 +69,7 @@ test('focus actions', function(assert) {
 test('tabindex', function(assert) {
   assert.expect(4);
 
-  let tabindex = () => {
+  const tabindex = () => {
     return this.$('.select-box').attr('tabindex');
   };
 

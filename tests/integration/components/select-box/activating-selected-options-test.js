@@ -24,9 +24,9 @@ test('activating selected options', function(assert) {
     {{/select-box}}
   `);
 
-  let $selectedOptions = this.$('.select-box-selected-options');
-  let $one = this.$('.select-box-selected-option:eq(0)');
-  let $two = this.$('.select-box-selected-option:eq(1)');
+  const $selectedOptions = this.$('.select-box-selected-options');
+  const $one = this.$('.select-box-selected-option:eq(0)');
+  const $two = this.$('.select-box-selected-option:eq(1)');
 
   assert.equal(this.$('.select-box-selected-option.is-active').length, 0,
     'precondition, there are no active selected options');
@@ -36,7 +36,7 @@ test('activating selected options', function(assert) {
   assert.ok($one.hasClass('is-active'),
     'selected option gets an active class name');
 
-  let [id] = $selectedOptions.attr('aria-activedescendant').match(/\d+/);
+  const [id] = $selectedOptions.attr('aria-activedescendant').match(/\d+/);
 
   assert.equal(
     this.$('.select-box-selected-option[aria-current]').text(), 'One',
@@ -48,7 +48,7 @@ test('activating selected options', function(assert) {
 
   $two.trigger('click');
 
-  let [nextID] = $selectedOptions.attr('aria-activedescendant').match(/\d+/);
+  const [nextID] = $selectedOptions.attr('aria-activedescendant').match(/\d+/);
 
   assert.notEqual(id, nextID,
     'the active descendant is updated');

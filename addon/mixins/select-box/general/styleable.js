@@ -12,9 +12,11 @@ export default Mixin.create({
   },
 
   _updateStyle() {
-    let style = this.getAttr('style');
-    if (!style) { return; }
-    let css = htmlSafe(escapeExpression(style));
+    const style = this.getAttr('style');
+    if (!style) {
+      return;
+    }
+    const css = htmlSafe(escapeExpression(style));
     this.set('customCSS', css);
   }
 });

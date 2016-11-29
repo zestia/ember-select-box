@@ -7,7 +7,7 @@ export default Component.extend(
   BaseOption,
   Selectable, {
 
-  layout: layout,
+  layout,
   tagName: 'option',
   attributeBindings: ['isSelected:selected', 'value', 'disabled', 'title'],
   classNameSuffix: 'option'

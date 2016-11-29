@@ -11,7 +11,7 @@ export default Component.extend(
   Indexable,
   Activatable, {
 
-  layout: layout,
+  layout,
   classNameSuffix: 'selected-option',
   attributeBindings: ['title', 'isActive:aria-current'],
   classNameBindings: ['isActive']

@@ -13,7 +13,7 @@ export default Component.extend(
   Indexable,
   Activatable, {
 
-  layout: layout,
+  layout,
   classNameSuffix: 'option',
   ariaRole: 'option',
   attributeBindings: [

@@ -5,13 +5,13 @@ import { later, next } from 'ember-runloop';
 import Ember from 'ember';
 const { RSVP } = Ember;
 
-let resolveIn = (ms, payload) => {
-  return new RSVP.Promise((resolve) => {
+function resolveIn(ms, payload) {
+  return new RSVP.Promise(resolve => {
     later(() => {
       resolve(payload);
     }, ms);
   });
-};
+}
 
 
 moduleForComponent('', 'select-box (searching)', {
@@ -61,7 +61,7 @@ test('searching (promise)', function(assert) {
 test('searching (success)', function(assert) {
   assert.expect(2);
 
-  this.on('findItems', (query) => {
+  this.on('findItems', query => {
     if (query === 'first') {
       return resolveIn(300, [query]);
     } else if (query === 'second') {
@@ -148,12 +148,12 @@ test('searching (failure)', function(assert) {
 test('searching progress', function(assert) {
   assert.expect(3);
 
-  let isSearching = () => {
+  const isSearching = () => {
     return !!this.$('.select-box').text().match('Searching: true');
   };
 
   this.on('findItems', () => {
-    return new RSVP.Promise((resolve) => {
+    return new RSVP.Promise(resolve => {
       later(resolve, 100);
     });
   });
@@ -195,7 +195,7 @@ test('default search delay', function(assert) {
     return RSVP.resolve(['foo']);
   });
 
-  this.on('foundItems', (items) => {
+  this.on('foundItems', items => {
     this.set('items', items);
   });
 
@@ -213,10 +213,10 @@ test('default search delay', function(assert) {
   assert.ok(!this.$('.select-box').text().match('foo'),
     'precondition, the search has not run yet');
 
-  let start = Date.now();
+  const start = Date.now();
 
   return wait().then(() => {
-    assert.ok((Date.now() - start) >= 100,
+    assert.ok(Date.now() - start >= 100,
       "a search won't start until after 100 milliseconds");
 
     assert.ok(this.$('.select-box').text().match('foo'),
@@ -232,7 +232,7 @@ test('custom search delay', function(assert) {
     return RSVP.resolve(['foo']);
   });
 
-  this.on('foundItems', (items) => {
+  this.on('foundItems', items => {
     this.set('items', items);
   });
 
@@ -248,10 +248,10 @@ test('custom search delay', function(assert) {
 
   this.$('.select-box-input').val('foo').trigger('input');
 
-  let start = Date.now();
+  const start = Date.now();
 
   return wait().then(() => {
-    assert.ok((Date.now() - start) >= 200,
+    assert.ok(Date.now() - start >= 200,
       "a search won't run until after the specified delay time");
 
     assert.ok(this.$('.select-box').text().match('foo'),
@@ -263,12 +263,12 @@ test('custom search delay', function(assert) {
 test('search slow time', function(assert) {
   assert.expect(3);
 
-  let isSlow = () => {
+  const isSlow = () => {
     return this.$('.select-box').text().match('Slow: true');
   };
 
   this.on('findItems', () => {
-    return new RSVP.Promise((resolve) => {
+    return new RSVP.Promise(resolve => {
       later(resolve, 100);
     });
   });
@@ -306,7 +306,7 @@ test('search slow time', function(assert) {
 test('query is trimmed', function(assert) {
   assert.expect(1);
 
-  this.on('findItems', (query) => {
+  this.on('findItems', query => {
     assert.equal(query, 'foo',
       'whitespace is trimmed from the query');
 
@@ -335,7 +335,7 @@ test('default min chars', function(assert) {
     return RSVP.resolve();
   });
 
-  let input = (chars) => {
+  const input = chars => {
     this.$('.select-box-input').val(chars).trigger('input');
   };
 
@@ -385,7 +385,7 @@ test('custom min chars', function(assert) {
 test('manually running a search', function(assert) {
   assert.expect(1);
 
-  this.on('findItems', (value) => {
+  this.on('findItems', value => {
     assert.strictEqual(value, '',
       'can run a search manually even if min chars is specified');
 
@@ -408,7 +408,7 @@ test('destroying mid-search', function(assert) {
   this.set('display', true);
 
   this.on('findItems', () => {
-    return new RSVP.Promise((resolve) => {
+    return new RSVP.Promise(resolve => {
       later(resolve, 200);
     });
   });
@@ -437,7 +437,7 @@ test('destroying mid-search', function(assert) {
 test('set input value', function(assert) {
   assert.expect(2);
 
-  this.on('inputted', (value) => {
+  this.on('inputted', value => {
     assert.ok(value, true,
       'using the api to update the input does not trigger an input event' +
       '(that is likely to cause recursive searches in most scenarios)');
@@ -450,7 +450,7 @@ test('set input value', function(assert) {
     {{/select-box}}
   `);
 
-  let $input = this.$('.select-box-input');
+  const $input = this.$('.select-box-input');
 
   assert.equal($input.val(), 'foo',
     'precondition, has a value');
@@ -483,8 +483,8 @@ test('stopping searching', function(assert) {
     {{/select-box}}
   `);
 
-  let $selectBox = this.$('.select-box');
-  let $input = this.$('.select-box-input');
+  const $selectBox = this.$('.select-box');
+  const $input = this.$('.select-box-input');
 
   $input.val('foo').trigger('input');
 

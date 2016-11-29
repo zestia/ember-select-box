@@ -1,7 +1,5 @@
 import Mixin from 'ember-metal/mixin';
-import Ember from 'ember';
 import { scheduleOnce } from 'ember-runloop';
-const { K } = Ember;
 
 export default Mixin.create({
   _overrideTabIndex() {
@@ -9,7 +7,7 @@ export default Mixin.create({
   },
 
   actions: {
-    inputText: K,
+    inputText() {},
 
     _registerInput() {
       this._super(...arguments);

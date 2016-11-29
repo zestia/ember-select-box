@@ -15,7 +15,7 @@ export default Controller.extend({
   },
 
   _findTags(query) {
-    let tags = emberA(this.get('selectedTags').filter((tag) => {
+    const tags = emberA(this.get('selectedTags').filter(tag => {
       return tag.name.toLowerCase().indexOf(query.toLowerCase()) >= 0;
     }));
     return RSVP.resolve(tags.mapBy('name'));
@@ -27,20 +27,20 @@ export default Controller.extend({
     },
 
     tag(name) {
-      let selectedTags = this.get('selectedTags');
+      const selectedTags = this.get('selectedTags');
       let tag = selectedTags.findBy('name', name);
       if (!tag) {
         tag = {
           id: this.get('maxTagID') + 1,
-          name: name
+          name
         };
       }
       selectedTags.addObject(tag);
     },
 
     detag(name) {
-      let selectedTags = this.get('selectedTags');
-      let tag = selectedTags.findBy('name', name);
+      const selectedTags = this.get('selectedTags');
+      const tag = selectedTags.findBy('name', name);
       if (tag) {
         selectedTags.removeObject(tag);
       }

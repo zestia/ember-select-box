@@ -9,8 +9,8 @@ export default Mixin.create(
 
   didReceiveAttrs() {
     this._super(...arguments);
-    let label = this.getAttr('label');
-    let value = this.getAttr('value');
+    const value = this.getAttr('value');
+    let label   = this.getAttr('label');
 
     if (isBlank(label)) {
       label = value;

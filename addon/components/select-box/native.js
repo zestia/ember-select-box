@@ -4,7 +4,7 @@ import layout from '../../templates/components/select-box/native';
 import { A as emberA } from 'ember-array/utils';
 
 export default Component.extend(BaseSelectBox, {
-  layout: layout,
+  layout,
   tagName: 'select',
   attributeBindings: [
     'name',
@@ -19,7 +19,7 @@ export default Component.extend(BaseSelectBox, {
   ],
 
   change() {
-    let options = this._getSelectedOptions();
+    const options = this._getSelectedOptions();
 
     if (this.getAttr('multiple')) {
       this.send('select', options.mapBy('value'));
@@ -29,7 +29,7 @@ export default Component.extend(BaseSelectBox, {
   },
 
   _getSelectedOptions() {
-    return emberA(this.get('options').filter((option) => {
+    return emberA(this.get('options').filter(option => {
       return option.$().is(':selected');
     }));
   }

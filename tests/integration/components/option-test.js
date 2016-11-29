@@ -81,10 +81,10 @@ test('aria selected', function(assert) {
 test('yield', function(assert) {
   assert.expect(1);
 
-  let foo = { myValue: 'foo', myLabel: 'Foo' };
-  let bar = { myValue: 'bar', myLabel: 'Bar' };
-  let baz = { myValue: 'baz', myLabel: 'Baz' };
-  let qux = { myValue: 'qux', myLabel: 'Qux' };
+  const foo = { myValue: 'foo', myLabel: 'Foo' };
+  const bar = { myValue: 'bar', myLabel: 'Bar' };
+  const baz = { myValue: 'baz', myLabel: 'Baz' };
+  const qux = { myValue: 'qux', myLabel: 'Qux' };
 
   this.set('group1', [foo, bar]);
   this.set('group2', [baz, qux]);

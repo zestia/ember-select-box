@@ -52,6 +52,6 @@ test('options', function(assert) {
     {{/select-box/group}}
   `);
 
-  assert.equal(this.$(".select-box-group-options .select-box-option").length, 1,
+  assert.equal(this.$('.select-box-group-options .select-box-option').length, 1,
     'can display options inside the group');
 });

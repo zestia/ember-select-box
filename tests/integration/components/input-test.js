@@ -39,7 +39,7 @@ test('type', function(assert) {
   this.render(hbs `{{select-box/input type='email'}}`);
 
   assert.equal(this.$('.select-box-input').attr('type'), 'email',
-    "can change the type of the select box input");
+    'can change the type of the select box input');
 });
 
 
@@ -100,7 +100,7 @@ test('value', function(assert) {
 
   this.render(hbs `{{select-box/input value=myValue}}`);
 
-  let $input = this.$('.select-box-input');
+  const $input = this.$('.select-box-input');
 
   assert.equal($input.val(), 'foo',
     'can specify the initial value');
@@ -141,7 +141,7 @@ test('inputting', function(assert) {
 test('on-clear action', function(assert) {
   assert.expect(1);
 
-  this.on('cleared', (sb) => {
+  this.on('cleared', sb => {
     assert.ok(typeof sb === 'object',
       'clearing the input value sends an action with the select box api');
   });
@@ -161,7 +161,7 @@ test('on-delete action', function(assert) {
 
   let count = 0;
 
-  this.on('deleted', (sb) => {
+  this.on('deleted', sb => {
     count++;
 
     assert.ok(typeof sb === 'object',
@@ -174,7 +174,7 @@ test('on-delete action', function(assert) {
     {{/select-box}}
   `);
 
-  let $input = this.$('.select-box-input');
+  const $input = this.$('.select-box-input');
 
   $input
     .val('x')
@@ -185,4 +185,3 @@ test('on-delete action', function(assert) {
   assert.equal(count, 1,
     'delete action is only fired when value is blank & backspace is pressed');
 });
-

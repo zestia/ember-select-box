@@ -10,7 +10,8 @@ export default Mixin.create({
 
   init() {
     this._super(...arguments);
-    this.set('clickEventName', 'click.' + guidFor(this));
+    const guid = guidFor(this);
+    this.set('clickEventName', `click.${guid}`);
   },
 
   didInsertElement() {

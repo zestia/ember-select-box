@@ -24,8 +24,8 @@ test('changing the value attribute', function(assert) {
     {{/select-box}}
   `);
 
-  let $foo = this.$(".select-box-option:contains('Foo')");
-  let $bar = this.$(".select-box-option:contains('Bar')");
+  const $foo = this.$(".select-box-option:contains('Foo')");
+  const $bar = this.$(".select-box-option:contains('Bar')");
 
   assert.ok($foo.hasClass('is-selected') && !$bar.hasClass('is-selected'),
     'the option with the matching value is marked selected');
@@ -38,7 +38,7 @@ test('changing the value attribute', function(assert) {
   this.set('selectedValue', null);
 
   assert.ok(!$foo.hasClass('is-selected') && !$bar.hasClass('is-selected'),
-    "setting no value does not result in the first option being selected");
+    'setting no value does not result in the first option being selected');
 });
 
 
@@ -49,7 +49,7 @@ test('click to select option', function(assert) {
 
   this.set('initialSelectedValue', null);
 
-  this.on('selected', (value) => {
+  this.on('selected', value => {
     selectedValue = value;
   });
 
@@ -62,8 +62,8 @@ test('click to select option', function(assert) {
     {{/select-box}}
   `);
 
-  let $foo = this.$('.select-box-option:eq(0)');
-  let $bar = this.$('.select-box-option:eq(1)');
+  const $foo = this.$('.select-box-option:eq(0)');
+  const $bar = this.$('.select-box-option:eq(1)');
 
   $foo.trigger('click');
 
@@ -94,8 +94,8 @@ test('selecting more than 1 of the same value', function(assert) {
     {{/select-box}}
   `);
 
-  let $one = this.$('.select-box-option:eq(1)');
-  let $two = this.$('.select-box-option:eq(2)');
+  const $one = this.$('.select-box-option:eq(1)');
+  const $two = this.$('.select-box-option:eq(2)');
 
   $one.trigger('click');
 
@@ -109,7 +109,7 @@ test('selecting more than 1 of the same value', function(assert) {
 test('selecting multiple options', function(assert) {
   assert.expect(2);
 
-  this.on('selected', (value) => {
+  this.on('selected', value => {
     this.set('selectedValue', value);
   });
 
@@ -120,8 +120,8 @@ test('selecting multiple options', function(assert) {
     {{/select-box}}
   `);
 
-  let $one = this.$('.select-box-option:eq(0)');
-  let $two = this.$('.select-box-option:eq(1)');
+  const $one = this.$('.select-box-option:eq(0)');
+  const $two = this.$('.select-box-option:eq(1)');
 
   $one.trigger('click');
 
@@ -139,12 +139,12 @@ test('selecting multiple options', function(assert) {
 test('press enter to select active option', function(assert) {
   assert.expect(2);
 
-  this.on('selected', (value) => {
+  this.on('selected', value => {
     assert.equal(value, 'bar',
       'the select box acknowledges the selection');
   });
 
-  this.on('selectedBar', (value) => {
+  this.on('selectedBar', value => {
     assert.equal(value, 'bar',
       'the selected option acknowledges the selection');
   });
@@ -180,7 +180,7 @@ test('options with no label', function(assert) {
 test('selecting via the api', function(assert) {
   assert.expect(1);
 
-  this.on('selected', (value) => {
+  this.on('selected', value => {
     assert.equal(value, 'foo',
       'the select box acknowledges the selection');
   });
@@ -214,8 +214,8 @@ test('manual selection', function(assert) {
     {{/select-box}}
   `);
 
-  let $bar = this.$(".select-box-option:contains('bar')");
-  let $baz = this.$(".select-box-option:contains('baz')");
+  const $bar = this.$(".select-box-option:contains('bar')");
+  const $baz = this.$(".select-box-option:contains('baz')");
 
   assert.ok($bar.hasClass('is-selected'),
     'manually selected options are selected');
@@ -238,4 +238,3 @@ test('manual selection', function(assert) {
   assert.equal(this.$('.select-box-option.is-selected').length, 0,
     'can manually deselect an option');
 });
-

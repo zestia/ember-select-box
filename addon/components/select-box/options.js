@@ -9,7 +9,7 @@ export default Component.extend(
   Styleable,
   Registerable, {
 
-  layout: layout,
+  layout,
   classNameSuffix: 'options',
   attributeBindings: ['aria-activedescendant']
 });

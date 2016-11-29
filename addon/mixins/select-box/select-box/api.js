@@ -4,7 +4,7 @@ import { bind } from 'ember-runloop';
 
 export default Mixin.create({
   api: computed(function() {
-    let expose = {};
+    const expose = {};
     [
       'open',
       'close',
@@ -24,7 +24,7 @@ export default Mixin.create({
       'activateNextSelectedOption',
       'activatePreviousSelectedOption',
       'deactivateSelectedOptions'
-    ].forEach((actionName) => {
+    ].forEach(actionName => {
       expose[actionName] = bind(this, this.get(`actions.${actionName}`));
     });
     return expose;

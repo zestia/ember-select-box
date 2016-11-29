@@ -2,7 +2,7 @@ import Component from 'ember-component';
 import layout from '../templates/components/tag-select';
 
 export default Component.extend({
-  layout: layout,
+  layout,
   tagName: '',
 
   actions: {
@@ -19,7 +19,7 @@ export default Component.extend({
       sb.close();
     },
     updateAvailableTags(search, query) {
-      return search(query).then((tags) => {
+      return search(query).then(tags => {
         this.set('availableTags', tags);
         this.set('newTag', query);
       });

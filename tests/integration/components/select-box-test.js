@@ -49,7 +49,7 @@ test('class prefix attr', function(assert) {
 test('extending with class prefix', function(assert) {
   assert.expect(1);
 
-  let FooSelectBox = SelectBox.extend({
+  const FooSelectBox = SelectBox.extend({
     classNamePrefix: 'foo'
   });
 
@@ -75,7 +75,7 @@ test('aria role', function(assert) {
 test('initial update action', function(assert) {
   assert.expect(1);
 
-  this.on('updated', (value) => {
+  this.on('updated', value => {
     assert.strictEqual(value, undefined,
       'fires an initial update action with the selected value');
   });
@@ -91,7 +91,7 @@ test('subsequent update actions', function(assert) {
 
   this.set('selectedValue', 'foo');
 
-  this.on('updated', (value) => {
+  this.on('updated', value => {
     count++;
     if (count === 2) {
       assert.strictEqual(value, 'bar',

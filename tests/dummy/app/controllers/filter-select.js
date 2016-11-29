@@ -10,14 +10,14 @@ export default Controller.extend({
   },
 
   _filterPies(query) {
-    return RSVP.resolve(emberA(pies).filter((pie) => {
+    return RSVP.resolve(emberA(pies).filter(pie => {
       return pie.name.toLowerCase().indexOf(query.toLowerCase()) >= 0;
     }));
   },
 
   actions: {
     filterPies(query) {
-      return this._filterPies(query).then((pies) => {
+      return this._filterPies(query).then(pies => {
         this.set('selectablePies', pies);
         return pies;
       });

@@ -20,17 +20,21 @@ export default Mixin.create({
   },
 
   _keyPressAction(e) {
-    let key = keys[e.which];
-    if (!key) { return; }
-    let actionName = `on-press-${key}`;
+    const key = keys[e.which];
+    if (!key) {
+      return;
+    }
+    const actionName = `on-press-${key}`;
     this.sendAction(actionName, e, this.get('api'));
   },
 
   _keyPressMethod(e) {
-    let key = capitalize(keys[e.which] || '');
-    if (!key) { return; }
-    let methodName = `press${key}`;
-    let func = this[methodName];
+    const key = capitalize(keys[e.which] || '');
+    if (!key) {
+      return;
+    }
+    const methodName = `press${key}`;
+    const func = this[methodName];
     if (typeof func === 'function') {
       func.apply(this, arguments);
     }

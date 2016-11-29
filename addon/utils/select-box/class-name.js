@@ -1,7 +1,7 @@
 export default function className(prefix, suffix) {
 
-  let name = prefix || 'select-box';
-  let array = [name];
+  const name = prefix || 'select-box';
+  const array = [name];
 
   if (suffix) {
     array.push(suffix);

@@ -14,7 +14,7 @@ test('api', function(assert) {
 
   run(() => selectBox = this.subject());
 
-  let functions = keys(selectBox.get('api'));
+  const functions = keys(selectBox.get('api'));
 
   assert.deepEqual(functions, [
     'open',
@@ -37,4 +37,3 @@ test('api', function(assert) {
     'deactivateSelectedOptions'
   ]);
 });
-

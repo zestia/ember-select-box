@@ -2,7 +2,7 @@ import Component from 'ember-component';
 import layout from '../templates/components/native-simple-select';
 
 export default Component.extend({
-  layout: layout,
+  layout,
   classNames: ['native-simple-select'],
   classNameBindings: ['isFocused'],
 

@@ -21,7 +21,7 @@ export default Component.extend(
 
   input() {
     this._super(...arguments);
-    let value = this.$().val();
+    const value = this.$().val();
     if (!value) {
       this.sendAction('on-clear', this.getAttr('-api'));
     }

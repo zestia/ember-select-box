@@ -3,9 +3,9 @@ import layout from '../templates/components/colour-select';
 import { colours } from '../utils/dummy-data';
 
 export default Component.extend({
-  layout: layout,
+  layout,
   tagName: '',
-  colours: colours,
+  colours,
 
   actions: {
     close(e, sb) {

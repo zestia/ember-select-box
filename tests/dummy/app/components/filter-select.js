@@ -3,7 +3,7 @@ import layout from '../templates/components/filter-select';
 import get from 'ember-metal/get';
 
 export default Component.extend({
-  layout: layout,
+  layout,
   tagName: '',
 
   actions: {

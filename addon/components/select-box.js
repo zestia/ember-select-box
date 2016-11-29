@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 import Component from 'ember-component';
 import layout from '../templates/components/select-box';
 import BaseSelectBox from '../mixins/select-box/base';
@@ -35,7 +37,7 @@ export default Component.extend(
   SelectActiveOption,
   SelectActiveOptionOnEnter, {
 
-  layout: layout,
+  layout,
   ariaRole: 'listbox',
   attributeBindings: [
     'aria-label',

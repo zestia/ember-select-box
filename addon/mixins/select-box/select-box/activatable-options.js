@@ -9,8 +9,8 @@ export default Mixin.create({
   },
 
   _activateOptionAtIndex(index, scroll) {
-    let under = index < 0;
-    let over  = index > this.get('options.length') - 1;
+    const under = index < 0;
+    const over  = index > this.get('options.length') - 1;
     if (!(under || over)) {
       this.set('activeOptionIndex', index);
       this._activatedOption();
@@ -21,7 +21,7 @@ export default Mixin.create({
   },
 
   _activatedOption() {
-    let activeOption = this.get('activeOption');
+    const activeOption = this.get('activeOption');
     if (activeOption) {
       activeOption.send('_activate');
     }
@@ -47,11 +47,11 @@ export default Mixin.create({
       this._activateOptionAtIndex(index, scroll);
     },
     activateNextOption(scroll) {
-      let next = this.get('activeOptionIndex') + 1;
+      const next = this.get('activeOptionIndex') + 1;
       this._activateOptionAtIndex(next, scroll);
     },
     activatePreviousOption(scroll) {
-      let prev = this.get('activeOptionIndex') - 1;
+      const prev = this.get('activeOptionIndex') - 1;
       this._activateOptionAtIndex(prev, scroll);
     },
     deactivateOptions() {

@@ -10,21 +10,22 @@ moduleForComponent('select-box', 'select-box (keyboard methods)', {
 });
 
 
-keys(events).forEach((key) => {
+keys(events).forEach(key => {
 
-  let methodName = 'press' + capitalize(key);
+  const keyName    = capitalize(key);
+  const methodName = `press${keyName}`;
 
   test(`${methodName} method`, function(assert) {
     assert.expect(1);
 
     run(() => {
-      let options = {};
-      options[methodName] = (e) => {
+      const options = {};
+      options[methodName] = e => {
         assert.ok(e instanceof jQuery.Event,
-          'calls a method relating to the key pressed for ' + key);
+          `calls a method relating to the key pressed for ${key}`);
       };
 
-      let selectBox = this.subject(options);
+      const selectBox = this.subject(options);
       this.render();
 
       selectBox.$().trigger(events[key]());
@@ -32,4 +33,3 @@ keys(events).forEach((key) => {
   });
 
 });
-
