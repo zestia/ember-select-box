@@ -1,5 +1,9 @@
 # Changelog
 
+1.0.5
+
+* Update for Glimmer 2 compat
+
 1.0.4
 
 * Fix adding class to `classNames` (which is frozen in future versions of Ember)
