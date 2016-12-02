@@ -2,7 +2,7 @@
 
 1.0.6
 
-* Add's support for plain <options> on native select. [Read more](README.md#native-select-box-info)
+* Add support for plain `<option>`'s on native select. [Read more](README.md#native-select-box-info)
 
 1.0.5
 
