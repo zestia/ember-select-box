@@ -613,7 +613,7 @@ ember-select-box works well with <a href="https://github.com/yapplabs/ember-worm
 
 Rendering lots of components in Ember can be slow. If your select box only
 uses primitive values, you do not need to use `{{sb.option}}`, instead you can
-use a plain old `<option>` element.
+use a plain old `<option>` element [[Example](test/dummy/app/templates/fast-native-single-select.hbs)].
 
 <hr>
 
