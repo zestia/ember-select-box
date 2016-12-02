@@ -394,3 +394,23 @@ test('non-component options (multiple)', function(assert) {
   this.$('option').prop('selected', true);
   this.$('.select-box').trigger('change');
 });
+
+
+test('non-component options (mixed)', function(assert) {
+  assert.expect(1);
+
+  this.on('selected', values => {
+    assert.deepEqual(values, ['foo'],
+      'non-component options are ignored if option components are registered');
+  });
+
+  this.render(hbs`
+    {{#select-box/native multiple=true on-select=(action 'selected') as |sb|}}
+      {{sb.option value="foo"}}
+      <option value="bar"></option>
+    {{/select-box/native}}
+  `);
+
+  this.$('option').prop('selected', true);
+  this.$('.select-box').trigger('change');
+});
