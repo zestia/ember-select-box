@@ -371,8 +371,7 @@ test('non-component options (single)', function(assert) {
   assert.equal(this.$('option:eq(0)').attr('value'), '[object Object]',
     'non primitive values are stringified');
 
-  this.$('option:eq(1)').prop('selected', true);
-  this.$('.select-box').trigger('change');
+  this.$('.select-box').val('123').trigger('change');
 });
 
 
@@ -391,8 +390,7 @@ test('non-component options (multiple)', function(assert) {
     {{/select-box/native}}
   `);
 
-  this.$('option').prop('selected', true);
-  this.$('.select-box').trigger('change');
+  this.$('.select-box').val(['Hello', 'World']).trigger('change');
 });
 
 
@@ -411,6 +409,5 @@ test('non-component options (mixed)', function(assert) {
     {{/select-box/native}}
   `);
 
-  this.$('option').prop('selected', true);
-  this.$('.select-box').trigger('change');
+  this.$('.select-box').val(['foo', 'bar']).trigger('change');
 });
