@@ -27,6 +27,7 @@ ember install ember-select-box
 <hr>
 
 #### Native select box
+[Read more](#native-select-box-info)
 
 ```handlebars
 {{#select-box/native as |sb|}}
@@ -607,6 +608,12 @@ ember-select-box works well with <a href="https://github.com/yapplabs/ember-worm
   {{/ember-wormhole}}
 {{/select-box}}
 ```
+
+### Native Select Box info
+
+Rendering lots of components in Ember can be slow. If your select box only
+uses primitive values, you do not need to use `{{sb.option}}`, instead you can
+use a plain old `<option>` element.
 
 <hr>
 

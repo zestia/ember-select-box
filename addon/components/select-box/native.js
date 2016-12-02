@@ -1,6 +1,7 @@
 import Component from 'ember-component';
 import BaseSelectBox from '../../mixins/select-box/base';
 import layout from '../../templates/components/select-box/native';
+import jQuery from 'jquery';
 import { A as emberA } from 'ember-array/utils';
 
 export default Component.extend(BaseSelectBox, {
@@ -19,18 +20,33 @@ export default Component.extend(BaseSelectBox, {
   ],
 
   change() {
-    const options = this._getSelectedOptions();
+    const registeredSelected   = this._getRegisteredSelectedValues();
+    const unregisteredSelected = this._getUnregisteredSelectedValues();
+
+    let selectedValues;
+
+    if (registeredSelected.length > 0) {
+      selectedValues = registeredSelected;
+    } else {
+      selectedValues = unregisteredSelected;
+    }
 
     if (this.getAttr('multiple')) {
-      this.send('select', options.mapBy('value'));
+      this.send('select', selectedValues);
     } else {
-      this.send('select', options.get('firstObject.value'));
+      this.send('select', selectedValues[0]);
     }
   },
 
-  _getSelectedOptions() {
-    return emberA(this.get('options').filter(option => {
-      return option.$().is(':selected');
-    }));
+  _getRegisteredSelectedValues() {
+    return emberA(this.get('options')
+      .filter(option => option.$().is(':selected'))
+      .map(option => option.get('value')));
+  },
+
+  _getUnregisteredSelectedValues() {
+    return emberA(this.$('option:selected')
+      .map((index, option) => jQuery(option).attr('value'))
+      .toArray());
   }
 });

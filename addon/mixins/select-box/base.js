@@ -10,6 +10,8 @@ export default Mixin.create(
   HasOptions,
   Focusable, {
 
+  api: null,
+
   init() {
     this._super(...arguments);
     this.send('update', this.getAttr('value'));

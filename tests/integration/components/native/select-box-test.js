@@ -348,3 +348,49 @@ test('manual selection (multiple values)', function(assert) {
   assert.deepEqual(this.$('.select-box').val(), ['bar', 'baz'],
     'can manually select multiple values');
 });
+
+
+test('non-component options (single)', function(assert) {
+  assert.expect(2);
+
+  this.set('nonPrimitive', { id: 456 });
+  this.set('primitive', 123);
+
+  this.on('selected', value => {
+    assert.strictEqual(value, '123',
+      'can select primitive values');
+  });
+
+  this.render(hbs`
+    {{#select-box/native on-select=(action 'selected') as |sb|}}
+      <option value={{nonPrimitive}}>Primitive</option>
+      <option value={{primitive}}>Primitive</option>
+    {{/select-box/native}}
+  `);
+
+  assert.equal(this.$('option:eq(0)').attr('value'), '[object Object]',
+    'non primitive values are stringified');
+
+  this.$('option:eq(1)').prop('selected', true);
+  this.$('.select-box').trigger('change');
+});
+
+
+test('non-component options (multiple)', function(assert) {
+  assert.expect(1);
+
+  this.on('selected', values => {
+    assert.deepEqual(values, ['Hello', 'World'],
+      'can select multiple values from non-component options');
+  });
+
+  this.render(hbs`
+    {{#select-box/native multiple=true on-select=(action 'selected') as |sb|}}
+      <option value="Hello"></option>
+      <option value="World"></option>
+    {{/select-box/native}}
+  `);
+
+  this.$('option').prop('selected', true);
+  this.$('.select-box').trigger('change');
+});
