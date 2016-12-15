@@ -1,7 +1,10 @@
 {
   "name": "ember-select-box",
   "dependencies": {
-    "ember": "~2.10.1",
+    "ember": "components/ember#beta",
     "ember-cli-shims": "0.1.3"
+  },
+  "resolutions": {
+    "ember": "beta"
   }
 }
