@@ -1,32 +1,26 @@
-/* eslint-disable no-undef */
+/* eslint-disable no-undef, quote-props */
 
 module.exports = {
   scenarios: [
     {
-      name: 'default',
-      bower: {
-        dependencies: { }
-      }
-    },
-    {
-      name: 'ember-1.13',
+      name: 'ember-lts-2.4',
       bower: {
         dependencies: {
-          ember: '~1.13.0'
+          'ember': 'components/ember#lts-2-4'
         },
         resolutions: {
-          ember: '~1.13.0'
+          'ember': 'lts-2-4'
         }
       }
     },
     {
-      name: 'ember-glimmer-1',
+      name: 'ember-lts-2.8',
       bower: {
         dependencies: {
-          ember: '2.9.1'
+          'ember': 'components/ember#lts-2-8'
         },
         resolutions: {
-          ember: '2.9.1'
+          'ember': 'lts-2-8'
         }
       }
     },
@@ -34,10 +28,10 @@ module.exports = {
       name: 'ember-release',
       bower: {
         dependencies: {
-          ember: 'components/ember#release'
+          'ember': 'components/ember#release'
         },
         resolutions: {
-          ember: 'release'
+          'ember': 'release'
         }
       }
     },
@@ -45,10 +39,10 @@ module.exports = {
       name: 'ember-beta',
       bower: {
         dependencies: {
-          ember: 'components/ember#beta'
+          'ember': 'components/ember#beta'
         },
         resolutions: {
-          ember: 'beta'
+          'ember': 'beta'
         }
       }
     },
@@ -56,10 +50,10 @@ module.exports = {
       name: 'ember-canary',
       bower: {
         dependencies: {
-          ember: 'components/ember#canary'
+          'ember': 'components/ember#canary'
         },
         resolutions: {
-          ember: 'canary'
+          'ember': 'canary'
         }
       }
     }
