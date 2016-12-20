@@ -2,6 +2,7 @@ import Mixin from 'ember-metal/mixin';
 import Nameable from  './general/nameable';
 import HasOptions from './registration/has-options';
 import Focusable from  './select-box/focusable';
+import { trySet } from 'ember-metal/set';
 import { wrap as makeArray } from 'ember-array/utils';
 import { scheduleOnce } from 'ember-runloop';
 import RSVP from 'rsvp';
@@ -40,7 +41,7 @@ export default Mixin.create(
     value = this._normaliseValue(value);
     value = this._resolveValue(value);
     return value.then(resolvedValue => {
-      this.set('selectedValue', resolvedValue);
+      trySet(this, 'selectedValue', resolvedValue);
       scheduleOnce('afterRender', this, '_updated');
     });
   },
