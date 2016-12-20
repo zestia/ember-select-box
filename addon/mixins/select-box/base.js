@@ -4,6 +4,7 @@ import HasOptions from './registration/has-options';
 import Focusable from  './select-box/focusable';
 import { wrap as makeArray } from 'ember-array/utils';
 import { scheduleOnce } from 'ember-runloop';
+import RSVP from 'rsvp';
 
 export default Mixin.create(
   Nameable,
@@ -12,25 +13,36 @@ export default Mixin.create(
 
   api: null,
 
-  init() {
-    this._super(...arguments);
-    this.send('update', this.getAttr('value'));
-  },
-
-  didUpdateAttrs() {
-    this._super(...arguments);
-    if (this.getAttr('value') !== this.get('selectedValue')) {
-      this.send('update', this.getAttr('value'));
-    }
-  },
-
   didReceiveAttrs() {
     this._super(...arguments);
     this.set('isMultiple', this.getAttr('multiple'));
+
+    if (
+      this.getAttr('value') !== this.get('selectedValue') ||
+      !this.get('doneInitialUpdate')
+    ) {
+      this.send('update', this.getAttr('value'));
+      this.set('doneInitialUpdate', true);
+    }
+  },
+
+  _select(value) {
+    return this._update(value).then(() => {
+      this._selected();
+    });
   },
 
   _selected() {
     this.sendAction('on-select', this.get('selectedValue'), this.get('api'));
+  },
+
+  _update(value) {
+    value = this._normaliseValue(value);
+    value = this._resolveValue(value);
+    return value.then(resolvedValue => {
+      this.set('selectedValue', resolvedValue);
+      scheduleOnce('afterRender', this, '_updated');
+    });
   },
 
   _updated() {
@@ -44,16 +56,20 @@ export default Mixin.create(
     return value;
   },
 
+  _resolveValue(value) {
+    if (this.get('isMultiple')) {
+      return RSVP.all(value);
+    }
+    return RSVP.resolve(value);
+  },
+
   actions: {
     update(value) {
-      value = this._normaliseValue(value);
-      this.set('selectedValue', value);
-      scheduleOnce('afterRender', this, '_updated');
+      return this._update(value);
     },
 
     select(value) {
-      this.send('update', value);
-      this._selected();
+      return this._select(value);
     }
   }
 });

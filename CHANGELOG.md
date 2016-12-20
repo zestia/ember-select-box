@@ -1,5 +1,9 @@
 # Changelog
 
+1.1.0
+
+* Adds support for promise values
+
 1.0.6
 
 * Add support for plain `<option>`'s on native select. [Read more](README.md#native-select-box-info)

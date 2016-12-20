@@ -56,7 +56,7 @@ ember install ember-select-box
     </tr>
     <tr>
       <td>value</td>
-      <td>Used to determine which option is selected</td>
+      <td>Used to determine which option is selected, can be a promise</td>
     </tr>
     <tr>
       <td>multiple</td>
