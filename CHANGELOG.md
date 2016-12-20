@@ -1,5 +1,9 @@
 # Changelog
 
+1.1.1
+
+* Make sure there is no error if select box is destroyed
+
 1.1.0
 
 * Adds support for promise values
