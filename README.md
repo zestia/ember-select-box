@@ -579,7 +579,7 @@ It's recommended that you compose your own select box like so :
 If you need even more flexibility, you can extend the select box:
 
 ```javascript
-let MySelectBox = SelectBox.extend({
+const MySelectBox = SelectBox.extend({
   click() {
     this.send('toggle');
   }
@@ -590,7 +590,7 @@ let MySelectBox = SelectBox.extend({
 if you need _even more_ flexibility you can create your own select box using the mixins
 
 ```javascript
-let MySelectBox = Component.extend(BaseSelectBox, Toggleable, Searchable);
+const MySelectBox = Component.extend(BaseSelectBox, Toggleable, Searchable);
 ```
 
 <hr>

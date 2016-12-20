@@ -22,7 +22,7 @@ export default Mixin.create(
       this.getAttr('value') !== this.get('selectedValue') ||
       !this.get('doneInitialUpdate')
     ) {
-      this.send('update', this.getAttr('value'));
+      this._update(this.getAttr('value'));
       this.set('doneInitialUpdate', true);
     }
   },
