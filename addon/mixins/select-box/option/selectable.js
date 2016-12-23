@@ -33,4 +33,3 @@ export default Mixin.create({
     }
   }
 });
-

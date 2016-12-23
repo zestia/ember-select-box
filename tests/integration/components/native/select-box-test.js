@@ -1,4 +1,5 @@
 import { moduleForComponent, test } from 'ember-qunit';
+import Component from 'ember-component';
 import hbs from 'htmlbars-inline-precompile';
 import RSVP from 'rsvp';
 import wait from 'ember-test-helpers/wait';
@@ -469,4 +470,41 @@ test('promise values (multiple)', function(assert) {
     assert.deepEqual(labels, ['foo', 'bar'],
       'resolves the promises');
   });
+});
+
+
+test('initial update action', function(assert) {
+  assert.expect(1);
+
+  const FooSelectBox = Component.extend({
+    layout: hbs`
+      <div class="foo-select-display-label">
+        {{displayLabel}}
+      </div>
+      {{#select-box/native
+        value=attrs.value
+        on-update=(action 'updateDisplayLabel')as |sb|}}
+        {{yield sb}}
+      {{/select-box/native}}
+    `,
+    actions: {
+      updateDisplayLabel() {
+        this.set('displayLabel', this.$('option:selected').text());
+      }
+    }
+  });
+
+  this.registry.register('component:select-box/foo', FooSelectBox);
+
+  this.render(hbs`
+    {{#select-box/foo value='bar' as |sb|}}
+      {{sb.option value='foo'}}
+      {{sb.option value='bar'}}
+      {{sb.option value='baz'}}
+    {{/select-box/foo}}
+  `);
+
+  assert.equal(this.$('.foo-select-display-label').text().trim(), 'bar',
+    'regression test: the update action is fired after all options have ' +
+    'rendered');
 });

@@ -1,5 +1,9 @@
 # Changelog
 
+1.1.2
+
+* Add fix and regression test to make sure `on-update` is firing correctly
+
 1.1.1
 
 * Make sure there is no error if select box is destroyed
