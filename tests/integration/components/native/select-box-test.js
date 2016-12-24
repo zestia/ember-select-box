@@ -1,10 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import Component from 'ember-component';
 import hbs from 'htmlbars-inline-precompile';
-import RSVP from 'rsvp';
-import wait from 'ember-test-helpers/wait';
-import jQuery from 'jquery';
-import { later } from 'ember-runloop';
 
 
 moduleForComponent('', 'select-box/native', {
@@ -416,60 +412,6 @@ test('non-component options (mixed)', function(assert) {
   `);
 
   this.$('.select-box').val(['foo', 'bar']).trigger('change');
-});
-
-
-test('promise values (single)', function(assert) {
-  assert.expect(2);
-
-  this.set('promise', new RSVP.Promise(resolve => {
-    later(() => {
-      resolve('bar');
-    }, 200);
-  }));
-
-  this.render(hbs`
-    {{#select-box/native value=promise as |sb|}}
-      {{sb.option value='foo'}}
-      {{sb.option value='bar'}}
-      {{sb.option value=promise}}
-    {{/select-box/native}}
-  `);
-
-  assert.notStrictEqual(this.$('.select-box-option:selected').index(), 2,
-    'waiting for the promise to resolve, does not match the promise');
-
-  return wait().then(() => {
-    assert.strictEqual(this.$('.select-box-option:selected').index(), 1,
-      're-computes the selected value');
-  });
-});
-
-
-test('promise values (multiple)', function(assert) {
-  assert.expect(1);
-
-  this.set('promises', [
-    RSVP.resolve('foo'),
-    RSVP.resolve('bar')
-  ]);
-
-  this.render(hbs`
-    {{#select-box/native value=promises multiple=true as |sb|}}
-      {{sb.option value='foo'}}
-      {{sb.option value='bar'}}
-      {{sb.option value='baz'}}
-    {{/select-box/native}}
-  `);
-
-  return wait().then(() => {
-    const labels = this.$('.select-box-option:selected')
-      .map((i, o) => jQuery(o).text().trim())
-      .toArray();
-
-    assert.deepEqual(labels, ['foo', 'bar'],
-      'resolves the promises');
-  });
 });
 
 

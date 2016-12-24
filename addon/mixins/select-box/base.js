@@ -4,7 +4,7 @@ import HasOptions from './registration/has-options';
 import Focusable from  './select-box/focusable';
 import { trySet } from 'ember-metal/set';
 import { wrap as makeArray } from 'ember-array/utils';
-import run, { scheduleOnce } from 'ember-runloop';
+import { scheduleOnce } from 'ember-runloop';
 import RSVP from 'rsvp';
 
 export default Mixin.create(
@@ -28,7 +28,7 @@ export default Mixin.create(
   },
 
   _select(value) {
-    return this._update(value).then(() => {
+    this._update(value).then(() => {
       this._selected();
     });
   },
@@ -38,16 +38,29 @@ export default Mixin.create(
   },
 
   _update(value) {
-    value = this._normaliseValue(value);
-    value = this._resolveValue(value);
-    return value.then(resolvedValue => {
-      run(() => trySet(this, 'selectedValue', resolvedValue));
-      scheduleOnce('afterRender', this, '_updated');
+    return new RSVP.Promise(resolve => {
+      const id = this.incrementProperty('promiseID');
+
+      value = this._normaliseValue(value);
+      value = this._resolveValue(value);
+
+      value.then(resolvedValue => {
+        const superseded = id < this.get('promiseID');
+        if (superseded) {
+          return;
+        }
+
+        trySet(this, 'selectedValue', resolvedValue);
+        scheduleOnce('afterRender', this, '_updated', resolve);
+
+        this.rerender();
+      });
     });
   },
 
-  _updated() {
+  _updated(resolve) {
     this.sendAction('on-update', this.get('selectedValue'), this.get('api'));
+    resolve();
   },
 
   _normaliseValue(value) {
@@ -66,11 +79,11 @@ export default Mixin.create(
 
   actions: {
     update(value) {
-      return this._update(value);
+      this._update(value);
     },
 
     select(value) {
-      return this._select(value);
+      this._select(value);
     }
   }
 });
