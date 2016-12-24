@@ -307,7 +307,7 @@ ember install ember-select-box
     </tr>
     <tr>
       <td>value</td>
-      <td>Can be anything</td>
+      <td>Can be anything, including a promise</td>
     </tr>
     <tr>
       <td>label</td>

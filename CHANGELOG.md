@@ -1,5 +1,9 @@
 # Changelog
 
+1.1.4
+
+* Add support for options with promise values
+
 1.1.3
 
 * A few improvements around promises

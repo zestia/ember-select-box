@@ -54,6 +54,8 @@ export default Mixin.create(
         scheduleOnce('afterRender', this, '_updated', resolve);
 
         this.rerender();
+      }, () => {
+        // Treat as if no value
       });
     });
   },

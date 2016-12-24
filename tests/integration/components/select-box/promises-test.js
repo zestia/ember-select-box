@@ -11,7 +11,7 @@ moduleForComponent('', 'select-box (promises)', {
 });
 
 
-test('promise values (single)', function(assert) {
+test('promise value (single)', function(assert) {
   assert.expect(2);
 
   this.set('promise', new RSVP.Promise(resolve => {
@@ -38,7 +38,7 @@ test('promise values (single)', function(assert) {
 });
 
 
-test('promise values (multiple)', function(assert) {
+test('promise value (multiple)', function(assert) {
   assert.expect(1);
 
   this.set('promises', [
@@ -65,7 +65,66 @@ test('promise values (multiple)', function(assert) {
 });
 
 
-test('promise order', function(assert) {
+test('promise value (failure)', function(assert) {
+  assert.expect(1);
+
+  this.set('promise', RSVP.reject('bar'));
+
+  this.render(hbs`
+    {{#select-box value=promise as |sb|}}
+      {{sb.option value='foo'}}
+      {{sb.option value='bar'}}
+      {{sb.option value='baz'}}
+    {{/select-box}}
+  `);
+
+  return wait().then(() => {
+    assert.equal(this.$('.select-box-option.is-selected').length, 0,
+      'does nothing with the value');
+  });
+});
+
+
+test('promise option value', function(assert) {
+  assert.expect(2);
+
+  const slowValue = value => {
+    return new RSVP.Promise(resolve => {
+      later(() => {
+        resolve(value);
+      }, 200);
+    });
+  };
+
+  this.set('value', slowValue('bar'));
+  this.set('foo', slowValue('foo'));
+  this.set('bar', slowValue('bar'));
+  this.set('baz', slowValue('baz'));
+
+  this.render(hbs`
+    {{#select-box value=value as |sb|}}
+      {{sb.option value=foo}}
+      {{sb.option value=bar}}
+      {{sb.option value=baz}}
+    {{/select-box}}
+  `);
+
+  return wait()
+    .then(() => {
+      assert.equal(this.$('.select-box-option.is-selected').text(), 'bar',
+        'waits for promise to resolve before computing selected option');
+
+      this.set('value', slowValue('baz'));
+      return wait();
+    })
+    .then(() => {
+      assert.equal(this.$('.select-box-option.is-selected').text(), 'baz',
+        're-computation works');
+    });
+});
+
+
+test('promise value order', function(assert) {
   assert.expect(1);
 
   const slowPromise = new RSVP.Promise(resolve => {
@@ -81,19 +140,78 @@ test('promise order', function(assert) {
   });
 
   this.render(hbs`
-    {{#select-box value=value as |sb|}}
+    {{#select-box value=promise as |sb|}}
       {{sb.option value='foo'}}
       {{sb.option value='bar'}}
       {{sb.option value='baz'}}
     {{/select-box}}
   `);
 
-  this.set('value', slowPromise);
-  this.set('value', fastPromise);
+  this.set('promise', slowPromise);
+  this.set('promise', fastPromise);
 
   return wait().then(() => {
     assert.equal(this.$('.select-box-option.is-selected').text(), 'bar',
       'earlier promises are ignored');
+  });
+});
+
+
+test('promise option value order', function(assert) {
+  assert.expect(1);
+
+  const slowPromise = new RSVP.Promise(resolve => {
+    later(() => {
+      resolve('qux');
+    }, 500);
+  });
+
+  const fastPromise = new RSVP.Promise(resolve => {
+    later(() => {
+      resolve('bar');
+    }, 250);
+  });
+
+  this.render(hbs`
+    {{#select-box value='bar' as |sb|}}
+      {{sb.option value='foo'}}
+      {{sb.option value=promise}}
+      {{sb.option value='baz'}}
+    {{/select-box}}
+  `);
+
+  this.set('promise', slowPromise);
+  this.set('promise', fastPromise);
+
+  return wait().then(() => {
+    assert.equal(this.$('.select-box-option.is-selected').text(), 'bar',
+      'earlier promises are ignored');
+  });
+});
+
+
+test('promise option value (failure)', function(assert) {
+  assert.expect(3);
+
+  this.set('promise', RSVP.reject('Failed to resolve'));
+
+  this.render(hbs`
+    {{#select-box value='foo' as |sb|}}
+      {{sb.option value=promise label='Foo'}}
+      {{sb.option value=promise}}
+    {{/select-box}}
+  `);
+
+  return wait().then(() => {
+    assert.equal(this.$('.select-box-option.is-selected').length, 0,
+      'does nothing with the value');
+
+    assert.equal(this.$('.select-box-option:eq(0)').text(), 'Foo',
+      'uses label that is present');
+
+    assert.equal(this.$('.select-box-option:eq(1)').text(), 'Failed to resolve',
+      'no label present, and failed to resolve value, so display result of ' +
+      'failure in place of label');
   });
 });
 
