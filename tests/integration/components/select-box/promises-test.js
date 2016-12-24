@@ -101,21 +101,15 @@ test('promise order', function(assert) {
 test('weird failure', function(assert) {
   assert.expect(2);
 
-  let selectedValue;
-
   this.on('show', () => {
     new RSVP.Promise(resolve => {
       later(resolve, 100);
     }).then(() => this.set('showSelect', true));
   });
 
-  this.on('select', value => {
-    selectedValue = value;
-  });
-
   this.render(hbs`
     {{#if showSelect}}
-      {{#select-box on-select=(action 'select') as |sb|}}
+      {{#select-box on-select=(action (mut selectedValue)) as |sb|}}
         {{sb.option value='foo'}}
         {{sb.option value='bar'}}
         {{sb.option value='baz'}}
@@ -131,7 +125,7 @@ test('weird failure', function(assert) {
       this.$('.select-box-option:contains("baz")').trigger('click');
       return wait();
     }).then(() => {
-      assert.equal(selectedValue, 'baz');
+      assert.equal(this.get('selectedValue'), 'baz');
       assert.equal(this.$('.select-box-option.is-selected').text(), 'baz');
     });
 });

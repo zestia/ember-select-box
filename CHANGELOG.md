@@ -1,5 +1,9 @@
 # Changelog
 
+1.1.3
+
+* A few improvements around promises
+
 1.1.2
 
 * Add fix and regression test to make sure `on-update` is firing correctly
