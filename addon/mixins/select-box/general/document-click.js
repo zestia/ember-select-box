@@ -17,6 +17,9 @@ export default Mixin.create({
   didInsertElement() {
     this._super(...arguments);
     this.$document.on(this.get('clickEventName'), (...args) => {
+      if (this.get('isDestroyed')) {
+        return;
+      }
       run(this, 'clickDocument', ...args);
     });
   },
