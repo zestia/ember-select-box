@@ -6,7 +6,7 @@ const { keys } = Object;
 import { capitalize } from 'ember-string';
 
 moduleForComponent('select-box', 'select-box (keyboard methods)', {
-  needs: []
+  unit: true
 });
 
 

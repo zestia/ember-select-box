@@ -3,7 +3,7 @@ import run from 'ember-runloop';
 const { keys } = Object;
 
 moduleForComponent('select-box', 'select-box (api)', {
-  needs: []
+  unit: true
 });
 
 

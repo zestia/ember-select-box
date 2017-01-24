@@ -1,5 +1,9 @@
 # Changelog
 
+1.1.6
+
+* Upgrade ember-cli
+
 1.1.5
 
 * Small bug fix
