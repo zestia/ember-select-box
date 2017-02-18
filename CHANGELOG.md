@@ -1,8 +1,12 @@
 # Changelog
 
-1.1.7
+1.1.8
 
 * Fastboot fixes
+
+1.1.7
+
+* Upgrade ember-cli
 
 1.1.6
 
