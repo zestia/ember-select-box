@@ -2,9 +2,12 @@ import Mixin from 'ember-metal/mixin';
 import run from 'ember-runloop';
 import { guidFor } from 'ember-metal/utils';
 import jQuery from 'jquery';
+import computed from 'ember-computed';
 
 export default Mixin.create({
-  $document: jQuery(document),
+  $document: computed(function() {
+    return jQuery(document);
+  }),
 
   clickDocument() {},
 
@@ -16,7 +19,7 @@ export default Mixin.create({
 
   didInsertElement() {
     this._super(...arguments);
-    this.$document.on(this.get('clickEventName'), (...args) => {
+    this.get('$document').on(this.get('clickEventName'), (...args) => {
       if (this.get('isDestroyed')) {
         return;
       }
@@ -26,6 +29,6 @@ export default Mixin.create({
 
   willDestroyElement() {
     this._super(...arguments);
-    this.$document.off(this.get('clickEventName'));
+    this.get('$document').off(this.get('clickEventName'));
   }
 });
