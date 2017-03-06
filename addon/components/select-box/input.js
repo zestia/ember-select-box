@@ -16,7 +16,10 @@ export default Component.extend(
     'placeholder',
     'readonly',
     'disabled',
-    'autocomplete'
+    'autocomplete',
+    'autocorrect',
+    'autocapitalize',
+    'spellcheck'
   ],
 
   input() {

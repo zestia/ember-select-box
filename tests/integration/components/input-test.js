@@ -63,6 +63,46 @@ test('autofocus', function(assert) {
 });
 
 
+test('autocomplete', function(assert) {
+  assert.expect(1);
+
+  this.render(hbs `{{select-box/input autocomplete='off'}}`);
+
+  assert.equal(this.$('.select-box-input').attr('autocomplete'), 'off',
+    'can set the autocomplete attribute');
+});
+
+
+test('autocorrect', function(assert) {
+  assert.expect(1);
+
+  this.render(hbs `{{select-box/input autocorrect='off'}}`);
+
+  assert.equal(this.$('.select-box-input').attr('autocorrect'), 'off',
+    'can set the autocorrect attribute');
+});
+
+
+test('autocapitalize', function(assert) {
+  assert.expect(1);
+
+  this.render(hbs `{{select-box/input autocapitalize='off'}}`);
+
+  assert.equal(this.$('.select-box-input').attr('autocapitalize'), 'off',
+    'can set the autocapitalize attribute');
+});
+
+
+test('spellcheck', function(assert) {
+  assert.expect(1);
+
+  this.render(hbs `{{select-box/input spellcheck=false}}`);
+
+  assert.equal(this.$('.select-box-input').attr('spellcheck'), 'false',
+    'can set the spellcheck attribute');
+});
+
+
 test('disabled', function(assert) {
   assert.expect(1);
 
