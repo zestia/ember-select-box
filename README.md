@@ -603,7 +603,7 @@ ember-select-box works well with <a href="https://github.com/yapplabs/ember-worm
 {{#select-box class-prefix='worm-select' as |sb|}}
   {{#ember-wormhole to='destination'}}
     {{#sb.options}}
-	   {{yield sb}}
+      {{yield sb}}
     {{/sb.options}}
   {{/ember-wormhole}}
 {{/select-box}}
