@@ -1,5 +1,9 @@
 # Changelog
 
+1.1.10
+
+* Upgrade dependancies
+
 1.1.9
 
 * Allow more attributes on the select box input
