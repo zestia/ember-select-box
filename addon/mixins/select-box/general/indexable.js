@@ -5,7 +5,7 @@ import { A as emberA } from 'ember-array/utils';
 export default Mixin.create({
   didReceiveAttrs() {
     this._super(...arguments);
-    this.set('components', this.getAttr('-components') || emberA());
+    this.set('components', this.getWithDefault('-components', emberA()));
   },
 
   index: computed('components', function() {

@@ -31,7 +31,7 @@ export default Component.extend(BaseSelectBox, {
       selectedValues = unregisteredSelected;
     }
 
-    if (this.getAttr('multiple')) {
+    if (this.get('multiple')) {
       this.send('select', selectedValues);
     } else {
       this.send('select', selectedValues[0]);

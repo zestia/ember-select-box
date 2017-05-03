@@ -1,10 +1,10 @@
 {{#select-box
   class-prefix='search-select'
-  value=attrs.value
+  value=value
   on-press-escape=(action 'close')
   on-click-outside=(action 'close')
-  on-select=attrs.on-select
-  on-search=attrs.on-search
+  on-select=on-select
+  on-search=on-search
   on-searched=(action 'searched')
   search-slow-time=1000 as |sb|}}
   {{sb.input}}

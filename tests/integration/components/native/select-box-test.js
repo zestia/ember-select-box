@@ -424,7 +424,7 @@ test('initial update action', function(assert) {
         {{displayLabel}}
       </div>
       {{#select-box/native
-        value=attrs.value
+        value=value
         on-update=(action 'updateDisplayLabel') as |sb|}}
         {{yield sb}}
       {{/select-box/native}}

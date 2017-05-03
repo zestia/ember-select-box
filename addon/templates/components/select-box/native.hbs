@@ -1,6 +1,6 @@
 {{yield (hash
   option=(component 'select-box/native/option'
-    class-prefix=attrs.class-prefix
+    class-prefix=class-prefix
     -api=api
     -register=(action '_registerOption')
     -deregister=(action '_deregisterOption')
@@ -8,5 +8,5 @@
     -selected-value=selectedValue
     -select=(action 'select'))
   group=(component 'select-box/native/group'
-    class-prefix=attrs.class-prefix)
+    class-prefix=class-prefix)
 )}}

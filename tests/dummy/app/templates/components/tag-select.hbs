@@ -1,17 +1,17 @@
 {{#select-box
-  value=attrs.value
+  value=value
   class-prefix='tag-select'
   on-press-escape=(action 'close')
   on-press-down=(action 'pressedDown')
   on-press-up=(action 'pressedUp')
   on-click-outside=(action 'close')
   on-select=(action 'addTag')
-  on-search=(action 'updateAvailableTags' attrs.on-search)
+  on-search=(action 'updateAvailableTags' on-search)
   search-min-chars=0
   search-delay-time=0 as |sb|}}
 
   {{#sb.selected-options}}
-    {{#each attrs.value as |tag|}}
+    {{#each value as |tag|}}
       {{#sb.selected-option}}
         {{tag}}
         <span onclick={{action 'removeTag' tag}}
@@ -20,7 +20,7 @@
   {{/sb.selected-options}}
 
   {{sb.input
-    click=(action 'reveal' sb attrs.on-search)
+    click=(action 'reveal' sb on-search)
     on-input=sb.open
     on-delete=(action 'removeTag' sb.value.lastObject)
     autofocus=true}}

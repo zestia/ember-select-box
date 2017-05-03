@@ -12,7 +12,7 @@ export default Mixin.create({
   },
 
   _updateStyle() {
-    const style = this.getAttr('style');
+    const style = this.get('style');
     if (!style) {
       return;
     }

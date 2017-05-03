@@ -4,7 +4,7 @@ import computed from 'ember-computed';
 export default Mixin.create({
   didReceiveAttrs() {
     this._super(...arguments);
-    this.set('activeIndex', this.getAttr('-active-index'));
+    this.set('activeIndex', this.get('-active-index'));
   },
 
   isActive: computed('index', 'activeIndex', function() {
@@ -18,7 +18,7 @@ export default Mixin.create({
     },
 
     _activate() {
-      this.sendAction('on-activate', this.get('value'), this.getAttr('-api'));
+      this.sendAction('on-activate', this.get('value'), this.get('-api'));
     }
   }
 });

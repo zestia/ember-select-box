@@ -544,7 +544,7 @@ There are 3 ways to get what you want
 It's recommended that you compose your own select box like so :
 
 ```handlebars
-{{#select-box value=attrs.value on-select=attrs.on-select class-prefix='my-select-box' as |sb|}}}
+{{#select-box value=value on-select=on-select class-prefix='my-select-box' as |sb|}}}
   {{sb.selected-option label=sb.value.name}}
   <button onclick={{action sb.toggle}}>Toggle</button>
   {{yield sb}}

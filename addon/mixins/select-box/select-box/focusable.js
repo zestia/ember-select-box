@@ -5,7 +5,7 @@ export default Mixin.create({
 
   didReceiveAttrs() {
     this._super(...arguments);
-    this.set('tabIndex', this.getAttr('tabindex') || 0);
+    this.set('tabIndex', this.getWithDefault('tabindex', 0));
   },
 
   focusIn(e) {

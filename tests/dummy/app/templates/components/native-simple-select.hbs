@@ -2,10 +2,10 @@
   {{displayLabel}}
 </div>
 {{#select-box/native
-  value=attrs.value
+  value=value
   on-focus-in=(action 'focusIn')
   on-focus-out=(action 'focusOut')
   on-update=(action 'updateDisplayLabel')
-  on-select=attrs.on-select as |sb|}}
+  on-select=on-select as |sb|}}
   {{yield sb}}
 {{/select-box/native}}

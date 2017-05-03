@@ -16,13 +16,13 @@ export default Mixin.create(
 
   didReceiveAttrs() {
     this._super(...arguments);
-    this.set('isMultiple', this.getAttr('multiple'));
+    this.set('isMultiple', this.get('multiple'));
 
     if (
-      this.getAttr('value') !== this.get('selectedValue') ||
+      this.get('value') !== this.get('selectedValue') ||
       !this.get('doneInitialUpdate')
     ) {
-      this._update(this.getAttr('value'));
+      this._update(this.get('value'));
       this.set('doneInitialUpdate', true);
     }
   },

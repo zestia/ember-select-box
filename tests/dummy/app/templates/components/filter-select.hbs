@@ -1,10 +1,10 @@
 {{#select-box
   class-prefix='filter-select'
-  value=attrs.value
+  value=value
   on-click-outside=(action 'close')
   on-press-escape=(action 'close')
-  on-search=attrs.on-search
-  on-select=(action 'selected' attrs.on-select)
+  on-search=on-search
+  on-select=(action 'selected' on-select)
   label-key='name'
   search-min-chars=0
   search-delay-time=0 as |sb|}}

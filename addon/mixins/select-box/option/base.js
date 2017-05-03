@@ -11,8 +11,8 @@ export default Mixin.create(
 
   didReceiveAttrs() {
     this._super(...arguments);
-    const value = this.getAttr('value');
-    let label   = this.getAttr('label');
+    const value = this.get('value');
+    let label   = this.get('label');
 
     const id = this.incrementProperty('promiseID');
 

@@ -24,7 +24,7 @@ export default Component.extend({
       sb.close();
     },
     updateDisplayLabel(value = {}) {
-      this.set('displayLabel', get(value, this.getAttr('label-key')));
+      this.set('displayLabel', get(value, this.get('label-key')));
     }
   }
 });

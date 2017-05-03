@@ -5,9 +5,9 @@ import { A as emberA } from 'ember-array/utils';
 export default Mixin.create({
   didReceiveAttrs() {
     this._super(...arguments);
-    this.set('manualSelection', this.getAttr('selected'));
-    this.set('selectedValue', this.getAttr('-selected-value'));
-    this.set('isMultiple', this.getAttr('-multiple'));
+    this.set('manualSelection', this.get('selected'));
+    this.set('selectedValue', this.get('-selected-value'));
+    this.set('isMultiple', this.get('-multiple'));
   },
 
   isSelected: computed(

@@ -2,7 +2,6 @@ import jQuery from 'jquery';
 import Mixin from 'ember-metal/mixin';
 import computed from 'ember-computed';
 import { bind, debounce } from 'ember-runloop';
-import { isNone } from 'ember-utils';
 import Ember from 'ember';
 const { RSVP } = Ember;
 const { trim } = jQuery;
@@ -10,22 +9,19 @@ const { trim } = jQuery;
 
 export default Mixin.create({
   isSearchable: computed(function() {
-    return typeof this.getAttr('on-search') === 'function';
+    return typeof this.get('on-search') === 'function';
   }),
 
   searchDelayTime: computed(function() {
-    const ms = this.getAttr('search-delay-time');
-    return isNone(ms) ? 100 : ms;
+    return this.getWithDefault('search-delay-time', 100);
   }),
 
   searchSlowTime: computed(function() {
-    const ms = this.getAttr('search-slow-time');
-    return isNone(ms) ? 500 : ms;
+    return this.getWithDefault('search-slow-time', 500);
   }),
 
   searchMinChars: computed(function() {
-    const min = this.getAttr('search-min-chars');
-    return isNone(min) ? 1 : min;
+    return this.getWithDefault('search-min-chars', 1);
   }),
 
   queryOK(query) {
@@ -56,7 +52,7 @@ export default Mixin.create({
     this.incrementProperty('searchID');
     debounce(this, '_checkSlowSearch', this.get('searchSlowTime'));
 
-    const search = this.getAttr('on-search');
+    const search = this.get('on-search');
     return RSVP.resolve(search(query, this.get('api')))
       .then(bind(this, '_searchCompleted', this.get('searchID'), query))
       .catch(bind(this, '_searchFailed', query));

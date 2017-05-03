@@ -1,7 +1,7 @@
 {{#select-box
   class-prefix='colour-select'
-  value=attrs.value
-  on-select=attrs.on-select
+  value=value
+  on-select=on-select
   on-click-outside=(action 'close')
   on-press-escape=(action 'close') as |sb|}}
   {{sb.selected-option

@@ -37,7 +37,7 @@ export default Component.extend(
   actions: {
     select() {
       this._super(...arguments);
-      this.sendAction('on-select', this.get('value'), this.getAttr('-api'));
+      this.sendAction('on-select', this.get('value'), this.get('-api'));
     }
   }
 });

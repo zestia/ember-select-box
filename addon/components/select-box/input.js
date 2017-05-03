@@ -26,16 +26,16 @@ export default Component.extend(
     this._super(...arguments);
     const value = this.$().val();
     if (!value) {
-      this.sendAction('on-clear', this.getAttr('-api'));
+      this.sendAction('on-clear', this.get('-api'));
     }
     this.sendAction('-on-input', value);
-    this.sendAction('on-input', value, this.getAttr('-api'));
+    this.sendAction('on-input', value, this.get('-api'));
   },
 
   keyDown(e) {
     this._super(...arguments);
     if (e.which === 8 && !this.$().val()) {
-      this.sendAction('on-delete', this.getAttr('-api'));
+      this.sendAction('on-delete', this.get('-api'));
     }
   }
 });
