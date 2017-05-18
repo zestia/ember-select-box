@@ -1,5 +1,9 @@
 # Changelog
 
+1.1.13
+
+* Eslint
+
 1.1.12
 
 * Remove use of `getAttr`
