@@ -1,14 +1,83 @@
 module.exports = {
   root: true,
+  globals: {
+    'Symbol': true
+  },
   parserOptions: {
-    ecmaVersion: 6,
+    ecmaVersion: 8,
     sourceType: 'module'
   },
-  extends: 'eslint:recommended',
+  extends: [
+    'eslint:recommended',
+    'plugin:ember/recommended'
+  ],
   env: {
     'browser': true
   },
   rules: {
+    // Ember specific
+
+    'ember/local-modules': 'error',
+    'ember/jquery-ember-run': 'error',
+    'ember/no-observers': 'error',
+    'ember/no-side-effects': 'error',
+    'ember/named-functions-in-promises': 'off',
+    'ember/no-function-prototype-extensions': 'error',
+    'ember/use-ember-get-and-set': 'off',
+    'ember/use-brace-expansion': 'error',
+    'ember/order-in-components': ['error', {
+      order: [
+        'service',
+        'property',
+        'single-line-function',
+        'multi-line-function',
+        'observer',
+        'lifecycle-hook',
+        'method',
+        'actions'
+      ]
+    }],
+    'ember/order-in-models': ['error', {
+      order: [
+        'attribute',
+        'relationship',
+        'single-line-function',
+        'multi-line-function'
+      ]
+    }],
+    'ember/order-in-routes': ['error', {
+      order: [
+        'service',
+        'inherited-property',
+        'property',
+        'single-line-function',
+        'multi-line-function',
+        'model',
+        'lifecycle-hook',
+        'method',
+        'actions'
+      ]
+    }],
+    'ember/order-in-controllers': ['error', {
+      order: [
+        'service',
+        'query-params',
+        'inherited-property',
+        'property',
+        'single-line-function',
+        'multi-line-function',
+        'observer',
+        'method',
+        'actions'
+      ]
+    }],
+    'ember/alias-model-in-controller': 'off',
+    'ember/closure-actions': 'off',
+    'ember/no-on-calls-in-components': 'error',
+    'ember/avoid-leaking-state-in-components': 'error',
+    'ember/no-empty-attrs': 'off',
+    'ember/routes-segments-snake-case': 'off',
+
     // Possible Errors
 
     'no-cond-assign': ['error', 'except-parens'],
@@ -53,7 +122,7 @@ module.exports = {
     'accessor-pairs': 'error',
     'array-callback-return': 'off',
     'block-scoped-var': 'error',
-    'class-methods-use-this': 'error',
+    'class-methods-use-this': 'off',
     'complexity': 'off',
     'consistent-return': 'off',
     'curly': 'error',
@@ -285,7 +354,9 @@ module.exports = {
     'no-dupe-class-members': 'error',
     'no-duplicate-imports': 'error',
     'no-new-symbol': 'error',
-    'no-restricted-imports': 'off',
+    'no-restricted-imports': ['error', {
+      paths: ["ember-computed"]
+    }],
     'no-this-before-super': 'error',
     'no-useless-computed-key': 'error',
     'no-useless-constructor': 'error',

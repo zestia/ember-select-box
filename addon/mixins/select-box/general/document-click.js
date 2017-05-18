@@ -2,7 +2,7 @@ import Mixin from 'ember-metal/mixin';
 import run from 'ember-runloop';
 import { guidFor } from 'ember-metal/utils';
 import jQuery from 'jquery';
-import computed from 'ember-computed';
+import computed from 'ember-improved-cp/read-only';
 
 export default Mixin.create({
   $document: computed(function() {

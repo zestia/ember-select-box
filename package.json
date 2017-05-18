@@ -16,7 +16,7 @@
     "url": "https://github.com/amk221/ember-select-box.git"
   },
   "engines": {
-    "node": ">= 0.12.0"
+    "node": ">= 4"
   },
   "author": "Andrew Kirwin",
   "license": "MIT",
@@ -35,9 +35,11 @@
     "ember-cli": "2.13.0",
     "ember-disable-prototype-extensions": "1.1.0",
     "ember-disable-proxy-controllers": "1.0.1",
+    "ember-improved-cp": "0.0.0",
     "ember-load-initializers": "1.0.0",
     "ember-resolver": "4.1.0",
     "ember-source": "2.13.0",
+    "eslint-plugin-ember": "3.1.2",
     "loader.js": "4.3.0"
   },
   "dependencies": {

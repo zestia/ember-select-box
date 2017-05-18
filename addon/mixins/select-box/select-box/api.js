@@ -1,5 +1,5 @@
 import Mixin from 'ember-metal/mixin';
-import computed from 'ember-computed';
+import computed from 'ember-improved-cp/read-only';
 import { bind } from 'ember-runloop';
 
 export default Mixin.create({

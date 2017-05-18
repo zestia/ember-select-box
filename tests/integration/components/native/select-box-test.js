@@ -418,17 +418,19 @@ test('non-component options (mixed)', function(assert) {
 test('initial update action', function(assert) {
   assert.expect(1);
 
+  const layout = hbs`
+    <div class="foo-select-display-label">
+      {{displayLabel}}
+    </div>
+    {{#select-box/native
+      value=value
+      on-update=(action 'updateDisplayLabel') as |sb|}}
+      {{yield sb}}
+    {{/select-box/native}}
+  `;
+
   const FooSelectBox = Component.extend({
-    layout: hbs`
-      <div class="foo-select-display-label">
-        {{displayLabel}}
-      </div>
-      {{#select-box/native
-        value=value
-        on-update=(action 'updateDisplayLabel') as |sb|}}
-        {{yield sb}}
-      {{/select-box/native}}
-    `,
+    layout,
     actions: {
       updateDisplayLabel() {
         this.set('displayLabel', this.$('option:selected').text());

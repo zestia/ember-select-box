@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import Controller from 'ember-controller';
-import { mapBy, max } from 'ember-computed';
+import { mapBy, max } from 'ember-improved-cp/read-only';
 import { A as emberA } from 'ember-array/utils';
 import { tags } from '../utils/dummy-data';
 const { RSVP } = Ember;

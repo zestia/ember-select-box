@@ -1,6 +1,6 @@
 import jQuery from 'jquery';
 import Mixin from 'ember-metal/mixin';
-import computed from 'ember-computed';
+import computed from 'ember-improved-cp/read-only';
 import { bind, debounce } from 'ember-runloop';
 import Ember from 'ember';
 const { RSVP } = Ember;
