@@ -11,7 +11,7 @@ This addon does less, and gives you the primitives to easily _compose your own_.
 
 
 
-* **[Ways to achieve what you want](#customising)**
+* [Ways to achieve what you want](#customising)
 * <a href="https://amk221.github.io/ember-select-box" target="_blank">Example scenarios</a>
 * <a href="https://github.com/amk221/ember-select-box/tree/master/tests/dummy/app/components" target="_blank">Code for example scenarios</a>
 * [Things to note](#things-to-note)
