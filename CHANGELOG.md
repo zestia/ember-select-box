@@ -1,5 +1,9 @@
 # Changelog
 
+1.1.14
+
+* move ember-improved-cp to dependancies
+
 1.1.13
 
 * Eslint
