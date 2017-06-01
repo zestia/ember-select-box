@@ -1,0 +1,102 @@
+.tag-select2 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 16px;
+}
+
+.tag-select2__esb {
+  border: 1px solid black;
+  position: relative;
+  outline: none;
+  border: 1px solid black;
+  border-radius: 3px;
+}
+
+.tag-select2__selected {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: .3em .3em 0 .3em;
+  line-height: 1.7;
+}
+
+.tag-select2__input-and-loader {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
+.tag-select2__input {
+  margin: 0 .3em .3em 0;
+  flex-grow: 1;
+  min-width: 12em;
+  outline: none;
+  border: none;
+  padding: 0 .8em;
+  background: transparent;
+  line-height: 1.867em;
+  color: #ffd6d6;
+  font-size: 1em;
+}
+
+.tag-select2--focused .tag-select2__input {
+  color: inherit;
+}
+
+.tag-select2__esb.is-open {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.tag-select2__esb:not(.is-open) .tag-select2__options {
+  display: none;
+}
+
+.tag-select2__options {
+  position: absolute;
+  top: 100%;
+  left: -0.0625rem;
+  z-index: 1;
+  width: 100%;
+  max-height: 10em;
+  overflow: scroll;
+  margin: 0 0 1em 0;
+  border: inherit;
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  background: inherit;
+  padding: 0;
+  list-style: none;
+}
+
+.tag-select2__option {
+  padding: .5em 1em;
+  cursor: pointer;
+}
+
+.tag-select2__option[aria-current] {
+  background: #ccc;
+}
+
+.tag-select2__empty {
+  padding: .5em;
+}
+
+.tag-select2__value {
+  padding-left: .5em;
+  border-radius: 3px;
+  border: 1px solid black;
+  cursor: default;
+  margin: 0 .2em .2em 0;
+}
+
+.tag-select2__value--highlighted {
+  border-color: red;
+  color: red;
+}
+
+.tag-select2__close {
+  color: inherit;
+  border: none;
+	background: transparent;
+	border-left: 1px solid currentColor;
+}

@@ -1,0 +1,69 @@
+{{#select-box
+  name=name
+  disabled=disabled
+  value=attrs.value
+  class='tag-select2__esb cl-input'
+  on-focus-in=(action 'focusedComponent')
+  on-focus-out=(action 'blurredComponent')
+  on-press-escape=(action 'pressedEscape')
+  on-press-down=(action 'pressedDown')
+  on-press-up=(action 'pressedUp')
+  on-press-backspace=(action 'pressedBackspace')
+  on-press-left=(action 'pressedLeft')
+  on-press-right=(action 'pressedRight')
+  on-select=(action 'selected')
+  on-searched=(action 'searched')
+  on-search=(action 'search')
+  search-min-chars=0
+as |esb|}}
+
+  {{#esb.selected-options class='tag-select2__selected'}}
+
+    {{#each _tags as |tag|}}
+      {{#esb.selected-option tagName='span' class=tag.className}}
+        {{tag.label}}
+        <button {{action 'deselected' tag esb}}
+          aria-label="deselect {{tag.label}}"
+          class="tag-select2__close"
+          tabindex="-1"
+        >&times;</button>
+      {{/esb.selected-option}}
+    {{/each}}
+
+    <span class='tag-select2__input-and-loader'>
+      {{esb.input class='tag-select2__input' placeholder=placeholder on-input=(action 'didInput')}}
+
+      {{#if esb.isSearching}}
+        {{cl-loader class='tag-select2__icon tag-select2__icon--loading'}}
+      {{/if}}
+    </span>
+
+  {{/esb.selected-options}}
+
+  {{#esb.options class='tag-select2__options'}}
+    {{#each _options as |option|}}
+      {{esb.option value=option label=option.label class='tag-select2__option'}}
+    {{else}}
+      <div class="tag-select2__empty">
+        {{#if esb.isSlowSearch}}
+          <span class="tag-select2__empty--loading tag-select2__empty--loading-slow">
+            Still Loading...
+          </span>
+        {{else if esb.isSearching}}
+          <span class="tag-select2__empty--loading">
+            Loading...
+          </span>
+        {{else if query}}
+          <span class="tag-select2__empty--no-results">
+            There were no results for <b>{{query}}</b>. Try making the search term less specific.
+          </span>
+        {{else}}
+          <span class="tag-select2__empty--placeholder">
+            Try entering a search term to see results.
+          </span>
+        {{/if}}
+      </div>
+    {{/each}}
+  {{/esb.options}}
+
+{{/select-box}}
