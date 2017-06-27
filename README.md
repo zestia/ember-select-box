@@ -172,6 +172,10 @@ ember install ember-select-box
       <td>True if the promised search results are taking a while</td>
     </tr>
     <tr>
+      <td>sb.isOpen</td>
+      <td>True if the select box is open</td>
+    </tr>
+    <tr>
       <td>sb.open</td>
       <td>Opens the select box, adding `is-open` class name</td>
     </tr>

@@ -1,5 +1,9 @@
 # Changelog
 
+1.1.15
+
+* Yield open state
+
 1.1.14
 
 * move ember-improved-cp to dependancies

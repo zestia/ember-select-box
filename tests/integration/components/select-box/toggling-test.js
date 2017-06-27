@@ -7,7 +7,7 @@ moduleForComponent('', 'select-box (toggling)', {
 
 
 test('opening an closing', function(assert) {
-  assert.expect(6);
+  assert.expect(8);
 
   this.render(hbs `{{select-box}}`);
 
@@ -38,5 +38,19 @@ test('opening an closing', function(assert) {
 
   assert.ok(!$selectBox.get(0).hasAttribute('aria-expanded'),
     'open state is reflected as aria expanded attribute');
-});
 
+  this.render(hbs `
+    {{#select-box as |sb|}}
+      <span>Open: {{sb.isOpen}}</span>
+      <button onclick={{action sb.open}}></button>
+    {{/select-box}}
+  `);
+
+  assert.ok(this.$('span').text().match(/Open: false/),
+    'yields the open state when closed');
+
+  this.$('button').trigger('click');
+
+  assert.ok(this.$('span').text().match(/Open: true/),
+    'yields the open state when open');
+});
