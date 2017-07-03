@@ -22,7 +22,11 @@ export default Mixin.create({
     },
 
     toggle() {
-      this.toggleProperty('isOpen');
+      if (this.get('isOpen')) {
+        this.send('close');
+      } else {
+        this.send('open');
+      }
     }
   }
 });

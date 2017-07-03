@@ -1,5 +1,9 @@
 # Changelog
 
+1.1.16
+
+* Make sure toggle uses open and close actions
+
 1.1.15
 
 * Yield open state
