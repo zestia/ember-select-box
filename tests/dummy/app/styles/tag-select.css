@@ -2,42 +2,47 @@
   display: inline-block;
   min-width: 200px;
 }
+
 .tag-select,
 .tag-select * {
   border: 1px solid silver;
   margin: 2px;
   padding: 2px;
 }
+
 .tag-select.is-focused {
   border-color: #666;
   outline: none;
 }
+
 .tag-select-input {
   border: 0;
   outline: none;
   box-sizing: border-box;
 }
-.tag-select:not(.is-open) .tag-select-options {
-  display: none
-}
+
 .tag-select-option {
   cursor: pointer;
 }
+
 .tag-select-remove {
   cursor: pointer;
   display: inline-block;
 }
+
 .tag-select-selected-option {
   display: inline-block;
 }
+
 .tag-select-selected-options {
   font-size: small;
   display: inline-block;
   border: 0;
   margin: 0;
-  padding: 0
+  padding: 0;
 }
+
 .tag-select-option.is-active,
 .tag-select-selected-option.is-active {
-  border-color: green
+  border-color: green;
 }

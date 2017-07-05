@@ -1,4 +1,5 @@
 import Mixin from 'ember-metal/mixin';
+import { next } from 'ember-runloop';
 
 export default Mixin.create({
   attributeBindings: ['tabIndex:tabindex'],
@@ -16,7 +17,11 @@ export default Mixin.create({
 
   focusOut(e) {
     this._super(...arguments);
-    this.set('isFocused', false);
+    if (this.get('isClosing')) {
+      next(() => this.set('isFocused', false));
+    } else {
+      this.set('isFocused', false);
+    }
     this.sendAction('on-focus-out', e, this.get('api'));
   }
 });

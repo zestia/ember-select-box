@@ -9,12 +9,14 @@
     value=sb.value
     label=sb.value
     style=(concat 'background:' sb.value)}}
-  {{#sb.options}}
-    {{#each colours as |colour|}}
-      {{~sb.option
-        value=colour
-        label=colour
-        style=(concat 'background:' colour)~}}
-    {{/each}}
-  {{/sb.options}}
+  {{#if sb.isOpen}}
+    {{#sb.options}}
+      {{#each colours as |colour|}}
+        {{~sb.option
+          value=colour
+          label=colour
+          style=(concat 'background:' colour)~}}
+      {{/each}}
+    {{/sb.options}}
+  {{/if}}
 {{/select-box}}

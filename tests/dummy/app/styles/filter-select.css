@@ -2,34 +2,38 @@
   display: inline-block;
   min-width: 200px;
 }
+
 .filter-select,
 .filter-select * {
   border: 1px solid silver;
   margin: 2px;
   padding: 2px;
 }
+
 .filter-select.is-focused {
   border-color: #666;
-  outline: none
+  outline: none;
 }
+
 .filter-select-input {
   border: 0;
   outline: none;
   width: 100%;
   box-sizing: border-box;
 }
+
 .filter-select.is-focused .filter-select-selected {
-  border-color: #666
+  border-color: #666;
 }
-.filter-select:not(.is-open) .filter-select-options {
-  display: none
-}
+
 .filter-select-option {
   cursor: pointer;
 }
+
 .filter-select-option.is-active {
-  border-color: green
+  border-color: green;
 }
+
 .filter-select-option.is-selected {
-  border-color: red
+  border-color: red;
 }

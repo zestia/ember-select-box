@@ -5,9 +5,11 @@
   padding: 2px;
   cursor: pointer;
 }
+
 .native-simple-select.is-focused {
   border-color: #666
 }
+
 .native-simple-select select {
   position: absolute;
   cursor: pointer;

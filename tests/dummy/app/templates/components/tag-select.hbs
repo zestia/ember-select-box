@@ -25,18 +25,18 @@
     on-delete=(action 'removeTag' sb.value.lastObject)
     autofocus=true}}
 
-  {{#if availableTags.length}}
+  {{#if sb.isOpen}}
     {{#sb.options}}
-      {{#each availableTags as |tag|}}
-        {{sb.option value=tag label=tag}}
-      {{/each}}
-    {{/sb.options}}
-  {{else if newTag}}
-    {{#sb.options}}
-      {{#sb.option value=newTag label=newTag}}
-        No tag found<br>
-        Add {{newTag}}...
-      {{/sb.option}}
+      {{#if availableTags.length}}
+        {{#each availableTags as |tag|}}
+          {{sb.option value=tag label=tag}}
+        {{/each}}
+      {{else if newTag}}
+        {{#sb.option value=newTag label=newTag}}
+          No tag found<br>
+          Add {{newTag}}...
+        {{/sb.option}}
+      {{/if}}
     {{/sb.options}}
   {{/if}}
 {{/select-box}}

@@ -15,7 +15,9 @@
       &nbsp;
     {{/if}}
   {{/sb.selected-option}}
-  {{#sb.options}}
-    {{yield sb}}
-  {{/sb.options}}
+  {{#if sb.isOpen}}
+    {{#sb.options}}
+      {{yield sb}}
+    {{/sb.options}}
+  {{/if}}
 {{/select-box}}

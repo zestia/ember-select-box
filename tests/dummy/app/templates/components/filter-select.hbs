@@ -9,7 +9,9 @@
   search-min-chars=0
   search-delay-time=0 as |sb|}}
   {{sb.input click=sb.open on-input=sb.open}}
-  {{#sb.options}}
-    {{yield sb}}
-  {{/sb.options}}
+  {{#if sb.isOpen}}
+    {{#sb.options}}
+      {{yield sb}}
+    {{/sb.options}}
+  {{/if}}
 {{/select-box}}

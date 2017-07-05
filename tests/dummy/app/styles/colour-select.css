@@ -1,18 +1,18 @@
 .colour-select {
   display: inline-block;
 }
+
 .colour-select * {
   border: 1px solid silver;
   margin: 2px;
   padding: 2px;
 }
+
 .colour-select.is-focused {
   border-color: #666;
-  outline: none
+  outline: none;
 }
-.colour-select:not(.is-open) .colour-select-options {
-  display: none
-}
+
 .colour-select-option,
 .colour-select-selected-option {
   cursor: pointer;
@@ -20,12 +20,15 @@
   height: 20px;
   text-indent: -1000%;
 }
+
 .colour-select-option {
   display: inline-block;
 }
+
 .colour-select-option.is-active {
-  border-color: green
+  border-color: green;
 }
+
 .colour-select-option.is-selected {
-  border-color: red
+  border-color: red;
 }

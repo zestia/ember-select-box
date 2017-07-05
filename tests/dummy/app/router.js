@@ -17,6 +17,7 @@ Router.map(function() {
   this.route('search-select');
   this.route('tag-select');
   this.route('colour-select');
+  this.route('backtrack-select');
 });
 
 export default Router;

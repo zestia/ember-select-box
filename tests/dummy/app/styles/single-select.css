@@ -4,18 +4,23 @@
   margin: 2px;
   padding: 2px;
 }
+
 .single-select.select-box {
-  outline: none
+  outline: none;
 }
+
 .single-select.select-box.is-focused {
-  border-color: #666
+  border-color: #666;
 }
+
 .single-select .select-box-option {
   cursor: pointer;
 }
+
 .single-select .select-box-option.is-active {
-  border-color: green
+  border-color: green;
 }
+
 .single-select .select-box-option.is-selected {
-  border-color: red
+  border-color: red;
 }

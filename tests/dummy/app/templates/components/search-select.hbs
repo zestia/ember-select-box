@@ -13,7 +13,7 @@
       Please wait...
       {{if sb.isSlowSearch '(hold tight!)'}}
     {{/sb.option}}
-  {{else}}
+  {{else if sb.isOpen}}
     {{#sb.options}}
       {{yield sb lastQuery}}
     {{/sb.options}}

@@ -1,5 +1,9 @@
 # Changelog
 
+1.1.17
+
+* Make more reliable when toggling visibilty of options container
+
 1.1.16
 
 * Make sure toggle uses open and close actions

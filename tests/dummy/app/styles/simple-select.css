@@ -1,35 +1,40 @@
 .simple-select {
   display: inline-block;
 }
+
 .simple-select * {
   border: 1px solid silver;
   margin: 2px;
   padding: 2px;
 }
+
 .simple-select-selected-option {
   cursor: pointer;
   min-width: 200px;
   -webkit-user-select: none;
 }
+
 .simple-select.is-focused .simple-select-selected-option {
   border-color: #666;
 }
+
 .simple-select.is-focused {
-  outline: none
+  outline: none;
 }
-.simple-select:not(.is-open) .simple-select-options {
-  display: none
-}
+
 .simple-select-options {
   max-height: 200px;
   overflow: auto;
 }
+
 .simple-select-option {
   cursor: pointer;
 }
+
 .simple-select-option.is-active {
-  border-color: green
+  border-color: green;
 }
+
 .simple-select-option.is-selected {
-  border-color: red
+  border-color: red;
 }
