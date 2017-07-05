@@ -18,7 +18,11 @@ export default Mixin.create({
   focusOut(e) {
     this._super(...arguments);
     if (this.get('isClosing')) {
-      next(() => this.set('isFocused', false));
+      next(() => {
+        if (!this.get('isDestroyed')) {
+          this.set('isFocused', false);
+        }
+      });
     } else {
       this.set('isFocused', false);
     }

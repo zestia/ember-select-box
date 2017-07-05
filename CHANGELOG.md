@@ -1,5 +1,9 @@
 # Changelog
 
+1.1.18
+
+* Only set property if component not destroyed
+
 1.1.17
 
 * Make more reliable when toggling visibilty of options container
