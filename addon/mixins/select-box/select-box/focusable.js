@@ -1,5 +1,6 @@
 import Mixin from 'ember-metal/mixin';
 import { next } from 'ember-runloop';
+import trySet from '../../../utils/try-set';
 
 export default Mixin.create({
   attributeBindings: ['tabIndex:tabindex'],
@@ -19,9 +20,7 @@ export default Mixin.create({
     this._super(...arguments);
     if (this.get('isClosing')) {
       next(() => {
-        if (!this.get('isDestroyed')) {
-          this.set('isFocused', false);
-        }
+        trySet(this, 'isFocused', false);
       });
     } else {
       this.set('isFocused', false);

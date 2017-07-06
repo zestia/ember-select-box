@@ -2,7 +2,7 @@ import Mixin from 'ember-metal/mixin';
 import Nameable from  './general/nameable';
 import HasOptions from './registration/has-options';
 import Focusable from  './select-box/focusable';
-import { trySet } from 'ember-metal/set';
+import trySet from '../../utils/try-set';
 import { wrap as makeArray } from 'ember-array/utils';
 import { scheduleOnce } from 'ember-runloop';
 import RSVP from 'rsvp';

@@ -1,6 +1,7 @@
 import Mixin from 'ember-metal/mixin';
 import { isPresent } from 'ember-utils';
 import run from 'ember-runloop';
+import trySet from '../../../utils/try-set';
 
 export default Mixin.create({
   isOpen: false,
@@ -19,9 +20,9 @@ export default Mixin.create({
     },
 
     close() {
-      run(() => this.set('isClosing', true));
-      run(() => this.set('isOpen', false));
-      run(() => this.set('isClosing', false));
+      run(() => trySet(this, 'isClosing', true));
+      run(() => trySet(this, 'isOpen', false));
+      run(() => trySet(this, 'isClosing', false));
     },
 
     toggle() {

@@ -1,5 +1,9 @@
 # Changelog
 
+1.1.19
+
+* Add better `trySet` whilst issue is still open
+
 1.1.18
 
 * Only set property if component not destroyed

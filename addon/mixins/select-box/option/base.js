@@ -3,7 +3,7 @@ import Nameable from  '../general/nameable';
 import Registerable from  '../general/registerable';
 import { isBlank } from 'ember-utils';
 import RSVP from 'rsvp';
-import { trySet } from 'ember-metal/set';
+import trySet from '../../../utils/try-set';
 
 export default Mixin.create(
   Nameable,
