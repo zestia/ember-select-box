@@ -45,8 +45,7 @@
   },
   "dependencies": {
     "ember-cli-babel": "6.6.0",
-    "ember-cli-htmlbars": "2.0.2",
-    "ember-improved-cp": "0.0.0"
+    "ember-cli-htmlbars": "2.0.2"
   },
   "keywords": [
     "ember-addon",
