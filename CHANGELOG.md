@@ -1,5 +1,10 @@
 # Changelog
 
+1.2.1
+
+* Update dependancies
+* Use new imports
+
 1.2.0
 
 * Adds `on-open` and `on-close` actions

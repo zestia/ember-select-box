@@ -2,7 +2,7 @@ import Mixin from '@ember/object/mixin';
 import { run } from '@ember/runloop';
 import { guidFor } from '@ember/object/internals';
 import jQuery from 'jquery';
-import computed from 'ember-improved-cp/read-only';
+import { computed } from '@ember/object';
 
 export default Mixin.create({
   $document: computed(function() {

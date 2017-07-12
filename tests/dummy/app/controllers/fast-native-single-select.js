@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 import Controller from '@ember/controller';
-import computed from 'ember-improved-cp/read-only';
+import { computed } from '@ember/object';
 import { A as emberA } from '@ember/array';
 
 export default Controller.extend({

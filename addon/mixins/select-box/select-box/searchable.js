@@ -1,6 +1,6 @@
 import jQuery from 'jquery';
 import Mixin from '@ember/object/mixin';
-import computed from 'ember-improved-cp/read-only';
+import { computed } from '@ember/object';
 import { bind, debounce } from '@ember/runloop';
 import invokeAction from '../../../utils/invoke-action';
 import Ember from 'ember';

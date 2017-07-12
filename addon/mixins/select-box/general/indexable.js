@@ -1,5 +1,5 @@
 import Mixin from '@ember/object/mixin';
-import computed from 'ember-improved-cp/read-only';
+import { computed } from '@ember/object';
 import { A as emberA } from '@ember/array';
 
 export default Mixin.create({

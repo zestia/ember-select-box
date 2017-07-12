@@ -1,5 +1,5 @@
 import Mixin from '@ember/object/mixin';
-import computed from 'ember-improved-cp/read-only';
+import { computed } from '@ember/object';
 import invokeAction from '../../../utils/invoke-action';
 
 export default Mixin.create({
