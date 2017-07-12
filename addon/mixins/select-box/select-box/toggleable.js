@@ -17,12 +17,14 @@ export default Mixin.create({
   actions: {
     open() {
       this.set('isOpen', true);
+      this.sendAction('on-open', this.get('api'));
     },
 
     close() {
       run(() => trySet(this, 'isClosing', true));
       run(() => trySet(this, 'isOpen', false));
       run(() => trySet(this, 'isClosing', false));
+      this.sendAction('on-close', this.get('api'));
     },
 
     toggle() {

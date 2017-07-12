@@ -54,3 +54,41 @@ test('opening an closing', function(assert) {
   assert.ok(this.$('span').text().match(/Open: true/),
     'yields the open state when open');
 });
+
+
+test('open action', function(assert) {
+  assert.expect(1);
+
+  let opened;
+  this.on('opened', () => opened = true);
+
+  this.render(hbs `
+    {{#select-box on-open=(action 'opened') as |sb|}}
+      <button onclick={{action sb.open}}>open</button>
+    {{/select-box}}
+  `);
+
+  this.$('button:contains("open")').trigger('click');
+
+  assert.strictEqual(opened, true,
+    'sends an action when the select box is opened');
+});
+
+
+test('close action', function(assert) {
+  assert.expect(1);
+
+  let closed;
+  this.on('closed', () => closed = true);
+
+  this.render(hbs `
+    {{#select-box on-close=(action 'closed') as |sb|}}
+      <button onclick={{action sb.close}}>close</button>
+    {{/select-box}}
+  `);
+
+  this.$('button:contains("close")').trigger('click');
+
+  assert.strictEqual(closed, true,
+    'sends an action when the select box is opened');
+});

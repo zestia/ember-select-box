@@ -71,6 +71,18 @@ ember install ember-select-box
       <td>Controls the open/closed state</td>
     </tr>
     <tr>
+      <td>on-open</td>
+      <td>
+        Fired when the select box is opened
+      </td>
+    </tr>
+    <tr>
+      <td>on-close</td>
+      <td>
+        Fired when the select box is closed
+      </td>
+    </tr>
+    <tr>
       <td>on-select</td>
       <td>
         Fired when an option is clicked, or enter is pressed regardless as

@@ -4,7 +4,7 @@ import Component from 'ember-component';
 import layout from '../templates/components/select-box';
 import BaseSelectBox from '../mixins/select-box/base';
 import SelectBoxAPI from '../mixins/select-box/select-box/api';
-import Toggleable from '../mixins/select-box/general/toggleable';
+import Toggleable from '../mixins/select-box/select-box/toggleable';
 import Disableable from  '../mixins/select-box/select-box/disableable';
 import HasInput from '../mixins/select-box/registration/has-input';
 import HasOptionsContainer from '../mixins/select-box/registration/has-options-container';
