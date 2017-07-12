@@ -1,10 +1,11 @@
-import Mixin from 'ember-metal/mixin';
+import Mixin from '@ember/object/mixin';
 import Nameable from  './general/nameable';
 import HasOptions from './registration/has-options';
 import Focusable from  './select-box/focusable';
 import trySet from '../../utils/try-set';
-import { wrap as makeArray } from 'ember-array/utils';
-import { scheduleOnce } from 'ember-runloop';
+import { makeArray } from '@ember/array';
+import { scheduleOnce } from '@ember/runloop';
+import invokeAction from '../../utils/invoke-action';
 import RSVP from 'rsvp';
 
 export default Mixin.create(
@@ -34,7 +35,7 @@ export default Mixin.create(
   },
 
   _selected() {
-    this.sendAction('on-select', this.get('selectedValue'), this.get('api'));
+    invokeAction(this, 'on-select', this.get('selectedValue'), this.get('api'));
   },
 
   _update(value) {
@@ -61,7 +62,7 @@ export default Mixin.create(
   },
 
   _updated(resolve) {
-    this.sendAction('on-update', this.get('selectedValue'), this.get('api'));
+    invokeAction(this, 'on-update', this.get('selectedValue'), this.get('api'));
     resolve();
   },
 

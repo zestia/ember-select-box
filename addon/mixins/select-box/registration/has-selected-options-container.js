@@ -1,5 +1,5 @@
-import Mixin from 'ember-metal/mixin';
-import { assert } from 'ember-metal/utils';
+import Mixin from '@ember/object/mixin';
+import { assert } from '@ember/debug';
 
 export default Mixin.create({
   actions: {

@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 
-import Controller from 'ember-controller';
+import Controller from '@ember/controller';
 import computed from 'ember-improved-cp/read-only';
-import { A as emberA } from 'ember-array/utils';
+import { A as emberA } from '@ember/array';
 
 export default Controller.extend({
   options: computed('selectedModelId', function() {

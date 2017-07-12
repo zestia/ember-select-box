@@ -1,6 +1,6 @@
-import Component from 'ember-component';
+import Component from '@ember/component';
 import layout from '../templates/components/simple-select';
-import get from 'ember-metal/get';
+import { get } from '@ember/object';
 
 export default Component.extend({
   layout,

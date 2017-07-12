@@ -1,4 +1,4 @@
-import Component from 'ember-component';
+import Component from '@ember/component';
 import layout from '../../templates/components/select-box/option';
 import BaseOption from '../../mixins/select-box/option/base';
 import Styleable from '../../mixins/select-box/general/styleable';

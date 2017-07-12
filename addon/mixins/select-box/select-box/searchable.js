@@ -1,7 +1,8 @@
 import jQuery from 'jquery';
-import Mixin from 'ember-metal/mixin';
+import Mixin from '@ember/object/mixin';
 import computed from 'ember-improved-cp/read-only';
-import { bind, debounce } from 'ember-runloop';
+import { bind, debounce } from '@ember/runloop';
+import invokeAction from '../../../utils/invoke-action';
 import Ember from 'ember';
 const { RSVP } = Ember;
 const { trim } = jQuery;
@@ -68,7 +69,7 @@ export default Mixin.create({
       return;
     }
 
-    this.sendAction('on-searched', result, query, this.get('api'));
+    invokeAction(this, 'on-searched', result, query, this.get('api'));
     this._searchFinished();
   },
 
@@ -76,7 +77,7 @@ export default Mixin.create({
     if (this.get('isDestroyed')) {
       return;
     }
-    this.sendAction('on-search-error', error, query, this.get('api'));
+    invokeAction(this, 'on-search-error', error, query, this.get('api'));
     this._searchFinished();
   },
 

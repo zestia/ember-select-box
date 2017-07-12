@@ -1,4 +1,4 @@
-import Mixin from 'ember-metal/mixin';
+import Mixin from '@ember/object/mixin';
 import computed from 'ember-improved-cp/read-only';
 import scrollIntoView from '../../../utils/select-box/scroll-into-view';
 

@@ -1,6 +1,7 @@
-import Mixin from 'ember-metal/mixin';
+import Mixin from '@ember/object/mixin';
 import computed from 'ember-improved-cp/read-only';
-import { A as emberA } from 'ember-array/utils';
+import { A as emberA } from '@ember/array';
+import invokeAction from '../../../utils/invoke-action';
 
 export default Mixin.create({
   didReceiveAttrs() {
@@ -29,7 +30,7 @@ export default Mixin.create({
   actions: {
     select() {
       this._super(...arguments);
-      this.sendAction('-select', this.get('value'));
+      invokeAction(this, '-select', this.get('value'));
     }
   }
 });

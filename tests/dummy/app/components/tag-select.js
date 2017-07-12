@@ -1,4 +1,4 @@
-import Component from 'ember-component';
+import Component from '@ember/component';
 import layout from '../templates/components/tag-select';
 
 export default Component.extend({
@@ -29,12 +29,12 @@ export default Component.extend({
       sb.open();
     },
     addTag(tag, sb) {
-      this.sendAction('on-tag', tag);
+      this.get('on-tag')(tag);
       sb.setInputValue('');
       sb.close();
     },
     removeTag(tag) {
-      this.sendAction('on-detag', tag);
+      this.get('on-detag')(tag);
     }
   }
 });

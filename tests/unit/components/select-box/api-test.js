@@ -1,5 +1,5 @@
 import { test, moduleForComponent } from 'ember-qunit';
-import run from 'ember-runloop';
+import { run } from '@ember/runloop';
 const { keys } = Object;
 
 moduleForComponent('select-box', 'select-box (api)', {

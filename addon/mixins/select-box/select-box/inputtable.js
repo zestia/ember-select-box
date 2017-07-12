@@ -1,5 +1,5 @@
-import Mixin from 'ember-metal/mixin';
-import { scheduleOnce } from 'ember-runloop';
+import Mixin from '@ember/object/mixin';
+import { scheduleOnce } from '@ember/runloop';
 
 export default Mixin.create({
   _overrideTabIndex() {

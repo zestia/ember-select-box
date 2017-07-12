@@ -1,5 +1,6 @@
-import Mixin from 'ember-metal/mixin';
+import Mixin from '@ember/object/mixin';
 import computed from 'ember-improved-cp/read-only';
+import invokeAction from '../../../utils/invoke-action';
 
 export default Mixin.create({
   didReceiveAttrs() {
@@ -14,11 +15,11 @@ export default Mixin.create({
   actions: {
     activate() {
       this._super(...arguments);
-      this.sendAction('-activate', this.get('index'));
+      invokeAction(this, '-activate', this.get('index'));
     },
 
     _activate() {
-      this.sendAction('on-activate', this.get('value'), this.get('-api'));
+      invokeAction(this, 'on-activate', this.get('value'), this.get('-api'));
     }
   }
 });

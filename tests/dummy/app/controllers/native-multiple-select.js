@@ -1,4 +1,4 @@
-import Controller from 'ember-controller';
+import Controller from '@ember/controller';
 import { pastries, biscuits } from '../utils/dummy-data';
 
 export default Controller.extend({

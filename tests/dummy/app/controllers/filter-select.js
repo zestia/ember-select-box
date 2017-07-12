@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import Controller from 'ember-controller';
-import { A as emberA } from 'ember-array/utils';
+import Controller from '@ember/controller';
+import { A as emberA } from '@ember/array';
 import { pies } from '../utils/dummy-data';
 const { RSVP } = Ember;
 

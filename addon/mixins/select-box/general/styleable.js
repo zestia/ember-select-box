@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import Mixin from 'ember-metal/mixin';
-import { htmlSafe } from 'ember-string';
+import Mixin from '@ember/object/mixin';
+import { htmlSafe } from '@ember/string';
 const { escapeExpression } = Ember.Handlebars.Utils;
 
 export default Mixin.create({

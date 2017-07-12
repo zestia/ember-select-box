@@ -3,7 +3,7 @@ import hbs from 'htmlbars-inline-precompile';
 import RSVP from 'rsvp';
 import wait from 'ember-test-helpers/wait';
 import jQuery from 'jquery';
-import { later } from 'ember-runloop';
+import { later } from '@ember/runloop';
 
 
 moduleForComponent('', 'select-box (promises)', {

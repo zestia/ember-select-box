@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 
-import Component from 'ember-component';
+import Component from '@ember/component';
 import layout from '../templates/components/select-box';
 import BaseSelectBox from '../mixins/select-box/base';
 import SelectBoxAPI from '../mixins/select-box/select-box/api';

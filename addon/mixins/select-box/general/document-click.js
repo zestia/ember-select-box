@@ -1,6 +1,6 @@
-import Mixin from 'ember-metal/mixin';
-import run from 'ember-runloop';
-import { guidFor } from 'ember-metal/utils';
+import Mixin from '@ember/object/mixin';
+import { run } from '@ember/runloop';
+import { guidFor } from '@ember/object/internals';
 import jQuery from 'jquery';
 import computed from 'ember-improved-cp/read-only';
 

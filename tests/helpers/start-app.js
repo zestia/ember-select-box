@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import Application from '../../app';
 import config from '../../config/environment';
-import run from 'ember-runloop';
+import { run } from '@ember/runloop';
 const { merge } = Ember;
 
 export default function startApp(attrs) {

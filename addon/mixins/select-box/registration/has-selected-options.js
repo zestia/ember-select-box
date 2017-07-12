@@ -1,6 +1,6 @@
-import Mixin from 'ember-metal/mixin';
-import { A as emberA } from 'ember-array/utils';
-import { scheduleOnce } from 'ember-runloop';
+import Mixin from '@ember/object/mixin';
+import { A as emberA } from '@ember/array';
+import { scheduleOnce } from '@ember/runloop';
 
 export default Mixin.create({
   init() {

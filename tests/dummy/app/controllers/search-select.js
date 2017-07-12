@@ -1,7 +1,7 @@
 import Ember from 'ember';
-import Controller from 'ember-controller';
-import { A as emberA } from 'ember-array/utils';
-import { later } from 'ember-runloop';
+import Controller from '@ember/controller';
+import { A as emberA } from '@ember/array';
+import { later } from '@ember/runloop';
 import { breads } from '../utils/dummy-data';
 const { RSVP } = Ember;
 

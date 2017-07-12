@@ -1,6 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Component from 'ember-component';
+import Component from '@ember/component';
 import Styleable from 'ember-select-box/mixins/select-box/general/styleable';
 
 moduleForComponent('', 'select-box (styling)', {

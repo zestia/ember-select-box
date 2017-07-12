@@ -1,4 +1,4 @@
-import Mixin from 'ember-metal/mixin';
+import Mixin from '@ember/object/mixin';
 import className from '../../../utils/select-box/class-name';
 
 export default Mixin.create({

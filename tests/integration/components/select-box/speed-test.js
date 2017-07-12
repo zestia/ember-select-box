@@ -3,7 +3,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import RSVP from 'rsvp';
-import { A as emberA } from 'ember-array/utils';
+import { A as emberA } from '@ember/array';
 import wait from 'ember-test-helpers/wait';
 
 

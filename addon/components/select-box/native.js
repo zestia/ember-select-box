@@ -1,8 +1,8 @@
-import Component from 'ember-component';
+import Component from '@ember/component';
 import BaseSelectBox from '../../mixins/select-box/base';
 import layout from '../../templates/components/select-box/native';
 import jQuery from 'jquery';
-import { A as emberA } from 'ember-array/utils';
+import { A as emberA } from '@ember/array';
 
 export default Component.extend(BaseSelectBox, {
   layout,

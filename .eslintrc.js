@@ -72,14 +72,17 @@ module.exports = {
       ]
     }],
     'ember/alias-model-in-controller': 'off',
-    'ember/closure-actions': 'off',
+    'ember/closure-actions': 'error',
     'ember/no-on-calls-in-components': 'error',
     'ember/avoid-leaking-state-in-components': 'error',
     'ember/no-empty-attrs': 'off',
+    'ember/no-capital-letters-in-routes': 'error',
     'ember/routes-segments-snake-case': 'off',
+    'ember/no-old-shims': 'error',
 
     // Possible Errors
 
+    'for-direction': ['error'],
     'no-cond-assign': ['error', 'except-parens'],
     'no-console': 'error',
     'no-constant-condition': ['error', {
@@ -96,7 +99,7 @@ module.exports = {
     }],
     'no-ex-assign': 'error',
     'no-extra-boolean-cast': 'error',
-    'no-extra-parens': 'error',
+    'no-extra-parens': 'off',
     'no-extra-semi': 'error',
     'no-func-assign': 'error',
     'no-inner-declarations': 'error',
@@ -177,10 +180,11 @@ module.exports = {
     'no-unused-labels': 'error',
     'no-useless-call': 'error',
     'no-useless-concat': 'error',
-    'no-useless-escape': 'off',
+    'no-useless-escape': 'error',
     'no-useless-return': 'error',
+    'no-compare-neg-zero': 'error',
     'no-void': 'error',
-    'no-warning-comments': 'error',
+    'no-warning-comments': 'warn',
     'no-with': 'error',
     'radix': 'error',
     'vars-on-top': 'error',
@@ -211,6 +215,7 @@ module.exports = {
     'callback-return': 'off',
     'global-require': 'error',
     'handle-callback-err': 'error',
+    'no-buffer-constructor': 'off',
     'no-mixed-requires': 'error',
     'no-new-require': 'error',
     'no-path-concat': 'error',
@@ -221,7 +226,9 @@ module.exports = {
 
     // Stylistic issues
 
-    'array-bracket-spacing': 'off',
+    'array-bracket-spacing': ['off'],
+    'array-element-newline': 'off',
+    'array-bracket-newline': 'off',
     'block-spacing': 'error',
     'brace-style': ['error', '1tbs'],
     'camelcase': 'error',
@@ -261,7 +268,6 @@ module.exports = {
     'line-comment-position': 'off',
     'linebreak-style': ['error', 'unix'],
     'lines-around-comment': 'off',
-    'lines-around-directive': ['error', 'always'],
     'max-depth': ['error', 2],
     'max-len': ['error', {
       code: 80,
@@ -282,8 +288,6 @@ module.exports = {
       properties: false
     }],
     'new-parens': 'off',
-    'newline-after-var': 'off',
-    'newline-before-return': 'off',
     'newline-per-chained-call': 'off',
     'no-array-constructor': 'error',
     'no-bitwise': 'error',
@@ -306,13 +310,15 @@ module.exports = {
     'no-unneeded-ternary': 'error',
     'no-whitespace-before-property': 'error',
     'object-curly-newline': 'off',
-    'object-curly-spacing': 'off',
+    'object-curly-spacing': ['error', 'always'],
     'object-property-newline': 'off',
     'one-var-declaration-per-line': 'off',
     'one-var': 'off',
     'operator-assignment': 'error',
     'operator-linebreak': ['error', 'after'],
     'padded-blocks': 'off',
+    'prefer-spread': 'error',
+    'padding-line-between-statements': ['off'],
     'quote-props': ['error', 'as-needed'],
     'quotes': ['error', 'single', {
       avoidEscape: true,
@@ -323,6 +329,7 @@ module.exports = {
       before: false
     }],
     'semi': ['error', 'always'],
+    'semi-style': ['error', 'last'],
     'sort-keys': 'off',
     'sort-vars': 'off',
     'space-before-blocks': 'error',
@@ -331,9 +338,12 @@ module.exports = {
     'space-infix-ops': 'error',
     'space-unary-ops': 'error',
     'spaced-comment': ['error', 'always'],
+    'switch-colon-spacing': ['error', {
+      before: false,
+      after: true
+    }],
     'unicode-bom': 'error',
     'wrap-regex': 'off',
-    'prefer-spread': 'error',
 
     // ECMAScript 6
 

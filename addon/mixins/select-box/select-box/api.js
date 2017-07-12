@@ -1,6 +1,6 @@
-import Mixin from 'ember-metal/mixin';
+import Mixin from '@ember/object/mixin';
 import computed from 'ember-improved-cp/read-only';
-import { bind } from 'ember-runloop';
+import { bind } from '@ember/runloop';
 
 export default Mixin.create({
   api: computed(function() {

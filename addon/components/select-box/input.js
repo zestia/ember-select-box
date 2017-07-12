@@ -1,6 +1,7 @@
-import Component from 'ember-component';
+import Component from '@ember/component';
 import Nameable from  '../../mixins/select-box/general/nameable';
 import Registerable from  '../../mixins/select-box/general/registerable';
+import invokeAction from '../../utils/invoke-action';
 
 export default Component.extend(
   Nameable,
@@ -26,16 +27,16 @@ export default Component.extend(
     this._super(...arguments);
     const value = this.$().val();
     if (!value) {
-      this.sendAction('on-clear', this.get('-api'));
+      invokeAction(this, 'on-clear', this.get('-api'));
     }
-    this.sendAction('-on-input', value);
-    this.sendAction('on-input', value, this.get('-api'));
+    invokeAction(this, '-on-input', value);
+    invokeAction(this, 'on-input', value, this.get('-api'));
   },
 
   keyDown(e) {
     this._super(...arguments);
     if (e.which === 8 && !this.$().val()) {
-      this.sendAction('on-delete', this.get('-api'));
+      invokeAction(this, 'on-delete', this.get('-api'));
     }
   }
 });

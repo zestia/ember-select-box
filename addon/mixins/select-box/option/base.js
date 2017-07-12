@@ -1,7 +1,7 @@
-import Mixin from 'ember-metal/mixin';
+import Mixin from '@ember/object/mixin';
 import Nameable from  '../general/nameable';
 import Registerable from  '../general/registerable';
-import { isBlank } from 'ember-utils';
+import { isBlank } from '@ember/utils';
 import RSVP from 'rsvp';
 import trySet from '../../../utils/try-set';
 

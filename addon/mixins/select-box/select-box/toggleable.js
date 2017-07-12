@@ -1,7 +1,8 @@
-import Mixin from 'ember-metal/mixin';
-import { isPresent } from 'ember-utils';
-import run from 'ember-runloop';
+import Mixin from '@ember/object/mixin';
+import { isPresent } from '@ember/utils';
+import { run } from '@ember/runloop';
 import trySet from '../../../utils/try-set';
+import invokeAction from '../../../utils/invoke-action';
 
 export default Mixin.create({
   isOpen: false,
@@ -17,14 +18,14 @@ export default Mixin.create({
   actions: {
     open() {
       this.set('isOpen', true);
-      this.sendAction('on-open', this.get('api'));
+      invokeAction(this, 'on-open', this.get('api'));
     },
 
     close() {
       run(() => trySet(this, 'isClosing', true));
       run(() => trySet(this, 'isOpen', false));
       run(() => trySet(this, 'isClosing', false));
-      this.sendAction('on-close', this.get('api'));
+      invokeAction(this, 'on-close', this.get('api'));
     },
 
     toggle() {

@@ -1,9 +1,9 @@
 import { test, moduleForComponent } from 'ember-qunit';
-import run from 'ember-runloop';
+import { run } from '@ember/runloop';
 import events from '../../../helpers/keyboard-events';
 import jQuery from 'jquery';
 const { keys } = Object;
-import { capitalize } from 'ember-string';
+import { capitalize } from '@ember/string';
 
 moduleForComponent('select-box', 'select-box (keyboard methods)', {
   unit: true

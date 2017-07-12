@@ -1,6 +1,6 @@
-import Mixin from 'ember-metal/mixin';
+import Mixin from '@ember/object/mixin';
 import computed from 'ember-improved-cp/read-only';
-import { A as emberA } from 'ember-array/utils';
+import { A as emberA } from '@ember/array';
 
 export default Mixin.create({
   didReceiveAttrs() {

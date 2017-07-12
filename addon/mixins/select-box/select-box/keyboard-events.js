@@ -1,5 +1,6 @@
-import Mixin from 'ember-metal/mixin';
-import { capitalize } from 'ember-string';
+import Mixin from '@ember/object/mixin';
+import { capitalize } from '@ember/string';
+import invokeAction from '../../../utils/invoke-action';
 
 const keys = {
   8:  'backspace',
@@ -25,7 +26,7 @@ export default Mixin.create({
       return;
     }
     const actionName = `on-press-${key}`;
-    this.sendAction(actionName, e, this.get('api'));
+    invokeAction(this, actionName, e, this.get('api'));
   },
 
   _keyPressMethod(e) {

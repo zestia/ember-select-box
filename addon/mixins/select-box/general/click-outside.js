@@ -1,4 +1,4 @@
-import Mixin from 'ember-metal/mixin';
+import Mixin from '@ember/object/mixin';
 import DocumentClick from './document-click';
 import jQuery from 'jquery';
 const { contains } = jQuery;

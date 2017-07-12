@@ -1,5 +1,4 @@
-import get from 'ember-metal/get';
-import set from 'ember-metal/set';
+import { get, set } from '@ember/object';
 
 /**
  * Attempts to set a value on an object.
