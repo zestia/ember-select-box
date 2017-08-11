@@ -25,7 +25,7 @@ export default Component.extend(
 
   input() {
     this._super(...arguments);
-    const value = this.$().val();
+    const value = this.get('element.value');
     if (!value) {
       invokeAction(this, 'on-clear', this.get('-api'));
     }
@@ -35,7 +35,7 @@ export default Component.extend(
 
   keyDown(e) {
     this._super(...arguments);
-    if (e.which === 8 && !this.$().val()) {
+    if (e.which === 8 && !this.get('element.value')) {
       invokeAction(this, 'on-delete', this.get('-api'));
     }
   }
