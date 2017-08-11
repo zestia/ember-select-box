@@ -1,7 +1,6 @@
 import Component from '@ember/component';
 import BaseSelectBox from '../../mixins/select-box/base';
 import layout from '../../templates/components/select-box/native';
-import jQuery from 'jquery';
 import { A as emberA } from '@ember/array';
 
 export default Component.extend(BaseSelectBox, {
@@ -39,14 +38,17 @@ export default Component.extend(BaseSelectBox, {
   },
 
   _getRegisteredSelectedValues() {
-    return emberA(this.get('options')
-      .filter(option => option.$().is(':selected'))
-      .map(option => option.get('value')));
+    return emberA(
+      this.get('options')
+        .filter(option => option.get('element.selected'))
+        .map(option => option.get('value'))
+    );
   },
 
   _getUnregisteredSelectedValues() {
-    return emberA(this.$('option:selected')
-      .map((index, option) => jQuery(option).attr('value'))
-      .toArray());
+    return emberA(
+      [].slice.call(this.get('element').querySelectorAll('option:checked'))
+        .map(option => option.value)
+    );
   }
 });
