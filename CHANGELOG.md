@@ -1,5 +1,9 @@
 # Changelog
 
+1.2.1
+
+* Don't use jQuery's trim
+
 1.2.0
 
 * Adds `on-open` and `on-close` actions

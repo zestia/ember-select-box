@@ -1,11 +1,9 @@
-import jQuery from 'jquery';
 import Mixin from '@ember/object/mixin';
 import { computed } from '@ember/object';
 import { bind, debounce } from '@ember/runloop';
 import invokeAction from '../../../utils/invoke-action';
 import Ember from 'ember';
 const { RSVP } = Ember;
-const { trim } = jQuery;
 
 
 export default Mixin.create({
@@ -42,7 +40,7 @@ export default Mixin.create({
   },
 
   _runSearch(query) {
-    query = trim(query);
+    query = `${query}`.trim();
     if (this.queryOK(query) && !this.get('isDestroyed')) {
       this._search(query);
     }
