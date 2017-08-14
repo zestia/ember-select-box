@@ -1,27 +1,16 @@
-import Component from '@ember/component';
+import Ember from 'ember';
 import Nameable from  '../../mixins/select-box/general/nameable';
 import Registerable from  '../../mixins/select-box/general/registerable';
 import invokeAction from '../../utils/invoke-action';
+const { TextField } = Ember;
 
-export default Component.extend(
+export default TextField.extend(
   Nameable,
   Registerable, {
 
-  tagName: 'input',
+  type: '',
+
   classNameSuffix: 'input',
-  attributeBindings: [
-    'type',
-    'value',
-    'size',
-    'autofocus',
-    'placeholder',
-    'readonly',
-    'disabled',
-    'autocomplete',
-    'autocorrect',
-    'autocapitalize',
-    'spellcheck'
-  ],
 
   input() {
     this._super(...arguments);
