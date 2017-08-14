@@ -46,23 +46,23 @@ test('type', function(assert) {
 test('value', function(assert) {
   assert.expect(3);
 
-  this.set('myValue', 'foo');
+  this.set('myObj', { value: 'foo' });
 
-  this.render(hbs `{{select-box/input value=myValue}}`);
+  this.render(hbs `{{select-box/input value=myObj.value}}`);
 
   const $input = this.$('.select-box-input');
 
   assert.equal($input.val(), 'foo',
     'can specify the initial value');
 
-  this.set('myValue', 'bar');
+  this.set('myObj.value', 'bar');
 
   assert.equal($input.val(), 'bar',
     'updating the value updates the text box value');
 
-  $input.val('baz').trigger('input change');
+  $input.val('baz').trigger('input').trigger('change');
 
-  assert.equal(this.get('myValue'), 'bar',
+  assert.equal(this.get('myObj.value'), 'bar',
     'changing the input value does not mutate the value attribute');
 });
 
