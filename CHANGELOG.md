@@ -1,5 +1,10 @@
 # Changelog
 
+2.0.0
+
+* Phases out some use of jQuery
+* Select box input extends Ember's built-in text field helper
+
 1.2.1
 
 * Don't use jQuery's trim
