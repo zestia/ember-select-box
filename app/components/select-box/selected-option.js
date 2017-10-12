@@ -1,1 +1,3 @@
-export { default } from 'ember-select-box/components/select-box/selected-option';
+export {
+  default
+} from 'ember-select-box/components/select-box/selected-option';
