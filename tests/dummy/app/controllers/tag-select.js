@@ -1,9 +1,9 @@
-import Ember from 'ember';
 import Controller from '@ember/controller';
 import { mapBy, max } from '@ember/object/computed';
 import { A as emberA } from '@ember/array';
 import { tags } from '../utils/dummy-data';
-const { RSVP } = Ember;
+import RSVP from 'rsvp';
+const { resolve } = RSVP;
 
 export default Controller.extend({
   selectedTagIDs: mapBy('selectedTags', 'id'),
@@ -18,7 +18,7 @@ export default Controller.extend({
     const tags = emberA(this.get('selectedTags').filter(tag => {
       return tag.name.toLowerCase().indexOf(query.toLowerCase()) >= 0;
     }));
-    return RSVP.resolve(tags.mapBy('name'));
+    return resolve(tags.mapBy('name'));
   },
 
   actions: {

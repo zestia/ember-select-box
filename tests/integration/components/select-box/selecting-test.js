@@ -263,3 +263,29 @@ test('usage with mut helper', function(assert) {
   assert.ok(this.$('.select-box').text().match('internal: bar'),
     'internal value is updated (regression test)');
 });
+
+
+test('with disabled options', function(assert) {
+  assert.expect(2);
+
+  let selected = 0;
+
+  this.on('selected', () => {
+    selected++;
+  });
+
+  this.render(hbs`
+    {{#select-box value='foo' on-select=(action 'selected') as |sb|}}
+      {{sb.option value='foo' disabled=true}}
+      {{sb.option value='bar'}}
+    {{/select-box}}
+  `);
+
+  this.$('.select-box-option.is-disabled').trigger('click');
+
+  assert.ok(this.$('.select-box-option.is-disabled').hasClass('is-selected'),
+    'still computes whether or not the option is selected based on the value');
+
+  assert.equal(selected, 0,
+    'does not fire select action if option is disabled');
+});

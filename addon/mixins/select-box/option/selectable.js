@@ -30,7 +30,9 @@ export default Mixin.create({
   actions: {
     select() {
       this._super(...arguments);
-      invokeAction(this, '-select', this.get('value'));
+      if (!this.get('isDisabled')) {
+        invokeAction(this, '-select', this.get('value'));
+      }
     }
   }
 });

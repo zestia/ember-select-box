@@ -1,5 +1,9 @@
 # Changelog
 
+3.0.1
+
+* Adds ability to disable a faux option
+
 3.0.0
 
 * Make input way one again (accidently introduced two-way binding in 2.0.0)

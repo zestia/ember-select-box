@@ -4,6 +4,7 @@ import Registerable from  '../general/registerable';
 import { isBlank } from '@ember/utils';
 import RSVP from 'rsvp';
 import trySet from '../../../utils/try-set';
+const { resolve } = RSVP;
 
 export default Mixin.create(
   Nameable,
@@ -16,7 +17,7 @@ export default Mixin.create(
 
     const id = this.incrementProperty('promiseID');
 
-    RSVP.resolve(value).then(value => {
+    resolve(value).then(value => {
       const superseded = id < this.get('promiseID');
       if (superseded) {
         return;

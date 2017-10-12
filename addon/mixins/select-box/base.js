@@ -7,6 +7,7 @@ import { makeArray } from '@ember/array';
 import { scheduleOnce } from '@ember/runloop';
 import invokeAction from '../../utils/invoke-action';
 import RSVP from 'rsvp';
+const { Promise, all, resolve } = RSVP;
 
 export default Mixin.create(
   Nameable,
@@ -39,7 +40,7 @@ export default Mixin.create(
   },
 
   _update(value) {
-    return new RSVP.Promise(resolve => {
+    return new Promise(resolve => {
       const id = this.incrementProperty('promiseID');
 
       value = this._normaliseValue(value);
@@ -75,9 +76,9 @@ export default Mixin.create(
 
   _resolveValue(value) {
     if (this.get('isMultiple')) {
-      return RSVP.all(value);
+      return all(value);
     }
-    return RSVP.resolve(value);
+    return resolve(value);
   },
 
   actions: {

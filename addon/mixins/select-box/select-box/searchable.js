@@ -2,9 +2,8 @@ import Mixin from '@ember/object/mixin';
 import { computed } from '@ember/object';
 import { bind, debounce } from '@ember/runloop';
 import invokeAction from '../../../utils/invoke-action';
-import Ember from 'ember';
-const { RSVP } = Ember;
-
+import RSVP from 'rsvp';
+const { resolve } = RSVP;
 
 export default Mixin.create({
   isSearchable: computed(function() {
@@ -52,7 +51,7 @@ export default Mixin.create({
     debounce(this, '_checkSlowSearch', this.get('searchSlowTime'));
 
     const search = this.get('on-search');
-    return RSVP.resolve(search(query, this.get('api')))
+    return resolve(search(query, this.get('api')))
       .then(bind(this, '_searchCompleted', this.get('searchID'), query))
       .catch(bind(this, '_searchFailed', query));
   },

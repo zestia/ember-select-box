@@ -2,11 +2,12 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import { later, next } from '@ember/runloop';
-import Ember from 'ember';
-const { RSVP } = Ember;
+import RSVP from 'rsvp';
+const { Promise, resolve, reject } = RSVP;
+
 
 function resolveIn(ms, payload) {
-  return new RSVP.Promise(resolve => {
+  return new Promise(resolve => {
     later(() => {
       resolve(payload);
     }, ms);
@@ -106,7 +107,7 @@ test('searching (failure)', function(assert) {
   assert.expect(5);
 
   this.on('findItems', () => {
-    return RSVP.reject('no results');
+    return reject('no results');
   });
 
   this.on('failedToFindItems', (error, query, sb) => {
@@ -153,7 +154,7 @@ test('searching progress', function(assert) {
   };
 
   this.on('findItems', () => {
-    return new RSVP.Promise(resolve => {
+    return new Promise(resolve => {
       later(resolve, 100);
     });
   });
@@ -192,7 +193,7 @@ test('default search delay', function(assert) {
   assert.expect(3);
 
   this.on('findItems', () => {
-    return RSVP.resolve(['foo']);
+    return resolve(['foo']);
   });
 
   this.on('foundItems', items => {
@@ -229,7 +230,7 @@ test('custom search delay', function(assert) {
   assert.expect(2);
 
   this.on('findItems', () => {
-    return RSVP.resolve(['foo']);
+    return resolve(['foo']);
   });
 
   this.on('foundItems', items => {
@@ -268,7 +269,7 @@ test('search slow time', function(assert) {
   };
 
   this.on('findItems', () => {
-    return new RSVP.Promise(resolve => {
+    return new Promise(resolve => {
       later(resolve, 100);
     });
   });
@@ -310,7 +311,7 @@ test('query is trimmed', function(assert) {
     assert.equal(query, 'foo',
       'whitespace is trimmed from the query');
 
-    return RSVP.resolve();
+    return resolve();
   });
 
   this.render(hbs`
@@ -332,7 +333,7 @@ test('default min chars', function(assert) {
 
   this.on('findItems', () => {
     searches++;
-    return RSVP.resolve();
+    return resolve();
   });
 
   const input = chars => {
@@ -366,7 +367,7 @@ test('custom min chars', function(assert) {
     assert.ok(true,
       'can change the amount of min chars before a search will run');
 
-    return RSVP.resolve();
+    return resolve();
   });
 
   this.render(hbs`
@@ -389,7 +390,7 @@ test('manually running a search', function(assert) {
     assert.strictEqual(value, '',
       'can run a search manually even if min chars is specified');
 
-    return RSVP.resolve();
+    return resolve();
   });
 
   this.render(hbs`
@@ -408,7 +409,7 @@ test('destroying mid-search', function(assert) {
   this.set('display', true);
 
   this.on('findItems', () => {
-    return new RSVP.Promise(resolve => {
+    return new Promise(resolve => {
       later(resolve, 200);
     });
   });

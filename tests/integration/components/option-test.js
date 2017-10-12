@@ -56,6 +56,16 @@ test('style', function(assert) {
 });
 
 
+test('disabled', function(assert) {
+  assert.expect(1);
+
+  this.render(hbs `{{select-box/option disabled=true}}`);
+
+  assert.ok(this.$('.select-box-option[aria-disabled]').hasClass('is-disabled'),
+    'an option can be flagged as disabled');
+});
+
+
 test('aria selected', function(assert) {
   assert.expect(2);
 
@@ -78,7 +88,7 @@ test('aria selected', function(assert) {
 });
 
 
-test('yield', function(assert) {
+test('yield index', function(assert) {
   assert.expect(1);
 
   const foo = { myValue: 'foo', myLabel: 'Foo' };
@@ -115,4 +125,27 @@ test('yield', function(assert) {
     this.$('.select-box-option:eq(3)').text() === 'Qux=qux 1 (3) false',
     'select box options can yield their label, value, index and selected state'
   );
+});
+
+
+test('yield disabled', function(assert) {
+  assert.expect(2);
+
+  this.set('fooDisabled', true);
+
+  this.render(hbs`
+    {{#select-box as |sb|}}
+      {{#sb.option disabled=fooDisabled as |o|}}
+        foo {{if o.disabled 'disabled'}}
+      {{/sb.option}}
+    {{/select-box}}
+  `);
+
+  assert.equal(this.$('.select-box-option').text().trim(), 'foo disabled',
+    'yields disabled state');
+
+  this.set('fooDisabled', false);
+
+  assert.equal(this.$('.select-box-option').text().trim(), 'foo',
+    'disabled state is updated');
 });

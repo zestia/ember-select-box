@@ -363,6 +363,10 @@ ember install ember-select-box
       <td>o.index</td>
       <td>The index of the option amongst the options</td>
     </tr>
+    <tr>
+      <td>o.disabled</td>
+      <td>Whether or not the option is currently disabled</td>
+    </tr>
   </table>
 </details>
 

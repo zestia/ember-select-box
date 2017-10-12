@@ -1,16 +1,16 @@
-import Ember from 'ember';
 import Controller from '@ember/controller';
 import { A as emberA } from '@ember/array';
 import { later } from '@ember/runloop';
 import { breads } from '../utils/dummy-data';
-const { RSVP } = Ember;
+import RSVP from 'rsvp';
+const { Promise } = RSVP;
 
 export default Controller.extend({
   _findBread(query) {
     const bread = emberA(breads).filter(bread => {
       return bread.name.toLowerCase().indexOf(query.toLowerCase()) >= 0;
     });
-    return new RSVP.Promise(resolve => {
+    return new Promise(resolve => {
       later(() => {
         resolve(bread);
       }, 2000);

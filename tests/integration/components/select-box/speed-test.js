@@ -5,6 +5,7 @@ import hbs from 'htmlbars-inline-precompile';
 import RSVP from 'rsvp';
 import { A as emberA } from '@ember/array';
 import wait from 'ember-test-helpers/wait';
+const { Promise } = RSVP;
 
 
 moduleForComponent('', 'select-box (promises)', {
@@ -20,7 +21,7 @@ moduleForComponent('', 'select-box (promises)', {
     }
 
     this.set('promiseItems', emberA(this.get('items').map(item => {
-      return new RSVP.Promise(resolve => {
+      return new Promise(resolve => {
         resolve(item);
       });
     })));

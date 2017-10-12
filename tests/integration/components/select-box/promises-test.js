@@ -4,6 +4,7 @@ import RSVP from 'rsvp';
 import wait from 'ember-test-helpers/wait';
 import jQuery from 'jquery';
 import { later } from '@ember/runloop';
+const { Promise, resolve, reject } = RSVP;
 
 
 moduleForComponent('', 'select-box (promises)', {
@@ -14,7 +15,7 @@ moduleForComponent('', 'select-box (promises)', {
 test('promise value (single)', function(assert) {
   assert.expect(2);
 
-  this.set('promise', new RSVP.Promise(resolve => {
+  this.set('promise', new Promise(resolve => {
     later(() => {
       resolve('bar');
     }, 200);
@@ -42,8 +43,8 @@ test('promise value (multiple)', function(assert) {
   assert.expect(1);
 
   this.set('promises', [
-    RSVP.resolve('foo'),
-    RSVP.resolve('bar')
+    resolve('foo'),
+    resolve('bar')
   ]);
 
   this.render(hbs`
@@ -68,7 +69,7 @@ test('promise value (multiple)', function(assert) {
 test('promise value (failure)', function(assert) {
   assert.expect(1);
 
-  this.set('promise', RSVP.reject('bar'));
+  this.set('promise', reject('bar'));
 
   this.render(hbs`
     {{#select-box value=promise as |sb|}}
@@ -89,7 +90,7 @@ test('promise option value', function(assert) {
   assert.expect(2);
 
   const slowValue = value => {
-    return new RSVP.Promise(resolve => {
+    return new Promise(resolve => {
       later(() => {
         resolve(value);
       }, 200);
@@ -127,13 +128,13 @@ test('promise option value', function(assert) {
 test('promise value order', function(assert) {
   assert.expect(1);
 
-  const slowPromise = new RSVP.Promise(resolve => {
+  const slowPromise = new Promise(resolve => {
     later(() => {
       resolve('baz');
     }, 500);
   });
 
-  const fastPromise = new RSVP.Promise(resolve => {
+  const fastPromise = new Promise(resolve => {
     later(() => {
       resolve('bar');
     }, 250);
@@ -160,13 +161,13 @@ test('promise value order', function(assert) {
 test('promise option value order', function(assert) {
   assert.expect(1);
 
-  const slowPromise = new RSVP.Promise(resolve => {
+  const slowPromise = new Promise(resolve => {
     later(() => {
       resolve('qux');
     }, 500);
   });
 
-  const fastPromise = new RSVP.Promise(resolve => {
+  const fastPromise = new Promise(resolve => {
     later(() => {
       resolve('bar');
     }, 250);
@@ -193,7 +194,7 @@ test('promise option value order', function(assert) {
 test('promise option value (failure)', function(assert) {
   assert.expect(3);
 
-  this.set('promise', RSVP.reject('Failed to resolve'));
+  this.set('promise', reject('Failed to resolve'));
 
   this.render(hbs`
     {{#select-box value='foo' as |sb|}}
@@ -220,7 +221,7 @@ test('weird failure', function(assert) {
   assert.expect(2);
 
   this.on('show', () => {
-    new RSVP.Promise(resolve => {
+    new Promise(resolve => {
       later(resolve, 100);
     }).then(() => this.set('showSelect', true));
   });

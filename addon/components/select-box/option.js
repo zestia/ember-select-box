@@ -4,6 +4,7 @@ import BaseOption from '../../mixins/select-box/option/base';
 import Styleable from '../../mixins/select-box/general/styleable';
 import Selectable from '../../mixins/select-box/option/selectable';
 import Activatable from '../../mixins/select-box/option/activatable';
+import Disableable from '../../mixins/select-box/general/disableable';
 import Indexable from '../../mixins/select-box/general/indexable';
 import invokeAction from '../../utils/invoke-action';
 
@@ -12,18 +13,21 @@ export default Component.extend(
   Selectable,
   Styleable,
   Indexable,
-  Activatable, {
+  Activatable,
+  Disableable, {
 
   layout,
   classNameSuffix: 'option',
   ariaRole: 'option',
   attributeBindings: [
-    'title',
+    'isActive:aria-current',
+    'isDisabled:aria-disabled',
     'isSelected:aria-selected',
-    'isActive:aria-current'
+    'title'
   ],
   classNameBindings: [
     'isActive',
+    'isDisabled',
     'isSelected'
   ],
 
