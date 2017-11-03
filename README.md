@@ -60,7 +60,7 @@ ember install ember-select-box
     </tr>
     <tr>
       <td>multiple</td>
-      <td>If true, `value` should be an array</td>
+      <td>If true, `value` should be an array. Also adds an `is-multiple` class</td>
     </tr>
     <tr>
       <td>disabled</td>

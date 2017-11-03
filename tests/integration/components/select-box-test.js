@@ -72,6 +72,21 @@ test('aria role', function(assert) {
 });
 
 
+test('multiple class', function(assert) {
+  assert.expect(2);
+
+  this.render(hbs `{{select-box}}`);
+
+  assert.ok(!this.$('.select-box').hasClass('is-multiple'),
+    'no multiple class');
+
+  this.render(hbs `{{select-box multiple=true}}`);
+
+  assert.ok(this.$('.select-box').hasClass('is-multiple'),
+    'has multiple class');
+});
+
+
 test('initial update action', function(assert) {
   assert.expect(1);
 

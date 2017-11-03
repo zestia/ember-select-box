@@ -49,6 +49,7 @@ export default Component.extend(
     'isFocused',
     'isDisabled',
     'isSearching',
-    'isSlowSearch'
+    'isSlowSearch',
+    'isMultiple'
   ]
 });

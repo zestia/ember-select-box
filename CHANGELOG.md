@@ -1,5 +1,9 @@
 # Changelog
 
+3.0.2
+
+* Adds `is-multiple` class to faux select box when `multiple=true`
+
 3.0.1
 
 * Adds ability to disable a faux option
