@@ -15,6 +15,7 @@ export default Mixin.create(
   Focusable, {
 
   api: null,
+  promiseID: 0,
 
   didReceiveAttrs() {
     this._super(...arguments);
@@ -41,18 +42,19 @@ export default Mixin.create(
 
   _update(value) {
     return new Promise(resolve => {
-      const id = this.incrementProperty('promiseID');
+      const id = this.get('promiseID') + 1;
+      trySet(this, 'promiseID', id);
 
       value = this._normaliseValue(value);
       value = this._resolveValue(value);
 
       value.then(resolvedValue => {
         const superseded = id < this.get('promiseID');
-        if (superseded) {
+        if (superseded || this.get('isDestroyed')) {
           return;
         }
 
-        trySet(this, 'selectedValue', resolvedValue);
+        this.set('selectedValue', resolvedValue);
         scheduleOnce('afterRender', this, '_updated', resolve);
 
         this.rerender();

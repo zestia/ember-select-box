@@ -1,5 +1,9 @@
 # Changelog
 
+3.0.3
+
+* Don't try to re-render if destroyed
+
 3.0.2
 
 * Adds `is-multiple` class to faux select box when `multiple=true`
