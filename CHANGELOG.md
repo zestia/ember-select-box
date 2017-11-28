@@ -1,5 +1,9 @@
 # Changelog
 
+3.0.4
+
+* Adds a `on-init` action, useful for getting the select box's api
+
 3.0.3
 
 * Don't try to re-render if destroyed

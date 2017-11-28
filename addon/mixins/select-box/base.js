@@ -17,6 +17,11 @@ export default Mixin.create(
   api: null,
   promiseID: 0,
 
+  init() {
+    this._super(...arguments);
+    this._init();
+  },
+
   didReceiveAttrs() {
     this._super(...arguments);
     this.set('isMultiple', this.get('multiple'));
@@ -62,6 +67,10 @@ export default Mixin.create(
         // Treat as if no value
       });
     });
+  },
+
+  _init() {
+    invokeAction(this, 'on-init', this.get('api'));
   },
 
   _updated(resolve) {

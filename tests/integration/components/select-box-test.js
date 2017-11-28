@@ -145,3 +145,22 @@ test('update action', function(assert) {
     'updating attributes other than the `value` ' +
     'should not fire update action');
 });
+
+
+test('init action', function(assert) {
+  assert.expect(2);
+
+  let api;
+
+  this.on('initialised', sb => api = sb);
+
+  this.render(hbs `{{select-box on-init=(action 'initialised')}}`);
+
+  assert.ok(!this.$('.select-box').hasClass('is-open'),
+    'precondition, not open');
+
+  api.open();
+
+  assert.ok(this.$('.select-box').hasClass('is-open'),
+    'action is called with the api');
+});
