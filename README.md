@@ -83,6 +83,11 @@ ember install ember-select-box
       </td>
     </tr>
     <tr>
+      <td>on-init</td>
+      <td>Fired when the select box initialises. Useful opportunity to get
+      access to the select box's API which is passed as a parameter.</td>
+    </tr>
+    <tr>
       <td>on-select</td>
       <td>
         Fired when an option is clicked, or enter is pressed regardless as
