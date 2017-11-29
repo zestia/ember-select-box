@@ -4,10 +4,10 @@ import HasOptions from './registration/has-options';
 import Focusable from  './select-box/focusable';
 import trySet from '../../utils/try-set';
 import { makeArray } from '@ember/array';
-import { scheduleOnce } from '@ember/runloop';
+import { bind, scheduleOnce } from '@ember/runloop';
 import invokeAction from '../../utils/invoke-action';
 import RSVP from 'rsvp';
-const { Promise, all, resolve } = RSVP;
+const { all, resolve } = RSVP;
 
 export default Mixin.create(
   Nameable,
@@ -41,41 +41,30 @@ export default Mixin.create(
     });
   },
 
-  _selected() {
-    invokeAction(this, 'on-select', this.get('selectedValue'), this.get('api'));
-  },
-
   _update(value) {
-    return new Promise(resolve => {
-      const id = this.get('promiseID') + 1;
-      trySet(this, 'promiseID', id);
+    value = this._normaliseValue(value);
+    value = this._resolveValue(value);
 
-      value = this._normaliseValue(value);
-      value = this._resolveValue(value);
+    const id = this.get('promiseID') + 1;
 
-      value.then(resolvedValue => {
-        const superseded = id < this.get('promiseID');
-        if (superseded || this.get('isDestroyed')) {
-          return;
-        }
+    trySet(this, 'promiseID', id);
 
-        this.set('selectedValue', resolvedValue);
-        scheduleOnce('afterRender', this, '_updated', resolve);
+    const success = bind(this, '_resolvedValue', id, false);
+    const failure = bind(this, '_resolvedValue', id, true);
 
-        this.rerender();
-      }, () => {
-        // Treat as if no value
-      });
-    });
+    return value.then(success, failure);
   },
 
   _init() {
     invokeAction(this, 'on-init', this.get('api'));
   },
 
-  _updated(resolve) {
+  _updated() {
     invokeAction(this, 'on-update', this.get('selectedValue'), this.get('api'));
-    resolve();
+  },
+
+  _selected() {
+    invokeAction(this, 'on-select', this.get('selectedValue'), this.get('api'));
   },
 
   _normaliseValue(value) {
@@ -90,6 +79,22 @@ export default Mixin.create(
       return all(value);
     }
     return resolve(value);
+  },
+
+  _resolvedValue(id, failed, value) {
+    const superseded = id < this.get('promiseID');
+
+    if (superseded || this.get('isDestroyed')) {
+      return;
+    }
+
+    this.set('selectedValue', value);
+
+    scheduleOnce('afterRender', this, '_updated', resolve);
+
+    this.rerender();
+
+    resolve();
   },
 
   actions: {

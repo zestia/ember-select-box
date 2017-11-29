@@ -3,6 +3,7 @@ import Nameable from  '../general/nameable';
 import Registerable from  '../general/registerable';
 import { isBlank } from '@ember/utils';
 import RSVP from 'rsvp';
+import { bind } from '@ember/runloop';
 import trySet from '../../../utils/try-set';
 const { resolve } = RSVP;
 
@@ -10,31 +11,43 @@ export default Mixin.create(
   Nameable,
   Registerable, {
 
+  promiseID: 0,
+
   didReceiveAttrs() {
     this._super(...arguments);
+    this._update();
+  },
+
+  _update() {
     const value = this.get('value');
-    let label   = this.get('label');
+    const id    = this.get('promiseID') + 1;
 
-    const id = this.incrementProperty('promiseID');
+    trySet(this, 'promiseID', id);
 
-    resolve(value).then(value => {
-      const superseded = id < this.get('promiseID');
-      if (superseded) {
-        return;
-      }
+    const success = bind(this, '_resolvedValue', id, false);
+    const failure = bind(this, '_resolvedValue', id, true);
 
-      if (isBlank(label)) {
-        label = value;
-      }
+    resolve(value).then(success, failure);
+  },
 
-      trySet(this, 'label', label);
-      trySet(this, 'value', value);
-    }, error => {
-      // Treat as if no value
+  _resolvedValue(id, failed, value) {
+    const superseded = id < this.get('promiseID');
 
-      if (isBlank(label) && error) {
-        trySet(this, 'label', error.toString());
-      }
-    });
+    if (superseded || this.get('isDestroyed')) {
+      return;
+    }
+
+    let label = this.get('label');
+
+    if (failed) {
+      label = `${value}`;
+    }
+
+    if (isBlank(label)) {
+      label = value;
+    }
+
+    trySet(this, 'label', label);
+    trySet(this, 'value', value);
   }
 });

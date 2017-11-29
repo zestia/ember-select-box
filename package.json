@@ -38,7 +38,7 @@
     "ember-disable-proxy-controllers": "1.0.1",
     "ember-load-initializers": "1.0.0",
     "ember-resolver": "4.5.0",
-    "ember-source": "2.16.0",
+    "ember-source": "2.16.2",
     "eslint": "4.8.0",
     "eslint-plugin-ember": "4.5.0",
     "loader.js": "4.6.0"

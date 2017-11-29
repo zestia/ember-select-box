@@ -1,11 +1,8 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import RSVP from 'rsvp';
 import wait from 'ember-test-helpers/wait';
 import jQuery from 'jquery';
-import { later } from '@ember/runloop';
-const { Promise, resolve, reject } = RSVP;
-
+import promise from '../../../helpers/promises';
 
 moduleForComponent('', 'select-box (promises)', {
   integration: true
@@ -15,11 +12,7 @@ moduleForComponent('', 'select-box (promises)', {
 test('promise value (single)', function(assert) {
   assert.expect(2);
 
-  this.set('promise', new Promise(resolve => {
-    later(() => {
-      resolve('bar');
-    }, 200);
-  }));
+  this.set('promise', promise('bar', null, 200));
 
   this.render(hbs`
     {{#select-box value=promise as |sb|}}
@@ -43,8 +36,8 @@ test('promise value (multiple)', function(assert) {
   assert.expect(1);
 
   this.set('promises', [
-    resolve('foo'),
-    resolve('bar')
+    promise('foo'),
+    promise('bar')
   ]);
 
   this.render(hbs`
@@ -69,7 +62,7 @@ test('promise value (multiple)', function(assert) {
 test('promise value (failure)', function(assert) {
   assert.expect(1);
 
-  this.set('promise', reject('bar'));
+  this.set('promise', promise(null, true));
 
   this.render(hbs`
     {{#select-box value=promise as |sb|}}
@@ -89,18 +82,10 @@ test('promise value (failure)', function(assert) {
 test('promise option value', function(assert) {
   assert.expect(2);
 
-  const slowValue = value => {
-    return new Promise(resolve => {
-      later(() => {
-        resolve(value);
-      }, 200);
-    });
-  };
-
-  this.set('value', slowValue('bar'));
-  this.set('foo', slowValue('foo'));
-  this.set('bar', slowValue('bar'));
-  this.set('baz', slowValue('baz'));
+  this.set('value', promise('bar', null, 200));
+  this.set('foo', promise('foo', null, 200));
+  this.set('bar', promise('bar', null, 200));
+  this.set('baz', promise('baz', null, 200));
 
   this.render(hbs`
     {{#select-box value=value as |sb|}}
@@ -115,7 +100,7 @@ test('promise option value', function(assert) {
       assert.equal(this.$('.select-box-option.is-selected').text(), 'bar',
         'waits for promise to resolve before computing selected option');
 
-      this.set('value', slowValue('baz'));
+      this.set('value', promise('baz'));
       return wait();
     })
     .then(() => {
@@ -128,18 +113,6 @@ test('promise option value', function(assert) {
 test('promise value order', function(assert) {
   assert.expect(1);
 
-  const slowPromise = new Promise(resolve => {
-    later(() => {
-      resolve('baz');
-    }, 500);
-  });
-
-  const fastPromise = new Promise(resolve => {
-    later(() => {
-      resolve('bar');
-    }, 250);
-  });
-
   this.render(hbs`
     {{#select-box value=promise as |sb|}}
       {{sb.option value='foo'}}
@@ -148,8 +121,8 @@ test('promise value order', function(assert) {
     {{/select-box}}
   `);
 
-  this.set('promise', slowPromise);
-  this.set('promise', fastPromise);
+  this.set('promise', promise('baz', null, 500));
+  this.set('promise', promise('bar', null, 250));
 
   return wait().then(() => {
     assert.equal(this.$('.select-box-option.is-selected').text(), 'bar',
@@ -161,18 +134,6 @@ test('promise value order', function(assert) {
 test('promise option value order', function(assert) {
   assert.expect(1);
 
-  const slowPromise = new Promise(resolve => {
-    later(() => {
-      resolve('qux');
-    }, 500);
-  });
-
-  const fastPromise = new Promise(resolve => {
-    later(() => {
-      resolve('bar');
-    }, 250);
-  });
-
   this.render(hbs`
     {{#select-box value='bar' as |sb|}}
       {{sb.option value='foo'}}
@@ -181,8 +142,8 @@ test('promise option value order', function(assert) {
     {{/select-box}}
   `);
 
-  this.set('promise', slowPromise);
-  this.set('promise', fastPromise);
+  this.set('promise', promise('qux', null, 500));
+  this.set('promise', promise('bar', null, 250));
 
   return wait().then(() => {
     assert.equal(this.$('.select-box-option.is-selected').text(), 'bar',
@@ -194,12 +155,13 @@ test('promise option value order', function(assert) {
 test('promise option value (failure)', function(assert) {
   assert.expect(3);
 
-  this.set('promise', reject('Failed to resolve'));
+  this.set('promise1', promise('Bar'));
+  this.set('promise2', promise(null, 'Failed to resolve'));
 
   this.render(hbs`
     {{#select-box value='foo' as |sb|}}
-      {{sb.option value=promise label='Foo'}}
-      {{sb.option value=promise}}
+      {{sb.option value=promise1 label='Foo'}}
+      {{sb.option value=promise2}}
     {{/select-box}}
   `);
 
@@ -221,9 +183,7 @@ test('weird failure', function(assert) {
   assert.expect(2);
 
   this.on('show', () => {
-    new Promise(resolve => {
-      later(resolve, 100);
-    }).then(() => this.set('showSelect', true));
+    promise(true, null, 100).then(() => this.set('showSelect', true));
   });
 
   this.render(hbs`

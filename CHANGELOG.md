@@ -1,5 +1,9 @@
 # Changelog
 
+3.0.5
+
+* Update tests to work with Ember 2.15x as per https://github.com/emberjs/ember.js/issues/15569
+
 3.0.4
 
 * Adds a `on-init` action, useful for getting the select box's api

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 import scrollIntoView from 'ember-select-box/utils/select-box/scroll-into-view';
-import { moduleForComponent, test } from 'ember-qunit';
+import { moduleForComponent, test, skip } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
 let $container, $top, $middle, $bottom;
@@ -31,7 +31,7 @@ test('does not blow up', function(assert) {
 });
 
 
-test('scroll up', function(assert) {
+skip('scroll up', function(assert) {
   assert.expect(2);
 
   $container.scrollTop(1000);
@@ -46,7 +46,7 @@ test('scroll up', function(assert) {
 });
 
 
-test('scroll down', function(assert) {
+skip('scroll down', function(assert) {
   assert.expect(2);
 
   assert.equal($container.scrollTop(), 0,
