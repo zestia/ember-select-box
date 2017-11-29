@@ -90,11 +90,9 @@ export default Mixin.create(
 
     this.set('selectedValue', value);
 
-    scheduleOnce('afterRender', this, '_updated', resolve);
-
     this.rerender();
 
-    resolve();
+    scheduleOnce('afterRender', this, '_updated');
   },
 
   actions: {
