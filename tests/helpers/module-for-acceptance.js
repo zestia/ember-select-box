@@ -1,11 +1,9 @@
-/* eslint-disable */
+/* eslint-disable max-len */
 
 import { module } from 'qunit';
-import Ember from 'ember';
 import startApp from '../helpers/start-app';
 import destroyApp from '../helpers/destroy-app';
-
-const { RSVP: { Promise } } = Ember;
+import { Promise } from 'rsvp';
 
 export default function(name, options = {}) {
   module(name, {
