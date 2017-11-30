@@ -1,12 +1,15 @@
-import { test } from 'qunit';
+import Ember from 'ember';
+import { test, skip } from 'qunit';
 import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
+
+const runTest = parseFloat(Ember.VERSION) === 2.8 ? skip : test;
 
 moduleForAcceptance('backtracking focus use-case');
 
 // Try scenario in a Twiddle:
 // https://ember-twiddle.com/2f066b448da4242c29e241a5203d8840
 
-test('backtracking focus error', function(assert) {
+runTest('backtracking focus error', function(assert) {
   assert.expect(5);
 
   visit('/backtrack-select');
