@@ -22,7 +22,7 @@ test('clicking outside', function(assert) {
     {{/select-box}}
   `);
 
-   this.$('.select-box').trigger('click');
+  this.$('.select-box').trigger('click');
 
   assert.equal(count, 0,
     'clicking the select box is not outside');
@@ -37,4 +37,3 @@ test('clicking outside', function(assert) {
   assert.equal(count, 1,
     'clicking outside the select box is outside');
 });
-

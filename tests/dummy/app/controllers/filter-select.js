@@ -6,6 +6,7 @@ const { resolve } = RSVP;
 
 export default Controller.extend({
   init() {
+    this._super(...arguments);
     this.set('selectablePies', pies);
   },
 

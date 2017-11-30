@@ -6,13 +6,14 @@ import RSVP from 'rsvp';
 const { resolve } = RSVP;
 
 export default Controller.extend({
+  init() {
+    this._super(...arguments);
+    this.set('selectedTags', emberA(tags));
+  },
+
   selectedTagIDs: mapBy('selectedTags', 'id'),
   selectedTagNames: mapBy('selectedTags', 'name'),
   maxTagID: max('selectedTagIDs'),
-
-  init() {
-    this.set('selectedTags', emberA(tags));
-  },
 
   _findTags(query) {
     const tags = emberA(this.get('selectedTags').filter(tag => {

@@ -3,6 +3,7 @@ import { breads } from '../utils/dummy-data';
 
 export default Controller.extend({
   init() {
+    this._super(...arguments);
     this.set('selectableBreads', breads);
     this.set('bloomer', { id: 13, name: 'Bloomer' });
     this.set('brioche', { id: 14, name: 'Brioche' });

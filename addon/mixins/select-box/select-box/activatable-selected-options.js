@@ -31,10 +31,10 @@ export default Mixin.create({
   },
 
   activeSelectedOption: computed('activeSelectedOptionIndex', 'selectedOptions',
-  function() {
-    const index = this.get('activeSelectedOptionIndex');
-    return this.get('selectedOptions').objectAt(index);
-  }),
+    function() {
+      const index = this.get('activeSelectedOptionIndex');
+      return this.get('selectedOptions').objectAt(index);
+    }),
 
   actions: {
     activateSelectedOptionAtIndex(index, scroll) {

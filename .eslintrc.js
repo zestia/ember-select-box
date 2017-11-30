@@ -17,18 +17,32 @@ module.exports = {
   rules: {
     // Ember specific
 
-    'ember/local-modules': 'error',
+    'ember/alias-model-in-controller': 'off',
+    'ember/closure-actions': 'error',
     'ember/jquery-ember-run': 'error',
-    'ember/no-observers': 'error',
-    'ember/no-side-effects': 'error',
+    'ember/new-module-imports': 'error',
     'ember/named-functions-in-promises': 'off',
+    'ember/new-module-imports': 'error',
+    'ember/no-attrs-in-components': 'error',
+    'ember/no-attrs-snapshot': 'error',
+    'ember/no-capital-letters-in-routes': 'error',
+    'ember/no-duplicate-dependent-keys': 'error',
+    'ember/no-empty-attrs': 'off',
     'ember/no-function-prototype-extensions': 'error',
-    'ember/use-ember-get-and-set': 'off',
+    'ember/no-global-jquery': 'off',
+    'ember/no-observers': 'error',
+    'ember/no-old-shims': 'error',
+    'ember/no-on-calls-in-components': 'error',
+    'ember/no-side-effects': 'error',
+    'ember/require-super-in-init': 'error',
+    'ember/routes-segments-snake-case': 'off',
     'ember/use-brace-expansion': 'error',
+    'ember/use-ember-get-and-set': 'off',
+    'ember/avoid-leaking-state-in-ember-objects': 'error',
     'ember/order-in-components': ['error', {
       order: [
-        'service',
         'property',
+        'service',
         'single-line-function',
         'multi-line-function',
         'observer',
@@ -47,9 +61,9 @@ module.exports = {
     }],
     'ember/order-in-routes': ['error', {
       order: [
-        'service',
         'inherited-property',
         'property',
+        'service',
         'single-line-function',
         'multi-line-function',
         'model',
@@ -60,10 +74,10 @@ module.exports = {
     }],
     'ember/order-in-controllers': ['error', {
       order: [
-        'service',
         'query-params',
         'inherited-property',
         'property',
+        'service',
         'single-line-function',
         'multi-line-function',
         'observer',
@@ -71,14 +85,6 @@ module.exports = {
         'actions'
       ]
     }],
-    'ember/alias-model-in-controller': 'off',
-    'ember/closure-actions': 'error',
-    'ember/no-on-calls-in-components': 'error',
-    'ember/avoid-leaking-state-in-components': 'error',
-    'ember/no-empty-attrs': 'off',
-    'ember/no-capital-letters-in-routes': 'error',
-    'ember/routes-segments-snake-case': 'off',
-    'ember/no-old-shims': 'error',
 
     // Possible Errors
 
@@ -135,15 +141,16 @@ module.exports = {
     'eqeqeq': 'error',
     'guard-for-in': 'off',
     'no-alert': 'error',
-    'no-eval': 'error',
     'no-caller': 'error',
     'no-case-declarations': 'error',
+    'no-compare-neg-zero': 'error',
     'no-div-regex': 'error',
     'no-else-return': 'off',
     'no-empty-function': 'off',
     'no-empty-pattern': 'error',
-    'no-extend-native': 'error',
     'no-eq-null': 'error',
+    'no-eval': 'error',
+    'no-extend-native': 'error',
     'no-extra-bind': 'error',
     'no-extra-label': 'error',
     'no-fallthrough': 'error',
@@ -182,7 +189,6 @@ module.exports = {
     'no-useless-concat': 'error',
     'no-useless-escape': 'error',
     'no-useless-return': 'error',
-    'no-compare-neg-zero': 'error',
     'no-void': 'error',
     'no-warning-comments': 'warn',
     'no-with': 'error',
@@ -204,8 +210,8 @@ module.exports = {
     'no-restricted-globals': 'off',
     'no-shadow-restricted-names': 'error',
     'no-shadow': 'off',
-    'no-undef': 'error',
     'no-undef-init': 'error',
+    'no-undef': 'error',
     'no-undefined': 'off',
     'no-unused-vars': 'error',
     'no-use-before-define': 'off',
@@ -248,7 +254,12 @@ module.exports = {
     'id-blacklist': ['error', 'callback'],
     'id-length': 'off',
     'id-match': 'off',
-    // 'indent': ['error', 2],
+    'indent': ['error', 2, {
+      SwitchCase: 1,
+      ignoredNodes: [
+        "CallExpression[callee.property.name=/extend|create/] > ObjectExpression"
+      ]
+    }],
     'jsx-quotes': 'off',
     'key-spacing': ['error', {
       beforeColon: false,
@@ -274,7 +285,7 @@ module.exports = {
       tabWidth: 2,
       ignoreComments: true
     }],
-    'max-lines': ['error', 600],
+    'max-lines': ['error', 700],
     'max-nested-callbacks': ['error', 3],
     'max-params': ['error', 5],
     'max-statements-per-line': ['error', {
@@ -311,7 +322,9 @@ module.exports = {
     'no-whitespace-before-property': 'error',
     'object-curly-newline': 'off',
     'object-curly-spacing': ['error', 'always'],
-    'object-property-newline': 'off',
+    'object-property-newline': ['error', {
+      allowMultiplePropertiesPerLine: true
+    }],
     'one-var-declaration-per-line': 'off',
     'one-var': 'off',
     'operator-assignment': 'error',
