@@ -1,8 +1,7 @@
 import Controller from '@ember/controller';
 import { A as emberA } from '@ember/array';
 import { pies } from '../utils/dummy-data';
-import RSVP from 'rsvp';
-const { resolve } = RSVP;
+import { resolve } from 'rsvp';
 
 export default Controller.extend({
   init() {
