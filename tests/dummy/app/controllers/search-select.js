@@ -2,8 +2,7 @@ import Controller from '@ember/controller';
 import { A as emberA } from '@ember/array';
 import { later } from '@ember/runloop';
 import { breads } from '../utils/dummy-data';
-import RSVP from 'rsvp';
-const { Promise } = RSVP;
+import { Promise } from 'rsvp';
 
 export default Controller.extend({
   _findBread(query) {

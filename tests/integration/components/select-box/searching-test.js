@@ -2,17 +2,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
 import { later, next } from '@ember/runloop';
-import RSVP from 'rsvp';
-const { Promise, resolve, reject } = RSVP;
-
-
-function resolveIn(ms, payload) {
-  return new Promise(resolve => {
-    later(() => {
-      resolve(payload);
-    }, ms);
-  });
-}
+import promise from '../../../helpers/promises';
 
 
 moduleForComponent('', 'select-box (searching)', {
@@ -64,11 +54,11 @@ test('searching (success)', function(assert) {
 
   this.on('findItems', query => {
     if (query === 'first') {
-      return resolveIn(300, [query]);
+      return promise([query], null, 300);
     } else if (query === 'second') {
-      return resolveIn(200, [query]);
+      return promise([query], null, 200);
     } else if (query === 'third') {
-      return resolveIn(100, [query]);
+      return promise([query], null, 100);
     }
   });
 
@@ -106,9 +96,7 @@ test('searching (success)', function(assert) {
 test('searching (failure)', function(assert) {
   assert.expect(5);
 
-  this.on('findItems', () => {
-    return reject('no results');
-  });
+  this.on('findItems', () => promise(null, 'no results'));
 
   this.on('failedToFindItems', (error, query, sb) => {
     this.setProperties({ error, query });
@@ -153,11 +141,7 @@ test('searching progress', function(assert) {
     return !!this.$('.select-box').text().match('Searching: true');
   };
 
-  this.on('findItems', () => {
-    return new Promise(resolve => {
-      later(resolve, 100);
-    });
-  });
+  this.on('findItems', () => promise(true, null, 100));
 
   this.on('searched', () => {
     next(() => {
@@ -192,9 +176,7 @@ test('searching progress', function(assert) {
 test('default search delay', function(assert) {
   assert.expect(3);
 
-  this.on('findItems', () => {
-    return resolve(['foo']);
-  });
+  this.on('findItems', () => promise(['foo']));
 
   this.on('foundItems', items => {
     this.set('items', items);
@@ -229,9 +211,7 @@ test('default search delay', function(assert) {
 test('custom search delay', function(assert) {
   assert.expect(2);
 
-  this.on('findItems', () => {
-    return resolve(['foo']);
-  });
+  this.on('findItems', () => promise(['foo']));
 
   this.on('foundItems', items => {
     this.set('items', items);
@@ -268,11 +248,7 @@ test('search slow time', function(assert) {
     return this.$('.select-box').text().match('Slow: true');
   };
 
-  this.on('findItems', () => {
-    return new Promise(resolve => {
-      later(resolve, 100);
-    });
-  });
+  this.on('findItems', () => promise(true, null, 100));
 
   this.on('foundItems', () => {
     assert.ok(isSlow(),
@@ -311,7 +287,7 @@ test('query is trimmed', function(assert) {
     assert.equal(query, 'foo',
       'whitespace is trimmed from the query');
 
-    return resolve();
+    return promise(true);
   });
 
   this.render(hbs`
@@ -333,7 +309,7 @@ test('default min chars', function(assert) {
 
   this.on('findItems', () => {
     searches++;
-    return resolve();
+    return promise(true);
   });
 
   const input = chars => {
@@ -367,7 +343,7 @@ test('custom min chars', function(assert) {
     assert.ok(true,
       'can change the amount of min chars before a search will run');
 
-    return resolve();
+    return promise(true);
   });
 
   this.render(hbs`
@@ -390,7 +366,7 @@ test('manually running a search', function(assert) {
     assert.strictEqual(value, '',
       'can run a search manually even if min chars is specified');
 
-    return resolve();
+    return promise(true);
   });
 
   this.render(hbs`
@@ -408,11 +384,7 @@ test('destroying mid-search', function(assert) {
 
   this.set('display', true);
 
-  this.on('findItems', () => {
-    return new Promise(resolve => {
-      later(resolve, 200);
-    });
-  });
+  this.on('findItems', () => promise(true, null, 200));
 
   this.render(hbs`
     {{#if display}}
@@ -467,7 +439,7 @@ test('stopping searching', function(assert) {
   assert.expect(2);
 
   this.on('findItems', () => {
-    return resolveIn(200);
+    return promise(true, null, 200);
   });
 
   this.on('foundItems', () => {

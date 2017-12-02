@@ -2,8 +2,7 @@ import Controller from '@ember/controller';
 import { mapBy, max } from '@ember/object/computed';
 import { A as emberA } from '@ember/array';
 import { tags } from '../utils/dummy-data';
-import RSVP from 'rsvp';
-const { resolve } = RSVP;
+import { resolve } from 'rsvp';
 
 export default Controller.extend({
   init() {

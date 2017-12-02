@@ -1,59 +1,55 @@
-/* eslint-disable no-console */
-
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import RSVP from 'rsvp';
 import { A as emberA } from '@ember/array';
 import wait from 'ember-test-helpers/wait';
-const { Promise } = RSVP;
 
 
-moduleForComponent('', 'select-box (promises)', {
+moduleForComponent('', 'select-box (speed)', {
   integration: true,
 
   beforeEach() {
-    this.set('times', []);
-
     this.set('items', emberA());
 
-    for (let i = 0; i <= 500; i++) {
+    for (let i = 0; i <= 1000; i++) {
       this.get('items').pushObject(`Item ${i}`);
-    }
-
-    this.set('promiseItems', emberA(this.get('items').map(item => {
-      return new Promise(resolve => {
-        resolve(item);
-      });
-    })));
-
-    this.set('selectedPromiseItems', emberA());
-
-    for (let i = 100; i <= 500; i += 100) {
-      this.get('selectedPromiseItems').pushObject(
-        this.get('promiseItems').objectAt(i)
-      );
     }
   }
 });
 
 
 
-test('extreme example average speed', function(assert) {
-  assert.expect(0);
+test('non-component options', function(assert) {
+  assert.expect(1);
 
-  const start = Date.now();
+  const start1 = Date.now();
+  let start2;
+  let end1, end2;
 
   this.render(hbs`
-    {{#select-box value=selectedPromiseItems multiple=true as |sb|}}
-      {{#each promiseItems as |promiseItem|}}
-        <option value={{promiseItem}}></option>
+    {{#select-box as |sb|}}
+      {{#each items as |item|}}
+        <option value={{item}}>{{item}}</option>
       {{/each}}
     {{/select-box}}
   `);
 
   return wait().then(() => {
-    const end = Date.now() - start;
+    end1 = Date.now() - start1;
+    start2 = Date.now();
 
-    console.log(end);
+    this.render(hbs`
+      {{#select-box as |sb|}}
+        {{#each items as |item|}}
+          {{#sb.option value=item}}{{item}}{{/sb.option}}
+        {{/each}}
+      {{/select-box}}
+    `);
+
+    return wait();
+  }).then(() => {
+    end2 = Date.now() - start2;
+  }).then(() => {
+    assert.ok(end1 < end2,
+      'renders faster with non-component options');
   });
 });

@@ -6,8 +6,7 @@ import trySet from '../../utils/try-set';
 import { makeArray } from '@ember/array';
 import { bind, scheduleOnce } from '@ember/runloop';
 import invokeAction from '../../utils/invoke-action';
-import RSVP from 'rsvp';
-const { all, resolve } = RSVP;
+import { all, resolve } from 'rsvp';
 
 export default Mixin.create(
   Nameable,

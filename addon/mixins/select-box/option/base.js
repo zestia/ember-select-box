@@ -2,10 +2,9 @@ import Mixin from '@ember/object/mixin';
 import Nameable from  '../general/nameable';
 import Registerable from  '../general/registerable';
 import { isBlank } from '@ember/utils';
-import RSVP from 'rsvp';
+import { resolve } from 'rsvp';
 import { bind } from '@ember/runloop';
 import trySet from '../../../utils/try-set';
-const { resolve } = RSVP;
 
 export default Mixin.create(
   Nameable,
