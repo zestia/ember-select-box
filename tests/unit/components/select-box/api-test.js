@@ -27,6 +27,7 @@ test('api', function(assert) {
     'stopSearching',
     'setInputValue',
     'focusInput',
+    'blurInput',
     'activateOptionAtIndex',
     'activateNextOption',
     'activatePreviousOption',

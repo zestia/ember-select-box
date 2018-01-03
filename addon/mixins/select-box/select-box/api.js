@@ -16,6 +16,7 @@ export default Mixin.create({
       'stopSearching',
       'setInputValue',
       'focusInput',
+      'blurInput',
       'activateOptionAtIndex',
       'activateNextOption',
       'activatePreviousOption',

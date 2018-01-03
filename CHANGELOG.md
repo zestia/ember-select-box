@@ -1,5 +1,9 @@
 # Changelog
 
+3.0.7
+
+* Add `blurInput` to API
+
 3.0.6
 
 * Minor changes to tests

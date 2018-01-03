@@ -233,6 +233,10 @@ ember install ember-select-box
       <td>Focuses the input associated with the select box</td>
     </tr>
     <tr>
+      <td>sb.blurInput</td>
+      <td>Unfocuses the input associated with the select box</td>
+    </tr>
+    <tr>
       <td>sb.activateOptionAtIndex</td>
       <td>Adds an `is-active` class to the option at the index</td>
     </tr>

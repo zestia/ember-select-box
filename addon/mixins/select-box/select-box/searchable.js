@@ -107,6 +107,10 @@ export default Mixin.create({
       this.get('input.element').focus();
     },
 
+    blurInput() {
+      this.get('input.element').blur();
+    },
+
     inputText(text) {
       this._super(...arguments);
       this._inputText(text);
