@@ -1,6 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import SelectBox from 'ember-select-box/components/select-box';
+import SelectBox from '@zestia/ember-select-box/components/select-box';
 
 moduleForComponent('', 'select-box', {
   integration: true

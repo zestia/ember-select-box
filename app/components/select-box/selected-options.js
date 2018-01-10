@@ -1,3 +1,3 @@
 export {
   default
-} from 'ember-select-box/components/select-box/selected-options';
+} from '@zestia/ember-select-box/components/select-box/selected-options';

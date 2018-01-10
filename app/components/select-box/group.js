@@ -1,1 +1,1 @@
-export { default } from 'ember-select-box/components/select-box/group';
+export { default } from '@zestia/ember-select-box/components/select-box/group';

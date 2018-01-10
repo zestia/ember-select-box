@@ -1,6 +1,6 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable no-unused-vars, max-len */
 
-import scrollIntoView from 'ember-select-box/utils/select-box/scroll-into-view';
+import scrollIntoView from '@zestia/ember-select-box/utils/select-box/scroll-into-view';
 import { moduleForComponent, test, skip } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 

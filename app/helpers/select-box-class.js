@@ -1,4 +1,4 @@
 export {
   default,
   selectBoxClass
-} from 'ember-select-box/helpers/select-box-class';
+} from '@zestia/ember-select-box/helpers/select-box-class';

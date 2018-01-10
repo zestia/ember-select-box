@@ -1,6 +1,6 @@
 {
-  "name": "ember-select-box",
-  "version": "3.0.7",
+  "name": "@zestia/ember-select-box",
+  "version": "3.0.8",
   "description": "A faux select box for Ember apps",
   "directories": {
     "doc": "doc",
@@ -13,12 +13,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/amk221/ember-select-box.git"
+    "url": "https://github.com/zestia/ember-select-box.git"
   },
   "engines": {
     "node": ">= 4"
   },
-  "author": "Andrew Kirwin",
+  "author": "Zestia",
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "2.6.0",
@@ -55,14 +55,14 @@
   ],
   "ember-addon": {
     "configPath": "tests/dummy/config",
-    "demoURL": "https://amk221.github.io/ember-select-box",
+    "demoURL": "https://zestia.github.io/ember-select-box",
     "versionCompatibility": {
       "ember": ">=2.3.0 <=canary"
     }
   },
   "bugs": {
-    "url": "https://github.com/amk221/ember-select-box/issues"
+    "url": "https://github.com/zestia/ember-select-box/issues"
   },
-  "homepage": "https://github.com/amk221/ember-select-box",
+  "homepage": "https://github.com/zestia/ember-select-box",
   "configPath": "tests/dummy/config"
 }

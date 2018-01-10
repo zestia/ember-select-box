@@ -1,6 +1,6 @@
-# ember-select-box
+# @zestia/ember-select-box
 
-<a href="http://emberobserver.com/addons/ember-select-box"><img src="http://emberobserver.com/badges/ember-select-box.svg"></a> &nbsp; <a href="https://david-dm.org/amk221/ember-select-box#badge-embed"><img src="https://david-dm.org/amk221/ember-select-box.svg"></a> &nbsp; <a href="https://david-dm.org/amk221/ember-select-box#dev-badge-embed"><img src="https://david-dm.org/amk221/ember-select-box/dev-status.svg"></a> &nbsp; <a href="https://codeclimate.com/github/amk221/ember-select-box"><img src="https://codeclimate.com/github/amk221/ember-select-box/badges/gpa.svg" /></a> &nbsp; <a href="http://travis-ci.org/amk221/ember-select-box"><img src="https://travis-ci.org/amk221/ember-select-box.svg?branch=master"></a> &nbsp; <a href="http://emberjs.com/blog/2016/01/15/ember-2-3-released.html#toc_contextual-components"><img src="http://embadge.io/v1/badge.svg?label=ember&range=%3E=2.3.0"></a>
+<a href="http://emberobserver.com/addons/ember-select-box"><img src="http://emberobserver.com/badges/ember-select-box.svg"></a> &nbsp; <a href="https://david-dm.org/zestia/ember-select-box#badge-embed"><img src="https://david-dm.org/zestia/ember-select-box.svg"></a> &nbsp; <a href="https://david-dm.org/zestia/ember-select-box#dev-badge-embed"><img src="https://david-dm.org/zestia/ember-select-box/dev-status.svg"></a> &nbsp; <a href="http://travis-ci.org/zestia/ember-select-box"><img src="https://travis-ci.org/zestia/ember-select-box.svg?branch=master"></a> &nbsp; <a href="http://emberjs.com/blog/2016/01/15/ember-2-3-released.html#toc_contextual-components"><img src="http://embadge.io/v1/badge.svg?label=ember&range=%3E=2.3.0"></a>
 
 
 Select box solutions are rarely perfect for what you want.
@@ -12,8 +12,8 @@ This addon does less, and gives you the primitives to easily _compose your own_.
 
 
 * [Ways to achieve what you want](#customising)
-* <a href="https://amk221.github.io/ember-select-box" target="_blank">Example scenarios</a>
-* <a href="https://github.com/amk221/ember-select-box/tree/master/tests/dummy/app/components" target="_blank">Code for example scenarios</a>
+* <a href="https://zestia.github.io/ember-select-box" target="_blank">Example scenarios</a>
+* <a href="https://github.com/zestia/ember-select-box/tree/master/tests/dummy/app/components" target="_blank">Code for example scenarios</a>
 * [Things to note](#things-to-note)
 * [FAQ](#faq)
 
@@ -21,7 +21,7 @@ This addon does less, and gives you the primitives to easily _compose your own_.
 ### Installation
 
 ```
-ember install ember-select-box
+ember install @zestia/ember-select-box
 ```
 
 <hr>
