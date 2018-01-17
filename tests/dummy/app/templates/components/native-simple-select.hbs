@@ -3,9 +3,9 @@
 </div>
 {{#select-box/native
   value=value
-  on-focus-in=(action 'focusIn')
-  on-focus-out=(action 'focusOut')
-  on-update=(action 'updateDisplayLabel')
+  on-focus-in=(action "focusIn")
+  on-focus-out=(action "focusOut")
+  on-update=(action "updateDisplayLabel")
   on-select=on-select as |sb|}}
   {{yield sb}}
 {{/select-box/native}}

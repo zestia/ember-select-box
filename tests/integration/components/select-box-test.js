@@ -21,7 +21,7 @@ test('class prefix attr', function(assert) {
   assert.expect(9);
 
   this.render(hbs `
-    {{#select-box class-prefix='foo' as |sb|}}
+    {{#select-box class-prefix="foo" as |sb|}}
       {{sb.input}}
       {{#sb.selected-options}}
         {{sb.selected-option}}
@@ -95,7 +95,7 @@ test('initial update action', function(assert) {
       'fires an initial update action with the selected value');
   });
 
-  this.render(hbs `{{select-box on-update=(action 'updated')}}`);
+  this.render(hbs `{{select-box on-update=(action "updated")}}`);
 });
 
 
@@ -117,7 +117,7 @@ test('subsequent update actions', function(assert) {
   this.render(hbs `
     {{select-box
       value=selectedValue
-      on-update=(action 'updated')}}
+      on-update=(action "updated")}}
   `);
 
   this.set('selectedValue', 'bar');
@@ -136,7 +136,7 @@ test('update action', function(assert) {
   this.render(hbs `
     {{select-box
       disabled=isDisabled
-      on-update=(action 'updated')}}
+      on-update=(action "updated")}}
   `);
 
   this.set('isDisabled', true);
@@ -154,7 +154,7 @@ test('init action', function(assert) {
 
   this.on('initialised', sb => api = sb);
 
-  this.render(hbs `{{select-box on-init=(action 'initialised')}}`);
+  this.render(hbs `{{select-box on-init=(action "initialised")}}`);
 
   assert.ok(!this.$('.select-box').hasClass('is-open'),
     'precondition, not open');

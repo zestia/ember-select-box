@@ -19,7 +19,7 @@ test('it renders', function(assert) {
 test('class prefix', function(assert) {
   assert.expect(1);
 
-  this.render(hbs `{{select-box/native/option class-prefix='foo'}}`);
+  this.render(hbs `{{select-box/native/option class-prefix="foo"}}`);
 
   assert.equal(this.$('.foo-option').length, 1,
     'can override the class prefix');
@@ -29,7 +29,7 @@ test('class prefix', function(assert) {
 test('title', function(assert) {
   assert.expect(1);
 
-  this.render(hbs `{{select-box/native/option title='Foo'}}`);
+  this.render(hbs `{{select-box/native/option title="Foo"}}`);
 
   assert.equal(this.$('.select-box-option').attr('title'), 'Foo',
     'a native select box option can have a title attribute');
@@ -101,7 +101,7 @@ test('block label', function(assert) {
 
   this.render(hbs `
     {{#select-box/native as |sb|}}
-      {{#sb.option label='Bar'}}Foo{{/sb.option}}
+      {{#sb.option label="Bar"}}Foo{{/sb.option}}
     {{/select-box/native}}
   `);
 

@@ -1,6 +1,6 @@
 {{#native-simple-select
   value=selectedBiscuit
-  on-select=(action 'selectedBiscuit') as |sb|}}
+  on-select=(action "selectedBiscuit") as |sb|}}
   {{#each selectableBiscuits as |biscuit|}}
     {{sb.option value=biscuit label=biscuit.name}}
   {{/each}}

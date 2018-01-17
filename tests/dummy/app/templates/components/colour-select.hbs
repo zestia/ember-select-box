@@ -1,21 +1,21 @@
 {{#select-box
-  class-prefix='colour-select'
+  class-prefix="colour-select"
   value=value
   on-select=on-select
-  on-click-outside=(action 'close')
-  on-press-escape=(action 'close') as |sb|}}
+  on-click-outside=(action "close")
+  on-press-escape=(action "close") as |sb|}}
   {{sb.selected-option
     click=sb.open
     value=sb.value
     label=sb.value
-    style=(concat 'background:' sb.value)}}
+    style=(concat "background:" sb.value)}}
   {{#if sb.isOpen}}
     {{#sb.options}}
       {{#each colours as |colour|}}
         {{~sb.option
           value=colour
           label=colour
-          style=(concat 'background:' colour)~}}
+          style=(concat "background:" colour)~}}
       {{/each}}
     {{/sb.options}}
   {{/if}}

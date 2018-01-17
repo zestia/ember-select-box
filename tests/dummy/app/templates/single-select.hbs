@@ -1,13 +1,13 @@
 {{#select-box
   value=selectedBread
-  class='single-select'
-  on-select=(action 'selectedBread') as |sb|}}
+  class="single-select"
+  on-select=(action "selectedBread") as |sb|}}
 
-  {{#sb.option value=bloomer on-select=(action 'action1')}}
+  {{#sb.option value=bloomer on-select=(action "action1")}}
     {{bloomer.name}} (Misc action 1)
   {{/sb.option}}
 
-  {{#sb.option value=brioche on-select=(action 'action2')}}
+  {{#sb.option value=brioche on-select=(action "action2")}}
     {{brioche.name}} (Misc action 2)
   {{/sb.option}}
 

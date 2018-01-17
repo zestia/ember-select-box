@@ -16,8 +16,8 @@ test('promise value (single)', function(assert) {
 
   this.render(hbs`
     {{#select-box value=promise as |sb|}}
-      {{sb.option value='foo'}}
-      {{sb.option value='bar'}}
+      {{sb.option value="foo"}}
+      {{sb.option value="bar"}}
       {{sb.option value=promise}}
     {{/select-box}}
   `);
@@ -42,9 +42,9 @@ test('promise value (multiple)', function(assert) {
 
   this.render(hbs`
     {{#select-box value=promises multiple=true as |sb|}}
-      {{sb.option value='foo'}}
-      {{sb.option value='bar'}}
-      {{sb.option value='baz'}}
+      {{sb.option value="foo"}}
+      {{sb.option value="bar"}}
+      {{sb.option value="baz"}}
     {{/select-box}}
   `);
 
@@ -66,9 +66,9 @@ test('promise value (failure)', function(assert) {
 
   this.render(hbs`
     {{#select-box value=promise as |sb|}}
-      {{sb.option value='foo'}}
-      {{sb.option value='bar'}}
-      {{sb.option value='baz'}}
+      {{sb.option value="foo"}}
+      {{sb.option value="bar"}}
+      {{sb.option value="baz"}}
     {{/select-box}}
   `);
 
@@ -115,9 +115,9 @@ test('promise value order', function(assert) {
 
   this.render(hbs`
     {{#select-box value=promise as |sb|}}
-      {{sb.option value='foo'}}
-      {{sb.option value='bar'}}
-      {{sb.option value='baz'}}
+      {{sb.option value="foo"}}
+      {{sb.option value="bar"}}
+      {{sb.option value="baz"}}
     {{/select-box}}
   `);
 
@@ -135,10 +135,10 @@ test('promise option value order', function(assert) {
   assert.expect(1);
 
   this.render(hbs`
-    {{#select-box value='bar' as |sb|}}
-      {{sb.option value='foo'}}
+    {{#select-box value="bar" as |sb|}}
+      {{sb.option value="foo"}}
       {{sb.option value=promise}}
-      {{sb.option value='baz'}}
+      {{sb.option value="baz"}}
     {{/select-box}}
   `);
 
@@ -159,8 +159,8 @@ test('promise option value (failure)', function(assert) {
   this.set('promise2', promise(null, 'Failed to resolve'));
 
   this.render(hbs`
-    {{#select-box value='foo' as |sb|}}
-      {{sb.option value=promise1 label='Foo'}}
+    {{#select-box value="foo" as |sb|}}
+      {{sb.option value=promise1 label="Foo"}}
       {{sb.option value=promise2}}
     {{/select-box}}
   `);
@@ -189,12 +189,12 @@ test('weird failure', function(assert) {
   this.render(hbs`
     {{#if showSelect}}
       {{#select-box on-select=(action (mut selectedValue)) as |sb|}}
-        {{sb.option value='foo'}}
-        {{sb.option value='bar'}}
-        {{sb.option value='baz'}}
+        {{sb.option value="foo"}}
+        {{sb.option value="bar"}}
+        {{sb.option value="baz"}}
       {{/select-box}}
     {{/if}}
-    <button onclick={{action 'show'}}></button>
+    <button onclick={{action "show"}}></button>
   `);
 
   this.$('button').trigger('click');

@@ -12,8 +12,8 @@ test('mouseover activates options', function(assert) {
   this.render(hbs`
     {{#select-box as |sb|}}
       {{#sb.options}}
-        {{sb.option value=1 label='One'}}
-        {{sb.option value=2 label='Two'}}
+        {{sb.option value=1 label="One"}}
+        {{sb.option value=2 label="Two"}}
       {{/sb.options}}
     {{/select-box}}
   `);
@@ -63,7 +63,7 @@ test('activating via the api', function(assert) {
 
   this.render(hbs`
     {{#select-box as |sb|}}
-      {{sb.option value='foo' on-activate=(action 'activated')}}
+      {{sb.option value="foo" on-activate=(action "activated")}}
       <button onclick={{action sb.activateOptionAtIndex 0}}>
         Activate foo
       </button>

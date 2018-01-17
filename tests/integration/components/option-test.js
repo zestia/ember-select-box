@@ -19,7 +19,7 @@ test('it renders', function(assert) {
 test('class prefix', function(assert) {
   assert.expect(1);
 
-  this.render(hbs `{{select-box/option class-prefix='foo'}}`);
+  this.render(hbs `{{select-box/option class-prefix="foo"}}`);
 
   assert.equal(this.$('.foo-option').length, 1,
     'can override the class prefix');
@@ -39,7 +39,7 @@ test('aria role', function(assert) {
 test('title', function(assert) {
   assert.expect(1);
 
-  this.render(hbs `{{select-box/option title='Foo'}}`);
+  this.render(hbs `{{select-box/option title="Foo"}}`);
 
   assert.equal(this.$('.select-box-option').attr('title'), 'Foo',
     'a select box option can have a title attribute');
@@ -49,7 +49,7 @@ test('title', function(assert) {
 test('style', function(assert) {
   assert.expect(1);
 
-  this.render(hbs `{{select-box/option style='color:red<script>'}}`);
+  this.render(hbs `{{select-box/option style="color:red<script>"}}`);
 
   assert.ok(this.$().html().match('style="color:red&amp;lt;script&amp;gt;"'),
     'an option can be styled, value is escaped');
@@ -73,8 +73,8 @@ test('aria selected', function(assert) {
 
   this.render(hbs `
     {{#select-box value=value as |sb|}}
-      {{sb.option value=1 label='One'}}
-      {{sb.option value=2 label='Two'}}
+      {{sb.option value=1 label="One"}}
+      {{sb.option value=2 label="Two"}}
     {{/select-box}}
   `);
 
@@ -100,15 +100,15 @@ test('yield index', function(assert) {
   this.set('group2', [baz, qux]);
 
   this.render(hbs`
-    {{#select-box value='baz' as |sb|}}
-      {{#sb.group label='Group 1'}}
+    {{#select-box value="baz" as |sb|}}
+      {{#sb.group label="Group 1"}}
         {{#each group1 as |item i|}}
           {{#sb.option value=item.myValue label=item.myLabel as |o|~}}
             {{o.label}}={{o.value}} {{i}} ({{o.index}}) {{o.selected}}
           {{~/sb.option}}
         {{/each}}
       {{/sb.group}}
-      {{#sb.group label='Group 2'}}
+      {{#sb.group label="Group 2"}}
         {{#each group2 as |item i|}}
           {{#sb.option value=item.myValue label=item.myLabel as |o|~}}
             {{o.label}}={{o.value}} {{i}} ({{o.index}}) {{o.selected}}
@@ -136,7 +136,7 @@ test('yield disabled', function(assert) {
   this.render(hbs`
     {{#select-box as |sb|}}
       {{#sb.option disabled=fooDisabled as |o|}}
-        foo {{if o.disabled 'disabled'}}
+        foo {{if o.disabled "disabled"}}
       {{/sb.option}}
     {{/select-box}}
   `);

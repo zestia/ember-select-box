@@ -31,9 +31,9 @@ ember install @zestia/ember-select-box
 
 ```handlebars
 {{#select-box/native as |sb|}}
-  {{sb.option value=1 label='One'}}
-  {{sb.option value=2 label='Two'}}
-  {{sb.option value=3 label='Three'}}
+  {{sb.option value=1 label="One"}}
+  {{sb.option value=2 label="Two"}}
+  {{sb.option value=3 label="Three"}}
 {{/select-box/native}}
 ```
 
@@ -41,9 +41,9 @@ ember install @zestia/ember-select-box
 
 ```handlebars
 {{#select-box as |sb|}}
-  {{sb.option value=1 label='One'}}
-  {{sb.option value=2 label='Two'}}
-  {{sb.option value=3 label='Three'}}
+  {{sb.option value=1 label="One"}}
+  {{sb.option value=2 label="Two"}}
+  {{sb.option value=3 label="Three"}}
 {{/select-box}}
 ```
 
@@ -276,9 +276,9 @@ ember install @zestia/ember-select-box
 #### Option
 
 ```handlebars
-{{sb.option value=1 label='One'}}
+{{sb.option value=1 label="One"}}
 
-{{#sb.option value=2 label='Two' as |o|}}
+{{#sb.option value=2 label="Two" as |o|}}
   {{o.label}}
 {{/sb.option}}
 ```
@@ -386,7 +386,7 @@ ember install @zestia/ember-select-box
 Self explanitory, just wraps the options in extra markup.
 
 ```handlebars
-{{#sb.group label='Things'}}
+{{#sb.group label="Things"}}
   {{sb.option value=thing label=thing.name}}
 {{/sb.group}}
 ```
@@ -399,8 +399,8 @@ You only need to wrap the options up in with `sb.options` if you require extra m
 
 ```handlebars
 {{#sb.options}}
-  {{sb.option value=1 label='One'}}
-  {{sb.option value=2 label='Two'}}
+  {{sb.option value=1 label="One"}}
+  {{sb.option value=2 label="Two"}}
 {{/sb.options}}
 ```
 
@@ -485,9 +485,9 @@ Allows you to input text into the select box, usually for running searches/filte
 Does _not_ render the user's selected option automatically, but rather just provides a way for you to render the option(s) that have been selected.
 
 ```handlebars
-{{sb.selected-option value=1 label='One'}}
+{{sb.selected-option value=1 label="One"}}
 
-{{#sb.selected-option value=2 label='Two' as |so|}}
+{{#sb.selected-option value=2 label="Two" as |so|}}
   {{so.label}}
 {{/sb.selected-option}}
 ```
@@ -548,7 +548,7 @@ Provides a container for options that the user selected. Does not do anything by
 The select boxes that come with this addon exposes an API to you as an argument to action handlers like so:
 
 ```handlebars
-{{select-box on-select=(action 'selectedAnOption')}}
+{{select-box on-select=(action "selectedAnOption")}}
 ```
 
 ```javascript
@@ -573,7 +573,7 @@ There are 3 ways to get what you want
 It's recommended that you compose your own select box like so :
 
 ```handlebars
-{{#select-box value=value on-select=on-select class-prefix='my-select-box' as |sb|}}}
+{{#select-box value=value on-select=on-select class-prefix="my-select-box" as |sb|}}}
   {{sb.selected-option label=sb.value.name}}
   <button onclick={{action sb.toggle}}>Toggle</button>
   {{yield sb}}
@@ -583,7 +583,7 @@ It's recommended that you compose your own select box like so :
 ...and then use it like this:
 
 ```handlebars
-{{#my-select value=thing on-select=(action 'selectedAThing') as |sb|}}
+{{#my-select value=thing on-select=(action "selectedAThing") as |sb|}}
   {{#each things as |thing|}}
     {{sb.option value=thing label=thing.name}}
   {{/each}}
@@ -629,8 +629,8 @@ const MySelectBox = Component.extend(BaseSelectBox, Toggleable, Searchable);
 ember-select-box works well with <a href="https://github.com/yapplabs/ember-wormhole">ember-wormhole</a>. In most cases, this isn't needed - but it can be useful to render your `<options>`'s elsewhere in the DOM if you find yourself with `overflow:hidden` style issues for example.
 
 ```handlebars
-{{#select-box class-prefix='worm-select' as |sb|}}
-  {{#ember-wormhole to='destination'}}
+{{#select-box class-prefix="worm-select" as |sb|}}
+  {{#ember-wormhole to="destination"}}
     {{#sb.options}}
       {{yield sb}}
     {{/sb.options}}

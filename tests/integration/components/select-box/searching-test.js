@@ -32,7 +32,7 @@ test('searching (promise)', function(assert) {
   });
 
   this.render(hbs`
-    {{#select-box on-search=(action 'findItems') as |sb|}}
+    {{#select-box on-search=(action "findItems") as |sb|}}
       {{sb.input}}
       {{#each items as |item|}}
         {{sb.option value=item}}
@@ -68,8 +68,8 @@ test('searching (success)', function(assert) {
 
   this.render(hbs`
     {{#select-box
-      on-search=(action 'findItems')
-      on-searched=(action 'foundItems') as |sb|}}
+      on-search=(action "findItems")
+      on-searched=(action "foundItems") as |sb|}}
       {{sb.input}}
       Results for: {{query}}
       {{#each items as |item|}}
@@ -113,8 +113,8 @@ test('searching (failure)', function(assert) {
 
   this.render(hbs`
     {{#select-box
-      on-search=(action 'findItems')
-      on-search-error=(action 'failedToFindItems') as |sb|}}
+      on-search=(action "findItems")
+      on-search-error=(action "failedToFindItems") as |sb|}}
       {{sb.input}}
       {{#if error}}
         Error: {{error}} for {{query}}
@@ -152,8 +152,8 @@ test('searching progress', function(assert) {
 
   this.render(hbs`
     {{#select-box
-      on-search=(action 'findItems')
-      on-searched=(action 'searched')
+      on-search=(action "findItems")
+      on-searched=(action "searched")
       search-delay-time=0
       as |sb|}}
       {{sb.input}}
@@ -184,8 +184,8 @@ test('default search delay', function(assert) {
 
   this.render(hbs`
     {{#select-box
-      on-search=(action 'findItems')
-      on-searched=(action 'foundItems') as |sb|}}
+      on-search=(action "findItems")
+      on-searched=(action "foundItems") as |sb|}}
       {{sb.input}}
       {{items.[0]}}
     {{/select-box}}
@@ -220,8 +220,8 @@ test('custom search delay', function(assert) {
   this.render(hbs`
     {{#select-box
       search-delay-time=200
-      on-search=(action 'findItems')
-      on-searched=(action 'foundItems') as |sb|}}
+      on-search=(action "findItems")
+      on-searched=(action "foundItems") as |sb|}}
       {{sb.input}}
       {{items.[0]}}
     {{/select-box}}
@@ -264,8 +264,8 @@ test('search slow time', function(assert) {
     {{#select-box
       search-slow-time=100
       search-delay-time=0
-      on-search=(action 'findItems')
-      on-searched=(action 'foundItems') as |sb|}}
+      on-search=(action "findItems")
+      on-searched=(action "foundItems") as |sb|}}
       {{sb.input}}
       Slow: {{sb.isSlowSearch}}
     {{/select-box}}
@@ -293,7 +293,7 @@ test('query is trimmed', function(assert) {
   this.render(hbs`
     {{#select-box
       search-delay-time=0
-      on-search=(action 'findItems') as |sb|}}
+      on-search=(action "findItems") as |sb|}}
       {{sb.input}}
     {{/select-box}}
   `);
@@ -319,7 +319,7 @@ test('default min chars', function(assert) {
   this.render(hbs`
     {{#select-box
       search-delay-time=0
-      on-search=(action 'findItems') as |sb|}}
+      on-search=(action "findItems") as |sb|}}
       {{sb.input}}
     {{/select-box}}
   `);
@@ -350,7 +350,7 @@ test('custom min chars', function(assert) {
     {{#select-box
       search-min-chars=0
       search-delay-time=0
-      on-search=(action 'findItems') as |sb|}}
+      on-search=(action "findItems") as |sb|}}
       {{sb.input}}
     {{/select-box}}
   `);
@@ -370,8 +370,8 @@ test('manually running a search', function(assert) {
   });
 
   this.render(hbs`
-    {{#select-box search-min-chars=2 on-search=(action 'findItems') as |sb|}}
-      <button onclick={{action sb.search ''}}></button>
+    {{#select-box search-min-chars=2 on-search=(action "findItems") as |sb|}}
+      <button onclick={{action sb.search ""}}></button>
     {{/select-box}}
   `);
 
@@ -388,7 +388,7 @@ test('destroying mid-search', function(assert) {
 
   this.render(hbs`
     {{#if display}}
-      {{#select-box on-search=(action 'findItems') as |sb|}}
+      {{#select-box on-search=(action "findItems") as |sb|}}
         {{sb.input}}
       {{/select-box}}
     {{/if}}
@@ -418,8 +418,8 @@ test('set input value', function(assert) {
 
   this.render(hbs`
     {{#select-box as |sb|}}
-      {{sb.input value='foo' on-input=(action 'inputted')}}
-      <button onclick={{action sb.setInputValue 'bar'}}>Reset</button>
+      {{sb.input value="foo" on-input=(action "inputted")}}
+      <button onclick={{action sb.setInputValue "bar"}}>Reset</button>
     {{/select-box}}
   `);
 
@@ -450,8 +450,8 @@ test('stopping searching', function(assert) {
   this.render(hbs`
     {{#select-box
       search-delay-time=0
-      on-search=(action 'findItems')
-      on-searched=(action 'foundItems') as |sb|}}
+      on-search=(action "findItems")
+      on-searched=(action "foundItems") as |sb|}}
       {{sb.input value=myValue on-clear=sb.stopSearching}}
     {{/select-box}}
   `);

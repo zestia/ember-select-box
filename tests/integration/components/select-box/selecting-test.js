@@ -19,9 +19,9 @@ test('changing the value attribute', function(assert) {
   });
 
   this.render(hbs`
-    {{#select-box on-select=(action 'selected') value=selectedValue as |sb|}}
-      {{sb.option value='Foo'}}
-      {{sb.option value='Bar'}}
+    {{#select-box on-select=(action "selected") value=selectedValue as |sb|}}
+      {{sb.option value="Foo"}}
+      {{sb.option value="Bar"}}
     {{/select-box}}
   `);
 
@@ -57,9 +57,9 @@ test('click to select option', function(assert) {
   this.render(hbs`
     {{#select-box
       value=initialSelectedValue
-      on-select=(action 'selected') as |sb|}}
-      {{sb.option value='foo'}}
-      {{sb.option value='bar'}}
+      on-select=(action "selected") as |sb|}}
+      {{sb.option value="foo"}}
+      {{sb.option value="bar"}}
     {{/select-box}}
   `);
 
@@ -89,9 +89,9 @@ test('selecting more than 1 of the same value', function(assert) {
 
   this.render(hbs`
     {{#select-box as |sb|}}
-      {{sb.option value='foo'}}
-      {{sb.option value='bar'}}
-      {{sb.option value='bar'}}
+      {{sb.option value="foo"}}
+      {{sb.option value="bar"}}
+      {{sb.option value="bar"}}
     {{/select-box}}
   `);
 
@@ -115,9 +115,9 @@ test('selecting multiple options', function(assert) {
   });
 
   this.render(hbs`
-    {{#select-box on-select=(action 'selected') multiple=true as |sb|}}
-      {{sb.option value='foo'}}
-      {{sb.option value='bar'}}
+    {{#select-box on-select=(action "selected") multiple=true as |sb|}}
+      {{sb.option value="foo"}}
+      {{sb.option value="bar"}}
     {{/select-box}}
   `);
 
@@ -151,9 +151,9 @@ test('press enter to select active option', function(assert) {
   });
 
   this.render(hbs`
-    {{#select-box on-select=(action 'selected') as |sb|}}
-      {{sb.option value='foo'}}
-      {{sb.option value='bar' on-select=(action 'selectedBar')}}
+    {{#select-box on-select=(action "selected") as |sb|}}
+      {{sb.option value="foo"}}
+      {{sb.option value="bar" on-select=(action "selectedBar")}}
     {{/select-box}}
   `);
 
@@ -167,7 +167,7 @@ test('options with no label', function(assert) {
 
   this.render(hbs`
     {{#select-box as |sb|}}
-      {{#sb.option value='foo' as |o|}}
+      {{#sb.option value="foo" as |o|}}
         {{~o.label~}}
       {{/sb.option}}
     {{/select-box}}
@@ -192,9 +192,9 @@ test('selecting via the api', function(assert) {
   });
 
   this.render(hbs`
-    {{#select-box on-select=(action 'selected') as |sb|}}
-      {{sb.option value='foo' on-select=(action 'selectedFoo')}}
-      <button onclick={{action sb.select 'foo'}}>
+    {{#select-box on-select=(action "selected") as |sb|}}
+      {{sb.option value="foo" on-select=(action "selectedFoo")}}
+      <button onclick={{action sb.select "foo"}}>
         Select foo
       </button>
     {{/select-box}}
@@ -208,10 +208,10 @@ test('manual selection', function(assert) {
   assert.expect(3);
 
   this.render(hbs`
-    {{#select-box value='baz' as |sb|}}
-      {{sb.option value='foo'}}
-      {{sb.option value='bar' selected=true}}
-      {{sb.option value='baz' selected=false}}
+    {{#select-box value="baz" as |sb|}}
+      {{sb.option value="foo"}}
+      {{sb.option value="bar" selected=true}}
+      {{sb.option value="baz" selected=false}}
     {{/select-box}}
   `);
 
@@ -228,9 +228,9 @@ test('manual selection', function(assert) {
 
   this.render(hbs`
     {{#select-box as |sb|}}
-      {{sb.option value='foo'}}
-      {{sb.option value='bar' selected=barSelected}}
-      {{sb.option value='baz'}}
+      {{sb.option value="foo"}}
+      {{sb.option value="bar" selected=barSelected}}
+      {{sb.option value="baz"}}
     {{/select-box}}
   `);
 
@@ -250,8 +250,8 @@ test('usage with mut helper', function(assert) {
     external: {{external}}
     {{#select-box on-select=(action (mut external)) as |sb|}}
       internal: {{sb.value}}
-      {{sb.option value='foo'}}
-      {{sb.option value='bar'}}
+      {{sb.option value="foo"}}
+      {{sb.option value="bar"}}
     {{/select-box}}
   `);
 
@@ -275,9 +275,9 @@ test('with disabled options', function(assert) {
   });
 
   this.render(hbs`
-    {{#select-box value='foo' on-select=(action 'selected') as |sb|}}
-      {{sb.option value='foo' disabled=true}}
-      {{sb.option value='bar'}}
+    {{#select-box value="foo" on-select=(action "selected") as |sb|}}
+      {{sb.option value="foo" disabled=true}}
+      {{sb.option value="bar"}}
     {{/select-box}}
   `);
 

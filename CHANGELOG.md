@@ -1,5 +1,9 @@
 # Changelog
 
+3.0.9
+
+* Lint everything
+
 3.0.7
 
 * Add `blurInput` to API
@@ -226,7 +230,7 @@
 
 0.1.3
 
-* Add `autocomplete='off'` to search input
+* Add `autocomplete="off"` to search input
 
 0.1.2
 

@@ -1,4 +1,4 @@
-{{#select-box/native on-select=(action 'selectModelId') as |sb|}}
+{{#select-box/native on-select=(action "selectModelId")}}
   {{#each options as |option|}}
     {{! Intentionally does not use sb.option }}
     <option value={{option.model.id}} selected={{option.selected}}>

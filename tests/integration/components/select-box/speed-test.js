@@ -23,7 +23,8 @@ test('non-component options', function(assert) {
 
   const start1 = Date.now();
   let start2;
-  let end1, end2;
+  let end1;
+  let end2;
 
   this.render(hbs`
     {{#select-box as |sb|}}

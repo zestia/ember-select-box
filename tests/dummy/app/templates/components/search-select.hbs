@@ -1,17 +1,17 @@
 {{#select-box
-  class-prefix='search-select'
+  class-prefix="search-select"
   value=value
-  on-press-escape=(action 'close')
-  on-click-outside=(action 'close')
+  on-press-escape=(action "close")
+  on-click-outside=(action "close")
   on-select=on-select
   on-search=on-search
-  on-searched=(action 'searched')
+  on-searched=(action "searched")
   search-slow-time=1000 as |sb|}}
   {{sb.input}}
   {{#if sb.isSearching}}
     {{#sb.option}}
       Please wait...
-      {{if sb.isSlowSearch '(hold tight!)'}}
+      {{if sb.isSlowSearch "(hold tight!)"}}
     {{/sb.option}}
   {{else if sb.isOpen}}
     {{#sb.options}}

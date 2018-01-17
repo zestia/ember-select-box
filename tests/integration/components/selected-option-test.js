@@ -19,7 +19,7 @@ test('it renders', function(assert) {
 test('class prefix', function(assert) {
   assert.expect(1);
 
-  this.render(hbs `{{select-box/selected-option class-prefix='foo'}}`);
+  this.render(hbs `{{select-box/selected-option class-prefix="foo"}}`);
 
   assert.equal(this.$('.foo-selected-option').length, 1,
     'can override the class prefix');
@@ -29,7 +29,7 @@ test('class prefix', function(assert) {
 test('title', function(assert) {
   assert.expect(1);
 
-  this.render(hbs `{{select-box/selected-option title='Foo'}}`);
+  this.render(hbs `{{select-box/selected-option title="Foo"}}`);
 
   assert.equal(this.$('.select-box-selected-option').attr('title'), 'Foo',
     'a selected option can have a title attribute');
@@ -39,7 +39,7 @@ test('title', function(assert) {
 test('style', function(assert) {
   assert.expect(1);
 
-  this.render(hbs `{{select-box/selected-option style='color:red<script>'}}`);
+  this.render(hbs `{{select-box/selected-option style="color:red<script>"}}`);
 
   assert.ok(this.$().html().match('style="color:red&amp;lt;script&amp;gt;"'),
     'a selected option can be styled, value is escaped');

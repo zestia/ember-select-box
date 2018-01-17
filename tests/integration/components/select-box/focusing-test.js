@@ -35,7 +35,8 @@ test('focus class name', function(assert) {
 test('focus actions', function(assert) {
   assert.expect(2);
 
-  let sentFocusIn, sentFocusOut;
+  let sentFocusIn;
+  let sentFocusOut;
 
   this.on('focused', () => {
     sentFocusIn = true;
@@ -47,8 +48,8 @@ test('focus actions', function(assert) {
 
   this.render(hbs `
     {{#select-box
-      on-focus-in=(action 'focused')
-      on-focus-out=(action 'blurred')}}
+      on-focus-in=(action "focused")
+      on-focus-out=(action "blurred")}}
       <button></button>
     {{/select-box}}
   `);

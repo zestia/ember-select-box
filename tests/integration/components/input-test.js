@@ -20,7 +20,7 @@ test('it renders', function(assert) {
 test('class prefix', function(assert) {
   assert.expect(1);
 
-  this.render(hbs `{{select-box/input class-prefix='foo'}}`);
+  this.render(hbs `{{select-box/input class-prefix="foo"}}`);
 
   assert.equal(this.$('.foo-input').length, 1,
     'can override the class prefix');
@@ -36,7 +36,7 @@ test('type', function(assert) {
     'select box inputs are not search boxes by default due to unwanted ' +
     'behaviour when you press escape');
 
-  this.render(hbs `{{select-box/input type='email'}}`);
+  this.render(hbs `{{select-box/input type="email"}}`);
 
   assert.equal(this.$('.select-box-input').attr('type'), 'email',
     'can change the type of the select box input');
@@ -80,7 +80,7 @@ test('inputting', function(assert) {
 
   this.render(hbs `
     {{#select-box as |sb|}}
-      {{sb.input on-input=(action 'inputText')}}
+      {{sb.input on-input=(action "inputText")}}
     {{/select-box}}
   `);
 
@@ -98,7 +98,7 @@ test('on-clear action', function(assert) {
 
   this.render(hbs `
     {{#select-box as |sb|}}
-      {{sb.input value='foo' on-clear=(action 'cleared')}}
+      {{sb.input value="foo" on-clear=(action "cleared")}}
     {{/select-box}}
   `);
 
@@ -120,7 +120,7 @@ test('on-delete action', function(assert) {
 
   this.render(hbs `
     {{#select-box as |sb|}}
-      {{sb.input value='f' on-delete=(action 'deleted')}}
+      {{sb.input value="f" on-delete=(action "deleted")}}
     {{/select-box}}
   `);
 

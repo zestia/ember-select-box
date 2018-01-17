@@ -16,9 +16,9 @@ test('clicking outside', function(assert) {
   });
 
   this.render(hbs `
-    <div class='outside'></div>
-    {{#select-box on-click-outside=(action 'clickedOutside')}}
-      <div class='inside'></div>
+    <div class="outside"></div>
+    {{#select-box on-click-outside=(action "clickedOutside")}}
+      <div class="inside"></div>
     {{/select-box}}
   `);
 

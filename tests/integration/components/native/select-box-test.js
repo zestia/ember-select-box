@@ -21,13 +21,13 @@ test('it renders', function(assert) {
 test('class prefix', function(assert) {
   assert.expect(2);
 
-  this.render(hbs `{{select-box/native class-prefix='foo'}}`);
+  this.render(hbs `{{select-box/native class-prefix="foo"}}`);
 
   assert.equal(this.$('.foo').length, 1,
     'can override the class prefix');
 
   this.render(hbs `
-    {{#select-box/native class-prefix='foo' as |sb|}}
+    {{#select-box/native class-prefix="foo" as |sb|}}
       {{#sb.group}}
         {{sb.option}}
       {{/sb.group}}
@@ -45,7 +45,7 @@ test('class prefix', function(assert) {
 test('name', function(assert) {
   assert.expect(1);
 
-  this.render(hbs `{{select-box/native name='foo'}}`);
+  this.render(hbs `{{select-box/native name="foo"}}`);
 
   assert.equal(this.$('.select-box').attr('name'), 'foo',
     'can set a name attribute');
@@ -55,7 +55,7 @@ test('name', function(assert) {
 test('title', function(assert) {
   assert.expect(1);
 
-  this.render(hbs `{{select-box/native title='foo'}}`);
+  this.render(hbs `{{select-box/native title="foo"}}`);
 
   assert.equal(this.$('.select-box').attr('title'), 'foo',
     'can set a title attribute');
@@ -65,7 +65,7 @@ test('title', function(assert) {
 test('aria label', function(assert) {
   assert.expect(1);
 
-  this.render(hbs `{{select-box/native aria-label='Something'}}`);
+  this.render(hbs `{{select-box/native aria-label="Something"}}`);
 
   assert.equal(this.$('.select-box').attr('aria-label'), 'Something',
     'setting the aria label works');
@@ -151,13 +151,13 @@ test('changing the selected value', function(assert) {
 
   this.render(hbs`
     {{#select-box/native value=selectedValue as |sb|}}
-      {{sb.option value='foo'}}
-      {{sb.option value='bar'}}
+      {{sb.option value="foo"}}
+      {{sb.option value="bar"}}
     {{/select-box/native}}
   `);
 
-  const $foo = this.$(".select-box-option[value='foo']");
-  const $bar = this.$(".select-box-option[value='bar']");
+  const $foo = this.$('.select-box-option[value="foo"]');
+  const $bar = this.$('.select-box-option[value="bar"]');
 
   assert.ok($foo.is(':selected') && $bar.not(':selected'),
     'the option with the matching value is selected initially');
@@ -187,10 +187,10 @@ test('change event selects an option', function(assert) {
   this.render(hbs`
     {{#select-box/native
       value=initialSelectedValue
-      on-select=(action 'selected') as |sb|}}
-      {{sb.option value='foo'}}
-      {{sb.option value='bar'}}
-      {{sb.option value='baz'}}
+      on-select=(action "selected") as |sb|}}
+      {{sb.option value="foo"}}
+      {{sb.option value="bar"}}
+      {{sb.option value="baz"}}
     {{/select-box/native}}
   `);
 
@@ -216,9 +216,9 @@ test('usage with mut helper', function(assert) {
     {{#select-box/native
       value=selectedValue
       on-select=(action (mut selectedValue)) as |sb|}}
-      {{sb.option value='foo'}}
-      {{sb.option value='bar'}}
-      {{sb.option value='baz'}}
+      {{sb.option value="foo"}}
+      {{sb.option value="bar"}}
+      {{sb.option value="baz"}}
     {{/select-box/native}}
   `);
 
@@ -236,9 +236,9 @@ test('usage with unbound helper', function(assert) {
 
   this.render(hbs`
     {{#select-box/native value=(unbound selectedValue) as |sb|}}
-      {{sb.option value='foo'}}
-      {{sb.option value='bar'}}
-      {{sb.option value='baz'}}
+      {{sb.option value="foo"}}
+      {{sb.option value="bar"}}
+      {{sb.option value="baz"}}
     {{/select-box/native}}
   `);
 
@@ -258,10 +258,10 @@ test('multiple selection', function(assert) {
   });
 
   this.render(hbs`
-    {{#select-box/native multiple=true on-select=(action 'selected') as |sb|}}
-      {{sb.option value='foo'}}
-      {{sb.option value='bar'}}
-      {{sb.option value='baz'}}
+    {{#select-box/native multiple=true on-select=(action "selected") as |sb|}}
+      {{sb.option value="foo"}}
+      {{sb.option value="bar"}}
+      {{sb.option value="baz"}}
     {{/select-box/native}}
   `);
 
@@ -284,7 +284,7 @@ test('selecting non primitives', function(assert) {
   });
 
   this.render(hbs`
-    {{#select-box/native multiple=true on-select=(action 'selected') as |sb|}}
+    {{#select-box/native multiple=true on-select=(action "selected") as |sb|}}
       {{sb.option value=foo}}
       {{sb.option value=bar}}
     {{/select-box/native}}
@@ -300,7 +300,7 @@ test('options with no label', function(assert) {
 
   this.render(hbs`
     {{#select-box/native as |sb|}}
-      {{#sb.option value='foo' as |o|}}
+      {{#sb.option value="foo" as |o|}}
         {{~o.label~}}
       {{/sb.option}}
     {{/select-box/native}}
@@ -317,10 +317,10 @@ test('manual selection (initial value)', function(assert) {
   this.set('barSelected', true);
 
   this.render(hbs`
-    {{#select-box/native value='baz' as |sb|}}
-      {{sb.option value='foo' selected=false}}
-      {{sb.option value='bar' selected=true}}
-      {{sb.option value='baz' selected=false}}
+    {{#select-box/native value="baz" as |sb|}}
+      {{sb.option value="foo" selected=false}}
+      {{sb.option value="bar" selected=true}}
+      {{sb.option value="baz" selected=false}}
     {{/select-box/native}}
   `);
 
@@ -336,9 +336,9 @@ test('manual selection (multiple values)', function(assert) {
 
   this.render(hbs`
     {{#select-box/native multiple=true as |sb|}}
-      {{sb.option value='foo'}}
-      {{sb.option value='bar' selected=barSelected}}
-      {{sb.option value='baz' selected=bazSelected}}
+      {{sb.option value="foo"}}
+      {{sb.option value="bar" selected=barSelected}}
+      {{sb.option value="baz" selected=bazSelected}}
     {{/select-box/native}}
   `);
 
@@ -364,7 +364,7 @@ test('non-component options (single)', function(assert) {
   });
 
   this.render(hbs`
-    {{#select-box/native on-select=(action 'selected') as |sb|}}
+    {{#select-box/native on-select=(action "selected") as |sb|}}
       <option value={{nonPrimitive}}>Primitive</option>
       <option value={{primitive}}>Primitive</option>
     {{/select-box/native}}
@@ -386,7 +386,7 @@ test('non-component options (multiple)', function(assert) {
   });
 
   this.render(hbs`
-    {{#select-box/native multiple=true on-select=(action 'selected') as |sb|}}
+    {{#select-box/native multiple=true on-select=(action "selected") as |sb|}}
       <option value="Hello"></option>
       <option value="World"></option>
     {{/select-box/native}}
@@ -405,7 +405,7 @@ test('non-component options (mixed)', function(assert) {
   });
 
   this.render(hbs`
-    {{#select-box/native multiple=true on-select=(action 'selected') as |sb|}}
+    {{#select-box/native multiple=true on-select=(action "selected") as |sb|}}
       {{sb.option value="foo"}}
       <option value="bar"></option>
     {{/select-box/native}}
@@ -424,7 +424,7 @@ test('initial update action', function(assert) {
     </div>
     {{#select-box/native
       value=value
-      on-update=(action 'updateDisplayLabel') as |sb|}}
+      on-update=(action "updateDisplayLabel") as |sb|}}
       {{yield sb}}
     {{/select-box/native}}
   `;
@@ -441,10 +441,10 @@ test('initial update action', function(assert) {
   this.registry.register('component:select-box/foo', FooSelectBox);
 
   this.render(hbs`
-    {{#select-box/foo value='bar' as |sb|}}
-      {{sb.option value='foo'}}
-      {{sb.option value='bar'}}
-      {{sb.option value='baz'}}
+    {{#select-box/foo value="bar" as |sb|}}
+      {{sb.option value="foo"}}
+      {{sb.option value="bar"}}
+      {{sb.option value="baz"}}
     {{/select-box/foo}}
   `);
 

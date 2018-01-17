@@ -4,7 +4,10 @@ import scrollIntoView from '@zestia/ember-select-box/utils/select-box/scroll-int
 import { moduleForComponent, test, skip } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
-let $container, $top, $middle, $bottom;
+let $container;
+let $top;
+let $middle;
+let $bottom;
 
 moduleForComponent('', 'select-box (scroll into view util)', {
   integration: true,

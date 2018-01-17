@@ -2,13 +2,13 @@
   size=12
   multiple=true
   value=selectedDesserts
-  on-select=(action 'selectedDesserts') as |sb|}}
-  {{#sb.group label='Pastries'}}
+  on-select=(action "selectedDesserts") as |sb|}}
+  {{#sb.group label="Pastries"}}
     {{#each selectablePastries as |pastry|}}
       {{sb.option value=pastry label=pastry.name}}
     {{/each}}
   {{/sb.group}}
-  {{#sb.group label='Biscuits'}}
+  {{#sb.group label="Biscuits"}}
     {{#each selectableBiscuits as |biscuit|}}
       {{sb.option value=biscuit label=biscuit.name}}
     {{/each}}

@@ -20,7 +20,7 @@ test('styling', function(assert) {
   assert.ok(!this.$().html().match('style'),
     'style attribute is not present');
 
-  this.render(hbs `{{foo-select style='color:red<script>'}}`);
+  this.render(hbs `{{foo-select style="color:red<script>"}}`);
 
   assert.ok(this.$().html().match('style="color:red&amp;lt;script&amp;gt;"'),
     'can be styled, value is escaped');

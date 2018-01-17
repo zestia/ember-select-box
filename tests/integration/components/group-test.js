@@ -20,7 +20,7 @@ test('it renders', function(assert) {
 test('class prefix', function(assert) {
   assert.expect(3);
 
-  this.render(hbs`{{select-box/group class-prefix='foo'}}`);
+  this.render(hbs`{{select-box/group class-prefix="foo"}}`);
 
   assert.equal(this.$('.foo-group').length, 1,
     'can override the class prefix');
@@ -36,7 +36,7 @@ test('class prefix', function(assert) {
 test('label', function(assert) {
   assert.expect(1);
 
-  this.render(hbs `{{select-box/group label='Foo'}}`);
+  this.render(hbs `{{select-box/group label="Foo"}}`);
 
   assert.equal(this.$(".select-box-group-label:contains('Foo')").length, 1,
     'displays the specified group label');

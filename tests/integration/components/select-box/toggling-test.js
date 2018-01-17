@@ -63,7 +63,7 @@ test('open action', function(assert) {
   this.on('opened', () => opened = true);
 
   this.render(hbs `
-    {{#select-box on-open=(action 'opened') as |sb|}}
+    {{#select-box on-open=(action "opened") as |sb|}}
       <button onclick={{action sb.open}}>open</button>
     {{/select-box}}
   `);
@@ -82,7 +82,7 @@ test('close action', function(assert) {
   this.on('closed', () => closed = true);
 
   this.render(hbs `
-    {{#select-box on-close=(action 'closed') as |sb|}}
+    {{#select-box on-close=(action "closed") as |sb|}}
       <button onclick={{action sb.close}}>close</button>
     {{/select-box}}
   `);

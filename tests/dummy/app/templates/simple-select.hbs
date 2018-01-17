@@ -1,7 +1,7 @@
 {{#simple-select
   value=selectedPudding
-  label-key='name'
-  on-select=(action 'selectedPudding') as |sb|}}
+  label-key="name"
+  on-select=(action "selectedPudding") as |sb|}}
   {{#each selectablePuddings as |pudding|}}
     {{sb.option value=pudding label=pudding.name}}
   {{/each}}
