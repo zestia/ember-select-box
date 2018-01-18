@@ -1,5 +1,10 @@
 # Changelog
 
+3.0.10
+
+* Fix travis builds
+* Fix dependencies
+
 3.0.9
 
 * Lint everything
@@ -205,7 +210,7 @@
 
 0.1.9
 
-* Upgrade deps
+* Upgrade devDependencies
 
 0.1.8
 
