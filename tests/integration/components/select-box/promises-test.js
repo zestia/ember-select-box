@@ -1,7 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import wait from 'ember-test-helpers/wait';
-import jQuery from 'jquery';
 import promise from '../../../helpers/promises';
 
 moduleForComponent('', 'select-box (promises)', {
@@ -50,7 +49,7 @@ test('promise value (multiple)', function(assert) {
 
   return wait().then(() => {
     const labels = this.$('.select-box-option.is-selected')
-      .map((i, o) => jQuery(o).text().trim())
+      .map((i, o) => o.textContent.trim())
       .toArray();
 
     assert.deepEqual(labels, ['foo', 'bar'],

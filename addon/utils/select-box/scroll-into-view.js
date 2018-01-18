@@ -1,23 +1,34 @@
-import jQuery from 'jquery';
+function _getOffset(element) {
+  const rect = element.getBoundingClientRect();
+  const win = element.ownerDocument.defaultView;
 
-export default function scrollIntoView(element, parent) {
-  if (!element || !parent) {
+  return {
+    top:  rect.top + win.pageYOffset,
+    left: rect.left + win.pageXOffset
+  };
+}
+
+/**
+ * - Scrolls the element into view
+ * - Only supports Up and Down currently.
+ * - Left and Right todo.
+ */
+export default function scrollIntoView(element, scroller) {
+  if (!element || !scroller) {
     return;
   }
 
-  const $element          = jQuery(element);
-  const $scroller         = jQuery(parent);
-  const scroll            = $scroller.scrollTop();
-  const elementTop        = $element.offset().top;
-  const scrollerTop       = $scroller.offset().top;
-  const elementBottom     = elementTop + $element.outerHeight();
-  const scrollerBottom    = scrollerTop + $scroller.innerHeight();
+  const scroll            = scroller.scrollTop;
+  const elementTop        = _getOffset(element).top;
+  const scrollerTop       = _getOffset(scroller).top;
+  const elementBottom     = elementTop + element.offsetHeight;
+  const scrollerBottom    = scrollerTop + scroller.clientHeight;
   const outOfBoundsTop    = elementTop - scrollerTop < 0;
   const outOfBoundsBottom = elementBottom > scrollerBottom;
 
   if (outOfBoundsTop) {
-    $scroller.scrollTop(scroll + (elementTop - scrollerTop));
+    scroller.scrollTop = scroll + (elementTop - scrollerTop);
   } else if (outOfBoundsBottom) {
-    $scroller.scrollTop(scroll + (elementBottom - scrollerBottom));
+    scroller.scrollTop = scroll + (elementBottom - scrollerBottom);
   }
 }

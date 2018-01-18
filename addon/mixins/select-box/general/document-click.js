@@ -1,34 +1,24 @@
 import Mixin from '@ember/object/mixin';
-import { run } from '@ember/runloop';
-import { guidFor } from '@ember/object/internals';
-import jQuery from 'jquery';
-import { computed } from '@ember/object';
+import { bind } from '@ember/runloop';
 
 export default Mixin.create({
-  $document: computed(function() {
-    return jQuery(document);
-  }),
-
   clickDocument() {},
-
-  init() {
-    this._super(...arguments);
-    const guid = guidFor(this);
-    this.set('clickEventName', `click.${guid}`);
-  },
 
   didInsertElement() {
     this._super(...arguments);
-    this.get('$document').on(this.get('clickEventName'), (...args) => {
-      if (this.get('isDestroyed')) {
-        return;
-      }
-      run(this, 'clickDocument', ...args);
-    });
+    this.set('_documentClickHandler', bind(this, '_clickDocument'));
+    document.addEventListener('click', this.get('_documentClickHandler'));
   },
 
   willDestroyElement() {
     this._super(...arguments);
-    this.get('$document').off(this.get('clickEventName'));
+    document.removeEventListener('click', this.get('_documentClickHandler'));
+  },
+
+  _clickDocument() {
+    if (this.get('isDestroyed')) {
+      return;
+    }
+    this.clickDocument(...arguments);
   }
 });
