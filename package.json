@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build": "ember build",
+    "lint:js": "eslint ./*.js addon addon-test-support app config lib server test-support tests",
     "start": "ember server",
     "test": "ember try:each"
   },
@@ -22,7 +23,7 @@
   "license": "MIT",
   "devDependencies": {
     "@zestia/ember-template-lint-plugin": "1.0.1",
-    "@zestia/eslint-config": "1.0.9",
+    "@zestia/eslint-config": "1.0.11",
     "@zestia/stylelint-config": "1.0.2",
     "broccoli-asset-rev": "2.6.0",
     "ember-cli-dependency-checker": "2.1.0",
