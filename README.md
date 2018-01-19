@@ -24,10 +24,6 @@ This addon does less, and gives you the primitives to easily _compose your own_.
 ember install @zestia/ember-select-box
 ```
 
-### Notes
-
-* Does not use jQuery
-
 <hr>
 
 #### Native select box
@@ -651,6 +647,7 @@ use a plain old `<option>` element [[Example](tests/dummy/app/templates/fast-nat
 <hr>
 
 ##### Things to note
+* Does not use jQuery
 * With just a few lines of code you can create an autocompleter using the [input](#input) component.
 * Thanks to contextual components there is not a truth helper in sight.
 * This project will never come with built-in styles.
