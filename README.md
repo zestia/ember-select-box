@@ -24,6 +24,10 @@ This addon does less, and gives you the primitives to easily _compose your own_.
 ember install @zestia/ember-select-box
 ```
 
+### Notes
+
+* Does not use jQuery
+
 <hr>
 
 #### Native select box
