@@ -1,66 +1,63 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('', 'select-box (class name helper)', {
-  integration: true
-});
+module('select-box (class name helper)', function(hooks) {
+  setupRenderingTest(hooks);
 
+  test('defaults', async function(assert) {
+    assert.expect(1);
 
-test('defaults', function(assert) {
-  assert.expect(1);
+    await render(hbs `{{select-box-class}}`);
 
-  this.render(hbs `{{select-box-class}}`);
+    assert.equal(this.$().html(), 'select-box',
+      'outputs the default class name');
+  });
 
-  assert.equal(this.$().html(), 'select-box',
-    'outputs the default class name');
-});
+  test('prefix', async function(assert) {
+    assert.expect(2);
 
+    await render(hbs `{{select-box-class ""}}`);
 
-test('prefix', function(assert) {
-  assert.expect(2);
+    assert.equal(this.$().html(), 'select-box',
+      'generates the default class name');
 
-  this.render(hbs `{{select-box-class ""}}`);
+    await render(hbs `{{select-box-class "foo"}}`);
 
-  assert.equal(this.$().html(), 'select-box',
-    'generates the default class name');
+    assert.equal(this.$().html(), 'foo',
+      'uses the specified class name instead');
+  });
 
-  this.render(hbs `{{select-box-class "foo"}}`);
+  test('suffix', async function(assert) {
+    assert.expect(2);
 
-  assert.equal(this.$().html(), 'foo',
-    'uses the specified class name instead');
-});
+    await render(hbs `{{select-box-class "" ""}}`);
 
+    assert.equal(this.$().html(), 'select-box',
+      'generates the default class name, does add extraneous dash');
 
-test('suffix', function(assert) {
-  assert.expect(2);
+    await render(hbs `{{select-box-class "" "foo"}}`);
 
-  this.render(hbs `{{select-box-class "" ""}}`);
+    assert.equal(this.$().html(), 'select-box-foo',
+      'adds suffix to default class name');
+  });
 
-  assert.equal(this.$().html(), 'select-box',
-    'generates the default class name, does add extraneous dash');
+  test('prefix and suffix', async function(assert) {
+    assert.expect(1);
 
-  this.render(hbs `{{select-box-class "" "foo"}}`);
+    await render(hbs `{{select-box-class "foo" "bar"}}`);
 
-  assert.equal(this.$().html(), 'select-box-foo',
-    'adds suffix to default class name');
-});
+    assert.equal(this.$().html(), 'foo-bar',
+      'uses custom prefix and suffix, separating with a dash');
+  });
 
+  test('escaping', async function(assert) {
+    assert.expect(1);
 
-test('prefix and suffix', function(assert) {
-  assert.expect(1);
+    await render(hbs `{{select-box-class "<script>" "</script>"}}`);
 
-  this.render(hbs `{{select-box-class "foo" "bar"}}`);
-
-  assert.equal(this.$().html(), 'foo-bar',
-    'uses custom prefix and suffix, separating with a dash');
-});
-
-
-test('escaping', function(assert) {
-  assert.expect(1);
-
-  this.render(hbs `{{select-box-class "<script>" "</script>"}}`);
-
-  assert.equal(this.$().html(), '&lt;script&gt;-&lt;/script&gt;',
-    'the values are escaped');
+    assert.equal(this.$().html(), '&lt;script&gt;-&lt;/script&gt;',
+      'the values are escaped');
+  });
 });

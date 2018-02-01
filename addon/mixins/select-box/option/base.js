@@ -1,15 +1,17 @@
 import Mixin from '@ember/object/mixin';
-import Nameable from  '../general/nameable';
-import Registerable from  '../general/registerable';
+import Nameable from  '../../general/nameable';
+import Registerable from  '../../general/registerable';
 import { isBlank } from '@ember/utils';
 import { resolve } from 'rsvp';
 import { bind } from '@ember/runloop';
 import trySet from '../../../utils/try-set';
 
-export default Mixin.create(
+const mixins = [
   Nameable,
-  Registerable, {
+  Registerable
+];
 
+export default Mixin.create(...mixins, {
   promiseID: 0,
 
   didReceiveAttrs() {

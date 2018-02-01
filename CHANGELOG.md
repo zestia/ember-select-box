@@ -1,5 +1,11 @@
 # Changelog
 
+4.0.0
+
+* Yield the main select box element on the api
+* Run [codemod](https://github.com/rwjblue/ember-qunit-codemod) on test sutie
+* Change path to certain mixins
+
 3.0.10
 
 * Fix travis builds

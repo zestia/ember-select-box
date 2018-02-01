@@ -1,6 +1,6 @@
 import Mixin from '@ember/object/mixin';
 import ClickOutside from '../general/click-outside';
-import invokeAction from '../../../utils/invoke-action';
+import invokeAction from '../../utils/invoke-action';
 
 export default Mixin.create(ClickOutside, {
   clickOutside(e) {

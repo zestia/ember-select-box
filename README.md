@@ -177,20 +177,8 @@ ember install @zestia/ember-select-box
   <summary>View yielded API</summary>
   <table>
     <tr>
-      <th>Property</th>
+      <th>Action</th>
       <th>Description</th>
-    </tr>
-    <tr>
-      <td>sb.isSearching</td>
-      <td>Whether the promise returned from the `on-search` action is running</td>
-    </tr>
-    <tr>
-      <td>sb.isSlowSearch</td>
-      <td>True if the promised search results are taking a while</td>
-    </tr>
-    <tr>
-      <td>sb.isOpen</td>
-      <td>True if the select box is open</td>
     </tr>
     <tr>
       <td>sb.open</td>
@@ -267,6 +255,29 @@ ember install @zestia/ember-select-box
     <tr>
       <td>sb.deactivateSelectedOptions</td>
       <td>Makes no selected option be active</td>
+    </tr>
+  </table>
+
+  <table>
+    <tr>
+      <th>Property</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>sb.element</td>
+      <td>The DOM element of the select box</td>
+    </tr>
+    <tr>
+      <td>sb.isSearching</td>
+      <td>Whether the promise returned from the `on-search` action is running</td>
+    </tr>
+    <tr>
+      <td>sb.isSlowSearch</td>
+      <td>True if the promised search results are taking a while</td>
+    </tr>
+    <tr>
+      <td>sb.isOpen</td>
+      <td>True if the select box is open</td>
     </tr>
   </table>
 </details>

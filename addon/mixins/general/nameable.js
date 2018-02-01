@@ -1,5 +1,5 @@
 import Mixin from '@ember/object/mixin';
-import className from '../../../utils/select-box/class-name';
+import className from '../../utils/select-box/class-name';
 
 export default Mixin.create({
   init() {

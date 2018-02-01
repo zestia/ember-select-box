@@ -1,53 +1,51 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('', 'select-box/native/group', {
-  integration: true
-});
+module('select-box/native/group', function(hooks) {
+  setupRenderingTest(hooks);
 
+  test('it renders', async function(assert) {
+    assert.expect(1);
 
-test('it renders', function(assert) {
-  assert.expect(1);
+    await render(hbs `{{select-box/native/group}}`);
 
-  this.render(hbs `{{select-box/native/group}}`);
+    assert.equal(this.$('optgroup.select-box-group').length, 1,
+      'renders with correct class name and tag');
+  });
 
-  assert.equal(this.$('optgroup.select-box-group').length, 1,
-    'renders with correct class name and tag');
-});
+  test('class prefix', async function(assert) {
+    assert.expect(1);
 
+    await render(hbs `{{select-box/native/group class-prefix="foo"}}`);
 
-test('class prefix', function(assert) {
-  assert.expect(1);
+    assert.equal(this.$('.foo-group').length, 1,
+      'can override the class prefix');
+  });
 
-  this.render(hbs `{{select-box/native/group class-prefix="foo"}}`);
+  test('label', async function(assert) {
+    assert.expect(1);
 
-  assert.equal(this.$('.foo-group').length, 1,
-    'can override the class prefix');
-});
+    await render(hbs `{{select-box/native/group label="Foo"}}`);
 
+    assert.equal(this.$('.select-box-group').attr('label'), 'Foo',
+      'the specified label is applied as an HTML attribute');
+  });
 
-test('label', function(assert) {
-  assert.expect(1);
+  test('disabling', async function(assert) {
+    assert.expect(2);
 
-  this.render(hbs `{{select-box/native/group label="Foo"}}`);
+    this.set('groupDisabled', true);
 
-  assert.equal(this.$('.select-box-group').attr('label'), 'Foo',
-    'the specified label is applied as an HTML attribute');
-});
+    await render(hbs `{{select-box/native/group disabled=groupDisabled}}`);
 
+    assert.ok(this.$('.select-box-group').is(':disabled'),
+      'a select box group can be disabled');
 
-test('disabling', function(assert) {
-  assert.expect(2);
+    this.set('groupDisabled', false);
 
-  this.set('groupDisabled', true);
-
-  this.render(hbs `{{select-box/native/group disabled=groupDisabled}}`);
-
-  assert.ok(this.$('.select-box-group').is(':disabled'),
-    'a select box group can be disabled');
-
-  this.set('groupDisabled', false);
-
-  assert.ok(this.$('.select-box-group').not(':disabled'),
-    'a select box group can be re-enabled');
+    assert.ok(this.$('.select-box-group').not(':disabled'),
+      'a select box group can be re-enabled');
+  });
 });

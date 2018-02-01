@@ -3,7 +3,11 @@ import BaseSelectBox from '../../mixins/select-box/base';
 import layout from '../../templates/components/select-box/native';
 import { A as emberA } from '@ember/array';
 
-export default Component.extend(BaseSelectBox, {
+const mixins = [
+  BaseSelectBox
+];
+
+export default Component.extend(...mixins, {
   layout,
   tagName: 'select',
   attributeBindings: [

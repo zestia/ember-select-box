@@ -1,57 +1,54 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('', 'select-box/group', {
-  integration: true
-});
+module('select-box/group', function(hooks) {
+  setupRenderingTest(hooks);
 
+  test('it renders', async function(assert) {
+    assert.expect(1);
 
+    await render(hbs `{{select-box/group}}`);
 
-test('it renders', function(assert) {
-  assert.expect(1);
+    assert.equal(this.$('div.select-box-group').length, 1,
+      'renders with correct class name and tag');
+  });
 
-  this.render(hbs `{{select-box/group}}`);
+  test('class prefix', async function(assert) {
+    assert.expect(3);
 
-  assert.equal(this.$('div.select-box-group').length, 1,
-    'renders with correct class name and tag');
-});
+    await render(hbs`{{select-box/group class-prefix="foo"}}`);
 
+    assert.equal(this.$('.foo-group').length, 1,
+      'can override the class prefix');
 
-test('class prefix', function(assert) {
-  assert.expect(3);
+    assert.ok(this.$('.foo-group-label').length, 1,
+      'child group label of a group has the prefix too');
 
-  this.render(hbs`{{select-box/group class-prefix="foo"}}`);
+    assert.ok(this.$('.foo-group-options').length, 1,
+      'child group options of a group have the prefix too');
+  });
 
-  assert.equal(this.$('.foo-group').length, 1,
-    'can override the class prefix');
+  test('label', async function(assert) {
+    assert.expect(1);
 
-  assert.ok(this.$('.foo-group-label').length, 1,
-    'child group label of a group has the prefix too');
+    await render(hbs `{{select-box/group label="Foo"}}`);
 
-  assert.ok(this.$('.foo-group-options').length, 1,
-    'child group options of a group have the prefix too');
-});
+    assert.equal(this.$(".select-box-group-label:contains('Foo')").length, 1,
+      'displays the specified group label');
+  });
 
+  test('options', async function(assert) {
+    assert.expect(1);
 
-test('label', function(assert) {
-  assert.expect(1);
+    await render(hbs `
+      {{#select-box/group}}
+        {{select-box/option}}
+      {{/select-box/group}}
+    `);
 
-  this.render(hbs `{{select-box/group label="Foo"}}`);
-
-  assert.equal(this.$(".select-box-group-label:contains('Foo')").length, 1,
-    'displays the specified group label');
-});
-
-
-test('options', function(assert) {
-  assert.expect(1);
-
-  this.render(hbs `
-    {{#select-box/group}}
-      {{select-box/option}}
-    {{/select-box/group}}
-  `);
-
-  assert.equal(this.$('.select-box-group-options .select-box-option').length, 1,
-    'can display options inside the group');
+    assert.equal(this.$('.select-box-group-options .select-box-option').length, 1,
+      'can display options inside the group');
+  });
 });

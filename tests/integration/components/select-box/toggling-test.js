@@ -1,94 +1,93 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('', 'select-box (toggling)', {
-  integration: true
-});
+module('select-box (toggling)', function(hooks) {
+  setupRenderingTest(hooks);
 
+  test('opening an closing', async function(assert) {
+    assert.expect(8);
 
-test('opening an closing', function(assert) {
-  assert.expect(8);
+    await render(hbs `{{select-box}}`);
 
-  this.render(hbs `{{select-box}}`);
+    let $selectBox = this.$('.select-box');
 
-  let $selectBox = this.$('.select-box');
+    assert.ok(!$selectBox.hasClass('is-open'),
+      'a select box is closed by default');
 
-  assert.ok(!$selectBox.hasClass('is-open'),
-    'a select box is closed by default');
+    assert.ok(!$selectBox.get(0).hasAttribute('aria-expanded'),
+      'not expanded by default');
 
-  assert.ok(!$selectBox.get(0).hasAttribute('aria-expanded'),
-    'not expanded by default');
+    this.set('isOpen', true);
 
-  this.set('isOpen', true);
+    await render(hbs `{{select-box is-open=isOpen}}`);
 
-  this.render(hbs `{{select-box is-open=isOpen}}`);
+    $selectBox = this.$('.select-box');
 
-  $selectBox = this.$('.select-box');
+    assert.ok($selectBox.hasClass('is-open'),
+      'the initial open state can be set');
 
-  assert.ok($selectBox.hasClass('is-open'),
-    'the initial open state can be set');
+    assert.ok($selectBox.get(0).hasAttribute('aria-expanded'),
+      'receives an aria-expanded attribute when open');
 
-  assert.ok($selectBox.get(0).hasAttribute('aria-expanded'),
-    'receives an aria-expanded attribute when open');
+    this.set('isOpen', false);
 
-  this.set('isOpen', false);
+    assert.ok(!$selectBox.hasClass('is-open'),
+      'the open state can be changed via an is-open attribute');
 
-  assert.ok(!$selectBox.hasClass('is-open'),
-    'the open state can be changed via an is-open attribute');
+    assert.ok(!$selectBox.get(0).hasAttribute('aria-expanded'),
+      'open state is reflected as aria expanded attribute');
 
-  assert.ok(!$selectBox.get(0).hasAttribute('aria-expanded'),
-    'open state is reflected as aria expanded attribute');
+    await render(hbs `
+      {{#select-box as |sb|}}
+        <span>Open: {{sb.isOpen}}</span>
+        <button onclick={{action sb.open}}></button>
+      {{/select-box}}
+    `);
 
-  this.render(hbs `
-    {{#select-box as |sb|}}
-      <span>Open: {{sb.isOpen}}</span>
-      <button onclick={{action sb.open}}></button>
-    {{/select-box}}
-  `);
+    assert.ok(this.$('span').text().match(/Open: false/),
+      'yields the open state when closed');
 
-  assert.ok(this.$('span').text().match(/Open: false/),
-    'yields the open state when closed');
+    this.$('button').trigger('click');
 
-  this.$('button').trigger('click');
+    assert.ok(this.$('span').text().match(/Open: true/),
+      'yields the open state when open');
+  });
 
-  assert.ok(this.$('span').text().match(/Open: true/),
-    'yields the open state when open');
-});
+  test('open action', async function(assert) {
+    assert.expect(1);
 
+    let opened;
+    this.set('opened', () => opened = true);
 
-test('open action', function(assert) {
-  assert.expect(1);
+    await render(hbs `
+      {{#select-box on-open=(action opened) as |sb|}}
+        <button onclick={{action sb.open}}>open</button>
+      {{/select-box}}
+    `);
 
-  let opened;
-  this.on('opened', () => opened = true);
+    this.$('button:contains("open")').trigger('click');
 
-  this.render(hbs `
-    {{#select-box on-open=(action "opened") as |sb|}}
-      <button onclick={{action sb.open}}>open</button>
-    {{/select-box}}
-  `);
+    assert.strictEqual(opened, true,
+      'sends an action when the select box is opened');
+  });
 
-  this.$('button:contains("open")').trigger('click');
+  test('close action', async function(assert) {
+    assert.expect(1);
 
-  assert.strictEqual(opened, true,
-    'sends an action when the select box is opened');
-});
+    let closed;
+    this.set('closed', () => closed = true);
 
+    await render(hbs `
+      {{#select-box on-close=(action closed) as |sb|}}
+        <button onclick={{action sb.close}}>close</button>
+      {{/select-box}}
+    `);
 
-test('close action', function(assert) {
-  assert.expect(1);
+    this.$('button:contains("close")').trigger('click');
 
-  let closed;
-  this.on('closed', () => closed = true);
-
-  this.render(hbs `
-    {{#select-box on-close=(action "closed") as |sb|}}
-      <button onclick={{action sb.close}}>close</button>
-    {{/select-box}}
-  `);
-
-  this.$('button:contains("close")').trigger('click');
-
-  assert.strictEqual(closed, true,
-    'sends an action when the select box is opened');
+    assert.strictEqual(closed, true,
+      'sends an action when the select box is opened');
+  });
 });

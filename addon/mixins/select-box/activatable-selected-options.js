@@ -1,6 +1,6 @@
 import Mixin from '@ember/object/mixin';
 import { computed } from '@ember/object';
-import scrollIntoView from '../../../utils/select-box/scroll-into-view';
+import scrollIntoView from '../../utils/select-box/scroll-into-view';
 
 export default Mixin.create({
   init() {

@@ -1,21 +1,23 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/select-box/option';
 import BaseOption from '../../mixins/select-box/option/base';
-import Styleable from '../../mixins/select-box/general/styleable';
+import Styleable from '../../mixins/general/styleable';
 import Selectable from '../../mixins/select-box/option/selectable';
 import Activatable from '../../mixins/select-box/option/activatable';
-import Disableable from '../../mixins/select-box/general/disableable';
-import Indexable from '../../mixins/select-box/general/indexable';
+import Disableable from '../../mixins/general/disableable';
+import Indexable from '../../mixins/general/indexable';
 import invokeAction from '../../utils/invoke-action';
 
-export default Component.extend(
+const mixins = [
   BaseOption,
   Selectable,
   Styleable,
   Indexable,
   Activatable,
-  Disableable, {
+  Disableable
+];
 
+export default Component.extend(...mixins, {
   layout,
   classNameSuffix: 'option',
   ariaRole: 'option',

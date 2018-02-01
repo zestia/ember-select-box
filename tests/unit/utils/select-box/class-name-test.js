@@ -1,54 +1,50 @@
 import className from '@zestia/ember-select-box/utils/select-box/class-name';
 import { module, test } from 'qunit';
 
-module('select-box (class name util)');
+module('select-box (class name util)', function() {
+  test('defaults', function(assert) {
+    assert.expect(1);
 
+    const name = className();
 
-test('defaults', function(assert) {
-  assert.expect(1);
+    assert.equal(name, 'select-box',
+      'generates the default class name');
+  });
 
-  const name = className();
+  test('prefix', function(assert) {
+    assert.expect(2);
 
-  assert.equal(name, 'select-box',
-    'generates the default class name');
-});
+    let name = className('');
 
+    assert.equal(name, 'select-box',
+      'generates the default class name');
 
-test('prefix', function(assert) {
-  assert.expect(2);
+    name = className('foo');
 
-  let name = className('');
+    assert.equal(name, 'foo',
+      'uses the specified class name instead');
+  });
 
-  assert.equal(name, 'select-box',
-    'generates the default class name');
+  test('suffix', function(assert) {
+    assert.expect(2);
 
-  name = className('foo');
+    let name = className('', '');
 
-  assert.equal(name, 'foo',
-    'uses the specified class name instead');
-});
+    assert.equal(name, 'select-box',
+      'generates the default class name, does add extraneous dash');
 
+    name = className('', 'foo');
 
-test('suffix', function(assert) {
-  assert.expect(2);
+    assert.equal(name, 'select-box-foo',
+      'adds suffix to default class name');
+  });
 
-  let name = className('', '');
+  test('prefix and suffix', function(assert) {
+    assert.expect(1);
 
-  assert.equal(name, 'select-box',
-    'generates the default class name, does add extraneous dash');
+    const name = className('foo', 'bar');
 
-  name = className('', 'foo');
-
-  assert.equal(name, 'select-box-foo',
-    'adds suffix to default class name');
-});
-
-
-test('prefix and suffix', function(assert) {
-  assert.expect(1);
-
-  const name = className('foo', 'bar');
-
-  assert.equal(name, 'foo-bar',
-    'uses custom prefix and suffix, separating with a dash');
+    assert.equal(name, 'foo-bar',
+      'uses custom prefix and suffix, separating with a dash');
+  });
 });

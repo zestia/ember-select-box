@@ -1,12 +1,14 @@
 import Component from '@ember/component';
-import Nameable from  '../../mixins/select-box/general/nameable';
-import Registerable from  '../../mixins/select-box/general/registerable';
+import Nameable from  '../../mixins/general/nameable';
+import Registerable from  '../../mixins/general/registerable';
 import invokeAction from '../../utils/invoke-action';
 
-export default Component.extend(
+const mixins = [
   Nameable,
-  Registerable, {
+  Registerable
+];
 
+export default Component.extend(...mixins, {
   tagName: 'input',
   type: '',
 

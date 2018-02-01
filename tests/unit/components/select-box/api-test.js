@@ -1,40 +1,41 @@
-import { test, moduleForComponent } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 import { run } from '@ember/runloop';
 const { keys } = Object;
 
-moduleForComponent('select-box', 'select-box (api)', {
-  unit: true
-});
+module('select-box (api)', function(hooks) {
+  setupTest(hooks);
 
+  test('api', function(assert) {
+    assert.expect(1);
 
-test('api', function(assert) {
-  assert.expect(1);
+    let selectBox;
 
-  let selectBox;
+    run(() => selectBox = this.owner.factoryFor('component:select-box').create());
 
-  run(() => selectBox = this.subject());
+    const functions = keys(selectBox.get('api'));
 
-  const functions = keys(selectBox.get('api'));
-
-  assert.deepEqual(functions, [
-    'open',
-    'close',
-    'toggle',
-    'select',
-    'update',
-    'selectActiveOption',
-    'search',
-    'stopSearching',
-    'setInputValue',
-    'focusInput',
-    'blurInput',
-    'activateOptionAtIndex',
-    'activateNextOption',
-    'activatePreviousOption',
-    'deactivateOptions',
-    'activateSelectedOptionAtIndex',
-    'activateNextSelectedOption',
-    'activatePreviousSelectedOption',
-    'deactivateSelectedOptions'
-  ]);
+    assert.deepEqual(functions, [
+      'open',
+      'close',
+      'toggle',
+      'select',
+      'update',
+      'selectActiveOption',
+      'search',
+      'stopSearching',
+      'setInputValue',
+      'focusInput',
+      'blurInput',
+      'activateOptionAtIndex',
+      'activateNextOption',
+      'activatePreviousOption',
+      'deactivateOptions',
+      'activateSelectedOptionAtIndex',
+      'activateNextSelectedOption',
+      'activatePreviousSelectedOption',
+      'deactivateSelectedOptions',
+      'element'
+    ]);
+  });
 });

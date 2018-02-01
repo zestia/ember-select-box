@@ -1,14 +1,16 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/select-box/options';
-import Nameable from  '../../mixins/select-box/general/nameable';
-import Styleable from '../../mixins/select-box/general/styleable';
-import Registerable from  '../../mixins/select-box/general/registerable';
+import Nameable from  '../../mixins/general/nameable';
+import Styleable from '../../mixins/general/styleable';
+import Registerable from  '../../mixins/general/registerable';
 
-export default Component.extend(
+const mixins = [
   Nameable,
   Styleable,
-  Registerable, {
+  Registerable
+];
 
+export default Component.extend(...mixins, {
   layout,
   classNameSuffix: 'options',
   attributeBindings: ['aria-activedescendant']

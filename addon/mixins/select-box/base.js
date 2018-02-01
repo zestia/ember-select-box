@@ -1,18 +1,20 @@
 import Mixin from '@ember/object/mixin';
-import Nameable from  './general/nameable';
+import Nameable from  '../general/nameable';
 import HasOptions from './registration/has-options';
-import Focusable from  './select-box/focusable';
+import Focusable from  './focusable';
 import trySet from '../../utils/try-set';
 import { makeArray } from '@ember/array';
 import { bind, scheduleOnce } from '@ember/runloop';
 import invokeAction from '../../utils/invoke-action';
 import { all, resolve } from 'rsvp';
 
-export default Mixin.create(
+const mixins = [
   Nameable,
   HasOptions,
-  Focusable, {
+  Focusable
+];
 
+export default Mixin.create(...mixins, {
   api: null,
   promiseID: 0,
 

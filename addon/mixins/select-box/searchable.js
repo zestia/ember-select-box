@@ -1,7 +1,7 @@
 import Mixin from '@ember/object/mixin';
 import { computed } from '@ember/object';
 import { bind, debounce } from '@ember/runloop';
-import invokeAction from '../../../utils/invoke-action';
+import invokeAction from '../../utils/invoke-action';
 import { resolve } from 'rsvp';
 
 export default Mixin.create({

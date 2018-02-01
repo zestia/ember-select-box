@@ -1,8 +1,8 @@
 import Mixin from '@ember/object/mixin';
 import { capitalize } from '@ember/string';
-import invokeAction from '../../../utils/invoke-action';
+import invokeAction from '../../utils/invoke-action';
 
-const keys = {
+export const keys = {
   8:  'backspace',
   9:  'tab',
   13: 'enter',

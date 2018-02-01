@@ -1,8 +1,8 @@
 import Mixin from '@ember/object/mixin';
 import { isPresent } from '@ember/utils';
 import { run } from '@ember/runloop';
-import trySet from '../../../utils/try-set';
-import invokeAction from '../../../utils/invoke-action';
+import trySet from '../../utils/try-set';
+import invokeAction from '../../utils/invoke-action';
 
 export default Mixin.create({
   isOpen: false,

@@ -1,35 +1,45 @@
-import { test, moduleForComponent } from 'ember-qunit';
-import { run } from '@ember/runloop';
-import events from '../../../helpers/keyboard-events';
-import jQuery from 'jquery';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
+import { keys as eventKeys } from '@zestia/ember-select-box/mixins/select-box/keyboard-events';
 const { keys } = Object;
+import { run } from '@ember/runloop';
 import { capitalize } from '@ember/string';
 
-moduleForComponent('select-box', 'select-box (keyboard methods)', {
-  unit: true
-});
+module('select-box (keyboard methods)', function(hooks) {
+  setupTest(hooks);
 
-
-keys(events).forEach(key => {
-
-  const keyName    = capitalize(key);
-  const methodName = `press${keyName}`;
-
-  test(`${methodName} method`, function(assert) {
+  test('keydown methods', function(assert) {
     assert.expect(1);
 
+    const called = [];
+
     run(() => {
-      const options = {};
-      options[methodName] = e => {
-        assert.ok(e instanceof jQuery.Event,
-          `calls a method relating to the key pressed for ${key}`);
-      };
+      const TestComponent = this.owner.factoryFor('component:select-box');
 
-      const selectBox = this.subject(options);
-      this.render();
+      const options = keys(eventKeys).reduce((options, key) => {
+        const methodName = `press${capitalize(eventKeys[key])}`;
+        options[methodName] = () => {
+          called.push(methodName);
+        };
+        return options;
+      }, {});
 
-      selectBox.$().trigger(events[key]());
+      const component = TestComponent.create(options);
+
+      keys(eventKeys).forEach(key => {
+        component.keyDown({ which: key });
+      });
     });
-  });
 
+    assert.deepEqual(called, [
+      'pressBackspace',
+      'pressTab',
+      'pressEnter',
+      'pressEscape',
+      'pressLeft',
+      'pressUp',
+      'pressRight',
+      'pressDown'
+    ], 'calls methods named that of the key that was pressed');
+  });
 });
