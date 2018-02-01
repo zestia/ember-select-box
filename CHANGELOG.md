@@ -1,5 +1,9 @@
 # Changelog
 
+4.0.1
+
+* Make select box support style attribute
+
 4.0.0
 
 * Yield the main select box element on the api

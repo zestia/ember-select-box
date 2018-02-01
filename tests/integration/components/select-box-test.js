@@ -68,6 +68,15 @@ module('select-box', function(hooks) {
       'a select box has an appropriate aria role');
   });
 
+  test('style', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs `{{select-box style="color:red<script>"}}`);
+
+    assert.ok(this.$().html().match('style="color:red&amp;lt;script&amp;gt;"'),
+      'a select box can be styled, value is escaped');
+  });
+
   test('multiple class', async function(assert) {
     assert.expect(2);
 

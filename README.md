@@ -67,6 +67,10 @@ ember install @zestia/ember-select-box
       <td>If true adds an `is-disabled` class</td>
     </tr>
     <tr>
+      <td>style</td>
+      <td></td>
+    </tr>
+    <tr>
       <td>is-open</td>
       <td>Controls the open/closed state</td>
     </tr>

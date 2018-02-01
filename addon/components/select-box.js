@@ -5,6 +5,7 @@ import layout from '../templates/components/select-box';
 import BaseSelectBox from '../mixins/select-box/base';
 import SelectBoxAPI from '../mixins/select-box/api';
 import Toggleable from '../mixins/select-box/toggleable';
+import Styleable from '../mixins/general/styleable';
 import Disableable from  '../mixins/select-box/disableable';
 import HasInput from '../mixins/select-box/registration/has-input';
 import HasOptionsContainer from '../mixins/select-box/registration/has-options-container';
@@ -23,6 +24,7 @@ const mixins = [
   BaseSelectBox,
   Toggleable,
   Disableable,
+  Styleable,
   SelectBoxAPI,
   ClickOutsideEvent,
   KeyboardEvents,
