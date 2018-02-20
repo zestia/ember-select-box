@@ -8,13 +8,27 @@ function _getOffset(element) {
   };
 }
 
+function _getScrollParent(element) {
+  if (element.scrollHeight > element.clientHeight) {
+    return element;
+  } else {
+    return _getScrollParent(element.parentNode);
+  }
+}
+
 /**
  * - Scrolls the element into view
  * - Only supports Up and Down currently.
  * - Left and Right todo.
  */
-export default function scrollIntoView(element, scroller) {
-  if (!element || !scroller) {
+export default function scrollIntoView(element) {
+  if (!element) {
+    return;
+  }
+
+  const scroller = _getScrollParent(element);
+
+  if (!scroller) {
     return;
   }
 

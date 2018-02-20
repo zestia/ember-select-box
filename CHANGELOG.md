@@ -1,5 +1,10 @@
 # Changelog
 
+5.0.0
+
+* Changes `scrollIntoView` signature. Now finds the first scrollable parent, and scrolls that
+  rather than assuming the select box options will be the scrollable element.
+
 4.0.1
 
 * Make select box support style attribute
