@@ -1,6 +1,6 @@
 # Changelog
 
-5.0.0
+4.1.0
 
 * Changes `scrollIntoView` signature. Now finds the first scrollable parent, and scrolls that
   rather than assuming the select box options will be the scrollable element.
