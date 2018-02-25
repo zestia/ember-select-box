@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, triggerKeyEvent } from '@ember/test-helpers';
+import { render, settled, triggerKeyEvent } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('select-box (selecting)', function(hooks) {
@@ -193,28 +193,76 @@ module('select-box (selecting)', function(hooks) {
   });
 
   test('selecting via the api', async function(assert) {
-    assert.expect(1);
+    assert.expect(4);
 
-    this.set('selected', value => {
-      assert.equal(value, 'foo',
-        'the select box acknowledges the selection');
-    });
+    let selected;
+    let selectedFoo;
+    let updated;
 
-    this.set('selectedFoo', () => {
-      assert.ok(true,
-        'the selected option does not fire a on-select action');
-    });
+    this.set('selected', value => selected = value);
+    this.set('selectedFoo', value => selectedFoo = value);
+    this.set('updated', value => updated = value);
 
     await render(hbs`
-      {{#select-box on-select=(action selected) as |sb|}}
+      {{#select-box on-select=(action selected) on-update=(action updated) as |sb|}}
         {{sb.option value="foo" on-select=(action selectedFoo)}}
-        <button onclick={{action sb.select "foo"}}>
-          Select foo
-        </button>
+        <button onclick={{action sb.select "foo"}}>Select foo</button>
       {{/select-box}}
     `);
 
     this.$('button').trigger('click');
+
+    assert.strictEqual(selected, 'foo',
+      'the select box acknowledges the selection and sends an action');
+
+    assert.strictEqual(selectedFoo, undefined,
+      'the option does not fire its on-select action');
+
+    assert.strictEqual(updated, undefined,
+      'has not updated yet');
+
+    await settled();
+
+    assert.strictEqual(updated, 'foo',
+      'fires the on update action after the selection has been made');
+  });
+
+  test('updating via the api', async function(assert) {
+    assert.expect(5);
+
+    let updated;
+    let selected;
+
+    this.set('updated', value => updated = value);
+    this.set('selected', value => selected = value);
+
+    await render(hbs`
+      {{#select-box on-update=(action updated) on-select=(action selected) as |sb|}}
+        {{sb.option value="foo"}}
+        {{sb.option value="bar"}}
+        <button onclick={{action sb.update "foo"}}>Select foo</button>
+        <button onclick={{action sb.update "bar"}}>Select bar</button>
+      {{/select-box}}
+    `);
+
+    this.$('button:eq(1)').trigger('click');
+
+    assert.strictEqual(updated, undefined,
+      'has not fired an updated action');
+
+    assert.strictEqual(selected, undefined,
+      'has not fired a selected action');
+
+    assert.equal(this.$('.select-box-option.is-selected').text(), 'bar',
+      "select box's internal value is updated with the value");
+
+    await settled();
+
+    assert.strictEqual(updated, 'bar',
+      'fires the on-update action after the value has been updated');
+
+    assert.strictEqual(selected, undefined,
+      'does not fire the select action');
   });
 
   test('manual selection', async function(assert) {
@@ -299,5 +347,29 @@ module('select-box (selecting)', function(hooks) {
 
     assert.equal(selected, 0,
       'does not fire select action if option is disabled');
+  });
+
+  test('changing attributes other than value', async function(assert) {
+    assert.expect(1);
+
+    let updated = 0;
+
+    this.set('updated', () => {
+      updated++;
+    });
+
+    await render(hbs`
+      {{#select-box value="foo" aria-label=ariaLabel on-update=(action updated) as |sb|}}
+        {{sb.option value="foo"}}
+        {{sb.option value="bar"}}
+      {{/select-box}}
+    `);
+
+    this.set('ariaLabel', 'Choice');
+
+    await settled();
+
+    assert.equal(updated, 1,
+      "does not fire update action when the value hasn't actually updated");
   });
 });

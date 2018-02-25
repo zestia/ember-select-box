@@ -27,7 +27,12 @@ export default Mixin.create(...mixins, {
   didReceiveAttrs() {
     this._super(...arguments);
     this.set('isMultiple', this.get('multiple'));
-    this._update(this.get('value'));
+    this.set('changedValue', this.get('value') !== this.get('selectedValue'));
+
+    if (this.get('changedValue') || !this.get('doneInitialUpdate')) {
+      this._update(this.get('value'));
+      this.set('doneInitialUpdate', true);
+    }
   },
 
   _select(value) {
