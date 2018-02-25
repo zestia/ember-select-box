@@ -9,6 +9,7 @@ export default Component.extend({
     close(e, sb) {
       sb.close();
     },
+
     searched(results, query, sb) {
       if (!results.length) {
         this.set('lastQuery', query);

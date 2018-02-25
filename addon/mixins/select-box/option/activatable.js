@@ -15,7 +15,7 @@ export default Mixin.create({
   actions: {
     activate() {
       this._super(...arguments);
-      invokeAction(this, '-activate', this.get('index'));
+      invokeAction(this, '-on-activate', this.get('index'));
     },
 
     _activate() {

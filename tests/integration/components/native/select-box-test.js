@@ -426,7 +426,6 @@ module('select-box/native', function(hooks) {
     `);
 
     assert.equal(this.$('.foo-select-display-label').text().trim(), 'bar',
-      'regression test: the update action is fired after all options have ' +
-      'rendered');
+      'regression test: the update action is fired after all options have rendered');
   });
 });

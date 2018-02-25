@@ -92,14 +92,21 @@ module('select-box', function(hooks) {
   });
 
   test('initial update action', async function(assert) {
-    assert.expect(1);
+    assert.expect(2);
+
+    let called = 0;
 
     this.set('updated', value => {
+      called++;
+
       assert.strictEqual(value, undefined,
         'fires an initial update action with the selected value');
     });
 
     await render(hbs `{{select-box on-update=(action updated)}}`);
+
+    assert.equal(called, 1,
+      'only fires once');
   });
 
   test('subsequent update actions', async function(assert) {

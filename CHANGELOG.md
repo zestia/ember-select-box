@@ -1,5 +1,12 @@
 # Changelog
 
+5.0.0
+
+* Previously, the behaviour of selecting multiple options with the faux-select component was
+undefined. With the intention that developers use `sb.update(myValues)` to implement the multiple
+behaviour they want. But, it is rare you want anything other than to mimic a native select, by
+toggling the selected item from the array of values. Hence this is now the default behaviour.
+
 4.1.0
 
 * Changes `scrollIntoView` signature. Now finds the first scrollable parent, and scrolls that

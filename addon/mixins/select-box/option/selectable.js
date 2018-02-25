@@ -8,7 +8,7 @@ export default Mixin.create({
     this._super(...arguments);
     this.set('manualSelection', this.get('selected'));
     this.set('selectedValue', this.get('-selected-value'));
-    this.set('isMultiple', this.get('-multiple'));
+    this.set('isMultiple', this.get('-is-multiple'));
   },
 
   isSelected: computed(
@@ -31,7 +31,7 @@ export default Mixin.create({
     select() {
       this._super(...arguments);
       if (!this.get('isDisabled')) {
-        invokeAction(this, '-select', this.get('value'));
+        invokeAction(this, '-on-select', this.get('value'));
       }
     }
   }

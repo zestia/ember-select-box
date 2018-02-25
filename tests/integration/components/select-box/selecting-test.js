@@ -103,32 +103,54 @@ module('select-box (selecting)', function(hooks) {
   });
 
   test('selecting multiple options', async function(assert) {
-    assert.expect(2);
+    assert.expect(3);
+
+    this.set('values', ['foo', 'baz']);
 
     this.set('selected', value => {
       this.set('selectedValue', value);
     });
 
     await render(hbs`
-      {{#select-box on-select=(action selected) multiple=true as |sb|}}
+      {{#select-box on-select=(action selected) multiple=true value=values as |sb|}}
+        {{sb.option value="foo"}}
+        {{sb.option value="bar"}}
+        {{sb.option value="baz"}}
+      {{/select-box}}
+    `);
+
+    const $foo = this.$('.select-box-option:eq(0)');
+    const $bar = this.$('.select-box-option:eq(1)');
+
+    $bar.trigger('click');
+
+    assert.deepEqual(this.get('selectedValue'), ['foo', 'baz', 'bar'],
+      'selecting a single option adds it to the existing selection');
+
+    $foo.trigger('click');
+
+    assert.deepEqual(this.get('selectedValue'), ['baz', 'bar'],
+      'selecting an already selected option removes it from the existing selection');
+
+    assert.deepEqual(this.get('values'), ['foo', 'baz'],
+      'does not mutate the original array');
+  });
+
+  test('multiple but with a single value', async function(assert) {
+    assert.expect(2);
+
+    await render(hbs`
+      {{#select-box multiple=true value="bar" as |sb|}}
         {{sb.option value="foo"}}
         {{sb.option value="bar"}}
       {{/select-box}}
     `);
 
-    const $one = this.$('.select-box-option:eq(0)');
-    const $two = this.$('.select-box-option:eq(1)');
+    assert.ok(!this.$('.select-box-option:eq(0)').hasClass('is-selected'),
+      'not selected');
 
-    $one.trigger('click');
-
-    assert.deepEqual(this.get('selectedValue'), ['foo'],
-      'selecting a single option coerces the value to an array');
-
-    $two.trigger('click');
-
-    assert.deepEqual(this.get('selectedValue'), ['bar'],
-      'selecting another single option does not add to the existing selection' +
-      'behaviour is undefined, developers to customise?');
+    assert.ok(this.$('.select-box-option:eq(1)').hasClass('is-selected'),
+      'value is coerced to an array and correct option is selected');
   });
 
   test('press enter to select active option', async function(assert) {
