@@ -82,7 +82,7 @@ module('select-box/option', function(hooks) {
   });
 
   test('yield index', async function(assert) {
-    assert.expect(1);
+    assert.expect(2);
 
     const foo = { myValue: 'foo', myLabel: 'Foo' };
     const bar = { myValue: 'bar', myLabel: 'Bar' };
@@ -117,6 +117,16 @@ module('select-box/option', function(hooks) {
       this.$('.select-box-option:eq(2)').text() === 'Baz=baz 0 (2) true' &&
       this.$('.select-box-option:eq(3)').text() === 'Qux=qux 1 (3) false',
       'select box options can yield their label, value, index and selected state'
+    );
+
+    this.set('group2', [qux, baz]);
+
+    assert.ok(
+      this.$('.select-box-option:eq(0)').text() === 'Foo=foo 0 (0) false' &&
+      this.$('.select-box-option:eq(1)').text() === 'Bar=bar 1 (1) false' &&
+      this.$('.select-box-option:eq(2)').text() === 'Qux=qux 0 (3) false' &&
+      this.$('.select-box-option:eq(3)').text() === 'Baz=baz 1 (2) true',
+      'index gets out of sync due to lack of key="@index"'
     );
   });
 

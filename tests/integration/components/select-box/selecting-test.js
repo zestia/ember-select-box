@@ -2,6 +2,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, settled, triggerKeyEvent } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import { A as emberA } from '@ember/array';
 
 module('select-box (selecting)', function(hooks) {
   setupRenderingTest(hooks);
@@ -371,5 +372,63 @@ module('select-box (selecting)', function(hooks) {
 
     assert.equal(updated, 1,
       "does not fire update action when the value hasn't actually updated");
+  });
+
+  test('a single value with a multiple choice select box', async function(assert) {
+    assert.expect(2);
+
+    this.set('value', 'bar');
+
+    await render(hbs`
+      {{#select-box value=value multiple=true as |sb|}}
+        {{sb.option value="foo"}}
+        {{sb.option value="bar"}}
+      {{/select-box}}
+    `);
+
+    assert.equal(this.$('.select-box-option.is-selected').text(), 'bar',
+      'works as expected');
+
+    this.set('value', 'foo');
+
+    assert.equal(this.$('.select-box-option.is-selected').text(), 'foo',
+      'updating the value works');
+  });
+
+  test('multiple values with a single choice select box', async function(assert) {
+    assert.expect(1);
+
+    this.set('values', ['bar', 'baz']);
+
+    await render(hbs`
+      {{#select-box value=values as |sb|}}
+        {{sb.option value="foo"}}
+        {{sb.option value="bar"}}
+        {{sb.option value="baz"}}
+      {{/select-box}}
+    `);
+
+    assert.equal(this.$('.select-box-option.is-selected').length, 0,
+      'works as expected');
+  });
+
+  test('adding and removing items to a multiple select box', async function(assert) {
+    assert.expect(1);
+
+    this.set('values', emberA(['bar']));
+
+    await render(hbs`
+      {{#select-box value=values multiple=true as |sb|}}
+        {{sb.option value="foo"}}
+        {{sb.option value="bar"}}
+        {{sb.option value="baz"}}
+      {{/select-box}}
+    `);
+
+    this.get('values').addObject('baz');
+
+    assert.equal(this.$('.select-box-option.is-selected').length, 1,
+      'changes to the multiple choice values does not update the select box ' +
+      'the entire array must be replaced (the value should be considered a _new_ value)');
   });
 });

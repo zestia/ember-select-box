@@ -1,5 +1,4 @@
 import Controller from '@ember/controller';
-import { A as emberA } from '@ember/array';
 import { pies } from '../utils/dummy-data';
 import { resolve } from 'rsvp';
 
@@ -10,7 +9,7 @@ export default Controller.extend({
   },
 
   _filterPies(query) {
-    return resolve(emberA(pies).filter(pie => {
+    return resolve(pies.filter(pie => {
       return pie.name.toLowerCase().indexOf(query.toLowerCase()) >= 0;
     }));
   },
