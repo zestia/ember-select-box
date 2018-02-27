@@ -4,11 +4,11 @@ import invokeAction from '../../utils/invoke-action';
 export default Mixin.create({
   init() {
     this._super(...arguments);
-    invokeAction(this, '-register', this);
+    invokeAction(this, '-on-register', this);
   },
 
   willDestroyElement() {
     this._super(...arguments);
-    invokeAction(this, '-deregister', this);
+    invokeAction(this, '-on-deregister', this);
   }
 });

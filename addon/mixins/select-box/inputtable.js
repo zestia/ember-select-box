@@ -7,7 +7,7 @@ export default Mixin.create({
   },
 
   actions: {
-    inputText() {},
+    _inputText() {},
 
     _registerInput() {
       this._super(...arguments);

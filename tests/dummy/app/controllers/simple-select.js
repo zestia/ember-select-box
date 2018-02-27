@@ -6,6 +6,7 @@ export default Controller.extend({
     this._super(...arguments);
     this.set('selectablePuddings', puddings);
   },
+
   actions: {
     selectedPudding(pudding) {
       this.set('selectedPudding', pudding);

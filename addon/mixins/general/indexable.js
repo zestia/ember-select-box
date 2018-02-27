@@ -1,11 +1,10 @@
 import Mixin from '@ember/object/mixin';
 import { computed } from '@ember/object';
-import { A as emberA } from '@ember/array';
 
 export default Mixin.create({
   didReceiveAttrs() {
     this._super(...arguments);
-    this.set('components', this.getWithDefault('-components', emberA()));
+    this.set('components', this.getWithDefault('-components', []));
   },
 
   index: computed('components', function() {

@@ -1,6 +1,6 @@
 import Mixin from '@ember/object/mixin';
 import { computed } from '@ember/object';
-import { A as emberA } from '@ember/array';
+import { makeArray } from '@ember/array';
 import invokeAction from '../../../utils/invoke-action';
 
 export default Mixin.create({
@@ -8,7 +8,7 @@ export default Mixin.create({
     this._super(...arguments);
     this.set('manualSelection', this.get('selected'));
     this.set('selectedValue', this.get('-selected-value'));
-    this.set('isMultiple', this.get('-multiple'));
+    this.set('isMultiple', this.get('-is-multiple'));
   },
 
   isSelected: computed(
@@ -20,7 +20,7 @@ export default Mixin.create({
       if (this.get('manualSelection') !== undefined) {
         return this.get('manualSelection');
       } else if (this.get('isMultiple')) {
-        return emberA(this.get('selectedValue')).includes(this.get('value'));
+        return makeArray(this.get('selectedValue')).includes(this.get('value'));
       } else {
         return this.get('value') === this.get('selectedValue');
       }
@@ -31,7 +31,7 @@ export default Mixin.create({
     select() {
       this._super(...arguments);
       if (!this.get('isDisabled')) {
-        invokeAction(this, '-select', this.get('value'));
+        invokeAction(this, '-on-select', this.get('value'));
       }
     }
   }

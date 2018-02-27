@@ -1,7 +1,8 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, triggerKeyEvent } from '@ember/test-helpers';
+import { render, settled, triggerKeyEvent } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import { A as emberA } from '@ember/array';
 
 module('select-box (selecting)', function(hooks) {
   setupRenderingTest(hooks);
@@ -103,32 +104,54 @@ module('select-box (selecting)', function(hooks) {
   });
 
   test('selecting multiple options', async function(assert) {
-    assert.expect(2);
+    assert.expect(3);
+
+    this.set('values', ['foo', 'baz']);
 
     this.set('selected', value => {
       this.set('selectedValue', value);
     });
 
     await render(hbs`
-      {{#select-box on-select=(action selected) multiple=true as |sb|}}
+      {{#select-box on-select=(action selected) multiple=true value=values as |sb|}}
+        {{sb.option value="foo"}}
+        {{sb.option value="bar"}}
+        {{sb.option value="baz"}}
+      {{/select-box}}
+    `);
+
+    const $foo = this.$('.select-box-option:eq(0)');
+    const $bar = this.$('.select-box-option:eq(1)');
+
+    $bar.trigger('click');
+
+    assert.deepEqual(this.get('selectedValue'), ['foo', 'baz', 'bar'],
+      'selecting a single option adds it to the existing selection');
+
+    $foo.trigger('click');
+
+    assert.deepEqual(this.get('selectedValue'), ['baz', 'bar'],
+      'selecting an already selected option removes it from the existing selection');
+
+    assert.deepEqual(this.get('values'), ['foo', 'baz'],
+      'does not mutate the original array');
+  });
+
+  test('multiple but with a single value', async function(assert) {
+    assert.expect(2);
+
+    await render(hbs`
+      {{#select-box multiple=true value="bar" as |sb|}}
         {{sb.option value="foo"}}
         {{sb.option value="bar"}}
       {{/select-box}}
     `);
 
-    const $one = this.$('.select-box-option:eq(0)');
-    const $two = this.$('.select-box-option:eq(1)');
+    assert.ok(!this.$('.select-box-option:eq(0)').hasClass('is-selected'),
+      'not selected');
 
-    $one.trigger('click');
-
-    assert.deepEqual(this.get('selectedValue'), ['foo'],
-      'selecting a single option coerces the value to an array');
-
-    $two.trigger('click');
-
-    assert.deepEqual(this.get('selectedValue'), ['bar'],
-      'selecting another single option does not add to the existing selection' +
-      'behaviour is undefined, developers to customise?');
+    assert.ok(this.$('.select-box-option:eq(1)').hasClass('is-selected'),
+      'value is coerced to an array and correct option is selected');
   });
 
   test('press enter to select active option', async function(assert) {
@@ -171,28 +194,76 @@ module('select-box (selecting)', function(hooks) {
   });
 
   test('selecting via the api', async function(assert) {
-    assert.expect(1);
+    assert.expect(4);
 
-    this.set('selected', value => {
-      assert.equal(value, 'foo',
-        'the select box acknowledges the selection');
-    });
+    let selected;
+    let selectedFoo;
+    let updated;
 
-    this.set('selectedFoo', () => {
-      assert.ok(true,
-        'the selected option does not fire a on-select action');
-    });
+    this.set('selected', value => selected = value);
+    this.set('selectedFoo', value => selectedFoo = value);
+    this.set('updated', value => updated = value);
 
     await render(hbs`
-      {{#select-box on-select=(action selected) as |sb|}}
+      {{#select-box on-select=(action selected) on-update=(action updated) as |sb|}}
         {{sb.option value="foo" on-select=(action selectedFoo)}}
-        <button onclick={{action sb.select "foo"}}>
-          Select foo
-        </button>
+        <button onclick={{action sb.select "foo"}}>Select foo</button>
       {{/select-box}}
     `);
 
     this.$('button').trigger('click');
+
+    assert.strictEqual(selected, 'foo',
+      'the select box acknowledges the selection and sends an action');
+
+    assert.strictEqual(selectedFoo, undefined,
+      'the option does not fire its on-select action');
+
+    assert.strictEqual(updated, undefined,
+      'has not updated yet');
+
+    await settled();
+
+    assert.strictEqual(updated, 'foo',
+      'fires the on update action after the selection has been made');
+  });
+
+  test('updating via the api', async function(assert) {
+    assert.expect(5);
+
+    let updated;
+    let selected;
+
+    this.set('updated', value => updated = value);
+    this.set('selected', value => selected = value);
+
+    await render(hbs`
+      {{#select-box on-update=(action updated) on-select=(action selected) as |sb|}}
+        {{sb.option value="foo"}}
+        {{sb.option value="bar"}}
+        <button onclick={{action sb.update "foo"}}>Select foo</button>
+        <button onclick={{action sb.update "bar"}}>Select bar</button>
+      {{/select-box}}
+    `);
+
+    this.$('button:eq(1)').trigger('click');
+
+    assert.strictEqual(updated, undefined,
+      'has not fired an updated action');
+
+    assert.strictEqual(selected, undefined,
+      'has not fired a selected action');
+
+    assert.equal(this.$('.select-box-option.is-selected').text(), 'bar',
+      "select box's internal value is updated with the value");
+
+    await settled();
+
+    assert.strictEqual(updated, 'bar',
+      'fires the on-update action after the value has been updated');
+
+    assert.strictEqual(selected, undefined,
+      'does not fire the select action');
   });
 
   test('manual selection', async function(assert) {
@@ -277,5 +348,87 @@ module('select-box (selecting)', function(hooks) {
 
     assert.equal(selected, 0,
       'does not fire select action if option is disabled');
+  });
+
+  test('changing attributes other than value', async function(assert) {
+    assert.expect(1);
+
+    let updated = 0;
+
+    this.set('updated', () => {
+      updated++;
+    });
+
+    await render(hbs`
+      {{#select-box value="foo" aria-label=ariaLabel on-update=(action updated) as |sb|}}
+        {{sb.option value="foo"}}
+        {{sb.option value="bar"}}
+      {{/select-box}}
+    `);
+
+    this.set('ariaLabel', 'Choice');
+
+    await settled();
+
+    assert.equal(updated, 1,
+      "does not fire update action when the value hasn't actually updated");
+  });
+
+  test('a single value with a multiple choice select box', async function(assert) {
+    assert.expect(2);
+
+    this.set('value', 'bar');
+
+    await render(hbs`
+      {{#select-box value=value multiple=true as |sb|}}
+        {{sb.option value="foo"}}
+        {{sb.option value="bar"}}
+      {{/select-box}}
+    `);
+
+    assert.equal(this.$('.select-box-option.is-selected').text(), 'bar',
+      'works as expected');
+
+    this.set('value', 'foo');
+
+    assert.equal(this.$('.select-box-option.is-selected').text(), 'foo',
+      'updating the value works');
+  });
+
+  test('multiple values with a single choice select box', async function(assert) {
+    assert.expect(1);
+
+    this.set('values', ['bar', 'baz']);
+
+    await render(hbs`
+      {{#select-box value=values as |sb|}}
+        {{sb.option value="foo"}}
+        {{sb.option value="bar"}}
+        {{sb.option value="baz"}}
+      {{/select-box}}
+    `);
+
+    assert.equal(this.$('.select-box-option.is-selected').length, 0,
+      'works as expected');
+  });
+
+  test('adding and removing items to a multiple select box', async function(assert) {
+    assert.expect(1);
+
+    this.set('values', emberA(['bar']));
+
+    await render(hbs`
+      {{#select-box value=values multiple=true as |sb|}}
+        {{sb.option value="foo"}}
+        {{sb.option value="bar"}}
+        {{sb.option value="baz"}}
+      {{/select-box}}
+    `);
+
+    this.get('values').addObject('baz');
+
+    assert.equal(this.$('.select-box-option.is-selected').length, 1,
+      'changes to the multiple choice values does not update the select box ' +
+      'the entire array must be replaced (the value should be considered a _new_ value)');
   });
 });

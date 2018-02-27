@@ -9,6 +9,9 @@ function _getOffset(element) {
 }
 
 function _getScrollParent(element) {
+  if (!element) {
+    return;
+  }
   if (element.scrollHeight > element.clientHeight) {
     return element;
   } else {
@@ -22,10 +25,6 @@ function _getScrollParent(element) {
  * - Left and Right todo.
  */
 export default function scrollIntoView(element) {
-  if (!element) {
-    return;
-  }
-
   const scroller = _getScrollParent(element);
 
   if (!scroller) {

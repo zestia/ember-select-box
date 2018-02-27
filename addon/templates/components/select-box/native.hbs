@@ -2,11 +2,11 @@
   option=(component "select-box/native/option"
     class-prefix=class-prefix
     -api=api
-    -register=(action "_registerOption")
-    -deregister=(action "_deregisterOption")
-    -multiple=isMultiple
+    -is-multiple=isMultiple
     -selected-value=selectedValue
-    -select=(action "select"))
+    -on-register=(action "_registerOption")
+    -on-deregister=(action "_deregisterOption")
+    -on-select=(action "select"))
   group=(component "select-box/native/group"
     class-prefix=class-prefix)
 )}}
