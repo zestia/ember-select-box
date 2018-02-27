@@ -198,11 +198,11 @@ ember install @zestia/ember-select-box
     </tr>
     <tr>
       <td>sb.select</td>
-      <td>Selects an arbitrary value and fires the `on-select` action</td>
+      <td>Selects an arbitrary value(s) and fires the `on-select` action</td>
     </tr>
     <tr>
       <td>sb.update</td>
-      <td>Updates the selected value, but does not fire the `on-select` action</td>
+      <td>Updates the selected value(s), but does not fire the `on-select` action</td>
     </tr>
     <tr>
       <td>sb.selectActiveOption</td>
