@@ -3,6 +3,9 @@ import { scheduleOnce } from '@ember/runloop';
 
 export default Mixin.create({
   _overrideTabIndex() {
+    if (this.get('isDestroyed')) {
+      return;
+    }
     this.set('tabIndex', -1);
   },
 

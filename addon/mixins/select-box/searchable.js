@@ -56,16 +56,14 @@ export default Mixin.create({
   },
 
   _searchCompleted(id, query, result) {
-    if (this.get('isDestroyed')) {
-      return;
-    }
-
     const superseded = id < this.get('searchID');
-    if (superseded) {
+
+    if (superseded || this.get('isDestroyed')) {
       return;
     }
 
     invokeAction(this, 'on-searched', result, query, this.get('api'));
+
     this._searchFinished();
   },
 
@@ -73,7 +71,9 @@ export default Mixin.create({
     if (this.get('isDestroyed')) {
       return;
     }
+
     invokeAction(this, 'on-search-error', error, query, this.get('api'));
+
     this._searchFinished();
   },
 
@@ -86,6 +86,7 @@ export default Mixin.create({
     if (this.get('isDestroyed')) {
       return;
     }
+
     this.set('isSlowSearch', this.get('isSearching'));
   },
 

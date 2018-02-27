@@ -2,11 +2,11 @@ import Mixin from '@ember/object/mixin';
 import Nameable from  '../general/nameable';
 import HasOptions from './registration/has-options';
 import Focusable from  './focusable';
-import trySet from '../../utils/try-set';
 import { A as emberA, makeArray } from '@ember/array';
 import { bind, next, scheduleOnce } from '@ember/runloop';
 import invokeAction from '../../utils/invoke-action';
 import { all, resolve } from 'rsvp';
+const { freeze } = Object;
 const { isArray } = Array;
 
 const mixins = [
@@ -35,6 +35,14 @@ export default Mixin.create(...mixins, {
     }
   },
 
+  getPristineValue() {
+    let value = this.get('selectedValue');
+    if (this.get('isMultiple')) {
+      value = freeze(value);
+    }
+    return value;
+  },
+
   _select(value) {
     if (this.get('isMultiple') && !isArray(value)) {
       const values = emberA(this.get('selectedValue').slice());
@@ -55,9 +63,7 @@ export default Mixin.create(...mixins, {
     value = this._normaliseValue(value);
     value = this._resolveValue(value);
 
-    const id = this.get('promiseID') + 1;
-
-    trySet(this, 'promiseID', id);
+    const id = this.incrementProperty('promiseID');
 
     const success = bind(this, '_resolvedValue', id, false);
     const failure = bind(this, '_resolvedValue', id, true);
@@ -70,11 +76,11 @@ export default Mixin.create(...mixins, {
   },
 
   _updated() {
-    invokeAction(this, 'on-update', this.get('selectedValue'), this.get('api'));
+    invokeAction(this, 'on-update', this.getPristineValue(), this.get('api'));
   },
 
   _selected() {
-    invokeAction(this, 'on-select', this.get('selectedValue'), this.get('api'));
+    invokeAction(this, 'on-select', this.getPristineValue(), this.get('api'));
   },
 
   _normaliseValue(value) {
@@ -92,9 +98,7 @@ export default Mixin.create(...mixins, {
   },
 
   _resolvedValue(id, failed, value) {
-    const superseded = id < this.get('promiseID');
-
-    if (superseded || this.get('isDestroyed')) {
+    if (id < this.get('promiseID') || this.get('isDestroyed')) {
       return;
     }
 
@@ -104,12 +108,18 @@ export default Mixin.create(...mixins, {
   },
 
   _rendered() {
-    next(this, '_updated');
+    next(this, () => {
+      this.send('_updated');
+    });
   },
 
   actions: {
     update(value) {
       this._update(value);
+    },
+
+    _updated() {
+      this._updated();
     },
 
     select(value) {

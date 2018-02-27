@@ -10,7 +10,7 @@ moduleForAcceptance('backtracking focus use-case');
 // https://ember-twiddle.com/2f066b448da4242c29e241a5203d8840
 
 runTest('backtracking focus error', function(assert) {
-  assert.expect(5);
+  assert.expect(6);
 
   visit('/backtrack-select');
 
@@ -38,5 +38,8 @@ runTest('backtracking focus error', function(assert) {
   andThen(() => {
     assert.equal(find('.backtrack-select-options').length, 0,
       'options destroyed successfully without throwing double render error');
+
+    assert.ok(!find('.backtrack-select').hasClass('is-focused'),
+      'no longer focused');
   });
 });

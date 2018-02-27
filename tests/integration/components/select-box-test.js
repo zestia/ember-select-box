@@ -1,8 +1,10 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import SelectBox from '@zestia/ember-select-box/components/select-box';
+import EmberArray, { A as emberA } from '@ember/array';
+const { isFrozen } = Object;
 
 module('select-box', function(hooks) {
   setupRenderingTest(hooks);
@@ -171,5 +173,64 @@ module('select-box', function(hooks) {
 
     assert.ok(this.$('.select-box').hasClass('is-open'),
       'action is called with the api');
+  });
+
+  test('api value', async function(assert) {
+    assert.expect(8);
+
+    let firstApi;
+    let secondApi;
+
+    this.set('value', emberA(['foo']));
+    this.set('initialised', sb => firstApi = sb);
+    this.set('updated', (value, sb) => secondApi = sb);
+
+    await render(hbs `
+      {{select-box
+        value=value
+        multiple=true
+        on-init=(action initialised)
+        on-update=(action updated)}}
+    `);
+
+    assert.ok(!isFrozen(this.get('value')),
+      'api does not accidentally freeze original value');
+
+    assert.deepEqual(firstApi.value, undefined,
+      'yielded api on init is too early for value to have been resolved');
+
+    assert.deepEqual(secondApi.value, ['foo'],
+      'the initial update action yields the value');
+
+    assert.strictEqual(EmberArray.detect(firstApi.value), false,
+      'the yielded api value is not the original array (or an ember array)');
+
+    assert.ok(isFrozen(secondApi.value),
+      'is frozen when in multiple mode');
+
+    assert.throws(() => {
+      secondApi.value = ['qux'];
+    }, 'cannot alter the api');
+
+    this.set('value', emberA(['bar']));
+
+    await settled();
+
+    assert.deepEqual(secondApi.value, ['bar'],
+      'the yielded api reflects any changes to the value attribute');
+
+    await render(hbs `
+      {{select-box
+        value=value
+        multiple=false
+        on-update=(action updated)}}
+    `);
+
+    this.set('value', { foo: 'bar' });
+
+    await settled();
+
+    assert.ok(!isFrozen(secondApi.value),
+      'is not frozen when in single mode');
   });
 });

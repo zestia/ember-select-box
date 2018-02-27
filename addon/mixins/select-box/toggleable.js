@@ -9,7 +9,9 @@ export default Mixin.create({
 
   didReceiveAttrs() {
     this._super(...arguments);
+
     const open = this.get('is-open');
+
     if (isPresent(open)) {
       this.set('isOpen', open);
     }

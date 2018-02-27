@@ -3,6 +3,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, settled, triggerKeyEvent } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { A as emberA } from '@ember/array';
+const { isFrozen } = Object;
 
 module('select-box (selecting)', function(hooks) {
   setupRenderingTest(hooks);
@@ -104,13 +105,14 @@ module('select-box (selecting)', function(hooks) {
   });
 
   test('selecting multiple options', async function(assert) {
-    assert.expect(3);
+    assert.expect(4);
 
-    this.set('values', ['foo', 'baz']);
+    const values = ['foo', 'baz'];
 
-    this.set('selected', value => {
-      this.set('selectedValue', value);
-    });
+    let selectedValues;
+
+    this.set('values', values);
+    this.set('selected', values => selectedValues = values);
 
     await render(hbs`
       {{#select-box on-select=(action selected) multiple=true value=values as |sb|}}
@@ -125,16 +127,19 @@ module('select-box (selecting)', function(hooks) {
 
     $bar.trigger('click');
 
-    assert.deepEqual(this.get('selectedValue'), ['foo', 'baz', 'bar'],
+    assert.deepEqual(selectedValues, ['foo', 'baz', 'bar'],
       'selecting a single option adds it to the existing selection');
 
     $foo.trigger('click');
 
-    assert.deepEqual(this.get('selectedValue'), ['baz', 'bar'],
+    assert.deepEqual(selectedValues, ['baz', 'bar'],
       'selecting an already selected option removes it from the existing selection');
 
     assert.deepEqual(this.get('values'), ['foo', 'baz'],
       'does not mutate the original array');
+
+    assert.ok(isFrozen(selectedValues),
+      'the selected values sent out of the component are frozen');
   });
 
   test('multiple but with a single value', async function(assert) {

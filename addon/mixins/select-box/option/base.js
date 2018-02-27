@@ -4,7 +4,6 @@ import Registerable from  '../../general/registerable';
 import { isBlank } from '@ember/utils';
 import { resolve } from 'rsvp';
 import { bind } from '@ember/runloop';
-import trySet from '../../../utils/try-set';
 
 const mixins = [
   Nameable,
@@ -20,21 +19,17 @@ export default Mixin.create(...mixins, {
   },
 
   _update() {
-    const value = this.get('value');
-    const id    = this.get('promiseID') + 1;
-
-    trySet(this, 'promiseID', id);
+    const value = resolve(this.get('value'));
+    const id = this.incrementProperty('promiseID');
 
     const success = bind(this, '_resolvedValue', id, false);
     const failure = bind(this, '_resolvedValue', id, true);
 
-    resolve(value).then(success, failure);
+    value.then(success, failure);
   },
 
   _resolvedValue(id, failed, value) {
-    const superseded = id < this.get('promiseID');
-
-    if (superseded || this.get('isDestroyed')) {
+    if (id < this.get('promiseID') || this.get('isDestroyed')) {
       return;
     }
 
@@ -48,7 +43,7 @@ export default Mixin.create(...mixins, {
       label = value;
     }
 
-    trySet(this, 'label', label);
-    trySet(this, 'value', value);
+    this.set('label', label);
+    this.set('value', value);
   }
 });

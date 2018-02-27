@@ -272,6 +272,10 @@ ember install @zestia/ember-select-box
       <td>The DOM element of the select box</td>
     </tr>
     <tr>
+      <td>sb.value</td>
+      <td>The selected value(s) of the select box</td>
+    </tr>
+    <tr>
       <td>sb.isSearching</td>
       <td>Whether the promise returned from the `on-search` action is running</td>
     </tr>

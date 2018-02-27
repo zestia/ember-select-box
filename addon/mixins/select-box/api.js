@@ -1,11 +1,28 @@
 import Mixin from '@ember/object/mixin';
 import { bind, scheduleOnce } from '@ember/runloop';
+import { assign } from '@ember/polyfills';
+const { freeze } = Object;
 
 export default Mixin.create({
   init() {
-    this.set('api', this._apiActions());
+    this._rebuildApi();
     this._super(...arguments);
-    scheduleOnce('afterRender', this, '_updateApi');
+    scheduleOnce('afterRender', this, '_rebuildApi');
+  },
+
+  _buildApi() {
+    let api = {};
+    api = assign(api, this._apiActions());
+    api.element = this.get('element');
+    api.value = this.getPristineValue();
+    return freeze(api);
+  },
+
+  _rebuildApi() {
+    if (this.get('isDestroyed')) {
+      return;
+    }
+    this.set('api', this._buildApi());
   },
 
   _apiActions() {
@@ -35,7 +52,10 @@ export default Mixin.create({
     }, {});
   },
 
-  _updateApi() {
-    this.set('api.element', this.get('element'));
+  actions: {
+    _updated() {
+      this._rebuildApi();
+      this._super(...arguments);
+    }
   }
 });

@@ -13,9 +13,9 @@ module('select-box (api)', function(hooks) {
 
     run(() => selectBox = this.owner.factoryFor('component:select-box').create());
 
-    const functions = keys(selectBox.get('api'));
+    const properties = keys(selectBox.get('api'));
 
-    assert.deepEqual(functions, [
+    assert.deepEqual(properties, [
       'open',
       'close',
       'toggle',
@@ -35,7 +35,8 @@ module('select-box (api)', function(hooks) {
       'activateNextSelectedOption',
       'activatePreviousSelectedOption',
       'deactivateSelectedOptions',
-      'element'
+      'element',
+      'value'
     ]);
   });
 });
