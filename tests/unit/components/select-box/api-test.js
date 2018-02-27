@@ -16,6 +16,8 @@ module('select-box (api)', function(hooks) {
     const properties = keys(selectBox.get('api'));
 
     assert.deepEqual(properties, [
+      'value',
+      'element',
       'open',
       'close',
       'toggle',
@@ -34,9 +36,7 @@ module('select-box (api)', function(hooks) {
       'activateSelectedOptionAtIndex',
       'activateNextSelectedOption',
       'activatePreviousSelectedOption',
-      'deactivateSelectedOptions',
-      'element',
-      'value'
+      'deactivateSelectedOptions'
     ]);
   });
 });

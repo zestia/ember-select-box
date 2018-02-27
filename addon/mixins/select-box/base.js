@@ -2,7 +2,6 @@ import Mixin from '@ember/object/mixin';
 import Nameable from  '../general/nameable';
 import HasOptions from './registration/has-options';
 import Focusable from  './focusable';
-import { computed } from '@ember/object';
 import { A as emberA, makeArray } from '@ember/array';
 import { bind, next, scheduleOnce } from '@ember/runloop';
 import invokeAction from '../../utils/invoke-action';
@@ -19,14 +18,6 @@ const mixins = [
 export default Mixin.create(...mixins, {
   api: null,
   promiseID: 0,
-
-  pristineValue: computed('selectedValue', function() {
-    let value = this.get('selectedValue');
-    if (this.get('isMultiple')) {
-      value = freeze(value);
-    }
-    return value;
-  }).readOnly(),
 
   init() {
     this._super(...arguments);
@@ -45,8 +36,6 @@ export default Mixin.create(...mixins, {
   },
 
   _select(value) {
-    value = this._buildSelectedValue(value, this.get('pristineValue'));
-
     this._update(value).then(() => {
       this._selected();
     });
@@ -95,11 +84,11 @@ export default Mixin.create(...mixins, {
   },
 
   _updated() {
-    invokeAction(this, 'on-update', this.get('pristineValue'), this.get('api'));
+    invokeAction(this, 'on-update', this.get('selectedValue'), this.get('api'));
   },
 
   _selected() {
-    invokeAction(this, 'on-select', this.get('pristineValue'), this.get('api'));
+    invokeAction(this, 'on-select', this.get('selectedValue'), this.get('api'));
   },
 
   _normaliseValue(value) {
@@ -121,6 +110,10 @@ export default Mixin.create(...mixins, {
       return;
     }
 
+    if (this.get('isMultiple')) {
+      value = freeze(value);
+    }
+
     this.set('selectedValue', value);
 
     scheduleOnce('afterRender', this, '_rendered');
@@ -139,6 +132,11 @@ export default Mixin.create(...mixins, {
 
     _updated() {
       this._updated();
+    },
+
+    _select(value) {
+      value = this._buildSelectedValue(value, this.get('selectedValue'));
+      this._select(value);
     },
 
     select(value) {

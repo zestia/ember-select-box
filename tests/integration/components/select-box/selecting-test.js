@@ -469,7 +469,7 @@ module('select-box (selecting)', function(hooks) {
   });
 
   test('customising selection', async function(assert) {
-    assert.expect(7);
+    assert.expect(9);
 
     let sb;
     let arg1;
@@ -500,6 +500,7 @@ module('select-box (selecting)', function(hooks) {
         {{sb.option value="foo"}}
         {{sb.option value="bar"}}
         {{sb.option value="baz"}}
+        {{sb.option value="qux"}}
       {{/select-box}}
     `);
 
@@ -507,6 +508,11 @@ module('select-box (selecting)', function(hooks) {
 
     assert.equal(this.$('.select-box-option.is-selected').text(), 'baz',
       'selection used is the selection returned from on-build-selection');
+
+    await settled();
+
+    assert.deepEqual(sb.value, ['baz'],
+      'value is correct');
 
     assert.strictEqual(arg1, 'foo',
       'first argument is the value selected');
@@ -516,18 +522,25 @@ module('select-box (selecting)', function(hooks) {
 
     sb.update(['bar']);
 
+    await settled();
+
     assert.equal(calledBuild, 1,
-      'updating the selected value does not trigger build selection');
+      'updating the selected value via the api does not trigger build selection');
 
     assert.equal(this.$('.select-box-option.is-selected').text(), 'bar',
-      'sanity check, update still works');
+      'update still works');
 
-    sb.select(['bar']);
+    sb.select(['qux']);
 
-    assert.equal(calledBuild, 2,
-      'selecting a value triggers build selection');
+    await settled();
 
-    assert.equal(this.$('.select-box-option.is-selected').text(), 'baz',
-      'sanity check, build selection is used');
+    assert.equal(calledBuild, 1,
+      'selecting a selected value via the api does not trigger build selection');
+
+    assert.equal(this.$('.select-box-option.is-selected').text(), 'qux',
+      'select still works');
+
+    assert.deepEqual(sb.value, ['qux'],
+      'value is correct');
   });
 });

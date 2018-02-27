@@ -26,7 +26,7 @@
     -on-activate=(action "activateOptionAtIndex")
     -on-register=(action "_registerOption")
     -on-deregister=(action "_deregisterOption")
-    -on-select=(action "select"))
+    -on-select=(action "_select"))
   group=(component "select-box/group"
     class-prefix=class-prefix)
   input=(component "select-box/input"
@@ -41,7 +41,7 @@
   isSearching=isSearching
   isSlowSearch=isSlowSearch
   isOpen=isOpen
-  value=pristineValue
+  value=selectedValue
   open=(action "open")
   close=(action "close")
   toggle=(action "toggle")

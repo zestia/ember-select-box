@@ -196,8 +196,8 @@ module('select-box', function(hooks) {
     assert.ok(!isFrozen(this.get('value')),
       'api does not accidentally freeze original value');
 
-    assert.deepEqual(firstApi.value, undefined,
-      'yielded api on init is too early for value to have been resolved');
+    assert.deepEqual(firstApi.value, ['foo'],
+      'yielded api on init has initial value');
 
     assert.deepEqual(secondApi.value, ['foo'],
       'the initial update action yields the value');
@@ -209,7 +209,7 @@ module('select-box', function(hooks) {
       'is frozen when in multiple mode');
 
     assert.throws(() => {
-      secondApi.value = ['qux'];
+      secondApi.foo = 'bar';
     }, 'cannot alter the api');
 
     this.set('value', emberA(['bar']));
