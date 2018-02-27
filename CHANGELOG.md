@@ -6,6 +6,7 @@
 undefined. With the intention that developers use `sb.update(myValues)` to implement the multiple
 behaviour they want. But, it is rare you want anything other than to mimic a native select, by
 toggling the selected item from the array of values. Hence this is now the default behaviour.
+More info: https://github.com/zestia/ember-select-box/pull/15
 
 4.1.0
 
