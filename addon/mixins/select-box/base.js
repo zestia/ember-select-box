@@ -8,7 +8,7 @@ import { bind, next, scheduleOnce } from '@ember/runloop';
 import invokeAction from '../../utils/invoke-action';
 import { all, resolve } from 'rsvp';
 const { freeze } = Object;
-const { isArray } = Array;
+const { isArray, from } = Array;
 
 const mixins = [
   Nameable,
@@ -46,13 +46,13 @@ export default Mixin.create(...mixins, {
 
   _select(value) {
     if (this.get('isMultiple') && !isArray(value)) {
-      const values = emberA(this.get('selectedValue').slice());
+      const values = emberA(from(this.get('selectedValue')));
       if (values.includes(value)) {
         values.removeObject(value);
       } else {
         values.addObject(value);
       }
-      value = values;
+      value = values.toArray();
     }
 
     this._update(value).then(() => {

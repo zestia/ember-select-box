@@ -105,7 +105,7 @@ module('select-box (selecting)', function(hooks) {
   });
 
   test('selecting multiple options', async function(assert) {
-    assert.expect(4);
+    assert.expect(5);
 
     const values = ['foo', 'baz'];
 
@@ -129,6 +129,9 @@ module('select-box (selecting)', function(hooks) {
 
     assert.deepEqual(selectedValues, ['foo', 'baz', 'bar'],
       'selecting a single option adds it to the existing selection');
+
+    assert.strictEqual(EmberArray.detect(selectedValues), false,
+      'the values sent out of the component are not an ember array');
 
     $foo.trigger('click');
 
