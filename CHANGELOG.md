@@ -6,7 +6,8 @@
 undefined. With the intention that developers use `sb.update(myValues)` to implement the multiple
 behaviour they want. But, it is rare you want anything other than to mimic a native select, by
 toggling the selected item from the array of values. Hence this is now the default behaviour.
-More info: https://github.com/zestia/ember-select-box/pull/15
+More info: https://github.com/zestia/ember-select-box/pull/15. A new action `on-build-selection`
+allows you to customise this.
 
 * When using a multiple select box, the `on-select` action will fire with an array of the selected
 values. This array is frozen, and is not the same as the one passed into the select box originally.

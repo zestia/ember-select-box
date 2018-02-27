@@ -107,6 +107,15 @@ ember install @zestia/ember-select-box
       </td>
     </tr>
     <tr>
+      <td>on-build-selection</td>
+      <td>
+        Fired whenever a selection is made. This function receives the value most recently
+        selected, and the currently selected values. The return value is used as the final selection.
+        This is primarily used to customise the default behaviour of a multiple select box, but in
+        most cases will not need to be used.
+      </td>
+    </tr>
+    <tr>
       <td>on-search</td>
       <td>Fired when the select box decides to run a search</td>
     </tr>

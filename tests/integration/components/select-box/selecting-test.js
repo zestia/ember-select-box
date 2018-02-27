@@ -467,4 +467,67 @@ module('select-box (selecting)', function(hooks) {
     assert.strictEqual(EmberArray.detect(yieldedValue), false,
       'the yielded api value is not the original array (or an ember array)');
   });
+
+  test('customising selection', async function(assert) {
+    assert.expect(7);
+
+    let sb;
+    let arg1;
+    let arg2;
+    let calledBuild = 0;
+
+    this.set('value', ['foo', 'bar']);
+
+    this.set('buildSelection', (value1, value2) => {
+      calledBuild++;
+
+      arg1 = value1;
+      arg2 = value2;
+
+      return ['baz'];
+    });
+
+    this.set('register', api => {
+      sb = api;
+    });
+
+    await render(hbs`
+      {{#select-box
+        multiple=true
+        value=value
+        on-build-selection=(action buildSelection)
+        on-init=(action register) as |sb|}}
+        {{sb.option value="foo"}}
+        {{sb.option value="bar"}}
+        {{sb.option value="baz"}}
+      {{/select-box}}
+    `);
+
+    this.$('.select-box-option:eq(0)').trigger('click');
+
+    assert.equal(this.$('.select-box-option.is-selected').text(), 'baz',
+      'selection used is the selection returned from on-build-selection');
+
+    assert.strictEqual(arg1, 'foo',
+      'first argument is the value selected');
+
+    assert.deepEqual(arg2, ['foo', 'bar'],
+      'second argument is the currently selected value');
+
+    sb.update(['bar']);
+
+    assert.equal(calledBuild, 1,
+      'updating the selected value does not trigger build selection');
+
+    assert.equal(this.$('.select-box-option.is-selected').text(), 'bar',
+      'sanity check, update still works');
+
+    sb.select(['bar']);
+
+    assert.equal(calledBuild, 2,
+      'selecting a value triggers build selection');
+
+    assert.equal(this.$('.select-box-option.is-selected').text(), 'baz',
+      'sanity check, build selection is used');
+  });
 });

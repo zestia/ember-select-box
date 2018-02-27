@@ -45,15 +45,7 @@ export default Mixin.create(...mixins, {
   },
 
   _select(value) {
-    if (this.get('isMultiple') && !isArray(value)) {
-      const values = emberA(from(this.get('selectedValue')));
-      if (values.includes(value)) {
-        values.removeObject(value);
-      } else {
-        values.addObject(value);
-      }
-      value = values.toArray();
-    }
+    value = this._buildSelectedValue(value, this.get('pristineValue'));
 
     this._update(value).then(() => {
       this._selected();
@@ -70,6 +62,32 @@ export default Mixin.create(...mixins, {
     const failure = bind(this, '_resolvedValue', id, true);
 
     return value.then(success, failure);
+  },
+
+  _buildSelectedValue(value1, value2) {
+    let build = this.get('on-build-selection');
+
+    if (typeof build !== 'function') {
+      build = bind(this, '_buildSelectedValueDefault');
+    }
+
+    return build(value1, value2);
+  },
+
+  _buildSelectedValueDefault(value1, value2) {
+    let value = value1;
+
+    if (this.get('isMultiple') && !isArray(value1)) {
+      const temp = emberA(from(value2));
+      if (temp.includes(value1)) {
+        temp.removeObject(value1);
+      } else {
+        temp.addObject(value1);
+      }
+      value = temp.toArray();
+    }
+
+    return value;
   },
 
   _inited() {
