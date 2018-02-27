@@ -8,7 +8,7 @@ behaviour they want. But, it is rare you want anything other than to mimic a nat
 toggling the selected item from the array of values. Hence this is now the default behaviour.
 More info: https://github.com/zestia/ember-select-box/pull/15
 
-* When selecting multiple values the `on-select` action will fire with an array of the selected
+* When using a multiple select box, the `on-select` action will fire with an array of the selected
 values. This array is frozen, and is not the same as the one passed into the select box originally.
 
 4.1.0

@@ -14,7 +14,7 @@ export default Mixin.create({
     let api = {};
     api = assign(api, this._apiActions());
     api.element = this.get('element');
-    api.value = this.getPristineValue();
+    api.value = this.get('pristineValue');
     return freeze(api);
   },
 

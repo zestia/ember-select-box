@@ -2,7 +2,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, settled, triggerKeyEvent } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import { A as emberA } from '@ember/array';
+import EmberArray, { A as emberA } from '@ember/array';
 const { isFrozen } = Object;
 
 module('select-box (selecting)', function(hooks) {
@@ -435,5 +435,33 @@ module('select-box (selecting)', function(hooks) {
     assert.equal(this.$('.select-box-option.is-selected').length, 1,
       'changes to the multiple choice values does not update the select box ' +
       'the entire array must be replaced (the value should be considered a _new_ value)');
+  });
+
+  test('yielded selected value', async function(assert) {
+    assert.expect(3);
+
+    let yieldedValue;
+
+    this.set('value', emberA(['foo', 'bar']));
+
+    this.set('inspect', value => yieldedValue = value);
+
+    await render(hbs`
+      {{#select-box multiple=true value=value as |sb|}}
+        {{sb.option value="foo"}}
+        {{sb.option value="bar"}}
+        <button onclick={{action inspect sb.value}}>inspect</button>
+      {{/select-box}}
+    `);
+
+    this.$('button').trigger('click');
+
+    assert.throws(() => yieldedValue.push('baz'));
+
+    assert.ok(isFrozen(yieldedValue),
+      'yields frozen value in template');
+
+    assert.strictEqual(EmberArray.detect(yieldedValue), false,
+      'the yielded api value is not the original array (or an ember array)');
   });
 });
