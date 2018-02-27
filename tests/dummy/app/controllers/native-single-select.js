@@ -7,6 +7,7 @@ export default Controller.extend({
     this.set('selectableCakes', cakes);
     this.set('selectablePuddings', puddings);
   },
+
   actions: {
     selectedDessert(dessert) {
       this.set('selectedDessert', dessert);

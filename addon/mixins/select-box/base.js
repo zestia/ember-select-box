@@ -3,10 +3,11 @@ import Nameable from  '../general/nameable';
 import HasOptions from './registration/has-options';
 import Focusable from  './focusable';
 import trySet from '../../utils/try-set';
-import { makeArray } from '@ember/array';
-import { bind, scheduleOnce } from '@ember/runloop';
+import { A as emberA, makeArray } from '@ember/array';
+import { bind, next, scheduleOnce } from '@ember/runloop';
 import invokeAction from '../../utils/invoke-action';
 import { all, resolve } from 'rsvp';
+const { isArray } = Array;
 
 const mixins = [
   Nameable,
@@ -20,23 +21,31 @@ export default Mixin.create(...mixins, {
 
   init() {
     this._super(...arguments);
-    this._init();
+    this._inited();
   },
 
   didReceiveAttrs() {
     this._super(...arguments);
     this.set('isMultiple', this.get('multiple'));
+    this.set('changedValue', this.get('value') !== this.get('selectedValue'));
 
-    if (
-      this.get('value') !== this.get('selectedValue') ||
-      !this.get('doneInitialUpdate')
-    ) {
+    if (this.get('changedValue') || !this.get('doneInitialUpdate')) {
       this._update(this.get('value'));
       this.set('doneInitialUpdate', true);
     }
   },
 
   _select(value) {
+    if (this.get('isMultiple') && !isArray(value)) {
+      const values = emberA(this.get('selectedValue').slice());
+      if (values.includes(value)) {
+        values.removeObject(value);
+      } else {
+        values.addObject(value);
+      }
+      value = values;
+    }
+
     this._update(value).then(() => {
       this._selected();
     });
@@ -56,7 +65,7 @@ export default Mixin.create(...mixins, {
     return value.then(success, failure);
   },
 
-  _init() {
+  _inited() {
     invokeAction(this, 'on-init', this.get('api'));
   },
 
@@ -91,9 +100,11 @@ export default Mixin.create(...mixins, {
 
     this.set('selectedValue', value);
 
-    this.rerender();
+    scheduleOnce('afterRender', this, '_rendered');
+  },
 
-    scheduleOnce('afterRender', this, '_updated');
+  _rendered() {
+    next(this, '_updated');
   },
 
   actions: {

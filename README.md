@@ -673,3 +673,8 @@ use a plain old `<option>` element [[Example](tests/dummy/app/templates/fast-nat
 ##### FAQ
 Q: Why aren't the native and faux select boxes two addons.<br>
 A: Less effort maintaining 1 addon. Splitting out would be trivial though.
+
+##### Troubleshooting
+Problem: When I navigate using the arrow keys, the wrong option becomes active
+Solution: This may happen when you change the options that are displayed, because Ember will try to
+re-use components. You can fix this by adding `key="@index"` to your `#each`.

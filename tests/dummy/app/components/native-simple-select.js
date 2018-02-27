@@ -10,9 +10,11 @@ export default Component.extend({
     focusIn() {
       this.set('isFocused', true);
     },
+
     focusOut() {
       this.set('isFocused', false);
     },
+
     updateDisplayLabel() {
       this.set('displayLabel', this.$('option:selected').text());
     }

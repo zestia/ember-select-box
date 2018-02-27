@@ -11,18 +11,22 @@ export default Component.extend({
       e.preventDefault();
       sb.activatePreviousOption(true);
     },
+
     pressedDown(e, sb) {
       e.preventDefault();
       sb.activateNextOption(true);
       sb.open();
     },
+
     close(e, sb) {
       sb.close();
     },
+
     selected(select, value, sb) {
       select(value);
       sb.close();
     },
+
     updateDisplayLabel(value = {}) {
       this.set('displayLabel', get(value, this.get('label-key')));
     }

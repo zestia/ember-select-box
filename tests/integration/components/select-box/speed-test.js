@@ -2,16 +2,15 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import { A as emberA } from '@ember/array';
 
 module('select-box (speed)', function(hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function() {
-    this.set('items', emberA());
+    this.set('items', []);
 
     for (let i = 0; i <= 1000; i++) {
-      this.get('items').pushObject(`Item ${i}`);
+      this.get('items').push(`Item ${i}`);
     }
   });
 

@@ -43,14 +43,17 @@ export default Mixin.create({
     activateOptionAtIndex(index, scroll) {
       this._activateOptionAtIndex(index, scroll);
     },
+
     activateNextOption(scroll) {
       const next = this.get('activeOptionIndex') + 1;
       this._activateOptionAtIndex(next, scroll);
     },
+
     activatePreviousOption(scroll) {
       const prev = this.get('activeOptionIndex') - 1;
       this._activateOptionAtIndex(prev, scroll);
     },
+
     deactivateOptions() {
       this._deactivateOptions();
     }

@@ -2,16 +2,15 @@
 
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
-import { A as emberA } from '@ember/array';
 
 export default Controller.extend({
   init() {
     this._super(...arguments);
 
-    this.set('models', emberA());
+    this.set('models', []);
 
     for (let i = 0; i < 500; i++) {
-      this.get('models').pushObject({
+      this.get('models').push({
         id: `${i}`,
         name: `Model ${i}`
       });
@@ -30,7 +29,9 @@ export default Controller.extend({
   }),
 
   selectedModel: computed('selectedModelId', function() {
-    return this.get('models').findBy('id', this.get('selectedModelId'));
+    return this.get('models').find(model => {
+      return model.id === this.get('selectedModelId');
+    });
   }),
 
   actions: {

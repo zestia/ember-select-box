@@ -10,6 +10,7 @@ export default Component.extend({
     close(e, sb) {
       sb.close();
     },
+
     selected(select, value, sb) {
       select(value);
       sb.setInputValue(get(value, this.get('label-key')));
