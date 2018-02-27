@@ -676,4 +676,5 @@ A: Less effort maintaining 1 addon. Splitting out would be trivial though.
 
 ##### Troubleshooting
 Problem: When I navigate using the arrow keys, the wrong option becomes active
-Solution: Add `key="@index"` to your `#each`
+Solution: This may happen when you change the options that are displayed, because Ember will try to
+re-use components. You can fix this by adding `key="@index"` to your `#each`.
