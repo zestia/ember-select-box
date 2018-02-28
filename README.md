@@ -18,7 +18,7 @@ This addon does less, and gives you the primitives to easily _compose your own_.
 * [FAQ](#faq)
 
 
-### Installation
+## Installation
 
 ```
 ember install @zestia/ember-select-box
@@ -26,7 +26,7 @@ ember install @zestia/ember-select-box
 
 <hr>
 
-#### Native select box
+### Native select box
 [Read more](#native-select-box-info)
 
 ```handlebars
@@ -37,7 +37,7 @@ ember install @zestia/ember-select-box
 {{/select-box/native}}
 ```
 
-#### Faux Select box
+### Faux Select box
 
 ```handlebars
 {{#select-box as |sb|}}
@@ -289,7 +289,7 @@ ember install @zestia/ember-select-box
 
 <hr>
 
-#### Option
+### Option
 
 ```handlebars
 {{sb.option value=1 label="One"}}
@@ -385,7 +385,7 @@ ember install @zestia/ember-select-box
 
 <hr>
 
-#### Group
+### Group
 
 Self explanitory, just wraps the options in extra markup.
 
@@ -397,7 +397,7 @@ Self explanitory, just wraps the options in extra markup.
 
 <hr>
 
-#### Options
+### Options
 
 You only need to wrap the options up in with `sb.options` if you require extra markup for styling, or you want the options to be navigatable.
 
@@ -418,7 +418,7 @@ You only need to wrap the options up in with `sb.options` if you require extra m
 
 <hr>
 
-#### Input
+### Input
 
 Allows you to input text into the select box, usually for running searches/filtering
 
@@ -476,7 +476,7 @@ Allows you to input text into the select box, usually for running searches/filte
 
 <hr>
 
-#### Selected option
+### Selected option
 
 Does _not_ render the user's selected option automatically, but rather just provides a way for you to render the option(s) that have been selected.
 
@@ -510,7 +510,7 @@ Does _not_ render the user's selected option automatically, but rather just prov
 
 <hr>
 
-#### Selected options
+### Selected options
 
 ```handlebars
 {{#sb.selected-options}}
@@ -531,7 +531,7 @@ Provides a container for options that the user selected. Does not do anything by
 
 <hr>
 
-### API
+## API
 
 The select boxes that come with this addon exposes an API to you as an argument to action handlers like so:
 
@@ -549,7 +549,7 @@ actions: {
 
 <hr>
 
-### Customising
+## Customising
 
 There are 3 ways to get what you want
 
@@ -592,7 +592,7 @@ Option 1 is recommended. Define your component like so...
 ```
 <hr>
 
-### Native Select Box info
+## Native Select Box info
 
 Rendering lots of components in Ember can be slow. If your select box only
 uses _primitive_ values, you do not need to use `{{sb.option}}`, instead you can
@@ -600,7 +600,7 @@ use a plain old `<option>` element [[Example](tests/dummy/app/templates/fast-nat
 
 <hr>
 
-##### Things to note
+#### Things to note
 * Does not use jQuery
 * Works well with [Ember Wormhole](https://github.com/yapplabs/ember-wormhole)
 * You can create an autocompleter using the [input](#input) component with just a few lines of code.
@@ -609,14 +609,14 @@ use a plain old `<option>` element [[Example](tests/dummy/app/templates/fast-nat
 
 <hr>
 
-##### FAQ
+#### FAQ
 Q: Why aren't the native and faux select boxes two addons.<br>
 A: Less effort maintaining 1 addon. Splitting out would be trivial though.
 
 Q: Why would I not just use [Ember Power Select](https://github.com/cibernox/ember-power-select)?
 A: `ember-power-select` includes more features, but ones which we don't believe are core to what a select box is.
 
-##### Troubleshooting
+#### Troubleshooting
 Problem: When I navigate using the arrow keys, the wrong option becomes active
 Solution: This may happen when you change the options that are displayed, because Ember will try to
 re-use components. You can fix this by adding `key="@index"` to your `#each`.
