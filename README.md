@@ -20,9 +20,10 @@ This addon does less, and gives you the primitives to easily _compose your own_.
 * Navigatable options and groups ✔︎
 * Supports promises ✔︎
 * Any HTML you want ✔︎
+* Fully themeable using namespaced classes
+* Will never come with built-in styles ✔︎
 * Ember Data friendly ✔︎
 * Does not use jQuery ✔︎
-* Will never come with built-in styles ✔︎
 * Easily create an autocompleter ✔︎
 * Works well with [Ember Wormhole](https://github.com/yapplabs/ember-wormhole) ✔︎
 * Full control at all times with the [API](#api) ✔︎
