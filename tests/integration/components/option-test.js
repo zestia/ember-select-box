@@ -130,6 +130,56 @@ module('select-box/option', function(hooks) {
     );
   });
 
+  test('yield index', async function(assert) {
+    assert.expect(4);
+
+    const labels = () => {
+      return this.$('.select-box-option')
+        .map((i, o) => o.textContent.trim())
+        .toArray();
+    };
+
+    this.set('values', ['foo', 'bar', 'baz']);
+
+    await render(hbs`
+      {{#select-box value="baz" as |sb|}}
+        {{#each values as |value|}}
+          {{#sb.option value=value as |o|~}}
+            {{value}}: {{o.index}}
+          {{~/sb.option}}
+        {{/each}}
+      {{/select-box}}
+    `);
+
+    assert.deepEqual(labels(), ['foo: 0', 'bar: 1', 'baz: 2'],
+      'precondition, indexes are correct');
+
+    this.set('values', ['foo', 'baz']);
+    this.set('values', ['foo', 'bar', 'baz']);
+
+    assert.deepEqual(labels(), ['foo: 0', 'bar: 2', 'baz: 1'],
+      'indexes are wrong due to component re-use');
+
+    await render(hbs`
+      {{#select-box value="baz" as |sb|}}
+        {{#each values key="@index" as |value|}}
+          {{#sb.option value=value as |o|~}}
+            {{value}}: {{o.index}}
+          {{~/sb.option}}
+        {{/each}}
+      {{/select-box}}
+    `);
+
+    assert.deepEqual(labels(), ['foo: 0', 'bar: 1', 'baz: 2'],
+      'precondition, indexes are correct');
+
+    this.set('values', ['foo', 'baz']);
+    this.set('values', ['foo', 'bar', 'baz']);
+
+    assert.deepEqual(labels(), ['foo: 0', 'bar: 1', 'baz: 2'],
+      'indexes are correct due to key on each');
+  });
+
   test('yield disabled', async function(assert) {
     assert.expect(2);
 
