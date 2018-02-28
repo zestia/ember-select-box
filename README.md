@@ -50,7 +50,7 @@ ember install @zestia/ember-select-box
 <table>
   <caption>Attributes</caption>
   <tr>
-    <td>value</td>
+    <td width="200">value</td>
     <td>Used to determine which option is selected, can be a promise</td>
   </tr>
   <tr>
@@ -90,7 +90,7 @@ ember install @zestia/ember-select-box
 <table>
   <caption>Actions</caption>
   <tr>
-    <td>on-open</td>
+    <td width="200">on-open</td>
     <td>
       Fired when the select box is opened
     </td>
@@ -267,7 +267,7 @@ ember install @zestia/ember-select-box
 <table>
   <caption>Yielded API properties</caption>
   <tr>
-    <td>sb.element</td>
+    <td width="200">sb.element</td>
     <td>The DOM element of the select box</td>
   </tr>
   <tr>
@@ -303,7 +303,7 @@ ember install @zestia/ember-select-box
 <table>
   <caption>Attributes</caption>
   <tr>
-    <td>selected</td>
+    <td width="200">selected</td>
     <td>Used for manually selecting an option. (Most of the time you won't need to use this because the options automatically know whether or not they are selected based on the value attrbute set on the select box component itself)</td>
   </tr>
   <tr>
@@ -363,7 +363,7 @@ ember install @zestia/ember-select-box
 <table>
   <caption>Yielded API properties</caption>
   <tr>
-    <td>o.selected</td>
+    <td width="200">o.selected</td>
     <td>Whether or not the option is currently selected</td>
   </tr>
   <tr>
@@ -412,7 +412,7 @@ You only need to wrap the options up in with `sb.options` if you require extra m
 <table>
   <caption>Attributes</caption§>
   <tr>
-    <td>style</td>
+    <td width="200">style</td>
     <td>Useful for customising the style of the options container</td>
   </tr>
 </table>
@@ -430,7 +430,7 @@ Allows you to input text into the select box, usually for running searches/filte
 <table>
   <caption>Actions</caption>
   <tr>
-    <td>on-input</td>
+    <td width="200">on-input</td>
     <td>Fired when text is input</td>
   </tr>
   <tr>
@@ -446,7 +446,7 @@ Allows you to input text into the select box, usually for running searches/filte
 <table>
   <caption>Attributes</caption>
   <tr>
-    <td>type</td>
+    <td width="200">type</td>
     <td>Sets the type of input text/search etc...</td>
   </tr>
   <tr>
@@ -492,7 +492,7 @@ Does _not_ render the user's selected option automatically, but rather just prov
 <table>
   <caption>Actions</caption>
   <tr>
-    <td>on-activate</td>
+    <td width="200">on-activate</td>
     <td>Fired when a selected option is activated</td>
   </tr>
 </table>
@@ -500,7 +500,7 @@ Does _not_ render the user's selected option automatically, but rather just prov
 <table>
   <caption>Attributes</caption>
   <tr>
-    <td>title</td>
+    <td width="200">title</td>
     <td></td>
   </tr>
   <tr>
@@ -525,7 +525,7 @@ Provides a container for options that the user selected. Does not do anything by
 <table>
   <caption>Attributes</caption>
   <tr>
-    <td>style</td>
+    <td width="200">style</td>
     <td>Useful for one-off styling of selected options</td>
   </tr>
 </table>
