@@ -330,10 +330,6 @@ ember install @zestia/ember-select-box
     <td></td>
   </tr>
   <tr>
-    <td>multiple</td>
-    <td></td>
-  </tr>
-  <tr>
     <td>aria-label</td>
     <td></td>
   </tr>
