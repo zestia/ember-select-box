@@ -59,11 +59,11 @@ ember install @zestia/ember-select-box
   </tr>
   <tr>
     <td>multiple</td>
-    <td>If true, `value` should be an array. Also adds an `is-multiple` class</td>
+    <td>If true, <code>value</code> should be an array. Also adds an <code>is-multiple</code> class</td>
   </tr>
   <tr>
     <td>disabled</td>
-    <td>If true adds an `is-disabled` class</td>
+    <td>If true adds an <code>is-disabled</code> class</td>
   </tr>
   <tr>
     <td>style</td>
@@ -115,14 +115,14 @@ ember install @zestia/ember-select-box
     <td>
       Fired when an option is clicked, or enter is pressed regardless as
       to whether the value changed or not.<br>
-      Subsequently fired by use of the `select` API.
+      Subsequently fired by use of the <code>select</code> API.
     </td>
   </tr>
   <tr>
     <td>on-update</td>
     <td>
       Fired after the initial value has been resolved and the component has rendered.<br>
-      Subsequently fired by use of the `update` API or if the value attribute changes.
+      Subsequently fired by use of the <code>update</code> API or if the value attribute changes.
     </td>
   </tr>
   <tr>
@@ -196,11 +196,11 @@ ember install @zestia/ember-select-box
   </tr>
   <tr>
     <td>sb.open</td>
-    <td>Opens the select box, adding `is-open` class name</td>
+    <td>Opens the select box, adding <code>is-open</code> class name</td>
   </tr>
   <tr>
     <td>sb.close</td>
-    <td>Closes the select box removing the `is-open` class name</td>
+    <td>Closes the select box removing the <code>is-open</code> class name</td>
   </tr>
   <tr>
     <td>sb.toggle</td>
@@ -208,11 +208,11 @@ ember install @zestia/ember-select-box
   </tr>
   <tr>
     <td>sb.select</td>
-    <td>Selects an arbitrary value(s) and fires the `on-select` action</td>
+    <td>Selects an arbitrary value(s) and fires the <code>on-select</code> action</td>
   </tr>
   <tr>
     <td>sb.update</td>
-    <td>Updates the selected value(s), but does not fire the `on-select` action</td>
+    <td>Updates the selected value(s), but does not fire the <code>on-select</code> action</td>
   </tr>
   <tr>
     <td>sb.selectActiveOption</td>
@@ -220,7 +220,7 @@ ember install @zestia/ember-select-box
   </tr>
   <tr>
     <td>sb.search</td>
-    <td>Runs an arbitrary search using the search function provided by `on-search`</td>
+    <td>Runs an arbitrary search using the search function provided by <code>on-search</code></td>
   </tr>
   <tr>
     <td>sb.stopSearching</td>
@@ -240,7 +240,7 @@ ember install @zestia/ember-select-box
   </tr>
   <tr>
     <td>sb.activateOptionAtIndex</td>
-    <td>Adds an `is-active` class to the option at the index</td>
+    <td>Adds an <code>is-active</code> class to the option at the index</td>
   </tr>
   <tr>
     <td>sb.activateNextOption</td>
@@ -288,7 +288,7 @@ ember install @zestia/ember-select-box
   </tr>
   <tr>
     <td>sb.isSearching</td>
-    <td>Whether the promise returned from the `on-search` action is running _(only available in the template)</td>
+    <td>Whether the promise returned from the <code>on-search</code> action is running _(only available in the template)</td>
   </tr>
   <tr>
     <td>sb.isSlowSearch</td>
