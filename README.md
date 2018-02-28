@@ -590,14 +590,6 @@ Option 1 is recommended. Define your component like so...
 ```
 <hr>
 
-## Native Select Box info
-
-Rendering lots of components in Ember can be slow. If your select box only
-uses _primitive_ values, you do not need to use `{{sb.option}}`, instead you can
-use a plain old `<option>` element [[Example](tests/dummy/app/templates/fast-native-single-select.hbs)].
-
-<hr>
-
 #### Things to note
 * Does not use jQuery
 * Works well with [Ember Wormhole](https://github.com/yapplabs/ember-wormhole)
@@ -615,6 +607,11 @@ Q: Why would I not just use [Ember Power Select](https://github.com/cibernox/emb
 A: `ember-power-select` includes more features, but ones which we don't believe are core to what a select box is.
 
 #### Troubleshooting
-Problem: When I navigate using the arrow keys, the wrong option becomes active
-Solution: This may happen when you change the options that are displayed, because Ember will try to
+
+* Problem: When I navigate using the arrow keys, the wrong option becomes active
+* Solution: This may happen when you change the options that are displayed, because Ember will try to
 re-use components. You can fix this by adding `key="@index"` to your `#each`.
+
+* Problem: Rendering lots of components is can be slow.
+* Solution: If your select box only uses _primitive_ values, you do not need to use `{{sb.option}}`, instead you can
+use a plain old `<option>` element [[Example](tests/dummy/app/templates/fast-native-single-select.hbs)]. Which will be faster, because constructing components is expensive in Ember.
