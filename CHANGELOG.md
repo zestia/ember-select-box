@@ -1,6 +1,6 @@
 # Changelog
 
-5.0.0
+4.2.0
 
 * Previously, the behaviour of selecting multiple options with the faux-select component was
 undefined. With the intention that developers use `sb.update(myValues)` to implement the multiple
