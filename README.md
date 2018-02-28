@@ -345,6 +345,10 @@ ember install @zestia/ember-select-box
     <td>label</td>
     <td>Used as the display text by default</td>
   </tr>
+</table>
+
+<table>
+  <caption>Actions</caption>
   <tr>
     <td>on-select</td>
     <td>Useful for firing one-off actions when an option is selected</td>
