@@ -387,7 +387,8 @@ ember install @zestia/ember-select-box
 
 ### Group
 
-Self explanitory, just wraps the options in extra markup.
+Self explanitory, just wraps the options in extra markup.<br>
+You can still navigate groups using the arrow keys / the API.
 
 ```handlebars
 {{#sb.group label="Things"}}
