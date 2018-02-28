@@ -292,9 +292,7 @@ ember install @zestia/ember-select-box
 ### Option
 
 ```handlebars
-{{sb.option value=1 label="One"}}
-
-{{#sb.option value=2 label="Two" as |o|}}
+{{#sb.option value=1 label="One" as |o|}}
   {{o.label}}
 {{/sb.option}}
 ```
@@ -482,9 +480,7 @@ Allows you to input text into the select box, usually for running searches/filte
 Does _not_ render the user's selected option automatically, but rather just provides a way for you to render the option(s) that have been selected.
 
 ```handlebars
-{{sb.selected-option value=1 label="One"}}
-
-{{#sb.selected-option value=2 label="Two" as |so|}}
+{{#sb.selected-option value=1 label="One" as |so|}}
   {{so.label}}
 {{/sb.selected-option}}
 ```
@@ -515,8 +511,9 @@ Does _not_ render the user's selected option automatically, but rather just prov
 
 ```handlebars
 {{#sb.selected-options}}
-  {{#sb.selected-option}}You chose this{{/sb.selected-option}}
-  {{#sb.selected-option}}And this{{/sb.selected-option}}
+  {{#each sb.value as |value|}}
+    {{#sb.selected-option}}You chose this{{/sb.selected-option}}
+  {{/each}}
 {{/sb.selected-options}}
 ```
 
