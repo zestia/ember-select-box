@@ -350,7 +350,7 @@ ember install @zestia/ember-select-box
 <table>
   <caption>Actions</caption>
   <tr>
-    <td>on-select</td>
+    <td width="200">on-select</td>
     <td>Useful for firing one-off actions when an option is selected</td>
   </tr>
   <tr>
