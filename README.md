@@ -50,10 +50,6 @@ ember install @zestia/ember-select-box
 <table>
   <caption>Attributes</caption>
   <tr>
-    <th>Attribute</th>
-    <th>Description</th>
-  </tr>
-  <tr>
     <td>value</td>
     <td>Used to determine which option is selected, can be a promise</td>
   </tr>
@@ -191,11 +187,7 @@ ember install @zestia/ember-select-box
 <table>
   <caption>Yielded API actions</caption>
   <tr>
-    <th>Action</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td>sb.open</td>
+    <td width="200">sb.open</td>
     <td>Opens the select box, adding <code>is-open</code> class name</td>
   </tr>
   <tr>
@@ -275,10 +267,6 @@ ember install @zestia/ember-select-box
 <table>
   <caption>Yielded API properties</caption>
   <tr>
-    <th>Property</th>
-    <th>Description</th>
-  </tr>
-  <tr>
     <td>sb.element</td>
     <td>The DOM element of the select box</td>
   </tr>
@@ -314,10 +302,6 @@ ember install @zestia/ember-select-box
 
 <table>
   <caption>Attributes</caption>
-  <tr>
-    <th>Attribute</th>
-    <th>Description</th>
-  </tr>
   <tr>
     <td>selected</td>
     <td>Used for manually selecting an option. (Most of the time you won't need to use this because the options automatically know whether or not they are selected based on the value attrbute set on the select box component itself)</td>
@@ -379,10 +363,6 @@ ember install @zestia/ember-select-box
 <table>
   <caption>Yielded API properties</caption>
   <tr>
-    <th>Property</th>
-    <th>Description</th>
-  </tr>
-  <tr>
     <td>o.selected</td>
     <td>Whether or not the option is currently selected</td>
   </tr>
@@ -432,10 +412,6 @@ You only need to wrap the options up in with `sb.options` if you require extra m
 <table>
   <caption>Attributes</caption§>
   <tr>
-    <th>Attribute</th>
-    <th>Description</th>
-  </tr>
-  <tr>
     <td>style</td>
     <td>Useful for customising the style of the options container</td>
   </tr>
@@ -469,10 +445,6 @@ Allows you to input text into the select box, usually for running searches/filte
 
 <table>
   <caption>Attributes</caption>
-  <tr>
-    <th>Attribute</th>
-    <th>Description</th>
-  </tr>
   <tr>
     <td>type</td>
     <td>Sets the type of input text/search etc...</td>
@@ -528,10 +500,6 @@ Does _not_ render the user's selected option automatically, but rather just prov
 <table>
   <caption>Attributes</caption>
   <tr>
-    <th>Attribute</th>
-    <th>Description</th>
-  </tr>
-  <tr>
     <td>title</td>
     <td></td>
   </tr>
@@ -556,10 +524,6 @@ Provides a container for options that the user selected. Does not do anything by
 
 <table>
   <caption>Attributes</caption>
-  <tr>
-    <th>Attribute</th>
-    <th>Description</th>
-  </tr>
   <tr>
     <td>style</td>
     <td>Useful for one-off styling of selected options</td>
