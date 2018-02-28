@@ -400,7 +400,7 @@ Self explanitory, just wraps the options in extra markup.<br>
 
 ### Options
 
-You only need to wrap the options up in with `sb.options` if you require extra markup for styling, or you want the options to be navigatable.
+You only need to wrap the options up in with `sb.options` if you require extra markup for styling.
 
 ```handlebars
 {{#sb.options}}
