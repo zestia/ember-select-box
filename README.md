@@ -275,15 +275,15 @@ ember install @zestia/ember-select-box
   </tr>
   <tr>
     <td>sb.isSearching</td>
-    <td>Whether the promise returned from the <code>on-search</code> action is running<br>_(only available in the template)_</td>
+    <td>Whether the promise returned from the <code>on-search</code> action is running<br> <em>(only available in the template)</em></td>
   </tr>
   <tr>
     <td>sb.isSlowSearch</td>
-    <td>True if the promised search results are taking a while<br>_(only available in the template)_</td>
+    <td>True if the promised search results are taking a while<br> <em>(only available in the template)</em></td>
   </tr>
   <tr>
     <td>sb.isOpen</td>
-    <td>True if the select box is open<br> _(only available in the template)_</td>
+    <td>True if the select box is open<br> <em>(only available in the template)</em></td>
   </tr>
 </table>
 
