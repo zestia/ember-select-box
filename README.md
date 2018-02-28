@@ -167,7 +167,7 @@ ember install @zestia/ember-select-box
   </tr>
   <tr>
     <td>on-press-left</td>
-    <td>Useful for navigating multi-select boxes</td>
+    <td>Useful for navigating selected-options</td>
   </tr>
   <tr>
     <td>on-press-up</td>
@@ -175,7 +175,7 @@ ember install @zestia/ember-select-box
   </tr>
   <tr>
     <td>on-press-right</td>
-    <td>Useful for navigating multi-select boxes</td>
+    <td>Useful for navigating selected-options</td>
   </tr>
   <tr>
     <td>on-press-down</td>
