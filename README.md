@@ -9,14 +9,21 @@ They come with a myriad of options to configure every possible situation, and th
 
 This addon does less, and gives you the primitives to easily _compose your own_.
 
+## Features / info
 
-
-* [Ways to achieve what you want](#customising)
-* <a href="https://zestia.github.io/ember-select-box" target="_blank">Example scenarios</a>
-* <a href="https://github.com/zestia/ember-select-box/tree/master/tests/dummy/app/components" target="_blank">Code for example scenarios</a>
-* [Things to note](#things-to-note)
+* [Easily customisable](#customising)
+* <a href="https://zestia.github.io/ember-select-box" target="_blank">Demo scenarios</a> / <a href="https://github.com/zestia/ember-select-box/tree/master/tests/dummy/app/components" target="_blank">Code</a>
 * [FAQ](#faq)
-
+* [Troubleshooting](#troubleshooting)
+* Does not use jQuery ✔︎
+* Works well with [Ember Wormhole](https://github.com/yapplabs/ember-wormhole) ✔︎
+* Will never come with built-in styles ✔︎
+* Easily create an autocompleter ✔︎
+* Navigatable options and groups ✔︎
+* Supports promises ✔︎
+* Any HTML you want ✔︎
+* Ember Data friendly ✔︎
+* [API](#api) is available as argument to all action handlers ✔︎
 
 ## Installation
 
@@ -588,23 +595,16 @@ Option 1 is recommended. Define your component like so...
   </div>
 </div>
 ```
-<hr>
-
-#### Things to note
-* Does not use jQuery
-* Works well with [Ember Wormhole](https://github.com/yapplabs/ember-wormhole)
-* You can create an autocompleter using the [input](#input) component with just a few lines of code.
-* Will never come with built-in styles.
-* Yielded [API](#api) is available as argument to all action handlers - so you should never feel held-back when creating your select box.
 
 <hr>
 
 #### FAQ
-Q: Why aren't the native and faux select boxes two addons.<br>
-A: Less effort maintaining 1 addon. Splitting out would be trivial though.
 
-Q: Why would I not just use [Ember Power Select](https://github.com/cibernox/ember-power-select)?
-A: `ember-power-select` includes more features, but ones which we don't believe are core to what a select box is.
+* Question: Why aren't the native and faux select boxes two addons.<br>
+* Answer: Less effort maintaining 1 addon. Splitting out would be trivial though.
+
+* Question: Why would I not just use [Ember Power Select](https://github.com/cibernox/ember-power-select)?
+* Answer: `ember-power-select` includes more features, but ones which we don't believe are core to what a select box is.
 
 #### Troubleshooting
 
