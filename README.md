@@ -35,8 +35,7 @@ ember install @zestia/ember-select-box
 
 <hr>
 
-### Native select box
-[Read more](#native-select-box-info)
+#### Native select box example
 
 ```handlebars
 {{#select-box/native as |sb|}}
@@ -46,7 +45,7 @@ ember install @zestia/ember-select-box
 {{/select-box/native}}
 ```
 
-### Faux Select box
+#### Faux Select box example
 
 ```handlebars
 {{#select-box as |sb|}}
