@@ -82,6 +82,30 @@ module('select-box (selecting)', function(hooks) {
       'clicking another option selects it instead');
   });
 
+  test('selecting the same option more than once', async function(assert) {
+    assert.expect(2);
+
+    let selected = 0;
+    let updated = 0;
+    this.set('selected', () => selected++);
+    this.set('updated', () => updated++);
+
+    await render(hbs`
+      {{#select-box on-select=(action selected) on-update=(action updated) as |sb|}}
+        {{sb.option value="foo"}}
+      {{/select-box}}
+    `);
+
+    this.$('.select-box-option').trigger('click');
+    this.$('.select-box-option').trigger('click');
+
+    assert.equal(selected, 2,
+      "sends select action even if selected value hasn't changed");
+
+    assert.equal(updated, 1,
+      'sends update action only when value has changed');
+  });
+
   test('selecting more than 1 of the same value', async function(assert) {
     assert.expect(1);
 

@@ -102,7 +102,7 @@ ember install @zestia/ember-select-box
     <tr>
       <td>on-update</td>
       <td>
-        Fired once upon initialisation of the select box (as its initial value is set).<br>
+        Fired after the initial value has been resolved and the component has rendered.<br>
         Subsequently fired by use of the `update` API or if the value attribute changes.
       </td>
     </tr>
