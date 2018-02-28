@@ -16,7 +16,7 @@ This addon does less, and gives you the primitives to easily _compose your own_.
 * [FAQ](#faq)
 * [Troubleshooting](#troubleshooting)
 * Native select box _(that supports complex values)_ ✔︎
-* Faux select box _(mimics a native select box, but fully stylable)_ ✔︎
+* Faux select box _(mimics a native select box, but easily stylable)_ ✔︎
 * Navigatable options and groups ✔︎
 * Supports promises ✔︎
 * Any HTML you want ✔︎
