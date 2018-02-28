@@ -5,7 +5,7 @@
 
 Select box solutions are rarely perfect for what you want.
 
-They come with a myriad of options to configure every possible situation, and they make too many assumptions about how your select-box behaves.
+They come with a myriad of options to configure every possible situation, and they make too many assumptions about how your select-box should behave.
 
 This addon does less, and gives you the primitives to easily _compose your own_.
 
