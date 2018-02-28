@@ -15,15 +15,17 @@ This addon does less, and gives you the primitives to easily _compose your own_.
 * <a href="https://zestia.github.io/ember-select-box" target="_blank">Demo scenarios</a> / <a href="https://github.com/zestia/ember-select-box/tree/master/tests/dummy/app/components" target="_blank">Code</a>
 * [FAQ](#faq)
 * [Troubleshooting](#troubleshooting)
-* Does not use jQuery ✔︎
-* Works well with [Ember Wormhole](https://github.com/yapplabs/ember-wormhole) ✔︎
-* Will never come with built-in styles ✔︎
-* Easily create an autocompleter ✔︎
+* Native select box _(that supports complex values)_ ✔︎
+* Faux select box _(mimics a native select box, but fully stylable)_ ✔︎
 * Navigatable options and groups ✔︎
 * Supports promises ✔︎
 * Any HTML you want ✔︎
 * Ember Data friendly ✔︎
-* [API](#api) is available as argument to all action handlers ✔︎
+* Does not use jQuery ✔︎
+* Will never come with built-in styles ✔︎
+* Easily create an autocompleter ✔︎
+* Works well with [Ember Wormhole](https://github.com/yapplabs/ember-wormhole) ✔︎
+* Full control at all times with the [API](#api) ✔︎
 
 ## Installation
 
