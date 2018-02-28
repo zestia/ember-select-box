@@ -47,257 +47,258 @@ ember install @zestia/ember-select-box
 {{/select-box}}
 ```
 
-<details>
-  <summary>View attributes</summary>
-  <table>
-    <tr>
-      <th>Attribute</th>
-      <th>Description</th>
-    </tr>
-    <tr>
-      <td>value</td>
-      <td>Used to determine which option is selected, can be a promise</td>
-    </tr>
-    <tr>
-      <td>multiple</td>
-      <td>If true, `value` should be an array. Also adds an `is-multiple` class</td>
-    </tr>
-    <tr>
-      <td>disabled</td>
-      <td>If true adds an `is-disabled` class</td>
-    </tr>
-    <tr>
-      <td>style</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>is-open</td>
-      <td>Controls the open/closed state</td>
-    </tr>
-    <tr>
-      <td>on-open</td>
-      <td>
-        Fired when the select box is opened
-      </td>
-    </tr>
-    <tr>
-      <td>on-close</td>
-      <td>
-        Fired when the select box is closed
-      </td>
-    </tr>
-    <tr>
-      <td>on-init</td>
-      <td>Fired when the select box initialises. Useful opportunity to get
-      access to the select box's API which is passed as a parameter.</td>
-    </tr>
-    <tr>
-      <td>on-select</td>
-      <td>
-        Fired when an option is clicked, or enter is pressed regardless as
-        to whether the value changed or not.<br>
-        Subsequently fired by use of the `select` API.
-      </td>
-    </tr>
-    <tr>
-      <td>on-update</td>
-      <td>
-        Fired after the initial value has been resolved and the component has rendered.<br>
-        Subsequently fired by use of the `update` API or if the value attribute changes.
-      </td>
-    </tr>
-    <tr>
-      <td>on-build-selection</td>
-      <td>
-        Fired whenever a selection is made. This function receives the value most recently
-        selected, and the currently selected values. The return value is used as the final selection.
-        This is primarily used to customise the default behaviour of a multiple select box, but in
-        most cases will not need to be used.
-      </td>
-    </tr>
-    <tr>
-      <td>on-search</td>
-      <td>Fired when the select box decides to run a search</td>
-    </tr>
-    <tr>
-      <td>on-searched</td>
-      <td>Fired after the last succesful search attempt</td>
-    </tr>
-    <tr>
-      <td>search-min-chars</td>
-      <td>Prevents the on-search action from firing until there are enough chars (default 1)</td>
-    </tr>
-    <tr>
-      <td>search-delay-time</td>
-      <td>Milliseconds to debounce the on-search action from firing (default 100)</td>
-    </tr>
-    <tr>
-      <td>search-slow-time</td>
-      <td>Milliseconds considered for a search to be taking too long (default 500)</td>
-    </tr>
-    <tr>
-      <td>class-prefix</td>
-      <td>Adds a prefix to the class name of all child select-box components</td>
-    </tr>
-    <tr>
-      <td>on-click-outside</td>
-      <td>Useful for closing the select box</td>
-    </tr>
-    <tr>
-      <td>on-focus-in</td>
-      <td>Fired when focus enters the select box, normalised if it contains an input</td>
-    </tr>
-    <tr>
-      <td>on-focus-out</td>
-      <td>Fired when focus leaves the select box</td>
-    </tr>
-    <tr>
-      <td>on-press-backspace</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>on-press-tab</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>on-press-enter</td>
-      <td>Useful for preventing default action of event</td>
-    </tr>
-    <tr>
-      <td>on-press-escape</td>
-      <td>Useful for closing and/or resetting a select box</td>
-    </tr>
-    <tr>
-      <td>on-press-left</td>
-      <td>Useful for navigating multi-select boxes</td>
-    </tr>
-    <tr>
-      <td>on-press-up</td>
-      <td>Useful for navigating up</td>
-    </tr>
-    <tr>
-      <td>on-press-right</td>
-      <td>Useful for navigating multi-select boxes</td>
-    </tr>
-    <tr>
-      <td>on-press-down</td>
-      <td>Useful for navigating down</td>
-    </tr>
-  </table>
-</details>
+<table>
+  <caption>Attributes</caption>
+  <tr>
+    <th>Attribute</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>value</td>
+    <td>Used to determine which option is selected, can be a promise</td>
+  </tr>
+  <tr>
+    <td>multiple</td>
+    <td>If true, `value` should be an array. Also adds an `is-multiple` class</td>
+  </tr>
+  <tr>
+    <td>disabled</td>
+    <td>If true adds an `is-disabled` class</td>
+  </tr>
+  <tr>
+    <td>style</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>class-prefix</td>
+    <td>Adds a prefix to the class name of all child select-box components</td>
+  </tr>
+  <tr>
+    <td>is-open</td>
+    <td>Controls the open/closed state</td>
+  </tr>
+  <tr>
+    <td>search-min-chars</td>
+    <td>Prevents the on-search action from firing until there are enough chars (default 1)</td>
+  </tr>
+  <tr>
+    <td>search-delay-time</td>
+    <td>Milliseconds to debounce the on-search action from firing (default 100)</td>
+  </tr>
+  <tr>
+    <td>search-slow-time</td>
+    <td>Milliseconds considered for a search to be taking too long (default 500)</td>
+  </tr>
+</table>
 
-<details>
-  <summary>View yielded API</summary>
-  <table>
-    <tr>
-      <th>Action</th>
-      <th>Description</th>
-    </tr>
-    <tr>
-      <td>sb.open</td>
-      <td>Opens the select box, adding `is-open` class name</td>
-    </tr>
-    <tr>
-      <td>sb.close</td>
-      <td>Closes the select box removing the `is-open` class name</td>
-    </tr>
-    <tr>
-      <td>sb.toggle</td>
-      <td>Opens or closes the select box</td>
-    </tr>
-    <tr>
-      <td>sb.select</td>
-      <td>Selects an arbitrary value(s) and fires the `on-select` action</td>
-    </tr>
-    <tr>
-      <td>sb.update</td>
-      <td>Updates the selected value(s), but does not fire the `on-select` action</td>
-    </tr>
-    <tr>
-      <td>sb.selectActiveOption</td>
-      <td>Selects the value of whichever option is currently active</td>
-    </tr>
-    <tr>
-      <td>sb.search</td>
-      <td>Runs an arbitrary search using the search function provided by `on-search`</td>
-    </tr>
-    <tr>
-      <td>sb.stopSearching</td>
-      <td>'Cancels' searches currently in progress (even though promises are not cancelable)</td>
-    </tr>
-    <tr>
-      <td>sb.setInputValue</td>
-      <td>Lets you update the input value, useful for when a selection has been made</td>
-    </tr>
-    <tr>
-      <td>sb.focusInput</td>
-      <td>Focuses the input associated with the select box</td>
-    </tr>
-    <tr>
-      <td>sb.blurInput</td>
-      <td>Unfocuses the input associated with the select box</td>
-    </tr>
-    <tr>
-      <td>sb.activateOptionAtIndex</td>
-      <td>Adds an `is-active` class to the option at the index</td>
-    </tr>
-    <tr>
-      <td>sb.activateNextOption</td>
-      <td>Activates the next option (pass in true to scroll if necessary too)</td>
-    </tr>
-    <tr>
-      <td>sb.activatePreviousOption</td>
-      <td>As above but reverse</td>
-    </tr>
-    <tr>
-      <td>sb.deactivateOptions</td>
-      <td>Makes no option be active</td>
-    </tr>
-    <tr>
-      <td>sb.activateSelectedOptionAtIndex</td>
-      <td>Activates the selected option at the index</td>
-    </tr>
-    <tr>
-      <td>sb.activateNextSelectedOption</td>
-      <td>Activates the next selected option</td>
-    </tr>
-    <tr>
-      <td>sb.activatePreviousSelectedOption</td>
-      <td>As above but reverse</td>
-    </tr>
-    <tr>
-      <td>sb.deactivateSelectedOptions</td>
-      <td>Makes no selected option be active</td>
-    </tr>
-  </table>
+<table>
+  <caption>Actions</caption>
+  <tr>
+    <td>on-open</td>
+    <td>
+      Fired when the select box is opened
+    </td>
+  </tr>
+  <tr>
+    <td>on-close</td>
+    <td>
+      Fired when the select box is closed
+    </td>
+  </tr>
+  <tr>
+    <td>on-init</td>
+    <td>Fired when the select box initialises. Useful opportunity to get
+    access to the select box's API which is passed as a parameter.</td>
+  </tr>
+  <tr>
+    <td>on-select</td>
+    <td>
+      Fired when an option is clicked, or enter is pressed regardless as
+      to whether the value changed or not.<br>
+      Subsequently fired by use of the `select` API.
+    </td>
+  </tr>
+  <tr>
+    <td>on-update</td>
+    <td>
+      Fired after the initial value has been resolved and the component has rendered.<br>
+      Subsequently fired by use of the `update` API or if the value attribute changes.
+    </td>
+  </tr>
+  <tr>
+    <td>on-build-selection</td>
+    <td>
+      Fired whenever a selection is made. This function receives the value most recently
+      selected, and the currently selected values. The return value is used as the final selection.
+      This is primarily used to customise the default behaviour of a multiple select box, but in
+      most cases will not need to be used.
+    </td>
+  </tr>
+  <tr>
+    <td>on-search</td>
+    <td>Fired when the select box decides to run a search</td>
+  </tr>
+  <tr>
+    <td>on-searched</td>
+    <td>Fired after the last succesful search attempt</td>
+  </tr>
+  <tr>
+    <td>on-click-outside</td>
+    <td>Useful for closing the select box</td>
+  </tr>
+  <tr>
+    <td>on-focus-in</td>
+    <td>Fired when focus enters the select box, normalised if it contains an input</td>
+  </tr>
+  <tr>
+    <td>on-focus-out</td>
+    <td>Fired when focus leaves the select box</td>
+  </tr>
+  <tr>
+    <td>on-press-backspace</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>on-press-tab</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>on-press-enter</td>
+    <td>Useful for preventing default action of event</td>
+  </tr>
+  <tr>
+    <td>on-press-escape</td>
+    <td>Useful for closing and/or resetting a select box</td>
+  </tr>
+  <tr>
+    <td>on-press-left</td>
+    <td>Useful for navigating multi-select boxes</td>
+  </tr>
+  <tr>
+    <td>on-press-up</td>
+    <td>Useful for navigating up</td>
+  </tr>
+  <tr>
+    <td>on-press-right</td>
+    <td>Useful for navigating multi-select boxes</td>
+  </tr>
+  <tr>
+    <td>on-press-down</td>
+    <td>Useful for navigating down</td>
+  </tr>
+</table>
 
-  <table>
-    <tr>
-      <th>Property</th>
-      <th>Description</th>
-    </tr>
-    <tr>
-      <td>sb.element</td>
-      <td>The DOM element of the select box</td>
-    </tr>
-    <tr>
-      <td>sb.value</td>
-      <td>The selected value(s) of the select box</td>
-    </tr>
-    <tr>
-      <td>sb.isSearching</td>
-      <td>Whether the promise returned from the `on-search` action is running</td>
-    </tr>
-    <tr>
-      <td>sb.isSlowSearch</td>
-      <td>True if the promised search results are taking a while</td>
-    </tr>
-    <tr>
-      <td>sb.isOpen</td>
-      <td>True if the select box is open</td>
-    </tr>
-  </table>
-</details>
+<table>
+  <caption>Yielded API actions</caption>
+  <tr>
+    <th>Action</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>sb.open</td>
+    <td>Opens the select box, adding `is-open` class name</td>
+  </tr>
+  <tr>
+    <td>sb.close</td>
+    <td>Closes the select box removing the `is-open` class name</td>
+  </tr>
+  <tr>
+    <td>sb.toggle</td>
+    <td>Opens or closes the select box</td>
+  </tr>
+  <tr>
+    <td>sb.select</td>
+    <td>Selects an arbitrary value(s) and fires the `on-select` action</td>
+  </tr>
+  <tr>
+    <td>sb.update</td>
+    <td>Updates the selected value(s), but does not fire the `on-select` action</td>
+  </tr>
+  <tr>
+    <td>sb.selectActiveOption</td>
+    <td>Selects the value of whichever option is currently active</td>
+  </tr>
+  <tr>
+    <td>sb.search</td>
+    <td>Runs an arbitrary search using the search function provided by `on-search`</td>
+  </tr>
+  <tr>
+    <td>sb.stopSearching</td>
+    <td>'Cancels' searches currently in progress (even though promises are not cancelable)</td>
+  </tr>
+  <tr>
+    <td>sb.setInputValue</td>
+    <td>Lets you update the input value, useful for when a selection has been made</td>
+  </tr>
+  <tr>
+    <td>sb.focusInput</td>
+    <td>Focuses the input associated with the select box</td>
+  </tr>
+  <tr>
+    <td>sb.blurInput</td>
+    <td>Unfocuses the input associated with the select box</td>
+  </tr>
+  <tr>
+    <td>sb.activateOptionAtIndex</td>
+    <td>Adds an `is-active` class to the option at the index</td>
+  </tr>
+  <tr>
+    <td>sb.activateNextOption</td>
+    <td>Activates the next option (pass in true to scroll if necessary too)</td>
+  </tr>
+  <tr>
+    <td>sb.activatePreviousOption</td>
+    <td>As above but reverse</td>
+  </tr>
+  <tr>
+    <td>sb.deactivateOptions</td>
+    <td>Makes no option be active</td>
+  </tr>
+  <tr>
+    <td>sb.activateSelectedOptionAtIndex</td>
+    <td>Activates the selected option at the index</td>
+  </tr>
+  <tr>
+    <td>sb.activateNextSelectedOption</td>
+    <td>Activates the next selected option</td>
+  </tr>
+  <tr>
+    <td>sb.activatePreviousSelectedOption</td>
+    <td>As above but reverse</td>
+  </tr>
+  <tr>
+    <td>sb.deactivateSelectedOptions</td>
+    <td>Makes no selected option be active</td>
+  </tr>
+</table>
+
+<table>
+  <caption>Yielded API properties</caption>
+  <tr>
+    <th>Property</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>sb.element</td>
+    <td>The DOM element of the select box</td>
+  </tr>
+  <tr>
+    <td>sb.value</td>
+    <td>The selected value(s) of the select box</td>
+  </tr>
+  <tr>
+    <td>sb.isSearching</td>
+    <td>Whether the promise returned from the `on-search` action is running _(only available in the template)</td>
+  </tr>
+  <tr>
+    <td>sb.isSlowSearch</td>
+    <td>True if the promised search results are taking a while (only available in the template)</td>
+  </tr>
+  <tr>
+    <td>sb.isOpen (only available in the template)</td>
+    <td>True if the select box is open</td>
+  </tr>
+</table>
 
 <hr>
 
@@ -311,101 +312,97 @@ ember install @zestia/ember-select-box
 {{/sb.option}}
 ```
 
-<details>
-  <summary>View attributes</summary>
-  <table>
-    <tr>
-      <th>Attribute</th>
-      <th>Description</th>
-    </tr>
-    <tr>
-      <td>selected</td>
-      <td>Used for manually selecting an option. (Most of the time you won't need to use this because the options automatically know whether or not they are selected based on the value attrbute set on the select box component itself)</td>
-    </tr>
-    <tr>
-      <td>name</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>title</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>tabindex</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>disabled</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>size</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>tabindex</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>multiple</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>aria-label</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>style</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>value</td>
-      <td>Can be anything, including a promise</td>
-    </tr>
-    <tr>
-      <td>label</td>
-      <td>Used as the display text by default</td>
-    </tr>
-    <tr>
-      <td>on-select</td>
-      <td>Useful for firing one-off actions when an option is selected</td>
-    </tr>
-    <tr>
-      <td>on-activate</td>
-      <td>Fired when an individual option is activated</td>
-    </tr>
-  </table>
-</details>
+<table>
+  <caption>Attributes</caption>
+  <tr>
+    <th>Attribute</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>selected</td>
+    <td>Used for manually selecting an option. (Most of the time you won't need to use this because the options automatically know whether or not they are selected based on the value attrbute set on the select box component itself)</td>
+  </tr>
+  <tr>
+    <td>name</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>title</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>tabindex</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>disabled</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>size</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>tabindex</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>multiple</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>aria-label</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>style</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>value</td>
+    <td>Can be anything, including a promise</td>
+  </tr>
+  <tr>
+    <td>label</td>
+    <td>Used as the display text by default</td>
+  </tr>
+  <tr>
+    <td>on-select</td>
+    <td>Useful for firing one-off actions when an option is selected</td>
+  </tr>
+  <tr>
+    <td>on-activate</td>
+    <td>Fired when an individual option is activated</td>
+  </tr>
+</table>
 
-<details>
-  <summary>View yielded API</summary>
-  <table>
-    <tr>
-      <th>Property</th>
-      <th>Description</th>
-    </tr>
-    <tr>
-      <td>o.selected</td>
-      <td>Whether or not the option is currently selected</td>
-    </tr>
-    <tr>
-      <td>o.value</td>
-      <td>The value of the option</td>
-    </tr>
-    <tr>
-      <td>o.label</td>
-      <td>The label of the option</td>
-    </tr>
-    <tr>
-      <td>o.index</td>
-      <td>The index of the option amongst the options</td>
-    </tr>
-    <tr>
-      <td>o.disabled</td>
-      <td>Whether or not the option is currently disabled</td>
-    </tr>
-  </table>
-</details>
+<table>
+  <caption>Yielded API properties</caption>
+  <tr>
+    <th>Property</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>o.selected</td>
+    <td>Whether or not the option is currently selected</td>
+  </tr>
+  <tr>
+    <td>o.value</td>
+    <td>The value of the option</td>
+  </tr>
+  <tr>
+    <td>o.label</td>
+    <td>The label of the option</td>
+  </tr>
+  <tr>
+    <td>o.index</td>
+    <td>The index of the option amongst the options</td>
+  </tr>
+  <tr>
+    <td>o.disabled</td>
+    <td>Whether or not the option is currently disabled</td>
+  </tr>
+</table>
 
 <hr>
 
@@ -432,19 +429,17 @@ You only need to wrap the options up in with `sb.options` if you require extra m
 {{/sb.options}}
 ```
 
-<details>
-  <summary>View attributes</summary>
-  <table>
-    <tr>
-      <th>Attribute</th>
-      <th>Description</th>
-    </tr>
-    <tr>
-      <td>style</td>
-      <td>Useful for customising the style of the options container</td>
-    </tr>
-  </table>
-</details>
+<table>
+  <caption>Attributes</caption§>
+  <tr>
+    <th>Attribute</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>style</td>
+    <td>Useful for customising the style of the options container</td>
+  </tr>
+</table>
 
 <hr>
 
@@ -456,55 +451,57 @@ Allows you to input text into the select box, usually for running searches/filte
 {{sb.input}}
 ```
 
-<details>
-  <summary>View attributes</summary>
-  <table>
-    <tr>
-      <th>Attribute</th>
-      <th>Description</th>
-    </tr>
-    <tr>
-      <td>type</td>
-      <td>Sets the type of input text/search etc...</td>
-    </tr>
-    <tr>
-      <td>value</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>size</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>autofocus</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>placeholder</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>readonly</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>disabled</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>on-input</td>
-      <td>Fired when text is input</td>
-    </tr>
-    <tr>
-      <td>on-delete</td>
-      <td>Fired when there is no text present, but backspace is pressed</td>
-    </tr>
-    <tr>
-      <td>on-clear</td>
-      <td>Fired when text is cleared completely</td>
-    </tr>
-  </table>
-</details>
+<table>
+  <caption>Actions</caption>
+  <tr>
+    <td>on-input</td>
+    <td>Fired when text is input</td>
+  </tr>
+  <tr>
+    <td>on-delete</td>
+    <td>Fired when there is no text present, but backspace is pressed</td>
+  </tr>
+  <tr>
+    <td>on-clear</td>
+    <td>Fired when text is cleared completely</td>
+  </tr>
+</table>
+
+<table>
+  <caption>Attributes</caption>
+  <tr>
+    <th>Attribute</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>type</td>
+    <td>Sets the type of input text/search etc...</td>
+  </tr>
+  <tr>
+    <td>value</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>size</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>autofocus</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>placeholder</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>readonly</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>disabled</td>
+    <td></td>
+  </tr>
+</table>
 
 <hr>
 
@@ -520,27 +517,29 @@ Does _not_ render the user's selected option automatically, but rather just prov
 {{/sb.selected-option}}
 ```
 
-<details>
-  <summary>View attributes</summary>
-  <table>
-    <tr>
-      <th>Attribute</th>
-      <th>Description</th>
-    </tr>
-    <tr>
-      <td>title</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>style</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>on-activate</td>
-      <td>Fired when a selected option is activated</td>
-    </tr>
-  </table>
-</details>
+<table>
+  <caption>Actions</caption>
+  <tr>
+    <td>on-activate</td>
+    <td>Fired when a selected option is activated</td>
+  </tr>
+</table>
+
+<table>
+  <caption>Attributes</caption>
+  <tr>
+    <th>Attribute</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>title</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>style</td>
+    <td></td>
+  </tr>
+</table>
 
 <hr>
 
@@ -555,19 +554,17 @@ Does _not_ render the user's selected option automatically, but rather just prov
 
 Provides a container for options that the user selected. Does not do anything by default, but it is possible to activate selected options using the API, thereby allowing you to create your own navigatable select box.
 
-<details>
-  <summary>View attributes</summary>
-  <table>
-    <tr>
-      <th>Attribute</th>
-      <th>Description</th>
-    </tr>
-    <tr>
-      <td>style</td>
-      <td>Useful for one-off styling of selected options</td>
-    </tr>
-  </table>
-</details>
+<table>
+  <caption>Attributes</caption>
+  <tr>
+    <th>Attribute</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>style</td>
+    <td>Useful for one-off styling of selected options</td>
+  </tr>
+</table>
 
 <hr>
 
@@ -597,8 +594,7 @@ There are 3 ways to get what you want
 2. OR [extend](#extend) an existing one
 3. OR create a new one from the [mixins](#mixins)
 
-##### Compose
-It's recommended that you compose your own select box like so :
+Option 1 is recommended. Define your component like so...
 
 ```handlebars
 {{#select-box value=value on-select=on-select class-prefix="my-select-box" as |sb|}}}
@@ -618,7 +614,7 @@ It's recommended that you compose your own select box like so :
 {{/my-select}}
 ```
 
-...will render...
+...which will render...
 
 ```html
 <div class="my-select">
@@ -631,61 +627,31 @@ It's recommended that you compose your own select box like so :
   </div>
 </div>
 ```
-
-##### Extend
-If you need even more flexibility, you can extend the select box:
-
-```javascript
-const MySelectBox = SelectBox.extend({
-  click() {
-    this.send('toggle');
-  }
-})
-```
-
-##### Mixins
-if you need _even more_ flexibility you can create your own select box using the mixins
-
-```javascript
-const MySelectBox = Component.extend(BaseSelectBox, Toggleable, Searchable);
-```
-
 <hr>
-
-### Wormhole
-
-ember-select-box works well with <a href="https://github.com/yapplabs/ember-wormhole">ember-wormhole</a>. In most cases, this isn't needed - but it can be useful to render your `<options>`'s elsewhere in the DOM if you find yourself with `overflow:hidden` style issues for example.
-
-```handlebars
-{{#select-box class-prefix="worm-select" as |sb|}}
-  {{#ember-wormhole to="destination"}}
-    {{#sb.options}}
-      {{yield sb}}
-    {{/sb.options}}
-  {{/ember-wormhole}}
-{{/select-box}}
-```
 
 ### Native Select Box info
 
 Rendering lots of components in Ember can be slow. If your select box only
-uses primitive values, you do not need to use `{{sb.option}}`, instead you can
+uses _primitive_ values, you do not need to use `{{sb.option}}`, instead you can
 use a plain old `<option>` element [[Example](tests/dummy/app/templates/fast-native-single-select.hbs)].
 
 <hr>
 
 ##### Things to note
 * Does not use jQuery
-* With just a few lines of code you can create an autocompleter using the [input](#input) component.
-* Thanks to contextual components there is not a truth helper in sight.
-* This project will never come with built-in styles.
-* The select box's primitives are available to you via the yielded [API](#api) and as an argument to action handlers, so you should never feel held-back when creating your select box
+* Works well with [Ember Wormhole](https://github.com/yapplabs/ember-wormhole)
+* You can create an autocompleter using the [input](#input) component with just a few lines of code.
+* Will never come with built-in styles.
+* Yielded [API](#api) is available as argument to all action handlers - so you should never feel held-back when creating your select box.
 
 <hr>
 
 ##### FAQ
 Q: Why aren't the native and faux select boxes two addons.<br>
 A: Less effort maintaining 1 addon. Splitting out would be trivial though.
+
+Q: Why would I not just use [Ember Power Select](https://github.com/cibernox/ember-power-select)?
+A: `ember-power-select` includes more features, but ones which we don't believe are core to what a select box is.
 
 ##### Troubleshooting
 Problem: When I navigate using the arrow keys, the wrong option becomes active
