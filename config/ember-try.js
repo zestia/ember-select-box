@@ -1,13 +1,13 @@
 'use strict';
 
-const getChannelURL = require('ember-source-channel-url');
+const getChannelURL = require('ember-source-channel-url'); /* eslint-disable-line */
 
 module.exports = function() {
   return Promise.all([
     getChannelURL('release'),
     getChannelURL('beta'),
     getChannelURL('canary'),
-  ]).then((urls) => {
+  ]).then(urls => {
     return {
       useYarn: true,
       scenarios: [
