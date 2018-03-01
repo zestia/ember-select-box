@@ -11,25 +11,25 @@ const mixins = [
 ];
 
 export default Mixin.create(...mixins, {
-  promiseID: 0,
+  valueID: 0,
 
   didReceiveAttrs() {
     this._super(...arguments);
-    this._update();
+    this._update(this.get('value'));
   },
 
-  _update() {
-    const value = resolve(this.get('value'));
-    const id = this.incrementProperty('promiseID');
+  _update(value) {
+    const val = resolve(value);
+    const id = this.incrementProperty('valueID');
 
     const success = bind(this, '_resolvedValue', id, false);
     const failure = bind(this, '_resolvedValue', id, true);
 
-    value.then(success, failure);
+    val.then(success, failure);
   },
 
   _resolvedValue(id, failed, value) {
-    if (id < this.get('promiseID') || this.get('isDestroyed')) {
+    if (id < this.get('valueID') || this.get('isDestroyed')) {
       return;
     }
 

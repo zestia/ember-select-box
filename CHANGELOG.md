@@ -1,5 +1,10 @@
 # Changelog
 
+4.2.1
+
+* `value` for a multiple select can now be a promise for an array, whereas originally it was always
+expecting an array.
+
 4.2.0
 
 * Previously, the behaviour of selecting multiple options with the faux-select component was

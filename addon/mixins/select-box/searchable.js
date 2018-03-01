@@ -47,6 +47,7 @@ export default Mixin.create({
   _search(query = '') {
     this.set('isSearching', true);
     this.incrementProperty('searchID');
+
     debounce(this, '_checkSlowSearch', this.get('searchSlowTime'));
 
     const search = this.get('on-search');

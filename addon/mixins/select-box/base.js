@@ -17,7 +17,7 @@ const mixins = [
 
 export default Mixin.create(...mixins, {
   api: null,
-  promiseID: 0,
+  valueID: 0,
 
   init() {
     this._super(...arguments);
@@ -42,15 +42,13 @@ export default Mixin.create(...mixins, {
   },
 
   _update(value) {
-    value = this._normaliseValue(value);
-    value = this._resolveValue(value);
-
-    const id = this.incrementProperty('promiseID');
+    const val = this._resolveValue(value);
+    const id = this.incrementProperty('valueID');
 
     const success = bind(this, '_resolvedValue', id, false);
     const failure = bind(this, '_resolvedValue', id, true);
 
-    return value.then(success, failure);
+    return val.then(success, failure);
   },
 
   _buildSelectedValue(value1, value2) {
@@ -91,22 +89,17 @@ export default Mixin.create(...mixins, {
     invokeAction(this, 'on-select', this.get('selectedValue'), this.get('api'));
   },
 
-  _normaliseValue(value) {
-    if (this.get('isMultiple')) {
-      value = makeArray(value);
-    }
-    return value;
-  },
-
   _resolveValue(value) {
-    if (this.get('isMultiple')) {
-      return all(value);
-    }
-    return resolve(value);
+    return resolve(value).then(value => {
+      if (this.get('isMultiple')) {
+        return all(makeArray(value));
+      }
+      return value;
+    });
   },
 
   _resolvedValue(id, failed, value) {
-    if (id < this.get('promiseID') || this.get('isDestroyed')) {
+    if (id < this.get('valueID') || this.get('isDestroyed')) {
       return;
     }
 
