@@ -1,7 +1,0 @@
-{{#select-box class-prefix="backtrack-select" as |sb|}}
-  {{yield (hash
-    selected-option=(component sb.selected-option click=sb.open)
-    close=sb.close
-    options=(if sb.isOpen sb.options)
-  )}}
-{{/select-box}}

@@ -1,8 +1,0 @@
-{{#backtrack-select as |bs|}}
-  {{#bs.selected-option}}
-    open
-  {{/bs.selected-option}}
-  {{#bs.options}}
-    <button onclick={{action bs.close}}>close</button>
-  {{/bs.options}}
-{{/backtrack-select}}
