@@ -606,7 +606,7 @@ Option 1 is recommended. Define your component like so...
 * Answer: Less effort maintaining 1 addon. Splitting out would be trivial though.
 
 * Question: Why would I not just use [Ember Power Select](https://github.com/cibernox/ember-power-select)?
-* Answer: `ember-power-select` includes more features, but ones which we don't believe are core to what a select box is. Think of `ember-select-box` as a bit lower level.
+* Answer: `ember-power-select` is powerful in that it is feature-full, whereas `ember-select-box` is flexible in that it is minimal.
 
 #### Troubleshooting
 
