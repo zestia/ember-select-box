@@ -1,6 +1,6 @@
 'use strict';
 
-const getChannelURL = require('ember-source-channel-url'); /* eslint-disable-line */
+const getChannelURL = require('ember-source-channel-url');
 
 module.exports = function() {
   return Promise.all([
