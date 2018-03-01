@@ -2,12 +2,11 @@ import Mixin from '@ember/object/mixin';
 import Nameable from  '../general/nameable';
 import HasOptions from './registration/has-options';
 import Focusable from  './focusable';
-import { A as emberA, makeArray } from '@ember/array';
+import { makeArray } from '@ember/array';
 import { bind, next, scheduleOnce } from '@ember/runloop';
 import invokeAction from '../../utils/invoke-action';
 import { all, resolve } from 'rsvp';
 const { freeze } = Object;
-const { isArray, from } = Array;
 
 const mixins = [
   Nameable,
@@ -49,32 +48,6 @@ export default Mixin.create(...mixins, {
     const failure = bind(this, '_resolvedValue', id, true);
 
     return val.then(success, failure);
-  },
-
-  _buildSelectedValue(value1, value2) {
-    let build = this.get('on-build-selection');
-
-    if (typeof build !== 'function') {
-      build = bind(this, '_buildSelectedValueDefault');
-    }
-
-    return build(value1, value2);
-  },
-
-  _buildSelectedValueDefault(value1, value2) {
-    let value = value1;
-
-    if (this.get('isMultiple') && !isArray(value1)) {
-      const temp = emberA(from(value2));
-      if (temp.includes(value1)) {
-        temp.removeObject(value1);
-      } else {
-        temp.addObject(value1);
-      }
-      value = temp.toArray();
-    }
-
-    return value;
   },
 
   _inited() {
@@ -128,7 +101,6 @@ export default Mixin.create(...mixins, {
     },
 
     _select(value) {
-      value = this._buildSelectedValue(value, this.get('selectedValue'));
       this._select(value);
     },
 

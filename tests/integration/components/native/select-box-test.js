@@ -428,4 +428,23 @@ module('select-box/native', function(hooks) {
     assert.equal(this.$('.foo-select-display-label').text().trim(), 'bar',
       'regression test: the update action is fired after all options have rendered');
   });
+
+  test('customising selection', async function(assert) {
+    assert.expect(1);
+
+    let count = 0;
+
+    this.set('buildSelection', () => count++);
+
+    await render(hbs`
+      {{#select-box/native on-build-selection=(action buildSelection) as |sb|}}
+        {{sb.option value="foo"}}
+      {{/select-box/native}}
+    `);
+
+    this.$('.select-box').val('foo').trigger('change');
+
+    assert.equal(count, 0,
+      'on-build-selection does not fire on native select components');
+  });
 });

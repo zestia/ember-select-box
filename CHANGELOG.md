@@ -4,6 +4,7 @@
 
 * `value` for a multiple select can now be a promise for an array, whereas originally it was always
 expecting an array.
+* Removes `on-build-selection` from native select component
 
 4.2.0
 

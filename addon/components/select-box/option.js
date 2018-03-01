@@ -1,20 +1,20 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/select-box/option';
-import BaseOption from '../../mixins/select-box/option/base';
-import Styleable from '../../mixins/general/styleable';
-import Selectable from '../../mixins/select-box/option/selectable';
 import Activatable from '../../mixins/select-box/option/activatable';
+import BaseOption from '../../mixins/select-box/option/base';
 import Disableable from '../../mixins/general/disableable';
 import Indexable from '../../mixins/general/indexable';
 import invokeAction from '../../utils/invoke-action';
+import Selectable from '../../mixins/select-box/option/selectable';
+import Styleable from '../../mixins/general/styleable';
 
 const mixins = [
-  BaseOption,
-  Selectable,
-  Styleable,
-  Indexable,
   Activatable,
-  Disableable
+  BaseOption,
+  Disableable,
+  Indexable,
+  Selectable,
+  Styleable
 ];
 
 export default Component.extend(...mixins, {

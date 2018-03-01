@@ -1,7 +1,7 @@
 import Component from '@ember/component';
+import invokeAction from '../../utils/invoke-action';
 import Nameable from  '../../mixins/general/nameable';
 import Registerable from  '../../mixins/general/registerable';
-import invokeAction from '../../utils/invoke-action';
 
 const mixins = [
   Nameable,
