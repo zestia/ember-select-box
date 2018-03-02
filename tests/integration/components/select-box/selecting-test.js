@@ -39,7 +39,8 @@ module('select-box (selecting)', function(hooks) {
     this.set('selectedValue', null);
 
     assert.ok(!$foo.hasClass('is-selected') && !$bar.hasClass('is-selected'),
-      'setting no value does not result in the first option being selected');
+      'clearing selected value results in no selected options, ' +
+      '(and does not result in the first "default" option being selected)');
   });
 
   test('click to select option', async function(assert) {
