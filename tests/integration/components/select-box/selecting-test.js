@@ -43,6 +43,33 @@ module('select-box (selecting)', function(hooks) {
       '(and does not result in the first "default" option being selected)');
   });
 
+  test('changing the value attribute to nothing (common misconception)', async function(assert) {
+    assert.expect(3);
+
+    this.set('selectedValue', null);
+
+    await render(hbs`
+      {{#select-box value=selectedValue as |sb|}}
+        {{sb.option value="foo"}}
+        {{sb.option value="bar"}}
+      {{/select-box}}
+    `);
+
+    assert.equal(this.$('.select-box-option.is-selected').length, 0,
+      'precondition: no selected options');
+
+    this.$(".select-box-option:contains('bar')").trigger('click');
+
+    assert.equal(this.$('.select-box-option.is-selected').text(), 'bar',
+      'precondition: user has selected an option');
+
+    this.set('selectedValue', null);
+
+    assert.equal(this.$('.select-box-option.is-selected').text(), 'bar',
+      'selecting null does not clear the selected option, because technically nothing has ' +
+      'changed, so `didReceiveAttrs` will not fire');
+  });
+
   test('click to select option', async function(assert) {
     assert.expect(4);
 
