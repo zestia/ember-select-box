@@ -4,7 +4,6 @@ import Activatable from '../../mixins/select-box/option/activatable';
 import BaseOption from '../../mixins/select-box/option/base';
 import Disableable from '../../mixins/general/disableable';
 import Indexable from '../../mixins/general/indexable';
-import invokeAction from '../../utils/invoke-action';
 import Selectable from '../../mixins/select-box/option/selectable';
 import Styleable from '../../mixins/general/styleable';
 
@@ -41,10 +40,12 @@ export default Component.extend(...mixins, {
     this.send('select');
   },
 
+  'on-select'() {},
+
   actions: {
     select() {
       this._super(...arguments);
-      invokeAction(this, 'on-select', this.get('value'), this.get('-api'));
+      this.get('on-select')(this.get('value'), this.get('-api'));
     }
   }
 });

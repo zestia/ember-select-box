@@ -1,5 +1,9 @@
 # Changelog
 
+4.2.2
+
+* Remove `invokeAction` util
+
 4.2.1
 
 * `value` for a multiple select can now be a promise for an array, whereas originally it was always

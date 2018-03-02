@@ -4,7 +4,6 @@ import HasOptions from './registration/has-options';
 import Focusable from  './focusable';
 import { makeArray } from '@ember/array';
 import { bind, next, scheduleOnce } from '@ember/runloop';
-import invokeAction from '../../utils/invoke-action';
 import { all, resolve } from 'rsvp';
 const { freeze } = Object;
 
@@ -20,7 +19,7 @@ export default Mixin.create(...mixins, {
 
   init() {
     this._super(...arguments);
-    this._inited();
+    this.get('on-init')(this.get('api'));
   },
 
   didReceiveAttrs() {
@@ -34,9 +33,13 @@ export default Mixin.create(...mixins, {
     }
   },
 
+  'on-init'() {},
+  'on-update'() {},
+  'on-select'() {},
+
   _select(value) {
     this._update(value).then(() => {
-      this._selected();
+      this.get('on-select')(this.get('selectedValue'), this.get('api'));
     });
   },
 
@@ -48,18 +51,6 @@ export default Mixin.create(...mixins, {
     const failure = bind(this, '_resolvedValue', id, true);
 
     return val.then(success, failure);
-  },
-
-  _inited() {
-    invokeAction(this, 'on-init', this.get('api'));
-  },
-
-  _updated() {
-    invokeAction(this, 'on-update', this.get('selectedValue'), this.get('api'));
-  },
-
-  _selected() {
-    invokeAction(this, 'on-select', this.get('selectedValue'), this.get('api'));
   },
 
   _resolveValue(value) {
@@ -96,15 +87,15 @@ export default Mixin.create(...mixins, {
       this._update(value);
     },
 
-    _updated() {
-      this._updated();
-    },
-
-    _select(value) {
+    select(value) {
       this._select(value);
     },
 
-    select(value) {
+    _updated() {
+      this.get('on-update')(this.get('selectedValue'), this.get('api'));
+    },
+
+    _select(value) {
       this._select(value);
     }
   }
