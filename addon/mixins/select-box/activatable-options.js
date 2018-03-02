@@ -23,7 +23,7 @@ export default Mixin.create({
   _activatedOption() {
     const activeOption = this.get('activeOption');
     if (activeOption) {
-      activeOption.send('_activate');
+      activeOption.send('_activated');
     }
   },
 

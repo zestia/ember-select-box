@@ -38,14 +38,5 @@ export default Component.extend(...mixins, {
 
   click() {
     this.send('select');
-  },
-
-  'on-select'() {},
-
-  actions: {
-    select() {
-      this._super(...arguments);
-      this.get('on-select')(this.get('value'), this.get('-api'));
-    }
   }
 });

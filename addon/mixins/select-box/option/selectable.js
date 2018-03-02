@@ -2,6 +2,13 @@ import Mixin from '@ember/object/mixin';
 import { computed } from '@ember/object';
 import { makeArray } from '@ember/array';
 
+const isSelectedKeys = [
+  'value',
+  'selectedValue',
+  'isMultiple',
+  'manualSelection'
+];
+
 export default Mixin.create({
   didReceiveAttrs() {
     this._super(...arguments);
@@ -11,22 +18,17 @@ export default Mixin.create({
   },
 
   '-on-select'() {},
+  'on-select'() {},
 
-  isSelected: computed(
-    'value',
-    'selectedValue',
-    'isMultiple',
-    'manualSelection',
-    function() {
-      if (this.get('manualSelection') !== undefined) {
-        return this.get('manualSelection');
-      } else if (this.get('isMultiple')) {
-        return makeArray(this.get('selectedValue')).includes(this.get('value'));
-      } else {
-        return this.get('value') === this.get('selectedValue');
-      }
+  isSelected: computed(...isSelectedKeys, function() {
+    if (this.get('manualSelection') !== undefined) {
+      return this.get('manualSelection');
+    } else if (this.get('isMultiple')) {
+      return makeArray(this.get('selectedValue')).includes(this.get('value'));
+    } else {
+      return this.get('value') === this.get('selectedValue');
     }
-  ),
+  }),
 
   actions: {
     select() {
@@ -37,6 +39,7 @@ export default Mixin.create({
       }
 
       this.get('-on-select')(this.get('value'));
+      this.get('on-select')(this.get('value'), this.get('-api'));
     }
   }
 });
