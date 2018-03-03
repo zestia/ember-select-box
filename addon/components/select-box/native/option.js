@@ -11,6 +11,11 @@ const mixins = [
 export default Component.extend(...mixins, {
   layout,
   tagName: 'option',
-  attributeBindings: ['isSelected:selected', 'value', 'disabled', 'title'],
+  attributeBindings: [
+    'isSelected:selected',
+    'value',
+    'disabled',
+    'title'
+  ],
   classNameSuffix: 'option'
 });
