@@ -1,5 +1,10 @@
 # Changelog
 
+4.2.3
+
+* Internal changes
+* One way value attributes
+
 4.2.2
 
 * Remove `invokeAction` util

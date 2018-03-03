@@ -8,28 +8,44 @@ module('select-box (promises)', function(hooks) {
   setupRenderingTest(hooks);
 
   test('promise value (single)', async function(assert) {
-    assert.expect(2);
+    assert.expect(6);
 
-    const deferred = defer();
+    const deferred1 = defer();
+    const deferred2 = defer();
 
-    this.set('promise', deferred.promise);
+    this.set('promise1', deferred1.promise);
+    this.set('promise2', deferred2.promise);
 
     await render(hbs`
-      {{#select-box value=promise as |sb|}}
-        {{sb.option value="foo"}}
+      {{#select-box value=promise2 as |sb|}}
+        {{sb.option value=promise1}}
         {{sb.option value="bar"}}
-        {{sb.option value=promise}}
+        {{sb.option value=promise2}}
       {{/select-box}}
     `);
 
-    assert.notStrictEqual(this.$('.select-box-option.is-selected').index(), 2,
-      'waiting for the promise to resolve, does not match the promise');
+    assert.ok(!this.$('.select-box-option:eq(0)').hasClass('is-selected'),
+      'other promise, not selected');
 
-    deferred.resolve('bar');
+    assert.ok(!this.$('.select-box-option:eq(1)').hasClass('is-selected'),
+      'value is not selected, promise has not yet resolved');
+
+    assert.ok(this.$('.select-box-option:eq(2)').hasClass('is-selected'),
+      'value is selected, promises match');
+
+    deferred1.resolve('foo');
+    deferred2.resolve('bar');
+
 
     return settled().then(() => {
-      assert.strictEqual(this.$('.select-box-option.is-selected').index(), 1,
-        're-computes the selected value');
+      assert.ok(!this.$('.select-box-option:eq(0)').hasClass('is-selected'),
+        'wrong promise, not selected');
+
+      assert.ok(this.$('.select-box-option:eq(1)').hasClass('is-selected'),
+        'value is selected now that promise has resolved');
+
+      assert.ok(this.$('.select-box-option:eq(2)').hasClass('is-selected'),
+        'resolved value is selected');
     });
   });
 

@@ -28,7 +28,7 @@ export default Mixin.create({
     if (this.get('isDestroyed')) {
       return;
     }
-    this.set('api.value', this.get('selectedValue'));
+    this.set('api.value', this.get('internalValue'));
   },
 
   _apiActions() {

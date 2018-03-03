@@ -25,6 +25,8 @@ export default Mixin.create(...mixins, {
     const success = bind(this, '_resolvedValue', id, false);
     const failure = bind(this, '_resolvedValue', id, true);
 
+    this.set('internalValue', value);
+
     val.then(success, failure);
   },
 
@@ -35,15 +37,11 @@ export default Mixin.create(...mixins, {
 
     let label = this.get('label');
 
-    if (failed) {
-      label = `${value}`;
-    }
-
     if (isBlank(label)) {
       label = value;
     }
 
-    this.set('label', label);
-    this.set('value', value);
+    this.set('internalLabel', label);
+    this.set('internalValue', value);
   }
 });

@@ -3,8 +3,8 @@ import { computed } from '@ember/object';
 import { makeArray } from '@ember/array';
 
 const isSelectedKeys = [
-  'value',
-  'selectedValue',
+  'internalValue',
+  'parentInternalValue',
   'isMultiple',
   'manualSelection'
 ];
@@ -13,20 +13,17 @@ export default Mixin.create({
   didReceiveAttrs() {
     this._super(...arguments);
     this.set('manualSelection', this.get('selected'));
-    this.set('selectedValue', this.get('-selected-value'));
+    this.set('parentInternalValue', this.get('-parent-value'));
     this.set('isMultiple', this.get('-is-multiple'));
   },
-
-  '-on-select'() {},
-  'on-select'() {},
 
   isSelected: computed(...isSelectedKeys, function() {
     if (this.get('manualSelection') !== undefined) {
       return this.get('manualSelection');
     } else if (this.get('isMultiple')) {
-      return makeArray(this.get('selectedValue')).includes(this.get('value'));
+      return makeArray(this.get('parentInternalValue')).includes(this.get('internalValue'));
     } else {
-      return this.get('value') === this.get('selectedValue');
+      return this.get('internalValue') === this.get('parentInternalValue');
     }
   }),
 
@@ -38,8 +35,8 @@ export default Mixin.create({
         return;
       }
 
-      this.get('-on-select')(this.get('value'));
-      this.get('on-select')(this.get('value'), this.get('-api'));
+      this.get('-on-select')(this.get('internalValue'));
+      this.getWithDefault('on-select', () => {})(this.get('internalValue'), this.get('-api'));
     }
   }
 });

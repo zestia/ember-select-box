@@ -13,7 +13,7 @@ export default Component.extend(...mixins, {
   tagName: 'option',
   attributeBindings: [
     'isSelected:selected',
-    'value',
+    'internalValue:value',
     'disabled',
     'title'
   ],

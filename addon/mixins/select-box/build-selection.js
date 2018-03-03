@@ -32,7 +32,7 @@ export default Mixin.create({
 
   actions: {
     _select(value) {
-      value = this._buildSelectedValue(value, this.get('selectedValue'));
+      value = this._buildSelectedValue(value, this.get('internalValue'));
       this._super(value);
     }
   }

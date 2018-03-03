@@ -22,7 +22,7 @@
     -active-index=activeOptionIndex
     -components=options
     -is-multiple=isMultiple
-    -selected-value=selectedValue
+    -parent-value=internalValue
     -on-activate=(action "activateOptionAtIndex")
     -on-register=(action "_registerOption")
     -on-deregister=(action "_deregisterOption")
@@ -41,7 +41,7 @@
   isSearching=isSearching
   isSlowSearch=isSlowSearch
   isOpen=isOpen
-  value=selectedValue
+  value=internalValue
   open=(action "open")
   close=(action "close")
   toggle=(action "toggle")

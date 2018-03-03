@@ -157,6 +157,17 @@ module('select-box', function(hooks) {
       'should not fire update action');
   });
 
+  test('no update action', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs `{{select-box on-update=on-update value=value}}`);
+
+    this.set('value', 'foo');
+
+    assert.ok(true,
+      'does not blow up when no update action is specified (useful pattern for composing)');
+  });
+
   test('init action', async function(assert) {
     assert.expect(2);
 

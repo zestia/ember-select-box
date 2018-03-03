@@ -19,13 +19,13 @@ export default Mixin.create(...mixins, {
 
   init() {
     this._super(...arguments);
-    this.get('on-init')(this.get('api'));
+    this.getWithDefault('on-init', () => {})(this.get('api'));
   },
 
   didReceiveAttrs() {
     this._super(...arguments);
     this.set('isMultiple', this.get('multiple'));
-    this.set('changedValue', this.get('value') !== this.get('selectedValue'));
+    this.set('changedValue', this.get('value') !== this.get('internalValue'));
 
     if (this.get('changedValue') || !this.get('doneInitialUpdate')) {
       this._update(this.get('value'));
@@ -33,13 +33,9 @@ export default Mixin.create(...mixins, {
     }
   },
 
-  'on-init'() {},
-  'on-update'() {},
-  'on-select'() {},
-
   _select(value) {
     this._update(value).then(() => {
-      this.get('on-select')(this.get('selectedValue'), this.get('api'));
+      this.getWithDefault('on-select', () => {})(this.get('internalValue'), this.get('api'));
     });
   },
 
@@ -49,6 +45,8 @@ export default Mixin.create(...mixins, {
 
     const success = bind(this, '_resolvedValue', id, false);
     const failure = bind(this, '_resolvedValue', id, true);
+
+    this.set('internalValue', value);
 
     return val.then(success, failure);
   },
@@ -71,7 +69,7 @@ export default Mixin.create(...mixins, {
       value = freeze(value);
     }
 
-    this.set('selectedValue', value);
+    this.set('internalValue', value);
 
     scheduleOnce('afterRender', this, '_rendered');
   },
@@ -92,7 +90,7 @@ export default Mixin.create(...mixins, {
     },
 
     _updated() {
-      this.get('on-update')(this.get('selectedValue'), this.get('api'));
+      this.getWithDefault('on-update', () => {})(this.get('internalValue'), this.get('api'));
     },
 
     _select(value) {

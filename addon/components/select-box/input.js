@@ -59,23 +59,18 @@ export default Component.extend(...mixins, {
     const value = this.get('element.value');
 
     if (!value) {
-      this.get('on-clear')(this.get('-api'));
+      this.getWithDefault('on-clear', () => {})(this.get('-api'));
     }
 
-    this.get('-on-input')(value);
-    this.get('on-input')(value, this.get('-api'));
+    this.getWithDefault('-on-input', () => {})(value);
+    this.getWithDefault('on-input', () => {})(value, this.get('-api'));
   },
 
   keyDown(e) {
     this._super(...arguments);
 
     if (e.which === 8 && !this.get('element.value')) {
-      this.get('on-delete')(this.get('-api'));
+      this.getWithDefault('on-delete', () => {})(this.get('-api'));
     }
-  },
-
-  'on-clear'() {},
-  'on-input'() {},
-  'on-delete'() {},
-  '-on-input'() {}
+  }
 });

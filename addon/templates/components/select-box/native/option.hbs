@@ -1,9 +1,9 @@
 {{#if hasBlock}}
   {{~yield (hash
-    value=value
-    label=label
+    value=internalValue
+    label=internalLabel
     selected=isSelected
   )~}}
 {{else}}
-  {{~label~}}
+  {{~internalLabel~}}
 {{/if}}

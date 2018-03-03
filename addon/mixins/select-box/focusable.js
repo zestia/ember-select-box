@@ -13,7 +13,7 @@ export default Mixin.create({
   focusIn(e) {
     this._super(...arguments);
     this.set('isFocused', true);
-    this.get('on-focus-in')(e, this.get('api'));
+    this.getWithDefault('on-focus-in', () => {})(e, this.get('api'));
   },
 
   focusOut(e) {
@@ -25,9 +25,6 @@ export default Mixin.create({
       this.set('isFocused', false);
     }
 
-    this.get('on-focus-out')(e, this.get('api'));
-  },
-
-  'on-focus-in'() {},
-  'on-focus-out'() {}
+    this.getWithDefault('on-focus-out', () => {})(e, this.get('api'));
+  }
 });

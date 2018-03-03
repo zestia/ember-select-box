@@ -16,13 +16,10 @@ export default Mixin.create({
     }
   },
 
-  'on-open'() {},
-  'on-close'() {},
-
   actions: {
     open() {
       this.set('isOpen', true);
-      this.get('on-open')(this.get('api'));
+      this.getWithDefault('on-open', () => {})(this.get('api'));
     },
 
     close() {
@@ -30,7 +27,7 @@ export default Mixin.create({
       run(() => trySet(this, 'isOpen', false));
       run(() => trySet(this, 'isClosing', false));
 
-      this.get('on-close')(this.get('api'));
+      this.getWithDefault('on-close', () => {})(this.get('api'));
     },
 
     toggle() {

@@ -12,9 +12,6 @@ export default Mixin.create({
     this.set('activeIndex', this.get('-active-index'));
   },
 
-  '-on-activate'() {},
-  'on-activate'() {},
-
   isActive: computed(...isActiveKeys, function() {
     return this.get('index') === this.get('activeIndex');
   }),
@@ -26,7 +23,7 @@ export default Mixin.create({
     },
 
     _activated() {
-      this.get('on-activate')(this.get('value'), this.get('-api'));
+      this.getWithDefault('on-activate', () => {})(this.get('internalValue'), this.get('-api'));
     }
   }
 });

@@ -4,10 +4,6 @@ import { bind, debounce } from '@ember/runloop';
 import { resolve } from 'rsvp';
 
 export default Mixin.create({
-  'on-search'() {},
-  'on-searched'() {},
-  'on-search-error'() {},
-
   isSearchable: computed(function() {
     return typeof this.get('on-search') === 'function';
   }),
@@ -68,7 +64,7 @@ export default Mixin.create({
       return;
     }
 
-    this.get('on-searched')(result, query, this.get('api'));
+    this.getWithDefault('on-searched', () => {})(result, query, this.get('api'));
 
     this._searchFinished();
   },
@@ -78,7 +74,7 @@ export default Mixin.create({
       return;
     }
 
-    this.get('on-search-error')(error, query, this.get('api'));
+    this.getWithDefault('on-search-error', () => {})(error, query, this.get('api'));
 
     this._searchFinished();
   },

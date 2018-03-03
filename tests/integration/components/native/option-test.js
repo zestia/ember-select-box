@@ -1,7 +1,8 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import { defer } from 'rsvp';
 
 module('select-box/native/option', function(hooks) {
   setupRenderingTest(hooks);
@@ -63,6 +64,26 @@ module('select-box/native/option', function(hooks) {
 
     assert.strictEqual(this.$('.select-box-option').attr('value'), '456',
       'changing the value updates the HTML attribute');
+  });
+
+  test('promise value', async function(assert) {
+    assert.expect(2);
+
+    const deferred = defer();
+
+    this.set('myValue', deferred.promise);
+
+    await render(hbs `{{select-box/native/option value=myValue}}`);
+
+    deferred.resolve('123');
+
+    await settled();
+
+    assert.strictEqual(this.get('myValue'), deferred.promise,
+      'does not mutate value');
+
+    assert.notEqual(this.get('myValue'), '123',
+      'sanity check');
   });
 
   test('label', async function(assert) {

@@ -43,7 +43,7 @@ export default Component.extend(...mixins, {
   _getRegisteredSelectedValues() {
     return this.get('options')
       .filter(option => option.get('element.selected'))
-      .map(option => option.get('value'));
+      .map(option => option.get('internalValue'));
   },
 
   _getUnregisteredSelectedValues() {
