@@ -50,9 +50,9 @@ ember install @zestia/ember-select-box
 
 ```handlebars
 {{#select-box as |sb|}}
-  {{sb.option value=1}} One {{/sb.option}}
-  {{sb.option value=2}} Two {{/sb.option}}
-  {{sb.option value=3}} Three {{/sb.option}}
+  {{#sb.option value=1}} One {{/sb.option}}
+  {{#sb.option value=2}} Two {{/sb.option}}
+  {{#sb.option value=3}} Three {{/sb.option}}
 {{/select-box}}
 ```
 
