@@ -6,7 +6,7 @@
 
 * Option label attribute has been removed to align better with native select boxes. To migrate, change `{{sb.option label="Foo"}}` to `{{#sb.option}}Foo{{/sb.option}}`. [More](https://github.com/zestia/ember-select-box/issues/9#issuecomment-370250705).
 
-* Selected box now yields promise state of the value, e.g. `sb.isPending` and `o.isPending`
+* Selected box now yields promise state of the value, e.g. `isPending`, `isRejected`, `isFulfilled`, `isSettled`
 
 * Native select box option now uses same template as Faux select box option template.
 
