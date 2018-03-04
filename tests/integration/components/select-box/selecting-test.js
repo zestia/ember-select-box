@@ -570,4 +570,28 @@ module('select-box (selecting)', function(hooks) {
     assert.deepEqual(sb.value, ['qux'],
       'value is correct');
   });
+
+  test('selecting active via api', async function(assert) {
+    assert.expect(1);
+
+    let sb;
+    let selectedValue;
+
+    this.set('select', value => selectedValue = value);
+    this.set('registerApi', api => sb = api);
+
+    await render(hbs`
+      {{#select-box on-init=(action registerApi) on-select=(action select) as |sb|}}
+        {{sb.option value="foo"}}
+        {{sb.option value="bar"}}
+      {{/select-box}}
+    `);
+
+    this.$('.select-box-option:eq(1)').trigger('mouseover');
+
+    sb.selectActiveOption();
+
+    assert.equal(selectedValue, 'bar',
+      'can select the active option via the api');
+  });
 });
