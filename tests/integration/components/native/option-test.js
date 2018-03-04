@@ -67,17 +67,27 @@ module('select-box/native/option', function(hooks) {
   });
 
   test('promise value', async function(assert) {
-    assert.expect(2);
+    assert.expect(4);
 
     const deferred = defer();
 
     this.set('myValue', deferred.promise);
 
-    await render(hbs `{{select-box/native/option value=myValue}}`);
+    await render(hbs `
+      {{#select-box/native/option value=myValue as |o|}}
+        {{~myValue}}: {{o.value~}}
+      {{/select-box/native/option}}
+    `);
+
+    assert.strictEqual(this.$('.select-box-option').text(), '[object Object]: [object Object]',
+      'the value is as you would expect');
 
     deferred.resolve('123');
 
     await settled();
+
+    assert.strictEqual(this.$('.select-box-option').text(), '[object Object]: 123',
+      'the value is resolved');
 
     assert.strictEqual(this.get('myValue'), deferred.promise,
       'does not mutate value');
