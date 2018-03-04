@@ -1,10 +1,12 @@
 import Component from '@ember/component';
 import BaseOption from '../../../mixins/select-box/option/base';
 import Selectable from '../../../mixins/select-box/option/selectable';
-import layout from '../../../templates/components/select-box/native/option';
+import Indexable from '../../../mixins/general/indexable';
+import layout from '../../../templates/components/select-box/option';
 
 const mixins = [
   BaseOption,
+  Indexable,
   Selectable
 ];
 

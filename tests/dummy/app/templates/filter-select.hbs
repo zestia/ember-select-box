@@ -3,7 +3,9 @@
   on-search=(action "filterPies")
   on-select=(action "selectedPie") as |sb|}}
   {{#each selectablePies as |pie|}}
-    {{sb.option value=pie label=pie.name}}
+    {{#sb.option value=pie}}
+      {{pie.name}}
+    {{/sb.option}}
   {{else}}
     {{#sb.option}}No pies found{{/sb.option}}
   {{/each}}

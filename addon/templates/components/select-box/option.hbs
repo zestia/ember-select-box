@@ -1,11 +1,14 @@
 {{#if hasBlock}}
   {{~yield (hash
-    value=internalValue
-    label=internalLabel
     index=index
-    selected=isSelected
-    disabled=isDisabled
+    value=internalValue
+    isPending=isPending
+    isRejected=isRejected
+    isFulfilled=isFulfilled
+    isSettled=isSettled
+    isSelected=isSelected
+    isDisabled=isDisabled
   )~}}
 {{else}}
-  {{~internalLabel~}}
+  {{~yield~}}
 {{/if}}

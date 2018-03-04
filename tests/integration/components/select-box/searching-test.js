@@ -32,7 +32,9 @@ module('select-box (searching)', function(hooks) {
       {{#select-box on-search=(action findItems) as |sb|}}
         {{sb.input}}
         {{#each items as |item|}}
-          {{sb.option value=item}}
+          {{#sb.option value=item}}
+            {{item}}
+          {{/sb.option}}
         {{/each}}
       {{/select-box}}
     `);
@@ -73,7 +75,9 @@ module('select-box (searching)', function(hooks) {
         {{sb.input}}
         Results for: {{query}}
         {{#each items as |item|}}
-          {{sb.option value=item label=item}}
+          {{#sb.option value=item}}
+            {{~item~}}
+          {{/sb.option}}
         {{/each}}
       {{/select-box}}
     `);

@@ -1,5 +1,16 @@
 # Changelog
 
+5.0.0
+
+* Option's yielded properties are now prefixed with `is`, e.g. `{{o.isSelected}}`
+
+* Option label attribute has been removed to align better with native select boxes. To migrate, change `{{sb.option label="Foo"}}` to `{{#sb.option}}Foo{{/sb.option}}`
+
+* Selected box now yields promise state of the value, e.g. `sb.isPending` and `o.isPending`
+
+* Native select box option now uses same template as Faux select box option template.
+
+
 4.2.3
 
 * Internal changes

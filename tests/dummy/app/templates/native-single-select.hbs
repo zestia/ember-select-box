@@ -3,12 +3,16 @@
   on-select=(action "selectedDessert") as |sb|}}
   {{#sb.group label="Cakes"}}
     {{#each selectableCakes as |cake|}}
-      {{sb.option value=cake label=cake.name}}
+      {{#sb.option value=cake}}
+        {{cake.name}}
+      {{/sb.option}}
     {{/each}}
   {{/sb.group}}
   {{#sb.group label="Puddings"}}
     {{#each selectablePuddings as |pudding|}}
-      {{sb.option value=pudding label=pudding.name}}
+      {{#sb.option value=pudding}}
+        {{pudding.name}}
+      {{/sb.option}}
     {{/each}}
   {{/sb.group}}
 {{/select-box/native}}

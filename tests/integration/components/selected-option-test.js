@@ -53,16 +53,16 @@ module('select-box/selected-option', function(hooks) {
     await render(hbs`
       {{#select-box as |sb|}}
         {{#each selectedItems as |item|}}
-          {{#sb.selected-option value=item.myValue label=item.myLabel as |so|~}}
-            {{so.label}}={{so.value}} ({{so.index}})
+          {{#sb.selected-option value=item as |so|~}}
+            {{so.value.myLabel}} ({{so.index}})
           {{~/sb.selected-option}}
         {{/each}}
       {{/select-box}}
     `);
 
     assert.ok(
-      this.$('.select-box-selected-option:eq(0)').text() === 'Foo=foo (0)' &&
-      this.$('.select-box-selected-option:eq(1)').text() === 'Bar=bar (1)',
+      this.$('.select-box-selected-option:eq(0)').text() === 'Foo (0)' &&
+      this.$('.select-box-selected-option:eq(1)').text() === 'Bar (1)',
       'selected options can yield their label, value & index'
     );
   });

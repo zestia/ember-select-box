@@ -12,7 +12,9 @@
   {{/sb.option}}
 
   {{#each selectableBreads as |bread|}}
-    {{sb.option value=bread label=bread.name}}
+    {{#sb.option value=bread}}
+      {{bread.name}}
+    {{/sb.option}}
   {{/each}}
 {{/select-box}}
 

@@ -7,6 +7,60 @@ import { defer } from 'rsvp';
 module('select-box (promises)', function(hooks) {
   setupRenderingTest(hooks);
 
+  test('promise value (states)', async function(assert) {
+    assert.expect(4);
+
+    const deferred1 = defer();
+    const deferred2 = defer();
+
+    this.set('promise', deferred1.promise);
+
+    await render(hbs`
+      {{#select-box value=promise as |sb|}}
+        isPending: {{sb.isPending}}<br>
+        isRejected: {{sb.isRejected}}<br>
+        isFulfilled: {{sb.isFulfilled}}<br>
+        isSettled: {{sb.isSettled}}<br>
+      {{/select-box}}
+    `);
+
+    assert.equal(this.$().text(), `
+        isPending: true
+        isRejected: false
+        isFulfilled: false
+        isSettled: false
+    `);
+
+    deferred1.resolve();
+    await settled();
+
+    assert.equal(this.$().text(), `
+        isPending: false
+        isRejected: false
+        isFulfilled: true
+        isSettled: true
+    `);
+
+    this.set('promise', deferred2.promise);
+
+    assert.equal(this.$().text(), `
+        isPending: true
+        isRejected: false
+        isFulfilled: false
+        isSettled: false
+    `);
+
+    deferred2.reject();
+    await settled();
+
+    assert.equal(this.$().text(), `
+        isPending: false
+        isRejected: true
+        isFulfilled: false
+        isSettled: true
+    `);
+  });
+
   test('promise value (single)', async function(assert) {
     assert.expect(6);
 
@@ -36,7 +90,6 @@ module('select-box (promises)', function(hooks) {
     deferred1.resolve('foo');
     deferred2.resolve('bar');
 
-
     return settled().then(() => {
       assert.ok(!this.$('.select-box-option:eq(0)').hasClass('is-selected'),
         'wrong promise, not selected');
@@ -60,11 +113,15 @@ module('select-box (promises)', function(hooks) {
       deferred2.promise
     ]);
 
+    this.set('values', ['foo', 'bar', 'baz']);
+
     await render(hbs`
       {{#select-box value=promises multiple=true as |sb|}}
-        {{sb.option value="foo"}}
-        {{sb.option value="bar"}}
-        {{sb.option value="baz"}}
+        {{#each values as |value|}}
+          {{#sb.option value=value as |o|}}
+            {{o.value}}
+          {{/sb.option}}
+        {{/each}}
       {{/select-box}}
     `);
 
@@ -112,18 +169,19 @@ module('select-box (promises)', function(hooks) {
     const deferred3 = defer();
     const deferred4 = defer();
 
-    this.set('value', deferred1.promise);
-    this.set('foo', deferred2.promise);
-    this.set('bar', deferred3.promise);
-    this.set('baz', deferred4.promise);
+    this.set('promise1', deferred1.promise);
+    this.set('promise2', deferred2.promise);
+    this.set('promise3', deferred3.promise);
+    this.set('promise4', deferred4.promise);
 
     await render(hbs`
-      {{#select-box value=value as |sb|}}
-        {{sb.option value=foo}}
-        {{sb.option value=bar}}
-        {{sb.option value=baz}}
+      {{#select-box value=promise1 as |sb|}}
+        {{#sb.option value=promise2 as |o|}}{{o.value}}{{/sb.option}}
+        {{#sb.option value=promise3 as |o|}}{{o.value}}{{/sb.option}}
+        {{#sb.option value=promise4 as |o|}}{{o.value}}{{/sb.option}}
       {{/select-box}}
     `);
+
 
     deferred1.resolve('bar');
     deferred2.resolve('foo');
@@ -135,7 +193,7 @@ module('select-box (promises)', function(hooks) {
         assert.equal(this.$('.select-box-option.is-selected').text(), 'bar',
           'waits for promise to resolve before computing selected option');
 
-        this.set('value', deferred4.promise);
+        this.set('promise1', deferred4.promise);
         return settled();
       })
       .then(() => {
@@ -149,9 +207,35 @@ module('select-box (promises)', function(hooks) {
 
     await render(hbs`
       {{#select-box value=promise as |sb|}}
-        {{sb.option value="foo"}}
-        {{sb.option value="bar"}}
-        {{sb.option value="baz"}}
+        {{#sb.option value="foo"}}Foo{{/sb.option}}
+        {{#sb.option value="bar"}}Bar{{/sb.option}}
+        {{#sb.option value="baz"}}Baz{{/sb.option}}
+      {{/select-box}}
+    `);
+
+    const deferred1 = defer();
+    const deferred2 = defer();
+
+    this.set('promise', deferred1.promise);
+    this.set('promise', deferred2.promise);
+
+    deferred2.resolve('bar');
+    deferred1.resolve('baz');
+
+    return settled().then(() => {
+      assert.equal(this.$('.select-box-option.is-selected').text(), 'Bar',
+        'earlier promises are ignored');
+    });
+  });
+
+  test('promise option value order', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`
+      {{#select-box value="bar" as |sb|}}
+        {{#sb.option value=promise as |o|}}
+          {{~o.value~}}
+        {{/sb.option}}
       {{/select-box}}
     `);
 
@@ -170,58 +254,26 @@ module('select-box (promises)', function(hooks) {
     });
   });
 
-  test('promise option value order', async function(assert) {
+  test('promise option value (failure)', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`
-      {{#select-box value="bar" as |sb|}}
-        {{sb.option value="foo"}}
-        {{sb.option value=promise}}
-        {{sb.option value="baz"}}
-      {{/select-box}}
-    `);
+    const deferred = defer();
 
-    const deferred1 = defer();
-    const deferred2 = defer();
-
-    this.set('promise', deferred1.promise);
-    this.set('promise', deferred2.promise);
-
-    deferred2.resolve('bar');
-    deferred1.resolve('qux');
-
-    return settled().then(() => {
-      assert.equal(this.$('.select-box-option.is-selected').text(), 'bar',
-        'earlier promises are ignored');
-    });
-  });
-
-  test('promise option value (failure)', async function(assert) {
-    assert.expect(2);
-
-    const deferred1 = defer();
-    const deferred2 = defer();
-
-    this.set('promise1', deferred1.promise);
-    this.set('promise2', deferred2.promise);
+    this.set('promise', deferred.promise);
 
     await render(hbs`
       {{#select-box as |sb|}}
-        {{sb.option value=promise1 label="Foo"}}
-        {{sb.option value=promise2}}
+        {{#sb.option value=promise as |o|}}
+          {{~o.value~}}
+        {{/sb.option}}
       {{/select-box}}
     `);
 
-    deferred1.reject('Foo*');
-    deferred2.reject('Failed to resolve');
+    deferred.reject('Soz');
 
     return settled().then(() => {
-      assert.equal(this.$('.select-box-option:eq(0)').text(), 'Foo',
-        'uses label that is present');
-
-      assert.equal(this.$('.select-box-option:eq(1)').text(), 'Failed to resolve',
-        'no label present, and failed to resolve value, so display result of ' +
-        'failure in place of label');
+      assert.equal(this.$('.select-box-option:eq(0)').text(), 'Soz',
+        'the value is the rejection reason');
     });
   });
 
@@ -237,9 +289,9 @@ module('select-box (promises)', function(hooks) {
     await render(hbs`
       {{#if showSelect}}
         {{#select-box on-select=(action (mut selectedValue)) as |sb|}}
-          {{sb.option value="foo"}}
-          {{sb.option value="bar"}}
-          {{sb.option value="baz"}}
+          {{#sb.option value="foo"}}Foo{{/sb.option}}
+          {{#sb.option value="bar"}}Bar{{/sb.option}}
+          {{#sb.option value="baz"}}Baz{{/sb.option}}
         {{/select-box}}
       {{/if}}
       <button onclick={{action show}}></button>
@@ -251,11 +303,11 @@ module('select-box (promises)', function(hooks) {
 
     return settled()
       .then(() => {
-        this.$('.select-box-option:contains("baz")').trigger('click');
+        this.$('.select-box-option:contains("Baz")').trigger('click');
         return settled();
       }).then(() => {
         assert.equal(this.get('selectedValue'), 'baz');
-        assert.equal(this.$('.select-box-option.is-selected').text(), 'baz');
+        assert.equal(this.$('.select-box-option.is-selected').text(), 'Baz');
       });
   });
 });

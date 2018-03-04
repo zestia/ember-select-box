@@ -52,6 +52,11 @@ export default Mixin.create(...mixins, {
   },
 
   _resolveValue(value) {
+    this.set('isPending', true);
+    this.set('isRejected', false);
+    this.set('isFulfilled', false);
+    this.set('isSettled', false);
+
     return resolve(value).then(value => {
       if (this.get('isMultiple')) {
         return all(makeArray(value));
@@ -69,6 +74,14 @@ export default Mixin.create(...mixins, {
       value = freeze(value);
     }
 
+    if (failed) {
+      this.set('isRejected', true);
+    } else {
+      this.set('isFulfilled', true);
+    }
+
+    this.set('isPending', false);
+    this.set('isSettled', true);
     this.set('internalValue', value);
 
     scheduleOnce('afterRender', this, '_rendered');

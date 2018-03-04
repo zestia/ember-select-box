@@ -59,9 +59,15 @@ module('select-box (ember data)', function(hooks) {
 
     await render(hbs `
       {{#select-box value=value multiple=true as |sb|}}
-        {{#each foos as |foo|}}
-          {{sb.option value=foo label=foo.name}}
-        {{/each}}
+        {{#if sb.isPending}}
+          ...
+        {{else}}
+          {{#each foos as |foo|}}
+            {{#sb.option value=foo}}
+              {{foo.name}}
+            {{/sb.option}}
+          {{/each}}
+        {{/if}}
       {{/select-box}}
     `);
 

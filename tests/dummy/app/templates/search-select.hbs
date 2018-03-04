@@ -2,7 +2,9 @@
   on-search=(action "findBread")
   on-select=(action "selectedBread") as |sb newBread|}}
   {{#each selectableBreads as |bread|}}
-    {{sb.option value=bread label=bread.name}}
+    {{#sb.option value=bread}}
+      {{bread.name}}
+    {{/sb.option}}
   {{else}}
     {{#sb.option click=(action "addNewBread" newBread)}}
       No bread found<br>

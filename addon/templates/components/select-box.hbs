@@ -38,10 +38,14 @@
     -on-register=(action "_registerInput")
     -on-deregister=(action "_deregisterInput"))
   element=element
+  value=internalValue
+  isPending=isPending
+  isRejected=isRejected
+  isFulfilled=isFulfilled
+  isSettled=isSettled
   isSearching=isSearching
   isSlowSearch=isSlowSearch
   isOpen=isOpen
-  value=internalValue
   open=(action "open")
   close=(action "close")
   toggle=(action "toggle")

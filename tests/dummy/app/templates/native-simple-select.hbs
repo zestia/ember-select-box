@@ -2,7 +2,9 @@
   value=selectedBiscuit
   on-select=(action "selectedBiscuit") as |sb|}}
   {{#each selectableBiscuits as |biscuit|}}
-    {{sb.option value=biscuit label=biscuit.name}}
+    {{#sb.option value=biscuit}}
+      {{biscuit.name}}
+    {{/sb.option}}
   {{/each}}
 {{/native-simple-select}}
 

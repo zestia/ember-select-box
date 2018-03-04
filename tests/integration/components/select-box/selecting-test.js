@@ -11,7 +11,7 @@ module('select-box (selecting)', function(hooks) {
   test('changing the value attribute', async function(assert) {
     assert.expect(3);
 
-    this.set('selectedValue', 'Foo');
+    this.set('selectedValue', 'foo');
 
     this.set('selected', () => {
       assert.ok(true,
@@ -20,8 +20,8 @@ module('select-box (selecting)', function(hooks) {
 
     await render(hbs`
       {{#select-box on-select=(action selected) value=selectedValue as |sb|}}
-        {{sb.option value="Foo"}}
-        {{sb.option value="Bar"}}
+        {{#sb.option value="foo"}}Foo{{/sb.option}}
+        {{#sb.option value="bar"}}Bar{{/sb.option}}
       {{/select-box}}
     `);
 
@@ -31,7 +31,7 @@ module('select-box (selecting)', function(hooks) {
     assert.ok($foo.hasClass('is-selected') && !$bar.hasClass('is-selected'),
       'the option with the matching value is marked selected');
 
-    this.set('selectedValue', 'Bar');
+    this.set('selectedValue', 'bar');
 
     assert.ok(!$foo.hasClass('is-selected') && $bar.hasClass('is-selected'),
       'changing the value causes the options to re-compute which is selected');
@@ -50,22 +50,22 @@ module('select-box (selecting)', function(hooks) {
 
     await render(hbs`
       {{#select-box value=selectedValue as |sb|}}
-        {{sb.option value="foo"}}
-        {{sb.option value="bar"}}
+        {{#sb.option value="foo"}}Foo{{/sb.option}}
+        {{#sb.option value="bar"}}Bar{{/sb.option}}
       {{/select-box}}
     `);
 
     assert.equal(this.$('.select-box-option.is-selected').length, 0,
       'precondition: no selected options');
 
-    this.$(".select-box-option:contains('bar')").trigger('click');
+    this.$(".select-box-option:contains('Bar')").trigger('click');
 
-    assert.equal(this.$('.select-box-option.is-selected').text(), 'bar',
+    assert.equal(this.$('.select-box-option.is-selected').text(), 'Bar',
       'precondition: user has selected an option');
 
     this.set('selectedValue', null);
 
-    assert.equal(this.$('.select-box-option.is-selected').text(), 'bar',
+    assert.equal(this.$('.select-box-option.is-selected').text(), 'Bar',
       'selecting null does not clear the selected option, because technically nothing has ' +
       'changed, so `didReceiveAttrs` will not fire');
   });
@@ -82,11 +82,9 @@ module('select-box (selecting)', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box
-        value=initialSelectedValue
-        on-select=(action selected) as |sb|}}
-        {{sb.option value="foo"}}
-        {{sb.option value="bar"}}
+      {{#select-box value=initialSelectedValue on-select=(action selected) as |sb|}}
+        {{#sb.option value="foo"}}Foo{{/sb.option}}
+        {{#sb.option value="bar"}}Bar{{/sb.option}}
       {{/select-box}}
     `);
 
@@ -238,21 +236,6 @@ module('select-box (selecting)', function(hooks) {
     await triggerKeyEvent('.select-box', 'keydown', 13);
   });
 
-  test('options with no label', async function(assert) {
-    assert.expect(1);
-
-    await render(hbs`
-      {{#select-box as |sb|}}
-        {{#sb.option value="foo" as |o|}}
-          {{~o.label~}}
-        {{/sb.option}}
-      {{/select-box}}
-    `);
-
-    assert.equal(this.$('.select-box-option:eq(0)').text(), 'foo',
-      "a select box option's label defaults to it's value");
-  });
-
   test('selecting via the api', async function(assert) {
     assert.expect(4);
 
@@ -299,8 +282,8 @@ module('select-box (selecting)', function(hooks) {
 
     await render(hbs`
       {{#select-box on-update=(action updated) on-select=(action selected) as |sb|}}
-        {{sb.option value="foo"}}
-        {{sb.option value="bar"}}
+        {{#sb.option value="foo"}}Foo{{/sb.option}}
+        {{#sb.option value="bar"}}Bar{{/sb.option}}
         <button onclick={{action sb.update "foo"}}>Select foo</button>
         <button onclick={{action sb.update "bar"}}>Select bar</button>
       {{/select-box}}
@@ -314,7 +297,7 @@ module('select-box (selecting)', function(hooks) {
     assert.strictEqual(selected, undefined,
       'has not fired a selected action');
 
-    assert.equal(this.$('.select-box-option.is-selected').text(), 'bar',
+    assert.equal(this.$('.select-box-option.is-selected').text(), 'Bar',
       "select box's internal value is updated with the value");
 
     await settled();
@@ -329,16 +312,18 @@ module('select-box (selecting)', function(hooks) {
   test('manual selection', async function(assert) {
     assert.expect(3);
 
+    this.set('barSelected', true);
+
     await render(hbs`
       {{#select-box value="baz" as |sb|}}
-        {{sb.option value="foo"}}
-        {{sb.option value="bar" selected=true}}
-        {{sb.option value="baz" selected=false}}
+        {{#sb.option value="foo"}}Foo{{/sb.option}}
+        {{#sb.option value="bar" selected=barSelected}}Bar{{/sb.option}}
+        {{#sb.option value="baz" selected=false}}Baz{{/sb.option}}
       {{/select-box}}
     `);
 
-    const $bar = this.$(".select-box-option:contains('bar')");
-    const $baz = this.$(".select-box-option:contains('baz')");
+    const $bar = this.$(".select-box-option:contains('Bar')");
+    const $baz = this.$(".select-box-option:contains('Baz')");
 
     assert.ok($bar.hasClass('is-selected'),
       'manually selected options are selected');
@@ -346,19 +331,9 @@ module('select-box (selecting)', function(hooks) {
     assert.ok(!$baz.hasClass('is-selected'),
       'initially selected options are not selected if manually overridden');
 
-    this.set('barSelected', true);
-
-    await render(hbs`
-      {{#select-box as |sb|}}
-        {{sb.option value="foo"}}
-        {{sb.option value="bar" selected=barSelected}}
-        {{sb.option value="baz"}}
-      {{/select-box}}
-    `);
-
     this.set('barSelected', false);
 
-    assert.equal(this.$('.select-box-option.is-selected').length, 0,
+    assert.ok(!$bar.hasClass('is-selected'),
       'can manually deselect an option');
   });
 
@@ -371,12 +346,12 @@ module('select-box (selecting)', function(hooks) {
       external: {{external}}
       {{#select-box on-select=(action (mut external)) as |sb|}}
         internal: {{sb.value}}
-        {{sb.option value="foo"}}
-        {{sb.option value="bar"}}
+        {{#sb.option value="foo"}}Foo{{/sb.option}}
+        {{#sb.option value="bar"}}Bar{{/sb.option}}
       {{/select-box}}
     `);
 
-    this.$('.select-box-option:contains("bar")').trigger('click');
+    this.$('.select-box-option:contains("Bar")').trigger('click');
 
     assert.ok(this.$().text().match('external: bar'),
       'mut helper updates the external value');
@@ -441,17 +416,17 @@ module('select-box (selecting)', function(hooks) {
 
     await render(hbs`
       {{#select-box value=value multiple=true as |sb|}}
-        {{sb.option value="foo"}}
-        {{sb.option value="bar"}}
+        {{#sb.option value="foo"}}Foo{{/sb.option}}
+        {{#sb.option value="bar"}}Bar{{/sb.option}}
       {{/select-box}}
     `);
 
-    assert.equal(this.$('.select-box-option.is-selected').text(), 'bar',
+    assert.equal(this.$('.select-box-option.is-selected').text(), 'Bar',
       'works as expected');
 
     this.set('value', 'foo');
 
-    assert.equal(this.$('.select-box-option.is-selected').text(), 'foo',
+    assert.equal(this.$('.select-box-option.is-selected').text(), 'Foo',
       'updating the value works');
   });
 
@@ -549,16 +524,16 @@ module('select-box (selecting)', function(hooks) {
         value=value
         on-build-selection=(action buildSelection)
         on-init=(action register) as |sb|}}
-        {{sb.option value="foo"}}
-        {{sb.option value="bar"}}
-        {{sb.option value="baz"}}
-        {{sb.option value="qux"}}
+        {{#sb.option value="foo"}}Foo{{/sb.option}}
+        {{#sb.option value="bar"}}Bar{{/sb.option}}
+        {{#sb.option value="baz"}}Baz{{/sb.option}}
+        {{#sb.option value="qux"}}Qux{{/sb.option}}
       {{/select-box}}
     `);
 
     this.$('.select-box-option:eq(0)').trigger('click');
 
-    assert.equal(this.$('.select-box-option.is-selected').text(), 'baz',
+    assert.equal(this.$('.select-box-option.is-selected').text(), 'Baz',
       'selection used is the selection returned from on-build-selection');
 
     await settled();
@@ -579,7 +554,7 @@ module('select-box (selecting)', function(hooks) {
     assert.equal(calledBuild, 1,
       'updating the selected value via the api does not trigger build selection');
 
-    assert.equal(this.$('.select-box-option.is-selected').text(), 'bar',
+    assert.equal(this.$('.select-box-option.is-selected').text(), 'Bar',
       'update still works');
 
     sb.select(['qux']);
@@ -589,7 +564,7 @@ module('select-box (selecting)', function(hooks) {
     assert.equal(calledBuild, 1,
       'selecting a selected value via the api does not trigger build selection');
 
-    assert.equal(this.$('.select-box-option.is-selected').text(), 'qux',
+    assert.equal(this.$('.select-box-option.is-selected').text(), 'Qux',
       'select still works');
 
     assert.deepEqual(sb.value, ['qux'],

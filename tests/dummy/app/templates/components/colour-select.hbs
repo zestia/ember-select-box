@@ -4,19 +4,19 @@
   on-select=on-select
   on-click-outside=(action "close")
   on-press-escape=(action "close") as |sb|}}
-  {{sb.selected-option
-    click=sb.open
-    value=sb.value
-    label=sb.value
-    style=(concat "background:" sb.value)}}
+
+  {{#sb.selected-option click=sb.open value=sb.value style=(concat "background:" sb.value)}}
+    {{sb.value}}
+  {{/sb.selected-option}}
+
   {{#if sb.isOpen}}
     {{#sb.options}}
       {{#each colours as |colour|}}
-        {{~sb.option
-          value=colour
-          label=colour
-          style=(concat "background:" colour)~}}
+        {{~#sb.option value=colour style=(concat "background:" colour)~}}
+          {{~colour~}}
+        {{~/sb.option~}}
       {{/each}}
     {{/sb.options}}
   {{/if}}
+
 {{/select-box}}

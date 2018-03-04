@@ -12,8 +12,8 @@ module('select-box (activating options)', function(hooks) {
     await render(hbs`
       {{#select-box as |sb|}}
         {{#sb.options}}
-          {{sb.option value=1 label="One"}}
-          {{sb.option value=2 label="Two"}}
+          {{#sb.option value=1}}One{{/sb.option}}
+          {{#sb.option value=2}}Two{{/sb.option}}
         {{/sb.options}}
       {{/select-box}}
     `);

@@ -1,7 +1,8 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import { defer } from 'rsvp';
 
 module('select-box/option', function(hooks) {
   setupRenderingTest(hooks);
@@ -67,8 +68,8 @@ module('select-box/option', function(hooks) {
 
     await render(hbs `
       {{#select-box value=value as |sb|}}
-        {{sb.option value=1 label="One"}}
-        {{sb.option value=2 label="Two"}}
+        {{#sb.option value=1}}One{{/sb.option}}
+        {{#sb.option value=2}}Two{{/sb.option}}
       {{/select-box}}
     `);
 
@@ -91,20 +92,21 @@ module('select-box/option', function(hooks) {
 
     this.set('group1', [foo, bar]);
     this.set('group2', [baz, qux]);
+    this.set('selectedValue', baz);
 
     await render(hbs`
-      {{#select-box value="baz" as |sb|}}
+      {{#select-box value=selectedValue as |sb|}}
         {{#sb.group label="Group 1"}}
           {{#each group1 as |item i|}}
-            {{#sb.option value=item.myValue label=item.myLabel as |o|~}}
-              {{o.label}}={{o.value}} {{i}} ({{o.index}}) {{o.selected}}
+            {{#sb.option value=item as |o|~}}
+              {{o.value.myLabel}} {{i}} {{o.index}} {{o.isSelected}}
             {{~/sb.option}}
           {{/each}}
         {{/sb.group}}
         {{#sb.group label="Group 2"}}
           {{#each group2 as |item i|}}
-            {{#sb.option value=item.myValue label=item.myLabel as |o|~}}
-              {{o.label}}={{o.value}} {{i}} ({{o.index}}) {{o.selected}}
+            {{#sb.option value=item as |o|~}}
+              {{o.value.myLabel}} {{i}} {{o.index}} {{o.isSelected}}
             {{~/sb.option}}
           {{/each}}
         {{/sb.group}}
@@ -112,20 +114,20 @@ module('select-box/option', function(hooks) {
     `);
 
     assert.ok(
-      this.$('.select-box-option:eq(0)').text() === 'Foo=foo 0 (0) false' &&
-      this.$('.select-box-option:eq(1)').text() === 'Bar=bar 1 (1) false' &&
-      this.$('.select-box-option:eq(2)').text() === 'Baz=baz 0 (2) true' &&
-      this.$('.select-box-option:eq(3)').text() === 'Qux=qux 1 (3) false',
+      this.$('.select-box-option:eq(0)').text() === 'Foo 0 0 false' &&
+      this.$('.select-box-option:eq(1)').text() === 'Bar 1 1 false' &&
+      this.$('.select-box-option:eq(2)').text() === 'Baz 0 2 true' &&
+      this.$('.select-box-option:eq(3)').text() === 'Qux 1 3 false',
       'select box options can yield their label, value, index and selected state'
     );
 
     this.set('group2', [qux, baz]);
 
     assert.ok(
-      this.$('.select-box-option:eq(0)').text() === 'Foo=foo 0 (0) false' &&
-      this.$('.select-box-option:eq(1)').text() === 'Bar=bar 1 (1) false' &&
-      this.$('.select-box-option:eq(2)').text() === 'Qux=qux 0 (3) false' &&
-      this.$('.select-box-option:eq(3)').text() === 'Baz=baz 1 (2) true',
+      this.$('.select-box-option:eq(0)').text() === 'Foo 0 0 false' &&
+      this.$('.select-box-option:eq(1)').text() === 'Bar 1 1 false' &&
+      this.$('.select-box-option:eq(2)').text() === 'Qux 0 3 false' &&
+      this.$('.select-box-option:eq(3)').text() === 'Baz 1 2 true',
       'index gets out of sync due to lack of key="@index"'
     );
   });
@@ -145,7 +147,7 @@ module('select-box/option', function(hooks) {
       {{#select-box value="baz" as |sb|}}
         {{#each values as |value|}}
           {{#sb.option value=value as |o|~}}
-            {{value}}: {{o.index}}
+            {{o.value}}: {{o.index}}
           {{~/sb.option}}
         {{/each}}
       {{/select-box}}
@@ -164,7 +166,7 @@ module('select-box/option', function(hooks) {
       {{#select-box value="baz" as |sb|}}
         {{#each values key="@index" as |value|}}
           {{#sb.option value=value as |o|~}}
-            {{value}}: {{o.index}}
+            {{o.value}}: {{o.index}}
           {{~/sb.option}}
         {{/each}}
       {{/select-box}}
@@ -186,11 +188,9 @@ module('select-box/option', function(hooks) {
     this.set('fooDisabled', true);
 
     await render(hbs`
-      {{#select-box as |sb|}}
-        {{#sb.option disabled=fooDisabled as |o|}}
-          foo {{if o.disabled "disabled"}}
-        {{/sb.option}}
-      {{/select-box}}
+      {{#select-box/option disabled=fooDisabled as |o|}}
+        foo {{if o.isDisabled "disabled"}}
+      {{/select-box/option}}
     `);
 
     assert.equal(this.$('.select-box-option').text().trim(), 'foo disabled',
@@ -200,5 +200,59 @@ module('select-box/option', function(hooks) {
 
     assert.equal(this.$('.select-box-option').text().trim(), 'foo',
       'disabled state is updated');
+  });
+
+  test('yielded promise state', async function(assert) {
+    assert.expect(4);
+
+    const deferred1 = defer();
+    const deferred2 = defer();
+
+    this.set('promise', deferred1.promise);
+
+    await render(hbs `
+      {{#select-box/option value=promise as |o|}}
+        isPending: {{o.isPending}}<br>
+        isRejected: {{o.isRejected}}<br>
+        isFulfilled: {{o.isFulfilled}}<br>
+        isSettled: {{o.isSettled}}<br>
+      {{/select-box/option}}
+    `);
+
+    assert.equal(this.$().text(), `
+        isPending: true
+        isRejected: false
+        isFulfilled: false
+        isSettled: false
+    `);
+
+    deferred1.resolve();
+    await settled();
+
+    assert.equal(this.$().text(), `
+        isPending: false
+        isRejected: false
+        isFulfilled: true
+        isSettled: true
+    `);
+
+    this.set('promise', deferred2.promise);
+
+    assert.equal(this.$().text(), `
+        isPending: true
+        isRejected: false
+        isFulfilled: false
+        isSettled: false
+    `);
+
+    deferred2.reject();
+    await settled();
+
+    assert.equal(this.$().text(), `
+        isPending: false
+        isRejected: true
+        isFulfilled: false
+        isSettled: true
+    `);
   });
 });

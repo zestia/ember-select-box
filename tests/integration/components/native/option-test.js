@@ -86,24 +86,8 @@ module('select-box/native/option', function(hooks) {
       'sanity check');
   });
 
-  test('label', async function(assert) {
-    assert.expect(2);
-
-    this.set('myLabel', 'Foo');
-
-    await render(hbs `{{select-box/native/option label=myLabel}}`);
-
-    assert.strictEqual(this.$('.select-box-option').text(), 'Foo',
-      'renders the label inside the option element');
-
-    this.set('myLabel', 'Bar');
-
-    assert.strictEqual(this.$('.select-box-option').text(), 'Bar',
-      'changing the label updates the label inside the option element');
-  });
-
   test('block label', async function(assert) {
-    assert.expect(2);
+    assert.expect(1);
 
     await render(hbs `
       {{#select-box/native/option~}}
@@ -113,39 +97,30 @@ module('select-box/native/option', function(hooks) {
 
     assert.strictEqual(this.$('.select-box-option').text(), 'Foo',
       'renders the label inside the option element');
-
-    await render(hbs `
-      {{#select-box/native as |sb|}}
-        {{#sb.option label="Bar"}}Foo{{/sb.option}}
-      {{/select-box/native}}
-    `);
-
-    assert.strictEqual(this.$('.select-box-option').text(), 'Foo',
-      'the block takes precedence over a specified label');
   });
 
   test('yield', async function(assert) {
     assert.expect(1);
 
     this.set('items', [
-      { myValue: 'foo', myLabel: 'Foo' },
-      { myValue: 'bar', myLabel: 'Bar' }
+      'foo',
+      'bar'
     ]);
 
     await render(hbs`
-      {{#select-box/native as |sb|}}
+      {{#select-box/native value="foo" as |sb|}}
         {{#each items as |item|}}
-          {{#sb.option value=item.myValue label=item.myLabel as |o|~}}
-            {{o.label}}={{o.value}}
+          {{#sb.option value=item as |o|~}}
+            {{o.index}}={{o.value}}
           {{~/sb.option}}
         {{/each}}
       {{/select-box/native}}
     `);
 
     assert.ok(
-      this.$('.select-box-option:eq(0)').text() === 'Foo=foo' &&
-      this.$('.select-box-option:eq(1)').text() === 'Bar=bar',
-      'native options can yield their label & value'
+      this.$('.select-box-option:eq(0)').text() === '0=foo' &&
+      this.$('.select-box-option:eq(1)').text() === '1=bar',
+      'native options can yield their index & value'
     );
   });
 });

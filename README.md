@@ -40,9 +40,9 @@ ember install @zestia/ember-select-box
 
 ```handlebars
 {{#select-box/native as |sb|}}
-  {{sb.option value=1 label="One"}}
-  {{sb.option value=2 label="Two"}}
-  {{sb.option value=3 label="Three"}}
+  {{#sb.option value=1}} One {{/sb.option}}
+  {{#sb.option value=2}} Two {{/sb.option}}
+  {{#sb.option value=3}} Three {{/sb.option}}
 {{/select-box/native}}
 ```
 
@@ -50,9 +50,9 @@ ember install @zestia/ember-select-box
 
 ```handlebars
 {{#select-box as |sb|}}
-  {{sb.option value=1 label="One"}}
-  {{sb.option value=2 label="Two"}}
-  {{sb.option value=3 label="Three"}}
+  {{sb.option value=1}} One {{/sb.option}}
+  {{sb.option value=2}} Two {{/sb.option}}
+  {{sb.option value=3}} Three {{/sb.option}}
 {{/select-box}}
 ```
 
@@ -282,17 +282,37 @@ ember install @zestia/ember-select-box
     <td>sb.value</td>
     <td>The selected value(s) of the select box</td>
   </tr>
+</table>
+
+<table>
+  <caption>Yielded API propertes (template only)</caption>
+  <tr width="200">
+    <td>sb.isPending</td>
+    <td>True whilst <code>value</code> is being resovled</td>
+  </tr>
+  <tr>
+    <td>sb.isRejected</td>
+    <td>True if <code>value</code> failed to resolve</td>
+  </tr>
+  <tr>
+    <td>sb.isFulfilled</td>
+    <td>True if <code>value</code> resolved</td>
+  </tr>
+  <tr>
+    <td>sb.isSettled</td>
+    <td>True once <code>value</code> has resolved or rejected</td>
+  </tr>
   <tr>
     <td>sb.isSearching</td>
-    <td>Whether the promise returned from the <code>on-search</code> action is running<br> <em>(only available in the template)</em></td>
+    <td>True if the promise returned from the <code>on-search</code> action is running</td>
   </tr>
   <tr>
     <td>sb.isSlowSearch</td>
-    <td>True if the promised search results are taking a while<br> <em>(only available in the template)</em></td>
+    <td>True if the promised search results are taking a while</td>
   </tr>
   <tr>
     <td>sb.isOpen</td>
-    <td>True if the select box is open<br> <em>(only available in the template)</em></td>
+    <td>True if the select box is open</td>
   </tr>
 </table>
 
@@ -301,8 +321,8 @@ ember install @zestia/ember-select-box
 ### Option
 
 ```handlebars
-{{#sb.option value=1 label="One" as |o|}}
-  {{o.label}}
+{{#sb.option value=model as |o|}}
+  {{o.value.name}}
 {{/sb.option}}
 ```
 
@@ -367,26 +387,38 @@ ember install @zestia/ember-select-box
 </table>
 
 <table>
-  <caption>Yielded API properties</caption>
-  <tr>
-    <td width="200">o.selected</td>
-    <td>Whether or not the option is currently selected</td>
-  </tr>
+  <caption>Yielded API properties (template only)</caption>
   <tr>
     <td>o.value</td>
     <td>The value of the option</td>
   </tr>
   <tr>
-    <td>o.label</td>
-    <td>The label of the option</td>
+    <td>sb.isPending</td>
+    <td>True whilst <code>value</code> is being resovled</td>
+  </tr>
+  <tr>
+    <td>sb.isRejected</td>
+    <td>True if <code>value</code> failed to resolve</td>
+  </tr>
+  <tr>
+    <td>sb.isFulfilled</td>
+    <td>True if <code>value</code> resolved</td>
+  </tr>
+  <tr>
+    <td>sb.isSettled</td>
+    <td>True once <code>value</code> has resolved or rejected</td>
+  </tr>
+  <tr>
+    <td width="200">o.isSelected</td>
+    <td>Whether or not the option is currently selected</td>
+  </tr>
+  <tr>
+    <td>o.isDisabled</td>
+    <td>Whether or not the option is currently disabled</td>
   </tr>
   <tr>
     <td>o.index</td>
     <td>The index of the option amongst the options</td>
-  </tr>
-  <tr>
-    <td>o.disabled</td>
-    <td>Whether or not the option is currently disabled</td>
   </tr>
 </table>
 
@@ -399,7 +431,7 @@ Self explanitory, just wraps the options in extra markup.<br>
 
 ```handlebars
 {{#sb.group label="Things"}}
-  {{sb.option value=thing label=thing.name}}
+
 {{/sb.group}}
 ```
 
@@ -411,8 +443,8 @@ You only need to wrap the options up in with `sb.options` if you require extra m
 
 ```handlebars
 {{#sb.options}}
-  {{sb.option value=1 label="One"}}
-  {{sb.option value=2 label="Two"}}
+  {{#sb.option value=1}} One {{/sb.option}}
+  {{#sb.option value=2}} Two {{/sb.option}}
 {{/sb.options}}
 ```
 
@@ -489,8 +521,8 @@ Allows you to input text into the select box, usually for running searches/filte
 Does _not_ render the user's selected option automatically, but rather just provides a way for you to render the option(s) that have been selected.
 
 ```handlebars
-{{#sb.selected-option value=1 label="One" as |so|}}
-  {{so.label}}
+{{#sb.selected-option value=model as |so|}}
+  {{so.value.name}}
 {{/sb.selected-option}}
 ```
 
@@ -568,7 +600,9 @@ Option 1 is recommended. Define your component like so...
 
 ```handlebars
 {{#select-box value=value on-select=on-select class-prefix="my-select-box" as |sb|}}}
-  {{sb.selected-option label=sb.value.name}}
+  {{#sb.selected-option}}
+    {{sb.value.name}}
+  {{/sb.selected-option}}
   <button onclick={{action sb.toggle}}>Toggle</button>
   {{yield sb}}
 {{/select-box}}
@@ -579,7 +613,7 @@ Option 1 is recommended. Define your component like so...
 ```handlebars
 {{#my-select value=thing on-select=(action "selectedAThing") as |sb|}}
   {{#each things as |thing|}}
-    {{sb.option value=thing label=thing.name}}
+    {{#sb.option value=thing}} {{thing.name}} {{/sb.option}}
   {{/each}}
 {{/my-select}}
 ```

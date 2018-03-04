@@ -34,10 +34,10 @@
     {{#sb.options}}
       {{#if availableTags.length}}
         {{#each availableTags as |tag|}}
-          {{sb.option value=tag label=tag}}
+          {{#sb.option value=tag}}{{tag}}{{/sb.option}}
         {{/each}}
       {{else if newTag}}
-        {{#sb.option value=newTag label=newTag}}
+        {{#sb.option value=newTag}}
           No tag found<br>
           Add {{newTag}}...
         {{/sb.option}}

@@ -278,21 +278,6 @@ module('select-box/native', function(hooks) {
     this.$('.select-box').trigger('change');
   });
 
-  test('options with no label', async function(assert) {
-    assert.expect(1);
-
-    await render(hbs`
-      {{#select-box/native as |sb|}}
-        {{#sb.option value="foo" as |o|}}
-          {{~o.label~}}
-        {{/sb.option}}
-      {{/select-box/native}}
-    `);
-
-    assert.equal(this.$('.select-box-option:eq(0)').text(), 'foo',
-      "a native select box option's label defaults to it's value");
-  });
-
   test('manual selection (initial value)', async function(assert) {
     assert.expect(1);
 
@@ -419,13 +404,13 @@ module('select-box/native', function(hooks) {
 
     await render(hbs`
       {{#select-box/foo value="bar" as |sb|}}
-        {{sb.option value="foo"}}
-        {{sb.option value="bar"}}
-        {{sb.option value="baz"}}
+        {{#sb.option value="foo"}}Foo{{/sb.option}}
+        {{#sb.option value="bar"}}Bar{{/sb.option}}
+        {{#sb.option value="baz"}}Baz{{/sb.option}}
       {{/select-box/foo}}
     `);
 
-    assert.equal(this.$('.foo-select-display-label').text().trim(), 'bar',
+    assert.equal(this.$('.foo-select-display-label').text().trim(), 'Bar',
       'regression test: the update action is fired after all options have rendered');
   });
 
