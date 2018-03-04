@@ -594,4 +594,18 @@ module('select-box (selecting)', function(hooks) {
     assert.equal(selectedValue, 'bar',
       'can select the active option via the api');
   });
+
+  test('default values', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`
+      {{#select-box as |sb|}}
+        {{sb.option}}
+        {{sb.option}}
+      {{/select-box}}
+    `);
+
+    assert.equal(this.$('.select-box-option.is-selected').length, 2,
+      "select box's default value and options' default value is undefined");
+  });
 });

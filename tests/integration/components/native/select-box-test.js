@@ -432,4 +432,52 @@ module('select-box/native', function(hooks) {
     assert.equal(count, 0,
       'on-build-selection does not fire on native select components');
   });
+
+  test('no values', async function(assert) {
+    assert.expect(2);
+
+    let selectedValue;
+
+    this.set('selected', value => selectedValue = value);
+
+    await render(hbs`
+      {{#select-box/native on-select=(action selected) as |sb|}}
+        {{#sb.option}}foo{{/sb.option}}
+      {{/select-box/native}}
+    `);
+
+    this.$('.select-box').val('foo').trigger('change');
+
+    assert.strictEqual(selectedValue, undefined,
+      "'label' is not considered the option's value with component option");
+
+    await render(hbs`
+      {{#select-box/native on-select=(action selected) as |sb|}}
+        <option>foo</option>
+      {{/select-box/native}}
+    `);
+
+    this.$('.select-box').val('foo').trigger('change');
+
+    assert.strictEqual(selectedValue, 'foo',
+      "'label' is considered the option's value with native element");
+  });
+
+  test('default values', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`
+      {{#select-box/native as |sb|}}
+        {{sb.option}}
+        {{sb.option}}
+        {{sb.option}}
+      {{/select-box/native}}
+    `);
+
+    assert.ok(
+      !this.$('.select-box-option:eq(0)').prop('selected') &&
+      !this.$('.select-box-option:eq(1)').prop('selected') &&
+      this.$('.select-box-option:eq(2)').prop('selected'),
+      'single value native select considers the last option as the selected one');
+  });
 });
