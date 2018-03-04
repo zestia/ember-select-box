@@ -40,15 +40,13 @@ export default Mixin.create(...mixins, {
   },
 
   _update(value) {
-    const val = this._resolveValue(value);
     const id = this.incrementProperty('valueID');
-
-    const success = bind(this, '_resolvedValue', id, false);
-    const failure = bind(this, '_resolvedValue', id, true);
 
     this.set('internalValue', value);
 
-    return val.then(success, failure);
+    return this._resolveValue(value)
+      .then(bind(this, '_resolvedValue', id, false))
+      .catch(bind(this, '_resolvedValue', id, true));
   },
 
   _resolveValue(value) {
