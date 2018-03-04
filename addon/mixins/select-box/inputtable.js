@@ -10,6 +10,18 @@ export default Mixin.create({
   },
 
   actions: {
+    setInputValue(value) {
+      this.set('input.element.value', value);
+    },
+
+    focusInput() {
+      this.get('input.element').focus();
+    },
+
+    blurInput() {
+      this.get('input.element').blur();
+    },
+
     _inputText() {},
 
     _registerInput() {

@@ -54,19 +54,16 @@ export default Mixin.create({
 
     return resolve(this.get('on-search')(query, this.get('api')))
       .then(bind(this, '_searchCompleted', this.get('searchID'), query))
-      .catch(bind(this, '_searchFailed', query));
+      .catch(bind(this, '_searchFailed', query))
+      .finally(bind(this, '_searchFinished'));
   },
 
   _searchCompleted(id, query, result) {
-    const superseded = id < this.get('searchID');
-
-    if (superseded || this.get('isDestroyed')) {
+    if (id < this.get('searchID') || this.get('isDestroyed')) {
       return;
     }
 
     this.getWithDefault('on-searched', () => {})(result, query, this.get('api'));
-
-    this._searchFinished();
   },
 
   _searchFailed(query, error) {
@@ -75,11 +72,13 @@ export default Mixin.create({
     }
 
     this.getWithDefault('on-search-error', () => {})(error, query, this.get('api'));
-
-    this._searchFinished();
   },
 
   _searchFinished() {
+    if (this.get('isDestroyed')) {
+      return;
+    }
+
     this.set('isSearching', false);
     this.set('isSlowSearch', false);
   },
@@ -100,18 +99,6 @@ export default Mixin.create({
     stopSearching() {
       this.incrementProperty('searchID');
       this._searchFinished();
-    },
-
-    setInputValue(value) {
-      this.set('input.element.value', value);
-    },
-
-    focusInput() {
-      this.get('input.element').focus();
-    },
-
-    blurInput() {
-      this.get('input.element').blur();
     },
 
     _inputText(text) {
