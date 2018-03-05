@@ -3,6 +3,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, settled, triggerKeyEvent } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import EmberArray, { A as emberA } from '@ember/array';
+import { defer } from 'rsvp';
 const { isFrozen } = Object;
 
 module('select-box (selecting)', function(hooks) {
@@ -607,5 +608,32 @@ module('select-box (selecting)', function(hooks) {
 
     assert.equal(this.$('.select-box-option.is-selected').length, 2,
       "select box's default value and options' default value is undefined");
+  });
+
+  test('selecting a failed value', async function(assert) {
+    assert.expect(1);
+
+    let selectedValue;
+
+    const deferred = defer();
+
+    this.set('selected', value => selectedValue = value);
+
+    this.set('promise', deferred.promise);
+
+    await render(hbs`
+      {{#select-box on-select=(action selected) as |sb|}}
+        {{sb.option value=promise}}
+      {{/select-box}}
+    `);
+
+    deferred.reject('Fail');
+
+    await settled();
+
+    this.$('.select-box-option:eq(0)').trigger('click');
+
+    assert.equal(selectedValue, 'Fail',
+      'selecting a value whose promise rejected, selects the rejection reason');
   });
 });
