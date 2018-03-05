@@ -613,7 +613,9 @@ Option 1 is recommended. Define your component like so...
 ```handlebars
 {{#my-select value=thing on-select=(action "selectedAThing") as |sb|}}
   {{#each things as |thing|}}
-    {{#sb.option value=thing}} {{thing.name}} {{/sb.option}}
+    {{#sb.option value=thing}}
+      {{thing.name}}
+    {{/sb.option}}
   {{/each}}
 {{/my-select}}
 ```
