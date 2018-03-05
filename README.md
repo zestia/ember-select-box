@@ -600,10 +600,9 @@ Option 1 is recommended. Define your component like so...
 
 ```handlebars
 {{#select-box value=value on-select=on-select class-prefix="my-select-box" as |sb|}}}
-  {{#sb.selected-option}}
+  {{#sb.selected-option click=sb.toggle}}
     {{sb.value.name}}
   {{/sb.selected-option}}
-  <button onclick={{action sb.toggle}}>Toggle</button>
   {{yield sb}}
 {{/select-box}}
 ```
@@ -613,9 +612,7 @@ Option 1 is recommended. Define your component like so...
 ```handlebars
 {{#my-select value=thing on-select=(action "selectedAThing") as |sb|}}
   {{#each things as |thing|}}
-    {{#sb.option value=thing}}
-      {{thing.name}}
-    {{/sb.option}}
+    {{#sb.option value=thing}}{{thing.name}}{{/sb.option}}
   {{/each}}
 {{/my-select}}
 ```
@@ -626,7 +623,6 @@ Option 1 is recommended. Define your component like so...
 <div class="my-select">
   <div class="my-select-box">
     <div class="my-select-box-selected-option">Foo</div>
-    <button>Toggle</button>
     <div class="my-select-box-option is-selected">Foo</div>
     <div class="my-select-box-option">Bar</div>
     <div class="my-select-box-option">Baz</div>
