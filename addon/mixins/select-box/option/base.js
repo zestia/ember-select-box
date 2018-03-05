@@ -18,6 +18,10 @@ export default Mixin.create(...mixins, {
   },
 
   _update(value) {
+    if (value === this.get('internalValue')) {
+      return;
+    }
+
     const id = this.incrementProperty('valueID');
 
     this.set('internalValue', value);

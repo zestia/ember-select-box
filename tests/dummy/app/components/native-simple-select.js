@@ -16,7 +16,7 @@ export default Component.extend({
     },
 
     updateDisplayLabel() {
-      this.set('displayLabel', this.$('option:selected').text());
+      this.set('displayLabel', this.$('option:selected').text().trim());
     }
   }
 });
