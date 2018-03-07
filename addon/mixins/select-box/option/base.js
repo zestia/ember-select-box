@@ -10,8 +10,6 @@ const mixins = [
 ];
 
 export default Mixin.create(...mixins, {
-  valueID: 0,
-
   didReceiveAttrs() {
     this._super(...arguments);
     this._update(this.get('value'));

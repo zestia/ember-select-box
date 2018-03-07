@@ -14,9 +14,6 @@ const mixins = [
 ];
 
 export default Mixin.create(...mixins, {
-  api: null,
-  valueID: 0,
-
   init() {
     this._super(...arguments);
     this.getWithDefault('on-init', () => {})(this.get('api'));
