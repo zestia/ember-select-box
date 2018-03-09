@@ -2,6 +2,7 @@ import Mixin from '@ember/object/mixin';
 import { computed } from '@ember/object';
 import { bind, debounce } from '@ember/runloop';
 import { resolve } from 'rsvp';
+import invokeAction from '../../utils/invoke-action';
 
 export default Mixin.create({
   isSearchable: computed(function() {
@@ -52,7 +53,9 @@ export default Mixin.create({
 
     debounce(this, '_checkSlowSearch', this.get('searchSlowTime'));
 
-    return resolve(this.get('on-search')(query, this.get('api')))
+    const search = invokeAction(this, 'on-search', query, this.get('api'));
+
+    return resolve(search)
       .then(bind(this, '_searchCompleted', this.get('searchID'), query))
       .catch(bind(this, '_searchFailed', query))
       .finally(bind(this, '_searchFinished'));
@@ -63,7 +66,7 @@ export default Mixin.create({
       return;
     }
 
-    this.getWithDefault('on-searched', () => {})(result, query, this.get('api'));
+    invokeAction(this, 'on-searched', result, query, this.get('api'));
   },
 
   _searchFailed(query, error) {
@@ -71,7 +74,7 @@ export default Mixin.create({
       return;
     }
 
-    this.getWithDefault('on-search-error', () => {})(error, query, this.get('api'));
+    invokeAction(this, 'on-search-error', error, query, this.get('api'));
   },
 
   _searchFinished() {

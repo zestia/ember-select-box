@@ -1,6 +1,7 @@
 import Mixin from '@ember/object/mixin';
 import { computed } from '@ember/object';
 import { makeArray } from '@ember/array';
+import invokeAction from '../../../utils/invoke-action';
 
 const isSelectedKeys = [
   'internalValue',
@@ -35,8 +36,8 @@ export default Mixin.create({
         return;
       }
 
-      this.get('-on-select')(this.get('internalValue'));
-      this.getWithDefault('on-select', () => {})(this.get('internalValue'), this.get('-api'));
+      invokeAction(this, '-on-select', this.get('internalValue'));
+      invokeAction(this, 'on-select', this.get('internalValue'), this.get('-api'));
     }
   }
 });

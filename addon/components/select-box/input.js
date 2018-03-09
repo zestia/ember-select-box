@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import Nameable from  '../../mixins/general/nameable';
 import Registerable from  '../../mixins/general/registerable';
+import invokeAction from '../../utils/invoke-action';
 
 const mixins = [
   Nameable,
@@ -59,18 +60,18 @@ export default Component.extend(...mixins, {
     const value = this.get('element.value');
 
     if (!value) {
-      this.getWithDefault('on-clear', () => {})(this.get('-api'));
+      invokeAction(this, 'on-clear', this.get('-api'));
     }
 
-    this.getWithDefault('-on-input', () => {})(value);
-    this.getWithDefault('on-input', () => {})(value, this.get('-api'));
+    invokeAction(this, '-on-input', value);
+    invokeAction(this, 'on-input', value, this.get('-api'));
   },
 
   keyDown(e) {
     this._super(...arguments);
 
     if (e.which === 8 && !this.get('element.value')) {
-      this.getWithDefault('on-delete', () => {})(this.get('-api'));
+      invokeAction(this, 'on-delete', this.get('-api'));
     }
   }
 });

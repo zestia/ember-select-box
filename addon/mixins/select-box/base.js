@@ -5,6 +5,7 @@ import Focusable from  './focusable';
 import { makeArray } from '@ember/array';
 import { bind, next, scheduleOnce } from '@ember/runloop';
 import { all, resolve } from 'rsvp';
+import invokeAction from '../../utils/invoke-action';
 const { freeze } = Object;
 
 const mixins = [
@@ -19,7 +20,7 @@ export default Mixin.create(...mixins, {
 
   init() {
     this._super(...arguments);
-    this.getWithDefault('on-init', () => {})(this.get('api'));
+    invokeAction(this, 'on-init', this.get('api'));
   },
 
   didReceiveAttrs() {
@@ -35,7 +36,7 @@ export default Mixin.create(...mixins, {
 
   _select(value) {
     this._update(value).then(() => {
-      this.getWithDefault('on-select', () => {})(this.get('internalValue'), this.get('api'));
+      invokeAction(this, 'on-select', this.get('internalValue'), this.get('api'));
     });
   },
 
@@ -101,7 +102,7 @@ export default Mixin.create(...mixins, {
     },
 
     _updated() {
-      this.getWithDefault('on-update', () => {})(this.get('internalValue'), this.get('api'));
+      invokeAction(this, 'on-update', this.get('internalValue'), this.get('api'));
     },
 
     _select(value) {

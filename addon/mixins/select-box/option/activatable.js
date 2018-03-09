@@ -1,5 +1,6 @@
 import Mixin from '@ember/object/mixin';
 import { computed } from '@ember/object';
+import invokeAction from '../../../utils/invoke-action';
 
 const isActiveKeys = [
   'index',
@@ -19,11 +20,11 @@ export default Mixin.create({
   actions: {
     activate() {
       this._super(...arguments);
-      this.get('-on-activate')(this.get('index'));
+      invokeAction(this, '-on-activate', this.get('index'));
     },
 
     _activated() {
-      this.getWithDefault('on-activate', () => {})(this.get('internalValue'), this.get('-api'));
+      invokeAction(this, 'on-activate', this.get('internalValue'), this.get('-api'));
     }
   }
 });

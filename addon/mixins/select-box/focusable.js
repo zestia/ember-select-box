@@ -1,6 +1,7 @@
 import Mixin from '@ember/object/mixin';
 import { next } from '@ember/runloop';
 import trySet from '../../utils/try-set';
+import invokeAction from '../../utils/invoke-action';
 
 export default Mixin.create({
   attributeBindings: ['tabIndex:tabindex'],
@@ -13,7 +14,7 @@ export default Mixin.create({
   focusIn(e) {
     this._super(...arguments);
     this.set('isFocused', true);
-    this.getWithDefault('on-focus-in', () => {})(e, this.get('api'));
+    invokeAction(this, 'on-focus-in', e, this.get('api'));
   },
 
   focusOut(e) {
@@ -25,6 +26,6 @@ export default Mixin.create({
       this.set('isFocused', false);
     }
 
-    this.getWithDefault('on-focus-out', () => {})(e, this.get('api'));
+    invokeAction(this, 'on-focus-out', e, this.get('api'));
   }
 });
