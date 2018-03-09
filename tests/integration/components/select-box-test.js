@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled } from '@ember/test-helpers';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import SelectBox from '@zestia/ember-select-box/components/select-box';
 import EmberArray, { A as emberA } from '@ember/array';
@@ -225,8 +225,6 @@ module('select-box', function(hooks) {
 
     this.set('value', emberA(['bar']));
 
-    await settled();
-
     assert.deepEqual(secondApi.value, ['bar'],
       'the yielded api reflects any changes to the value attribute');
 
@@ -238,8 +236,6 @@ module('select-box', function(hooks) {
     `);
 
     this.set('value', { foo: 'bar' });
-
-    await settled();
 
     assert.ok(!isFrozen(secondApi.value),
       'is not frozen when in single mode');

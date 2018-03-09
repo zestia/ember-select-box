@@ -3,6 +3,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, settled, triggerKeyEvent } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import EmberArray, { A as emberA } from '@ember/array';
+import { defer } from 'rsvp';
 const { isFrozen } = Object;
 
 module('select-box (selecting)', function(hooks) {
@@ -124,12 +125,15 @@ module('select-box (selecting)', function(hooks) {
 
     this.$('.select-box-option').trigger('click');
     this.$('.select-box-option').trigger('click');
+    this.$('.select-box-option').trigger('click');
+    this.$('.select-box-option').trigger('click');
 
-    assert.equal(selected, 2,
+    assert.equal(selected, 4,
       "sends select action even if selected value hasn't changed");
 
-    assert.equal(updated, 1,
-      'sends update action only when value has changed');
+    assert.equal(updated, 2,
+      'sends update action only when value has changed, ' +
+      '(the initial update action, and then any subsequent update to the value)');
   });
 
   test('selecting more than 1 of the same value', async function(assert) {
@@ -237,7 +241,7 @@ module('select-box (selecting)', function(hooks) {
   });
 
   test('selecting via the api', async function(assert) {
-    assert.expect(4);
+    assert.expect(3);
 
     let selected;
     let selectedFoo;
@@ -262,17 +266,12 @@ module('select-box (selecting)', function(hooks) {
     assert.strictEqual(selectedFoo, undefined,
       'the option does not fire its on-select action');
 
-    assert.strictEqual(updated, undefined,
-      'has not updated yet');
-
-    await settled();
-
     assert.strictEqual(updated, 'foo',
-      'fires the on update action after the selection has been made');
+      'the select box sends and update action after the selection has been made');
   });
 
   test('updating via the api', async function(assert) {
-    assert.expect(5);
+    assert.expect(3);
 
     let updated;
     let selected;
@@ -291,22 +290,14 @@ module('select-box (selecting)', function(hooks) {
 
     this.$('button:eq(1)').trigger('click');
 
-    assert.strictEqual(updated, undefined,
-      'has not fired an updated action');
+    assert.strictEqual(updated, 'bar',
+      'has fired initial updated action');
 
     assert.strictEqual(selected, undefined,
-      'has not fired a selected action');
+      'has not fired a select action');
 
     assert.equal(this.$('.select-box-option.is-selected').text(), 'Bar',
       "select box's internal value is updated with the value");
-
-    await settled();
-
-    assert.strictEqual(updated, 'bar',
-      'fires the on-update action after the value has been updated');
-
-    assert.strictEqual(selected, undefined,
-      'does not fire the select action');
   });
 
   test('manual selection', async function(assert) {
@@ -402,8 +393,6 @@ module('select-box (selecting)', function(hooks) {
     `);
 
     this.set('ariaLabel', 'Choice');
-
-    await settled();
 
     assert.equal(updated, 1,
       "does not fire update action when the value hasn't actually updated");
@@ -607,5 +596,32 @@ module('select-box (selecting)', function(hooks) {
 
     assert.equal(this.$('.select-box-option.is-selected').length, 2,
       "select box's default value and options' default value is undefined");
+  });
+
+  test('selecting a failed value', async function(assert) {
+    assert.expect(1);
+
+    let selectedValue;
+
+    const deferred = defer();
+
+    this.set('selected', value => selectedValue = value);
+
+    this.set('promise', deferred.promise);
+
+    await render(hbs`
+      {{#select-box on-select=(action selected) as |sb|}}
+        {{sb.option value=promise}}
+      {{/select-box}}
+    `);
+
+    deferred.reject('Fail');
+
+    await settled();
+
+    this.$('.select-box-option:eq(0)').trigger('click');
+
+    assert.equal(selectedValue, 'Fail',
+      'selecting a value whose promise rejected, selects the rejection reason');
   });
 });

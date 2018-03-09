@@ -10,14 +10,16 @@ const mixins = [
 ];
 
 export default Mixin.create(...mixins, {
-  valueID: 0,
-
   didReceiveAttrs() {
     this._super(...arguments);
     this._update(this.get('value'));
   },
 
   _update(value) {
+    if (value === this.get('internalValue')) {
+      return;
+    }
+
     const id = this.incrementProperty('valueID');
 
     this.set('internalValue', value);

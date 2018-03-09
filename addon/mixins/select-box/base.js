@@ -3,7 +3,7 @@ import Nameable from  '../general/nameable';
 import HasOptions from './registration/has-options';
 import Focusable from  './focusable';
 import { makeArray } from '@ember/array';
-import { bind, next, scheduleOnce } from '@ember/runloop';
+import { bind, scheduleOnce } from '@ember/runloop';
 import { all, resolve } from 'rsvp';
 import invokeAction from '../../utils/invoke-action';
 const { freeze } = Object;
@@ -15,9 +15,6 @@ const mixins = [
 ];
 
 export default Mixin.create(...mixins, {
-  api: null,
-  valueID: 0,
-
   init() {
     this._super(...arguments);
     invokeAction(this, 'on-init', this.get('api'));
@@ -26,12 +23,7 @@ export default Mixin.create(...mixins, {
   didReceiveAttrs() {
     this._super(...arguments);
     this.set('isMultiple', this.get('multiple'));
-    this.set('changedValue', this.get('value') !== this.get('internalValue'));
-
-    if (this.get('changedValue') || !this.get('doneInitialUpdate')) {
-      this._update(this.get('value'));
-      this.set('doneInitialUpdate', true);
-    }
+    this._update(this.get('value'));
   },
 
   _select(value) {
@@ -41,6 +33,10 @@ export default Mixin.create(...mixins, {
   },
 
   _update(value) {
+    if (value === this.get('internalValue') && this.get('valueID') > 0) {
+      return resolve(value);
+    }
+
     const id = this.incrementProperty('valueID');
 
     this.set('internalValue', value);
@@ -87,9 +83,7 @@ export default Mixin.create(...mixins, {
   },
 
   _rendered() {
-    next(this, () => {
-      this.send('_updated');
-    });
+    this.send('_updated');
   },
 
   actions: {

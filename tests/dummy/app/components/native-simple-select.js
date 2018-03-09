@@ -6,6 +6,11 @@ export default Component.extend({
   classNames: ['native-simple-select'],
   classNameBindings: ['isFocused'],
 
+  didRender() {
+    this._super(...arguments);
+    this.set('displayLabel', this.$('option:selected').text().trim());
+  },
+
   actions: {
     focusIn() {
       this.set('isFocused', true);
@@ -13,10 +18,6 @@ export default Component.extend({
 
     focusOut() {
       this.set('isFocused', false);
-    },
-
-    updateDisplayLabel() {
-      this.set('displayLabel', this.$('option:selected').text());
     }
   }
 });
