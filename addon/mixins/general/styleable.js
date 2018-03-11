@@ -1,22 +1,16 @@
 import Ember from 'ember';
 import Mixin from '@ember/object/mixin';
 import { htmlSafe } from '@ember/string';
+import { computed } from '@ember/object';
 const { escapeExpression } = Ember.Handlebars.Utils;
 
 export default Mixin.create({
   attributeBindings: ['customCSS:style'],
 
-  didReceiveAttrs() {
-    this._super(...arguments);
-    this._updateStyle();
-  },
-
-  _updateStyle() {
-    const style = this.get('style');
-    if (!style) {
-      return;
+  customCSS: computed('style', function() {
+    const css = this.get('style');
+    if (css) {
+      return htmlSafe(escapeExpression(css));
     }
-    const css = htmlSafe(escapeExpression(style));
-    this.set('customCSS', css);
-  }
+  })
 });
