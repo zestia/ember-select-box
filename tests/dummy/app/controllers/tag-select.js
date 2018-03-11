@@ -14,13 +14,6 @@ export default Controller.extend({
   selectedTagNames: mapBy('selectedTags', 'name'),
   maxTagID: max('selectedTagIDs'),
 
-  _findTags(query) {
-    const tags = emberA(this.get('selectedTags').filter(tag => {
-      return tag.name.toLowerCase().indexOf(query.toLowerCase()) >= 0;
-    }));
-    return resolve(tags.mapBy('name'));
-  },
-
   actions: {
     findTags(query) {
       return this._findTags(query);
@@ -45,5 +38,12 @@ export default Controller.extend({
         selectedTags.removeObject(tag);
       }
     }
+  },
+
+  _findTags(query) {
+    const tags = emberA(this.get('selectedTags').filter(tag => {
+      return tag.name.toLowerCase().indexOf(query.toLowerCase()) >= 0;
+    }));
+    return resolve(tags.mapBy('name'));
   }
 });

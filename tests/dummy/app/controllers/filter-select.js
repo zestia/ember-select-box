@@ -8,12 +8,6 @@ export default Controller.extend({
     this.set('selectablePies', pies);
   },
 
-  _filterPies(query) {
-    return resolve(pies.filter(pie => {
-      return pie.name.toLowerCase().indexOf(query.toLowerCase()) >= 0;
-    }));
-  },
-
   actions: {
     filterPies(query) {
       return this._filterPies(query).then(pies => {
@@ -25,5 +19,11 @@ export default Controller.extend({
     selectedPie(pie) {
       this.set('selectedPie', pie);
     }
+  },
+
+  _filterPies(query) {
+    return resolve(pies.filter(pie => {
+      return pie.name.toLowerCase().indexOf(query.toLowerCase()) >= 0;
+    }));
   }
 });
