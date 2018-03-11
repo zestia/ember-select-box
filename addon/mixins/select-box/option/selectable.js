@@ -4,27 +4,20 @@ import { makeArray } from '@ember/array';
 import invokeAction from '../../../utils/invoke-action';
 
 const isSelectedKeys = [
+  'selected',
   'internalValue',
-  'parentInternalValue',
-  'isMultiple',
-  'manualSelection'
+  '-parent-is-multiple',
+  '-parent-internal-value',
 ];
 
 export default Mixin.create({
-  didReceiveAttrs() {
-    this._super(...arguments);
-    this.set('manualSelection', this.get('selected'));
-    this.set('parentInternalValue', this.get('-parent-value'));
-    this.set('isMultiple', this.get('-is-multiple'));
-  },
-
   isSelected: computed(...isSelectedKeys, function() {
-    if (this.get('manualSelection') !== undefined) {
-      return this.get('manualSelection');
-    } else if (this.get('isMultiple')) {
-      return makeArray(this.get('parentInternalValue')).includes(this.get('internalValue'));
+    if (this.get('selected') !== undefined) {
+      return this.get('selected');
+    } else if (this.get('-parent-is-multiple')) {
+      return makeArray(this.get('-parent-internal-value')).includes(this.get('internalValue'));
     } else {
-      return this.get('internalValue') === this.get('parentInternalValue');
+      return this.get('internalValue') === this.get('-parent-internal-value');
     }
   }),
 
@@ -37,7 +30,7 @@ export default Mixin.create({
       }
 
       invokeAction(this, '-on-select', this.get('internalValue'));
-      invokeAction(this, 'on-select', this.get('internalValue'), this.get('-api'));
+      invokeAction(this, 'on-select', this.get('internalValue'), this.get('-parent-api'));
     }
   }
 });

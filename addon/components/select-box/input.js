@@ -60,18 +60,18 @@ export default Component.extend(...mixins, {
     const value = this.get('element.value');
 
     if (!value) {
-      invokeAction(this, 'on-clear', this.get('-api'));
+      invokeAction(this, 'on-clear', this.get('-parent-api'));
     }
 
     invokeAction(this, '-on-input', value);
-    invokeAction(this, 'on-input', value, this.get('-api'));
+    invokeAction(this, 'on-input', value, this.get('-parent-api'));
   },
 
   keyDown(e) {
     this._super(...arguments);
 
     if (e.which === 8 && !this.get('element.value')) {
-      invokeAction(this, 'on-delete', this.get('-api'));
+      invokeAction(this, 'on-delete', this.get('-parent-api'));
     }
   }
 });
