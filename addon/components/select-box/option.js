@@ -21,10 +21,10 @@ export default Component.extend(...mixins, {
   classNameSuffix: 'option',
   ariaRole: 'option',
   attributeBindings: [
+    'title',
     'isActive:aria-current',
     'isDisabled:aria-disabled',
-    'isSelected:aria-selected',
-    'title'
+    'isSelected:aria-selected'
   ],
   classNameBindings: [
     'isActive',

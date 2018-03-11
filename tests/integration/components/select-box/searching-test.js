@@ -469,8 +469,8 @@ module('select-box (searching)', function(hooks) {
       'exposes ability to change the input value');
   });
 
-  test('stopping searching', async function(assert) {
-    assert.expect(2);
+  test('searching attributes', async function(assert) {
+    assert.expect(4);
 
     const deferred = defer();
 
@@ -500,10 +500,16 @@ module('select-box (searching)', function(hooks) {
     assert.ok($selectBox.hasClass('is-searching'),
       'precondition, select box is in the middle of searching');
 
+    assert.ok($selectBox.get(0).hasAttribute('aria-busy'),
+      'is busy whilst searching');
+
     $input.val('').trigger('input');
 
     assert.ok(!$selectBox.hasClass('is-searching'),
       'select box is no longer searching');
+
+    assert.ok(!$selectBox.get(0).hasAttribute('aria-busy'),
+      'is no longer busy');
 
     deferred.resolve();
 

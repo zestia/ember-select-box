@@ -6,6 +6,7 @@ import { makeArray } from '@ember/array';
 import { bind, scheduleOnce } from '@ember/runloop';
 import { all, resolve } from 'rsvp';
 import invokeAction from '../../utils/invoke-action';
+import { readOnly } from '@ember/object/computed';
 const { freeze } = Object;
 
 const mixins = [
@@ -15,6 +16,8 @@ const mixins = [
 ];
 
 export default Mixin.create(...mixins, {
+  isMultiple: readOnly('multiple'),
+
   init() {
     this._super(...arguments);
     invokeAction(this, 'on-init', this.get('api'));
@@ -22,7 +25,6 @@ export default Mixin.create(...mixins, {
 
   didReceiveAttrs() {
     this._super(...arguments);
-    this.set('isMultiple', this.get('multiple'));
     this._update(this.get('value'));
   },
 

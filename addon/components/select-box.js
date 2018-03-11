@@ -48,14 +48,14 @@ export default Component.extend(...mixins, {
   attributeBindings: [
     'aria-label',
     'isOpen:aria-expanded',
-    'isDisabled:aria-disabled'
+    'isDisabled:aria-disabled',
+    'isSearching:aria-busy'
   ],
   classNameBindings: [
     'isOpen',
     'isFocused',
     'isDisabled',
     'isSearching',
-    'isSlowSearch',
-    'isMultiple'
+    'isSlowSearch'
   ]
 });

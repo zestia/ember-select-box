@@ -24,6 +24,15 @@ module('select-box/input', function(hooks) {
       'can override the class prefix');
   });
 
+  test('aria role', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs `{{select-box/input}}`);
+
+    assert.equal(this.$('.select-box-input').attr('role'), 'searchbox',
+      'a select box input has an appropriate aria role');
+  });
+
   test('type', async function(assert) {
     assert.expect(2);
 

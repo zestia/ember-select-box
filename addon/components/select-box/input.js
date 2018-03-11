@@ -12,6 +12,8 @@ export default Component.extend(...mixins, {
   tagName: 'input',
   type: '',
 
+  ariaRole: 'searchbox',
+
   attributeBindings: [
     'accept',
     'autocapitalize',
