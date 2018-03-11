@@ -1,15 +1,8 @@
 import Mixin from '@ember/object/mixin';
-import Nameable from  '../../general/nameable';
-import Registerable from  '../../general/registerable';
 import { resolve } from 'rsvp';
 import { bind } from '@ember/runloop';
 
-const mixins = [
-  Nameable,
-  Registerable
-];
-
-export default Mixin.create(...mixins, {
+export default Mixin.create({
   didReceiveAttrs() {
     this._super(...arguments);
     this._update(this.get('value'));

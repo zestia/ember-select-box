@@ -1,5 +1,6 @@
 import Mixin from '@ember/object/mixin';
 import { next } from '@ember/runloop';
+import { isPresent } from '@ember/utils';
 import trySet from '../../utils/try-set';
 import invokeAction from '../../utils/invoke-action';
 
@@ -8,12 +9,19 @@ export default Mixin.create({
 
   didReceiveAttrs() {
     this._super(...arguments);
-    this.set('tabIndex', this.getWithDefault('tabindex', 0));
+
+    if (isPresent(this.get('tabindex'))) {
+      this.set('tabIndex', this.get('tabindex'));
+    } else if (!isPresent(this.get('tabIndex'))) {
+      this.set('tabIndex', 0);
+    }
   },
 
   focusIn(e) {
     this._super(...arguments);
+
     this.set('isFocused', true);
+
     invokeAction(this, 'on-focus-in', e, this.get('api'));
   },
 

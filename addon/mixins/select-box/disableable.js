@@ -1,9 +1,16 @@
 import Mixin from '@ember/object/mixin';
+import { isPresent } from '@ember/utils';
 
 export default Mixin.create({
   didReceiveAttrs() {
     this._super(...arguments);
-    this.set('isDisabled', this.get('disabled'));
-    this.set('tabIndex', this.get('isDisabled') ? -1 : this.get('tabIndex'));
+
+    if (isPresent(this.get('disabled'))) {
+      this.set('isDisabled', this.get('disabled'));
+    }
+
+    if (this.get('isDisabled')) {
+      this.set('tabIndex', -1);
+    }
   }
 });

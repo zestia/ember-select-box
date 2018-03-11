@@ -1,14 +1,21 @@
 import Component from '@ember/component';
-import BaseSelectBox from '../../mixins/select-box/base';
 import layout from '../../templates/components/select-box/native';
+import BaseSelectBox from '../../mixins/select-box/base';
+import Focusable from '../../mixins/select-box/focusable';
+import HasOptions from '../../mixins/select-box/registration/has-options';
+import Nameable from '../../mixins/general/nameable';
 
 const mixins = [
-  BaseSelectBox
+  BaseSelectBox,
+  Focusable,
+  HasOptions,
+  Nameable
 ];
 
 export default Component.extend(...mixins, {
   layout,
   tagName: 'select',
+
   attributeBindings: [
     'name',
     'title',

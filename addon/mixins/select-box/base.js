@@ -1,7 +1,4 @@
 import Mixin from '@ember/object/mixin';
-import Nameable from  '../general/nameable';
-import HasOptions from './registration/has-options';
-import Focusable from  './focusable';
 import { makeArray } from '@ember/array';
 import { bind, scheduleOnce } from '@ember/runloop';
 import { all, resolve } from 'rsvp';
@@ -9,13 +6,7 @@ import invokeAction from '../../utils/invoke-action';
 import { readOnly } from '@ember/object/computed';
 const { freeze } = Object;
 
-const mixins = [
-  Nameable,
-  HasOptions,
-  Focusable
-];
-
-export default Mixin.create(...mixins, {
+export default Mixin.create({
   isMultiple: readOnly('multiple'),
 
   init() {

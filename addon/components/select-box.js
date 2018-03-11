@@ -20,6 +20,9 @@ import SelectActiveOptionOnEnter from '../mixins/select-box/select-active-option
 import SelectBoxAPI from '../mixins/select-box/api';
 import Styleable from '../mixins/general/styleable';
 import Toggleable from '../mixins/select-box/toggleable';
+import Nameable from  '../mixins/general/nameable';
+import HasOptions from '../mixins/select-box/registration/has-options';
+import Focusable from  '../mixins/select-box/focusable';
 import { or } from '@ember/object/computed';
 
 const mixins = [
@@ -29,18 +32,21 @@ const mixins = [
   BuildSelection,
   ClickOutsideEvent,
   Disableable,
+  Focusable,
   HasInput,
+  HasOptions,
   HasOptionsContainer,
   HasSelectedOptions,
   HasSelectedOptionsContainer,
   Inputtable,
   KeyboardEvents,
+  Nameable,
   Searchable,
   SelectActiveOption,
   SelectActiveOptionOnEnter,
   SelectBoxAPI,
   Styleable,
-  Toggleable,
+  Toggleable
 ];
 
 export default Component.extend(...mixins, {

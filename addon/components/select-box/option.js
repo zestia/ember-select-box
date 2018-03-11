@@ -4,6 +4,8 @@ import Activatable from '../../mixins/select-box/option/activatable';
 import BaseOption from '../../mixins/select-box/option/base';
 import Disableable from '../../mixins/general/disableable';
 import Indexable from '../../mixins/general/indexable';
+import Nameable from  '../../mixins/general/nameable';
+import Registerable from  '../../mixins/general/registerable';
 import Selectable from '../../mixins/select-box/option/selectable';
 import Styleable from '../../mixins/general/styleable';
 
@@ -12,6 +14,8 @@ const mixins = [
   BaseOption,
   Disableable,
   Indexable,
+  Nameable,
+  Registerable,
   Selectable,
   Styleable
 ];

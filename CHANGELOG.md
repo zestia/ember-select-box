@@ -1,8 +1,9 @@
 # Changelog
 
-5.0.1
+6.0.0
 
 * Improvements to aria attributes
+* Changes to mixin file locations
 
 5.0.0
 
