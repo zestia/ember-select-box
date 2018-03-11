@@ -20,12 +20,15 @@ export default Component.extend(...mixins, {
   layout,
   classNameSuffix: 'option',
   ariaRole: 'option',
+
   attributeBindings: [
     'title',
     'isActive:aria-current',
     'isDisabled:aria-disabled',
-    'isSelected:aria-selected'
+    'isSelected:aria-selected',
+    'isPending:aria-busy'
   ],
+
   classNameBindings: [
     'isActive',
     'isDisabled',

@@ -20,6 +20,7 @@ import SelectActiveOptionOnEnter from '../mixins/select-box/select-active-option
 import SelectBoxAPI from '../mixins/select-box/api';
 import Styleable from '../mixins/general/styleable';
 import Toggleable from '../mixins/select-box/toggleable';
+import { or } from '@ember/object/computed';
 
 const mixins = [
   ActivatableOptions,
@@ -44,12 +45,14 @@ const mixins = [
 
 export default Component.extend(...mixins, {
   layout,
+
   attributeBindings: [
     'aria-label',
     'isOpen:aria-expanded',
     'isDisabled:aria-disabled',
-    'isSearching:aria-busy'
+    'isBusy:aria-busy'
   ],
+
   classNameBindings: [
     'isOpen',
     'isFocused',
@@ -57,5 +60,7 @@ export default Component.extend(...mixins, {
     'isMultiple',
     'isSearching',
     'isSlowSearch'
-  ]
+  ],
+
+  isBusy: or('isPending', 'isSearching')
 });

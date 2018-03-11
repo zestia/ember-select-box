@@ -61,6 +61,26 @@ module('select-box (promises)', function(hooks) {
     `);
   });
 
+  test('promise value (aria busy)', async function(assert) {
+    assert.expect(2);
+
+    const deferred = defer();
+
+    this.set('promise', deferred.promise);
+
+    await render(hbs`{{select-box value=promise}}`);
+
+    assert.ok(this.$('.select-box').get(0).hasAttribute('aria-busy'),
+      'select box has busy attribute when resolving promise');
+
+    deferred.resolve();
+
+    await settled();
+
+    assert.ok(!this.$('.select-box').get(0).hasAttribute('aria-busy'),
+      'select box no longer has busy attribute when promise has resolved');
+  });
+
   test('promise value (single)', async function(assert) {
     assert.expect(6);
 
