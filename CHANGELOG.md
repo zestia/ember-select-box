@@ -1,5 +1,9 @@
 # Changelog
 
+5.0.1
+
+* Improvements to aria attributes
+
 5.0.0
 
 * Option's yielded properties are now prefixed with `is`, e.g. `{{o.isSelected}}`
