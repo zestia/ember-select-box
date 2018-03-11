@@ -23,7 +23,7 @@
   "license": "MIT",
   "devDependencies": {
     "@zestia/ember-template-lint-plugin": "1.0.1",
-    "@zestia/eslint-config": "1.0.18",
+    "@zestia/eslint-config": "1.0.19",
     "@zestia/stylelint-config": "1.0.2",
     "broccoli-asset-rev": "2.6.0",
     "ember-cli-dependency-checker": "2.1.0",
