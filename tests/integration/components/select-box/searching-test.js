@@ -21,6 +21,19 @@ module('select-box (searching)', function(hooks) {
       'autocompletion off by default');
   });
 
+  test('aria role', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs `
+      {{#select-box as |sb|}}
+        {{sb.input}}
+      {{/select-box}}
+    `);
+
+    assert.equal(this.$('.select-box').attr('role'), 'combobox',
+      'a select box with an input has an appropriate aria role');
+  });
+
   test('searching (promise)', async function(assert) {
     assert.expect(1);
 

@@ -13,5 +13,6 @@ const mixins = [
 export default Component.extend(...mixins, {
   layout,
   classNameSuffix: 'options',
-  attributeBindings: ['aria-activedescendant']
+  attributeBindings: ['aria-activedescendant'],
+  ariaRole: 'listbox'
 });

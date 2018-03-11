@@ -66,8 +66,8 @@ module('select-box', function(hooks) {
 
     await render(hbs `{{select-box}}`);
 
-    assert.equal(this.$('.select-box').attr('role'), 'listbox',
-      'a select box has an appropriate aria role');
+    assert.equal(this.$('.select-box').attr('role'), undefined,
+      'select box has no aria role');
   });
 
   test('style', async function(assert) {

@@ -32,4 +32,13 @@ module('select-box/options', function(hooks) {
     assert.ok(this.$().html().match('style="color:red&amp;lt;script&amp;gt;"'),
       'options container can be styled, value is escaped');
   });
+
+  test('aria role', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs `{{select-box/options}}`);
+
+    assert.equal(this.$('.select-box-options').attr('role'), 'listbox',
+      'options container has an appropriate aria role');
+  });
 });

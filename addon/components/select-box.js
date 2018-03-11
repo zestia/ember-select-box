@@ -44,7 +44,6 @@ const mixins = [
 
 export default Component.extend(...mixins, {
   layout,
-  ariaRole: 'listbox',
   attributeBindings: [
     'aria-label',
     'isOpen:aria-expanded',
@@ -55,6 +54,7 @@ export default Component.extend(...mixins, {
     'isOpen',
     'isFocused',
     'isDisabled',
+    'isMultiple',
     'isSearching',
     'isSlowSearch'
   ]

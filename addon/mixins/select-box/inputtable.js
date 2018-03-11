@@ -2,11 +2,12 @@ import Mixin from '@ember/object/mixin';
 import { scheduleOnce } from '@ember/runloop';
 
 export default Mixin.create({
-  _overrideTabIndex() {
+  _configureAsCombobox() {
     if (this.get('isDestroyed')) {
       return;
     }
     this.set('tabIndex', -1);
+    this.set('ariaRole', 'combobox');
   },
 
   actions: {
@@ -26,7 +27,7 @@ export default Mixin.create({
 
     _registerInput() {
       this._super(...arguments);
-      scheduleOnce('afterRender', this, '_overrideTabIndex');
+      scheduleOnce('afterRender', this, '_configureAsCombobox');
     }
   }
 });
