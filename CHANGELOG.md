@@ -5,6 +5,8 @@
 * Improvements to aria attributes
   (Corrects listbox role. Adds combobox role when appropriate. Adds aria-busy)
 * Changes to mixin file locations
+* Exposes some test helpers for selecting values
+* Removes jQuery from test suite
 
 5.0.0
 
