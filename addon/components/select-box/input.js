@@ -12,7 +12,7 @@ export default Component.extend(...mixins, {
   tagName: 'input',
   type: '',
 
-  ariaRole: 'searchbox',
+  role: 'searchbox',
 
   attributeBindings: [
     'accept',
@@ -43,6 +43,7 @@ export default Component.extend(...mixins, {
     'placeholder',
     'readonly',
     'required',
+    'role',
     'selectionDirection',
     'size',
     'spellcheck',

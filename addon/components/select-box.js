@@ -54,6 +54,7 @@ export default Component.extend(...mixins, {
 
   attributeBindings: [
     'aria-label',
+    'role',
     'isOpen:aria-expanded',
     'isDisabled:aria-disabled',
     'isBusy:aria-busy'

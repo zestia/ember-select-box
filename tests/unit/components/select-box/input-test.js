@@ -38,6 +38,7 @@ module('select-box (input)', function(hooks) {
       'placeholder',
       'readonly',
       'required',
+      'role',
       'selectionDirection',
       'size',
       'spellcheck',

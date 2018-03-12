@@ -23,10 +23,11 @@ const mixins = [
 export default Component.extend(...mixins, {
   layout,
   classNameSuffix: 'option',
-  ariaRole: 'option',
+  role: 'option',
 
   attributeBindings: [
     'title',
+    'role',
     'isActive:aria-current',
     'isDisabled:aria-disabled',
     'isSelected:aria-selected',

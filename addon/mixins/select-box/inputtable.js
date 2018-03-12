@@ -7,7 +7,7 @@ export default Mixin.create({
       return;
     }
     this.set('tabIndex', -1);
-    this.set('ariaRole', 'combobox');
+    this.set('role', 'combobox');
   },
 
   actions: {
