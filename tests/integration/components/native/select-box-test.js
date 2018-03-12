@@ -2,9 +2,12 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, find, findAll, fillIn } from '@ember/test-helpers';
 import Component from '@ember/component';
-import { selectOptionsByValue, selectOptionsByLabel } from '../../../helpers/custom/select-options';
-import { getSelectBoxValue } from '../../../helpers/custom/get-select-box-value';
 import hbs from 'htmlbars-inline-precompile';
+import {
+  getNativeSelectBoxValue,
+  selectNativeOptionsByValue,
+  selectNativeOptionsByLabel
+} from '@zestia/ember-select-box/utils/select-box/test-helpers';
 
 module('select-box/native', function(hooks) {
   setupRenderingTest(hooks);
@@ -254,7 +257,7 @@ module('select-box/native', function(hooks) {
       {{/select-box/native}}
     `);
 
-    await selectOptionsByLabel('.select-box', ['Foo', 'Bar']);
+    await selectNativeOptionsByLabel('.select-box', ['Foo', 'Bar']);
   });
 
   test('manual selection (initial value)', async function(assert) {
@@ -287,12 +290,12 @@ module('select-box/native', function(hooks) {
       {{/select-box/native}}
     `);
 
-    assert.deepEqual(getSelectBoxValue('.select-box'), ['bar'],
+    assert.deepEqual(getNativeSelectBoxValue('.select-box'), ['bar'],
       'can manually specify a selected value');
 
     this.set('bazSelected', true);
 
-    assert.deepEqual(getSelectBoxValue('.select-box'), ['bar', 'baz'],
+    assert.deepEqual(getNativeSelectBoxValue('.select-box'), ['bar', 'baz'],
       'can manually select multiple values');
   });
 
@@ -335,7 +338,7 @@ module('select-box/native', function(hooks) {
       {{/select-box/native}}
     `);
 
-    await selectOptionsByValue('.select-box', ['Hello', 'World']);
+    await selectNativeOptionsByValue('.select-box', ['Hello', 'World']);
   });
 
   test('non-component options (mixed)', async function(assert) {
@@ -353,7 +356,7 @@ module('select-box/native', function(hooks) {
       {{/select-box/native}}
     `);
 
-    await selectOptionsByValue('.select-box', ['foo', 'bar']);
+    await selectNativeOptionsByValue('.select-box', ['foo', 'bar']);
   });
 
   test('initial update action', async function(assert) {

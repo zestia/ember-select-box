@@ -1,7 +1,16 @@
 import { find, triggerEvent } from '@ember/test-helpers';
 const { from } = Array;
 
-export function selectOptionsByValue(selector, values) {
+export function getNativeSelectBoxValue(selector) {
+  return from(find(selector).options).reduce((values, option) => {
+    if (option.selected) {
+      values.push(option.value);
+    }
+    return values;
+  }, []);
+}
+
+export function selectNativeOptionsByValue(selector, values) {
   from(find(selector).options).forEach(option => {
     if (values.includes(option.value)) {
       option.selected = true;
@@ -11,10 +20,8 @@ export function selectOptionsByValue(selector, values) {
   return triggerEvent(selector, 'change');
 }
 
-export function selectOptionsByLabel(selector, labels) {
-  const select = find(selector);
-
-  from(select.options).forEach(option => {
+export function selectNativeOptionsByLabel(selector, labels) {
+  from(find(selector).options).forEach(option => {
     if (labels.includes(option.textContent)) {
       option.selected = true;
     }
