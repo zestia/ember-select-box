@@ -10,7 +10,7 @@ export default Component.extend({
     this._super(...arguments);
 
     const label = this.get('element')
-      .querySelector('option:selected')
+      .querySelector('option:checked')
       .textContent
       .trim();
 
