@@ -4,6 +4,7 @@ import BaseSelectBox from '../../mixins/select-box/base';
 import Focusable from '../../mixins/select-box/focusable';
 import HasOptions from '../../mixins/select-box/registration/has-options';
 import Nameable from '../../mixins/general/nameable';
+const { from } = Array;
 
 const mixins = [
   BaseSelectBox,
@@ -54,8 +55,7 @@ export default Component.extend(...mixins, {
   },
 
   _getUnregisteredSelectedValues() {
-    return [].slice
-      .call(this.get('element').querySelectorAll('option:checked'))
+    return from(this.get('element').querySelectorAll('option:checked'))
       .map(option => option.value);
   }
 });
