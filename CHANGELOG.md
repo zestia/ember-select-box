@@ -3,6 +3,7 @@
 6.0.0
 
 * Improvements to aria attributes
+  (Corrects listbox role. Adds combobox role when appropriate. Adds aria-busy)
 * Changes to mixin file locations
 
 5.0.0
