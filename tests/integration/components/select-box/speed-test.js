@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled } from '@ember/test-helpers';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('select-box (speed)', function(hooks) {
@@ -18,9 +18,6 @@ module('select-box (speed)', function(hooks) {
     assert.expect(1);
 
     const start1 = Date.now();
-    let start2;
-    let end1;
-    let end2;
 
     await render(hbs`
       {{#select-box as |sb|}}
@@ -30,24 +27,21 @@ module('select-box (speed)', function(hooks) {
       {{/select-box}}
     `);
 
-    return settled().then(async() => {
-      end1 = Date.now() - start1;
-      start2 = Date.now();
+    const end1 = Date.now() - start1;
 
-      await render(hbs`
-        {{#select-box as |sb|}}
-          {{#each items as |item|}}
-            {{#sb.option value=item}}{{item}}{{/sb.option}}
-          {{/each}}
-        {{/select-box}}
-      `);
+    const start2 = Date.now();
 
-      return settled();
-    }).then(() => {
-      end2 = Date.now() - start2;
-    }).then(() => {
-      assert.ok(end1 < end2,
-        'renders faster with non-component options');
-    });
+    await render(hbs`
+      {{#select-box as |sb|}}
+        {{#each items as |item|}}
+          {{#sb.option value=item}}{{item}}{{/sb.option}}
+        {{/each}}
+      {{/select-box}}
+    `);
+
+    const end2 = Date.now() - start2;
+
+    assert.ok(end1 < end2,
+      'renders faster with non-component options');
   });
 });

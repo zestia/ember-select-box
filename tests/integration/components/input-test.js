@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, triggerKeyEvent } from '@ember/test-helpers';
+import { render, find, findAll, fillIn, triggerKeyEvent } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('select-box/input', function(hooks) {
@@ -11,7 +11,7 @@ module('select-box/input', function(hooks) {
 
     await render(hbs `{{select-box/input}}`);
 
-    assert.equal(this.$('input.select-box-input').length, 1,
+    assert.equal(findAll('input.select-box-input').length, 1,
       'renders with correct class name and tag');
   });
 
@@ -20,7 +20,7 @@ module('select-box/input', function(hooks) {
 
     await render(hbs `{{select-box/input class-prefix="foo"}}`);
 
-    assert.equal(this.$('.foo-input').length, 1,
+    assert.equal(findAll('.foo-input').length, 1,
       'can override the class prefix');
   });
 
@@ -29,7 +29,7 @@ module('select-box/input', function(hooks) {
 
     await render(hbs `{{select-box/input}}`);
 
-    assert.equal(this.$('.select-box-input').attr('role'), 'searchbox',
+    assert.equal(find('.select-box-input').getAttribute('role'), 'searchbox',
       'a select box input has an appropriate aria role');
   });
 
@@ -38,13 +38,13 @@ module('select-box/input', function(hooks) {
 
     await render(hbs `{{select-box/input}}`);
 
-    assert.ok(!this.$('.select-box-input').attr('type'),
+    assert.ok(!find('.select-box-input').getAttribute('type'),
       'select box inputs are not search boxes by default due to unwanted ' +
       'behaviour when you press escape');
 
     await render(hbs `{{select-box/input type="email"}}`);
 
-    assert.equal(this.$('.select-box-input').attr('type'), 'email',
+    assert.equal(find('.select-box-input').getAttribute('type'), 'email',
       'can change the type of the select box input');
   });
 
@@ -55,17 +55,17 @@ module('select-box/input', function(hooks) {
 
     await render(hbs `{{select-box/input value=myObj.value}}`);
 
-    const $input = this.$('.select-box-input');
+    const input = find('.select-box-input');
 
-    assert.equal($input.val(), 'foo',
+    assert.equal(input.value, 'foo',
       'can specify the initial value');
 
     this.set('myObj.value', 'bar');
 
-    assert.equal($input.val(), 'bar',
+    assert.equal(input.value, 'bar',
       'updating the value updates the text box value');
 
-    $input.val('baz').trigger('input').trigger('change');
+    await fillIn(input, 'baz');
 
     assert.equal(this.get('myObj.value'), 'bar',
       'changing the input value does not mutate the value attribute');
@@ -88,7 +88,7 @@ module('select-box/input', function(hooks) {
       {{/select-box}}
     `);
 
-    this.$('.select-box-input').val('foo').trigger('input');
+    await fillIn('.select-box-input', 'foo');
   });
 
   test('on-clear action', async function(assert) {
@@ -105,7 +105,7 @@ module('select-box/input', function(hooks) {
       {{/select-box}}
     `);
 
-    this.$('.select-box-input').val('').trigger('input');
+    await fillIn('.select-box-input', '');
   });
 
   test('on-delete action', async function(assert) {
@@ -126,7 +126,7 @@ module('select-box/input', function(hooks) {
       {{/select-box}}
     `);
 
-    const input = this.$('.select-box-input').get(0);
+    const input = find('.select-box-input');
 
     input.value = 'x';
 

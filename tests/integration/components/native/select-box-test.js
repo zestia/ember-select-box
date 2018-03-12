@@ -1,7 +1,9 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, find, findAll, fillIn } from '@ember/test-helpers';
 import Component from '@ember/component';
+import { selectOptionsByValue, selectOptionsByLabel } from '../../../helpers/custom/select-options';
+import { getSelectBoxValue } from '../../../helpers/custom/get-select-box-value';
 import hbs from 'htmlbars-inline-precompile';
 
 module('select-box/native', function(hooks) {
@@ -12,7 +14,7 @@ module('select-box/native', function(hooks) {
 
     await render(hbs `{{select-box/native}}`);
 
-    assert.equal(this.$('select.select-box').length, 1,
+    assert.equal(findAll('select.select-box').length, 1,
       'renders with correct class name and tag');
   });
 
@@ -21,7 +23,7 @@ module('select-box/native', function(hooks) {
 
     await render(hbs `{{select-box/native class-prefix="foo"}}`);
 
-    assert.equal(this.$('.foo').length, 1,
+    assert.equal(findAll('.foo').length, 1,
       'can override the class prefix');
 
     await render(hbs `
@@ -33,8 +35,8 @@ module('select-box/native', function(hooks) {
     `);
 
     assert.ok(
-      this.$('.foo-group').length === 1 &&
-      this.$('.foo-option').length === 1,
+      findAll('.foo-group').length === 1 &&
+      findAll('.foo-option').length === 1,
       'class prefix trickles down to children'
     );
   });
@@ -44,7 +46,7 @@ module('select-box/native', function(hooks) {
 
     await render(hbs `{{select-box/native name="foo"}}`);
 
-    assert.equal(this.$('.select-box').attr('name'), 'foo',
+    assert.equal(find('.select-box').getAttribute('name'), 'foo',
       'can set a name attribute');
   });
 
@@ -53,7 +55,7 @@ module('select-box/native', function(hooks) {
 
     await render(hbs `{{select-box/native title="foo"}}`);
 
-    assert.equal(this.$('.select-box').attr('title'), 'foo',
+    assert.equal(find('.select-box').getAttribute('title'), 'foo',
       'can set a title attribute');
   });
 
@@ -62,7 +64,7 @@ module('select-box/native', function(hooks) {
 
     await render(hbs `{{select-box/native aria-label="Something"}}`);
 
-    assert.equal(this.$('.select-box').attr('aria-label'), 'Something',
+    assert.equal(find('.select-box').getAttribute('aria-label'), 'Something',
       'setting the aria label works');
   });
 
@@ -71,7 +73,7 @@ module('select-box/native', function(hooks) {
 
     await render(hbs `{{select-box/native autofocus=true}}`);
 
-    assert.equal(this.$('.select-box').prop('autofocus'), true,
+    assert.ok(find('.select-box').hasAttribute('autofocus'),
       'can autofocus a native select box');
   });
 
@@ -80,7 +82,7 @@ module('select-box/native', function(hooks) {
 
     await render(hbs `{{select-box/native required=true}}`);
 
-    assert.equal(this.$('.select-box').prop('required'), true,
+    assert.ok(find('.select-box').hasAttribute('required'),
       'can set the required attribute');
   });
 
@@ -89,19 +91,19 @@ module('select-box/native', function(hooks) {
 
     await render(hbs `{{select-box/native}}`);
 
-    assert.ok(this.$('.select-box').not(':disabled'),
+    assert.ok(!find('.select-box').hasAttribute('disabled'),
       'enabled by default');
 
     this.set('isDisabled', true);
 
     await render(hbs `{{select-box/native disabled=isDisabled}}`);
 
-    assert.ok(this.$('.select-box').is(':disabled'),
+    assert.ok(find('.select-box').hasAttribute('disabled'),
       'can be disabled');
 
     this.set('isDisabled', false);
 
-    assert.ok(this.$('.select-box').not(':disabled'),
+    assert.ok(!find('.select-box').hasAttribute('disabled'),
       'can be re-enabled');
   });
 
@@ -110,12 +112,12 @@ module('select-box/native', function(hooks) {
 
     await render(hbs `{{select-box/native}}`);
 
-    assert.strictEqual(this.$('.select-box').attr('tabindex'), undefined,
+    assert.strictEqual(find('.select-box').getAttribute('tabindex'), null,
       'default tabindex');
 
     await render(hbs `{{select-box/native tabindex=5}}`);
 
-    assert.strictEqual(this.$('.select-box').attr('tabindex'), '5',
+    assert.strictEqual(find('.select-box').getAttribute('tabindex'), '5',
       'can specify a tabindex attribute');
   });
 
@@ -124,12 +126,12 @@ module('select-box/native', function(hooks) {
 
     await render(hbs `{{select-box/native}}`);
 
-    assert.strictEqual(this.$('.select-box').attr('size'), undefined,
+    assert.strictEqual(find('.select-box').getAttribute('size'), null,
       'default size');
 
     await render(hbs `{{select-box/native size=2}}`);
 
-    assert.strictEqual(this.$('.select-box').attr('size'), '2',
+    assert.strictEqual(find('.select-box').getAttribute('size'), '2',
       'can specify a size attribute');
   });
 
@@ -145,20 +147,20 @@ module('select-box/native', function(hooks) {
       {{/select-box/native}}
     `);
 
-    const $foo = this.$('.select-box-option[value="foo"]');
-    const $bar = this.$('.select-box-option[value="bar"]');
+    const foo = find('.select-box-option[value="foo"]');
+    const bar = find('.select-box-option[value="bar"]');
 
-    assert.ok($foo.is(':selected') && $bar.not(':selected'),
+    assert.ok(foo.selected && !bar.selected,
       'the option with the matching value is selected initially');
 
     this.set('selectedValue', 'bar');
 
-    assert.ok($foo.not(':selected') && $bar.is(':selected'),
+    assert.ok(!foo.selected && bar.selected,
       'changing the value causes the options to re-compute which is selected');
 
     this.set('selectedValue', null);
 
-    assert.ok($foo.is(':selected') && $bar.not(':selected'),
+    assert.ok(foo.selected && !bar.selected,
       'setting no value results in the first option being selected');
   });
 
@@ -182,7 +184,7 @@ module('select-box/native', function(hooks) {
       {{/select-box/native}}
     `);
 
-    this.$('.select-box').val('bar').trigger('change');
+    await fillIn('.select-box', 'bar');
 
     assert.strictEqual(this.get('initialSelectedValue'), null,
       'does not mutate the initial selected value');
@@ -190,7 +192,7 @@ module('select-box/native', function(hooks) {
     assert.equal(this.get('selectedValue'), 'bar',
       'sends an action with the selected value');
 
-    assert.ok(this.$('.select-box-option:eq(1)').is(':selected'),
+    assert.ok(findAll('.select-box-option')[1].selected,
       'renders the correct selected option');
   });
 
@@ -209,7 +211,7 @@ module('select-box/native', function(hooks) {
       {{/select-box/native}}
     `);
 
-    this.$('.select-box').val('foo').trigger('change');
+    await fillIn('.select-box', 'foo');
 
     assert.equal(this.get('selectedValue'), 'foo',
       'can be used with the mut helper');
@@ -230,30 +232,8 @@ module('select-box/native', function(hooks) {
 
     this.set('selectedValue', 'bar');
 
-    assert.equal(this.$('.select-box').val(), 'foo',
+    assert.equal(find('.select-box').value, 'foo',
       'value should not change');
-  });
-
-  test('multiple selection', async function(assert) {
-    assert.expect(2);
-
-    this.set('selected', value => {
-      assert.deepEqual(value, ['foo', 'bar'],
-        'sends an action with the values of the selected options');
-    });
-
-    await render(hbs`
-      {{#select-box/native multiple=true on-select=(action selected) as |sb|}}
-        {{sb.option value="foo"}}
-        {{sb.option value="bar"}}
-        {{sb.option value="baz"}}
-      {{/select-box/native}}
-    `);
-
-    this.$('.select-box').val(['foo', 'bar']).trigger('change');
-
-    assert.deepEqual(this.$('.select-box').val(), ['foo', 'bar'],
-      'the select box reports that the expected options are selected');
   });
 
   test('selecting non primitives', async function(assert) {
@@ -269,13 +249,12 @@ module('select-box/native', function(hooks) {
 
     await render(hbs`
       {{#select-box/native multiple=true on-select=(action selected) as |sb|}}
-        {{sb.option value=foo}}
-        {{sb.option value=bar}}
+        {{#sb.option value=foo}}Foo{{/sb.option}}
+        {{#sb.option value=bar}}Bar{{/sb.option}}
       {{/select-box/native}}
     `);
 
-    this.$('.select-box-option').prop('selected', true);
-    this.$('.select-box').trigger('change');
+    await selectOptionsByLabel('.select-box', ['Foo', 'Bar']);
   });
 
   test('manual selection (initial value)', async function(assert) {
@@ -291,7 +270,7 @@ module('select-box/native', function(hooks) {
       {{/select-box/native}}
     `);
 
-    assert.equal(this.$('.select-box').val(), 'bar',
+    assert.equal(find('.select-box').value, 'bar',
       'manually selected values take priority over the initial value');
   });
 
@@ -308,12 +287,12 @@ module('select-box/native', function(hooks) {
       {{/select-box/native}}
     `);
 
-    assert.deepEqual(this.$('.select-box').val(), ['bar'],
+    assert.deepEqual(getSelectBoxValue('.select-box'), ['bar'],
       'can manually specify a selected value');
 
     this.set('bazSelected', true);
 
-    assert.deepEqual(this.$('.select-box').val(), ['bar', 'baz'],
+    assert.deepEqual(getSelectBoxValue('.select-box'), ['bar', 'baz'],
       'can manually select multiple values');
   });
 
@@ -335,10 +314,10 @@ module('select-box/native', function(hooks) {
       {{/select-box/native}}
     `);
 
-    assert.equal(this.$('option:eq(0)').attr('value'), '[object Object]',
+    assert.equal(findAll('option')[0].getAttribute('value'), '[object Object]',
       'non primitive values are stringified');
 
-    this.$('.select-box').val('123').trigger('change');
+    await fillIn('.select-box', '123');
   });
 
   test('non-component options (multiple)', async function(assert) {
@@ -356,7 +335,7 @@ module('select-box/native', function(hooks) {
       {{/select-box/native}}
     `);
 
-    this.$('.select-box').val(['Hello', 'World']).trigger('change');
+    await selectOptionsByValue('.select-box', ['Hello', 'World']);
   });
 
   test('non-component options (mixed)', async function(assert) {
@@ -374,7 +353,7 @@ module('select-box/native', function(hooks) {
       {{/select-box/native}}
     `);
 
-    this.$('.select-box').val(['foo', 'bar']).trigger('change');
+    await selectOptionsByValue('.select-box', ['foo', 'bar']);
   });
 
   test('initial update action', async function(assert) {
@@ -382,7 +361,7 @@ module('select-box/native', function(hooks) {
 
     const layout = hbs`
       <div class="foo-select-display-label">
-        {{displayLabel}}
+        {{~displayLabel~}}
       </div>
       {{#select-box/native
         value=value
@@ -395,7 +374,12 @@ module('select-box/native', function(hooks) {
       layout,
       actions: {
         updateDisplayLabel() {
-          this.set('displayLabel', this.$('option:selected').text());
+          const label = this.get('element')
+            .querySelector('option:checked')
+            .textContent
+            .trim();
+
+          this.set('displayLabel', label);
         }
       }
     });
@@ -410,7 +394,7 @@ module('select-box/native', function(hooks) {
       {{/select-box/foo}}
     `);
 
-    assert.equal(this.$('.foo-select-display-label').text().trim(), 'Bar',
+    assert.equal(find('.foo-select-display-label').textContent, 'Bar',
       'regression test: the update action is fired after all options have rendered');
   });
 
@@ -427,7 +411,7 @@ module('select-box/native', function(hooks) {
       {{/select-box/native}}
     `);
 
-    this.$('.select-box').val('foo').trigger('change');
+    await fillIn('.select-box', 'foo');
 
     assert.equal(count, 0,
       'on-build-selection does not fire on native select components');
@@ -446,7 +430,7 @@ module('select-box/native', function(hooks) {
       {{/select-box/native}}
     `);
 
-    this.$('.select-box').val('foo').trigger('change');
+    await fillIn('.select-box', 'foo');
 
     assert.strictEqual(selectedValue, undefined,
       "'label' is not considered the option's value with component option");
@@ -457,7 +441,7 @@ module('select-box/native', function(hooks) {
       {{/select-box/native}}
     `);
 
-    this.$('.select-box').val('foo').trigger('change');
+    await fillIn('.select-box', 'foo');
 
     assert.strictEqual(selectedValue, 'foo',
       "'label' is considered the option's value with native element");
@@ -475,9 +459,9 @@ module('select-box/native', function(hooks) {
     `);
 
     assert.ok(
-      !this.$('.select-box-option:eq(0)').prop('selected') &&
-      !this.$('.select-box-option:eq(1)').prop('selected') &&
-      this.$('.select-box-option:eq(2)').prop('selected'),
+      !findAll('.select-box-option')[0].selected &&
+      !findAll('.select-box-option')[1].selected &&
+      findAll('.select-box-option')[2].selected,
       'single value native select considers the last option as the selected one');
   });
 });

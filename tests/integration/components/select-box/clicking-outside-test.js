@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('select-box (clicking outside)', function(hooks) {
@@ -22,17 +22,17 @@ module('select-box (clicking outside)', function(hooks) {
       {{/select-box}}
     `);
 
-    this.$('.select-box').trigger('click');
+    await click('.select-box');
 
     assert.equal(count, 0,
       'clicking the select box is not outside');
 
-    this.$('.inside').trigger('click');
+    await click('.inside');
 
     assert.equal(count, 0,
       'clicking inside the select box is not outside');
 
-    this.$('.outside').trigger('click');
+    await click('.outside');
 
     assert.equal(count, 1,
       'clicking outside the select box is outside');

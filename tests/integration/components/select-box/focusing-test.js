@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, find, triggerEvent } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('select-box (focusing)', function(hooks) {
@@ -10,7 +10,7 @@ module('select-box (focusing)', function(hooks) {
     assert.expect(3);
 
     const isFocused = () => {
-      return this.$('.select-box').hasClass('is-focused');
+      return find('.select-box').classList.contains('is-focused');
     };
 
     await render(hbs `{{select-box}}`);
@@ -18,12 +18,12 @@ module('select-box (focusing)', function(hooks) {
     assert.ok(!isFocused(),
       'precondition, not focused');
 
-    this.$('.select-box').trigger('focus');
+    await triggerEvent('.select-box', 'focus');
 
     assert.ok(isFocused(),
       'a focused select box has an appropriate class name');
 
-    this.$('.select-box').trigger('blur');
+    await triggerEvent('.select-box', 'blur');
 
     assert.ok(!isFocused(),
       'the focused class name is removed when the select box is blurred');
@@ -46,12 +46,12 @@ module('select-box (focusing)', function(hooks) {
       {{/select-box}}
     `);
 
-    this.$('button').trigger('focus');
+    await triggerEvent('button', 'focus');
 
     assert.ok(sentFocusIn, true,
       'sends a focus in action');
 
-    this.$('button').trigger('blur');
+    await triggerEvent('button', 'blur');
 
     assert.ok(sentFocusOut, true,
       'sends a focus out action');
@@ -61,7 +61,7 @@ module('select-box (focusing)', function(hooks) {
     assert.expect(4);
 
     const tabindex = () => {
-      return this.$('.select-box').attr('tabindex');
+      return find('.select-box').getAttribute('tabindex');
     };
 
     await render(hbs `{{select-box}}`);

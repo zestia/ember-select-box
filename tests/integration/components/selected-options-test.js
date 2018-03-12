@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, findAll } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('select-box/selected-options', function(hooks) {
@@ -11,7 +11,7 @@ module('select-box/selected-options', function(hooks) {
 
     await render(hbs `{{select-box/selected-options}}`);
 
-    assert.equal(this.$('div.select-box-selected-options').length, 1,
+    assert.equal(findAll('div.select-box-selected-options').length, 1,
       'renders with correct class name and tag');
   });
 
@@ -20,7 +20,7 @@ module('select-box/selected-options', function(hooks) {
 
     await render(hbs `{{select-box/selected-options class-prefix="foo"}}`);
 
-    assert.equal(this.$('.foo-selected-options').length, 1,
+    assert.equal(findAll('.foo-selected-options').length, 1,
       'can override the class prefix');
   });
 
@@ -29,7 +29,7 @@ module('select-box/selected-options', function(hooks) {
 
     await render(hbs `{{select-box/selected-options style="color:red<script>"}}`);
 
-    assert.ok(this.$().html().match('style="color:red&amp;lt;script&amp;gt;"'),
+    assert.ok(this.get('element').innerHTML.match('style="color:red&amp;lt;script&amp;gt;"'),
       'selected options container can be styled, value is escaped');
   });
 });

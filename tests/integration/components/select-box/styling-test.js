@@ -17,12 +17,12 @@ module('select-box (styling)', function(hooks) {
 
     await render(hbs `{{foo-select}}`);
 
-    assert.ok(!this.$().html().match('style'),
+    assert.ok(!this.get('element').innerHTML.match('style'),
       'style attribute is not present');
 
     await render(hbs `{{foo-select style="color:red<script>"}}`);
 
-    assert.ok(this.$().html().match('style="color:red&amp;lt;script&amp;gt;"'),
+    assert.ok(this.get('element').innerHTML.match('style="color:red&amp;lt;script&amp;gt;"'),
       'can be styled, value is escaped');
   });
 });

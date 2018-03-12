@@ -8,7 +8,13 @@ export default Component.extend({
 
   didRender() {
     this._super(...arguments);
-    this.set('displayLabel', this.$('option:selected').text().trim());
+
+    const label = this.get('element')
+      .querySelector('option:selected')
+      .textContent
+      .trim();
+
+    this.set('displayLabel', label);
   },
 
   actions: {

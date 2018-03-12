@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, find, findAll, triggerEvent, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('select-box (activating options)', function(hooks) {
@@ -18,34 +18,34 @@ module('select-box (activating options)', function(hooks) {
       {{/select-box}}
     `);
 
-    const $options = this.$('.select-box-options');
-    const $one = this.$('.select-box-option:eq(0)');
-    const $two = this.$('.select-box-option:eq(1)');
+    const options = find('.select-box-options');
+    const one = findAll('.select-box-option')[0];
+    const two = findAll('.select-box-option')[1];
 
-    assert.equal(this.$('.select-box-option.is-active').length, 0,
+    assert.equal(findAll('.select-box-option.is-active').length, 0,
       'precondition, there are no active options');
 
-    $one.trigger('mouseover');
+    await triggerEvent(one, 'mouseover');
 
-    assert.ok($one.hasClass('is-active'),
+    assert.ok(one.classList.contains('is-active'),
       'mousing over an option gives it an active class name');
 
-    const [id] = $options.attr('aria-activedescendant').match(/\d+/);
+    const [id] = options.getAttribute('aria-activedescendant').match(/\d+/);
 
     assert.ok(id,
       'active option id is added to the options container');
 
-    assert.equal(this.$('.select-box-option[aria-current]').text(), 'One',
+    assert.equal(find('.select-box-option[aria-current]').textContent, 'One',
       'receives an aria current attribute when active');
 
-    $two.trigger('mouseover');
+    await triggerEvent(two, 'mouseover');
 
-    const [nextID] = $options.attr('aria-activedescendant').match(/\d+/);
+    const [nextID] = options.getAttribute('aria-activedescendant').match(/\d+/);
 
     assert.notEqual(id, nextID,
       'the active descendant is updated');
 
-    assert.ok(!$one.hasClass('is-active') && $two.hasClass('is-active'),
+    assert.ok(!one.classList.contains('is-active') && two.classList.contains('is-active'),
       'mousing over another option moves the active class');
   });
 
@@ -67,6 +67,6 @@ module('select-box (activating options)', function(hooks) {
       {{/select-box}}
     `);
 
-    this.$('button').trigger('click');
+    await click('button');
   });
 });

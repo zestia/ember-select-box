@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('select-box (disabling)', function(hooks) {
@@ -10,7 +10,7 @@ module('select-box (disabling)', function(hooks) {
     assert.expect(4);
 
     const isDisabled = () => {
-      return this.$('.select-box').hasClass('is-disabled');
+      return find('.select-box').classList.contains('is-disabled');
     };
 
     await render(hbs `{{select-box}}`);
@@ -36,7 +36,7 @@ module('select-box (disabling)', function(hooks) {
       {{/select-box}}
     `);
 
-    assert.ok(this.$('.select-box-input').is(':disabled'),
+    assert.ok(find('.select-box-input').hasAttribute('disabled'),
       "a select box's input element is disabled if the select box is disabled");
   });
 
@@ -47,12 +47,12 @@ module('select-box (disabling)', function(hooks) {
 
     await render(hbs `{{select-box disabled=disabled}}`);
 
-    assert.ok(this.$('.select-box').get(0).hasAttribute('aria-disabled'),
+    assert.ok(find('.select-box').hasAttribute('aria-disabled'),
       'receives an aria disabled attribute when disabled');
 
     this.set('disabled', false);
 
-    assert.ok(!this.$('.select-box').get(0).hasAttribute('aria-disabled'),
+    assert.ok(!find('.select-box').hasAttribute('aria-disabled'),
       'aria disabled attribute is removed when enabled');
   });
 });

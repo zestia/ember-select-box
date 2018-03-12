@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, find, findAll } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import SelectBox from '@zestia/ember-select-box/components/select-box';
 import EmberArray, { A as emberA } from '@ember/array';
@@ -14,7 +14,7 @@ module('select-box', function(hooks) {
 
     await render(hbs `{{select-box}}`);
 
-    assert.equal(this.$('div.select-box').length, 1,
+    assert.equal(findAll('div.select-box').length, 1,
       'renders with correct class name and tag');
   });
 
@@ -35,15 +35,15 @@ module('select-box', function(hooks) {
       {{/select-box}}
     `);
 
-    assert.equal(this.$('.foo').length, 1);
-    assert.equal(this.$('.foo-input').length, 1);
-    assert.equal(this.$('.foo-options').length, 1);
-    assert.equal(this.$('.foo-selected-options').length, 1);
-    assert.equal(this.$('.foo-group').length, 1);
-    assert.equal(this.$('.foo-group-label').length, 1);
-    assert.equal(this.$('.foo-group-options').length, 1);
-    assert.equal(this.$('.foo-option').length, 1);
-    assert.equal(this.$('.foo-selected-option').length, 1);
+    assert.equal(findAll('.foo').length, 1);
+    assert.equal(findAll('.foo-input').length, 1);
+    assert.equal(findAll('.foo-options').length, 1);
+    assert.equal(findAll('.foo-selected-options').length, 1);
+    assert.equal(findAll('.foo-group').length, 1);
+    assert.equal(findAll('.foo-group-label').length, 1);
+    assert.equal(findAll('.foo-group-options').length, 1);
+    assert.equal(findAll('.foo-option').length, 1);
+    assert.equal(findAll('.foo-selected-option').length, 1);
   });
 
   test('extending with class prefix', async function(assert) {
@@ -57,7 +57,7 @@ module('select-box', function(hooks) {
 
     await render(hbs `{{select-box/foo}}`);
 
-    assert.ok(this.$('.foo').length, 1,
+    assert.ok(findAll('.foo').length, 1,
       'can set the class name prefix to create custom select boxes');
   });
 
@@ -66,7 +66,7 @@ module('select-box', function(hooks) {
 
     await render(hbs `{{select-box}}`);
 
-    assert.equal(this.$('.select-box').attr('role'), undefined,
+    assert.equal(find('.select-box').getAttribute('role'), undefined,
       'select box has no aria role');
   });
 
@@ -75,7 +75,7 @@ module('select-box', function(hooks) {
 
     await render(hbs `{{select-box style="color:red<script>"}}`);
 
-    assert.ok(this.$().html().match('style="color:red&amp;lt;script&amp;gt;"'),
+    assert.ok(find('.select-box').outerHTML.match('style="color:red&amp;lt;script&amp;gt;"'),
       'a select box can be styled, value is escaped');
   });
 
@@ -84,12 +84,12 @@ module('select-box', function(hooks) {
 
     await render(hbs `{{select-box}}`);
 
-    assert.ok(!this.$('.select-box').hasClass('is-multiple'),
+    assert.ok(!find('.select-box').classList.contains('is-multiple'),
       'no multiple class');
 
     await render(hbs `{{select-box multiple=true}}`);
 
-    assert.ok(this.$('.select-box').hasClass('is-multiple'),
+    assert.ok(find('.select-box').classList.contains('is-multiple'),
       'has multiple class');
   });
 
@@ -177,12 +177,12 @@ module('select-box', function(hooks) {
 
     await render(hbs `{{select-box on-init=(action initialised)}}`);
 
-    assert.ok(!this.$('.select-box').hasClass('is-open'),
+    assert.ok(!find('.select-box').classList.contains('is-open'),
       'precondition, not open');
 
     api.open();
 
-    assert.ok(this.$('.select-box').hasClass('is-open'),
+    assert.ok(find('.select-box').classList.contains('is-open'),
       'action is called with the api');
   });
 

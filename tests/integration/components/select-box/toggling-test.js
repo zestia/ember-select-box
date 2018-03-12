@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, find, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('select-box (toggling)', function(hooks) {
@@ -11,32 +11,32 @@ module('select-box (toggling)', function(hooks) {
 
     await render(hbs `{{select-box}}`);
 
-    let $selectBox = this.$('.select-box');
+    let selectBox = find('.select-box');
 
-    assert.ok(!$selectBox.hasClass('is-open'),
+    assert.ok(!selectBox.classList.contains('is-open'),
       'a select box is closed by default');
 
-    assert.ok(!$selectBox.get(0).hasAttribute('aria-expanded'),
+    assert.ok(!selectBox.hasAttribute('aria-expanded'),
       'not expanded by default');
 
     this.set('isOpen', true);
 
     await render(hbs `{{select-box is-open=isOpen}}`);
 
-    $selectBox = this.$('.select-box');
+    selectBox = find('.select-box');
 
-    assert.ok($selectBox.hasClass('is-open'),
+    assert.ok(selectBox.classList.contains('is-open'),
       'the initial open state can be set');
 
-    assert.ok($selectBox.get(0).hasAttribute('aria-expanded'),
+    assert.ok(selectBox.hasAttribute('aria-expanded'),
       'receives an aria-expanded attribute when open');
 
     this.set('isOpen', false);
 
-    assert.ok(!$selectBox.hasClass('is-open'),
+    assert.ok(!selectBox.classList.contains('is-open'),
       'the open state can be changed via an is-open attribute');
 
-    assert.ok(!$selectBox.get(0).hasAttribute('aria-expanded'),
+    assert.ok(!selectBox.hasAttribute('aria-expanded'),
       'open state is reflected as aria expanded attribute');
 
     await render(hbs `
@@ -46,12 +46,12 @@ module('select-box (toggling)', function(hooks) {
       {{/select-box}}
     `);
 
-    assert.ok(this.$('span').text().match(/Open: false/),
+    assert.ok(find('span').textContent.match(/Open: false/),
       'yields the open state when closed');
 
-    this.$('button').trigger('click');
+    await click('button');
 
-    assert.ok(this.$('span').text().match(/Open: true/),
+    assert.ok(find('span').textContent.match(/Open: true/),
       'yields the open state when open');
   });
 
@@ -67,7 +67,7 @@ module('select-box (toggling)', function(hooks) {
       {{/select-box}}
     `);
 
-    this.$('button:contains("open")').trigger('click');
+    await click('button');
 
     assert.strictEqual(opened, true,
       'sends an action when the select box is opened');
@@ -85,7 +85,7 @@ module('select-box (toggling)', function(hooks) {
       {{/select-box}}
     `);
 
-    this.$('button:contains("close")').trigger('click');
+    await click('button');
 
     assert.strictEqual(closed, true,
       'sends an action when the select box is opened');

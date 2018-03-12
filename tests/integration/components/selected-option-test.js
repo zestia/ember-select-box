@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, find, findAll } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('select-box/selected-option', function(hooks) {
@@ -11,7 +11,7 @@ module('select-box/selected-option', function(hooks) {
 
     await render(hbs `{{select-box/selected-option}}`);
 
-    assert.equal(this.$('div.select-box-selected-option').length, 1,
+    assert.equal(findAll('div.select-box-selected-option').length, 1,
       'renders with correct class name and tag');
   });
 
@@ -20,7 +20,7 @@ module('select-box/selected-option', function(hooks) {
 
     await render(hbs `{{select-box/selected-option class-prefix="foo"}}`);
 
-    assert.equal(this.$('.foo-selected-option').length, 1,
+    assert.equal(findAll('.foo-selected-option').length, 1,
       'can override the class prefix');
   });
 
@@ -29,7 +29,7 @@ module('select-box/selected-option', function(hooks) {
 
     await render(hbs `{{select-box/selected-option title="Foo"}}`);
 
-    assert.equal(this.$('.select-box-selected-option').attr('title'), 'Foo',
+    assert.equal(find('.select-box-selected-option').getAttribute('title'), 'Foo',
       'a selected option can have a title attribute');
   });
 
@@ -38,7 +38,7 @@ module('select-box/selected-option', function(hooks) {
 
     await render(hbs `{{select-box/selected-option style="color:red<script>"}}`);
 
-    assert.ok(this.$().html().match('style="color:red&amp;lt;script&amp;gt;"'),
+    assert.ok(this.get('element').innerHTML.match('style="color:red&amp;lt;script&amp;gt;"'),
       'a selected option can be styled, value is escaped');
   });
 
@@ -61,8 +61,8 @@ module('select-box/selected-option', function(hooks) {
     `);
 
     assert.ok(
-      this.$('.select-box-selected-option:eq(0)').text() === 'Foo (0)' &&
-      this.$('.select-box-selected-option:eq(1)').text() === 'Bar (1)',
+      findAll('.select-box-selected-option')[0].textContent === 'Foo (0)' &&
+      findAll('.select-box-selected-option')[1].textContent === 'Bar (1)',
       'selected options can yield their label, value & index'
     );
   });

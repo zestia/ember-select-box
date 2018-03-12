@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, findAll } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import Model from 'ember-data/model';
 import attr from 'ember-data/attr';
@@ -71,7 +71,7 @@ module('select-box (ember data)', function(hooks) {
       {{/select-box}}
     `);
 
-    assert.equal(this.$('.select-box-option.is-selected').length, 5);
-    assert.equal(this.$('.select-box-option:not(.is-selected)').length, 5);
+    assert.equal(findAll('.select-box-option.is-selected').length, 5);
+    assert.equal(findAll('.select-box-option:not(.is-selected)').length, 5);
   });
 });

@@ -63,9 +63,9 @@
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@zestia/ember-template-lint-plugin/-/ember-template-lint-plugin-1.0.1.tgz#edf6e90be527357b3aff1ae6c7f9808bdbac96f3"
 
-"@zestia/eslint-config@1.0.19":
-  version "1.0.19"
-  resolved "https://registry.yarnpkg.com/@zestia/eslint-config/-/eslint-config-1.0.19.tgz#4a009500e2befc72aea1d2440ddca32a66dc5db0"
+"@zestia/eslint-config@1.0.21":
+  version "1.0.21"
+  resolved "https://registry.yarnpkg.com/@zestia/eslint-config/-/eslint-config-1.0.21.tgz#d693daed110626317b494889602f1c310b802388"
   dependencies:
     eslint-plugin-ember "^5.0.3"
     eslint-plugin-node "^5.2.1"
@@ -2007,8 +2007,8 @@ colors@1.0.3:
   resolved "https://registry.yarnpkg.com/colors/-/colors-1.0.3.tgz#0433f44d809680fdeb60ed260f1b0c262e82a40b"
 
 colors@^1.1.2:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/colors/-/colors-1.2.0.tgz#24ec7283fcc91557801b22521e4619fedc7ca306"
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/colors/-/colors-1.2.1.tgz#f4a3d302976aaf042356ba1ade3b1a2c62d9d794"
 
 combined-stream@^1.0.5, combined-stream@~1.0.5:
   version "1.0.6"
