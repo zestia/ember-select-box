@@ -366,6 +366,21 @@ module('select-box (selecting)', function(hooks) {
   test('with disabled options', async function(assert) {
     assert.expect(5);
 
+    /**
+     * Native select boxes do not allow selecting of disabled options.
+     * Faux select boxes also do not allow disabled options to be selected.
+     * However, their options will still be flagged as selected if the value
+     * matches the selected value. This is intentional. The reason is because
+     * it's the option component itself that is disabled, not the value.
+     * This allows for greater flexibility when building custom select boxes,
+     * Most of the time, you will get the behaviour you want, and that is to
+     * prevent the user from selecting an option. But, you can also style
+     * a state where a select box is displaying options that were selected,
+     * but some of which are both selected and disabled. e.g:
+     * A user, flagged as selected, but also disabled because they've already
+     * been selected, thereby preventing them from being selected again.
+     */
+
     let selected = 0;
     let lastSelectedValue;
 
