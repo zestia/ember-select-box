@@ -4,7 +4,7 @@ import { render, find, findAll, fillIn } from '@ember/test-helpers';
 import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 import {
-  getNativeSelectBoxValue,
+  getNativeMultipleSelectBoxValue,
   selectNativeOptionsByValue,
   selectNativeOptionsByLabel
 } from '@zestia/ember-select-box/utils/select-box/test-helpers';
@@ -290,12 +290,12 @@ module('select-box/native', function(hooks) {
       {{/select-box/native}}
     `);
 
-    assert.deepEqual(getNativeSelectBoxValue('.select-box'), ['bar'],
+    assert.deepEqual(getNativeMultipleSelectBoxValue('.select-box'), ['bar'],
       'can manually specify a selected value');
 
     this.set('bazSelected', true);
 
-    assert.deepEqual(getNativeSelectBoxValue('.select-box'), ['bar', 'baz'],
+    assert.deepEqual(getNativeMultipleSelectBoxValue('.select-box'), ['bar', 'baz'],
       'can manually select multiple values');
   });
 

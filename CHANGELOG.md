@@ -1,5 +1,9 @@
 # Changelog
 
+6.0.1
+
+* Fixes test helpers that select multiple options
+
 6.0.0
 
 * Improvements to aria attributes
