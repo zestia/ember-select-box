@@ -19,11 +19,13 @@ export default Mixin.create({
 
     if (this.get('isMultiple') && !isArray(value1)) {
       const temp = emberA(from(value2));
+
       if (temp.includes(value1)) {
         temp.removeObject(value1);
       } else {
         temp.addObject(value1);
       }
+
       value = temp.toArray();
     }
 

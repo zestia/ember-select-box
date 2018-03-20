@@ -22,18 +22,21 @@ export default Controller.extend({
     tag(name) {
       const selectedTags = this.get('selectedTags');
       let tag = selectedTags.findBy('name', name);
+
       if (!tag) {
         tag = {
           id: this.get('maxTagID') + 1,
           name
         };
       }
+
       selectedTags.addObject(tag);
     },
 
     detag(name) {
       const selectedTags = this.get('selectedTags');
       const tag = selectedTags.findBy('name', name);
+
       if (tag) {
         selectedTags.removeObject(tag);
       }

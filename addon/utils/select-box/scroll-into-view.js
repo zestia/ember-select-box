@@ -12,6 +12,7 @@ function _getScrollParent(element) {
   if (!element) {
     return;
   }
+
   if (element.scrollHeight > element.clientHeight) {
     return element;
   } else {

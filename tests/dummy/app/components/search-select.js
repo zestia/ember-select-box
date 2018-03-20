@@ -14,6 +14,7 @@ export default Component.extend({
       if (!results.length) {
         this.set('lastQuery', query);
       }
+
       sb.open();
     }
   }

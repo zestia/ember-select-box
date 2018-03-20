@@ -120,6 +120,7 @@ module('select-box', function(hooks) {
 
     this.set('updated', value => {
       count++;
+
       if (count === 2) {
         assert.strictEqual(value, 'bar',
           'fires an update action when the value changes');

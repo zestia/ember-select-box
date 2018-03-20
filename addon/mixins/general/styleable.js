@@ -9,6 +9,7 @@ export default Mixin.create({
 
   customCSS: computed('style', function() {
     const css = this.get('style');
+
     if (css) {
       return htmlSafe(escapeExpression(css));
     }

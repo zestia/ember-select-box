@@ -6,6 +6,7 @@ export function getNativeMultipleSelectBoxValue(selector) {
     if (option.selected) {
       values.push(option.value);
     }
+
     return values;
   }, []);
 }

@@ -19,6 +19,7 @@ export default Mixin.create({
     if (this.get('isDestroyed')) {
       return;
     }
+
     this.clickDocument(...arguments);
   }
 });

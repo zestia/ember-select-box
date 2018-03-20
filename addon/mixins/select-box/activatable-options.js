@@ -11,10 +11,12 @@ export default Mixin.create({
   _activateOptionAtIndex(index, scroll) {
     const under = index < 0;
     const over  = index > this.get('options.length') - 1;
+
     if (!(under || over)) {
       this.set('activeOptionIndex', index);
       this._activatedOption();
     }
+
     if (scroll) {
       this._scrollActiveOptionIntoView();
     }
@@ -22,6 +24,7 @@ export default Mixin.create({
 
   _activatedOption() {
     const activeOption = this.get('activeOption');
+
     if (activeOption) {
       activeOption.send('_activated');
     }

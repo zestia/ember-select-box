@@ -49,6 +49,7 @@ export default Mixin.create({
       if (this.get('isMultiple')) {
         return all(makeArray(value));
       }
+
       return value;
     });
   },

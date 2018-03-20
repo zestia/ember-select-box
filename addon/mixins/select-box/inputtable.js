@@ -6,6 +6,7 @@ export default Mixin.create({
     if (this.get('isDestroyed')) {
       return;
     }
+
     this.set('tabIndex', -1);
     this.set('role', 'combobox');
   },

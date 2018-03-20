@@ -21,6 +21,7 @@ export default Mixin.create({
     if (this.get('isDestroyed')) {
       return;
     }
+
     this.set('api.element', this.get('element'));
   },
 
@@ -28,6 +29,7 @@ export default Mixin.create({
     if (this.get('isDestroyed')) {
       return;
     }
+
     this.set('api.value', this.get('internalValue'));
   },
 

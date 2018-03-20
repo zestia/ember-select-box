@@ -7,6 +7,7 @@ export default Mixin.create({
       if (this.get('input')) {
         assert('select-box can only have 1 input', !this.get('input'));
       }
+
       this.set('input', input);
     },
 

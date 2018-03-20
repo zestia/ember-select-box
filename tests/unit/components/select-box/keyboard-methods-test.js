@@ -18,9 +18,11 @@ module('select-box (keyboard methods)', function(hooks) {
 
       const options = keys(eventKeys).reduce((options, key) => {
         const methodName = `press${capitalize(eventKeys[key])}`;
+
         options[methodName] = () => {
           called.push(methodName);
         };
+
         return options;
       }, {});
 
