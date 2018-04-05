@@ -8,7 +8,6 @@ import {
   findAll,
   triggerEvent,
   triggerKeyEvent,
-  settled,
   waitUntil,
   getSettledState
 } from '@ember/test-helpers';
