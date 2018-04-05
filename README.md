@@ -256,7 +256,7 @@ ember install @zestia/ember-select-box
   </tr>
   <tr>
     <td>sb.activateOptionForKeyCode</td>
-    <td>Mimics native select box behaviour by jumping to an appopriate option based on the `textContent` of the options</td>
+    <td>Mimics native select box behaviour by jumping to an appopriate option based on the <code>textContent</code> of the options. [Demo](https://zestia.github.io/ember-select-box/#/simple-select)</td>
   </tr>
   <tr>
     <td>sb.deactivateOptions</td>
