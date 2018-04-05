@@ -73,7 +73,7 @@ export default Component.extend(...mixins, {
   keyDown(e) {
     this._super(...arguments);
 
-    if (e.which === 8 && !this.get('element.value')) {
+    if (e.keyCode === 8 && !this.get('element.value')) {
       invokeAction(this, 'on-delete', this.get('-parent-api'));
     }
   }

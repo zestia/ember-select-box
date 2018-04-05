@@ -49,6 +49,7 @@ export default Mixin.create({
       'activateOptionAtIndex',
       'activateNextOption',
       'activatePreviousOption',
+      'activateOptionForKeyCode',
       'deactivateOptions',
       'activateSelectedOptionAtIndex',
       'activateNextSelectedOption',

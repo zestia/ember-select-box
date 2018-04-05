@@ -8,12 +8,12 @@ export default Component.extend({
   actions: {
     pressedUp(e, sb) {
       e.preventDefault();
-      sb.activatePreviousOption(true);
+      sb.activatePreviousOption();
     },
 
     pressedDown(e, sb) {
       e.preventDefault();
-      sb.activateNextOption(true);
+      sb.activateNextOption();
       sb.open();
     },
 

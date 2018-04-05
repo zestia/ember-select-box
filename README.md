@@ -159,6 +159,10 @@ ember install @zestia/ember-select-box
     <td>Fired when focus leaves the select box</td>
   </tr>
   <tr>
+    <td>on-press-key</td>
+    <td>Useful because using `keyDown` would overwrite the component's method, which is a bit of an Ember flaw. Can also can be used for this use-case: `sb.activateOptionForKeyCode(e.keyCode)`</td>
+  </tr>
+  <tr>
     <td>on-press-backspace</td>
     <td></td>
   </tr>
@@ -249,6 +253,10 @@ ember install @zestia/ember-select-box
   <tr>
     <td>sb.activatePreviousOption</td>
     <td>As above but reverse</td>
+  </tr>
+  <tr>
+    <td>sb.activateOptionForKeyCode</td>
+    <td>Mimics native select box behaviour by jumping to an appopriate option based on the `textContent` of the options</td>
   </tr>
   <tr>
     <td>sb.deactivateOptions</td>

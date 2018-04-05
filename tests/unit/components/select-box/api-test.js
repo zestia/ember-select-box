@@ -32,6 +32,7 @@ module('select-box (api)', function(hooks) {
       'activateOptionAtIndex',
       'activateNextOption',
       'activatePreviousOption',
+      'activateOptionForKeyCode',
       'deactivateOptions',
       'activateSelectedOptionAtIndex',
       'activateNextSelectedOption',

@@ -21,7 +21,9 @@ export default Mixin.create({
   },
 
   _keyPressAction(e) {
-    const key = keys[e.which];
+    invokeAction(this, `on-press-key`, e, this.get('api'));
+
+    const key = keys[e.keyCode];
 
     if (!key) {
       return;
@@ -31,7 +33,7 @@ export default Mixin.create({
   },
 
   _keyPressMethod(e) {
-    const key = capitalize(keys[e.which] || '');
+    const key = capitalize(keys[e.keyCode] || '');
 
     if (!key) {
       return;

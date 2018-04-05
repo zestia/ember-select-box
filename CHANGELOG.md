@@ -1,5 +1,16 @@
 # Changelog
 
+6.0.2
+
+* `activateNextOption` and `activatePreviousOption` default to scrolling the parent element.
+So there is no longer the requirement to pass in `true`, like `sb.activateNextOption(true)`. But,
+you can of course send in false if you don't want this behaviour.
+
+* Adds a new API function `activateOptionForKeyCode` which will make your select box behave more
+like a native selectbox, in that by typing characters an appropriate option will be activated.
+It will not be appropriate to use this feature if the selectbox also has an input field as the
+behaviours will likely conflict.
+
 6.0.1
 
 * Fixes test helpers that select multiple options

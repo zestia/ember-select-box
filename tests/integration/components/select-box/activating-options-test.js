@@ -1,7 +1,17 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, find, findAll, triggerEvent, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import {
+  render,
+  click,
+  find,
+  findAll,
+  triggerEvent,
+  triggerKeyEvent,
+  settled,
+  waitUntil,
+  getSettledState
+} from '@ember/test-helpers';
 
 module('select-box (activating options)', function(hooks) {
   setupRenderingTest(hooks);
@@ -68,5 +78,127 @@ module('select-box (activating options)', function(hooks) {
     `);
 
     await click('button');
+  });
+
+  test('activation boundaries', async function(assert) {
+    assert.expect(8);
+
+    this.set('navigateDown', (e, sb) => {
+      sb.activateNextOption();
+    });
+
+    this.set('navigateUp', (e, sb) => {
+      sb.activatePreviousOption();
+    });
+
+    await render(hbs`
+      {{#select-box
+        on-press-down=(action navigateDown)
+        on-press-up=(action navigateUp) as |sb|}}
+        {{#sb.option value=1}}One{{/sb.option}}
+        {{#sb.option value=2}}Two{{/sb.option}}
+        {{#sb.option value=3}}Three{{/sb.option}}
+      {{/select-box}}
+    `);
+
+    assert.ok(!find('.select-box-option.is-active'),
+      'precondition: nothing active');
+
+    await triggerKeyEvent('.select-box', 'keydown', 40);
+
+    assert.equal(find('.select-box-option.is-active').textContent, 'One');
+
+    await triggerKeyEvent('.select-box', 'keydown', 40);
+
+    assert.equal(find('.select-box-option.is-active').textContent, 'Two');
+
+    await triggerKeyEvent('.select-box', 'keydown', 40);
+
+    assert.equal(find('.select-box-option.is-active').textContent, 'Three');
+
+    await triggerKeyEvent('.select-box', 'keydown', 40);
+
+    assert.equal(find('.select-box-option.is-active').textContent, 'Three',
+      'does not cycle back to the beginning when reaching the end');
+
+    await triggerKeyEvent('.select-box', 'keydown', 38);
+
+    assert.equal(find('.select-box-option.is-active').textContent, 'Two');
+
+    await triggerKeyEvent('.select-box', 'keydown', 38);
+
+    assert.equal(find('.select-box-option.is-active').textContent, 'One');
+
+    await triggerKeyEvent('.select-box', 'keydown', 38);
+
+    assert.equal(find('.select-box-option.is-active').textContent, 'One',
+      'does not cycle back to the end when reaching the beginning');
+  });
+
+  test('cycling through options', async function(assert) {
+    assert.expect(4);
+
+    function settled() {
+      return waitUntil(() => getSettledState().hasRunLoop === false);
+    }
+
+    this.set('autoActivate', (e, sb) => {
+      sb.activateOptionForKeyCode(e.keyCode);
+    });
+
+    await render(hbs`
+      {{#select-box on-press-key=(action autoActivate) as |sb|}}
+        {{#sb.option value="foo"}}Foo{{/sb.option}}
+        {{#sb.option value="bar"}}Bar{{/sb.option}}
+        {{#sb.option value="baz"}}Baz{{/sb.option}}
+      {{/select-box}}
+    `);
+
+    triggerKeyEvent('.select-box', 'keydown', 66);
+
+    await settled();
+
+    assert.equal(find('.select-box-option.is-active').textContent, 'Bar');
+
+    triggerKeyEvent('.select-box', 'keydown', 66);
+
+    await settled();
+
+    assert.equal(find('.select-box-option.is-active').textContent, 'Baz');
+
+    triggerKeyEvent('.select-box', 'keydown', 66);
+
+    await settled();
+
+    assert.equal(find('.select-box-option.is-active').textContent, 'Bar');
+
+    triggerKeyEvent('.select-box', 'keydown', 66);
+
+    await settled();
+
+    assert.equal(find('.select-box-option.is-active').textContent, 'Baz');
+  });
+
+  test('jumping to an option', async function(assert) {
+    assert.expect(1);
+
+    this.set('autoActivate', (e, sb) => {
+      sb.activateOptionForKeyCode(e.keyCode);
+    });
+
+    await render(hbs`
+      {{#select-box on-press-key=(action autoActivate) as |sb|}}
+        {{#sb.option value="foo"}}Foo{{/sb.option}}
+        {{#sb.option value="bar"}}Bar{{/sb.option}}
+        {{#sb.option value="baz"}}Baz{{/sb.option}}
+      {{/select-box}}
+    `);
+
+    triggerKeyEvent('.select-box', 'keydown', 66);
+    triggerKeyEvent('.select-box', 'keydown', 65);
+    await triggerKeyEvent('.select-box', 'keydown', 90);
+
+    assert.equal(find('.select-box-option.is-active').textContent, 'Baz',
+      'jumps straight to the matching option');
   });
 });

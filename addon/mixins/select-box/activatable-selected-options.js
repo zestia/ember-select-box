@@ -8,7 +8,7 @@ export default Mixin.create({
     this._deactivateSelectedOptions();
   },
 
-  _activateSelectedOptionAtIndex(index, scroll) {
+  _activateSelectedOptionAtIndex(index, scroll = true) {
     const under = index < 0;
     const over  = index > this.get('selectedOptions.length') - 1;
 

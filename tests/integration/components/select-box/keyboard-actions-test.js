@@ -9,13 +9,16 @@ module('select-box (keyboard actions)', function(hooks) {
   setupRenderingTest(hooks);
 
   test('keyboard actions', async function(assert) {
-    assert.expect(1);
+    assert.expect(2);
 
     const called = [];
+    let pressedKey = 0;
 
     this.set('ranAction', name => called.push(name));
+    this.set('pressedKey', () => pressedKey++);
 
     await render(hbs `{{select-box
+      on-press-key=(action pressedKey)
       on-press-backspace=(action ranAction "backspace")
       on-press-tab=(action ranAction "tab")
       on-press-enter=(action ranAction "enter")
@@ -42,5 +45,9 @@ module('select-box (keyboard actions)', function(hooks) {
       'right',
       'down'
     ], 'calls actions named that of the key that was pressed');
+
+    assert.equal(pressedKey, 8,
+      'sends a generic key press action whenever a key is pressed to avoid clash ' +
+      'when using keyDown=(action) which would wipeout functionality');
   });
 });

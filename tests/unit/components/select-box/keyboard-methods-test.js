@@ -29,7 +29,7 @@ module('select-box (keyboard methods)', function(hooks) {
       const component = TestComponent.create(options);
 
       keys(eventKeys).forEach(key => {
-        component.keyDown({ which: key });
+        component.keyDown({ keyCode: key });
       });
     });
 
