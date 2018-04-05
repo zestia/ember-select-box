@@ -37,7 +37,7 @@ export default Mixin.create({
     let options;
     let option;
 
-    if (!lastChar || lastChar === char) {
+    if (lastChar && lastChar === char) {
       options = this._findOptionsMatchingChars(char);
       option = options[index];
     } else {
