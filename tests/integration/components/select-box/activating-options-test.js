@@ -9,7 +9,8 @@ import {
   triggerEvent,
   triggerKeyEvent,
   waitUntil,
-  getSettledState
+  getSettledState,
+  settled
 } from '@ember/test-helpers';
 
 module('select-box (activating options)', function(hooks) {
@@ -135,9 +136,9 @@ module('select-box (activating options)', function(hooks) {
   });
 
   test('cycling through options', async function(assert) {
-    assert.expect(4);
+    assert.expect(5);
 
-    function settled() {
+    function _settled() {
       return waitUntil(() => getSettledState().hasRunLoop === false);
     }
 
@@ -153,33 +154,39 @@ module('select-box (activating options)', function(hooks) {
       {{/select-box}}
     `);
 
-    triggerKeyEvent('.select-box', 'keydown', 66);
+    triggerKeyEvent('.select-box', 'keydown', 66);  // B
 
-    await settled();
+    await _settled();
 
     assert.equal(find('.select-box-option.is-active').textContent, 'Bar');
 
-    triggerKeyEvent('.select-box', 'keydown', 66);
+    triggerKeyEvent('.select-box', 'keydown', 66);  // B
+
+    await _settled();
+
+    assert.equal(find('.select-box-option.is-active').textContent, 'Baz');
+
+    triggerKeyEvent('.select-box', 'keydown', 66);  // B
+
+    await _settled();
+
+    assert.equal(find('.select-box-option.is-active').textContent, 'Bar');
+
+    triggerKeyEvent('.select-box', 'keydown', 66);  // B
 
     await settled();
 
     assert.equal(find('.select-box-option.is-active').textContent, 'Baz');
 
-    triggerKeyEvent('.select-box', 'keydown', 66);
+    triggerKeyEvent('.select-box', 'keydown', 70);  // F
 
-    await settled();
+    await _settled();
 
-    assert.equal(find('.select-box-option.is-active').textContent, 'Bar');
-
-    triggerKeyEvent('.select-box', 'keydown', 66);
-
-    await settled();
-
-    assert.equal(find('.select-box-option.is-active').textContent, 'Baz');
+    assert.equal(find('.select-box-option.is-active').textContent, 'Foo');
   });
 
   test('jumping to an option', async function(assert) {
-    assert.expect(1);
+    assert.expect(2);
 
     this.set('autoActivate', (e, sb) => {
       sb.activateOptionForKeyCode(e.keyCode);
@@ -193,11 +200,15 @@ module('select-box (activating options)', function(hooks) {
       {{/select-box}}
     `);
 
-    triggerKeyEvent('.select-box', 'keydown', 66);
-    triggerKeyEvent('.select-box', 'keydown', 65);
-    await triggerKeyEvent('.select-box', 'keydown', 90);
+    triggerKeyEvent('.select-box', 'keydown', 66); // B
+    triggerKeyEvent('.select-box', 'keydown', 65); // A
+    await triggerKeyEvent('.select-box', 'keydown', 90); // Z
 
     assert.equal(find('.select-box-option.is-active').textContent, 'Baz',
       'jumps straight to the matching option');
+
+    await triggerKeyEvent('.select-box', 'keydown', 70); // F
+
+    assert.equal(find('.select-box-option.is-active').textContent, 'Foo');
   });
 });
