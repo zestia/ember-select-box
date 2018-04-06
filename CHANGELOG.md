@@ -7,9 +7,9 @@ So there is no longer the requirement to pass in `true`, like `sb.activateNextOp
 you can of course send in false if you don't want this behaviour.
 
 * Adds a new API function `activateOptionForKeyCode` which will make your select box behave more
-like a native selectbox, in that by typing characters an appropriate option will be activated.
-It will not be appropriate to use this feature if the selectbox also has an input field as the
-behaviours will likely conflict.
+like a native selectbox, in that by typing characters an option whose `textContent` matches will be
+activated. It may not be suitable to use this feature if the selectbox also has an input field as the
+behaviours will likely conflict, but this will depend on your usecase.
 
 6.0.1
 
