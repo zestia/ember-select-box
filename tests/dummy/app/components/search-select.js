@@ -11,10 +11,7 @@ export default Component.extend({
     },
 
     searched(results, query, sb) {
-      if (!results.length) {
-        this.set('lastQuery', query);
-      }
-
+      this.set('lastQuery', query);
       sb.open();
     }
   }

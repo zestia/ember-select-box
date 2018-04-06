@@ -28,7 +28,7 @@ export default Controller.extend({
     return new Promise(resolve => {
       later(() => {
         resolve(bread);
-      }, 2000);
+      }, 1000);
     });
   }
 });
