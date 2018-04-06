@@ -1,3 +1,8 @@
+<p>
+  Demonstration of a select-box component, but using HTML &lt;option&gt; instead of \{{option}} component options.<br>
+  Which can be faster because constructing components is expensive.
+</p>
+
 {{#select-box/native on-select=(action "selectModelId")}}
   {{#each options as |option|}}
     {{! Intentionally does not use sb.option }}
