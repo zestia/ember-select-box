@@ -185,7 +185,7 @@ module('select-box (activating options)', function(hooks) {
     assert.equal(find('.select-box-option.is-active').textContent, 'Foo');
   });
 
-  test('jumping to an option', async function(assert) {
+  test('jumping to an option (alpha)', async function(assert) {
     assert.expect(2);
 
     this.set('autoActivate', (e, sb) => {
@@ -210,5 +210,32 @@ module('select-box (activating options)', function(hooks) {
     await triggerKeyEvent('.select-box', 'keydown', 70); // F
 
     assert.equal(find('.select-box-option.is-active').textContent, 'Foo');
+  });
+
+  test('jumping to an option (numeric)', async function(assert) {
+    assert.expect(1);
+
+    this.set('autoActivate', (e, sb) => {
+      sb.activateOptionForKeyCode(e.keyCode);
+    });
+
+    await render(hbs`
+      {{#select-box on-press-key=(action autoActivate) as |sb|}}
+        {{#sb.option value=1980}}1980{{/sb.option}}
+        {{#sb.option value=1981}}1981{{/sb.option}}
+        {{#sb.option value=1982}}1982{{/sb.option}}
+        {{#sb.option value=1983}}1983{{/sb.option}}
+        {{#sb.option value=1984}}1984{{/sb.option}}
+        {{#sb.option value=1985}}1985{{/sb.option}}
+      {{/select-box}}
+    `);
+
+    triggerKeyEvent('.select-box', 'keydown', 49); // 1
+    triggerKeyEvent('.select-box', 'keydown', 57); // 9
+    triggerKeyEvent('.select-box', 'keydown', 56); // 8
+    await triggerKeyEvent('.select-box', 'keydown', 51); // 3
+
+    assert.equal(find('.select-box-option.is-active').textContent, '1983',
+      'jumps straight to the matching option');
   });
 });
