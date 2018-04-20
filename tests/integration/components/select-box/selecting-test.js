@@ -626,6 +626,8 @@ module('select-box (selecting)', function(hooks) {
 
     sb.selectActiveOption();
 
+    await settled();
+
     assert.equal(selectedValue, 'bar',
       'can select the active option via the api');
   });
