@@ -12,7 +12,7 @@ This addon does less, and gives you the primitives to easily _compose your own_.
 ## Features / info
 
 * [Easily customisable](#customising)
-* <a href="https://zestia.github.io/ember-select-box" target="_blank">Demo scenarios</a> / <a href="https://github.com/zestia/ember-select-box/tree/master/tests/dummy/app/components" target="_blank">Code</a>
+* <a href="https://zestia.github.io/ember-select-box" target="_blank">Demo scenarios</a>
 * [FAQ](#faq)
 * [Troubleshooting](#troubleshooting)
 * Native select box _(that supports complex values)_ ✔︎
