@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, find, findAll } from '@ember/test-helpers';
+import { render, settled, find, findAll } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import SelectBox from '@zestia/ember-select-box/components/select-box';
 import EmberArray, { A as emberA } from '@ember/array';
@@ -182,6 +182,8 @@ module('select-box', function(hooks) {
       'precondition, not open');
 
     api.open();
+
+    await settled();
 
     assert.ok(find('.select-box').classList.contains('is-open'),
       'action is called with the api');
