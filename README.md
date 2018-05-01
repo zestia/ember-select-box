@@ -160,7 +160,11 @@ ember install @zestia/ember-select-box
   </tr>
   <tr>
     <td>on-press-key</td>
-    <td>Useful because using `keyDown` would overwrite the component's method, which is a bit of an Ember flaw. Can also can be used for this use-case: `sb.activateOptionForKeyCode(e.keyCode)`</td>
+    <td>
+      Useful because using <code>keyDown</code> would overwrite the component's method,
+      which is a bit of an Ember flaw. Can also can be used for this use-case:
+      <code>sb.activateOptionForKeyCode(e.keyCode)</code>
+    </td>
   </tr>
   <tr>
     <td>on-press-backspace</td>
