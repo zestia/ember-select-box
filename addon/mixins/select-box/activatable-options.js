@@ -11,7 +11,7 @@ export default Mixin.create({
     this._deactivateOptions();
   },
 
-  _activateOptionAtIndex(index, scroll = true) {
+  _activateOptionAtIndex(index, scroll) {
     const under = index < 0;
     const over  = index > this.get('options.length') - 1;
 
@@ -87,21 +87,21 @@ export default Mixin.create({
   }),
 
   actions: {
-    activateOptionAtIndex(index, scroll) {
+    activateOptionAtIndex(index, scroll = false) {
       this._activateOptionAtIndex(index, scroll);
     },
 
-    activateNextOption(scroll) {
+    activateNextOption(scroll = true) {
       const next = this.get('activeOptionIndex') + 1;
       this._activateOptionAtIndex(next, scroll);
     },
 
-    activatePreviousOption(scroll) {
+    activatePreviousOption(scroll = true) {
       const prev = this.get('activeOptionIndex') - 1;
       this._activateOptionAtIndex(prev, scroll);
     },
 
-    activateOptionForKeyCode(keyCode, scroll) {
+    activateOptionForKeyCode(keyCode, scroll = true) {
       const char = fromCharCode(keyCode);
 
       if (alphaNumeric.test(char)) {

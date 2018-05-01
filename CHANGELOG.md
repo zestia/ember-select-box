@@ -1,5 +1,10 @@
 # Changelog
 
+6.0.3
+
+* Fix an issue introduced in 6.0.2 where mousing over an option would cause it to be scrolled to.
+* Updated readme to better explain the behaviour of the `activate` actions.
+
 6.0.2
 
 * `activateNextOption` and `activatePreviousOption` default to scrolling the parent element.
