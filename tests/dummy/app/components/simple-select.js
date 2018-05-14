@@ -9,6 +9,10 @@ export default Component.extend({
   actions: {
     pressedKey(e, sb) {
       sb.activateOptionForKeyCode(e.keyCode);
+
+      if (!sb.isOpen) {
+        sb.selectActiveOption();
+      }
     },
 
     pressedUp(e, sb) {

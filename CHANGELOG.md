@@ -1,5 +1,9 @@
 # Changelog
 
+6.0.4
+
+* Expose `isOpen` state on the yielded API as well as the template API. 
+
 6.0.3
 
 * Fix an issue introduced in 6.0.2 where mousing over an option would cause it to be scrolled to.

@@ -17,12 +17,16 @@ export default Mixin.create({
 
   actions: {
     open() {
+      this._super(...arguments);
+
       this.set('isOpen', true);
 
       invokeAction(this, 'on-open', this.get('api'));
     },
 
     close() {
+      this._super(...arguments);
+
       run(() => trySet(this, 'isClosing', true));
       run(() => trySet(this, 'isOpen', false));
       run(() => trySet(this, 'isClosing', false));
@@ -31,6 +35,8 @@ export default Mixin.create({
     },
 
     toggle() {
+      this._super(...arguments);
+
       if (this.get('isOpen')) {
         this.send('close');
       } else {

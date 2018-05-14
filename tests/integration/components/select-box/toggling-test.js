@@ -59,7 +59,7 @@ module('select-box (toggling)', function(hooks) {
     assert.expect(1);
 
     let opened;
-    this.set('opened', () => opened = true);
+    this.set('opened', sb => opened = sb.isOpen);
 
     await render(hbs `
       {{#select-box on-open=(action opened) as |sb|}}
@@ -70,14 +70,14 @@ module('select-box (toggling)', function(hooks) {
     await click('button');
 
     assert.strictEqual(opened, true,
-      'sends an action when the select box is opened');
+      'sends an action when the select box is opened with the open state');
   });
 
   test('close action', async function(assert) {
     assert.expect(1);
 
     let closed;
-    this.set('closed', () => closed = true);
+    this.set('closed', sb => closed = !sb.isOpen);
 
     await render(hbs `
       {{#select-box on-close=(action closed) as |sb|}}
@@ -88,6 +88,6 @@ module('select-box (toggling)', function(hooks) {
     await click('button');
 
     assert.strictEqual(closed, true,
-      'sends an action when the select box is opened');
+      'sends an action when the select box is opened with the open state');
   });
 });

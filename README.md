@@ -312,6 +312,10 @@ ember install @zestia/ember-select-box
     <td>sb.value</td>
     <td>The selected value(s) of the select box</td>
   </tr>
+  <tr>
+    <td>sb.isOpen</td>
+    <td>True if the select box is open</td>
+  </tr>
 </table>
 
 <table>
@@ -339,10 +343,6 @@ ember install @zestia/ember-select-box
   <tr>
     <td>sb.isSlowSearch</td>
     <td>True if the promised search results are taking a while</td>
-  </tr>
-  <tr>
-    <td>sb.isOpen</td>
-    <td>True if the select box is open</td>
   </tr>
 </table>
 

@@ -18,6 +18,7 @@ module('select-box (api)', function(hooks) {
     assert.deepEqual(properties, [
       'value',
       'element',
+      'isOpen',
       'open',
       'close',
       'toggle',

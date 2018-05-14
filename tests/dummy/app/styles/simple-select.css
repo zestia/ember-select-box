@@ -2,6 +2,10 @@
   display: inline-block;
 }
 
+.simple-select.is-open .simple-select-options {
+  display: block;
+}
+
 .simple-select * {
   border: 1px solid silver;
   margin: 2px;
@@ -23,6 +27,7 @@
 }
 
 .simple-select-options {
+  display: none;
   max-height: 200px;
   overflow: auto;
 }

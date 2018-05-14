@@ -13,24 +13,21 @@ export default Mixin.create({
   _buildApi() {
     return seal(assign({
       value: undefined,
-      element: undefined
+      element: undefined,
+      isOpen: undefined
     }, this._apiActions()));
   },
 
   _updateApiElement() {
-    if (this.get('isDestroyed')) {
-      return;
-    }
-
-    this.set('api.element', this.get('element'));
+    this._updateApi('element', this.get('element'));
   },
 
-  _updateApiValue() {
+  _updateApi(key, value) {
     if (this.get('isDestroyed')) {
       return;
     }
 
-    this.set('api.value', this.get('internalValue'));
+    this.set(`api.${key}`, value);
   },
 
   _apiActions() {
@@ -63,8 +60,18 @@ export default Mixin.create({
 
   actions: {
     _updated() {
-      this._updateApiValue();
+      this._updateApi('value', this.get('internalValue'));
       this._super(...arguments);
+    },
+
+    open() {
+      this._super(...arguments);
+      this._updateApi('isOpen', true);
+    },
+
+    close() {
+      this._super(...arguments);
+      this._updateApi('isOpen', false);
     }
   }
 });
