@@ -23,7 +23,6 @@ export default Component.extend({
     pressedDown(e, sb) {
       e.preventDefault();
       sb.activateNextOption();
-      sb.open();
     },
 
     close(e, sb) {
