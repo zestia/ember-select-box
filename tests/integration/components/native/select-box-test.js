@@ -226,6 +226,7 @@ module('select-box/native', function(hooks) {
     this.set('selectedValue', 'foo');
 
     await render(hbs`
+      {{! template-lint-disable no-unbound }}
       {{#select-box/native value=(unbound selectedValue) as |sb|}}
         {{sb.option value="foo"}}
         {{sb.option value="bar"}}
@@ -311,7 +312,7 @@ module('select-box/native', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box/native on-select=(action selected) as |sb|}}
+      {{#select-box/native on-select=(action selected)}}
         <option value={{nonPrimitive}}>Primitive</option>
         <option value={{primitive}}>Primitive</option>
       {{/select-box/native}}
@@ -332,7 +333,7 @@ module('select-box/native', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box/native multiple=true on-select=(action selected) as |sb|}}
+      {{#select-box/native multiple=true on-select=(action selected)}}
         <option value="Hello"></option>
         <option value="World"></option>
       {{/select-box/native}}
@@ -439,7 +440,7 @@ module('select-box/native', function(hooks) {
       "'label' is not considered the option's value with component option");
 
     await render(hbs`
-      {{#select-box/native on-select=(action selected) as |sb|}}
+      {{#select-box/native on-select=(action selected)}}
         <option>foo</option>
       {{/select-box/native}}
     `);

@@ -1,9 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import { keys as eventKeys } from '@zestia/ember-select-box/mixins/select-box/keyboard-events';
-import { render, triggerKeyEvent, settled } from '@ember/test-helpers';
-const { keys } = Object;
+import { render, triggerKeyEvent } from '@ember/test-helpers';
 
 module('select-box (keyboard actions)', function(hooks) {
   setupRenderingTest(hooks);
@@ -29,11 +27,19 @@ module('select-box (keyboard actions)', function(hooks) {
       on-press-down=(action ranAction "down")
     }}`);
 
-    keys(eventKeys).forEach(async key => {
-      await triggerKeyEvent('.select-box', 'keydown', key);
-    });
+    // No longer works...
+    // keys(eventKeys).forEach(async key => {
+    //   await triggerKeyEvent('.select-box', 'keydown', key);
+    // });
 
-    await settled();
+    await triggerKeyEvent('.select-box', 'keydown', 8);
+    await triggerKeyEvent('.select-box', 'keydown', 9);
+    await triggerKeyEvent('.select-box', 'keydown', 13);
+    await triggerKeyEvent('.select-box', 'keydown', 27);
+    await triggerKeyEvent('.select-box', 'keydown', 37);
+    await triggerKeyEvent('.select-box', 'keydown', 38);
+    await triggerKeyEvent('.select-box', 'keydown', 39);
+    await triggerKeyEvent('.select-box', 'keydown', 40);
 
     assert.deepEqual(called, [
       'backspace',

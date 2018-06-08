@@ -15,6 +15,7 @@ module('select-box (scroll into view util)', function(hooks) {
 
   hooks.beforeEach(async function() {
     await render(hbs`
+      {{! template-lint-disable no-inline-styles }}
       <div class="container" style="overflow:auto; height:20px; padding:2px; background: red; color: white">
         <div class="top" style="height:20px; padding:1px; background: blue; color: white">Item 1</div>
         <div class="middle" style="height:20px; padding:1px; background: green; color: white">Item 2</div>

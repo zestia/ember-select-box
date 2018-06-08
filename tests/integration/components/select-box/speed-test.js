@@ -20,7 +20,7 @@ module('select-box (speed)', function(hooks) {
     const start1 = Date.now();
 
     await render(hbs`
-      {{#select-box as |sb|}}
+      {{#select-box}}
         {{#each items as |item|}}
           <option value={{item}}>{{item}}</option>
         {{/each}}

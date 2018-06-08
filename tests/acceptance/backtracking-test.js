@@ -1,11 +1,11 @@
-import Ember from 'ember';
+import { VERSION } from '@ember/version';
 import { module, skip, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import { visit, click, findAll, find, triggerEvent, settled } from '@ember/test-helpers';
 import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 
-const runTest = parseFloat(Ember.VERSION) === 2.8 ? skip : test;
+const runTest = parseFloat(VERSION) === 2.8 ? skip : test;
 
 module('backtracking focus use-case', function(hooks) {
   setupApplicationTest(hooks);
