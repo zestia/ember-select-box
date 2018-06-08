@@ -1,12 +1,12 @@
 {{#select-box
   class-prefix="search-select"
-  value=value
-  on-press-escape=(action "close")
-  on-click-outside=(action "close")
-  on-select=on-select
-  on-search=on-search
+  value=@value
+  search-slow-time=500
+  on-select=@on-select
+  on-search=@on-search
   on-searched=(action "searched")
-  search-slow-time=500 as |sb|}}
+  on-press-escape=(action "close")
+  on-click-outside=(action "close") as |sb|}}
   {{sb.input}}
   {{#if sb.isSearching}}
     {{#sb.option}}
@@ -15,7 +15,7 @@
     {{/sb.option}}
   {{else if sb.isOpen}}
     {{#sb.options}}
-      {{yield sb lastQuery}}
+      {{yield sb this.lastQuery}}
     {{/sb.options}}
   {{/if}}
 {{/select-box}}

@@ -1,13 +1,13 @@
 {{yield (hash
   option=(component "select-box/native/option"
-    class-prefix=class-prefix
-    -parent-components=options
-    -parent-api=api
-    -parent-is-multiple=isMultiple
-    -parent-internal-value=internalValue
+    class-prefix=@class-prefix
+    -parent-components=this.options
+    -parent-api=this.api
+    -parent-is-multiple=this.isMultiple
+    -parent-internal-value=this.internalValue
     -on-init=(action "_registerOption")
     -on-destroy=(action "_deregisterOption")
     -on-select=(action "select"))
   group=(component "select-box/native/group"
-    class-prefix=class-prefix)
+    class-prefix=@class-prefix)
 )}}

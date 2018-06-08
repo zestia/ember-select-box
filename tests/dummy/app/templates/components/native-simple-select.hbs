@@ -1,10 +1,10 @@
 <div class="simple-select-display-label">
-  {{displayLabel}}
+  {{this.displayLabel}}
 </div>
 {{#select-box/native
-  value=value
+  value=@value
+  on-select=@on-select
   on-focus-in=(action "focusIn")
-  on-focus-out=(action "focusOut")
-  on-select=on-select as |sb|}}
+  on-focus-out=(action "focusOut") as |sb|}}
   {{yield sb}}
 {{/select-box/native}}
