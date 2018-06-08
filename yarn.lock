@@ -2925,6 +2925,13 @@ ember-maybe-import-regenerator@0.1.6:
     ember-cli-babel "^6.0.0-beta.4"
     regenerator-runtime "^0.9.5"
 
+ember-named-arguments-polyfill@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ember-named-arguments-polyfill/-/ember-named-arguments-polyfill-1.0.0.tgz#0b81fb81a7cef2c89e9e1d0278b579e708bf4ded"
+  dependencies:
+    ember-cli-babel "^6.6.0"
+    ember-cli-version-checker "^2.1.2"
+
 ember-outdated@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/ember-outdated/-/ember-outdated-1.0.0.tgz#3daa234e88d6f7af4bb7ec194d544b32f816ae8a"
