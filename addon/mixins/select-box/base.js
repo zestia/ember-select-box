@@ -81,7 +81,11 @@ export default Mixin.create({
   },
 
   _rendered() {
-    this.actions._updated.call(this, '_updated');
+    if (this.isDestroying) {
+      return;
+    }
+
+    this.send('_updated');
   },
 
   actions: {
