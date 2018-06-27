@@ -243,4 +243,32 @@ module('select-box', function(hooks) {
     assert.ok(!isFrozen(secondApi.value),
       'is not frozen when in single mode');
   });
+
+  test('Attempted to call .send() on destroying/ed object', async function(assert) {
+    assert.expect(1);
+
+    let updatedWithValue;
+
+    const FooSelectBox = SelectBox.extend({
+      classNamePrefix: 'foo',
+      isDestroying: true
+    });
+
+    this.owner.register('component:select-box/foo', FooSelectBox);
+
+    this.set('updated', value => updatedWithValue = value);
+
+    await render(hbs `
+      {{#select-box/foo value=value on-update=(action updated) as |sb|}}
+        {{#sb.option value=1}}One{{/sb.option}}
+        {{#sb.option value=2}}Two{{/sb.option}}
+        {{#sb.option value=3}}Three{{/sb.option}}
+      {{/select-box/foo}}
+    `);
+
+    this.set('value', 2);
+
+    assert.equal(updatedWithValue, 2,
+      'the update action still works');
+  });
 });

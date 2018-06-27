@@ -39,6 +39,10 @@ export default Mixin.create({
       .catch(bind(this, '_resolvedValue', id, true));
   },
 
+  _updated() {
+    invokeAction(this, 'on-update', this.get('internalValue'), this.get('api'));
+  },
+
   _resolveValue(value) {
     this.set('isPending', true);
     this.set('isRejected', false);
@@ -77,7 +81,7 @@ export default Mixin.create({
   },
 
   _rendered() {
-    this.send('_updated');
+    this.actions._updated.call(this, '_updated');
   },
 
   actions: {
@@ -90,7 +94,7 @@ export default Mixin.create({
     },
 
     _updated() {
-      invokeAction(this, 'on-update', this.get('internalValue'), this.get('api'));
+      this._updated();
     },
 
     _select(value) {
