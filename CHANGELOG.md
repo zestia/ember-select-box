@@ -1,8 +1,13 @@
 # Changelog
 
+6.1.0
+
+* Update to use named arguments
+* Fix use of `.send` on destroyed/ing component
+
 6.0.4
 
-* Expose `isOpen` state on the yielded API as well as the template API. 
+* Expose `isOpen` state on the yielded API as well as the template API.
 
 6.0.3
 
