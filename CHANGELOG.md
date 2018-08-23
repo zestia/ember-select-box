@@ -1,5 +1,9 @@
 # Changelog
 
+6.1.2
+
+* Use named arguments and fix no implicit this
+
 6.1.0
 
 * Update to use named arguments
