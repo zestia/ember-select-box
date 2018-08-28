@@ -45,7 +45,7 @@
     "ember-maybe-import-regenerator": "0.1.6",
     "ember-resolver": "5.0.1",
     "ember-source-channel-url": "1.1.0",
-    "ember-source": "2.16",
+    "ember-source": "3.3.2",
     "ember-try": "0.2.23",
     "loader.js": "4.7.0"
   },
