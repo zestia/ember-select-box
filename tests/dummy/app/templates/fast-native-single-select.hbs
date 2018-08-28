@@ -5,10 +5,10 @@
 </p>
 
 {{#select-box/native on-select=(action "selectModelId")}}
-  {{#each options as |option|}}
+  {{#each options as |o|}}
     {{! Intentionally does not use sb.option }}
-    <option value={{option.model.id}} selected={{option.selected}}>
-      {{option.model.name}}
+    <option value={{o.model.id}} selected={{o.selected}}>
+      {{o.model.name}}
     </option>
   {{/each}}
 {{/select-box/native}}
