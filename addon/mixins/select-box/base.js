@@ -4,6 +4,7 @@ import { bind, scheduleOnce } from '@ember/runloop';
 import { all, resolve } from 'rsvp';
 import invokeAction from '../../utils/invoke-action';
 import { readOnly } from '@ember/object/computed';
+import { get } from '@ember/object';
 const { freeze } = Object;
 
 export default Mixin.create({
@@ -50,7 +51,7 @@ export default Mixin.create({
     this.set('isSettled', false);
 
     return resolve(value).then(value => {
-      if (this.isMultiple) {
+      if (get(this, 'isMultiple')) {
         return all(makeArray(value));
       }
 
@@ -63,7 +64,7 @@ export default Mixin.create({
       return;
     }
 
-    if (this.isMultiple) {
+    if (get(this, 'isMultiple')) {
       value = freeze(value);
     }
 
