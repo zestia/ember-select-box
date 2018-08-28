@@ -62,7 +62,7 @@ module('select-box (toggling)', function(hooks) {
     this.set('opened', sb => opened = sb.isOpen);
 
     await render(hbs `
-      {{#select-box on-open=(action opened) as |sb|}}
+      {{#select-box on-open=this.opened as |sb|}}
         <button onclick={{action sb.open}}>open</button>
       {{/select-box}}
     `);
@@ -80,7 +80,7 @@ module('select-box (toggling)', function(hooks) {
     this.set('closed', sb => closed = !sb.isOpen);
 
     await render(hbs `
-      {{#select-box on-close=(action closed) as |sb|}}
+      {{#select-box on-close=this.closed as |sb|}}
         <button onclick={{action sb.close}}>close</button>
       {{/select-box}}
     `);

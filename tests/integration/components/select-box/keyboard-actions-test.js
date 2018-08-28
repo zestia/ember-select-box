@@ -16,7 +16,7 @@ module('select-box (keyboard actions)', function(hooks) {
     this.set('pressedKey', () => pressedKey++);
 
     await render(hbs `{{select-box
-      on-press-key=(action pressedKey)
+      on-press-key=this.pressedKey
       on-press-backspace=(action ranAction "backspace")
       on-press-tab=(action ranAction "tab")
       on-press-enter=(action ranAction "enter")

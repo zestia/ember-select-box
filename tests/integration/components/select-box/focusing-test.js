@@ -40,8 +40,8 @@ module('select-box (focusing)', function(hooks) {
 
     await render(hbs `
       {{#select-box
-        on-focus-in=(action focused)
-        on-focus-out=(action blurred)}}
+        on-focus-in=this.focused
+        on-focus-out=this.blurred}}
         <button></button>
       {{/select-box}}
     `);

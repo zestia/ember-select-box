@@ -33,7 +33,7 @@ module('select-box/group', function(hooks) {
   test('label', async function(assert) {
     assert.expect(1);
 
-    await render(hbs `{{select-box/group label="Foo"}}`);
+    await render(hbs`{{select-box/group label="Foo"}}`);
 
     assert.equal(find('.select-box-group-label').textContent, 'Foo',
       'displays the specified group label');

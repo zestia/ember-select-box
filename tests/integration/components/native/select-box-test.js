@@ -180,7 +180,7 @@ module('select-box/native', function(hooks) {
     await render(hbs`
       {{#select-box/native
         value=initialSelectedValue
-        on-select=(action selected) as |sb|}}
+        on-select=this.selected as |sb|}}
         {{sb.option value="foo"}}
         {{sb.option value="bar"}}
         {{sb.option value="baz"}}
@@ -252,7 +252,7 @@ module('select-box/native', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box/native multiple=true on-select=(action selected) as |sb|}}
+      {{#select-box/native multiple=true on-select=this.selected as |sb|}}
         {{#sb.option value=foo}}Foo{{/sb.option}}
         {{#sb.option value=bar}}Bar{{/sb.option}}
       {{/select-box/native}}
@@ -312,7 +312,7 @@ module('select-box/native', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box/native on-select=(action selected)}}
+      {{#select-box/native on-select=this.selected}}
         <option value={{nonPrimitive}}>Primitive</option>
         <option value={{primitive}}>Primitive</option>
       {{/select-box/native}}
@@ -333,7 +333,7 @@ module('select-box/native', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box/native multiple=true on-select=(action selected)}}
+      {{#select-box/native multiple=true on-select=this.selected}}
         <option value="Hello"></option>
         <option value="World"></option>
       {{/select-box/native}}
@@ -351,7 +351,7 @@ module('select-box/native', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box/native multiple=true on-select=(action selected) as |sb|}}
+      {{#select-box/native multiple=true on-select=this.selected as |sb|}}
         {{sb.option value="foo"}}
         <option value="bar"></option>
       {{/select-box/native}}
@@ -365,10 +365,10 @@ module('select-box/native', function(hooks) {
 
     const layout = hbs`
       <div class="foo-select-display-label">
-        {{~displayLabel~}}
+        {{~this.displayLabel~}}
       </div>
       {{#select-box/native
-        value=value
+        value=@value
         on-update=(action "updateDisplayLabel") as |sb|}}
         {{yield sb}}
       {{/select-box/native}}
@@ -410,7 +410,7 @@ module('select-box/native', function(hooks) {
     this.set('buildSelection', () => count++);
 
     await render(hbs`
-      {{#select-box/native on-build-selection=(action buildSelection) as |sb|}}
+      {{#select-box/native on-build-selection=this.buildSelection as |sb|}}
         {{sb.option value="foo"}}
       {{/select-box/native}}
     `);
@@ -429,7 +429,7 @@ module('select-box/native', function(hooks) {
     this.set('selected', value => selectedValue = value);
 
     await render(hbs`
-      {{#select-box/native on-select=(action selected) as |sb|}}
+      {{#select-box/native on-select=this.selected as |sb|}}
         {{#sb.option}}foo{{/sb.option}}
       {{/select-box/native}}
     `);
@@ -440,7 +440,7 @@ module('select-box/native', function(hooks) {
       "'label' is not considered the option's value with component option");
 
     await render(hbs`
-      {{#select-box/native on-select=(action selected)}}
+      {{#select-box/native on-select=this.selected}}
         <option>foo</option>
       {{/select-box/native}}
     `);

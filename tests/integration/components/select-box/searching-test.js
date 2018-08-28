@@ -42,7 +42,7 @@ module('select-box (searching)', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box on-search=(action findItems) as |sb|}}
+      {{#select-box on-search=this.findItems as |sb|}}
         {{sb.input}}
         {{#each items as |item|}}
           {{#sb.option value=item}}
@@ -81,8 +81,8 @@ module('select-box (searching)', function(hooks) {
 
     await render(hbs`
       {{#select-box
-        on-search=(action findItems)
-        on-searched=(action foundItems) as |sb|}}
+        on-search=this.findItems
+        on-searched=this.foundItems as |sb|}}
         {{sb.input}}
         Results for: {{query}}
         {{#each items as |item|}}
@@ -130,8 +130,8 @@ module('select-box (searching)', function(hooks) {
 
     await render(hbs`
       {{#select-box
-        on-search=(action findItems)
-        on-search-error=(action failedToFindItems) as |sb|}}
+        on-search=this.findItems
+        on-search-error=this.failedToFindItems as |sb|}}
         {{sb.input}}
         {{#if error}}
           Error: {{error}} for {{query}}
@@ -168,8 +168,8 @@ module('select-box (searching)', function(hooks) {
 
     await render(hbs`
       {{#select-box
-        on-search=(action findItems)
-        on-searched=(action searched)
+        on-search=this.findItems
+        on-searched=this.searched
         search-delay-time=0
         as |sb|}}
         {{sb.input}}
@@ -201,8 +201,8 @@ module('select-box (searching)', function(hooks) {
 
     await render(hbs`
       {{#select-box
-        on-search=(action findItems)
-        on-searched=(action foundItems) as |sb|}}
+        on-search=this.findItems
+        on-searched=this.foundItems as |sb|}}
         {{sb.input}}
         {{items.[0]}}
       {{/select-box}}
@@ -240,8 +240,8 @@ module('select-box (searching)', function(hooks) {
     await render(hbs`
       {{#select-box
         search-delay-time=200
-        on-search=(action findItems)
-        on-searched=(action foundItems) as |sb|}}
+        on-search=this.findItems
+        on-searched=this.foundItems as |sb|}}
         {{sb.input}}
         {{items.[0]}}
       {{/select-box}}
@@ -284,8 +284,8 @@ module('select-box (searching)', function(hooks) {
       {{#select-box
         search-slow-time=100
         search-delay-time=0
-        on-search=(action findItems)
-        on-searched=(action foundItems) as |sb|}}
+        on-search=this.findItems
+        on-searched=this.foundItems as |sb|}}
         {{sb.input}}
         Slow: {{sb.isSlowSearch}}
       {{/select-box}}
@@ -319,7 +319,7 @@ module('select-box (searching)', function(hooks) {
     await render(hbs`
       {{#select-box
         search-delay-time=0
-        on-search=(action findItems) as |sb|}}
+        on-search=this.findItems as |sb|}}
         {{sb.input}}
       {{/select-box}}
     `);
@@ -344,7 +344,7 @@ module('select-box (searching)', function(hooks) {
     await render(hbs`
       {{#select-box
         search-delay-time=0
-        on-search=(action findItems) as |sb|}}
+        on-search=this.findItems as |sb|}}
         {{sb.input}}
       {{/select-box}}
     `);
@@ -380,7 +380,7 @@ module('select-box (searching)', function(hooks) {
       {{#select-box
         search-min-chars=0
         search-delay-time=0
-        on-search=(action findItems) as |sb|}}
+        on-search=this.findItems as |sb|}}
         {{sb.input}}
       {{/select-box}}
     `);
@@ -403,7 +403,7 @@ module('select-box (searching)', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box search-min-chars=2 on-search=(action findItems) as |sb|}}
+      {{#select-box search-min-chars=2 on-search=this.findItems as |sb|}}
         <button onclick={{action sb.search ""}}></button>
       {{/select-box}}
     `);
@@ -424,7 +424,7 @@ module('select-box (searching)', function(hooks) {
 
     await render(hbs`
       {{#if display}}
-        {{#select-box on-search=(action findItems) as |sb|}}
+        {{#select-box on-search=this.findItems as |sb|}}
           {{sb.input}}
         {{/select-box}}
       {{/if}}
@@ -455,7 +455,7 @@ module('select-box (searching)', function(hooks) {
 
     await render(hbs`
       {{#select-box as |sb|}}
-        {{sb.input value="foo" on-input=(action inputted)}}
+        {{sb.input value="foo" on-input=this.inputted}}
         <button onclick={{action sb.setInputValue "bar"}}>Reset</button>
       {{/select-box}}
     `);
@@ -488,8 +488,8 @@ module('select-box (searching)', function(hooks) {
     await render(hbs`
       {{#select-box
         search-delay-time=0
-        on-search=(action findItems)
-        on-searched=(action foundItems) as |sb|}}
+        on-search=this.findItems
+        on-searched=this.foundItems as |sb|}}
         {{sb.input value=myValue on-clear=sb.stopSearching}}
       {{/select-box}}
     `);

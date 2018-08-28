@@ -72,7 +72,7 @@ module('select-box (activating options)', function(hooks) {
 
     await render(hbs`
       {{#select-box as |sb|}}
-        {{sb.option value="foo" on-activate=(action activated)}}
+        {{sb.option value="foo" on-activate=this.activated}}
         <button onclick={{action sb.activateOptionAtIndex 0}}>Activate foo</button>
       {{/select-box}}
     `);
@@ -93,8 +93,8 @@ module('select-box (activating options)', function(hooks) {
 
     await render(hbs`
       {{#select-box
-        on-press-down=(action navigateDown)
-        on-press-up=(action navigateUp) as |sb|}}
+        on-press-down=this.navigateDown
+        on-press-up=this.navigateUp as |sb|}}
         {{#sb.option value=1}}One{{/sb.option}}
         {{#sb.option value=2}}Two{{/sb.option}}
         {{#sb.option value=3}}Three{{/sb.option}}
@@ -147,7 +147,7 @@ module('select-box (activating options)', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box on-press-key=(action autoActivate) as |sb|}}
+      {{#select-box on-press-key=this.autoActivate as |sb|}}
         {{#sb.option value="foo"}}Foo{{/sb.option}}
         {{#sb.option value="bar"}}Bar{{/sb.option}}
         {{#sb.option value="baz"}}Baz{{/sb.option}}
@@ -193,7 +193,7 @@ module('select-box (activating options)', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box on-press-key=(action autoActivate) as |sb|}}
+      {{#select-box on-press-key=this.autoActivate as |sb|}}
         {{#sb.option value="foo"}}Foo{{/sb.option}}
         {{#sb.option value="bar"}}Bar{{/sb.option}}
         {{#sb.option value="baz"}}Baz{{/sb.option}}
@@ -220,7 +220,7 @@ module('select-box (activating options)', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box on-press-key=(action autoActivate) as |sb|}}
+      {{#select-box on-press-key=this.autoActivate as |sb|}}
         {{#sb.option value=1980}}1980{{/sb.option}}
         {{#sb.option value=1981}}1981{{/sb.option}}
         {{#sb.option value=1982}}1982{{/sb.option}}

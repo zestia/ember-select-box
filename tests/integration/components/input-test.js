@@ -53,7 +53,7 @@ module('select-box/input', function(hooks) {
 
     this.set('myObj', { value: 'foo' });
 
-    await render(hbs `{{select-box/input value=myObj.value}}`);
+    await render(hbs `{{select-box/input value=this.myObj.value}}`);
 
     const input = find('.select-box-input');
 
@@ -84,7 +84,7 @@ module('select-box/input', function(hooks) {
 
     await render(hbs `
       {{#select-box as |sb|}}
-        {{sb.input on-input=(action inputText)}}
+        {{sb.input on-input=this.inputText}}
       {{/select-box}}
     `);
 
@@ -101,7 +101,7 @@ module('select-box/input', function(hooks) {
 
     await render(hbs `
       {{#select-box as |sb|}}
-        {{sb.input value="foo" on-clear=(action cleared)}}
+        {{sb.input value="foo" on-clear=this.cleared}}
       {{/select-box}}
     `);
 
@@ -122,7 +122,7 @@ module('select-box/input', function(hooks) {
 
     await render(hbs `
       {{#select-box as |sb|}}
-        {{sb.input value="f" on-delete=(action deleted)}}
+        {{sb.input value="f" on-delete=this.deleted}}
       {{/select-box}}
     `);
 
