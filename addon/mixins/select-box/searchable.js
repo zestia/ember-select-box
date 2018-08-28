@@ -1,38 +1,38 @@
 import Mixin from '@ember/object/mixin';
-import { computed } from '@ember/object';
+import { computed, getWithDefault } from '@ember/object';
 import { bind, debounce } from '@ember/runloop';
 import { resolve } from 'rsvp';
 import invokeAction from '../../utils/invoke-action';
 
 export default Mixin.create({
   isSearchable: computed(function() {
-    return typeof this.get('on-search') === 'function';
+    return typeof this['on-search'] === 'function';
   }),
 
   searchDelayTime: computed(function() {
-    return this.getWithDefault('search-delay-time', 100);
+    return getWithDefault(this, 'search-delay-time', 100);
   }),
 
   searchSlowTime: computed(function() {
-    return this.getWithDefault('search-slow-time', 500);
+    return getWithDefault(this, 'search-slow-time', 500);
   }),
 
   searchMinChars: computed(function() {
-    return this.getWithDefault('search-min-chars', 1);
+    return getWithDefault(this, 'search-min-chars', 1);
   }),
 
   queryOK(query) {
-    return query.length >= this.get('searchMinChars');
+    return query.length >= this.searchMinChars;
   },
 
   _maybeSearch(text) {
-    if (this.get('isSearchable')) {
+    if (this.isSearchable) {
       this._runDebouncedSearch(text);
     }
   },
 
   _runDebouncedSearch(query) {
-    const delay = this.get('searchDelayTime');
+    const delay = this.searchDelayTime;
     const immediate = !delay;
     debounce(this, '_runSearch', query, delay, immediate);
   },
@@ -40,7 +40,7 @@ export default Mixin.create({
   _runSearch(query) {
     query = `${query}`.trim();
 
-    if (!this.queryOK(query) || this.get('isDestroyed')) {
+    if (!this.queryOK(query) || this.isDestroyed) {
       return;
     }
 
@@ -51,34 +51,34 @@ export default Mixin.create({
     this.set('isSearching', true);
     this.incrementProperty('searchID');
 
-    debounce(this, '_checkSlowSearch', this.get('searchSlowTime'));
+    debounce(this, '_checkSlowSearch', this.searchSlowTime);
 
-    const search = invokeAction(this, 'on-search', query, this.get('api'));
+    const search = invokeAction(this, 'on-search', query, this.api);
 
     return resolve(search)
-      .then(bind(this, '_searchCompleted', this.get('searchID'), query))
+      .then(bind(this, '_searchCompleted', this.searchID, query))
       .catch(bind(this, '_searchFailed', query))
       .finally(bind(this, '_searchFinished'));
   },
 
   _searchCompleted(id, query, result) {
-    if (id < this.get('searchID') || this.get('isDestroyed')) {
+    if (id < this.searchID || this.isDestroyed) {
       return;
     }
 
-    invokeAction(this, 'on-searched', result, query, this.get('api'));
+    invokeAction(this, 'on-searched', result, query, this.api);
   },
 
   _searchFailed(query, error) {
-    if (this.get('isDestroyed')) {
+    if (this.isDestroyed) {
       return;
     }
 
-    invokeAction(this, 'on-search-error', error, query, this.get('api'));
+    invokeAction(this, 'on-search-error', error, query, this.api);
   },
 
   _searchFinished() {
-    if (this.get('isDestroyed')) {
+    if (this.isDestroyed) {
       return;
     }
 
@@ -87,11 +87,11 @@ export default Mixin.create({
   },
 
   _checkSlowSearch() {
-    if (this.get('isDestroyed')) {
+    if (this.isDestroyed) {
       return;
     }
 
-    this.set('isSlowSearch', this.get('isSearching'));
+    this.set('isSlowSearch', this.isSearching);
   },
 
   actions: {

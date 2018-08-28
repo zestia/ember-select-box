@@ -218,7 +218,7 @@ module('select-box/option', function(hooks) {
       {{/select-box/option}}
     `);
 
-    assert.equal(this.get('element').textContent, `
+    assert.equal(this.element.textContent, `
         isPending: true
         isRejected: false
         isFulfilled: false
@@ -228,7 +228,7 @@ module('select-box/option', function(hooks) {
     deferred1.resolve();
     await settled();
 
-    assert.equal(this.get('element').textContent, `
+    assert.equal(this.element.textContent, `
         isPending: false
         isRejected: false
         isFulfilled: true
@@ -237,7 +237,7 @@ module('select-box/option', function(hooks) {
 
     this.set('promise', deferred2.promise);
 
-    assert.equal(this.get('element').textContent, `
+    assert.equal(this.element.textContent, `
         isPending: true
         isRejected: false
         isFulfilled: false
@@ -247,7 +247,7 @@ module('select-box/option', function(hooks) {
     deferred2.reject();
     await settled();
 
-    assert.equal(this.get('element').textContent, `
+    assert.equal(this.element.textContent, `
         isPending: false
         isRejected: true
         isFulfilled: false

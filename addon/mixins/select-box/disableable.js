@@ -5,11 +5,11 @@ export default Mixin.create({
   didReceiveAttrs() {
     this._super(...arguments);
 
-    if (isPresent(this.get('disabled'))) {
-      this.set('isDisabled', this.get('disabled'));
+    if (isPresent(this.disabled)) {
+      this.set('isDisabled', this.disabled);
     }
 
-    if (this.get('isDisabled')) {
+    if (this.isDisabled) {
       this.set('tabIndex', -1);
     }
   }

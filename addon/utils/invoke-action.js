@@ -1,7 +1,5 @@
-import { get } from '@ember/object';
-
 export default function invokeAction(object, name, ...args) {
-  const action = get(object, name);
+  const action = object[name];
 
   if (typeof action === 'function') {
     return action(...args);

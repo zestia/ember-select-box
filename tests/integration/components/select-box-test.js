@@ -207,7 +207,7 @@ module('select-box', function(hooks) {
         on-update=(action updated)}}
     `);
 
-    assert.ok(!isFrozen(this.get('value')),
+    assert.ok(!isFrozen(this.value),
       'api does not accidentally freeze original value');
 
     assert.deepEqual(firstApi.value, ['foo'],

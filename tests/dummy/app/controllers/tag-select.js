@@ -20,12 +20,12 @@ export default Controller.extend({
     },
 
     tag(name) {
-      const selectedTags = this.get('selectedTags');
+      const selectedTags = this.selectedTags;
       let tag = selectedTags.findBy('name', name);
 
       if (!tag) {
         tag = {
-          id: this.get('maxTagID') + 1,
+          id: this.maxTagID + 1,
           name
         };
       }
@@ -34,7 +34,7 @@ export default Controller.extend({
     },
 
     detag(name) {
-      const selectedTags = this.get('selectedTags');
+      const selectedTags = this.selectedTags;
       const tag = selectedTags.findBy('name', name);
 
       if (tag) {
@@ -44,7 +44,7 @@ export default Controller.extend({
   },
 
   _findTags(query) {
-    const tags = emberA(this.get('selectedTags').filter(tag => {
+    const tags = emberA(this.selectedTags.filter(tag => {
       return tag.name.toLowerCase().indexOf(query.toLowerCase()) >= 0;
     }));
     return resolve(tags.mapBy('name'));

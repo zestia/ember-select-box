@@ -189,10 +189,10 @@ module('select-box/native', function(hooks) {
 
     await fillIn('.select-box', 'bar');
 
-    assert.strictEqual(this.get('initialSelectedValue'), null,
+    assert.strictEqual(this.initialSelectedValue, null,
       'does not mutate the initial selected value');
 
-    assert.equal(this.get('selectedValue'), 'bar',
+    assert.equal(this.selectedValue, 'bar',
       'sends an action with the selected value');
 
     assert.ok(findAll('.select-box-option')[1].selected,
@@ -216,7 +216,7 @@ module('select-box/native', function(hooks) {
 
     await fillIn('.select-box', 'foo');
 
-    assert.equal(this.get('selectedValue'), 'foo',
+    assert.equal(this.selectedValue, 'foo',
       'can be used with the mut helper');
   });
 
@@ -378,7 +378,7 @@ module('select-box/native', function(hooks) {
       layout,
       actions: {
         updateDisplayLabel() {
-          const label = this.get('element')
+          const label = this.element
             .querySelector('option:checked')
             .textContent
             .trim();

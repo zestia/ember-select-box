@@ -21,7 +21,7 @@ export default Mixin.create({
   },
 
   _keyPressAction(e) {
-    invokeAction(this, `on-press-key`, e, this.get('api'));
+    invokeAction(this, `on-press-key`, e, this.api);
 
     const key = keys[e.keyCode];
 
@@ -29,7 +29,7 @@ export default Mixin.create({
       return;
     }
 
-    invokeAction(this, `on-press-${key}`, e, this.get('api'));
+    invokeAction(this, `on-press-${key}`, e, this.api);
   },
 
   _keyPressMethod(e) {

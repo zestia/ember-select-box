@@ -41,7 +41,7 @@ export default Component.extend(...mixins, {
       selectedValues = unregisteredSelected;
     }
 
-    if (this.get('isMultiple')) {
+    if (this.isMultiple) {
       this.send('select', selectedValues);
     } else {
       this.send('select', selectedValues[0]);
@@ -49,13 +49,13 @@ export default Component.extend(...mixins, {
   },
 
   _getRegisteredSelectedValues() {
-    return this.get('options')
-      .filter(option => option.get('element.selected'))
-      .map(option => option.get('internalValue'));
+    return this.options
+      .filter(option => option.element.selected)
+      .map(option => option.internalValue);
   },
 
   _getUnregisteredSelectedValues() {
-    return from(this.get('element').querySelectorAll('option:checked'))
+    return from(this.element.querySelectorAll('option:checked'))
       .map(option => option.value);
   }
 });

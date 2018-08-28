@@ -24,7 +24,7 @@ module('select-box (promises)', function(hooks) {
       {{/select-box}}
     `);
 
-    assert.equal(this.get('element').textContent, `
+    assert.equal(this.element.textContent, `
         isPending: true
         isRejected: false
         isFulfilled: false
@@ -34,7 +34,7 @@ module('select-box (promises)', function(hooks) {
     deferred1.resolve();
     await settled();
 
-    assert.equal(this.get('element').textContent, `
+    assert.equal(this.element.textContent, `
         isPending: false
         isRejected: false
         isFulfilled: true
@@ -43,7 +43,7 @@ module('select-box (promises)', function(hooks) {
 
     this.set('promise', deferred2.promise);
 
-    assert.equal(this.get('element').textContent, `
+    assert.equal(this.element.textContent, `
         isPending: true
         isRejected: false
         isFulfilled: false
@@ -53,7 +53,7 @@ module('select-box (promises)', function(hooks) {
     deferred2.reject();
     await settled();
 
-    assert.equal(this.get('element').textContent, `
+    assert.equal(this.element.textContent, `
         isPending: false
         isRejected: true
         isFulfilled: false
@@ -322,7 +322,7 @@ module('select-box (promises)', function(hooks) {
 
     await click(findAll('.select-box-option')[2]);
 
-    assert.equal(this.get('selectedValue'), 'baz');
+    assert.equal(this.selectedValue, 'baz');
     assert.equal(find('.select-box-option.is-selected').textContent, 'Baz');
   });
 });

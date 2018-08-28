@@ -10,7 +10,7 @@ export default Controller.extend({
     this.set('models', []);
 
     for (let i = 0; i < 500; i++) {
-      this.get('models').push({
+      this.models.push({
         id: `${i}`,
         name: `Model ${i}`
       });
@@ -20,17 +20,17 @@ export default Controller.extend({
   },
 
   options: computed('selectedModelId', function() {
-    return this.get('models').map(model => {
+    return this.models.map(model => {
       return {
         model,
-        selected: model.id === this.get('selectedModelId')
+        selected: model.id === this.selectedModelId
       };
     });
   }),
 
   selectedModel: computed('selectedModelId', function() {
-    return this.get('models').find(model => {
-      return model.id === this.get('selectedModelId');
+    return this.models.find(model => {
+      return model.id === this.selectedModelId;
     });
   }),
 

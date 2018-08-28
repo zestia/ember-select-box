@@ -14,17 +14,17 @@ export default Mixin.create({
   },
 
   _updateOptions() {
-    this.set('options', emberA(this.get('_options').toArray()));
+    this.set('options', emberA(this._options.toArray()));
   },
 
   actions: {
     _registerOption(option) {
-      this.get('_options').addObject(option);
+      this._options.addObject(option);
       this._scheduleUpdateOptions();
     },
 
     _deregisterOption(option) {
-      this.get('_options').removeObject(option);
+      this._options.removeObject(option);
       this._scheduleUpdateOptions();
     }
   }

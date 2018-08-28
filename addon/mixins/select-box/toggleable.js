@@ -10,8 +10,8 @@ export default Mixin.create({
   didReceiveAttrs() {
     this._super(...arguments);
 
-    if (isPresent(this.get('is-open'))) {
-      this.set('isOpen', this.get('is-open'));
+    if (isPresent(this['is-open'])) {
+      this.set('isOpen', this['is-open']);
     }
   },
 
@@ -21,7 +21,7 @@ export default Mixin.create({
 
       this.set('isOpen', true);
 
-      invokeAction(this, 'on-open', this.get('api'));
+      invokeAction(this, 'on-open', this.api);
     },
 
     close() {
@@ -31,13 +31,13 @@ export default Mixin.create({
       run(() => trySet(this, 'isOpen', false));
       run(() => trySet(this, 'isClosing', false));
 
-      invokeAction(this, 'on-close', this.get('api'));
+      invokeAction(this, 'on-close', this.api);
     },
 
     toggle() {
       this._super(...arguments);
 
-      if (this.get('isOpen')) {
+      if (this.isOpen) {
         this.send('close');
       } else {
         this.send('open');

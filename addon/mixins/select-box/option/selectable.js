@@ -12,12 +12,12 @@ const isSelectedKeys = [
 
 export default Mixin.create({
   isSelected: computed(...isSelectedKeys, function() {
-    if (this.get('selected') !== undefined) {
-      return this.get('selected');
-    } else if (this.get('-parent-is-multiple')) {
-      return makeArray(this.get('-parent-internal-value')).includes(this.get('internalValue'));
+    if (this.selected !== undefined) {
+      return this.selected;
+    } else if (this['-parent-is-multiple']) {
+      return makeArray(this['-parent-internal-value']).includes(this.internalValue);
     } else {
-      return this.get('internalValue') === this.get('-parent-internal-value');
+      return this.internalValue === this['-parent-internal-value'];
     }
   }),
 
@@ -25,12 +25,12 @@ export default Mixin.create({
     select() {
       this._super(...arguments);
 
-      if (this.get('isDisabled')) {
+      if (this.isDisabled) {
         return;
       }
 
-      invokeAction(this, '-on-select', this.get('internalValue'));
-      invokeAction(this, 'on-select', this.get('internalValue'), this.get('-parent-api'));
+      invokeAction(this, '-on-select', this.internalValue);
+      invokeAction(this, 'on-select', this.internalValue, this['-parent-api']);
     }
   }
 });

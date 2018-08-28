@@ -7,16 +7,16 @@ export default Mixin.create({
   didInsertElement() {
     this._super(...arguments);
     this.set('_documentClickHandler', bind(this, '_clickDocument'));
-    document.addEventListener('click', this.get('_documentClickHandler'));
+    document.addEventListener('click', this._documentClickHandler);
   },
 
   willDestroyElement() {
     this._super(...arguments);
-    document.removeEventListener('click', this.get('_documentClickHandler'));
+    document.removeEventListener('click', this._documentClickHandler);
   },
 
   _clickDocument() {
-    if (this.get('isDestroyed')) {
+    if (this.isDestroyed) {
       return;
     }
 

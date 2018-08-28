@@ -10,9 +10,9 @@ export default Mixin.create({
   didReceiveAttrs() {
     this._super(...arguments);
 
-    if (isPresent(this.get('tabindex'))) {
-      this.set('tabIndex', this.get('tabindex'));
-    } else if (!isPresent(this.get('tabIndex'))) {
+    if (isPresent(this.tabindex)) {
+      this.set('tabIndex', this.tabindex);
+    } else if (!isPresent(this.tabIndex)) {
       this.set('tabIndex', 0);
     }
   },
@@ -22,18 +22,18 @@ export default Mixin.create({
 
     this.set('isFocused', true);
 
-    invokeAction(this, 'on-focus-in', e, this.get('api'));
+    invokeAction(this, 'on-focus-in', e, this.api);
   },
 
   focusOut(e) {
     this._super(...arguments);
 
-    if (this.get('isClosing')) {
+    if (this.isClosing) {
       next(() => trySet(this, 'isFocused', false));
     } else {
       this.set('isFocused', false);
     }
 
-    invokeAction(this, 'on-focus-out', e, this.get('api'));
+    invokeAction(this, 'on-focus-out', e, this.api);
   }
 });

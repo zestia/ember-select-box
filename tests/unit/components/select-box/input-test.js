@@ -9,7 +9,7 @@ module('select-box (input)', function(hooks) {
 
     const input = this.owner.factoryFor('component:select-box/input').create();
 
-    assert.deepEqual([...input.get('attributeBindings')].sort(), [
+    assert.deepEqual([...input.attributeBindings].sort(), [
       'accept',
       'autocapitalize',
       'autocomplete',

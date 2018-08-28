@@ -38,7 +38,7 @@ module('select-box/selected-option', function(hooks) {
 
     await render(hbs `{{select-box/selected-option style="color:red<script>"}}`);
 
-    assert.ok(this.get('element').innerHTML.match('style="color:red&amp;lt;script&amp;gt;"'),
+    assert.ok(this.element.innerHTML.match('style="color:red&amp;lt;script&amp;gt;"'),
       'a selected option can be styled, value is escaped');
   });
 

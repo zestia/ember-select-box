@@ -34,13 +34,13 @@ export default Component.extend({
     },
 
     addTag(tag, sb) {
-      this.get('on-tag')(tag);
+      this['on-tag'](tag);
       sb.setInputValue('');
       sb.close();
     },
 
     removeTag(tag) {
-      this.get('on-detag')(tag);
+      this['on-detag'](tag);
     }
   }
 });

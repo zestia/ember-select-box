@@ -67,7 +67,7 @@ module('select-box/input', function(hooks) {
 
     await fillIn(input, 'baz');
 
-    assert.equal(this.get('myObj.value'), 'bar',
+    assert.equal(this.myObj.value, 'bar',
       'changing the input value does not mutate the value attribute');
   });
 

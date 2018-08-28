@@ -53,7 +53,7 @@ module('select-box (ember data)', function(hooks) {
     this.set('foos', store.findAll('foo'));
     this.set('value', store.findAll('foo').then(foos => {
       return foos.filter(foo => {
-        return foo.get('id') >= 5;
+        return foo.id >= 5;
       });
     }));
 

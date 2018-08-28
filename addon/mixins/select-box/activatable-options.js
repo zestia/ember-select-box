@@ -13,7 +13,7 @@ export default Mixin.create({
 
   _activateOptionAtIndex(index, scroll) {
     const under = index < 0;
-    const over  = index > this.get('options.length') - 1;
+    const over  = index > this.options.length - 1;
 
     if (!(under || over)) {
       this.set('activeOptionIndex', index);
@@ -26,11 +26,11 @@ export default Mixin.create({
   },
 
   _activateOptionForChar(char, scroll) {
-    cancel(this.get('activateOptionCharTimer'));
+    cancel(this.activateOptionCharTimer);
 
     const timer     = later(this, '_resetActivateOptionChars', 1000);
-    const index     = this.getWithDefault('activateOptionCharIndex', 0);
-    const lastChars = this.getWithDefault('activateOptionChars', '');
+    const index     = this.activateOptionCharIndex || 0;
+    const lastChars = this.activateOptionChars || '';
     const lastChar  = lastChars.substring(lastChars.length - 1);
     const chars     = lastChars + char;
 
@@ -50,15 +50,15 @@ export default Mixin.create({
     this.set('activateOptionCharIndex', index >= options.length - 1 ? 0 : index + 1);
 
     if (option) {
-      this.send('activateOptionAtIndex', option.get('index'), scroll);
+      this.send('activateOptionAtIndex', option.index, scroll);
     }
   },
 
   _findOptionsMatchingChars(chars) {
     const pattern = new RegExp(`^${chars}`, 'i');
 
-    return this.get('options').filter(option => {
-      return pattern.test(option.get('element').textContent.trim());
+    return this.options.filter(option => {
+      return pattern.test(option.element.textContent.trim());
     });
   },
 
@@ -67,7 +67,7 @@ export default Mixin.create({
   },
 
   _activatedOption() {
-    const activeOption = this.get('activeOption');
+    const activeOption = this.activeOption;
 
     if (activeOption) {
       activeOption.send('_activated');
@@ -79,11 +79,11 @@ export default Mixin.create({
   },
 
   _scrollActiveOptionIntoView() {
-    scrollIntoView(this.get('activeOption.element'));
+    scrollIntoView(this.activeOption.element);
   },
 
   activeOption: computed('activeOptionIndex', 'options', function() {
-    return this.get('options').objectAt(this.get('activeOptionIndex'));
+    return this.options.objectAt(this.activeOptionIndex);
   }),
 
   actions: {
@@ -92,12 +92,12 @@ export default Mixin.create({
     },
 
     activateNextOption(scroll = true) {
-      const next = this.get('activeOptionIndex') + 1;
+      const next = this.activeOptionIndex + 1;
       this._activateOptionAtIndex(next, scroll);
     },
 
     activatePreviousOption(scroll = true) {
-      const prev = this.get('activeOptionIndex') - 1;
+      const prev = this.activeOptionIndex - 1;
       this._activateOptionAtIndex(prev, scroll);
     },
 

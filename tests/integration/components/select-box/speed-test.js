@@ -10,7 +10,7 @@ module('select-box (speed)', function(hooks) {
     this.set('items', []);
 
     for (let i = 0; i <= 1000; i++) {
-      this.get('items').push(`Item ${i}`);
+      this.items.push(`Item ${i}`);
     }
   });
 

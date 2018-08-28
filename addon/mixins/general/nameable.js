@@ -5,10 +5,10 @@ const { from } = Array;
 export default Mixin.create({
   init() {
     this._super(...arguments);
-    const prefix = this.get('class-prefix') || this.get('classNamePrefix');
-    const suffix = this.get('classNameSuffix');
+    const prefix = this['class-prefix'] || this.classNamePrefix;
+    const suffix = this.classNameSuffix;
     const name   = className(prefix, suffix);
-    const names  = from(this.get('classNames'));
+    const names  = from(this.classNames);
 
     names.push(name);
 

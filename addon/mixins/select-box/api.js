@@ -1,6 +1,7 @@
 import Mixin from '@ember/object/mixin';
 import { bind, scheduleOnce } from '@ember/runloop';
 import { assign } from '@ember/polyfills';
+import { get } from '@ember/object';
 const { seal } = Object;
 
 export default Mixin.create({
@@ -19,11 +20,11 @@ export default Mixin.create({
   },
 
   _updateApiElement() {
-    this._updateApi('element', this.get('element'));
+    this._updateApi('element', this.element);
   },
 
   _updateApi(key, value) {
-    if (this.get('isDestroyed')) {
+    if (this.isDestroyed) {
       return;
     }
 
@@ -53,14 +54,14 @@ export default Mixin.create({
       'activatePreviousSelectedOption',
       'deactivateSelectedOptions'
     ].reduce((actions, name) => {
-      actions[name] = bind(this, this.get(`actions.${name}`));
+      actions[name] = bind(this, get(this, `actions.${name}`));
       return actions;
     }, {});
   },
 
   actions: {
     _updated() {
-      this._updateApi('value', this.get('internalValue'));
+      this._updateApi('value', this.internalValue);
       this._super(...arguments);
     },
 

@@ -11,7 +11,7 @@ module('select-box (class name helper)', function(hooks) {
 
     await render(hbs `{{select-box-class}}`);
 
-    assert.equal(this.get('element').innerHTML, 'select-box',
+    assert.equal(this.element.innerHTML, 'select-box',
       'outputs the default class name');
   });
 
@@ -20,12 +20,12 @@ module('select-box (class name helper)', function(hooks) {
 
     await render(hbs `{{select-box-class ""}}`);
 
-    assert.equal(this.get('element').innerHTML, 'select-box',
+    assert.equal(this.element.innerHTML, 'select-box',
       'generates the default class name');
 
     await render(hbs `{{select-box-class "foo"}}`);
 
-    assert.equal(this.get('element').innerHTML, 'foo',
+    assert.equal(this.element.innerHTML, 'foo',
       'uses the specified class name instead');
   });
 
@@ -34,12 +34,12 @@ module('select-box (class name helper)', function(hooks) {
 
     await render(hbs `{{select-box-class "" ""}}`);
 
-    assert.equal(this.get('element').innerHTML, 'select-box',
+    assert.equal(this.element.innerHTML, 'select-box',
       'generates the default class name, does add extraneous dash');
 
     await render(hbs `{{select-box-class "" "foo"}}`);
 
-    assert.equal(this.get('element').innerHTML, 'select-box-foo',
+    assert.equal(this.element.innerHTML, 'select-box-foo',
       'adds suffix to default class name');
   });
 
@@ -48,7 +48,7 @@ module('select-box (class name helper)', function(hooks) {
 
     await render(hbs `{{select-box-class "foo" "bar"}}`);
 
-    assert.equal(this.get('element').innerHTML, 'foo-bar',
+    assert.equal(this.element.innerHTML, 'foo-bar',
       'uses custom prefix and suffix, separating with a dash');
   });
 
@@ -57,7 +57,7 @@ module('select-box (class name helper)', function(hooks) {
 
     await render(hbs `{{select-box-class "<script>" "</script>"}}`);
 
-    assert.equal(this.get('element').innerHTML, '&lt;script&gt;-&lt;/script&gt;',
+    assert.equal(this.element.innerHTML, '&lt;script&gt;-&lt;/script&gt;',
       'the values are escaped');
   });
 });

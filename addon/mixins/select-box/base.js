@@ -11,22 +11,22 @@ export default Mixin.create({
 
   init() {
     this._super(...arguments);
-    invokeAction(this, 'on-init', this.get('api'));
+    invokeAction(this, 'on-init', this.api);
   },
 
   didReceiveAttrs() {
     this._super(...arguments);
-    this._update(this.get('value'));
+    this._update(this.value);
   },
 
   _select(value) {
     this._update(value).then(() => {
-      invokeAction(this, 'on-select', this.get('internalValue'), this.get('api'));
+      invokeAction(this, 'on-select', this.internalValue, this.api);
     });
   },
 
   _update(value) {
-    if (value === this.get('internalValue') && this.get('valueID') > 0) {
+    if (value === this.internalValue && this.valueID > 0) {
       return resolve(value);
     }
 
@@ -40,7 +40,7 @@ export default Mixin.create({
   },
 
   _updated() {
-    invokeAction(this, 'on-update', this.get('internalValue'), this.get('api'));
+    invokeAction(this, 'on-update', this.internalValue, this.api);
   },
 
   _resolveValue(value) {
@@ -50,7 +50,7 @@ export default Mixin.create({
     this.set('isSettled', false);
 
     return resolve(value).then(value => {
-      if (this.get('isMultiple')) {
+      if (this.isMultiple) {
         return all(makeArray(value));
       }
 
@@ -59,11 +59,11 @@ export default Mixin.create({
   },
 
   _resolvedValue(id, failed, value) {
-    if (id < this.get('valueID') || this.get('isDestroyed')) {
+    if (id < this.valueID || this.isDestroyed) {
       return;
     }
 
-    if (this.get('isMultiple')) {
+    if (this.isMultiple) {
       value = freeze(value);
     }
 

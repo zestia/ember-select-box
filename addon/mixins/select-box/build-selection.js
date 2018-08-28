@@ -5,7 +5,7 @@ const { isArray, from } = Array;
 
 export default Mixin.create({
   _buildSelectedValue(value1, value2) {
-    let build = this.get('on-build-selection');
+    let build = this['on-build-selection'];
 
     if (typeof build !== 'function') {
       build = bind(this, '_buildSelectedValueDefault');
@@ -17,7 +17,7 @@ export default Mixin.create({
   _buildSelectedValueDefault(value1, value2) {
     let value = value1;
 
-    if (this.get('isMultiple') && !isArray(value1)) {
+    if (this.isMultiple && !isArray(value1)) {
       const temp = emberA(from(value2));
 
       if (temp.includes(value1)) {
@@ -34,7 +34,7 @@ export default Mixin.create({
 
   actions: {
     _select(value) {
-      value = this._buildSelectedValue(value, this.get('internalValue'));
+      value = this._buildSelectedValue(value, this.internalValue);
       this._super(value);
     }
   }

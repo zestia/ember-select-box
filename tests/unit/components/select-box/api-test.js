@@ -13,7 +13,7 @@ module('select-box (api)', function(hooks) {
 
     run(() => selectBox = this.owner.factoryFor('component:select-box').create());
 
-    const properties = keys(selectBox.get('api'));
+    const properties = keys(selectBox.api);
 
     assert.deepEqual(properties, [
       'value',

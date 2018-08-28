@@ -102,7 +102,7 @@ module('select-box (selecting)', function(hooks) {
 
     await click(foo);
 
-    assert.strictEqual(this.get('initialSelectedValue'), null,
+    assert.strictEqual(this.initialSelectedValue, null,
       'does not mutate the initial selected value');
 
     assert.equal(selectedValue, 'foo',
@@ -204,7 +204,7 @@ module('select-box (selecting)', function(hooks) {
     assert.deepEqual(selectedValues, ['baz', 'bar'],
       'selecting an already selected option removes it from the existing selection');
 
-    assert.deepEqual(this.get('values'), ['foo', 'baz'],
+    assert.deepEqual(this.values, ['foo', 'baz'],
       'does not mutate the original array');
 
     assert.ok(isFrozen(selectedValues),
@@ -356,7 +356,7 @@ module('select-box (selecting)', function(hooks) {
 
     await click(findAll('.select-box-option')[1]);
 
-    assert.ok(this.get('element').textContent.match('external: bar'),
+    assert.ok(this.element.textContent.match('external: bar'),
       'mut helper updates the external value');
 
     assert.ok(find('.select-box').textContent.match('internal: bar'),
@@ -495,7 +495,7 @@ module('select-box (selecting)', function(hooks) {
       {{/select-box}}
     `);
 
-    this.get('values').addObject('baz');
+    this.values.addObject('baz');
 
     assert.equal(findAll('.select-box-option.is-selected').length, 1,
       'changes to the multiple choice values does not update the select box ' +

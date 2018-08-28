@@ -3,7 +3,7 @@ import { scheduleOnce } from '@ember/runloop';
 
 export default Mixin.create({
   _configureAsCombobox() {
-    if (this.get('isDestroyed')) {
+    if (this.isDestroyed) {
       return;
     }
 
@@ -17,11 +17,11 @@ export default Mixin.create({
     },
 
     focusInput() {
-      this.get('input.element').focus();
+      this.input.element.focus();
     },
 
     blurInput() {
-      this.get('input.element').blur();
+      this.input.element.blur();
     },
 
     _inputText() {},

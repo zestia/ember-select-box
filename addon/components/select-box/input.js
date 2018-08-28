@@ -60,21 +60,21 @@ export default Component.extend(...mixins, {
   input() {
     this._super(...arguments);
 
-    const value = this.get('element.value');
+    const value = this.element.value;
 
     if (!value) {
-      invokeAction(this, 'on-clear', this.get('-parent-api'));
+      invokeAction(this, 'on-clear', this['-parent-api']);
     }
 
     invokeAction(this, '-on-input', value);
-    invokeAction(this, 'on-input', value, this.get('-parent-api'));
+    invokeAction(this, 'on-input', value, this['-parent-api']);
   },
 
   keyDown(e) {
     this._super(...arguments);
 
-    if (e.keyCode === 8 && !this.get('element.value')) {
-      invokeAction(this, 'on-delete', this.get('-parent-api'));
+    if (e.keyCode === 8 && !this.element.value) {
+      invokeAction(this, 'on-delete', this['-parent-api']);
     }
   }
 });

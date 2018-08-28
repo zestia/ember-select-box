@@ -89,10 +89,10 @@ module('select-box/native/option', function(hooks) {
     assert.equal(find('.select-box-option').textContent, '[object Object]: 123',
       'the value is resolved');
 
-    assert.deepEqual(this.get('myValue'), deferred.promise,
+    assert.deepEqual(this.myValue, deferred.promise,
       'does not mutate value');
 
-    assert.notEqual(this.get('myValue'), '123',
+    assert.notEqual(this.myValue, '123',
       'sanity check');
   });
 

@@ -8,7 +8,7 @@ export default Mixin.create({
   attributeBindings: ['customCSS:style'],
 
   customCSS: computed('style', function() {
-    const css = this.get('style');
+    const css = this.style;
 
     if (css) {
       return htmlSafe(escapeExpression(css));

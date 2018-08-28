@@ -5,11 +5,11 @@ import { bind } from '@ember/runloop';
 export default Mixin.create({
   didReceiveAttrs() {
     this._super(...arguments);
-    this._update(this.get('value'));
+    this._update(this.value);
   },
 
   _update(value) {
-    if (value === this.get('internalValue')) {
+    if (value === this.internalValue) {
       return;
     }
 
@@ -32,7 +32,7 @@ export default Mixin.create({
   },
 
   _resolvedValue(id, failed, value) {
-    if (id < this.get('valueID') || this.get('isDestroyed')) {
+    if (id < this.valueID || this.isDestroyed) {
       return;
     }
 

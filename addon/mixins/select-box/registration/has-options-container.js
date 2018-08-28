@@ -6,7 +6,7 @@ export default Mixin.create({
     _registerOptionsContainer(container) {
       assert(
         'A select box can only have 1 options container',
-        !this.get('optionsContainer')
+        !this.optionsContainer
       );
       this.set('optionsContainer', container);
     },
