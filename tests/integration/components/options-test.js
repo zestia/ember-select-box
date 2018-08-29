@@ -52,7 +52,7 @@ module('select-box/options', function(hooks) {
 
     this.set('promise', deferred.promise);
 
-    await render(hbs`{{select-box/option value=promise}}`);
+    await render(hbs`{{select-box/option value=this.promise}}`);
 
     assert.ok(find('.select-box-option').hasAttribute('aria-busy'),
       'select box option has busy attribute when resolving promise');

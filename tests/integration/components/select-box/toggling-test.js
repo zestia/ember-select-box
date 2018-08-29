@@ -21,7 +21,7 @@ module('select-box (toggling)', function(hooks) {
 
     this.set('isOpen', true);
 
-    await render(hbs `{{select-box is-open=isOpen}}`);
+    await render(hbs `{{select-box is-open=this.isOpen}}`);
 
     selectBox = find('.select-box');
 

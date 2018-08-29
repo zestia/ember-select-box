@@ -39,7 +39,7 @@ module('select-box/native/option', function(hooks) {
 
     this.set('optionDisabled', true);
 
-    await render(hbs `{{select-box/native/option disabled=optionDisabled}}`);
+    await render(hbs `{{select-box/native/option disabled=this.optionDisabled}}`);
 
     assert.ok(find('.select-box-option').disabled,
       'a native select box option can be disabled');
@@ -55,7 +55,7 @@ module('select-box/native/option', function(hooks) {
 
     this.set('myValue', 123);
 
-    await render(hbs `{{select-box/native/option value=myValue}}`);
+    await render(hbs `{{select-box/native/option value=this.myValue}}`);
 
     assert.strictEqual(find('.select-box-option').getAttribute('value'), '123',
       'the specified value is set as an HTML attribute');
@@ -74,7 +74,7 @@ module('select-box/native/option', function(hooks) {
     this.set('myValue', deferred.promise);
 
     await render(hbs `
-      {{#select-box/native/option value=myValue as |o|}}
+      {{#select-box/native/option value=this.myValue as |o|}}
         {{~myValue}}: {{o.value~}}
       {{/select-box/native/option}}
     `);
@@ -119,7 +119,7 @@ module('select-box/native/option', function(hooks) {
 
     await render(hbs`
       {{#select-box/native value="foo" as |sb|}}
-        {{#each items as |item|}}
+        {{#each this.items as |item|}}
           {{#sb.option value=item as |o|~}}
             {{o.index}}={{o.value}}
           {{~/sb.option}}

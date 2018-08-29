@@ -129,7 +129,7 @@ module('select-box', function(hooks) {
 
     await render(hbs `
       {{select-box
-        value=selectedValue
+        value=this.selectedValue
         on-update=this.updated}}
     `);
 
@@ -147,7 +147,7 @@ module('select-box', function(hooks) {
 
     await render(hbs `
       {{select-box
-        disabled=isDisabled
+        disabled=this.isDisabled
         on-update=this.updated}}
     `);
 
@@ -161,7 +161,7 @@ module('select-box', function(hooks) {
   test('no update action', async function(assert) {
     assert.expect(1);
 
-    await render(hbs `{{select-box on-update=on-update value=value}}`);
+    await render(hbs `{{select-box on-update=@on-update value=this.value}}`);
 
     this.set('value', 'foo');
 
@@ -201,7 +201,7 @@ module('select-box', function(hooks) {
 
     await render(hbs `
       {{select-box
-        value=value
+        value=this.value
         multiple=true
         on-init=this.initialised
         on-update=this.updated}}
@@ -233,7 +233,7 @@ module('select-box', function(hooks) {
 
     await render(hbs `
       {{select-box
-        value=value
+        value=this.value
         multiple=false
         on-update=this.updated}}
     `);

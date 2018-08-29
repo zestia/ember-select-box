@@ -68,7 +68,7 @@ module('select-box/option', function(hooks) {
     this.set('value', 1);
 
     await render(hbs `
-      {{#select-box value=value as |sb|}}
+      {{#select-box value=this.value as |sb|}}
         {{#sb.option value=1}}One{{/sb.option}}
         {{#sb.option value=2}}Two{{/sb.option}}
       {{/select-box}}
@@ -96,16 +96,16 @@ module('select-box/option', function(hooks) {
     this.set('selectedValue', baz);
 
     await render(hbs`
-      {{#select-box value=selectedValue as |sb|}}
+      {{#select-box value=this.selectedValue as |sb|}}
         {{#sb.group label="Group 1"}}
-          {{#each group1 as |item i|}}
+          {{#each this.group1 as |item i|}}
             {{#sb.option value=item as |o|~}}
               {{o.value.myLabel}} {{i}} {{o.index}} {{o.isSelected}}
             {{~/sb.option}}
           {{/each}}
         {{/sb.group}}
         {{#sb.group label="Group 2"}}
-          {{#each group2 as |item i|}}
+          {{#each this.group2 as |item i|}}
             {{#sb.option value=item as |o|~}}
               {{o.value.myLabel}} {{i}} {{o.index}} {{o.isSelected}}
             {{~/sb.option}}
@@ -144,7 +144,7 @@ module('select-box/option', function(hooks) {
 
     await render(hbs`
       {{#select-box value="baz" as |sb|}}
-        {{#each values as |value|}}
+        {{#each this.values as |value|}}
           {{#sb.option value=value as |o|~}}
             {{o.value}}: {{o.index}}
           {{~/sb.option}}
@@ -163,7 +163,7 @@ module('select-box/option', function(hooks) {
 
     await render(hbs`
       {{#select-box value="baz" as |sb|}}
-        {{#each values key="@index" as |value|}}
+        {{#each this.values key="@index" as |value|}}
           {{#sb.option value=value as |o|~}}
             {{o.value}}: {{o.index}}
           {{~/sb.option}}
@@ -187,7 +187,7 @@ module('select-box/option', function(hooks) {
     this.set('fooDisabled', true);
 
     await render(hbs`
-      {{#select-box/option disabled=fooDisabled as |o|}}
+      {{#select-box/option disabled=this.fooDisabled as |o|}}
         foo {{if o.isDisabled "disabled"}}
       {{/select-box/option}}
     `);
@@ -210,7 +210,7 @@ module('select-box/option', function(hooks) {
     this.set('promise', deferred1.promise);
 
     await render(hbs `
-      {{#select-box/option value=promise as |o|}}
+      {{#select-box/option value=this.promise as |o|}}
         isPending: {{o.isPending}}<br>
         isRejected: {{o.isRejected}}<br>
         isFulfilled: {{o.isFulfilled}}<br>

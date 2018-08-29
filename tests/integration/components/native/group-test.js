@@ -38,7 +38,7 @@ module('select-box/native/group', function(hooks) {
 
     this.set('groupDisabled', true);
 
-    await render(hbs `{{select-box/native/group disabled=groupDisabled}}`);
+    await render(hbs `{{select-box/native/group disabled=this.groupDisabled}}`);
 
     assert.ok(find('.select-box-group').disabled,
       'a select box group can be disabled');

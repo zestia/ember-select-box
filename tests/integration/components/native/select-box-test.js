@@ -99,7 +99,7 @@ module('select-box/native', function(hooks) {
 
     this.set('isDisabled', true);
 
-    await render(hbs `{{select-box/native disabled=isDisabled}}`);
+    await render(hbs `{{select-box/native disabled=this.isDisabled}}`);
 
     assert.ok(find('.select-box').hasAttribute('disabled'),
       'can be disabled');
@@ -144,7 +144,7 @@ module('select-box/native', function(hooks) {
     this.set('selectedValue', 'foo');
 
     await render(hbs`
-      {{#select-box/native value=selectedValue as |sb|}}
+      {{#select-box/native value=this.selectedValue as |sb|}}
         {{sb.option value="foo"}}
         {{sb.option value="bar"}}
       {{/select-box/native}}
@@ -179,7 +179,7 @@ module('select-box/native', function(hooks) {
 
     await render(hbs`
       {{#select-box/native
-        value=initialSelectedValue
+        value=this.initialSelectedValue
         on-select=this.selected as |sb|}}
         {{sb.option value="foo"}}
         {{sb.option value="bar"}}
@@ -206,7 +206,7 @@ module('select-box/native', function(hooks) {
 
     await render(hbs`
       {{#select-box/native
-        value=selectedValue
+        value=this.selectedValue
         on-select=(action (mut selectedValue)) as |sb|}}
         {{sb.option value="foo"}}
         {{sb.option value="bar"}}
@@ -227,7 +227,7 @@ module('select-box/native', function(hooks) {
 
     await render(hbs`
       {{! template-lint-disable no-unbound }}
-      {{#select-box/native value=(unbound selectedValue) as |sb|}}
+      {{#select-box/native value=(unbound this.selectedValue) as |sb|}}
         {{sb.option value="foo"}}
         {{sb.option value="bar"}}
         {{sb.option value="baz"}}
@@ -253,8 +253,8 @@ module('select-box/native', function(hooks) {
 
     await render(hbs`
       {{#select-box/native multiple=true on-select=this.selected as |sb|}}
-        {{#sb.option value=foo}}Foo{{/sb.option}}
-        {{#sb.option value=bar}}Bar{{/sb.option}}
+        {{#sb.option value=this.foo}}Foo{{/sb.option}}
+        {{#sb.option value=this.bar}}Bar{{/sb.option}}
       {{/select-box/native}}
     `);
 
@@ -263,8 +263,6 @@ module('select-box/native', function(hooks) {
 
   test('manual selection (initial value)', async function(assert) {
     assert.expect(1);
-
-    this.set('barSelected', true);
 
     await render(hbs`
       {{#select-box/native value="baz" as |sb|}}
@@ -286,8 +284,8 @@ module('select-box/native', function(hooks) {
     await render(hbs`
       {{#select-box/native multiple=true as |sb|}}
         {{sb.option value="foo"}}
-        {{sb.option value="bar" selected=barSelected}}
-        {{sb.option value="baz" selected=bazSelected}}
+        {{sb.option value="bar" selected=this.barSelected}}
+        {{sb.option value="baz" selected=this.bazSelected}}
       {{/select-box/native}}
     `);
 
@@ -313,8 +311,8 @@ module('select-box/native', function(hooks) {
 
     await render(hbs`
       {{#select-box/native on-select=this.selected}}
-        <option value={{nonPrimitive}}>Primitive</option>
-        <option value={{primitive}}>Primitive</option>
+        <option value={{this.nonPrimitive}}>Primitive</option>
+        <option value={{this.primitive}}>Primitive</option>
       {{/select-box/native}}
     `);
 

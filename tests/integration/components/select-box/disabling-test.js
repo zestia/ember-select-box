@@ -20,7 +20,7 @@ module('select-box (disabling)', function(hooks) {
 
     this.set('isDisabled', true);
 
-    await render(hbs `{{select-box disabled=isDisabled}}`);
+    await render(hbs `{{select-box disabled=this.isDisabled}}`);
 
     assert.ok(isDisabled(),
       'can set the disabled state, adding a class name');
@@ -45,7 +45,7 @@ module('select-box (disabling)', function(hooks) {
 
     this.set('disabled', true);
 
-    await render(hbs `{{select-box disabled=disabled}}`);
+    await render(hbs `{{select-box disabled=this.disabled}}`);
 
     assert.ok(find('.select-box').hasAttribute('aria-disabled'),
       'receives an aria disabled attribute when disabled');

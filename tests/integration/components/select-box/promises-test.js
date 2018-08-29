@@ -16,7 +16,7 @@ module('select-box (promises)', function(hooks) {
     this.set('promise', deferred1.promise);
 
     await render(hbs`
-      {{#select-box value=promise as |sb|}}
+      {{#select-box value=this.promise as |sb|}}
         isPending: {{sb.isPending}}<br>
         isRejected: {{sb.isRejected}}<br>
         isFulfilled: {{sb.isFulfilled}}<br>
@@ -68,7 +68,7 @@ module('select-box (promises)', function(hooks) {
 
     this.set('promise', deferred.promise);
 
-    await render(hbs`{{select-box value=promise}}`);
+    await render(hbs`{{select-box value=this.promise}}`);
 
     assert.ok(find('.select-box').hasAttribute('aria-busy'),
       'select box has busy attribute when resolving promise');
@@ -91,10 +91,10 @@ module('select-box (promises)', function(hooks) {
     this.set('promise2', deferred2.promise);
 
     await render(hbs`
-      {{#select-box value=promise2 as |sb|}}
-        {{sb.option value=promise1}}
+      {{#select-box value=this.promise2 as |sb|}}
+        {{sb.option value=this.promise1}}
         {{sb.option value="bar"}}
-        {{sb.option value=promise2}}
+        {{sb.option value=this.promise2}}
       {{/select-box}}
     `);
 
@@ -136,8 +136,8 @@ module('select-box (promises)', function(hooks) {
     this.set('values', ['foo', 'bar', 'baz']);
 
     await render(hbs`
-      {{#select-box value=promises multiple=true as |sb|}}
-        {{#each values as |value|}}
+      {{#select-box value=this.promises multiple=true as |sb|}}
+        {{#each this.values as |value|}}
           {{#sb.option value=value as |o|}}
             {{o.value}}
           {{/sb.option}}
@@ -164,7 +164,7 @@ module('select-box (promises)', function(hooks) {
     this.set('promise', deferred.promise);
 
     await render(hbs`
-      {{#select-box value=promise as |sb|}}
+      {{#select-box value=this.promise as |sb|}}
         {{sb.option value="foo"}}
         {{sb.option value="bar"}}
         {{sb.option value="baz"}}
@@ -193,10 +193,10 @@ module('select-box (promises)', function(hooks) {
     this.set('promise4', deferred4.promise);
 
     await render(hbs`
-      {{#select-box value=promise1 as |sb|}}
-        {{#sb.option value=promise2 as |o|}}{{o.value}}{{/sb.option}}
-        {{#sb.option value=promise3 as |o|}}{{o.value}}{{/sb.option}}
-        {{#sb.option value=promise4 as |o|}}{{o.value}}{{/sb.option}}
+      {{#select-box value=this.promise1 as |sb|}}
+        {{#sb.option value=this.promise2 as |o|}}{{o.value}}{{/sb.option}}
+        {{#sb.option value=this.promise3 as |o|}}{{o.value}}{{/sb.option}}
+        {{#sb.option value=this.promise4 as |o|}}{{o.value}}{{/sb.option}}
       {{/select-box}}
     `);
 
@@ -223,7 +223,7 @@ module('select-box (promises)', function(hooks) {
     assert.expect(1);
 
     await render(hbs`
-      {{#select-box value=promise as |sb|}}
+      {{#select-box value=this.promise as |sb|}}
         {{#sb.option value="foo"}}Foo{{/sb.option}}
         {{#sb.option value="bar"}}Bar{{/sb.option}}
         {{#sb.option value="baz"}}Baz{{/sb.option}}
@@ -250,7 +250,7 @@ module('select-box (promises)', function(hooks) {
 
     await render(hbs`
       {{#select-box value="bar" as |sb|}}
-        {{#sb.option value=promise as |o|}}
+        {{#sb.option value=this.promise as |o|}}
           {{~o.value~}}
         {{/sb.option}}
       {{/select-box}}
@@ -280,7 +280,7 @@ module('select-box (promises)', function(hooks) {
 
     await render(hbs`
       {{#select-box as |sb|}}
-        {{#sb.option value=promise as |o|}}
+        {{#sb.option value=this.promise as |o|}}
           {{~o.value~}}
         {{/sb.option}}
       {{/select-box}}

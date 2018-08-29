@@ -44,7 +44,7 @@ module('select-box (searching)', function(hooks) {
     await render(hbs`
       {{#select-box on-search=this.findItems as |sb|}}
         {{sb.input}}
-        {{#each items as |item|}}
+        {{#each this.items as |item|}}
           {{#sb.option value=item}}
             {{item}}
           {{/sb.option}}
@@ -84,8 +84,8 @@ module('select-box (searching)', function(hooks) {
         on-search=this.findItems
         on-searched=this.foundItems as |sb|}}
         {{sb.input}}
-        Results for: {{query}}
-        {{#each items as |item|}}
+        Results for: {{this.query}}
+        {{#each this.items as |item|}}
           {{#sb.option value=item}}
             {{~item~}}
           {{/sb.option}}
@@ -133,8 +133,8 @@ module('select-box (searching)', function(hooks) {
         on-search=this.findItems
         on-search-error=this.failedToFindItems as |sb|}}
         {{sb.input}}
-        {{#if error}}
-          Error: {{error}} for {{query}}
+        {{#if this.error}}
+          Error: {{this.error}} for {{this.query}}
         {{/if}}
       {{/select-box}}
     `);
@@ -204,7 +204,7 @@ module('select-box (searching)', function(hooks) {
         on-search=this.findItems
         on-searched=this.foundItems as |sb|}}
         {{sb.input}}
-        {{items.[0]}}
+        {{this.items.[0]}}
       {{/select-box}}
     `);
 
@@ -243,7 +243,7 @@ module('select-box (searching)', function(hooks) {
         on-search=this.findItems
         on-searched=this.foundItems as |sb|}}
         {{sb.input}}
-        {{items.[0]}}
+        {{this.items.[0]}}
       {{/select-box}}
     `);
 
