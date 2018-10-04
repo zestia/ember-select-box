@@ -51,9 +51,9 @@ ember install @zestia/ember-select-box
 
 ```handlebars
 <SelectBox as |sb|>
-  <sb.option value=1> One </sb.option>
-  <sb.option value=2> Two </sb.option>
-  <sb.option value=3> Three </sb.option>
+  <sb.option @value="1"> One </sb.option>
+  <sb.option @value="2"> Two </sb.option>
+  <sb.option @value="3"> Three </sb.option>
 </SelectBox>
 ```
 
@@ -474,8 +474,8 @@ You only need to wrap the options up in with `sb.options` if you require extra m
 
 ```handlebars
 <sb.options>
-  <sb.option value=1> One </sb.option>
-  <sb.option value=2> Two </sb.option>
+  <sb.option value="1"> One </sb.option>
+  <sb.option value="2"> Two </sb.option>
 </sb.options>
 ```
 
@@ -584,7 +584,7 @@ Does _not_ render the user's selected option automatically, but rather just prov
 ```handlebars
 <sb.selected-options>
   {{#each sb.value as |value|}}
-    <sb.selected-option>You chose this</sb.selected-option>
+    <sb.selected-option>You chose this {{value}}</sb.selected-option>
   {{/each}}
 </sb.selected-options>
 ```
