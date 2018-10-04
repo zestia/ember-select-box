@@ -40,11 +40,11 @@ ember install @zestia/ember-select-box
 #### Native select box example
 
 ```handlebars
-<NativeSelectBox as |sb|}}
-  <sb.option value=1> One </sb.option>
-  <sb.option value=2> Two </sb.option>
-  <sb.option value=3> Three </sb.option>
-</NativeSelectBox>
+{{#select-box/native as |sb|}}
+  {{#sb.option value=1}} One {{/sb.option}}
+  {{#sb.option value=2}} Two {{/sb.option}}
+  {{#sb.option value=3}} Three {{/sb.option}}
+{{/select-box/native}}
 ```
 
 #### Faux Select box example
