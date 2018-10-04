@@ -2,7 +2,9 @@
 
 6.1.3
 
-* Upgrade deps & some fixes to the demos
+* Upgrade deps
+* Fix support for Ember 2.10
+* Fixes to the demos
 
 6.1.2
 
