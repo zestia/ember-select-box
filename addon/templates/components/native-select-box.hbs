@@ -1,5 +1,5 @@
 {{yield (hash
-  option=(component "select-box/native/option"
+  option=(component "native-select-box/option"
     class-prefix=@class-prefix
     -parent-components=this.options
     -parent-api=this.api
@@ -8,6 +8,6 @@
     -on-init=(action "_registerOption")
     -on-destroy=(action "_deregisterOption")
     -on-select=(action "select"))
-  group=(component "select-box/native/group"
+  group=(component "native-select-box/group"
     class-prefix=@class-prefix)
 )}}

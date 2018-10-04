@@ -1,9 +1,9 @@
 import Component from '@ember/component';
-import layout from '../../templates/components/select-box/native';
-import BaseSelectBox from '../../mixins/select-box/base';
-import Focusable from '../../mixins/select-box/focusable';
-import HasOptions from '../../mixins/select-box/registration/has-options';
-import Nameable from '../../mixins/general/nameable';
+import layout from '../templates/components/native-select-box';
+import BaseSelectBox from '../mixins/select-box/base';
+import Focusable from '../mixins/select-box/focusable';
+import HasOptions from '../mixins/select-box/registration/has-options';
+import Nameable from '../mixins/general/nameable';
 import { get } from '@ember/object';
 const { from } = Array;
 

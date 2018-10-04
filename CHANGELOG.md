@@ -1,5 +1,10 @@
 # Changelog
 
+7.0.0
+
+* Move native selectbox from `{{select-box/native}}` to `{{native-select-box}}` For nicer integration
+with angle bracket components.
+
 6.1.3
 
 * Upgrade deps

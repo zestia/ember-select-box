@@ -3,13 +3,13 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, find, findAll } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('select-box/native/group', function(hooks) {
+module('native-select-box/group', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function(assert) {
     assert.expect(1);
 
-    await render(hbs `{{select-box/native/group}}`);
+    await render(hbs `{{native-select-box/group}}`);
 
     assert.equal(findAll('optgroup.select-box-group').length, 1,
       'renders with correct class name and tag');
@@ -18,7 +18,7 @@ module('select-box/native/group', function(hooks) {
   test('class prefix', async function(assert) {
     assert.expect(1);
 
-    await render(hbs `{{select-box/native/group class-prefix="foo"}}`);
+    await render(hbs `{{native-select-box/group class-prefix="foo"}}`);
 
     assert.equal(findAll('.foo-group').length, 1,
       'can override the class prefix');
@@ -27,7 +27,7 @@ module('select-box/native/group', function(hooks) {
   test('label', async function(assert) {
     assert.expect(1);
 
-    await render(hbs `{{select-box/native/group label="Foo"}}`);
+    await render(hbs `{{native-select-box/group label="Foo"}}`);
 
     assert.equal(find('.select-box-group').getAttribute('label'), 'Foo',
       'the specified label is applied as an HTML attribute');
@@ -38,7 +38,7 @@ module('select-box/native/group', function(hooks) {
 
     this.set('groupDisabled', true);
 
-    await render(hbs `{{select-box/native/group disabled=this.groupDisabled}}`);
+    await render(hbs `{{native-select-box/group disabled=this.groupDisabled}}`);
 
     assert.ok(find('.select-box-group').disabled,
       'a select box group can be disabled');

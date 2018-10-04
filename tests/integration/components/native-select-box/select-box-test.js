@@ -9,13 +9,13 @@ import {
   selectNativeOptionsByLabel
 } from '@zestia/ember-select-box/utils/select-box/test-helpers';
 
-module('select-box/native', function(hooks) {
+module('native-select-box', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function(assert) {
     assert.expect(1);
 
-    await render(hbs `{{select-box/native}}`);
+    await render(hbs `{{native-select-box}}`);
 
     assert.equal(findAll('select.select-box').length, 1,
       'renders with correct class name and tag');
@@ -24,17 +24,17 @@ module('select-box/native', function(hooks) {
   test('class prefix', async function(assert) {
     assert.expect(2);
 
-    await render(hbs `{{select-box/native class-prefix="foo"}}`);
+    await render(hbs `{{native-select-box class-prefix="foo"}}`);
 
     assert.equal(findAll('.foo').length, 1,
       'can override the class prefix');
 
     await render(hbs `
-      {{#select-box/native class-prefix="foo" as |sb|}}
+      {{#native-select-box class-prefix="foo" as |sb|}}
         {{#sb.group}}
           {{sb.option}}
         {{/sb.group}}
-      {{/select-box/native}}
+      {{/native-select-box}}
     `);
 
     assert.ok(
@@ -47,7 +47,7 @@ module('select-box/native', function(hooks) {
   test('name', async function(assert) {
     assert.expect(1);
 
-    await render(hbs `{{select-box/native name="foo"}}`);
+    await render(hbs `{{native-select-box name="foo"}}`);
 
     assert.equal(find('.select-box').getAttribute('name'), 'foo',
       'can set a name attribute');
@@ -56,7 +56,7 @@ module('select-box/native', function(hooks) {
   test('title', async function(assert) {
     assert.expect(1);
 
-    await render(hbs `{{select-box/native title="foo"}}`);
+    await render(hbs `{{native-select-box title="foo"}}`);
 
     assert.equal(find('.select-box').getAttribute('title'), 'foo',
       'can set a title attribute');
@@ -65,7 +65,7 @@ module('select-box/native', function(hooks) {
   test('aria label', async function(assert) {
     assert.expect(1);
 
-    await render(hbs `{{select-box/native aria-label="Something"}}`);
+    await render(hbs `{{native-select-box aria-label="Something"}}`);
 
     assert.equal(find('.select-box').getAttribute('aria-label'), 'Something',
       'setting the aria label works');
@@ -74,7 +74,7 @@ module('select-box/native', function(hooks) {
   test('autofocus', async function(assert) {
     assert.expect(1);
 
-    await render(hbs `{{select-box/native autofocus=true}}`);
+    await render(hbs `{{native-select-box autofocus=true}}`);
 
     assert.ok(find('.select-box').hasAttribute('autofocus'),
       'can autofocus a native select box');
@@ -83,7 +83,7 @@ module('select-box/native', function(hooks) {
   test('required', async function(assert) {
     assert.expect(1);
 
-    await render(hbs `{{select-box/native required=true}}`);
+    await render(hbs `{{native-select-box required=true}}`);
 
     assert.ok(find('.select-box').hasAttribute('required'),
       'can set the required attribute');
@@ -92,14 +92,14 @@ module('select-box/native', function(hooks) {
   test('disabling', async function(assert) {
     assert.expect(3);
 
-    await render(hbs `{{select-box/native}}`);
+    await render(hbs `{{native-select-box}}`);
 
     assert.ok(!find('.select-box').hasAttribute('disabled'),
       'enabled by default');
 
     this.set('isDisabled', true);
 
-    await render(hbs `{{select-box/native disabled=this.isDisabled}}`);
+    await render(hbs `{{native-select-box disabled=this.isDisabled}}`);
 
     assert.ok(find('.select-box').hasAttribute('disabled'),
       'can be disabled');
@@ -113,12 +113,12 @@ module('select-box/native', function(hooks) {
   test('tabindex', async function(assert) {
     assert.expect(2);
 
-    await render(hbs `{{select-box/native}}`);
+    await render(hbs `{{native-select-box}}`);
 
     assert.strictEqual(find('.select-box').getAttribute('tabindex'), null,
       'default tabindex');
 
-    await render(hbs `{{select-box/native tabindex=5}}`);
+    await render(hbs `{{native-select-box tabindex=5}}`);
 
     assert.strictEqual(find('.select-box').getAttribute('tabindex'), '5',
       'can specify a tabindex attribute');
@@ -127,12 +127,12 @@ module('select-box/native', function(hooks) {
   test('size', async function(assert) {
     assert.expect(2);
 
-    await render(hbs `{{select-box/native}}`);
+    await render(hbs `{{native-select-box}}`);
 
     assert.strictEqual(find('.select-box').getAttribute('size'), null,
       'default size');
 
-    await render(hbs `{{select-box/native size=2}}`);
+    await render(hbs `{{native-select-box size=2}}`);
 
     assert.strictEqual(find('.select-box').getAttribute('size'), '2',
       'can specify a size attribute');
@@ -144,10 +144,10 @@ module('select-box/native', function(hooks) {
     this.set('selectedValue', 'foo');
 
     await render(hbs`
-      {{#select-box/native value=this.selectedValue as |sb|}}
+      {{#native-select-box value=this.selectedValue as |sb|}}
         {{sb.option value="foo"}}
         {{sb.option value="bar"}}
-      {{/select-box/native}}
+      {{/native-select-box}}
     `);
 
     const foo = find('.select-box-option[value="foo"]');
@@ -178,13 +178,13 @@ module('select-box/native', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box/native
+      {{#native-select-box
         value=this.initialSelectedValue
         on-select=this.selected as |sb|}}
         {{sb.option value="foo"}}
         {{sb.option value="bar"}}
         {{sb.option value="baz"}}
-      {{/select-box/native}}
+      {{/native-select-box}}
     `);
 
     await fillIn('.select-box', 'bar');
@@ -205,13 +205,13 @@ module('select-box/native', function(hooks) {
     this.set('selectedValue', 'bar');
 
     await render(hbs`
-      {{#select-box/native
+      {{#native-select-box
         value=this.selectedValue
         on-select=(action (mut selectedValue)) as |sb|}}
         {{sb.option value="foo"}}
         {{sb.option value="bar"}}
         {{sb.option value="baz"}}
-      {{/select-box/native}}
+      {{/native-select-box}}
     `);
 
     await fillIn('.select-box', 'foo');
@@ -227,11 +227,11 @@ module('select-box/native', function(hooks) {
 
     await render(hbs`
       {{! template-lint-disable no-unbound }}
-      {{#select-box/native value=(unbound this.selectedValue) as |sb|}}
+      {{#native-select-box value=(unbound this.selectedValue) as |sb|}}
         {{sb.option value="foo"}}
         {{sb.option value="bar"}}
         {{sb.option value="baz"}}
-      {{/select-box/native}}
+      {{/native-select-box}}
     `);
 
     this.set('selectedValue', 'bar');
@@ -252,10 +252,10 @@ module('select-box/native', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box/native multiple=true on-select=this.selected as |sb|}}
+      {{#native-select-box multiple=true on-select=this.selected as |sb|}}
         {{#sb.option value=this.foo}}Foo{{/sb.option}}
         {{#sb.option value=this.bar}}Bar{{/sb.option}}
-      {{/select-box/native}}
+      {{/native-select-box}}
     `);
 
     await selectNativeOptionsByLabel('.select-box', ['Foo', 'Bar']);
@@ -265,11 +265,11 @@ module('select-box/native', function(hooks) {
     assert.expect(1);
 
     await render(hbs`
-      {{#select-box/native value="baz" as |sb|}}
+      {{#native-select-box value="baz" as |sb|}}
         {{sb.option value="foo" selected=false}}
         {{sb.option value="bar" selected=true}}
         {{sb.option value="baz" selected=false}}
-      {{/select-box/native}}
+      {{/native-select-box}}
     `);
 
     assert.equal(find('.select-box').value, 'bar',
@@ -282,11 +282,11 @@ module('select-box/native', function(hooks) {
     this.set('barSelected', true);
 
     await render(hbs`
-      {{#select-box/native multiple=true as |sb|}}
+      {{#native-select-box multiple=true as |sb|}}
         {{sb.option value="foo"}}
         {{sb.option value="bar" selected=this.barSelected}}
         {{sb.option value="baz" selected=this.bazSelected}}
-      {{/select-box/native}}
+      {{/native-select-box}}
     `);
 
     assert.deepEqual(getNativeMultipleSelectBoxValue('.select-box'), ['bar'],
@@ -310,10 +310,10 @@ module('select-box/native', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box/native on-select=this.selected}}
+      {{#native-select-box on-select=this.selected}}
         <option value={{this.nonPrimitive}}>Primitive</option>
         <option value={{this.primitive}}>Primitive</option>
-      {{/select-box/native}}
+      {{/native-select-box}}
     `);
 
     assert.equal(findAll('option')[0].getAttribute('value'), '[object Object]',
@@ -331,10 +331,10 @@ module('select-box/native', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box/native multiple=true on-select=this.selected}}
+      {{#native-select-box multiple=true on-select=this.selected}}
         <option value="Hello"></option>
         <option value="World"></option>
-      {{/select-box/native}}
+      {{/native-select-box}}
     `);
 
     await selectNativeOptionsByValue('.select-box', ['Hello', 'World']);
@@ -349,10 +349,10 @@ module('select-box/native', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box/native multiple=true on-select=this.selected as |sb|}}
+      {{#native-select-box multiple=true on-select=this.selected as |sb|}}
         {{sb.option value="foo"}}
         <option value="bar"></option>
-      {{/select-box/native}}
+      {{/native-select-box}}
     `);
 
     await selectNativeOptionsByValue('.select-box', ['foo', 'bar']);
@@ -365,11 +365,11 @@ module('select-box/native', function(hooks) {
       <div class="foo-select-display-label">
         {{~this.displayLabel~}}
       </div>
-      {{#select-box/native
+      {{#native-select-box
         value=@value
         on-update=(action "updateDisplayLabel") as |sb|}}
         {{yield sb}}
-      {{/select-box/native}}
+      {{/native-select-box}}
     `;
 
     const FooSelectBox = Component.extend({
@@ -408,9 +408,9 @@ module('select-box/native', function(hooks) {
     this.set('buildSelection', () => count++);
 
     await render(hbs`
-      {{#select-box/native on-build-selection=this.buildSelection as |sb|}}
+      {{#native-select-box on-build-selection=this.buildSelection as |sb|}}
         {{sb.option value="foo"}}
-      {{/select-box/native}}
+      {{/native-select-box}}
     `);
 
     await fillIn('.select-box', 'foo');
@@ -427,9 +427,9 @@ module('select-box/native', function(hooks) {
     this.set('selected', value => selectedValue = value);
 
     await render(hbs`
-      {{#select-box/native on-select=this.selected as |sb|}}
+      {{#native-select-box on-select=this.selected as |sb|}}
         {{#sb.option}}foo{{/sb.option}}
-      {{/select-box/native}}
+      {{/native-select-box}}
     `);
 
     await fillIn('.select-box', 'foo');
@@ -438,9 +438,9 @@ module('select-box/native', function(hooks) {
       "'label' is not considered the option's value with component option");
 
     await render(hbs`
-      {{#select-box/native on-select=this.selected}}
+      {{#native-select-box on-select=this.selected}}
         <option>foo</option>
-      {{/select-box/native}}
+      {{/native-select-box}}
     `);
 
     await fillIn('.select-box', 'foo');
@@ -453,11 +453,11 @@ module('select-box/native', function(hooks) {
     assert.expect(1);
 
     await render(hbs`
-      {{#select-box/native as |sb|}}
+      {{#native-select-box as |sb|}}
         {{sb.option}}
         {{sb.option}}
         {{sb.option}}
-      {{/select-box/native}}
+      {{/native-select-box}}
     `);
 
     assert.ok(

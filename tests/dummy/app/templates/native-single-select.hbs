@@ -3,7 +3,7 @@
   <a href="https://github.com/zestia/ember-select-box/blob/master/tests/dummy/app/templates/native-single-select.hbs">template.hbs</a>
 </p>
 
-{{#select-box/native
+{{#native-select-box
   value=selectedDessert
   on-select=(action "selectedDessert") as |sb|}}
   {{#sb.group label="Cakes"}}
@@ -20,7 +20,7 @@
       {{/sb.option}}
     {{/each}}
   {{/sb.group}}
-{{/select-box/native}}
+{{/native-select-box}}
 
 
 <p>
