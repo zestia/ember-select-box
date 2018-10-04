@@ -27,7 +27,7 @@
   {{sb.input
     click=(action "reveal" sb @on-search)
     on-input=sb.open
-    on-delete=(action "removeTag" sb.value.lastObject)
+    on-delete=(action "removeTag" @value.lastObject)
     autofocus=true}}
 
   {{#if sb.isOpen}}

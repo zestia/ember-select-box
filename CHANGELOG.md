@@ -1,5 +1,9 @@
 # Changelog
 
+6.1.3
+
+* Upgrade deps & some fixes to the demos
+
 6.1.2
 
 * Use named arguments and fix no implicit this
