@@ -120,14 +120,14 @@ ember install @zestia/ember-select-box
     <td>on-select</td>
     <td>
       Fired when an option is clicked, or enter is pressed regardless as
-      to whether the value changed or not. Subsequently fired by use of the <code>select</code> API.
+      to whether the value changed or not. Also fired by use of the <code>select</code> API.
     </td>
   </tr>
   <tr>
     <td>on-update</td>
     <td>
       Fired after the initial value has been resolved and the component has rendered.<br>
-      Subsequently fired by use of the <code>update</code> API or if the value attribute changes.
+      Also fired by use of the <code>update</code> API or if the value attribute changes.
     </td>
   </tr>
   <tr>
