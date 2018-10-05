@@ -474,8 +474,8 @@ You only need to wrap the options up in with `sb.options` if you require extra m
 
 ```handlebars
 <sb.options>
-  <sb.option value="1"> One </sb.option>
-  <sb.option value="2"> Two </sb.option>
+  <sb.option @value="1"> One </sb.option>
+  <sb.option @value="2"> Two </sb.option>
 </sb.options>
 ```
 
