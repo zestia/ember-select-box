@@ -63,18 +63,18 @@ export default Component.extend(...mixins, {
     const value = this.element.value;
 
     if (!value) {
-      invokeAction(this, 'on-clear', this['-parent-api']);
+      invokeAction(this, 'on-clear', this._parentApi);
     }
 
-    invokeAction(this, '-on-input', value);
-    invokeAction(this, 'on-input', value, this['-parent-api']);
+    invokeAction(this, '_onInput', value);
+    invokeAction(this, 'on-input', value, this._parentApi);
   },
 
   keyDown(e) {
     this._super(...arguments);
 
     if (e.keyCode === 8 && !this.element.value) {
-      invokeAction(this, 'on-delete', this['-parent-api']);
+      invokeAction(this, 'on-delete', this._parentApi);
     }
   }
 });

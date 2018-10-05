@@ -3,18 +3,18 @@ import { computed, get } from '@ember/object';
 import invokeAction from '../../../utils/invoke-action';
 
 export default Mixin.create({
-  isActive: computed('index', '-parent-active-index', function() {
-    return get(this, 'index') === this['-parent-active-index'];
+  isActive: computed('index', '_parentActiveIndex', function() {
+    return get(this, 'index') === this._parentActiveIndex;
   }),
 
   actions: {
     activate() {
       this._super(...arguments);
-      invokeAction(this, '-on-activate', get(this, 'index'));
+      invokeAction(this, '_onActivate', get(this, 'index'));
     },
 
     _activated() {
-      invokeAction(this, 'on-activate', this.internalValue, this['-parent-api']);
+      invokeAction(this, 'on-activate', this.internalValue, this._parentApi);
     }
   }
 });
