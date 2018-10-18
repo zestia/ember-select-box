@@ -1,5 +1,9 @@
 # Changelog
 
+7.0.1
+
+* Fix typo
+
 7.0.0
 
 * Move native selectbox from `{{select-box/native}}` to `{{native-select-box}}` for nicer integration
