@@ -14,10 +14,19 @@ export default Mixin.create({
 
     if (!(under || over)) {
       this.set('activeSelectedOptionIndex', index);
+      this._activatedSelectedOption();
     }
 
     if (scroll) {
       this._scrollActiveSelectedOptionIntoView();
+    }
+  },
+
+  _activatedSelectedOption() {
+    const activeSelectedOption = get(this, 'activeSelectedOption');
+
+    if (activeSelectedOption) {
+      activeSelectedOption.send('_activated');
     }
   },
 
