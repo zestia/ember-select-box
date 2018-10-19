@@ -59,7 +59,7 @@ module('select-box (activating options)', function(hooks) {
       'mousing over another option moves the active class');
   });
 
-  test('activating option via the api', async function(assert) {
+  test('activating via the api', async function(assert) {
     assert.expect(2);
 
     this.set('activated', (value, sb) => {
@@ -74,27 +74,6 @@ module('select-box (activating options)', function(hooks) {
       {{#select-box as |sb|}}
         {{sb.option value="foo" on-activate=this.activated}}
         <button onclick={{action sb.activateOptionAtIndex 0}}>Activate foo</button>
-      {{/select-box}}
-    `);
-
-    await click('button');
-  });
-
-  test('activating selected option via the api', async function(assert) {
-    assert.expect(2);
-
-    this.set('activated', (value, sb) => {
-      assert.equal(value, 'foo',
-        'activating an option sends an action with the value');
-
-      assert.ok(typeof sb === 'object',
-        'sends the api');
-    });
-
-    await render(hbs`
-      {{#select-box as |sb|}}
-        {{sb.selected-option value="foo" on-activate=this.activated}}
-        <button onclick={{action sb.activateSelectedOptionAtIndex 0}}>Activate foo</button>
       {{/select-box}}
     `);
 
