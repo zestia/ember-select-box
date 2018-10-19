@@ -79,7 +79,11 @@ export default Mixin.create({
   },
 
   _scrollActiveOptionIntoView() {
-    scrollIntoView(get(this, 'activeOption').element);
+    const activeOption = get(this, 'activeOption');
+
+    if (activeOption) {
+      scrollIntoView(activeOption.element);
+    }
   },
 
   activeOption: computed('activeOptionIndex', 'options', function() {

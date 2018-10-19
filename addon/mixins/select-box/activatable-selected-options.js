@@ -26,7 +26,11 @@ export default Mixin.create({
   },
 
   _scrollActiveSelectedOptionIntoView() {
-    scrollIntoView(get(this, 'activeSelectedOption').element);
+    const activeSelectedOption = get(this, 'activeSelectedOption');
+
+    if (activeSelectedOption) {
+      scrollIntoView(activeSelectedOption.element);
+    }
   },
 
   activeSelectedOption: computed('activeSelectedOptionIndex', 'selectedOptions',

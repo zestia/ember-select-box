@@ -1,5 +1,9 @@
 # Changelog
 
+7.0.2
+
+* Fix error if no active option available to scroll into view
+
 7.0.1
 
 * Fix typo
