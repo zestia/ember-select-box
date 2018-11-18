@@ -36,7 +36,6 @@
     "ember-cli-htmlbars-inline-precompile": "2.0.0",
     "ember-cli-inject-live-reload": "2.0.1",
     "ember-cli-release": "1.0.0-beta.2",
-    "ember-cli-sass": "8.0.1",
     "ember-cli-sri": "2.1.1",
     "ember-cli-stylelint": "2.2.0",
     "ember-cli-test-loader": "2.2.0",
@@ -59,8 +58,7 @@
     "eslint": "5.9.0",
     "loader.js": "4.7.0",
     "prettier": "1.15.2",
-    "qunit-dom": "0.8.0",
-    "sass": "1.15.1"
+    "qunit-dom": "0.8.0"
   },
   "dependencies": {
     "ember-cli-babel": "^6.16.0",

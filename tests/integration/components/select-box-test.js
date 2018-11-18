@@ -68,7 +68,7 @@ module('select-box', function(hooks) {
 
     await render(hbs`{{select-box}}`);
 
-    assert.dom('.select-box').hasAttribute('role', undefined, 'select box has no aria role');
+    assert.dom('.select-box').doesNotHaveAttribute('role', 'select box has no aria role');
   });
 
   test('style', async function(assert) {
