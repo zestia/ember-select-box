@@ -11,55 +11,60 @@ module('select-box/option', function(hooks) {
   test('it renders', async function(assert) {
     assert.expect(1);
 
-    await render(hbs `{{select-box/option}}`);
+    await render(hbs`{{select-box/option}}`);
 
-    assert.equal(findAll('div.select-box-option').length, 1,
-      'renders with correct class name and tag');
+    assert
+      .dom('div.select-box-option')
+      .exists({ count: 1 }, 'renders with correct class name and tag');
   });
 
   test('class prefix', async function(assert) {
     assert.expect(1);
 
-    await render(hbs `{{select-box/option class-prefix="foo"}}`);
+    await render(hbs`{{select-box/option class-prefix="foo"}}`);
 
-    assert.equal(findAll('.foo-option').length, 1,
-      'can override the class prefix');
+    assert.dom('.foo-option').exists({ count: 1 }, 'can override the class prefix');
   });
 
   test('aria role', async function(assert) {
     assert.expect(1);
 
-    await render(hbs `{{select-box/option}}`);
+    await render(hbs`{{select-box/option}}`);
 
-    assert.equal(find('.select-box-option').getAttribute('role'), 'option',
-      'a select box option has an appropriate aria role');
+    assert
+      .dom('.select-box-option')
+      .hasAttribute('role', 'option', 'a select box option has an appropriate aria role');
   });
 
   test('title', async function(assert) {
     assert.expect(1);
 
-    await render(hbs `{{select-box/option title="Foo"}}`);
+    await render(hbs`{{select-box/option title="Foo"}}`);
 
-    assert.equal(find('.select-box-option').getAttribute('title'), 'Foo',
-      'a select box option can have a title attribute');
+    assert
+      .dom('.select-box-option')
+      .hasAttribute('title', 'Foo', 'a select box option can have a title attribute');
   });
 
   test('style', async function(assert) {
     assert.expect(1);
 
-    await render(hbs `{{select-box/option style="color:red<script>"}}`);
+    await render(hbs`{{select-box/option style="color:red<script>"}}`);
 
-    assert.ok(find('.select-box-option').outerHTML.match('style="color:red&amp;lt;script&amp;gt;"'),
-      'an option can be styled, value is escaped');
+    assert.ok(
+      find('.select-box-option').outerHTML.match('style="color:red&amp;lt;script&amp;gt;"'),
+      'an option can be styled, value is escaped'
+    );
   });
 
   test('disabled', async function(assert) {
     assert.expect(1);
 
-    await render(hbs `{{select-box/option disabled=true}}`);
+    await render(hbs`{{select-box/option disabled=true}}`);
 
-    assert.ok(find('.select-box-option[aria-disabled]').classList.contains('is-disabled'),
-      'an option can be flagged as disabled');
+    assert
+      .dom('.select-box-option[aria-disabled]')
+      .hasClass('is-disabled', 'an option can be flagged as disabled');
   });
 
   test('aria selected', async function(assert) {
@@ -67,20 +72,22 @@ module('select-box/option', function(hooks) {
 
     this.set('value', 1);
 
-    await render(hbs `
+    await render(hbs`
       {{#select-box value=this.value as |sb|}}
         {{#sb.option value=1}}One{{/sb.option}}
         {{#sb.option value=2}}Two{{/sb.option}}
       {{/select-box}}
     `);
 
-    assert.equal(find('.select-box-option[aria-selected]').textContent, 'One',
-      'the selected option receives an aria selected attribute');
+    assert
+      .dom('.select-box-option[aria-selected]')
+      .hasText('One', 'the selected option receives an aria selected attribute');
 
     this.set('value', 2);
 
-    assert.equal(find('.select-box-option[aria-selected]').textContent, 'Two',
-      'the aria selected attribute is redetermined when the value changes');
+    assert
+      .dom('.select-box-option[aria-selected]')
+      .hasText('Two', 'the aria selected attribute is redetermined when the value changes');
   });
 
   test('yield index', async function(assert) {
@@ -116,9 +123,9 @@ module('select-box/option', function(hooks) {
 
     assert.ok(
       findAll('.select-box-option')[0].textContent === 'Foo 0 0 false' &&
-      findAll('.select-box-option')[1].textContent === 'Bar 1 1 false' &&
-      findAll('.select-box-option')[2].textContent === 'Baz 0 2 true' &&
-      findAll('.select-box-option')[3].textContent === 'Qux 1 3 false',
+        findAll('.select-box-option')[1].textContent === 'Bar 1 1 false' &&
+        findAll('.select-box-option')[2].textContent === 'Baz 0 2 true' &&
+        findAll('.select-box-option')[3].textContent === 'Qux 1 3 false',
       'select box options can yield their label, value, index and selected state'
     );
 
@@ -126,9 +133,9 @@ module('select-box/option', function(hooks) {
 
     assert.ok(
       findAll('.select-box-option')[0].textContent === 'Foo 0 0 false' &&
-      findAll('.select-box-option')[1].textContent === 'Bar 1 1 false' &&
-      findAll('.select-box-option')[2].textContent === 'Qux 0 3 false' &&
-      findAll('.select-box-option')[3].textContent === 'Baz 1 2 true',
+        findAll('.select-box-option')[1].textContent === 'Bar 1 1 false' &&
+        findAll('.select-box-option')[2].textContent === 'Qux 0 3 false' &&
+        findAll('.select-box-option')[3].textContent === 'Baz 1 2 true',
       'index gets out of sync due to lack of key="@index"'
     );
   });
@@ -152,14 +159,16 @@ module('select-box/option', function(hooks) {
       {{/select-box}}
     `);
 
-    assert.deepEqual(labels(), ['foo: 0', 'bar: 1', 'baz: 2'],
-      'precondition, indexes are correct');
+    assert.deepEqual(labels(), ['foo: 0', 'bar: 1', 'baz: 2'], 'precondition, indexes are correct');
 
     this.set('values', ['foo', 'baz']);
     this.set('values', ['foo', 'bar', 'baz']);
 
-    assert.deepEqual(labels(), ['foo: 0', 'bar: 2', 'baz: 1'],
-      'indexes are wrong due to component re-use');
+    assert.deepEqual(
+      labels(),
+      ['foo: 0', 'bar: 2', 'baz: 1'],
+      'indexes are wrong due to component re-use'
+    );
 
     await render(hbs`
       {{#select-box value="baz" as |sb|}}
@@ -171,14 +180,16 @@ module('select-box/option', function(hooks) {
       {{/select-box}}
     `);
 
-    assert.deepEqual(labels(), ['foo: 0', 'bar: 1', 'baz: 2'],
-      'precondition, indexes are correct');
+    assert.deepEqual(labels(), ['foo: 0', 'bar: 1', 'baz: 2'], 'precondition, indexes are correct');
 
     this.set('values', ['foo', 'baz']);
     this.set('values', ['foo', 'bar', 'baz']);
 
-    assert.deepEqual(labels(), ['foo: 0', 'bar: 1', 'baz: 2'],
-      'indexes are correct due to key on each');
+    assert.deepEqual(
+      labels(),
+      ['foo: 0', 'bar: 1', 'baz: 2'],
+      'indexes are correct due to key on each'
+    );
   });
 
   test('yield disabled', async function(assert) {
@@ -192,13 +203,11 @@ module('select-box/option', function(hooks) {
       {{/select-box/option}}
     `);
 
-    assert.equal(find('.select-box-option').textContent.trim(), 'foo disabled',
-      'yields disabled state');
+    assert.dom('.select-box-option').hasText('foo disabled', 'yields disabled state');
 
     this.set('fooDisabled', false);
 
-    assert.equal(find('.select-box-option').textContent.trim(), 'foo',
-      'disabled state is updated');
+    assert.dom('.select-box-option').hasText('foo', 'disabled state is updated');
   });
 
   test('yielded promise state', async function(assert) {
@@ -209,7 +218,7 @@ module('select-box/option', function(hooks) {
 
     this.set('promise', deferred1.promise);
 
-    await render(hbs `
+    await render(hbs`
       {{#select-box/option value=this.promise as |o|}}
         isPending: {{o.isPending}}<br>
         isRejected: {{o.isRejected}}<br>
@@ -218,7 +227,7 @@ module('select-box/option', function(hooks) {
       {{/select-box/option}}
     `);
 
-    assert.equal(this.element.textContent, `
+    assert.dom(this.element).hasText(`
         isPending: true
         isRejected: false
         isFulfilled: false
@@ -228,7 +237,7 @@ module('select-box/option', function(hooks) {
     deferred1.resolve();
     await settled();
 
-    assert.equal(this.element.textContent, `
+    assert.dom(this.element).hasText(`
         isPending: false
         isRejected: false
         isFulfilled: true
@@ -237,7 +246,7 @@ module('select-box/option', function(hooks) {
 
     this.set('promise', deferred2.promise);
 
-    assert.equal(this.element.textContent, `
+    assert.dom(this.element).hasText(`
         isPending: true
         isRejected: false
         isFulfilled: false
@@ -247,7 +256,7 @@ module('select-box/option', function(hooks) {
     deferred2.reject();
     await settled();
 
-    assert.equal(this.element.textContent, `
+    assert.dom(this.element).hasText(`
         isPending: false
         isRejected: true
         isFulfilled: false

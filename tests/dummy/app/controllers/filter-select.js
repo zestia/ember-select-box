@@ -22,8 +22,10 @@ export default Controller.extend({
   },
 
   _filterPies(query) {
-    return resolve(pies.filter(pie => {
-      return pie.name.toLowerCase().indexOf(query.toLowerCase()) >= 0;
-    }));
+    return resolve(
+      pies.filter(pie => {
+        return pie.name.toLowerCase().indexOf(query.toLowerCase()) >= 0;
+      })
+    );
   }
 });

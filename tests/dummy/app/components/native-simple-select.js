@@ -9,10 +9,7 @@ export default Component.extend({
   didRender() {
     this._super(...arguments);
 
-    const label = this.element
-      .querySelector('option:checked')
-      .textContent
-      .trim();
+    const label = this.element.querySelector('option:checked').textContent.trim();
 
     this.set('displayLabel', label);
   },

@@ -13,7 +13,7 @@ export default Mixin.create({
 
   _activateOptionAtIndex(index, scroll) {
     const under = index < 0;
-    const over  = index > this.options.length - 1;
+    const over = index > this.options.length - 1;
 
     if (!(under || over)) {
       this.set('activeOptionIndex', index);
@@ -28,11 +28,11 @@ export default Mixin.create({
   _activateOptionForChar(char, scroll) {
     cancel(this.activateOptionCharTimer);
 
-    const timer     = later(this, '_resetActivateOptionChars', 1000);
-    const index     = this.activateOptionCharIndex || 0;
+    const timer = later(this, '_resetActivateOptionChars', 1000);
+    const index = this.activateOptionCharIndex || 0;
     const lastChars = this.activateOptionChars || '';
-    const lastChar  = lastChars.substring(lastChars.length - 1);
-    const chars     = lastChars + char;
+    const lastChar = lastChars.substring(lastChars.length - 1);
+    const chars = lastChars + char;
 
     let options;
     let option;

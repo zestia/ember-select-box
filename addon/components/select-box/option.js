@@ -4,8 +4,8 @@ import Activatable from '../../mixins/select-box/option/activatable';
 import BaseOption from '../../mixins/select-box/option/base';
 import Disableable from '../../mixins/general/disableable';
 import Indexable from '../../mixins/general/indexable';
-import Nameable from  '../../mixins/general/nameable';
-import Registerable from  '../../mixins/general/registerable';
+import Nameable from '../../mixins/general/nameable';
+import Registerable from '../../mixins/general/registerable';
 import Selectable from '../../mixins/select-box/option/selectable';
 import Styleable from '../../mixins/general/styleable';
 
@@ -34,11 +34,7 @@ export default Component.extend(...mixins, {
     'isPending:aria-busy'
   ],
 
-  classNameBindings: [
-    'isActive',
-    'isDisabled',
-    'isSelected'
-  ],
+  classNameBindings: ['isActive', 'isDisabled', 'isSelected'],
 
   mouseEnter() {
     this.send('activate');

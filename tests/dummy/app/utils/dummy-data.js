@@ -58,7 +58,7 @@ export const cakes = [
   { id: 11, name: 'Upside-down cake' }
 ];
 
-export const breads =  [
+export const breads = [
   { id: 1, name: 'Bagel' },
   { id: 2, name: 'Baguette' },
   { id: 3, name: 'Ciabatta' },
@@ -88,11 +88,7 @@ export const puddings = [
   { id: 12, name: 'Trifle' }
 ];
 
-export const tags = [
-  { id: 1, name: 'foo' },
-  { id: 2, name: 'bar' },
-  { id: 3, name: 'baz' }
-];
+export const tags = [{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }, { id: 3, name: 'baz' }];
 
 export const colours = [
   'white',
@@ -110,5 +106,5 @@ export const colours = [
   'blue',
   'navy',
   'fuchsia',
-  'purple',
+  'purple'
 ];

@@ -7,8 +7,8 @@ export default Mixin.create({
     this._super(...arguments);
     const prefix = this['class-prefix'] || this.classNamePrefix;
     const suffix = this.classNameSuffix;
-    const name   = className(prefix, suffix);
-    const names  = from(this.classNames);
+    const name = className(prefix, suffix);
+    const names = from(this.classNames);
 
     names.push(name);
 

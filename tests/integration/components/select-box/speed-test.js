@@ -41,7 +41,6 @@ module('select-box (speed)', function(hooks) {
 
     const end2 = Date.now() - start2;
 
-    assert.ok(end1 < end2,
-      'renders faster with non-component options');
+    assert.ok(end1 < end2, 'renders faster with non-component options');
   });
 });

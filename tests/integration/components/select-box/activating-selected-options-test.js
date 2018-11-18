@@ -28,41 +28,36 @@ module('select-box (activating selected options)', function(hooks) {
     const one = findAll('.select-box-selected-option')[0];
     const two = findAll('.select-box-selected-option')[1];
 
-    assert.equal(findAll('.select-box-selected-option.is-active').length, 0,
-      'precondition, there are no active selected options');
+    assert
+      .dom('.select-box-selected-option.is-active')
+      .doesNotExist('precondition, there are no active selected options');
 
     await click(one);
 
-    assert.ok(one.classList.contains('is-active'),
-      'selected option gets an active class name');
+    assert.dom(one).hasClass('is-active', 'selected option gets an active class name');
 
     const [id] = selectedOptions.getAttribute('aria-activedescendant').match(/\d+/);
 
-    assert.equal(
-      find('.select-box-selected-option[aria-current]').textContent, 'One',
-      'receives an aria current attribute when active'
-    );
+    assert
+      .dom('.select-box-selected-option[aria-current]')
+      .hasText('One', 'receives an aria current attribute when active');
 
-    assert.ok(id,
-      'active selected option id is added to the selected options container');
+    assert.ok(id, 'active selected option id is added to the selected options container');
 
     await click(two);
 
     const [nextID] = selectedOptions.getAttribute('aria-activedescendant').match(/\d+/);
 
-    assert.notEqual(id, nextID,
-      'the active descendant is updated');
+    assert.notEqual(id, nextID, 'the active descendant is updated');
   });
 
   test('activating selected option via the api', async function(assert) {
     assert.expect(2);
 
     this.set('activated', (value, sb) => {
-      assert.equal(value, 'foo',
-        'activating an option sends an action with the value');
+      assert.equal(value, 'foo', 'activating an option sends an action with the value');
 
-      assert.ok(typeof sb === 'object',
-        'sends the api');
+      assert.ok(typeof sb === 'object', 'sends the api');
     });
 
     await render(hbs`

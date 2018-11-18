@@ -10,7 +10,7 @@ export default Mixin.create({
 
   _activateSelectedOptionAtIndex(index, scroll) {
     const under = index < 0;
-    const over  = index > this.selectedOptions.length - 1;
+    const over = index > this.selectedOptions.length - 1;
 
     if (!(under || over)) {
       this.set('activeSelectedOptionIndex', index);
@@ -42,11 +42,10 @@ export default Mixin.create({
     }
   },
 
-  activeSelectedOption: computed('activeSelectedOptionIndex', 'selectedOptions',
-    function() {
-      const index = this.activeSelectedOptionIndex;
-      return this.selectedOptions.objectAt(index);
-    }),
+  activeSelectedOption: computed('activeSelectedOptionIndex', 'selectedOptions', function() {
+    const index = this.activeSelectedOptionIndex;
+    return this.selectedOptions.objectAt(index);
+  }),
 
   actions: {
     activateSelectedOptionAtIndex(index, scroll = false) {

@@ -3,8 +3,8 @@ import { capitalize } from '@ember/string';
 import invokeAction from '../../utils/invoke-action';
 
 export const keys = {
-  8:  'backspace',
-  9:  'tab',
+  8: 'backspace',
+  9: 'tab',
   13: 'enter',
   27: 'escape',
   37: 'left',

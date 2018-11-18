@@ -3,7 +3,7 @@ function _getOffset(element) {
   const win = element.ownerDocument.defaultView;
 
   return {
-    top:  rect.top + win.pageYOffset,
+    top: rect.top + win.pageYOffset,
     left: rect.left + win.pageXOffset
   };
 }
@@ -32,12 +32,12 @@ export default function scrollIntoView(element) {
     return;
   }
 
-  const scroll            = scroller.scrollTop;
-  const elementTop        = _getOffset(element).top;
-  const scrollerTop       = _getOffset(scroller).top;
-  const elementBottom     = elementTop + element.offsetHeight;
-  const scrollerBottom    = scrollerTop + scroller.clientHeight;
-  const outOfBoundsTop    = elementTop - scrollerTop < 0;
+  const scroll = scroller.scrollTop;
+  const elementTop = _getOffset(element).top;
+  const scrollerTop = _getOffset(scroller).top;
+  const elementBottom = elementTop + element.offsetHeight;
+  const scrollerBottom = scrollerTop + scroller.clientHeight;
+  const outOfBoundsTop = elementTop - scrollerTop < 0;
   const outOfBoundsBottom = elementBottom > scrollerBottom;
 
   if (outOfBoundsTop) {

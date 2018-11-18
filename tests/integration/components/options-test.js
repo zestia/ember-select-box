@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled, find, findAll } from '@ember/test-helpers';
+import { render, settled, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { defer } from 'rsvp';
 
@@ -10,25 +10,25 @@ module('select-box/options', function(hooks) {
   test('it renders', async function(assert) {
     assert.expect(1);
 
-    await render(hbs `{{select-box/options}}`);
+    await render(hbs`{{select-box/options}}`);
 
-    assert.equal(findAll('div.select-box-options').length, 1,
-      'renders with correct class name and tag');
+    assert
+      .dom('div.select-box-options')
+      .exists({ count: 1 }, 'renders with correct class name and tag');
   });
 
   test('class prefix', async function(assert) {
     assert.expect(1);
 
-    await render(hbs `{{select-box/options class-prefix="foo"}}`);
+    await render(hbs`{{select-box/options class-prefix="foo"}}`);
 
-    assert.equal(findAll('.foo-options').length, 1,
-      'can override the class prefix');
+    assert.dom('.foo-options').exists({ count: 1 }, 'can override the class prefix');
   });
 
   test('style', async function(assert) {
     assert.expect(1);
 
-    await render(hbs `{{select-box/options style="color:red<script>"}}`);
+    await render(hbs`{{select-box/options style="color:red<script>"}}`);
 
     assert.ok(
       find('.select-box-options').outerHTML.match('style="color:red&amp;lt;script&amp;gt;"'),
@@ -39,10 +39,11 @@ module('select-box/options', function(hooks) {
   test('aria role', async function(assert) {
     assert.expect(1);
 
-    await render(hbs `{{select-box/options}}`);
+    await render(hbs`{{select-box/options}}`);
 
-    assert.equal(find('.select-box-options').getAttribute('role'), 'listbox',
-      'options container has an appropriate aria role');
+    assert
+      .dom('.select-box-options')
+      .hasAttribute('role', 'listbox', 'options container has an appropriate aria role');
   });
 
   test('promise value (aria busy)', async function(assert) {
@@ -54,14 +55,18 @@ module('select-box/options', function(hooks) {
 
     await render(hbs`{{select-box/option value=this.promise}}`);
 
-    assert.ok(find('.select-box-option').hasAttribute('aria-busy'),
-      'select box option has busy attribute when resolving promise');
+    assert.ok(
+      find('.select-box-option').hasAttribute('aria-busy'),
+      'select box option has busy attribute when resolving promise'
+    );
 
     deferred.resolve();
 
     await settled();
 
-    assert.ok(!find('.select-box-option').hasAttribute('aria-busy'),
-      'select box option no longer has busy attribute when promise has resolved');
+    assert.ok(
+      !find('.select-box-option').hasAttribute('aria-busy'),
+      'select box option no longer has busy attribute when promise has resolved'
+    );
   });
 });

@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, findAll } from '@ember/test-helpers';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('select-box/selected-options', function(hooks) {
@@ -9,27 +9,29 @@ module('select-box/selected-options', function(hooks) {
   test('it renders', async function(assert) {
     assert.expect(1);
 
-    await render(hbs `{{select-box/selected-options}}`);
+    await render(hbs`{{select-box/selected-options}}`);
 
-    assert.equal(findAll('div.select-box-selected-options').length, 1,
-      'renders with correct class name and tag');
+    assert
+      .dom('div.select-box-selected-options')
+      .exists({ count: 1 }, 'renders with correct class name and tag');
   });
 
   test('class prefix', async function(assert) {
     assert.expect(1);
 
-    await render(hbs `{{select-box/selected-options class-prefix="foo"}}`);
+    await render(hbs`{{select-box/selected-options class-prefix="foo"}}`);
 
-    assert.equal(findAll('.foo-selected-options').length, 1,
-      'can override the class prefix');
+    assert.dom('.foo-selected-options').exists({ count: 1 }, 'can override the class prefix');
   });
 
   test('style', async function(assert) {
     assert.expect(1);
 
-    await render(hbs `{{select-box/selected-options style="color:red<script>"}}`);
+    await render(hbs`{{select-box/selected-options style="color:red<script>"}}`);
 
-    assert.ok(this.element.innerHTML.match('style="color:red&amp;lt;script&amp;gt;"'),
-      'selected options container can be styled, value is escaped');
+    assert.ok(
+      this.element.innerHTML.match('style="color:red&amp;lt;script&amp;gt;"'),
+      'selected options container can be styled, value is escaped'
+    );
   });
 });

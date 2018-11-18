@@ -10,28 +10,29 @@ module('native-select-box/option', function(hooks) {
   test('it renders', async function(assert) {
     assert.expect(1);
 
-    await render(hbs `{{native-select-box/option}}`);
+    await render(hbs`{{native-select-box/option}}`);
 
-    assert.equal(findAll('option.select-box-option').length, 1,
-      'renders with correct class name and tag');
+    assert
+      .dom('option.select-box-option')
+      .exists({ count: 1 }, 'renders with correct class name and tag');
   });
 
   test('class prefix', async function(assert) {
     assert.expect(1);
 
-    await render(hbs `{{native-select-box/option class-prefix="foo"}}`);
+    await render(hbs`{{native-select-box/option class-prefix="foo"}}`);
 
-    assert.equal(findAll('.foo-option').length, 1,
-      'can override the class prefix');
+    assert.dom('.foo-option').exists({ count: 1 }, 'can override the class prefix');
   });
 
   test('title', async function(assert) {
     assert.expect(1);
 
-    await render(hbs `{{native-select-box/option title="Foo"}}`);
+    await render(hbs`{{native-select-box/option title="Foo"}}`);
 
-    assert.equal(find('.select-box-option').getAttribute('title'), 'Foo',
-      'a native select box option can have a title attribute');
+    assert
+      .dom('.select-box-option')
+      .hasAttribute('title', 'Foo', 'a native select box option can have a title attribute');
   });
 
   test('disabling', async function(assert) {
@@ -39,15 +40,13 @@ module('native-select-box/option', function(hooks) {
 
     this.set('optionDisabled', true);
 
-    await render(hbs `{{native-select-box/option disabled=this.optionDisabled}}`);
+    await render(hbs`{{native-select-box/option disabled=this.optionDisabled}}`);
 
-    assert.ok(find('.select-box-option').disabled,
-      'a native select box option can be disabled');
+    assert.dom('.select-box-option').isDisabled('a native select box option can be disabled');
 
     this.set('optionDisabled', false);
 
-    assert.ok(!find('.select-box-option').disabled,
-      'a native select box option can be re-enabled');
+    assert.ok(!find('.select-box-option').disabled, 'a native select box option can be re-enabled');
   });
 
   test('value', async function(assert) {
@@ -55,15 +54,21 @@ module('native-select-box/option', function(hooks) {
 
     this.set('myValue', 123);
 
-    await render(hbs `{{native-select-box/option value=this.myValue}}`);
+    await render(hbs`{{native-select-box/option value=this.myValue}}`);
 
-    assert.strictEqual(find('.select-box-option').getAttribute('value'), '123',
-      'the specified value is set as an HTML attribute');
+    assert.strictEqual(
+      find('.select-box-option').getAttribute('value'),
+      '123',
+      'the specified value is set as an HTML attribute'
+    );
 
     this.set('myValue', 456);
 
-    assert.strictEqual(find('.select-box-option').getAttribute('value'), '456',
-      'changing the value updates the HTML attribute');
+    assert.strictEqual(
+      find('.select-box-option').getAttribute('value'),
+      '456',
+      'changing the value updates the HTML attribute'
+    );
   });
 
   test('promise value', async function(assert) {
@@ -73,49 +78,47 @@ module('native-select-box/option', function(hooks) {
 
     this.set('myValue', deferred.promise);
 
-    await render(hbs `
+    await render(hbs`
       {{#native-select-box/option value=this.myValue as |o|}}
         {{~myValue}}: {{o.value~}}
       {{/native-select-box/option}}
     `);
 
-    assert.equal(find('.select-box-option').textContent, '[object Object]: [object Object]',
-      'the value is as you would expect');
+    assert
+      .dom('.select-box-option')
+      .hasText('[object Object]: [object Object]', 'the value is as you would expect');
 
     deferred.resolve('123');
 
     await settled();
 
-    assert.equal(find('.select-box-option').textContent, '[object Object]: 123',
-      'the value is resolved');
+    assert.dom('.select-box-option').hasText('[object Object]: 123', 'the value is resolved');
 
-    assert.deepEqual(this.myValue, deferred.promise,
-      'does not mutate value');
+    assert.deepEqual(this.myValue, deferred.promise, 'does not mutate value');
 
-    assert.notEqual(this.myValue, '123',
-      'sanity check');
+    assert.notEqual(this.myValue, '123', 'sanity check');
   });
 
   test('block label', async function(assert) {
     assert.expect(1);
 
-    await render(hbs `
+    await render(hbs`
       {{#native-select-box/option~}}
         Foo
       {{~/native-select-box/option}}
     `);
 
-    assert.strictEqual(find('.select-box-option').textContent, 'Foo',
-      'renders the label inside the option element');
+    assert.strictEqual(
+      find('.select-box-option').textContent,
+      'Foo',
+      'renders the label inside the option element'
+    );
   });
 
   test('yield', async function(assert) {
     assert.expect(1);
 
-    this.set('items', [
-      'foo',
-      'bar'
-    ]);
+    this.set('items', ['foo', 'bar']);
 
     await render(hbs`
       {{#native-select-box value="foo" as |sb|}}
@@ -129,7 +132,7 @@ module('native-select-box/option', function(hooks) {
 
     assert.ok(
       findAll('.select-box-option')[0].textContent === '0=foo' &&
-      findAll('.select-box-option')[1].textContent === '1=bar',
+        findAll('.select-box-option')[1].textContent === '1=bar',
       'native options can yield their index & value'
     );
   });

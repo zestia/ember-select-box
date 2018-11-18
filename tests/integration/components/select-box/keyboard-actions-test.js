@@ -15,7 +15,7 @@ module('select-box (keyboard actions)', function(hooks) {
     this.set('ranAction', name => called.push(name));
     this.set('pressedKey', () => pressedKey++);
 
-    await render(hbs `{{select-box
+    await render(hbs`{{select-box
       on-press-key=this.pressedKey
       on-press-backspace=(action ranAction "backspace")
       on-press-tab=(action ranAction "tab")
@@ -41,19 +41,17 @@ module('select-box (keyboard actions)', function(hooks) {
     await triggerKeyEvent('.select-box', 'keydown', 39);
     await triggerKeyEvent('.select-box', 'keydown', 40);
 
-    assert.deepEqual(called, [
-      'backspace',
-      'tab',
-      'enter',
-      'escape',
-      'left',
-      'up',
-      'right',
-      'down'
-    ], 'calls actions named that of the key that was pressed');
+    assert.deepEqual(
+      called,
+      ['backspace', 'tab', 'enter', 'escape', 'left', 'up', 'right', 'down'],
+      'calls actions named that of the key that was pressed'
+    );
 
-    assert.equal(pressedKey, 8,
+    assert.equal(
+      pressedKey,
+      8,
       'sends a generic key press action whenever a key is pressed to avoid clash ' +
-      'when using keyDown=(action) which would wipeout functionality');
+        'when using keyDown=(action) which would wipeout functionality'
+    );
   });
 });

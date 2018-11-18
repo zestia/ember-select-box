@@ -24,7 +24,7 @@ module('select-box (promises)', function(hooks) {
       {{/select-box}}
     `);
 
-    assert.equal(this.element.textContent, `
+    assert.dom(this.element).hasText(`
         isPending: true
         isRejected: false
         isFulfilled: false
@@ -34,7 +34,7 @@ module('select-box (promises)', function(hooks) {
     deferred1.resolve();
     await settled();
 
-    assert.equal(this.element.textContent, `
+    assert.dom(this.element).hasText(`
         isPending: false
         isRejected: false
         isFulfilled: true
@@ -43,7 +43,7 @@ module('select-box (promises)', function(hooks) {
 
     this.set('promise', deferred2.promise);
 
-    assert.equal(this.element.textContent, `
+    assert.dom(this.element).hasText(`
         isPending: true
         isRejected: false
         isFulfilled: false
@@ -53,7 +53,7 @@ module('select-box (promises)', function(hooks) {
     deferred2.reject();
     await settled();
 
-    assert.equal(this.element.textContent, `
+    assert.dom(this.element).hasText(`
         isPending: false
         isRejected: true
         isFulfilled: false
@@ -70,15 +70,19 @@ module('select-box (promises)', function(hooks) {
 
     await render(hbs`{{select-box value=this.promise}}`);
 
-    assert.ok(find('.select-box').hasAttribute('aria-busy'),
-      'select box has busy attribute when resolving promise');
+    assert.ok(
+      find('.select-box').hasAttribute('aria-busy'),
+      'select box has busy attribute when resolving promise'
+    );
 
     deferred.resolve();
 
     await settled();
 
-    assert.ok(!find('.select-box').hasAttribute('aria-busy'),
-      'select box no longer has busy attribute when promise has resolved');
+    assert.ok(
+      !find('.select-box').hasAttribute('aria-busy'),
+      'select box no longer has busy attribute when promise has resolved'
+    );
   });
 
   test('promise value (single)', async function(assert) {
@@ -98,28 +102,37 @@ module('select-box (promises)', function(hooks) {
       {{/select-box}}
     `);
 
-    assert.ok(!findAll('.select-box-option')[0].classList.contains('is-selected'),
-      'other promise, not selected');
+    assert.ok(
+      !findAll('.select-box-option')[0].classList.contains('is-selected'),
+      'other promise, not selected'
+    );
 
-    assert.ok(!findAll('.select-box-option')[1].classList.contains('is-selected'),
-      'value is not selected, promise has not yet resolved');
+    assert.ok(
+      !findAll('.select-box-option')[1].classList.contains('is-selected'),
+      'value is not selected, promise has not yet resolved'
+    );
 
-    assert.ok(findAll('.select-box-option')[2].classList.contains('is-selected'),
-      'value is selected, promises match');
+    assert
+      .dom(findAll('.select-box-option')[2])
+      .hasClass('is-selected', 'value is selected, promises match');
 
     deferred1.resolve('foo');
     deferred2.resolve('bar');
 
     await settled();
 
-    assert.ok(!findAll('.select-box-option')[0].classList.contains('is-selected'),
-      'wrong promise, not selected');
+    assert.ok(
+      !findAll('.select-box-option')[0].classList.contains('is-selected'),
+      'wrong promise, not selected'
+    );
 
-    assert.ok(findAll('.select-box-option')[1].classList.contains('is-selected'),
-      'value is selected now that promise has resolved');
+    assert
+      .dom(findAll('.select-box-option')[1])
+      .hasClass('is-selected', 'value is selected now that promise has resolved');
 
-    assert.ok(findAll('.select-box-option')[2].classList.contains('is-selected'),
-      'resolved value is selected');
+    assert
+      .dom(findAll('.select-box-option')[2])
+      .hasClass('is-selected', 'resolved value is selected');
   });
 
   test('promise value (multiple)', async function(assert) {
@@ -128,10 +141,7 @@ module('select-box (promises)', function(hooks) {
     const deferred1 = defer();
     const deferred2 = defer();
 
-    this.set('promises', [
-      deferred1.promise,
-      deferred2.promise
-    ]);
+    this.set('promises', [deferred1.promise, deferred2.promise]);
 
     this.set('values', ['foo', 'bar', 'baz']);
 
@@ -152,8 +162,7 @@ module('select-box (promises)', function(hooks) {
 
     const labels = findAll('.select-box-option.is-selected').map(o => o.textContent.trim());
 
-    assert.deepEqual(labels, ['foo', 'bar'],
-      'resolves the promises');
+    assert.deepEqual(labels, ['foo', 'bar'], 'resolves the promises');
   });
 
   test('promise value (failure)', async function(assert) {
@@ -175,8 +184,7 @@ module('select-box (promises)', function(hooks) {
 
     await settled();
 
-    assert.equal(findAll('.select-box-option.is-selected').length, 0,
-      'does nothing with the value');
+    assert.dom('.select-box-option.is-selected').doesNotExist('does nothing with the value');
   });
 
   test('promise option value', async function(assert) {
@@ -200,7 +208,6 @@ module('select-box (promises)', function(hooks) {
       {{/select-box}}
     `);
 
-
     deferred1.resolve('bar');
     deferred2.resolve('foo');
     deferred3.resolve('bar');
@@ -208,15 +215,15 @@ module('select-box (promises)', function(hooks) {
 
     await settled();
 
-    assert.equal(find('.select-box-option.is-selected').textContent, 'bar',
-      'waits for promise to resolve before computing selected option');
+    assert
+      .dom('.select-box-option.is-selected')
+      .hasText('bar', 'waits for promise to resolve before computing selected option');
 
     this.set('promise1', deferred4.promise);
 
     await settled();
 
-    assert.equal(find('.select-box-option.is-selected').textContent, 'baz',
-      're-computation works');
+    assert.dom('.select-box-option.is-selected').hasText('baz', 're-computation works');
   });
 
   test('promise value order', async function(assert) {
@@ -241,8 +248,7 @@ module('select-box (promises)', function(hooks) {
 
     await settled();
 
-    assert.equal(find('.select-box-option.is-selected').textContent, 'Bar',
-      'earlier promises are ignored');
+    assert.dom('.select-box-option.is-selected').hasText('Bar', 'earlier promises are ignored');
   });
 
   test('promise option value order', async function(assert) {
@@ -267,8 +273,7 @@ module('select-box (promises)', function(hooks) {
 
     await settled();
 
-    assert.equal(find('.select-box-option.is-selected').textContent, 'bar',
-      'earlier promises are ignored');
+    assert.dom('.select-box-option.is-selected').hasText('bar', 'earlier promises are ignored');
   });
 
   test('promise option value (failure)', async function(assert) {
@@ -290,8 +295,7 @@ module('select-box (promises)', function(hooks) {
 
     await settled();
 
-    assert.equal(find('.select-box-option').textContent, 'Soz',
-      'the value is the rejection reason');
+    assert.dom('.select-box-option').hasText('Soz', 'the value is the rejection reason');
   });
 
   test('weird failure', async function(assert) {
@@ -323,6 +327,6 @@ module('select-box (promises)', function(hooks) {
     await click(findAll('.select-box-option')[2]);
 
     assert.equal(this.selectedValue, 'baz');
-    assert.equal(find('.select-box-option.is-selected').textContent, 'Baz');
+    assert.dom('.select-box-option.is-selected').hasText('Baz');
   });
 });

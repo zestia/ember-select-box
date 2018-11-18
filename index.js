@@ -1,5 +1,5 @@
 'use strict';
 
 module.exports = {
-  name: '@zestia/ember-select-box'
+  name: require('./package').name // eslint-disable-line global-require
 };

@@ -32,42 +32,41 @@ module('select-box (activating options)', function(hooks) {
     const one = findAll('.select-box-option')[0];
     const two = findAll('.select-box-option')[1];
 
-    assert.equal(findAll('.select-box-option.is-active').length, 0,
-      'precondition, there are no active options');
+    assert
+      .dom('.select-box-option.is-active')
+      .doesNotExist('precondition, there are no active options');
 
     await triggerEvent(one, 'mouseover');
 
-    assert.ok(one.classList.contains('is-active'),
-      'mousing over an option gives it an active class name');
+    assert.dom(one).hasClass('is-active', 'mousing over an option gives it an active class name');
 
     const [id] = options.getAttribute('aria-activedescendant').match(/\d+/);
 
-    assert.ok(id,
-      'active option id is added to the options container');
+    assert.ok(id, 'active option id is added to the options container');
 
-    assert.equal(find('.select-box-option[aria-current]').textContent, 'One',
-      'receives an aria current attribute when active');
+    assert
+      .dom('.select-box-option[aria-current]')
+      .hasText('One', 'receives an aria current attribute when active');
 
     await triggerEvent(two, 'mouseover');
 
     const [nextID] = options.getAttribute('aria-activedescendant').match(/\d+/);
 
-    assert.notEqual(id, nextID,
-      'the active descendant is updated');
+    assert.notEqual(id, nextID, 'the active descendant is updated');
 
-    assert.ok(!one.classList.contains('is-active') && two.classList.contains('is-active'),
-      'mousing over another option moves the active class');
+    assert.ok(
+      !one.classList.contains('is-active') && two.classList.contains('is-active'),
+      'mousing over another option moves the active class'
+    );
   });
 
   test('activating via the api', async function(assert) {
     assert.expect(2);
 
     this.set('activated', (value, sb) => {
-      assert.equal(value, 'foo',
-        'activating an option sends an action with the value');
+      assert.equal(value, 'foo', 'activating an option sends an action with the value');
 
-      assert.ok(typeof sb === 'object',
-        'sends the api');
+      assert.ok(typeof sb === 'object', 'sends the api');
     });
 
     await render(hbs`
@@ -101,38 +100,39 @@ module('select-box (activating options)', function(hooks) {
       {{/select-box}}
     `);
 
-    assert.ok(!find('.select-box-option.is-active'),
-      'precondition: nothing active');
+    assert.ok(!find('.select-box-option.is-active'), 'precondition: nothing active');
 
     await triggerKeyEvent('.select-box', 'keydown', 40);
 
-    assert.equal(find('.select-box-option.is-active').textContent, 'One');
+    assert.dom('.select-box-option.is-active').hasText('One');
 
     await triggerKeyEvent('.select-box', 'keydown', 40);
 
-    assert.equal(find('.select-box-option.is-active').textContent, 'Two');
+    assert.dom('.select-box-option.is-active').hasText('Two');
 
     await triggerKeyEvent('.select-box', 'keydown', 40);
 
-    assert.equal(find('.select-box-option.is-active').textContent, 'Three');
+    assert.dom('.select-box-option.is-active').hasText('Three');
 
     await triggerKeyEvent('.select-box', 'keydown', 40);
 
-    assert.equal(find('.select-box-option.is-active').textContent, 'Three',
-      'does not cycle back to the beginning when reaching the end');
+    assert
+      .dom('.select-box-option.is-active')
+      .hasText('Three', 'does not cycle back to the beginning when reaching the end');
 
     await triggerKeyEvent('.select-box', 'keydown', 38);
 
-    assert.equal(find('.select-box-option.is-active').textContent, 'Two');
+    assert.dom('.select-box-option.is-active').hasText('Two');
 
     await triggerKeyEvent('.select-box', 'keydown', 38);
 
-    assert.equal(find('.select-box-option.is-active').textContent, 'One');
+    assert.dom('.select-box-option.is-active').hasText('One');
 
     await triggerKeyEvent('.select-box', 'keydown', 38);
 
-    assert.equal(find('.select-box-option.is-active').textContent, 'One',
-      'does not cycle back to the end when reaching the beginning');
+    assert
+      .dom('.select-box-option.is-active')
+      .hasText('One', 'does not cycle back to the end when reaching the beginning');
   });
 
   test('cycling through options', async function(assert) {
@@ -154,35 +154,35 @@ module('select-box (activating options)', function(hooks) {
       {{/select-box}}
     `);
 
-    triggerKeyEvent('.select-box', 'keydown', 66);  // B
+    triggerKeyEvent('.select-box', 'keydown', 66); // B
 
     await _settled();
 
-    assert.equal(find('.select-box-option.is-active').textContent, 'Bar');
+    assert.dom('.select-box-option.is-active').hasText('Bar');
 
-    triggerKeyEvent('.select-box', 'keydown', 66);  // B
-
-    await _settled();
-
-    assert.equal(find('.select-box-option.is-active').textContent, 'Baz');
-
-    triggerKeyEvent('.select-box', 'keydown', 66);  // B
+    triggerKeyEvent('.select-box', 'keydown', 66); // B
 
     await _settled();
 
-    assert.equal(find('.select-box-option.is-active').textContent, 'Bar');
+    assert.dom('.select-box-option.is-active').hasText('Baz');
 
-    triggerKeyEvent('.select-box', 'keydown', 66);  // B
+    triggerKeyEvent('.select-box', 'keydown', 66); // B
+
+    await _settled();
+
+    assert.dom('.select-box-option.is-active').hasText('Bar');
+
+    triggerKeyEvent('.select-box', 'keydown', 66); // B
 
     await settled();
 
-    assert.equal(find('.select-box-option.is-active').textContent, 'Baz');
+    assert.dom('.select-box-option.is-active').hasText('Baz');
 
-    triggerKeyEvent('.select-box', 'keydown', 70);  // F
+    triggerKeyEvent('.select-box', 'keydown', 70); // F
 
     await _settled();
 
-    assert.equal(find('.select-box-option.is-active').textContent, 'Foo');
+    assert.dom('.select-box-option.is-active').hasText('Foo');
   });
 
   test('jumping to an option (alpha)', async function(assert) {
@@ -204,12 +204,13 @@ module('select-box (activating options)', function(hooks) {
     triggerKeyEvent('.select-box', 'keydown', 65); // A
     await triggerKeyEvent('.select-box', 'keydown', 90); // Z
 
-    assert.equal(find('.select-box-option.is-active').textContent, 'Baz',
-      'jumps straight to the matching option');
+    assert
+      .dom('.select-box-option.is-active')
+      .hasText('Baz', 'jumps straight to the matching option');
 
     await triggerKeyEvent('.select-box', 'keydown', 70); // F
 
-    assert.equal(find('.select-box-option.is-active').textContent, 'Foo');
+    assert.dom('.select-box-option.is-active').hasText('Foo');
   });
 
   test('jumping to an option (numeric)', async function(assert) {
@@ -235,7 +236,8 @@ module('select-box (activating options)', function(hooks) {
     triggerKeyEvent('.select-box', 'keydown', 56); // 8
     await triggerKeyEvent('.select-box', 'keydown', 51); // 3
 
-    assert.equal(find('.select-box-option.is-active').textContent, '1983',
-      'jumps straight to the matching option');
+    assert
+      .dom('.select-box-option.is-active')
+      .hasText('1983', 'jumps straight to the matching option');
   });
 });

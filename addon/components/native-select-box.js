@@ -7,12 +7,7 @@ import Nameable from '../mixins/general/nameable';
 import { get } from '@ember/object';
 const { from } = Array;
 
-const mixins = [
-  BaseSelectBox,
-  Focusable,
-  HasOptions,
-  Nameable
-];
+const mixins = [BaseSelectBox, Focusable, HasOptions, Nameable];
 
 export default Component.extend(...mixins, {
   layout,
@@ -31,7 +26,7 @@ export default Component.extend(...mixins, {
   ],
 
   change() {
-    const registeredSelected   = this._getRegisteredSelectedValues();
+    const registeredSelected = this._getRegisteredSelectedValues();
     const unregisteredSelected = this._getUnregisteredSelectedValues();
 
     let selectedValues;
@@ -56,7 +51,6 @@ export default Component.extend(...mixins, {
   },
 
   _getUnregisteredSelectedValues() {
-    return from(this.element.querySelectorAll('option:checked'))
-      .map(option => option.value);
+    return from(this.element.querySelectorAll('option:checked')).map(option => option.value);
   }
 });

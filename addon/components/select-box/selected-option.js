@@ -7,14 +7,7 @@ import Nameable from '../../mixins/general/nameable';
 import Registerable from '../../mixins/general/registerable';
 import Styleable from '../../mixins/general/styleable';
 
-const mixins = [
-  Activatable,
-  BaseOption,
-  Indexable,
-  Nameable,
-  Registerable,
-  Styleable
-];
+const mixins = [Activatable, BaseOption, Indexable, Nameable, Registerable, Styleable];
 
 export default Component.extend(...mixins, {
   layout,

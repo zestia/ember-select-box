@@ -5,8 +5,8 @@ export default Mixin.create(DocumentClick, {
   clickDocument(e) {
     this._super(...arguments);
     const el = this.element;
-    const clickedSelf    = el === e.target;
-    const clickedInside  = el.contains(e.target);
+    const clickedSelf = el === e.target;
+    const clickedInside = el.contains(e.target);
     const clickedOutside = !clickedSelf && !clickedInside;
 
     if (clickedOutside) {

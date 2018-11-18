@@ -44,9 +44,11 @@ export default Controller.extend({
   },
 
   _findTags(query) {
-    const tags = emberA(this.selectedTags.filter(tag => {
-      return tag.name.toLowerCase().indexOf(query.toLowerCase()) >= 0;
-    }));
+    const tags = emberA(
+      this.selectedTags.filter(tag => {
+        return tag.name.toLowerCase().indexOf(query.toLowerCase()) >= 0;
+      })
+    );
     return resolve(tags.mapBy('name'));
   }
 });

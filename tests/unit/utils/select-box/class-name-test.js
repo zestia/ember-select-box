@@ -7,8 +7,7 @@ module('select-box (class name util)', function() {
 
     const name = className();
 
-    assert.equal(name, 'select-box',
-      'generates the default class name');
+    assert.equal(name, 'select-box', 'generates the default class name');
   });
 
   test('prefix', function(assert) {
@@ -16,13 +15,11 @@ module('select-box (class name util)', function() {
 
     let name = className('');
 
-    assert.equal(name, 'select-box',
-      'generates the default class name');
+    assert.equal(name, 'select-box', 'generates the default class name');
 
     name = className('foo');
 
-    assert.equal(name, 'foo',
-      'uses the specified class name instead');
+    assert.equal(name, 'foo', 'uses the specified class name instead');
   });
 
   test('suffix', function(assert) {
@@ -30,13 +27,11 @@ module('select-box (class name util)', function() {
 
     let name = className('', '');
 
-    assert.equal(name, 'select-box',
-      'generates the default class name, does add extraneous dash');
+    assert.equal(name, 'select-box', 'generates the default class name, does add extraneous dash');
 
     name = className('', 'foo');
 
-    assert.equal(name, 'select-box-foo',
-      'adds suffix to default class name');
+    assert.equal(name, 'select-box-foo', 'adds suffix to default class name');
   });
 
   test('prefix and suffix', function(assert) {
@@ -44,7 +39,6 @@ module('select-box (class name util)', function() {
 
     const name = className('foo', 'bar');
 
-    assert.equal(name, 'foo-bar',
-      'uses custom prefix and suffix, separating with a dash');
+    assert.equal(name, 'foo-bar', 'uses custom prefix and suffix, separating with a dash');
   });
 });

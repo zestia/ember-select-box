@@ -12,11 +12,16 @@ export default Mixin.create({
   },
 
   _buildApi() {
-    return seal(assign({
-      value: undefined,
-      element: undefined,
-      isOpen: undefined
-    }, this._apiActions()));
+    return seal(
+      assign(
+        {
+          value: undefined,
+          element: undefined,
+          isOpen: undefined
+        },
+        this._apiActions()
+      )
+    );
   },
 
   _updateApiElement() {

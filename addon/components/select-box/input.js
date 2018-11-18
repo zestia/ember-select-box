@@ -1,12 +1,9 @@
 import Component from '@ember/component';
-import Nameable from  '../../mixins/general/nameable';
-import Registerable from  '../../mixins/general/registerable';
+import Nameable from '../../mixins/general/nameable';
+import Registerable from '../../mixins/general/registerable';
 import invokeAction from '../../utils/invoke-action';
 
-const mixins = [
-  Nameable,
-  Registerable
-];
+const mixins = [Nameable, Registerable];
 
 export default Component.extend(...mixins, {
   tagName: 'input',

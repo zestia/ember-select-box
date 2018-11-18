@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, findAll } from '@ember/test-helpers';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import Model from 'ember-data/model';
 import attr from 'ember-data/attr';
@@ -17,19 +17,25 @@ module('select-box (ember data)', function(hooks) {
   hooks.beforeEach(function() {
     store = this.owner.lookup('service:store');
 
-    this.owner.register('model:foo', Model.extend({
-      name: attr()
-    }));
+    this.owner.register(
+      'model:foo',
+      Model.extend({
+        name: attr()
+      })
+    );
 
-    this.owner.register('adapter:foo', Adapter.extend({
-      ajax() {
-        return new Promise(resolve => {
-          later(() => {
-            resolve(payload);
-          }, delay);
-        });
-      }
-    }));
+    this.owner.register(
+      'adapter:foo',
+      Adapter.extend({
+        ajax() {
+          return new Promise(resolve => {
+            later(() => {
+              resolve(payload);
+            }, delay);
+          });
+        }
+      })
+    );
   });
 
   test('multiple select with ED', async function(assert) {
@@ -51,13 +57,16 @@ module('select-box (ember data)', function(hooks) {
     delay = 100;
 
     this.set('foos', store.findAll('foo'));
-    this.set('value', store.findAll('foo').then(foos => {
-      return foos.filter(foo => {
-        return foo.id >= 5;
-      });
-    }));
+    this.set(
+      'value',
+      store.findAll('foo').then(foos => {
+        return foos.filter(foo => {
+          return foo.id >= 5;
+        });
+      })
+    );
 
-    await render(hbs `
+    await render(hbs`
       {{#select-box value=this.value multiple=true as |sb|}}
         {{#if sb.isPending}}
           ...
@@ -71,7 +80,7 @@ module('select-box (ember data)', function(hooks) {
       {{/select-box}}
     `);
 
-    assert.equal(findAll('.select-box-option.is-selected').length, 5);
-    assert.equal(findAll('.select-box-option:not(.is-selected)').length, 5);
+    assert.dom('.select-box-option.is-selected').exists({ count: 5 });
+    assert.dom('.select-box-option:not(.is-selected)').exists({ count: 5 });
   });
 });

@@ -13,20 +13,17 @@ module('select-box (focusing)', function(hooks) {
       return find('.select-box').classList.contains('is-focused');
     };
 
-    await render(hbs `{{select-box}}`);
+    await render(hbs`{{select-box}}`);
 
-    assert.ok(!isFocused(),
-      'precondition, not focused');
+    assert.ok(!isFocused(), 'precondition, not focused');
 
     await triggerEvent('.select-box', 'focus');
 
-    assert.ok(isFocused(),
-      'a focused select box has an appropriate class name');
+    assert.ok(isFocused(), 'a focused select box has an appropriate class name');
 
     await triggerEvent('.select-box', 'blur');
 
-    assert.ok(!isFocused(),
-      'the focused class name is removed when the select box is blurred');
+    assert.ok(!isFocused(), 'the focused class name is removed when the select box is blurred');
   });
 
   test('focus actions', async function(assert) {
@@ -35,10 +32,10 @@ module('select-box (focusing)', function(hooks) {
     let sentFocusIn;
     let sentFocusOut;
 
-    this.set('focused', () => sentFocusIn = true);
-    this.set('blurred', () => sentFocusOut = true);
+    this.set('focused', () => (sentFocusIn = true));
+    this.set('blurred', () => (sentFocusOut = true));
 
-    await render(hbs `
+    await render(hbs`
       {{#select-box
         on-focus-in=this.focused
         on-focus-out=this.blurred}}
@@ -48,13 +45,11 @@ module('select-box (focusing)', function(hooks) {
 
     await triggerEvent('button', 'focus');
 
-    assert.ok(sentFocusIn, true,
-      'sends a focus in action');
+    assert.ok(sentFocusIn, true, 'sends a focus in action');
 
     await triggerEvent('button', 'blur');
 
-    assert.ok(sentFocusOut, true,
-      'sends a focus out action');
+    assert.ok(sentFocusOut, true, 'sends a focus out action');
   });
 
   test('tabindex', async function(assert) {
@@ -64,29 +59,29 @@ module('select-box (focusing)', function(hooks) {
       return find('.select-box').getAttribute('tabindex');
     };
 
-    await render(hbs `{{select-box}}`);
+    await render(hbs`{{select-box}}`);
 
-    assert.equal(tabindex(), '0',
-      'it should be possible to focus a select box');
+    assert.equal(tabindex(), '0', 'it should be possible to focus a select box');
 
-    await render(hbs `{{select-box disabled=true}}`);
+    await render(hbs`{{select-box disabled=true}}`);
 
-    assert.equal(tabindex(), '-1',
-      'it should not be possible to focus a disabled select box');
+    assert.equal(tabindex(), '-1', 'it should not be possible to focus a disabled select box');
 
-    await render(hbs `{{select-box tabindex=5}}`);
+    await render(hbs`{{select-box tabindex=5}}`);
 
-    assert.equal(tabindex(), '5',
-      'can set the tabindex');
+    assert.equal(tabindex(), '5', 'can set the tabindex');
 
-    await render(hbs `
+    await render(hbs`
       {{#select-box as |sb|}}
         {{sb.input}}
       {{/select-box}}
     `);
 
-    assert.equal(tabindex(), '-1',
+    assert.equal(
+      tabindex(),
+      '-1',
       'a select box should not be focusable if it contains an input ' +
-      'instead, pressing tab should jump directly to the input');
+        'instead, pressing tab should jump directly to the input'
+    );
   });
 });

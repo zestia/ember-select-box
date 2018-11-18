@@ -33,15 +33,19 @@ module('select-box (keyboard methods)', function(hooks) {
       });
     });
 
-    assert.deepEqual(called, [
-      'pressBackspace',
-      'pressTab',
-      'pressEnter',
-      'pressEscape',
-      'pressLeft',
-      'pressUp',
-      'pressRight',
-      'pressDown'
-    ], 'calls methods named that of the key that was pressed');
+    assert.deepEqual(
+      called,
+      [
+        'pressBackspace',
+        'pressTab',
+        'pressEnter',
+        'pressEscape',
+        'pressLeft',
+        'pressUp',
+        'pressRight',
+        'pressDown'
+      ],
+      'calls methods named that of the key that was pressed'
+    );
   });
 });
