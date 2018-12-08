@@ -1,9 +1,9 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import { keys as eventKeys } from '@zestia/ember-select-box/mixins/select-box/keyboard-events';
-const { keys } = Object;
 import { run } from '@ember/runloop';
 import { capitalize } from '@ember/string';
+const { keys } = Object;
 
 module('select-box (keyboard methods)', function(hooks) {
   setupTest(hooks);
