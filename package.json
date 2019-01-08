@@ -57,7 +57,8 @@
     "eslint": "5.10.0",
     "loader.js": "4.7.0",
     "prettier": "1.15.3",
-    "qunit-dom": "0.8.3"
+    "qunit-dom": "0.8.3",
+    "stylelint": "9.9.0"
   },
   "dependencies": {
     "ember-cli-babel": "^7.1.4",
