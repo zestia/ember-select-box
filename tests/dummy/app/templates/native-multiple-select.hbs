@@ -5,7 +5,7 @@
 
 <NativeSelectBox
   size="12"
-  @multiple="multiple"
+  @multiple={{true}}
   @value={{this.selectedDesserts}}
   @on-select={{action "selectedDesserts"}} as |sb|>
   <sb.group label="Pastries">
