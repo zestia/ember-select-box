@@ -4,16 +4,16 @@
   <a href="https://github.com/zestia/ember-select-box/blob/master/tests/dummy/app/templates/components/native-simple-select.hbs">template.hbs</a>
 </p>
 
-{{#native-simple-select
-  value=selectedBiscuit
-  on-select=(action "selectedBiscuit") as |sb|}}
-  {{#each selectableBiscuits as |biscuit|}}
-    {{#sb.option value=biscuit}}
+<NativeSimpleSelect
+  @value={{this.selectedBiscuit}}
+  @on-select={{action "selectedBiscuit"}} as |sb|>
+  {{#each this.selectableBiscuits as |biscuit|}}
+    <sb.option @value={{biscuit}}>
       {{biscuit.name}}
-    {{/sb.option}}
+    </sb.option>
   {{/each}}
-{{/native-simple-select}}
+</NativeSimpleSelect>
 
 <p>
-  Selected biscuit: {{selectedBiscuit.name}}
+  Selected biscuit: {{this.selectedBiscuit.name}}
 </p>

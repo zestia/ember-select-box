@@ -4,19 +4,19 @@
   <a href="https://github.com/zestia/ember-select-box/blob/master/tests/dummy/app/templates/components/filter-select.hbs">template.hbs</a>
 </p>
 
-{{#filter-select
-  label-key="name"
-  on-search=(action "filterPies")
-  on-select=(action "selectedPie") as |sb|}}
-  {{#each selectablePies as |pie|}}
-    {{#sb.option value=pie}}
+<FilterSelect
+  @label-key="name"
+  @on-search={{action "filterPies"}}
+  @on-select={{action "selectedPie"}} as |sb|>
+  {{#each this.selectablePies as |pie|}}
+    <sb.option @value={{pie}}>
       {{pie.name}}
-    {{/sb.option}}
+    </sb.option>
   {{else}}
-    {{#sb.option}}No pies found{{/sb.option}}
+    <sb.option>No pies found</sb.option>
   {{/each}}
-{{/filter-select}}
+</FilterSelect>
 
 <p>
-  Selected pie: {{selectedPie.name}}
+  Selected pie: {{this.selectedPie.name}}
 </p>

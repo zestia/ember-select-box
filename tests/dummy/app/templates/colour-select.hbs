@@ -4,8 +4,10 @@
   <a href="https://github.com/zestia/ember-select-box/blob/master/tests/dummy/app/templates/components/colour-select.hbs">template.hbs</a>
 </p>
 
-{{colour-select value=selectedColour on-select=(action "selectedColour")}}
+<ColourSelect
+  @value={{this.selectedColour}}
+  @on-select={{action "selectedColour"}} />
 
 <p>
-  Selected colour: {{selectedColour}}
+  Selected colour: {{this.selectedColour}}
 </p>

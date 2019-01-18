@@ -4,11 +4,11 @@
   <a href="https://github.com/zestia/ember-select-box/blob/master/tests/dummy/app/templates/components/tag-select.hbs">template.hbs</a>
 </p>
 
-{{tag-select
-  value=selectedTagNames
-  on-tag=(action "tag")
-  on-detag=(action "detag")
-  on-search=(action "findTags")}}
+<TagSelect
+  @value={{this.selectedTagNames}}
+  @on-tag={{action "tag"}}
+  @on-detag={{action "detag"}}
+  @on-search={{action "findTags"}} />
 
 
 <p>
@@ -16,7 +16,7 @@
 </p>
 
 <ul>
-  {{#each selectedTags as |tag|}}
+  {{#each this.selectedTags as |tag|}}
     <li>id = {{tag.id}}, name= {{tag.name}}</li>
   {{/each}}
 </ul>

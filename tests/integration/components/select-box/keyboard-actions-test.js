@@ -17,14 +17,14 @@ module('select-box (keyboard actions)', function(hooks) {
 
     await render(hbs`{{select-box
       on-press-key=this.pressedKey
-      on-press-backspace=(action ranAction "backspace")
-      on-press-tab=(action ranAction "tab")
-      on-press-enter=(action ranAction "enter")
-      on-press-escape=(action ranAction "escape")
-      on-press-left=(action ranAction "left")
-      on-press-up=(action ranAction "up")
-      on-press-right=(action ranAction "right")
-      on-press-down=(action ranAction "down")
+      on-press-backspace=(action this.ranAction "backspace")
+      on-press-tab=(action this.ranAction "tab")
+      on-press-enter=(action this.ranAction "enter")
+      on-press-escape=(action this.ranAction "escape")
+      on-press-left=(action this.ranAction "left")
+      on-press-up=(action this.ranAction "up")
+      on-press-right=(action this.ranAction "right")
+      on-press-down=(action this.ranAction "down")
     }}`);
 
     // No longer works...

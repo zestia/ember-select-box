@@ -3,35 +3,35 @@
   <a href="https://github.com/zestia/ember-select-box/blob/master/tests/dummy/app/templates/single-select.hbs">template.hbs</a>
 </p>
 
-{{#select-box
-  value=selectedBread
+<SelectBox
   class="single-select"
-  on-select=(action "selectedBread") as |sb|}}
+  @value={{this.selectedBread}}
+  @on-select={{action "selectedBread"}} as |sb|>
 
-  {{#sb.option value=bloomer on-select=(action "action1")}}
-    {{bloomer.name}} (Misc action 1)
-  {{/sb.option}}
+  <sb.option @value={{this.bloomer}} @on-select={{action "action1"}}>
+    {{this.bloomer.name}} (Misc action 1)
+  </sb.option>
 
-  {{#sb.option value=brioche on-select=(action "action2")}}
-    {{brioche.name}} (Misc action 2)
-  {{/sb.option}}
+  <sb.option @value={{this.brioche}} @on-select={{action "action2"}}>
+    {{this.brioche.name}} (Misc action 2)
+  </sb.option>
 
-  {{#each selectableBreads as |bread|}}
-    {{#sb.option value=bread}}
+  {{#each this.selectableBreads as |bread|}}
+    <sb.option @value={{bread}}>
       {{bread.name}}
-    {{/sb.option}}
+    </sb.option>
   {{/each}}
-{{/select-box}}
+</SelectBox>
 
 
 <p>
-  Selected bread: {{selectedBread.name}}
+  Selected bread: {{this.selectedBread.name}}
 </p>
 
 <p>
-  Called misc action 1: {{action1}}
+  Called misc action 1: {{this.action1}}
 </p>
 
 <p>
-  Called misc action 2: {{action2}}
+  Called misc action 2: {{this.action2}}
 </p>

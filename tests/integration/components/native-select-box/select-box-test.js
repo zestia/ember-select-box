@@ -209,7 +209,7 @@ module('native-select-box', function(hooks) {
     await render(hbs`
       {{#native-select-box
         value=this.selectedValue
-        on-select=(action (mut selectedValue)) as |sb|}}
+        on-select=(action (mut this.selectedValue)) as |sb|}}
         {{sb.option value="foo"}}
         {{sb.option value="bar"}}
         {{sb.option value="baz"}}

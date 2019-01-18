@@ -1,18 +1,18 @@
-{{#select-box
-  class-prefix="tag-select"
-  value=@value
-  search-min-chars=0
-  search-delay-time=0
-  on-press-escape=(action "close")
-  on-press-down=(action "pressedDown")
-  on-press-up=(action "pressedUp")
-  on-click-outside=(action "close")
-  on-select=(action "addTag")
-  on-search=(action "updateAvailableTags" @on-search) as |sb|}}
+<SelectBox
+  @class-prefix="tag-select"
+  @value={{@value}}
+  @search-min-chars={{0}}
+  @search-delay-time={{0}}
+  @on-press-escape={{action "close"}}
+  @on-press-down={{action "pressedDown"}}
+  @on-press-up={{action "pressedUp"}}
+  @on-click-outside={{action "close"}}
+  @on-select={{action "addTag"}}
+  @on-search={{action "updateAvailableTags" @on-search}} as |sb|>
 
-  {{#sb.selected-options}}
+  <sb.selected-options>
     {{#each @value as |tag|}}
-      {{#sb.selected-option}}
+      <sb.selected-option>
         {{tag}}
         {{! template-lint-disable invalid-interactive }}
         <span
@@ -20,28 +20,28 @@
           class="tag-select-remove">
           &times;
         </span>
-      {{/sb.selected-option}}
+      </sb.selected-option>
     {{/each}}
-  {{/sb.selected-options}}
+  </sb.selected-options>
 
-  {{sb.input
-    click=(action "reveal" sb @on-search)
-    on-input=sb.open
-    on-delete=(action "removeTag" @value.lastObject)
-    autofocus=true}}
+  <sb.input
+    autofocus={{true}}
+    @click={{action "reveal" sb @on-search}}
+    @on-input={{sb.open}}
+    @on-delete={{action "removeTag" @value.lastObject}} />
 
   {{#if sb.isOpen}}
-    {{#sb.options}}
+    <sb.options>
       {{#if this.availableTags.length}}
         {{#each this.availableTags as |tag|}}
-          {{#sb.option value=tag}}{{tag}}{{/sb.option}}
+          <sb.option @value={{tag}}>{{tag}}</sb.option>
         {{/each}}
       {{else if this.newTag}}
-        {{#sb.option value=this.newTag}}
+        <sb.option @value={{this.newTag}}>
           No tag found<br>
           Add {{this.newTag}}...
-        {{/sb.option}}
+        </sb.option>
       {{/if}}
-    {{/sb.options}}
+    </sb.options>
   {{/if}}
-{{/select-box}}
+</SelectBox>

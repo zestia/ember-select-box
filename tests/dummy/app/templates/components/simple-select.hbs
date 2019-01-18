@@ -1,21 +1,21 @@
-{{#select-box
-  class-prefix="simple-select"
-  value=@value
-  on-press-key=(action "pressedKey")
-  on-press-down=(action "pressedDown")
-  on-press-up=(action "pressedUp")
-  on-press-escape=(action "close")
-  on-click-outside=(action "close")
-  on-select=(action "selected" @on-select)
-  on-update=(action "updateDisplayLabel") as |sb|}}
-  {{#sb.selected-option click=sb.open}}
+<SelectBox
+  @class-prefix="simple-select"
+  @value={{@value}}
+  @on-press-key={{action "pressedKey"}}
+  @on-press-down={{action "pressedDown"}}
+  @on-press-up={{action "pressedUp"}}
+  @on-press-escape={{action "close"}}
+  @on-click-outside={{action "close"}}
+  @on-select={{action "selected" @on-select}}
+  @on-update={{action "updateDisplayLabel"}} as |sb|>
+  <sb.selected-option @click={{sb.open}}>
     {{#if this.displayLabel}}
       {{this.displayLabel}}
     {{else}}
       &nbsp;
     {{/if}}
-  {{/sb.selected-option}}
-  {{#sb.options}}
+  </sb.selected-option>
+  <sb.options>
     {{yield sb}}
-  {{/sb.options}}
-{{/select-box}}
+  </sb.options>
+</SelectBox>

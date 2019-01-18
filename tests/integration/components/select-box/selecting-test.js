@@ -194,7 +194,7 @@ module('select-box (selecting)', function(hooks) {
     this.set('selected', values => (selectedValues = values));
 
     await render(hbs`
-      {{#select-box on-select=this.selected multiple=true value=values as |sb|}}
+      {{#select-box on-select=this.selected multiple=true value=this.values as |sb|}}
         {{sb.option value="foo"}}
         {{sb.option value="bar"}}
         {{sb.option value="baz"}}

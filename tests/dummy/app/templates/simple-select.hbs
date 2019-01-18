@@ -5,18 +5,18 @@
   <a href="https://github.com/zestia/ember-select-box/blob/master/tests/dummy/app/templates/components/simple-select.hbs">template.hbs</a>
 </p>
 
-{{#simple-select
-  value=selectedPudding
-  label-key="name"
-  on-select=(action "selectedPudding") as |sb|}}
-  {{#each selectablePuddings as |pudding|}}
-    {{#sb.option value=pudding}}
+<SimpleSelect
+  @value={{this.selectedPudding}}
+  @label-key="name"
+  @on-select={{action "selectedPudding"}} as |sb|>
+  {{#each this.selectablePuddings as |pudding|}}
+    <sb.option @value={{pudding}}>
       {{pudding.name}}
-    {{/sb.option}}
+    </sb.option>
   {{/each}}
-{{/simple-select}}
+</SimpleSelect>
 
 
 <p>
-  Selected pudding: {{selectedPudding.name}}
+  Selected pudding: {{this.selectedPudding.name}}
 </p>

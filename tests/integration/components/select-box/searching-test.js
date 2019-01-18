@@ -422,7 +422,7 @@ module('select-box (searching)', function(hooks) {
     this.set('findItems', () => deferred.promise);
 
     await render(hbs`
-      {{#if display}}
+      {{#if this.display}}
         {{#select-box on-search=this.findItems as |sb|}}
           {{sb.input}}
         {{/select-box}}
@@ -488,7 +488,7 @@ module('select-box (searching)', function(hooks) {
         search-delay-time=0
         on-search=this.findItems
         on-searched=this.foundItems as |sb|}}
-        {{sb.input value=myValue on-clear=sb.stopSearching}}
+        {{sb.input value=this.myValue on-clear=sb.stopSearching}}
       {{/select-box}}
     `);
 

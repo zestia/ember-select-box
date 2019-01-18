@@ -1,21 +1,21 @@
-{{#select-box
-  class-prefix="search-select"
-  value=@value
-  search-slow-time=500
-  on-select=@on-select
-  on-search=@on-search
-  on-searched=(action "searched")
-  on-press-escape=(action "close")
-  on-click-outside=(action "close") as |sb|}}
-  {{sb.input}}
+<SelectBox
+  @class-prefix="search-select"
+  @value={{@value}}
+  @search-slow-time={{500}}
+  @on-select={{@on-select}}
+  @on-search={{@on-search}}
+  @on-searched={{action "searched"}}
+  @on-press-escape={{action "close"}}
+  @on-click-outside={{action "close"}} as |sb|>
+  <sb.input />
   {{#if sb.isSearching}}
-    {{#sb.option}}
+    <sb.option>
       Please wait...
       {{if sb.isSlowSearch "(hold tight!)"}}
-    {{/sb.option}}
+    </sb.option>
   {{else if sb.isOpen}}
-    {{#sb.options}}
+    <sb.options>
       {{yield sb this.lastQuery}}
-    {{/sb.options}}
+    </sb.options>
   {{/if}}
-{{/select-box}}
+</SelectBox>

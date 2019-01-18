@@ -1,17 +1,17 @@
-{{#select-box
-  class-prefix="filter-select"
-  value=@value
-  label-key="name"
-  search-min-chars=0
-  search-delay-time=0
-  on-search=@on-search
-  on-click-outside=(action "close")
-  on-press-escape=(action "close")
-  on-select=(action "selected" @on-select) as |sb|}}
-  {{sb.input click=sb.open on-input=sb.open}}
+<SelectBox
+  @class-prefix="filter-select"
+  @value={{@value}}
+  @label-key="name"
+  @search-min-chars={{0}}
+  @search-delay-time={{0}}
+  @on-search={{@on-search}}
+  @on-click-outside={{action "close"}}
+  @on-press-escape={{action "close"}}
+  @on-select={{action "selected" @on-select}} as |sb|>
+  <sb.input @click={{sb.open}} @on-input={{sb.open}} />
   {{#if sb.isOpen}}
-    {{#sb.options}}
+    <sb.options>
       {{yield sb}}
-    {{/sb.options}}
+    </sb.options>
   {{/if}}
-{{/select-box}}
+</SelectBox>

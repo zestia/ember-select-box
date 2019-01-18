@@ -3,26 +3,26 @@
   <a href="https://github.com/zestia/ember-select-box/blob/master/tests/dummy/app/templates/native-single-select.hbs">template.hbs</a>
 </p>
 
-{{#native-select-box
-  value=selectedDessert
-  on-select=(action "selectedDessert") as |sb|}}
-  {{#sb.group label="Cakes"}}
-    {{#each selectableCakes as |cake|}}
-      {{#sb.option value=cake}}
+<NativeSelectBox
+  @value={{this.selectedDessert}}
+  @on-select={{action "selectedDessert"}} as |sb|>
+  <sb.group @label="Cakes">
+    {{#each this.selectableCakes as |cake|}}
+      <sb.option @value={{cake}}>
         {{cake.name}}
-      {{/sb.option}}
+      </sb.option>
     {{/each}}
-  {{/sb.group}}
-  {{#sb.group label="Puddings"}}
-    {{#each selectablePuddings as |pudding|}}
-      {{#sb.option value=pudding}}
+  </sb.group>
+  <sb.group @label="Puddings">
+    {{#each this.selectablePuddings as |pudding|}}
+      <sb.option @value={{pudding}}>
         {{pudding.name}}
-      {{/sb.option}}
+      </sb.option>
     {{/each}}
-  {{/sb.group}}
-{{/native-select-box}}
+  </sb.group>
+</NativeSelectBox>
 
 
 <p>
-  Selected dessert: {{selectedDessert.name}}
+  Selected dessert: {{this.selectedDessert.name}}
 </p>
