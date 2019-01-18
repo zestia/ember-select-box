@@ -403,6 +403,10 @@ ember install @zestia/ember-select-box
     <td>@value</td>
     <td>Can be anything, including a promise</td>
   </tr>
+  <tr>
+    <td>@disabled</td>
+    <td></td>
+  </tr>
 </table>
 
 <table>
