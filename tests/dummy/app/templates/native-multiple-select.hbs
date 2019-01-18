@@ -8,14 +8,14 @@
   @multiple="multiple"
   @value={{this.selectedDesserts}}
   @on-select={{action "selectedDesserts"}} as |sb|>
-  <sb.group @label="Pastries">
+  <sb.group label="Pastries">
     {{#each this.selectablePastries as |pastry|}}
       <sb.option @value={{pastry}}>
         {{pastry.name}}
       </sb.option>
     {{/each}}
   </sb.group>
-  <sb.group @label="Biscuits">
+  <sb.group label="Biscuits">
     {{#each this.selectableBiscuits as |biscuit|}}
       <sb.option @value={{biscuit}}>
         {{biscuit.name}}

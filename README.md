@@ -58,41 +58,41 @@ ember install @zestia/ember-select-box
 ```
 
 <table>
-  <caption>Attributes</caption>
+  <caption>Arguments</caption>
   <tr>
-    <td width="200">value</td>
+    <td width="200">@value</td>
     <td>Used to determine which option is selected, can be a promise</td>
   </tr>
   <tr>
-    <td>multiple</td>
+    <td>@multiple</td>
     <td>If true, <code>value</code> should be an array. Also adds an <code>is-multiple</code> class</td>
   </tr>
   <tr>
-    <td>disabled</td>
+    <td>@disabled</td>
     <td>If true adds an <code>is-disabled</code> class</td>
   </tr>
   <tr>
-    <td>style</td>
-    <td></td>
+    <td>@style</td>
+    <td>Escaped and processed as HTML safe. Alternatively use `style=`</td>
   </tr>
   <tr>
-    <td>class-prefix</td>
+    <td>@class-prefix</td>
     <td>Adds a prefix to the class name of all child select-box components</td>
   </tr>
   <tr>
-    <td>is-open</td>
+    <td>@is-open</td>
     <td>Controls the open/closed state</td>
   </tr>
   <tr>
-    <td>search-min-chars</td>
+    <td>@search-min-chars</td>
     <td>Prevents the on-search action from firing until there are enough chars (default 1)</td>
   </tr>
   <tr>
-    <td>search-delay-time</td>
+    <td>@search-delay-time</td>
     <td>Milliseconds to debounce the on-search action from firing (default 100)</td>
   </tr>
   <tr>
-    <td>search-slow-time</td>
+    <td>@search-slow-time</td>
     <td>Milliseconds considered for a search to be taking too long (default 500)</td>
   </tr>
 </table>
@@ -100,38 +100,38 @@ ember install @zestia/ember-select-box
 <table>
   <caption>Actions</caption>
   <tr>
-    <td width="200">on-open</td>
+    <td width="200">@on-open</td>
     <td>
       Fired when the select box is opened
     </td>
   </tr>
   <tr>
-    <td>on-close</td>
+    <td>@on-close</td>
     <td>
       Fired when the select box is closed
     </td>
   </tr>
   <tr>
-    <td>on-init</td>
+    <td>@on-init</td>
     <td>Fired when the select box initialises. Useful opportunity to get
     access to the select box's API which is passed as a parameter.</td>
   </tr>
   <tr>
-    <td>on-select</td>
+    <td>@on-select</td>
     <td>
       Fired when an option is clicked, or enter is pressed regardless as
       to whether the value changed or not. Also fired by use of the <code>select</code> API.
     </td>
   </tr>
   <tr>
-    <td>on-update</td>
+    <td>@on-update</td>
     <td>
       Fired after the initial value has been resolved and the component has rendered.<br>
       Also fired by use of the <code>update</code> API or if the value attribute changes.
     </td>
   </tr>
   <tr>
-    <td>on-build-selection</td>
+    <td>@on-build-selection</td>
     <td>
       Fired whenever a selection is made. This function receives the value most recently
       selected, and the currently selected values. The return value is used as the final selection.
@@ -140,27 +140,27 @@ ember install @zestia/ember-select-box
     </td>
   </tr>
   <tr>
-    <td>on-search</td>
+    <td>@on-search</td>
     <td>Fired when the select box decides to run a search</td>
   </tr>
   <tr>
-    <td>on-searched</td>
+    <td>@on-searched</td>
     <td>Fired after the last succesful search attempt</td>
   </tr>
   <tr>
-    <td>on-click-outside</td>
+    <td>@on-click-outside</td>
     <td>Useful for closing the select box</td>
   </tr>
   <tr>
-    <td>on-focus-in</td>
+    <td>@on-focus-in</td>
     <td>Fired when focus enters the select box, normalised if it contains an input</td>
   </tr>
   <tr>
-    <td>on-focus-out</td>
+    <td>@on-focus-out</td>
     <td>Fired when focus leaves the select box</td>
   </tr>
   <tr>
-    <td>on-press-key</td>
+    <td>@on-press-key</td>
     <td>
       Useful because using <code>keyDown</code> would overwrite the component's method,
       which is a bit of an Ember flaw. Can also can be used for this use-case:
@@ -168,35 +168,35 @@ ember install @zestia/ember-select-box
     </td>
   </tr>
   <tr>
-    <td>on-press-backspace</td>
+    <td>@on-press-backspace</td>
     <td></td>
   </tr>
   <tr>
-    <td>on-press-tab</td>
+    <td>@on-press-tab</td>
     <td></td>
   </tr>
   <tr>
-    <td>on-press-enter</td>
+    <td>@on-press-enter</td>
     <td>Useful for preventing default action of event</td>
   </tr>
   <tr>
-    <td>on-press-escape</td>
+    <td>@on-press-escape</td>
     <td>Useful for closing and/or resetting a select box</td>
   </tr>
   <tr>
-    <td>on-press-left</td>
+    <td>@on-press-left</td>
     <td>Useful for navigating selected-options</td>
   </tr>
   <tr>
-    <td>on-press-up</td>
+    <td>@on-press-up</td>
     <td>Useful for navigating up</td>
   </tr>
   <tr>
-    <td>on-press-right</td>
+    <td>@on-press-right</td>
     <td>Useful for navigating selected-options</td>
   </tr>
   <tr>
-    <td>on-press-down</td>
+    <td>@on-press-down</td>
     <td>Useful for navigating down</td>
   </tr>
 </table>
@@ -391,28 +391,28 @@ ember install @zestia/ember-select-box
     <td>aria-label</td>
     <td></td>
   </tr>
+</table>
+
+<table>
+  <caption>Arguments</caption>
   <tr>
-    <td>style</td>
-    <td></td>
+    <td>@style</td>
+    <td>Escaped and processed as HTML safe. Alternatively use `style=`</td>
   </tr>
   <tr>
-    <td>value</td>
+    <td>@value</td>
     <td>Can be anything, including a promise</td>
-  </tr>
-  <tr>
-    <td>label</td>
-    <td>Used as the display text by default</td>
   </tr>
 </table>
 
 <table>
   <caption>Actions</caption>
   <tr>
-    <td width="200">on-select</td>
+    <td width="200">@on-select</td>
     <td>Useful for firing one-off actions when an option is selected</td>
   </tr>
   <tr>
-    <td>on-activate</td>
+    <td>@on-activate</td>
     <td>Fired when an individual option is activated</td>
   </tr>
 </table>
@@ -461,7 +461,7 @@ Self explanitory, just wraps the options in extra markup.<br>
 (You can still navigate groups using the arrow keys / the API)
 
 ```handlebars
-<sb.group @label="Things">
+<sb.group label="Things">
 
 </sb.group>
 ```
@@ -480,10 +480,13 @@ You only need to wrap the options up in with `sb.options` if you require extra m
 ```
 
 <table>
-  <caption>Attributes</caption§>
+  <caption>Arguments</caption§>
   <tr>
-    <td width="200">style</td>
-    <td>Useful for customising the style of the options container</td>
+    <td width="200">@style</td>
+    <td>
+      Useful for customising the style of the options container.<br>
+      Escaped and processed as HTML safe. Alternatively use `style=`
+    </td>
   </tr>
 </table>
 
@@ -500,15 +503,15 @@ Allows you to input text into the select box, usually for running searches/filte
 <table>
   <caption>Actions</caption>
   <tr>
-    <td width="200">on-input</td>
+    <td width="200">@on-input</td>
     <td>Fired when text is input</td>
   </tr>
   <tr>
-    <td>on-delete</td>
+    <td>@on-delete</td>
     <td>Fired when there is no text present, but backspace is pressed</td>
   </tr>
   <tr>
-    <td>on-clear</td>
+    <td>@on-clear</td>
     <td>Fired when text is cleared completely</td>
   </tr>
 </table>
@@ -556,24 +559,27 @@ Does _not_ render the user's selected option automatically, but rather just prov
   {{so.value.name}}
 </sb.selected-option>
 ```
-
-<table>
-  <caption>Actions</caption>
-  <tr>
-    <td width="200">on-activate</td>
-    <td>Fired when a selected option is activated</td>
-  </tr>
-</table>
-
 <table>
   <caption>Attributes</caption>
   <tr>
     <td width="200">title</td>
     <td></td>
   </tr>
+</table>
+
+<table>
+  <caption>Arguments</caption>
   <tr>
-    <td>style</td>
-    <td></td>
+    <td>@style</td>
+    <td>Escaped and processed as HTML safe. Alternatively use `style=`</td>
+  </tr>
+</table>
+
+<table>
+  <caption>Actions</caption>
+  <tr>
+    <td width="200">@on-activate</td>
+    <td>Fired when a selected option is activated</td>
   </tr>
 </table>
 
@@ -592,10 +598,10 @@ Does _not_ render the user's selected option automatically, but rather just prov
 Provides a container for options that the user selected. Does not do anything by default, but it is possible to activate selected options using the API, thereby allowing you to create your own navigatable select box.
 
 <table>
-  <caption>Attributes</caption>
+  <caption>Arguments</caption>
   <tr>
-    <td width="200">style</td>
-    <td>Useful for one-off styling of selected options</td>
+    <td width="200">@style</td>
+    <td>Escaped and processed as HTML safe. Alternatively use `style=`</td>
   </tr>
 </table>
 

@@ -6,14 +6,14 @@
 <NativeSelectBox
   @value={{this.selectedDessert}}
   @on-select={{action "selectedDessert"}} as |sb|>
-  <sb.group @label="Cakes">
+  <sb.group label="Cakes">
     {{#each this.selectableCakes as |cake|}}
       <sb.option @value={{cake}}>
         {{cake.name}}
       </sb.option>
     {{/each}}
   </sb.group>
-  <sb.group @label="Puddings">
+  <sb.group label="Puddings">
     {{#each this.selectablePuddings as |pudding|}}
       <sb.option @value={{pudding}}>
         {{pudding.name}}

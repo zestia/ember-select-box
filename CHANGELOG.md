@@ -1,5 +1,9 @@
 # Changelog
 
+7.0.4
+
+* Upgrade ember-cli
+
 7.0.3
 
 * Add missing `on-activate` action to selected options
