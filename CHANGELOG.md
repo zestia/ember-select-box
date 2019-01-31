@@ -1,5 +1,9 @@
 # Changelog
 
+7.0.5
+
+* Listen for touchstart so that clicking _outside_ a select box can be detected on mobile devices.
+
 7.0.4
 
 * Upgrade ember-cli

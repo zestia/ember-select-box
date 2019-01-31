@@ -8,11 +8,13 @@ export default Mixin.create({
     this._super(...arguments);
     this.set('_documentClickHandler', bind(this, '_clickDocument'));
     document.addEventListener('click', this._documentClickHandler);
+    document.addEventListener('touchstart', this._documentClickHandler);
   },
 
   willDestroyElement() {
     this._super(...arguments);
     document.removeEventListener('click', this._documentClickHandler);
+    document.removeEventListener('touchstart', this._documentClickHandler);
   },
 
   _clickDocument() {
