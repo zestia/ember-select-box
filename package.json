@@ -1,6 +1,6 @@
 {
   "name": "@zestia/ember-select-box",
-  "version": "7.0.6",
+  "version": "7.1.0",
   "description": "A faux select box for Ember apps",
   "directories": {
     "doc": "doc",
