@@ -37,10 +37,12 @@ export default Component.extend(...mixins, {
   classNameBindings: ['isActive', 'isDisabled', 'isSelected'],
 
   mouseEnter() {
+    this._super(...arguments);
     this.send('activate');
   },
 
   click() {
+    this._super(...arguments);
     this.send('select');
   }
 });

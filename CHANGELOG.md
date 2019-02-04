@@ -1,5 +1,10 @@
 # Changelog
 
+7.1.0
+
+* Phase out internal method's like `press<Key>() {}` in favour of actions, like `on-press-<key>={{action "doSomething"}}`.
+* Add `on-press-alphanum` action
+
 7.0.5
 
 * Listen for touchstart so that clicking _outside_ a select box can be detected on mobile devices.

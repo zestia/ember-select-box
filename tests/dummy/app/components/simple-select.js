@@ -6,7 +6,7 @@ export default Component.extend({
   tagName: '',
 
   actions: {
-    pressedKey(e, sb) {
+    pressedAlphaNum(e, sb) {
       sb.activateOptionForKeyCode(e.keyCode);
 
       if (!sb.isOpen) {
@@ -22,6 +22,7 @@ export default Component.extend({
     pressedDown(e, sb) {
       e.preventDefault();
       sb.activateNextOption();
+      sb.open();
     },
 
     close(e, sb) {

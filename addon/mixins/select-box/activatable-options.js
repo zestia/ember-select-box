@@ -1,9 +1,9 @@
 import Mixin from '@ember/object/mixin';
 import { computed, get } from '@ember/object';
 import scrollIntoView from '../../utils/select-box/scroll-into-view';
+import { isAlphaNumericChar } from '../../utils/alpha-num';
 import { later, cancel } from '@ember/runloop';
 const { fromCharCode } = String;
-const alphaNumeric = /^[0-9a-z]$/i;
 
 export default Mixin.create({
   init() {
@@ -108,7 +108,7 @@ export default Mixin.create({
     activateOptionForKeyCode(keyCode, scroll = true) {
       const char = fromCharCode(keyCode);
 
-      if (alphaNumeric.test(char)) {
+      if (isAlphaNumericChar(char)) {
         this._activateOptionForChar(char, scroll);
       }
     },
