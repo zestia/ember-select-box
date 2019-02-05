@@ -10,8 +10,8 @@ export default Mixin.create({
   didReceiveAttrs() {
     this._super(...arguments);
 
-    if (isPresent(this['is-open'])) {
-      this.set('isOpen', this['is-open']);
+    if (isPresent(this.open)) {
+      this.set('isOpen', this.open);
     }
   },
 

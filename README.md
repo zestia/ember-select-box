@@ -80,7 +80,7 @@ ember install @zestia/ember-select-box
     <td>Adds a prefix to the class name of all child select-box components</td>
   </tr>
   <tr>
-    <td>@is-open</td>
+    <td>@open</td>
     <td>Controls the open/closed state</td>
   </tr>
   <tr>

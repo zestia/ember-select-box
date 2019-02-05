@@ -1,5 +1,9 @@
 # Changelog
 
+7.2.0
+
+* Rename `@is-open` argument to `@open` to align with other args.
+
 7.1.0
 
 * Phase out internal method's like `press<Key>() {}` in favour of actions, like `on-press-<key>={{action "doSomething"}}`.

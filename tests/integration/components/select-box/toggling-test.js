@@ -19,7 +19,7 @@ module('select-box (toggling)', function(hooks) {
 
     this.set('isOpen', true);
 
-    await render(hbs`{{select-box is-open=this.isOpen}}`);
+    await render(hbs`{{select-box open=this.isOpen}}`);
 
     selectBox = find('.select-box');
 
@@ -34,7 +34,7 @@ module('select-box (toggling)', function(hooks) {
 
     assert.ok(
       !selectBox.classList.contains('is-open'),
-      'the open state can be changed via an is-open attribute'
+      'the open state can be changed via the open argument'
     );
 
     assert.ok(
