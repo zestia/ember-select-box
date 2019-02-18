@@ -1,5 +1,9 @@
 # Changelog
 
+7.2.1
+
+* Send event out with `on-click-outside` action
+
 7.2.0
 
 * Rename `@is-open` argument to `@open` to align with other args.

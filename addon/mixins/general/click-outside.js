@@ -10,7 +10,7 @@ export default Mixin.create(DocumentClick, {
     const clickedOutside = !clickedSelf && !clickedInside;
 
     if (clickedOutside) {
-      this.clickOutside();
+      this.clickOutside(e);
     }
   },
 
