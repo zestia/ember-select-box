@@ -140,8 +140,8 @@ module('native-select-box', function(hooks) {
 
     await render(hbs`
       {{#native-select-box value=this.selectedValue as |sb|}}
-        {{sb.option value="foo"}}
-        {{sb.option value="bar"}}
+        {{#sb.option value="foo"}}Foo{{/sb.option}}
+        {{#sb.option value="bar"}}Bar{{/sb.option}}
       {{/native-select-box}}
     `);
 
