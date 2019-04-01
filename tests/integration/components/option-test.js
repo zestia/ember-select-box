@@ -58,17 +58,19 @@ module('select-box/option', function(hooks) {
   });
 
   test('disabled', async function(assert) {
-    assert.expect(1);
+    assert.expect(2);
 
     await render(hbs`{{select-box/option disabled=true}}`);
 
     assert
-      .dom('.select-box-option[aria-disabled]')
+      .dom('.select-box-option')
       .hasClass('is-disabled', 'an option can be flagged as disabled');
+
+    assert.dom('.select-box-option').hasAttribute('aria-disabled', 'true');
   });
 
   test('aria selected', async function(assert) {
-    assert.expect(2);
+    assert.expect(4);
 
     this.set('value', 1);
 
@@ -80,14 +82,20 @@ module('select-box/option', function(hooks) {
     `);
 
     assert
-      .dom('.select-box-option[aria-selected]')
+      .dom('.select-box-option:nth-child(1)[aria-selected]')
       .hasText('One', 'the selected option receives an aria selected attribute');
+
+    assert.dom('.select-box-option:nth-child(1)[aria-selected]')
+      .hasAttribute('aria-selected', 'true', 'has correct string value when selected');
 
     this.set('value', 2);
 
     assert
-      .dom('.select-box-option[aria-selected]')
+      .dom('.select-box-option:nth-child(2)[aria-selected]')
       .hasText('Two', 'the aria selected attribute is redetermined when the value changes');
+
+    assert.dom('.select-box-option:nth-child(2)[aria-selected]')
+      .hasAttribute('aria-selected', 'true', 'has correct string value when selected');
   });
 
   test('yield index', async function(assert) {

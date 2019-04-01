@@ -1,6 +1,11 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, find, fillIn, triggerKeyEvent } from '@ember/test-helpers';
+import {
+  render,
+  find,
+  fillIn,
+  triggerKeyEvent
+} from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('select-box/input', function(hooks) {

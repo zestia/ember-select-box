@@ -1,7 +1,7 @@
 import { VERSION } from '@ember/version';
 import { module, skip, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
-import { visit, click, find, triggerEvent, settled } from '@ember/test-helpers';
+import { visit, click, find, triggerEvent, settled, focus } from '@ember/test-helpers';
 import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 
@@ -58,7 +58,7 @@ module('backtracking focus use-case', function(hooks) {
       'precondition: not focused'
     );
 
-    await triggerEvent('.backtrack-select', 'focus');
+    await focus('.backtrack-select');
     await click('.backtrack-select-selected-option');
 
     assert

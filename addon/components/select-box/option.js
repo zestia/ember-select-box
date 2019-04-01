@@ -8,6 +8,7 @@ import Nameable from '../../mixins/general/nameable';
 import Registerable from '../../mixins/general/registerable';
 import Selectable from '../../mixins/select-box/option/selectable';
 import Styleable from '../../mixins/general/styleable';
+import boolString from '../../utils/bool-string';
 
 const mixins = [
   Activatable,
@@ -23,18 +24,24 @@ const mixins = [
 export default Component.extend(...mixins, {
   layout,
   classNameSuffix: 'option',
+
   role: 'option',
 
   attributeBindings: [
-    'title',
+    'aria-busy',
+    'aria-current',
+    'aria-disabled',
+    'aria-selected',
     'role',
-    'isActive:aria-current',
-    'isDisabled:aria-disabled',
-    'isSelected:aria-selected',
-    'isPending:aria-busy'
+    'title'
   ],
 
   classNameBindings: ['isActive', 'isDisabled', 'isSelected'],
+
+  'aria-current': boolString('isActive'),
+  'aria-disabled': boolString('isDisabled'),
+  'aria-selected': boolString('isSelected'),
+  'aria-busy': boolString('isPending'),
 
   mouseEnter() {
     this._super(...arguments);

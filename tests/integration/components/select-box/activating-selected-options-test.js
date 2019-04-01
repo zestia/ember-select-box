@@ -7,7 +7,7 @@ module('select-box (activating selected options)', function(hooks) {
   setupRenderingTest(hooks);
 
   test('activating selected options', async function(assert) {
-    assert.expect(5);
+    assert.expect(6);
 
     await render(hbs`
       {{#select-box as |sb|}}
@@ -41,6 +41,9 @@ module('select-box (activating selected options)', function(hooks) {
     assert
       .dom('.select-box-selected-option[aria-current]')
       .hasText('One', 'receives an aria current attribute when active');
+
+    assert.dom('.select-box-selected-option[aria-current]').hasAttribute('aria-current', 'true',
+      'has correct string value when current');
 
     assert.ok(id, 'active selected option id is added to the selected options container');
 

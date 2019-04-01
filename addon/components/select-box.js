@@ -23,6 +23,7 @@ import SelectActiveOptionOnEnter from '../mixins/select-box/select-active-option
 import SelectBoxAPI from '../mixins/select-box/api';
 import Styleable from '../mixins/general/styleable';
 import Toggleable from '../mixins/select-box/toggleable';
+import boolString from '../utils/bool-string';
 import { or } from '@ember/object/computed';
 
 const mixins = [
@@ -52,13 +53,7 @@ const mixins = [
 export default Component.extend(...mixins, {
   layout,
 
-  attributeBindings: [
-    'aria-label',
-    'role',
-    'isOpen:aria-expanded',
-    'isDisabled:aria-disabled',
-    'isBusy:aria-busy'
-  ],
+  attributeBindings: ['aria-busy', 'aria-disabled', 'aria-expanded', 'aria-label', 'role'],
 
   classNameBindings: [
     'isOpen',
@@ -69,5 +64,9 @@ export default Component.extend(...mixins, {
     'isSlowSearch'
   ],
 
-  isBusy: or('isPending', 'isSearching')
+  isBusy: or('isPending', 'isSearching'),
+
+  'aria-expanded': boolString('isOpen'),
+  'aria-busy': boolString('isBusy'),
+  'aria-disabled': boolString('isDisabled')
 });

@@ -1,6 +1,12 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled, find, findAll, click } from '@ember/test-helpers';
+import {
+  render,
+  settled,
+  find,
+  findAll,
+  click
+} from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { defer } from 'rsvp';
 
@@ -70,8 +76,7 @@ module('select-box (promises)', function(hooks) {
 
     await render(hbs`{{select-box value=this.promise}}`);
 
-    assert.ok(
-      find('.select-box').hasAttribute('aria-busy'),
+    assert.dom('.select-box').hasAttribute('aria-busy', 'true',
       'select box has busy attribute when resolving promise'
     );
 
@@ -79,8 +84,7 @@ module('select-box (promises)', function(hooks) {
 
     await settled();
 
-    assert.ok(
-      !find('.select-box').hasAttribute('aria-busy'),
+    assert.dom('.select-box').hasAttribute('aria-busy', 'false',
       'select box no longer has busy attribute when promise has resolved'
     );
   });

@@ -6,12 +6,15 @@ import Indexable from '../../mixins/general/indexable';
 import Nameable from '../../mixins/general/nameable';
 import Registerable from '../../mixins/general/registerable';
 import Styleable from '../../mixins/general/styleable';
+import boolString from '../../utils/bool-string';
 
 const mixins = [Activatable, BaseOption, Indexable, Nameable, Registerable, Styleable];
 
 export default Component.extend(...mixins, {
   layout,
   classNameSuffix: 'selected-option',
-  attributeBindings: ['title', 'isActive:aria-current'],
-  classNameBindings: ['isActive']
+  attributeBindings: ['title', 'aria-current'],
+  classNameBindings: ['isActive'],
+
+  'aria-current': boolString('isActive')
 });

@@ -11,7 +11,7 @@ export default Component.extend(...mixins, {
 
   role: 'searchbox',
   'aria-multiline': 'false',
-  'autocomplete': 'off',
+  autocomplete: 'off',
 
   attributeBindings: [
     'accept',

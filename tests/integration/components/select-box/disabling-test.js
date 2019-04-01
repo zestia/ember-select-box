@@ -46,15 +46,13 @@ module('select-box (disabling)', function(hooks) {
 
     await render(hbs`{{select-box disabled=this.disabled}}`);
 
-    assert.ok(
-      find('.select-box').hasAttribute('aria-disabled'),
+    assert.dom('.select-box').hasAttribute('aria-disabled', 'true',
       'receives an aria disabled attribute when disabled'
     );
 
     this.set('disabled', false);
 
-    assert.ok(
-      !find('.select-box').hasAttribute('aria-disabled'),
+    assert.dom('.select-box').hasAttribute('aria-disabled', 'false',
       'aria disabled attribute is removed when enabled'
     );
   });

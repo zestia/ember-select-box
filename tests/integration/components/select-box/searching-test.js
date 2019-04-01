@@ -1,6 +1,12 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled, find, click, fillIn } from '@ember/test-helpers';
+import {
+  render,
+  settled,
+  find,
+  click,
+  fillIn
+} from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { later, next } from '@ember/runloop';
 import { defer, reject } from 'rsvp';
@@ -505,13 +511,13 @@ module('select-box (searching)', function(hooks) {
       .dom(selectBox)
       .hasClass('is-searching', 'precondition, select box is in the middle of searching');
 
-    assert.ok(selectBox.hasAttribute('aria-busy'), 'is busy whilst searching');
+    assert.dom(selectBox).hasAttribute('aria-busy', 'true', 'is busy whilst searching');
 
     await fillIn(input, '');
 
     assert.ok(!selectBox.classList.contains('is-searching'), 'select box is no longer searching');
 
-    assert.ok(!selectBox.hasAttribute('aria-busy'), 'is no longer busy');
+    assert.dom(selectBox).hasAttribute('aria-busy', 'false', 'is no longer busy');
 
     deferred.resolve();
   });

@@ -13,9 +13,9 @@ module('select-box (toggling)', function(hooks) {
 
     let selectBox = find('.select-box');
 
-    assert.ok(!selectBox.classList.contains('is-open'), 'a select box is closed by default');
+    assert.dom(selectBox).doesNotHaveClass('is-open', 'a select box is closed by default');
 
-    assert.ok(!selectBox.hasAttribute('aria-expanded'), 'not expanded by default');
+    assert.dom(selectBox).hasAttribute('aria-expanded', 'false', 'not expanded by default');
 
     this.set('isOpen', true);
 
@@ -25,22 +25,19 @@ module('select-box (toggling)', function(hooks) {
 
     assert.dom(selectBox).hasClass('is-open', 'the initial open state can be set');
 
-    assert.ok(
-      selectBox.hasAttribute('aria-expanded'),
-      'receives an aria-expanded attribute when open'
-    );
+    assert
+      .dom(selectBox)
+      .hasAttribute('aria-expanded', 'true', 'receives an aria-expanded attribute when open');
 
     this.set('isOpen', false);
 
-    assert.ok(
-      !selectBox.classList.contains('is-open'),
-      'the open state can be changed via the open argument'
-    );
+    assert
+      .dom(selectBox)
+      .doesNotHaveClass('is-open', 'the open state can be changed via the open argument');
 
-    assert.ok(
-      !selectBox.hasAttribute('aria-expanded'),
-      'open state is reflected as aria expanded attribute'
-    );
+    assert
+      .dom(selectBox)
+      .hasAttribute('aria-expanded', 'false', 'open state is reflected as aria expanded attribute');
 
     await render(hbs`
       {{#select-box as |sb|}}

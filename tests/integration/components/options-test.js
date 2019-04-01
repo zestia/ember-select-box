@@ -55,8 +55,7 @@ module('select-box/options', function(hooks) {
 
     await render(hbs`{{select-box/option value=this.promise}}`);
 
-    assert.ok(
-      find('.select-box-option').hasAttribute('aria-busy'),
+    assert.dom('.select-box-option').hasAttribute('aria-busy', 'true',
       'select box option has busy attribute when resolving promise'
     );
 
@@ -64,8 +63,7 @@ module('select-box/options', function(hooks) {
 
     await settled();
 
-    assert.ok(
-      !find('.select-box-option').hasAttribute('aria-busy'),
+    assert.dom('.select-box-option').hasAttribute('aria-busy', 'false',
       'select box option no longer has busy attribute when promise has resolved'
     );
   });

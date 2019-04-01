@@ -17,7 +17,7 @@ module('select-box (activating options)', function(hooks) {
   setupRenderingTest(hooks);
 
   test('mouseover activates options', async function(assert) {
-    assert.expect(6);
+    assert.expect(7);
 
     await render(hbs`
       {{#select-box as |sb|}}
@@ -47,6 +47,9 @@ module('select-box (activating options)', function(hooks) {
     assert
       .dom('.select-box-option[aria-current]')
       .hasText('One', 'receives an aria current attribute when active');
+
+    assert.dom('.select-box-option[aria-current]').hasAttribute('aria-current', 'true',
+      'has correct string value when current');
 
     await triggerEvent(two, 'mouseover');
 
