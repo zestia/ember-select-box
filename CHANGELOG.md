@@ -2,7 +2,8 @@
 
 * 7.2.2
 
-* ARIA stuff: Make sure input knows it controls combo box
+* ARIA: Make sure input knows it controls combo box
+* ARIA: Make sure attributes are _strings_
 
 7.2.1
 
