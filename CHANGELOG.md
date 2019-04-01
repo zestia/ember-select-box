@@ -1,6 +1,6 @@
 # Changelog
 
-* 7.2.2
+7.2.2
 
 * ARIA: Make sure input knows it controls combo box
 * ARIA: Make sure attributes are _strings_
