@@ -18,6 +18,7 @@ This addon does less, and gives you the primitives to easily _compose your own_.
 * Native select box _(that supports complex values)_ ✔︎
 * Faux select box _(mimics a native select box, but easily stylable)_ ✔︎
 * Navigatable options and groups ✔︎
+* ARIA Attributes ✔︎
 * Supports promises ✔︎
 * Any HTML you want ✔︎
 * Fully themeable using namespaced classes ✔︎
