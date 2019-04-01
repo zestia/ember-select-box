@@ -3,7 +3,6 @@ import { setupRenderingTest } from 'ember-qunit';
 import {
   render,
   settled,
-  find,
   findAll,
   click
 } from '@ember/test-helpers';
