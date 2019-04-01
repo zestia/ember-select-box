@@ -1,5 +1,9 @@
 # Changelog
 
+* 7.2.2
+
+* ARIA stuff: Make sure input knows it controls combo box
+
 7.2.1
 
 * Send event out with `on-click-outside` action

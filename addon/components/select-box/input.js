@@ -10,9 +10,13 @@ export default Component.extend(...mixins, {
   type: '',
 
   role: 'searchbox',
+  'aria-multiline': 'false',
+  'autocomplete': 'off',
 
   attributeBindings: [
     'accept',
+    'aria-controls',
+    'aria-multiline',
     'autocapitalize',
     'autocomplete',
     'autocorrect',

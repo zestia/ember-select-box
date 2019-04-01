@@ -22,8 +22,8 @@ module('select-box (searching)', function(hooks) {
       .hasAttribute('autocomplete', 'off', 'autocompletion off by default');
   });
 
-  test('aria role', async function(assert) {
-    assert.expect(1);
+  test('aria', async function(assert) {
+    assert.expect(2);
 
     await render(hbs`
       {{#select-box as |sb|}}
@@ -34,6 +34,10 @@ module('select-box (searching)', function(hooks) {
     assert
       .dom('.select-box')
       .hasAttribute('role', 'combobox', 'a select box with an input has an appropriate aria role');
+
+    assert.dom('.select-box-input').hasAttribute('aria-controls',
+      find('.select-box').getAttribute('id'),
+      'text box knows it controls the combo box');
   });
 
   test('searching (promise)', async function(assert) {

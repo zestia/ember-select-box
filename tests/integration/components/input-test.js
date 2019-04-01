@@ -34,6 +34,16 @@ module('select-box/input', function(hooks) {
       .hasAttribute('role', 'searchbox', 'a select box input has an appropriate aria role');
   });
 
+  test('aria multiline', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`{{select-box/input}}`);
+
+    assert
+      .dom('.select-box-input')
+      .hasAttribute('aria-multiline', 'false', 'single line text input');
+  });
+
   test('type', async function(assert) {
     assert.expect(2);
 

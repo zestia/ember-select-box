@@ -32,8 +32,8 @@
     class-prefix=@class-prefix)
   input=(component "select-box/input"
     class-prefix=@class-prefix
-    autocomplete="off"
     disabled=this.isDisabled
+    aria-controls=this.elementId
     _parentApi=this.api
     _onInit=(action "_registerInput")
     _onDestroy=(action "_deregisterInput")

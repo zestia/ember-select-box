@@ -13,6 +13,8 @@ module('select-box (input)', function(hooks) {
       [...input.attributeBindings].sort(),
       [
         'accept',
+        'aria-controls',
+        'aria-multiline',
         'autocapitalize',
         'autocomplete',
         'autocorrect',
