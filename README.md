@@ -636,11 +636,10 @@ actions: {
 
 ## Customising
 
-There are 3 ways to get what you want
+There are a couple of ways to get what you want
 
 1. [compose](#compose) a new one
 2. OR [extend](#extend) an existing one
-3. <strike>OR create a new one by combining the mixins</strike> (no longer recommended)
 
 Option 1 is recommended. Define your component like so...
 
