@@ -11,7 +11,7 @@
     "lint": "yarn lint:js && yarn lint:hbs && yarn lint:css",
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
-    "lint:css": "stylelint 'addon/**/*.{css,scss}' && stylelint 'app/**/*.{css,scss}'",
+    "lint:css": "stylelint --allow-empty-input 'addon/**/*.{css,scss}' && stylelint --allow-empty-input 'app/**/*.{css,scss}'",
     "start": "ember serve",
     "test": "ember test && yarn lint",
     "test:all": "ember try:each"
@@ -58,7 +58,7 @@
     "prettier": "1.17.0",
     "qunit-dom": "0.8.4",
     "sass": "1.17.4",
-    "stylelint": "9.10.1"
+    "stylelint": "10.0.1"
   },
   "dependencies": {
     "ember-cli-babel": "^7.7.3",
