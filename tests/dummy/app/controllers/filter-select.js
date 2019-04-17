@@ -1,23 +1,24 @@
 import Controller from '@ember/controller';
 import { pies } from '../utils/dummy-data';
 import { resolve } from 'rsvp';
+import { set } from '@ember/object';
 
 export default Controller.extend({
   init() {
     this._super(...arguments);
-    this.set('selectablePies', pies);
+    set(this, 'selectablePies', pies);
   },
 
   actions: {
     filterPies(query) {
       return this._filterPies(query).then(pies => {
-        this.set('selectablePies', pies);
+        set(this, 'selectablePies', pies);
         return pies;
       });
     },
 
     selectedPie(pie) {
-      this.set('selectedPie', pie);
+      set(this, 'selectedPie', pie);
     }
   },
 

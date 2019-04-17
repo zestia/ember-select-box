@@ -1,4 +1,5 @@
 import Mixin from '@ember/object/mixin';
+import { set } from '@ember/object';
 import { assert } from '@ember/debug';
 
 export default Mixin.create({
@@ -8,11 +9,11 @@ export default Mixin.create({
         assert('select-box can only have 1 input', !this.input);
       }
 
-      this.set('input', input);
+      set(this, 'input', input);
     },
 
     _deregisterInput() {
-      this.set('input', null);
+      set(this, 'input', null);
     }
   }
 });

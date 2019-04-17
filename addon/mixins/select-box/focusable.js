@@ -1,7 +1,6 @@
 import Mixin from '@ember/object/mixin';
-import { next } from '@ember/runloop';
+import { set } from '@ember/object';
 import { isPresent } from '@ember/utils';
-import trySet from '../../utils/try-set';
 import invokeAction from '../../utils/invoke-action';
 
 export default Mixin.create({
@@ -11,17 +10,20 @@ export default Mixin.create({
     this._super(...arguments);
 
     if (isPresent(this.tabindex)) {
-      this.set('tabIndex', this.tabindex);
+      set(this, 'tabIndex', this.tabindex);
     } else if (!isPresent(this.tabIndex)) {
-      this.set('tabIndex', 0);
+      set(this, 'tabIndex', 0);
     }
   },
 
   focusIn(e) {
     this._super(...arguments);
 
-    this.set('isFocused', true);
+    if (this.isDestroyed) {
+      return;
+    }
 
+    set(this, 'isFocused', true);
     invokeAction(this, 'on-focus-in', e, this.api);
   },
 
@@ -29,11 +31,14 @@ export default Mixin.create({
     this._super(...arguments);
 
     if (this.isClosing) {
-      next(() => trySet(this, 'isFocused', false));
-    } else {
-      this.set('isFocused', false);
+      return;
     }
 
+    if (this.isDestroyed) {
+      return;
+    }
+
+    set(this, 'isFocused', false);
     invokeAction(this, 'on-focus-out', e, this.api);
   }
 });

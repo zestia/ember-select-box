@@ -1,4 +1,5 @@
 import Mixin from '@ember/object/mixin';
+import { set } from '@ember/object';
 import { scheduleOnce } from '@ember/runloop';
 
 export default Mixin.create({
@@ -7,20 +8,32 @@ export default Mixin.create({
       return;
     }
 
-    this.set('tabIndex', -1);
-    this.set('role', 'combobox');
+    set(this, 'tabIndex', -1);
+    set(this, 'role', 'combobox');
   },
 
   actions: {
     setInputValue(value) {
-      this.set('input.element.value', value);
+      if (this.isDestroyed) {
+        return;
+      }
+
+      set(this, 'input.element.value', value);
     },
 
     focusInput() {
+      if (this.isDestroyed) {
+        return;
+      }
+
       this.input.element.focus();
     },
 
     blurInput() {
+      if (this.isDestroyed) {
+        return;
+      }
+
       this.input.element.blur();
     },
 
@@ -28,6 +41,7 @@ export default Mixin.create({
 
     _registerInput() {
       this._super(...arguments);
+
       scheduleOnce('afterRender', this, '_configureAsCombobox');
     }
   }

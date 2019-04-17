@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import { set } from '@ember/object';
 import layout from '../templates/components/simple-select';
 
 export default Component.extend({
@@ -35,7 +36,7 @@ export default Component.extend({
     },
 
     updateDisplayLabel(value = {}) {
-      this.set('displayLabel', value[this['label-key']]);
+      set(this, 'displayLabel', value[this['label-key']]);
     }
   }
 });

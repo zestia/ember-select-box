@@ -1,12 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import {
-  render,
-  settled,
-  find,
-  click,
-  fillIn
-} from '@ember/test-helpers';
+import { render, settled, find, click, fillIn } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { later, next } from '@ember/runloop';
 import { defer, reject } from 'rsvp';
@@ -41,9 +35,13 @@ module('select-box (searching)', function(hooks) {
       .dom('.select-box')
       .hasAttribute('role', 'combobox', 'a select box with an input has an appropriate aria role');
 
-    assert.dom('.select-box-input').hasAttribute('aria-controls',
-      find('.select-box').getAttribute('id'),
-      'text box knows it controls the combo box');
+    assert
+      .dom('.select-box-input')
+      .hasAttribute(
+        'aria-controls',
+        find('.select-box').getAttribute('id'),
+        'text box knows it controls the combo box'
+      );
   });
 
   test('searching (promise)', async function(assert) {
@@ -120,6 +118,8 @@ module('select-box (searching)', function(hooks) {
       find('.select-box').textContent.match('Results for: third'),
       'yields results for the most recent query, ignoring later resolves'
     );
+
+    // return new Promise(() => {});
 
     assert
       .dom('.select-box-option')
@@ -478,6 +478,34 @@ module('select-box (searching)', function(hooks) {
     await click('button');
 
     assert.equal(input.value, 'bar', 'exposes ability to change the input value');
+  });
+
+  test('set input value if destroyed', async function(assert) {
+    assert.expect(2);
+
+    this.set('show', true);
+
+    this.hide = (value, sb) => {
+      this.set('show', false);
+      sb.setInputValue('bar');
+    };
+
+    await render(hbs`
+      {{#if this.show}}
+        {{#select-box on-select=(action this.hide) as |sb|}}
+          {{sb.input value="foo"}}
+          {{sb.option}}
+        {{/select-box}}
+      {{/if}}
+    `);
+
+    assert.dom('.select-box-input').hasValue('foo', 'precondition');
+
+    await click('.select-box-option');
+
+    assert
+      .dom('.select-box-input')
+      .doesNotExist('does not blow up attempting to set value of element that is not present');
   });
 
   test('searching attributes', async function(assert) {

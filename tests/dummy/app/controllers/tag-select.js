@@ -3,11 +3,12 @@ import { mapBy, max } from '@ember/object/computed';
 import { A as emberA } from '@ember/array';
 import { tags } from '../utils/dummy-data';
 import { resolve } from 'rsvp';
+import { set } from '@ember/object';
 
 export default Controller.extend({
   init() {
     this._super(...arguments);
-    this.set('selectedTags', emberA(tags));
+    set(this, 'selectedTags', emberA(tags));
   },
 
   selectedTagIDs: mapBy('selectedTags', 'id'),

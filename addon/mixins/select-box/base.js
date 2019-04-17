@@ -4,7 +4,7 @@ import { bind, scheduleOnce } from '@ember/runloop';
 import { all, resolve } from 'rsvp';
 import invokeAction from '../../utils/invoke-action';
 import { readOnly } from '@ember/object/computed';
-import { get } from '@ember/object';
+import { get, set } from '@ember/object';
 const { freeze } = Object;
 
 export default Mixin.create({
@@ -33,7 +33,7 @@ export default Mixin.create({
 
     const id = this.incrementProperty('valueID');
 
-    this.set('internalValue', value);
+    set(this, 'internalValue', value);
 
     return this._resolveValue(value)
       .then(bind(this, '_resolvedValue', id, false))
@@ -45,10 +45,10 @@ export default Mixin.create({
   },
 
   _resolveValue(value) {
-    this.set('isPending', true);
-    this.set('isRejected', false);
-    this.set('isFulfilled', false);
-    this.set('isSettled', false);
+    set(this, 'isPending', true);
+    set(this, 'isRejected', false);
+    set(this, 'isFulfilled', false);
+    set(this, 'isSettled', false);
 
     return resolve(value).then(value => {
       if (get(this, 'isMultiple')) {
@@ -60,7 +60,11 @@ export default Mixin.create({
   },
 
   _resolvedValue(id, failed, value) {
-    if (id < this.valueID || this.isDestroyed) {
+    if (id < this.valueID) {
+      return;
+    }
+
+    if (this.isDestroyed) {
       return;
     }
 
@@ -69,14 +73,14 @@ export default Mixin.create({
     }
 
     if (failed) {
-      this.set('isRejected', true);
+      set(this, 'isRejected', true);
     } else {
-      this.set('isFulfilled', true);
+      set(this, 'isFulfilled', true);
     }
 
-    this.set('isPending', false);
-    this.set('isSettled', true);
-    this.set('internalValue', value);
+    set(this, 'isPending', false);
+    set(this, 'isSettled', true);
+    set(this, 'internalValue', value);
 
     scheduleOnce('afterRender', this, '_rendered');
   },

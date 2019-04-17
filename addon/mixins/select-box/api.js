@@ -1,12 +1,12 @@
 import Mixin from '@ember/object/mixin';
 import { bind, scheduleOnce } from '@ember/runloop';
 import { assign } from '@ember/polyfills';
-import { get } from '@ember/object';
+import { get, set } from '@ember/object';
 const { seal } = Object;
 
 export default Mixin.create({
   init() {
-    this.set('api', this._buildApi());
+    set(this, 'api', this._buildApi());
     this._super(...arguments);
     scheduleOnce('afterRender', this, '_updateApiElement');
   },
@@ -33,7 +33,7 @@ export default Mixin.create({
       return;
     }
 
-    this.set(`api.${key}`, value);
+    set(this, `api.${key}`, value);
   },
 
   _apiActions() {

@@ -1,5 +1,6 @@
 import Mixin from '@ember/object/mixin';
 import className from '../../utils/select-box/class-name';
+import { set } from '@ember/object';
 const { from } = Array;
 
 export default Mixin.create({
@@ -12,6 +13,6 @@ export default Mixin.create({
 
     names.push(name);
 
-    this.set('classNames', names);
+    set(this, 'classNames', names);
   }
 });

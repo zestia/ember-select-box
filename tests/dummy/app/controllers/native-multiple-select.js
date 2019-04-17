@@ -1,16 +1,17 @@
 import Controller from '@ember/controller';
 import { pastries, biscuits } from '../utils/dummy-data';
+import { set } from '@ember/object';
 
 export default Controller.extend({
   init() {
     this._super(...arguments);
-    this.set('selectablePastries', pastries);
-    this.set('selectableBiscuits', biscuits);
+    set(this, 'selectablePastries', pastries);
+    set(this, 'selectableBiscuits', biscuits);
   },
 
   actions: {
     selectedDesserts(desserts) {
-      this.set('selectedDesserts', desserts);
+      set(this, 'selectedDesserts', desserts);
     }
   }
 });

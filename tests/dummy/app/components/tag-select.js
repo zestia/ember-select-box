@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import { set } from '@ember/object';
 import layout from '../templates/components/tag-select';
 
 export default Component.extend({
@@ -23,8 +24,8 @@ export default Component.extend({
 
     updateAvailableTags(search, query) {
       return search(query).then(tags => {
-        this.set('availableTags', tags);
-        this.set('newTag', query);
+        set(this, 'availableTags', tags);
+        set(this, 'newTag', query);
       });
     },
 

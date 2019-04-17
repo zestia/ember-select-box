@@ -1,12 +1,13 @@
 import Mixin from '@ember/object/mixin';
 import { A as emberA } from '@ember/array';
+import { set } from '@ember/object';
 import { scheduleOnce } from '@ember/runloop';
 
 export default Mixin.create({
   init() {
     this._super(...arguments);
-    this.set('_selectedOptions', emberA());
-    this.set('selectedOptions', emberA());
+    set(this, '_selectedOptions', emberA());
+    set(this, 'selectedOptions', emberA());
   },
 
   _scheduleUpdateSelectedOptions() {
@@ -14,7 +15,7 @@ export default Mixin.create({
   },
 
   _updateSelectedOptions() {
-    this.set('selectedOptions', emberA(this._selectedOptions.toArray()));
+    set(this, 'selectedOptions', emberA(this._selectedOptions.toArray()));
   },
 
   actions: {

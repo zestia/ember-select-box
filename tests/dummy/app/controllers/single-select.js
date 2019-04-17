@@ -1,25 +1,26 @@
 import Controller from '@ember/controller';
 import { breads } from '../utils/dummy-data';
+import { set } from '@ember/object';
 
 export default Controller.extend({
   init() {
     this._super(...arguments);
-    this.set('selectableBreads', breads);
-    this.set('bloomer', { id: 13, name: 'Bloomer' });
-    this.set('brioche', { id: 14, name: 'Brioche' });
+    set(this, 'selectableBreads', breads);
+    set(this, 'bloomer', { id: 13, name: 'Bloomer' });
+    set(this, 'brioche', { id: 14, name: 'Brioche' });
   },
 
   actions: {
     selectedBread(bread) {
-      this.set('selectedBread', bread);
+      set(this, 'selectedBread', bread);
     },
 
     action1() {
-      this.set('action1', true);
+      set(this, 'action1', true);
     },
 
     action2() {
-      this.set('action2', true);
+      set(this, 'action2', true);
     }
   }
 });

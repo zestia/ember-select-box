@@ -1,7 +1,7 @@
 import Mixin from '@ember/object/mixin';
 import { isPresent } from '@ember/utils';
 import { run } from '@ember/runloop';
-import trySet from '../../utils/try-set';
+import { set } from '@ember/object';
 import invokeAction from '../../utils/invoke-action';
 
 export default Mixin.create({
@@ -11,7 +11,7 @@ export default Mixin.create({
     this._super(...arguments);
 
     if (isPresent(this.open)) {
-      this.set('isOpen', this.open);
+      set(this, 'isOpen', this.open);
     }
   },
 
@@ -19,19 +19,34 @@ export default Mixin.create({
     open() {
       this._super(...arguments);
 
-      this.set('isOpen', true);
+      if (this.isDestroyed) {
+        return;
+      }
 
+      set(this, 'isOpen', true);
       invokeAction(this, 'on-open', this.api);
     },
 
     close() {
       this._super(...arguments);
 
-      run(() => trySet(this, 'isClosing', true));
-      run(() => trySet(this, 'isOpen', false));
-      run(() => trySet(this, 'isClosing', false));
+      run(() => {
+        if (this.isDestroyed) {
+          return;
+        }
 
-      invokeAction(this, 'on-close', this.api);
+        set(this, 'isClosing', true);
+        set(this, 'isOpen', false);
+      });
+
+      run(() => {
+        if (this.isDestroyed) {
+          return;
+        }
+
+        invokeAction(this, 'on-close', this.api);
+        set(this, 'isClosing', false);
+      });
     },
 
     toggle() {

@@ -2,22 +2,23 @@ import Controller from '@ember/controller';
 import { later } from '@ember/runloop';
 import { breads } from '../utils/dummy-data';
 import { Promise } from 'rsvp';
+import { set } from '@ember/object';
 
 export default Controller.extend({
   actions: {
     findBread(query) {
       return this._findBread(query).then(breads => {
-        this.set('selectableBreads', breads);
+        set(this, 'selectableBreads', breads);
         return breads;
       });
     },
 
     selectedBread(bread) {
-      this.set('selectedBread', bread);
+      set(this, 'selectedBread', bread);
     },
 
     addNewBread(name) {
-      this.set('newBread', name);
+      set(this, 'newBread', name);
     }
   },
 

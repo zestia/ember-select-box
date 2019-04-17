@@ -1,4 +1,5 @@
 import Mixin from '@ember/object/mixin';
+import { set } from '@ember/object';
 import { bind } from '@ember/runloop';
 
 export default Mixin.create({
@@ -6,7 +7,7 @@ export default Mixin.create({
 
   didInsertElement() {
     this._super(...arguments);
-    this.set('_documentClickHandler', bind(this, '_clickDocument'));
+    set(this, '_documentClickHandler', bind(this, '_clickDocument'));
     document.addEventListener('click', this._documentClickHandler);
     document.addEventListener('touchstart', this._documentClickHandler);
   },

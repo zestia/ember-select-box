@@ -1,5 +1,5 @@
 import Mixin from '@ember/object/mixin';
-import { computed, get } from '@ember/object';
+import { computed, get, set } from '@ember/object';
 import scrollIntoView from '../../utils/select-box/scroll-into-view';
 import { isAlphaNumericChar } from '../../utils/alpha-num';
 import { later, cancel } from '@ember/runloop';
@@ -16,7 +16,7 @@ export default Mixin.create({
     const over = index > this.options.length - 1;
 
     if (!(under || over)) {
-      this.set('activeOptionIndex', index);
+      set(this, 'activeOptionIndex', index);
       this._activatedOption();
     }
 
@@ -45,9 +45,9 @@ export default Mixin.create({
       option = options[0];
     }
 
-    this.set('activateOptionChars', chars);
-    this.set('activateOptionCharTimer', timer);
-    this.set('activateOptionCharIndex', index >= options.length - 1 ? 0 : index + 1);
+    set(this, 'activateOptionChars', chars);
+    set(this, 'activateOptionCharTimer', timer);
+    set(this, 'activateOptionCharIndex', index >= options.length - 1 ? 0 : index + 1);
 
     if (option) {
       this.send('activateOptionAtIndex', get(option, 'index'), scroll);
@@ -63,7 +63,7 @@ export default Mixin.create({
   },
 
   _resetActivateOptionChars() {
-    this.set('activateOptionChars', '');
+    set(this, 'activateOptionChars', '');
   },
 
   _activatedOption() {
@@ -75,7 +75,7 @@ export default Mixin.create({
   },
 
   _deactivateOptions() {
-    this.set('activeOptionIndex', -1);
+    set(this, 'activeOptionIndex', -1);
   },
 
   _scrollActiveOptionIntoView() {

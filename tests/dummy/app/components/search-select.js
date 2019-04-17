@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import { set } from '@ember/object';
 import layout from '../templates/components/search-select';
 
 export default Component.extend({
@@ -11,7 +12,7 @@ export default Component.extend({
     },
 
     searched(results, query, sb) {
-      this.set('lastQuery', query);
+      set(this, 'lastQuery', query);
       sb.open();
     }
   }

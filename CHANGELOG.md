@@ -1,5 +1,10 @@
 # Changelog
 
+7.2.3
+
+* Use get/set helpers
+* Guard more cases where component might set when destroyed
+
 7.2.2
 
 * ARIA: Make sure input knows it controls combo box

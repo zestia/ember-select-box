@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import { set } from '@ember/object';
 import layout from '../templates/components/native-simple-select';
 
 export default Component.extend({
@@ -11,16 +12,16 @@ export default Component.extend({
 
     const label = this.element.querySelector('option:checked').textContent.trim();
 
-    this.set('displayLabel', label);
+    set(this, 'displayLabel', label);
   },
 
   actions: {
     focusIn() {
-      this.set('isFocused', true);
+      set(this, 'isFocused', true);
     },
 
     focusOut() {
-      this.set('isFocused', false);
+      set(this, 'isFocused', false);
     }
   }
 });

@@ -1,5 +1,6 @@
 import Mixin from '@ember/object/mixin';
 import { resolve } from 'rsvp';
+import { set } from '@ember/object';
 import { bind } from '@ember/runloop';
 
 export default Mixin.create({
@@ -15,7 +16,7 @@ export default Mixin.create({
 
     const id = this.incrementProperty('valueID');
 
-    this.set('internalValue', value);
+    set(this, 'internalValue', value);
 
     this._resolveValue(value)
       .then(bind(this, '_resolvedValue', id, false))
@@ -23,27 +24,31 @@ export default Mixin.create({
   },
 
   _resolveValue(value) {
-    this.set('isPending', true);
-    this.set('isRejected', false);
-    this.set('isFulfilled', false);
-    this.set('isSettled', false);
+    set(this, 'isPending', true);
+    set(this, 'isRejected', false);
+    set(this, 'isFulfilled', false);
+    set(this, 'isSettled', false);
 
     return resolve(value);
   },
 
   _resolvedValue(id, failed, value) {
-    if (id < this.valueID || this.isDestroyed) {
+    if (id < this.valueID) {
+      return;
+    }
+
+    if (this.isDestroyed) {
       return;
     }
 
     if (failed) {
-      this.set('isRejected', true);
+      set(this, 'isRejected', true);
     } else {
-      this.set('isFulfilled', true);
+      set(this, 'isFulfilled', true);
     }
 
-    this.set('isPending', false);
-    this.set('isSettled', true);
-    this.set('internalValue', value);
+    set(this, 'isPending', false);
+    set(this, 'isSettled', true);
+    set(this, 'internalValue', value);
   }
 });

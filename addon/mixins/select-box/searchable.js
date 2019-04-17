@@ -1,5 +1,5 @@
 import Mixin from '@ember/object/mixin';
-import { computed, getWithDefault, get } from '@ember/object';
+import { computed, getWithDefault, get, set } from '@ember/object';
 import { bind, debounce } from '@ember/runloop';
 import { resolve } from 'rsvp';
 import invokeAction from '../../utils/invoke-action';
@@ -21,7 +21,7 @@ export default Mixin.create({
     return getWithDefault(this, 'search-min-chars', 1);
   }),
 
-  queryOK(query) {
+  _queryOK(query) {
     return query.length >= get(this, 'searchMinChars');
   },
 
@@ -38,9 +38,13 @@ export default Mixin.create({
   },
 
   _runSearch(query) {
+    if (this.isDestroyed) {
+      return;
+    }
+
     query = `${query}`.trim();
 
-    if (!this.queryOK(query) || this.isDestroyed) {
+    if (!this._queryOK(query)) {
       return;
     }
 
@@ -48,7 +52,8 @@ export default Mixin.create({
   },
 
   _search(query = '') {
-    this.set('isSearching', true);
+    set(this, 'isSearching', true);
+
     this.incrementProperty('searchID');
 
     debounce(this, '_checkSlowSearch', get(this, 'searchSlowTime'));
@@ -62,7 +67,11 @@ export default Mixin.create({
   },
 
   _searchCompleted(id, query, result) {
-    if (id < this.searchID || this.isDestroyed) {
+    if (id < this.searchID) {
+      return;
+    }
+
+    if (this.isDestroyed) {
       return;
     }
 
@@ -82,8 +91,8 @@ export default Mixin.create({
       return;
     }
 
-    this.set('isSearching', false);
-    this.set('isSlowSearch', false);
+    set(this, 'isSearching', false);
+    set(this, 'isSlowSearch', false);
   },
 
   _checkSlowSearch() {
@@ -91,7 +100,7 @@ export default Mixin.create({
       return;
     }
 
-    this.set('isSlowSearch', this.isSearching);
+    set(this, 'isSlowSearch', this.isSearching);
   },
 
   actions: {

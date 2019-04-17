@@ -53,19 +53,17 @@ module('backtracking focus use-case', function(hooks) {
       .dom('.backtrack-select-options')
       .doesNotExist('precondition: options not rendered when closed');
 
-    assert.ok(
-      !find('.backtrack-select').classList.contains('is-focused'),
-      'precondition: not focused'
-    );
+    assert.dom('.backtrack-select').doesNotHaveClass('is-focused', 'precondition: not focused');
 
     await focus('.backtrack-select');
+
+    assert.dom('.backtrack-select').hasClass('is-focused', 'focused');
+
     await click('.backtrack-select-selected-option');
 
     assert
       .dom('.backtrack-select-options')
       .exists({ count: 1 }, 'precondition: options rendered when open');
-
-    assert.dom('.backtrack-select').hasClass('is-focused', 'precondition: focused');
 
     await click('.backtrack-select-close');
 
@@ -75,6 +73,6 @@ module('backtracking focus use-case', function(hooks) {
 
     await settled();
 
-    assert.ok(!find('.backtrack-select').classList.contains('is-focused'), 'no longer focused');
+    assert.dom('.backtrack-select').hasClass('is-focused', 'no longer focused');
   });
 });

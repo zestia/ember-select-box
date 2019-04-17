@@ -1,13 +1,13 @@
 /* eslint-disable no-console */
 
 import Controller from '@ember/controller';
-import { computed } from '@ember/object';
+import { computed, set } from '@ember/object';
 
 export default Controller.extend({
   init() {
     this._super(...arguments);
 
-    this.set('models', []);
+    set(this, 'models', []);
 
     for (let i = 0; i < 500; i++) {
       this.models.push({
@@ -16,7 +16,7 @@ export default Controller.extend({
       });
     }
 
-    this.set('selectedModelId', '100');
+    set(this, 'selectedModelId', '100');
   },
 
   options: computed('selectedModelId', function() {
@@ -36,7 +36,7 @@ export default Controller.extend({
 
   actions: {
     selectModelId(modelId) {
-      this.set('selectedModelId', modelId);
+      set(this, 'selectedModelId', modelId);
     }
   }
 });
