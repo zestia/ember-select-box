@@ -1,7 +1,7 @@
 import Mixin from '@ember/object/mixin';
 import { bind, scheduleOnce } from '@ember/runloop';
 import { assign } from '@ember/polyfills';
-import { get, set } from '@ember/object';
+import { set } from '@ember/object';
 const { seal } = Object;
 
 export default Mixin.create({

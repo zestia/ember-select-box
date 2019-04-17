@@ -1,7 +1,6 @@
 import Mixin from '@ember/object/mixin';
 import { A as emberA } from '@ember/array';
 import { bind } from '@ember/runloop';
-import { get } from '@ember/object';
 const { isArray, from } = Array;
 
 export default Mixin.create({

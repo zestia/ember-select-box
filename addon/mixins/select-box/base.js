@@ -4,7 +4,7 @@ import { bind, scheduleOnce } from '@ember/runloop';
 import { all, resolve } from 'rsvp';
 import invokeAction from '../../utils/invoke-action';
 import { readOnly } from '@ember/object/computed';
-import { get, set } from '@ember/object';
+import { set } from '@ember/object';
 const { freeze } = Object;
 
 export default Mixin.create({

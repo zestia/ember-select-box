@@ -1,5 +1,5 @@
 import Mixin from '@ember/object/mixin';
-import { computed, getWithDefault, get, set } from '@ember/object';
+import { computed, getWithDefault, set } from '@ember/object';
 import { bind, debounce } from '@ember/runloop';
 import { resolve } from 'rsvp';
 import invokeAction from '../../utils/invoke-action';

@@ -4,7 +4,6 @@ import BaseSelectBox from '../mixins/select-box/base';
 import Focusable from '../mixins/select-box/focusable';
 import HasOptions from '../mixins/select-box/registration/has-options';
 import Nameable from '../mixins/general/nameable';
-import { get } from '@ember/object';
 const { from } = Array;
 
 const mixins = [BaseSelectBox, Focusable, HasOptions, Nameable];
