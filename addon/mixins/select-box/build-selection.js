@@ -18,7 +18,7 @@ export default Mixin.create({
   _buildSelectedValueDefault(value1, value2) {
     let value = value1;
 
-    if (get(this, 'isMultiple') && !isArray(value1)) {
+    if (this.isMultiple && !isArray(value1)) {
       const temp = emberA(from(value2));
 
       if (temp.includes(value1)) {

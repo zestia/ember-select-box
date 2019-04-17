@@ -1,7 +1,7 @@
-import { computed, get } from '@ember/object';
+import { computed } from '@ember/object';
 
 export default function boolString(key) {
   return computed(key, function() {
-    return get(this, key) ? 'true' : 'false';
+    return this[key] ? 'true' : 'false';
   });
 }

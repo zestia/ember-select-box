@@ -37,7 +37,7 @@ export default Component.extend(...mixins, {
       selectedValues = unregisteredSelected;
     }
 
-    if (get(this, 'isMultiple')) {
+    if (this.isMultiple) {
       this.send('select', selectedValues);
     } else {
       this.send('select', selectedValues[0]);

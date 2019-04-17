@@ -23,10 +23,8 @@ export default Mixin.create({
   },
 
   _activatedSelectedOption() {
-    const activeSelectedOption = get(this, 'activeSelectedOption');
-
-    if (activeSelectedOption) {
-      activeSelectedOption.send('_activated');
+    if (this.activeSelectedOption) {
+      this.activeSelectedOption.send('_activated');
     }
   },
 
@@ -35,10 +33,8 @@ export default Mixin.create({
   },
 
   _scrollActiveSelectedOptionIntoView() {
-    const activeSelectedOption = get(this, 'activeSelectedOption');
-
-    if (activeSelectedOption) {
-      scrollIntoView(activeSelectedOption.element);
+    if (this.activeSelectedOption) {
+      scrollIntoView(this.activeSelectedOption.element);
     }
   },
 

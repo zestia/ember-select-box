@@ -22,17 +22,17 @@ export default Mixin.create({
   }),
 
   _queryOK(query) {
-    return query.length >= get(this, 'searchMinChars');
+    return query.length >= this.searchMinChars;
   },
 
   _maybeSearch(text) {
-    if (get(this, 'isSearchable')) {
+    if (this.isSearchable) {
       this._runDebouncedSearch(text);
     }
   },
 
   _runDebouncedSearch(query) {
-    const delay = get(this, 'searchDelayTime');
+    const delay = this.searchDelayTime;
     const immediate = !delay;
     debounce(this, '_runSearch', query, delay, immediate);
   },
@@ -56,7 +56,7 @@ export default Mixin.create({
 
     this.incrementProperty('searchID');
 
-    debounce(this, '_checkSlowSearch', get(this, 'searchSlowTime'));
+    debounce(this, '_checkSlowSearch', this.searchSlowTime);
 
     const search = invokeAction(this, 'on-search', query, this.api);
 

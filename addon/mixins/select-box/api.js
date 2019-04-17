@@ -59,7 +59,7 @@ export default Mixin.create({
       'activatePreviousSelectedOption',
       'deactivateSelectedOptions'
     ].reduce((actions, name) => {
-      actions[name] = bind(this, get(this, `actions.${name}`));
+      actions[name] = bind(this, this.actions[name]);
       return actions;
     }, {});
   },

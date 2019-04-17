@@ -51,7 +51,7 @@ export default Mixin.create({
     set(this, 'isSettled', false);
 
     return resolve(value).then(value => {
-      if (get(this, 'isMultiple')) {
+      if (this.isMultiple) {
         return all(makeArray(value));
       }
 
@@ -68,7 +68,7 @@ export default Mixin.create({
       return;
     }
 
-    if (get(this, 'isMultiple')) {
+    if (this.isMultiple) {
       value = freeze(value);
     }
 

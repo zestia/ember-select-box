@@ -1,16 +1,16 @@
 import Mixin from '@ember/object/mixin';
-import { computed, get } from '@ember/object';
+import { computed } from '@ember/object';
 import invokeAction from '../../../utils/invoke-action';
 
 export default Mixin.create({
   isActive: computed('index', '_parentActiveIndex', function() {
-    return get(this, 'index') === this._parentActiveIndex;
+    return this.index === this._parentActiveIndex;
   }),
 
   actions: {
     activate() {
       this._super(...arguments);
-      invokeAction(this, '_onActivate', get(this, 'index'));
+      invokeAction(this, '_onActivate', this.index);
     },
 
     _activated() {
