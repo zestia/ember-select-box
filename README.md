@@ -67,15 +67,15 @@ ember install @zestia/ember-select-box
   </tr>
   <tr>
     <td>@multiple</td>
-    <td>If true, `value` should be an array. Also adds an `is-multiple` class</td>
+    <td>If true, <code>value</code> should be an array. Also adds an <code>is-multiple</code> class</td>
   </tr>
   <tr>
     <td>@disabled</td>
-    <td>If true adds an `is-disabled` class</td>
+    <td>If true adds an <code>is-disabled</code> class</td>
   </tr>
   <tr>
     <td>@style</td>
-    <td>Escaped and processed as HTML safe. Alternatively use `style=`</td>
+    <td>Escaped and processed as HTML safe. Alternatively use <code>style=</code></td>
   </tr>
   <tr>
     <td>@classNamePrefix</td>
@@ -87,11 +87,11 @@ ember install @zestia/ember-select-box
   </tr>
   <tr>
     <td>@searchMinChars</td>
-    <td>Prevents the `onSearch` action from firing until there are enough chars (default 1)</td>
+    <td>Prevents the <code>onSearch</code> action from firing until there are enough chars (default 1)</td>
   </tr>
   <tr>
     <td>@searchDelayTime</td>
-    <td>Milliseconds to debounce the `onSearch` action from firing (default 100)</td>
+    <td>Milliseconds to debounce the <code>onSearch</code> action from firing (default 100)</td>
   </tr>
   <tr>
     <td>@searchSlowTime</td>
@@ -122,14 +122,14 @@ ember install @zestia/ember-select-box
     <td>@onSelect</td>
     <td>
       Fired when an option is clicked, or enter is pressed regardless as
-      to whether the value changed or not. Also fired by use of the `select` API.
+      to whether the value changed or not. Also fired by use of the <code>select</code> API.
     </td>
   </tr>
   <tr>
     <td>@onUpdate</td>
     <td>
       Fired after the initial value has been resolved and the component has rendered.<br>
-      Also fired by use of the `update` API or if the value attribute changes.
+      Also fired by use of the <code>update</code> API or if the value attribute changes.
     </td>
   </tr>
   <tr>
@@ -215,11 +215,11 @@ ember install @zestia/ember-select-box
   <caption>Yielded API actions</caption>
   <tr>
     <td width="200">sb.open</td>
-    <td>Opens the select box, adding `is-open` class name</td>
+    <td>Opens the select box, adding <code>is-open</code> class name</td>
   </tr>
   <tr>
     <td>sb.close</td>
-    <td>Closes the select box removing the `is-open` class name</td>
+    <td>Closes the select box removing the <code>is-open</code> class name</td>
   </tr>
   <tr>
     <td>sb.toggle</td>
@@ -227,11 +227,11 @@ ember install @zestia/ember-select-box
   </tr>
   <tr>
     <td>sb.select</td>
-    <td>Selects an arbitrary value(s) and fires the `onSelect` action</td>
+    <td>Selects an arbitrary value(s) and fires the <code>onSelect</code> action</td>
   </tr>
   <tr>
     <td>sb.update</td>
-    <td>Updates the selected value(s), but does not fire the `onSelect` action</td>
+    <td>Updates the selected value(s), but does not fire the <code>onSelect</code> action</td>
   </tr>
   <tr>
     <td>sb.selectActiveOption</td>
@@ -239,7 +239,7 @@ ember install @zestia/ember-select-box
   </tr>
   <tr>
     <td>sb.search</td>
-    <td>Runs an arbitrary search using the search function provided by `onSearch`</td>
+    <td>Runs an arbitrary search using the search function provided by <code>onSearch</code></td>
   </tr>
   <tr>
     <td>sb.stopSearching</td>
@@ -260,16 +260,16 @@ ember install @zestia/ember-select-box
   <tr>
     <td>sb.activateOptionAtIndex</td>
     <td>
-      Adds an `is-active` class to the option at the index<br><br>
-      `index` Option to activate<br>
-      `scroll` Whether to scroll to the option (default `false`)
+      Adds an <code>is-active</code> class to the option at the index<br><br>
+      <code>index</code> Option to activate<br>
+      <code>scroll</code> Whether to scroll to the option (default <code>false</code>)
     </td>
   </tr>
   <tr>
     <td>sb.activateNextOption</td>
     <td>
       Activates the next option<br><br>
-      `scroll` Whether to scroll to the option (default `true`)
+      <code>scroll</code> Whether to scroll to the option (default <code>true</code>)
     </td>
   </tr>
   <tr>
@@ -279,9 +279,9 @@ ember install @zestia/ember-select-box
   <tr>
     <td>sb.activateOptionForKeyCode</td>
     <td>
-      Mimics native select box behaviour by jumping to an appopriate option based on the `textContent` of the options. <a href="https://zestia.github.io/ember-select-box/#/simple-select">Demo</a><br><br>
-      `keyCode` Character to match in the option's text<br>
-      `scroll` Whether to scroll to the option (default `true`)
+      Mimics native select box behaviour by jumping to an appopriate option based on the <code>textContent</code> of the options. <a href="https://zestia.github.io/ember-select-box/#/simple-select">Demo</a><br><br>
+      <code>keyCode</code> Character to match in the option's text<br>
+      <code>scroll</code> Whether to scroll to the option (default <code>true</code>)
     </td>
   </tr>
   <tr>
@@ -292,15 +292,15 @@ ember install @zestia/ember-select-box
     <td>sb.activateSelectedOptionAtIndex</td>
     <td>
       Activates the selected option at the index<br><br>
-      `index` Selected option to activate<br>
-      `scroll` Whether to scroll to the option (default `false`)
+      <code>index</code> Selected option to activate<br>
+      <code>scroll</code> Whether to scroll to the option (default <code>false</code>)
     </td>
   </tr>
   <tr>
     <td>sb.activateNextSelectedOption</td>
     <td>
       Activates the next selected option<br><br>
-      `scroll` Whether to scroll to the selected option (default `true`)
+      <code>scroll</code> Whether to scroll to the selected option (default <code>true</code>)
     </td>
   </tr>
   <tr>
@@ -333,23 +333,23 @@ ember install @zestia/ember-select-box
   <caption>Yielded API propertes (template only)</caption>
   <tr width="200">
     <td>sb.isPending</td>
-    <td>True whilst `value` is being resovled</td>
+    <td>True whilst <code>value</code> is being resovled</td>
   </tr>
   <tr>
     <td>sb.isRejected</td>
-    <td>True if `value` failed to resolve</td>
+    <td>True if <code>value</code> failed to resolve</td>
   </tr>
   <tr>
     <td>sb.isFulfilled</td>
-    <td>True if `value` resolved</td>
+    <td>True if <code>value</code> resolved</td>
   </tr>
   <tr>
     <td>sb.isSettled</td>
-    <td>True once `value` has resolved or rejected</td>
+    <td>True once <code>value</code> has resolved or rejected</td>
   </tr>
   <tr>
     <td>sb.isSearching</td>
-    <td>True if the promise returned from the `onSearch` action is running</td>
+    <td>True if the promise returned from the <code>onSearch</code> action is running</td>
   </tr>
   <tr>
     <td>sb.isSlowSearch</td>
@@ -439,19 +439,19 @@ ember install @zestia/ember-select-box
   </tr>
   <tr>
     <td>sb.isPending</td>
-    <td>True whilst `value` is being resovled</td>
+    <td>True whilst <code>value</code> is being resovled</td>
   </tr>
   <tr>
     <td>sb.isRejected</td>
-    <td>True if `value` failed to resolve</td>
+    <td>True if <code>value</code> failed to resolve</td>
   </tr>
   <tr>
     <td>sb.isFulfilled</td>
-    <td>True if `value` resolved</td>
+    <td>True if <code>value</code> resolved</td>
   </tr>
   <tr>
     <td>sb.isSettled</td>
-    <td>True once `value` has resolved or rejected</td>
+    <td>True once <code>value</code> has resolved or rejected</td>
   </tr>
   <tr>
     <td width="200">o.isSelected</td>
