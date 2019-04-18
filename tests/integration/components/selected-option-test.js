@@ -56,9 +56,9 @@ module('select-box/selected-option', function(hooks) {
     await render(hbs`
       {{#select-box as |sb|}}
         {{#each this.selectedItems as |item|}}
-          {{#sb.selected-option value=item as |so|~}}
+          {{#sb.selectedOption value=item as |so|~}}
             {{so.value.myLabel}} ({{so.index}})
-          {{~/sb.selected-option}}
+          {{~/sb.selectedOption}}
         {{/each}}
       {{/select-box}}
     `);

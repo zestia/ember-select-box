@@ -1,5 +1,5 @@
 <SelectBox
-  @class-prefix="simple-select"
+  @classNamePrefix="simple-select"
   @value={{@value}}
   @on-press-alphanum={{action "pressedAlphaNum"}}
   @on-press-down={{action "pressedDown"}}
@@ -8,13 +8,13 @@
   @on-click-outside={{action "close"}}
   @on-select={{action "selected" @on-select}}
   @on-update={{action "updateDisplayLabel"}} as |sb|>
-  <sb.selected-option @click={{sb.open}}>
+  <sb.selectedOption @click={{sb.open}}>
     {{#if this.displayLabel}}
       {{this.displayLabel}}
     {{else}}
       &nbsp;
     {{/if}}
-  </sb.selected-option>
+  </sb.selectedOption>
   <sb.options>
     {{yield sb}}
   </sb.options>

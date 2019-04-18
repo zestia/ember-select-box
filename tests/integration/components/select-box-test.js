@@ -23,9 +23,9 @@ module('select-box', function(hooks) {
     await render(hbs`
       {{#select-box class-prefix="foo" as |sb|}}
         {{sb.input}}
-        {{#sb.selected-options}}
-          {{sb.selected-option}}
-        {{/sb.selected-options}}
+        {{#sb.selectedOptions}}
+          {{sb.selectedOption}}
+        {{/sb.selectedOptions}}
         {{#sb.options}}
           {{#sb.group}}
             {{sb.option}}

@@ -15,9 +15,9 @@ module('backtracking focus use-case', function(hooks) {
       'template:backtrack-select',
       hbs`
       {{#backtrack-select as |bs|}}
-        {{#bs.selected-option}}
+        {{#bs.selectedOption}}
           open
-        {{/bs.selected-option}}
+        {{/bs.selectedOption}}
         {{#bs.options}}
           <button onclick={{action bs.close}} class="backtrack-select-close">close</button>
         {{/bs.options}}
@@ -31,7 +31,7 @@ module('backtracking focus use-case', function(hooks) {
         layout: hbs`
         {{#select-box class-prefix="backtrack-select" as |sb|}}
           {{yield (hash
-            selected-option=(component sb.selected-option click=sb.open)
+            selectedOption=(component sb.selectedOption click=sb.open)
             close=sb.close
             options=(if sb.isOpen sb.options)
           )}}

@@ -78,7 +78,7 @@ ember install @zestia/ember-select-box
     <td>Escaped and processed as HTML safe. Alternatively use `style=`</td>
   </tr>
   <tr>
-    <td>@class-prefix</td>
+    <td>@classNamePrefix</td>
     <td>Adds a prefix to the class name of all child select-box components</td>
   </tr>
   <tr>
@@ -191,7 +191,7 @@ ember install @zestia/ember-select-box
   </tr>
   <tr>
     <td>@on-press-left</td>
-    <td>Useful for navigating selected-options</td>
+    <td>Useful for navigating selected options</td>
   </tr>
   <tr>
     <td>@on-press-up</td>
@@ -199,7 +199,7 @@ ember install @zestia/ember-select-box
   </tr>
   <tr>
     <td>@on-press-right</td>
-    <td>Useful for navigating selected-options</td>
+    <td>Useful for navigating selected options</td>
   </tr>
   <tr>
     <td>@on-press-down</td>
@@ -565,9 +565,9 @@ Allows you to input text into the select box, usually for running searches/filte
 Does _not_ render the user's selected option automatically, but rather just provides a way for you to render the option(s) that have been selected.
 
 ```handlebars
-<sb.selected-option @value={{model}} as |so|>
+<sb.selectedOption @value={{model}} as |so|>
   {{so.value.name}}
-</sb.selected-option>
+</sb.selectedOption>
 ```
 <table>
   <caption>Attributes</caption>
@@ -598,11 +598,11 @@ Does _not_ render the user's selected option automatically, but rather just prov
 ### Selected options
 
 ```handlebars
-<sb.selected-options>
+<sb.selectedOptions>
   {{#each sb.value as |value|}}
-    <sb.selected-option>You chose this {{value}}</sb.selected-option>
+    <sb.selectedOption>You chose this {{value}}</sb.selectedOption>
   {{/each}}
-</sb.selected-options>
+</sb.selectedOptions>
 ```
 
 Provides a container for options that the user selected. Does not do anything by default, but it is possible to activate selected options using the API, thereby allowing you to create your own navigatable select box.
@@ -645,10 +645,10 @@ There are a couple of ways to get what you want
 Option 1 is recommended. Define your component like so...
 
 ```handlebars
-<SelectBox @value={{@value}} @on-select={{@on-select}} @class-prefix="my-select-box" as |sb|>
-  <sb.selected-option @click=sb.toggle>
+<SelectBox @value={{@value}} @on-select={{@on-select}} @classNamePrefix="my-select-box" as |sb|>
+  <sb.selectedOption @click=sb.toggle>
     {{sb.value.name}}
-  </sb.selected-option>
+  </sb.selectedOption>
   {{yield sb}}
 </SelectBox>
 ```
