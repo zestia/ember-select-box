@@ -1,5 +1,5 @@
 import Mixin from '@ember/object/mixin';
-import { computed, getWithDefault, set } from '@ember/object';
+import { computed, getWithDefault, set, get } from '@ember/object';
 import { bind, debounce } from '@ember/runloop';
 import { resolve } from 'rsvp';
 import invokeAction from '../../utils/invoke-action';
@@ -22,7 +22,7 @@ export default Mixin.create({
   }),
 
   _queryOK(query) {
-    return query.length >= this.searchMinChars;
+    return query.length >= get(this, 'searchMinChars');
   },
 
   _maybeSearch(text) {
@@ -32,7 +32,7 @@ export default Mixin.create({
   },
 
   _runDebouncedSearch(query) {
-    const delay = this.searchDelayTime;
+    const delay = get(this, 'searchDelayTime');
     const immediate = !delay;
     debounce(this, '_runSearch', query, delay, immediate);
   },
@@ -56,7 +56,7 @@ export default Mixin.create({
 
     this.incrementProperty('searchID');
 
-    debounce(this, '_checkSlowSearch', this.searchSlowTime);
+    debounce(this, '_checkSlowSearch', get(this, 'searchSlowTime'));
 
     const search = invokeAction(this, 'on-search', query, this.api);
 

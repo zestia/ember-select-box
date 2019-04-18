@@ -67,8 +67,10 @@ export default Mixin.create({
   },
 
   _activatedOption() {
-    if (this.activeOption) {
-      this.activeOption.send('_activated');
+     const activeOption = get(this, 'activeOption');
+
+     if (activeOption) {
+      activeOption.send('_activated');
     }
   },
 
@@ -77,13 +79,15 @@ export default Mixin.create({
   },
 
   _scrollActiveOptionIntoView() {
-    if (this.activeOption) {
-      scrollIntoView(this.activeOption.element);
+    const activeOption = get(this, 'activeOption');
+
+    if (activeOption) {
+      scrollIntoView(activeOption.element);
     }
   },
 
   activeOption: computed('activeOptionIndex', 'options', function() {
-    return this.options.objectAt(this.activeOptionIndex);
+    return this.options.objectAt(get(this, 'activeOptionIndex'));
   }),
 
   actions: {
