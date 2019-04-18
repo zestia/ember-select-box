@@ -19,7 +19,7 @@ module('native-select-box/group', function(hooks) {
   test('class prefix', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`{{native-select-box/group class-prefix="foo"}}`);
+    await render(hbs`{{native-select-box/group classNamePrefix="foo"}}`);
 
     assert.dom('.foo-group').exists({ count: 1 }, 'can override the class prefix');
   });

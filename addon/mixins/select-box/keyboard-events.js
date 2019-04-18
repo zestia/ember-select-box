@@ -21,18 +21,20 @@ export default Mixin.create({
   },
 
   _handleKeyPress(e) {
-    invokeAction(this, `on-press-key`, e, this.api);
+    invokeAction(this, `onPressKey`, e, this.api);
 
     if (isAlphaNumericKeyCode(e.keyCode)) {
-      invokeAction(this, `on-press-alphanum`, e, this.api);
+      invokeAction(this, `onPressAlphanum`, e, this.api);
       return;
     }
 
-    const key = keys[e.keyCode];
+    let key = keys[e.keyCode];
 
     if (key) {
-      invokeAction(this, `on-press-${key}`, e, this.api);
-      invokeAction(this, `_onPress${capitalize(key)}`, e, this.api);
+      key = capitalize(key);
+
+      invokeAction(this, `onPress${key}`, e, this.api);
+      invokeAction(this, `_onPress${key}`, e);
     }
   }
 });

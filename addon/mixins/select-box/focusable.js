@@ -24,7 +24,7 @@ export default Mixin.create({
     }
 
     set(this, 'isFocused', true);
-    invokeAction(this, 'on-focus-in', e, this.api);
+    invokeAction(this, 'onFocusIn', e, this.api);
   },
 
   focusOut(e) {
@@ -39,6 +39,6 @@ export default Mixin.create({
     }
 
     set(this, 'isFocused', false);
-    invokeAction(this, 'on-focus-out', e, this.api);
+    invokeAction(this, 'onFocusOut', e, this.api);
   }
 });

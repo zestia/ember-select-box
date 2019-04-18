@@ -5,8 +5,8 @@
 </p>
 
 <SearchSelect
-  @on-search={{action "findBread"}}
-  @on-select={{action "selectedBread"}} as |sb newBread|>
+  @onSearch={{action "findBread"}}
+  @onSelect={{action "selectedBread"}} as |sb newBread|>
   {{#each this.selectableBreads as |bread|}}
     <sb.option @value={{bread}}>
       {{bread.name}}

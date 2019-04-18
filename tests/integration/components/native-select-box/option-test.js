@@ -20,7 +20,7 @@ module('native-select-box/option', function(hooks) {
   test('class prefix', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`{{native-select-box/option class-prefix="foo"}}`);
+    await render(hbs`{{native-select-box/option classNamePrefix="foo"}}`);
 
     assert.dom('.foo-option').exists({ count: 1 }, 'can override the class prefix');
   });

@@ -6,7 +6,7 @@
 
 <NativeSimpleSelect
   @value={{this.selectedBiscuit}}
-  @on-select={{action "selectedBiscuit"}} as |sb|>
+  @onSelect={{action "selectedBiscuit"}} as |sb|>
   {{#each this.selectableBiscuits as |biscuit|}}
     <sb.option @value={{biscuit}}>
       {{biscuit.name}}

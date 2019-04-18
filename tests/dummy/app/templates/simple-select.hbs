@@ -7,8 +7,8 @@
 
 <SimpleSelect
   @value={{this.selectedPudding}}
-  @label-key="name"
-  @on-select={{action "selectedPudding"}} as |sb|>
+  @labelKey="name"
+  @onSelect={{action "selectedPudding"}} as |sb|>
   {{#each this.selectablePuddings as |pudding|}}
     <sb.option @value={{pudding}}>
       {{pudding.name}}

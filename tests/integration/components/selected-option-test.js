@@ -19,7 +19,7 @@ module('select-box/selected-option', function(hooks) {
   test('class prefix', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`{{select-box/selected-option class-prefix="foo"}}`);
+    await render(hbs`{{select-box/selected-option classNamePrefix="foo"}}`);
 
     assert.dom('.foo-selected-option').exists({ count: 1 }, 'can override the class prefix');
   });
@@ -56,9 +56,9 @@ module('select-box/selected-option', function(hooks) {
     await render(hbs`
       {{#select-box as |sb|}}
         {{#each this.selectedItems as |item|}}
-          {{#sb.selected-option value=item as |so|~}}
+          {{#sb.selectedOption value=item as |so|~}}
             {{so.value.myLabel}} ({{so.index}})
-          {{~/sb.selected-option}}
+          {{~/sb.selectedOption}}
         {{/each}}
       {{/select-box}}
     `);

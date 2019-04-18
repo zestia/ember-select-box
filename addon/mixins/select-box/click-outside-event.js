@@ -5,6 +5,6 @@ import invokeAction from '../../utils/invoke-action';
 export default Mixin.create(ClickOutside, {
   clickOutside(e) {
     this._super(...arguments);
-    invokeAction(this, 'on-click-outside', e, this.api);
+    invokeAction(this, 'onClickOutside', e, this.api);
   }
 });

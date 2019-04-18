@@ -24,7 +24,7 @@ module('select-box/input', function(hooks) {
   test('class prefix', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`{{select-box/input class-prefix="foo"}}`);
+    await render(hbs`{{select-box/input classNamePrefix="foo"}}`);
 
     assert.dom('.foo-input').exists({ count: 1 }, 'can override the class prefix');
   });
@@ -102,14 +102,14 @@ module('select-box/input', function(hooks) {
 
     await render(hbs`
       {{#select-box as |sb|}}
-        {{sb.input on-input=this.inputText}}
+        {{sb.input onInput=this.inputText}}
       {{/select-box}}
     `);
 
     await fillIn('.select-box-input', 'foo');
   });
 
-  test('on-clear action', async function(assert) {
+  test('onClear action', async function(assert) {
     assert.expect(1);
 
     this.set('cleared', sb => {
@@ -121,14 +121,14 @@ module('select-box/input', function(hooks) {
 
     await render(hbs`
       {{#select-box as |sb|}}
-        {{sb.input value="foo" on-clear=this.cleared}}
+        {{sb.input value="foo" onClear=this.cleared}}
       {{/select-box}}
     `);
 
     await fillIn('.select-box-input', '');
   });
 
-  test('on-delete action', async function(assert) {
+  test('onDelete action', async function(assert) {
     assert.expect(2);
 
     let count = 0;
@@ -136,12 +136,12 @@ module('select-box/input', function(hooks) {
     this.set('deleted', sb => {
       count++;
 
-      assert.ok(typeof sb === 'object', 'the on-delete action receives select box api');
+      assert.ok(typeof sb === 'object', 'the onDelete action receives select box api');
     });
 
     await render(hbs`
       {{#select-box as |sb|}}
-        {{sb.input value="f" on-delete=this.deleted}}
+        {{sb.input value="f" onDelete=this.deleted}}
       {{/select-box}}
     `);
 

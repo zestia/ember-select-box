@@ -24,7 +24,7 @@ export default Mixin.create({
       }
 
       set(this, 'isOpen', true);
-      invokeAction(this, 'on-open', this.api);
+      invokeAction(this, 'onOpen', this.api);
     },
 
     close() {
@@ -44,7 +44,7 @@ export default Mixin.create({
           return;
         }
 
-        invokeAction(this, 'on-close', this.api);
+        invokeAction(this, 'onClose', this.api);
         set(this, 'isClosing', false);
       });
     },

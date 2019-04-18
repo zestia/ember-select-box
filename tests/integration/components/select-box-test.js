@@ -21,11 +21,11 @@ module('select-box', function(hooks) {
     assert.expect(9);
 
     await render(hbs`
-      {{#select-box class-prefix="foo" as |sb|}}
+      {{#select-box classNamePrefix="foo" as |sb|}}
         {{sb.input}}
-        {{#sb.selected-options}}
-          {{sb.selected-option}}
-        {{/sb.selected-options}}
+        {{#sb.selectedOptions}}
+          {{sb.selectedOption}}
+        {{/sb.selectedOptions}}
         {{#sb.options}}
           {{#sb.group}}
             {{sb.option}}
@@ -109,7 +109,7 @@ module('select-box', function(hooks) {
       );
     });
 
-    await render(hbs`{{select-box on-update=this.updated}}`);
+    await render(hbs`{{select-box onUpdate=this.updated}}`);
 
     assert.equal(called, 1, 'only fires once');
   });
@@ -132,7 +132,7 @@ module('select-box', function(hooks) {
     await render(hbs`
       {{select-box
         value=this.selectedValue
-        on-update=this.updated}}
+        onUpdate=this.updated}}
     `);
 
     this.set('selectedValue', 'bar');
@@ -150,7 +150,7 @@ module('select-box', function(hooks) {
     await render(hbs`
       {{select-box
         disabled=this.isDisabled
-        on-update=this.updated}}
+        onUpdate=this.updated}}
     `);
 
     this.set('isDisabled', true);
@@ -165,7 +165,7 @@ module('select-box', function(hooks) {
   test('no update action', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`{{select-box on-update=@on-update value=this.value}}`);
+    await render(hbs`{{select-box onUpdate=@onUpdate value=this.value}}`);
 
     this.set('value', 'foo');
 
@@ -182,7 +182,7 @@ module('select-box', function(hooks) {
 
     this.set('initialised', sb => (api = sb));
 
-    await render(hbs`{{select-box on-init=this.initialised}}`);
+    await render(hbs`{{select-box onInit=this.initialised}}`);
 
     assert.ok(!find('.select-box').classList.contains('is-open'), 'precondition, not open');
 
@@ -207,8 +207,8 @@ module('select-box', function(hooks) {
       {{select-box
         value=this.value
         multiple=true
-        on-init=this.initialised
-        on-update=this.updated}}
+        onInit=this.initialised
+        onUpdate=this.updated}}
     `);
 
     assert.ok(!isFrozen(this.value), 'api does not accidentally freeze original value');
@@ -241,7 +241,7 @@ module('select-box', function(hooks) {
       {{select-box
         value=this.value
         multiple=false
-        on-update=this.updated}}
+        onUpdate=this.updated}}
     `);
 
     this.set('value', { foo: 'bar' });

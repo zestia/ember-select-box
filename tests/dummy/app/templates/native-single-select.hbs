@@ -5,7 +5,7 @@
 
 <NativeSelectBox
   @value={{this.selectedDessert}}
-  @on-select={{action "selectedDessert"}} as |sb|>
+  @onSelect={{action "selectedDessert"}} as |sb|>
   <sb.group label="Cakes">
     {{#each this.selectableCakes as |cake|}}
       <sb.option @value={{cake}}>

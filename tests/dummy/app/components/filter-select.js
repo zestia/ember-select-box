@@ -12,7 +12,7 @@ export default Component.extend({
 
     selected(select, value, sb) {
       select(value);
-      sb.setInputValue(value[this['label-key']]);
+      sb.setInputValue(value[this.labelKey]);
       sb.close();
     }
   }

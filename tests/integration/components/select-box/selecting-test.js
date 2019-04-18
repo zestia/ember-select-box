@@ -27,7 +27,7 @@ module('select-box (selecting)', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box on-select=this.selected value=this.selectedValue as |sb|}}
+      {{#select-box onSelect=this.selected value=this.selectedValue as |sb|}}
         {{#sb.option value="foo"}}Foo{{/sb.option}}
         {{#sb.option value="bar"}}Bar{{/sb.option}}
       {{/select-box}}
@@ -100,7 +100,7 @@ module('select-box (selecting)', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box value=this.initialSelectedValue on-select=this.selected as |sb|}}
+      {{#select-box value=this.initialSelectedValue onSelect=this.selected as |sb|}}
         {{#sb.option value="foo"}}Foo{{/sb.option}}
         {{#sb.option value="bar"}}Bar{{/sb.option}}
       {{/select-box}}
@@ -138,7 +138,7 @@ module('select-box (selecting)', function(hooks) {
     this.set('updated', () => updated++);
 
     await render(hbs`
-      {{#select-box on-select=this.selected on-update=this.updated as |sb|}}
+      {{#select-box onSelect=this.selected onUpdate=this.updated as |sb|}}
         {{sb.option value="foo"}}
       {{/select-box}}
     `);
@@ -194,7 +194,7 @@ module('select-box (selecting)', function(hooks) {
     this.set('selected', values => (selectedValues = values));
 
     await render(hbs`
-      {{#select-box on-select=this.selected multiple=true value=this.values as |sb|}}
+      {{#select-box onSelect=this.selected multiple=true value=this.values as |sb|}}
         {{sb.option value="foo"}}
         {{sb.option value="bar"}}
         {{sb.option value="baz"}}
@@ -260,9 +260,9 @@ module('select-box (selecting)', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box on-select=this.selected as |sb|}}
+      {{#select-box onSelect=this.selected as |sb|}}
         {{sb.option value="foo"}}
-        {{sb.option value="bar" on-select=this.selectedBar}}
+        {{sb.option value="bar" onSelect=this.selectedBar}}
       {{/select-box}}
     `);
 
@@ -282,8 +282,8 @@ module('select-box (selecting)', function(hooks) {
     this.set('updated', value => (updated = value));
 
     await render(hbs`
-      {{#select-box on-select=this.selected on-update=this.updated as |sb|}}
-        {{sb.option value="foo" on-select=this.selectedFoo}}
+      {{#select-box onSelect=this.selected onUpdate=this.updated as |sb|}}
+        {{sb.option value="foo" onSelect=this.selectedFoo}}
         <button onclick={{action sb.select "foo"}}>Select foo</button>
       {{/select-box}}
     `);
@@ -296,7 +296,7 @@ module('select-box (selecting)', function(hooks) {
       'the select box acknowledges the selection and sends an action'
     );
 
-    assert.strictEqual(selectedFoo, undefined, 'the option does not fire its on-select action');
+    assert.strictEqual(selectedFoo, undefined, 'the option does not fire its onSelect action');
 
     assert.strictEqual(
       updated,
@@ -315,7 +315,7 @@ module('select-box (selecting)', function(hooks) {
     this.set('selected', value => (selected = value));
 
     await render(hbs`
-      {{#select-box on-update=this.updated on-select=this.selected as |sb|}}
+      {{#select-box onUpdate=this.updated onSelect=this.selected as |sb|}}
         {{#sb.option value="foo"}}Foo{{/sb.option}}
         {{#sb.option value="bar"}}Bar{{/sb.option}}
         <button onclick={{action sb.update "foo"}}>Select foo</button>
@@ -369,7 +369,7 @@ module('select-box (selecting)', function(hooks) {
 
     await render(hbs`
       external: {{this.external}}
-      {{#select-box on-select=(action (mut this.external)) as |sb|}}
+      {{#select-box onSelect=(action (mut this.external)) as |sb|}}
         internal: {{sb.value}}
         {{#sb.option value="foo"}}Foo{{/sb.option}}
         {{#sb.option value="bar"}}Bar{{/sb.option}}
@@ -418,7 +418,7 @@ module('select-box (selecting)', function(hooks) {
     this.set('value', ['foo']);
 
     await render(hbs`
-      {{#select-box value=this.value multiple=true on-select=this.selected as |sb|}}
+      {{#select-box value=this.value multiple=true onSelect=this.selected as |sb|}}
         {{sb.option value="foo" disabled=true}}
         {{sb.option value="bar"}}
         {{sb.option value="baz"}}
@@ -467,7 +467,7 @@ module('select-box (selecting)', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box value="foo" aria-label=this.ariaLabel on-update=this.updated as |sb|}}
+      {{#select-box value="foo" aria-label=this.ariaLabel onUpdate=this.updated as |sb|}}
         {{sb.option value="foo"}}
         {{sb.option value="bar"}}
       {{/select-box}}
@@ -594,8 +594,8 @@ module('select-box (selecting)', function(hooks) {
       {{#select-box
         multiple=true
         value=this.value
-        on-build-selection=this.buildSelection
-        on-init=this.register as |sb|}}
+        onBuildSelection=this.buildSelection
+        onInit=this.register as |sb|}}
         {{#sb.option value="foo"}}Foo{{/sb.option}}
         {{#sb.option value="bar"}}Bar{{/sb.option}}
         {{#sb.option value="baz"}}Baz{{/sb.option}}
@@ -607,7 +607,7 @@ module('select-box (selecting)', function(hooks) {
 
     assert
       .dom('.select-box-option.is-selected')
-      .hasText('Baz', 'selection used is the selection returned from on-build-selection');
+      .hasText('Baz', 'selection used is the selection returned from onBuildSelection');
 
     await settled();
 
@@ -654,7 +654,7 @@ module('select-box (selecting)', function(hooks) {
     this.set('registerApi', api => (sb = api));
 
     await render(hbs`
-      {{#select-box on-init=this.registerApi on-select=this.select as |sb|}}
+      {{#select-box onInit=this.registerApi onSelect=this.select as |sb|}}
         {{sb.option value="foo"}}
         {{sb.option value="bar"}}
       {{/select-box}}
@@ -696,7 +696,7 @@ module('select-box (selecting)', function(hooks) {
     this.set('promise', deferred.promise);
 
     await render(hbs`
-      {{#select-box on-select=this.selected as |sb|}}
+      {{#select-box onSelect=this.selected as |sb|}}
         {{sb.option value=this.promise}}
       {{/select-box}}
     `);
