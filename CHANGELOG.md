@@ -1,5 +1,10 @@
 # Changelog
 
+8.0.0
+
+* Switches from snake case arguments to camel case,<br>
+  (Upgrading should be an easy find-and-replace)
+
 7.2.3
 
 * Use get/set helpers
