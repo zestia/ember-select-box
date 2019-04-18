@@ -216,8 +216,9 @@ ember install @zestia/ember-select-box
 </details>
 
 <details>
-  <summary>Yielded API actions</summary>
+  <summary>API</summary>
   <table>
+    <caption>Actions</caption>
     <tr>
       <td width="200">sb.open</td>
       <td>Opens the select box, adding <code>is-open</code> class name</td>
@@ -317,11 +318,9 @@ ember install @zestia/ember-select-box
       <td>Makes no selected option be active</td>
     </tr>
   </table>
-</details>
 
-<details>
-  <summary>Yielded API properties</summary>
   <table>
+    <caption>Properties</caption>
     <tr>
       <td width="200">sb.element</td>
       <td>The DOM element of the select box</td>
@@ -335,12 +334,9 @@ ember install @zestia/ember-select-box
       <td>True if the select box is open</td>
     </tr>
   </table>
-</details>
 
-<details>
-  <summary>Yielded API propertes (template only)</summary>
   <table>
-    <caption></caption>
+    <caption>Template only properties</caption>
     <tr width="200">
       <td>sb.isPending</td>
       <td>True whilst <code>value</code> is being resovled</td>
@@ -383,7 +379,7 @@ ember install @zestia/ember-select-box
   <table>
     <tr>
       <td>@style</td>
-      <td>Escaped and processed as HTML safe. Alternatively use `style=`</td>
+      <td>Escaped and processed as HTML safe. Alternatively use <code>style=</code></td>
     </tr>
     <tr>
       <td>@value</td>
