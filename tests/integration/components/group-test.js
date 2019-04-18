@@ -16,6 +16,16 @@ module('select-box/group', function(hooks) {
       .exists({ count: 1 }, 'renders with correct class name and tag');
   });
 
+  test('attributes', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`{{select-box/group class="foo"}}`);
+
+    assert
+      .dom('.select-box-group')
+      .hasClass('foo', 'attributes are splatted');
+  });
+
   test('class prefix', async function(assert) {
     assert.expect(3);
 

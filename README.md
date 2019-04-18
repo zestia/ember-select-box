@@ -407,8 +407,9 @@ ember install @zestia/ember-select-box
 </details>
 
 <details>
-  <summary>Yielded API properties (template only)</summary>
+  <summary>API</summary>
   <table>
+    <caption>Template only properties</caption>
     <tr>
       <td>o.value</td>
       <td>The value of the option</td>
