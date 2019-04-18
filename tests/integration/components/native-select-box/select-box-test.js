@@ -23,12 +23,12 @@ module('native-select-box', function(hooks) {
   test('class prefix', async function(assert) {
     assert.expect(2);
 
-    await render(hbs`{{native-select-box class-prefix="foo"}}`);
+    await render(hbs`{{native-select-box classNamePrefix="foo"}}`);
 
     assert.dom('.foo').exists({ count: 1 }, 'can override the class prefix');
 
     await render(hbs`
-      {{#native-select-box class-prefix="foo" as |sb|}}
+      {{#native-select-box classNamePrefix="foo" as |sb|}}
         {{#sb.group}}
           {{sb.option}}
         {{/sb.group}}
@@ -181,7 +181,7 @@ module('native-select-box', function(hooks) {
     await render(hbs`
       {{#native-select-box
         value=this.initialSelectedValue
-        on-select=this.selected as |sb|}}
+        onSelect=this.selected as |sb|}}
         {{sb.option value="foo"}}
         {{sb.option value="bar"}}
         {{sb.option value="baz"}}
@@ -209,7 +209,7 @@ module('native-select-box', function(hooks) {
     await render(hbs`
       {{#native-select-box
         value=this.selectedValue
-        on-select=(action (mut this.selectedValue)) as |sb|}}
+        onSelect=(action (mut this.selectedValue)) as |sb|}}
         {{sb.option value="foo"}}
         {{sb.option value="bar"}}
         {{sb.option value="baz"}}
@@ -255,7 +255,7 @@ module('native-select-box', function(hooks) {
     });
 
     await render(hbs`
-      {{#native-select-box multiple=true on-select=this.selected as |sb|}}
+      {{#native-select-box multiple=true onSelect=this.selected as |sb|}}
         {{#sb.option value=this.foo}}Foo{{/sb.option}}
         {{#sb.option value=this.bar}}Bar{{/sb.option}}
       {{/native-select-box}}
@@ -319,7 +319,7 @@ module('native-select-box', function(hooks) {
     });
 
     await render(hbs`
-      {{#native-select-box on-select=this.selected}}
+      {{#native-select-box onSelect=this.selected}}
         <option value={{this.nonPrimitive}}>Primitive</option>
         <option value={{this.primitive}}>Primitive</option>
       {{/native-select-box}}
@@ -346,7 +346,7 @@ module('native-select-box', function(hooks) {
     });
 
     await render(hbs`
-      {{#native-select-box multiple=true on-select=this.selected}}
+      {{#native-select-box multiple=true onSelect=this.selected}}
         <option value="Hello"></option>
         <option value="World"></option>
       {{/native-select-box}}
@@ -367,7 +367,7 @@ module('native-select-box', function(hooks) {
     });
 
     await render(hbs`
-      {{#native-select-box multiple=true on-select=this.selected as |sb|}}
+      {{#native-select-box multiple=true onSelect=this.selected as |sb|}}
         {{sb.option value="foo"}}
         <option value="bar"></option>
       {{/native-select-box}}
@@ -385,7 +385,7 @@ module('native-select-box', function(hooks) {
       </div>
       {{#native-select-box
         value=@value
-        on-update=(action "updateDisplayLabel") as |sb|}}
+        onUpdate=(action "updateDisplayLabel") as |sb|}}
         {{yield sb}}
       {{/native-select-box}}
     `;
@@ -427,14 +427,14 @@ module('native-select-box', function(hooks) {
     this.set('buildSelection', () => count++);
 
     await render(hbs`
-      {{#native-select-box on-build-selection=this.buildSelection as |sb|}}
+      {{#native-select-box onBuildSelection=this.buildSelection as |sb|}}
         {{sb.option value="foo"}}
       {{/native-select-box}}
     `);
 
     await fillIn('.select-box', 'foo');
 
-    assert.equal(count, 0, 'on-build-selection does not fire on native select components');
+    assert.equal(count, 0, 'onBuildSelection does not fire on native select components');
   });
 
   test('no values', async function(assert) {
@@ -445,7 +445,7 @@ module('native-select-box', function(hooks) {
     this.set('selected', value => (selectedValue = value));
 
     await render(hbs`
-      {{#native-select-box on-select=this.selected as |sb|}}
+      {{#native-select-box onSelect=this.selected as |sb|}}
         {{#sb.option}}foo{{/sb.option}}
       {{/native-select-box}}
     `);
@@ -459,7 +459,7 @@ module('native-select-box', function(hooks) {
     );
 
     await render(hbs`
-      {{#native-select-box on-select=this.selected}}
+      {{#native-select-box onSelect=this.selected}}
         <option>foo</option>
       {{/native-select-box}}
     `);

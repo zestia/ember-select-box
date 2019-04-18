@@ -312,7 +312,7 @@ module('select-box (promises)', function(hooks) {
 
     await render(hbs`
       {{#if this.showSelect}}
-        {{#select-box on-select=(action (mut this.selectedValue)) as |sb|}}
+        {{#select-box onSelect=(action (mut this.selectedValue)) as |sb|}}
           {{#sb.option value="foo"}}Foo{{/sb.option}}
           {{#sb.option value="bar"}}Bar{{/sb.option}}
           {{#sb.option value="baz"}}Baz{{/sb.option}}

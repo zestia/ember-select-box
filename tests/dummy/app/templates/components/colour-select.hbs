@@ -1,9 +1,9 @@
 <SelectBox
   @classNamePrefix="colour-select"
   @value={{@value}}
-  @on-select={{@on-select}}
-  @on-click-outside={{action "close"}}
-  @on-press-escape={{action "close"}} as |sb|>
+  @onSelect={{@onSelect}}
+  @onClickOutside={{action "close"}}
+  @onPressEscape={{action "close"}} as |sb|>
 
   <sb.selectedOption
     @style={{concat "background:" sb.value}}

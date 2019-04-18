@@ -3,8 +3,8 @@
 </div>
 <NativeSelectBox
   @value={{@value}}
-  @on-select={{@on-select}}
-  @on-focus-in={{action "focusIn"}}
-  @on-focus-out={{action "focusOut"}} as |sb|>
+  @onSelect={{@onSelect}}
+  @onFocusIn={{action "focusIn"}}
+  @onFocusOut={{action "focusOut"}} as |sb|>
   {{yield sb}}
 </NativeSelectBox>

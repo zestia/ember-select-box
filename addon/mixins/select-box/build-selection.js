@@ -6,7 +6,7 @@ const { isArray, from } = Array;
 
 export default Mixin.create({
   _buildSelectedValue(value1, value2) {
-    let build = this['on-build-selection'];
+    let build = this.onBuildSelection;
 
     if (typeof build !== 'function') {
       build = bind(this, '_buildSelectedValueDefault');

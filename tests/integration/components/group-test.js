@@ -19,7 +19,7 @@ module('select-box/group', function(hooks) {
   test('class prefix', async function(assert) {
     assert.expect(3);
 
-    await render(hbs`{{select-box/group class-prefix="foo"}}`);
+    await render(hbs`{{select-box/group classNamePrefix="foo"}}`);
 
     assert.dom('.foo-group').exists({ count: 1 }, 'can override the class prefix');
 

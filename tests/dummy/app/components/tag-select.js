@@ -35,13 +35,13 @@ export default Component.extend({
     },
 
     addTag(tag, sb) {
-      this['on-tag'](tag);
+      this.onTag(tag);
       sb.setInputValue('');
       sb.close();
     },
 
     removeTag(tag) {
-      this['on-detag'](tag);
+      this.onDeTag(tag);
     }
   }
 });

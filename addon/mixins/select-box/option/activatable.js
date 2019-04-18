@@ -14,7 +14,7 @@ export default Mixin.create({
     },
 
     _activated() {
-      invokeAction(this, 'on-activate', this.internalValue, this._parentApi);
+      invokeAction(this, 'onActivate', this.internalValue, this._parentApi);
     }
   }
 });

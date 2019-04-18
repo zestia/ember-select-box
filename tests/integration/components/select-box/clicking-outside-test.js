@@ -17,7 +17,7 @@ module('select-box (clicking outside)', function(hooks) {
 
     await render(hbs`
       <div class="outside"></div>
-      {{#select-box on-click-outside=this.clickedOutside}}
+      {{#select-box onClickOutside=this.clickedOutside}}
         <div class="inside"></div>
       {{/select-box}}
     `);

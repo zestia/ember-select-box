@@ -4,7 +4,7 @@
   <a href="https://github.com/zestia/ember-select-box/blob/master/tests/dummy/app/templates/fast-native-single-select.hbs">template.hbs</a>
 </p>
 
-<NativeSelectBox @on-select={{action "selectModelId"}}>
+<NativeSelectBox @onSelect={{action "selectModelId"}}>
   {{#each this.options as |o|}}
     {{! Intentionally does not use sb.option }}
     <option value={{o.model.id}} selected={{o.selected}}>

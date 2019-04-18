@@ -1,14 +1,14 @@
 <SelectBox
   @classNamePrefix="tag-select"
   @value={{@value}}
-  @search-min-chars={{0}}
-  @search-delay-time={{0}}
-  @on-press-escape={{action "close"}}
-  @on-press-down={{action "pressedDown"}}
-  @on-press-up={{action "pressedUp"}}
-  @on-click-outside={{action "close"}}
-  @on-select={{action "addTag"}}
-  @on-search={{action "updateAvailableTags" @on-search}} as |sb|>
+  @searchMinChars={{0}}
+  @searchDelayTime={{0}}
+  @onPressEscape={{action "close"}}
+  @onPressDown={{action "pressedDown"}}
+  @onPressUp={{action "pressedUp"}}
+  @onClickOutside={{action "close"}}
+  @onSelect={{action "addTag"}}
+  @onSearch={{action "updateAvailableTags" @onSearch}} as |sb|>
 
   <sb.selectedOptions>
     {{#each @value as |tag|}}
@@ -26,9 +26,9 @@
 
   <sb.input
     autofocus={{true}}
-    @click={{action "reveal" sb @on-search}}
-    @on-input={{sb.open}}
-    @on-delete={{action "removeTag" @value.lastObject}} />
+    @click={{action "reveal" sb @onSearch}}
+    @onInput={{sb.open}}
+    @onDelete={{action "removeTag" @value.lastObject}} />
 
   {{#if sb.isOpen}}
     <sb.options>

@@ -36,7 +36,7 @@ export default Component.extend({
     },
 
     updateDisplayLabel(value = {}) {
-      set(this, 'displayLabel', value[this['label-key']]);
+      set(this, 'displayLabel', value[this.labelKey]);
     }
   }
 });

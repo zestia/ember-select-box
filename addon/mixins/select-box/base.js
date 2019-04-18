@@ -12,7 +12,7 @@ export default Mixin.create({
 
   init() {
     this._super(...arguments);
-    invokeAction(this, 'on-init', this.api);
+    invokeAction(this, 'onInit', this.api);
   },
 
   didReceiveAttrs() {
@@ -22,7 +22,7 @@ export default Mixin.create({
 
   _select(value) {
     this._update(value).then(() => {
-      invokeAction(this, 'on-select', this.internalValue, this.api);
+      invokeAction(this, 'onSelect', this.internalValue, this.api);
     });
   },
 
@@ -41,7 +41,7 @@ export default Mixin.create({
   },
 
   _updated() {
-    invokeAction(this, 'on-update', this.internalValue, this.api);
+    invokeAction(this, 'onUpdate', this.internalValue, this.api);
   },
 
   _resolveValue(value) {

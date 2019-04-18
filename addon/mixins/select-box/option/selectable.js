@@ -25,7 +25,7 @@ export default Mixin.create({
       }
 
       invokeAction(this, '_onSelect', this.internalValue);
-      invokeAction(this, 'on-select', this.internalValue, this._parentApi);
+      invokeAction(this, 'onSelect', this.internalValue, this._parentApi);
     }
   }
 });
