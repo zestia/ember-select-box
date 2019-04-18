@@ -370,36 +370,8 @@ ember install @zestia/ember-select-box
 <table>
   <caption>Attributes</caption>
   <tr>
-    <td width="200">selected</td>
-    <td>Used for manually selecting an option. (Most of the time you won't need to use this because the options automatically know whether or not they are selected based on the value attrbute set on the select box component itself)</td>
-  </tr>
-  <tr>
-    <td>name</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>title</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>tabindex</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>disabled</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>size</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>tabindex</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>aria-label</td>
-    <td></td>
+    <td>...attributes</td>
+    <td>Any of the usual HTML attributes</td>
   </tr>
 </table>
 
@@ -533,32 +505,8 @@ Allows you to input text into the select box, usually for running searches/filte
 <table>
   <caption>Attributes</caption>
   <tr>
-    <td width="200">type</td>
-    <td>Sets the type of input text/search etc...</td>
-  </tr>
-  <tr>
-    <td>value</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>size</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>autofocus</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>placeholder</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>readonly</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>disabled</td>
-    <td></td>
+    <td>...attributes</td>
+    <td>Any of the usual HTML attributes</td>
   </tr>
 </table>
 
@@ -576,8 +524,8 @@ Does _not_ render the user's selected option automatically, but rather just prov
 <table>
   <caption>Attributes</caption>
   <tr>
-    <td width="200">title</td>
-    <td></td>
+    <td>...attributes</td>
+    <td>Any of the usual HTML attributes</td>
   </tr>
 </table>
 
