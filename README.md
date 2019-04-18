@@ -59,303 +59,314 @@ ember install @zestia/ember-select-box
 </SelectBox>
 ```
 
-<table>
-  <caption>Arguments</caption>
-  <tr>
-    <td width="200">@value</td>
-    <td>Used to determine which option is selected, can be a promise</td>
-  </tr>
-  <tr>
-    <td>@multiple</td>
-    <td>If true, <code>value</code> should be an array. Also adds an <code>is-multiple</code> class</td>
-  </tr>
-  <tr>
-    <td>@disabled</td>
-    <td>If true adds an <code>is-disabled</code> class</td>
-  </tr>
-  <tr>
-    <td>@style</td>
-    <td>Escaped and processed as HTML safe. Alternatively use <code>style=</code></td>
-  </tr>
-  <tr>
-    <td>@classNamePrefix</td>
-    <td>Adds a prefix to the class name of all child select-box components</td>
-  </tr>
-  <tr>
-    <td>@open</td>
-    <td>Controls the open/closed state</td>
-  </tr>
-  <tr>
-    <td>@searchMinChars</td>
-    <td>Prevents the <code>onSearch</code> action from firing until there are enough chars (default 1)</td>
-  </tr>
-  <tr>
-    <td>@searchDelayTime</td>
-    <td>Milliseconds to debounce the <code>onSearch</code> action from firing (default 100)</td>
-  </tr>
-  <tr>
-    <td>@searchSlowTime</td>
-    <td>Milliseconds considered for a search to be taking too long (default 500)</td>
-  </tr>
-</table>
+<details>
+  <summary>Arguments</summary>
+  <table>
+    <tr>
+      <td width="200">@value</td>
+      <td>Used to determine which option is selected, can be a promise</td>
+    </tr>
+    <tr>
+      <td>@multiple</td>
+      <td>If true, <code>value</code> should be an array. Also adds an <code>is-multiple</code> class</td>
+    </tr>
+    <tr>
+      <td>@disabled</td>
+      <td>If true adds an <code>is-disabled</code> class</td>
+    </tr>
+    <tr>
+      <td>@style</td>
+      <td>Escaped and processed as HTML safe. Alternatively use <code>style=</code></td>
+    </tr>
+    <tr>
+      <td>@classNamePrefix</td>
+      <td>Adds a prefix to the class name of all child select-box components</td>
+    </tr>
+    <tr>
+      <td>@open</td>
+      <td>Controls the open/closed state</td>
+    </tr>
+    <tr>
+      <td>@searchMinChars</td>
+      <td>Prevents the <code>onSearch</code> action from firing until there are enough chars (default 1)</td>
+    </tr>
+    <tr>
+      <td>@searchDelayTime</td>
+      <td>Milliseconds to debounce the <code>onSearch</code> action from firing (default 100)</td>
+    </tr>
+    <tr>
+      <td>@searchSlowTime</td>
+      <td>Milliseconds considered for a search to be taking too long (default 500)</td>
+    </tr>
+  </table>
+</details>
 
-<table>
-  <caption>Actions</caption>
-  <tr>
-    <td width="200">@onOpen</td>
-    <td>
-      Fired when the select box is opened
-    </td>
-  </tr>
-  <tr>
-    <td>@onClose</td>
-    <td>
-      Fired when the select box is closed
-    </td>
-  </tr>
-  <tr>
-    <td>@onInit</td>
-    <td>Fired when the select box initialises. Useful opportunity to get
-    access to the select box's API which is passed as a parameter.</td>
-  </tr>
-  <tr>
-    <td>@onSelect</td>
-    <td>
-      Fired when an option is clicked, or enter is pressed regardless as
-      to whether the value changed or not. Also fired by use of the <code>select</code> API.
-    </td>
-  </tr>
-  <tr>
-    <td>@onUpdate</td>
-    <td>
-      Fired after the initial value has been resolved and the component has rendered.<br>
-      Also fired by use of the <code>update</code> API or if the value attribute changes.
-    </td>
-  </tr>
-  <tr>
-    <td>@onBuildSelection</td>
-    <td>
-      Fired whenever a selection is made. This function receives the value most recently
-      selected, and the currently selected values. The return value is used as the final selection.
-      This is primarily used to customise the default behaviour of a multiple select box, but in
-      most cases will not need to be used.
-    </td>
-  </tr>
-  <tr>
-    <td>@onSearch</td>
-    <td>Fired when the select box decides to run a search</td>
-  </tr>
-  <tr>
-    <td>@onSearched</td>
-    <td>Fired after the last succesful search attempt</td>
-  </tr>
-  <tr>
-    <td>@onSearchError</td>
-    <td>Fired if a search attempt failed</td>
-  </tr>
-  <tr>
-    <td>@onClickOutside</td>
-    <td>Useful for closing the select box</td>
-  </tr>
-  <tr>
-    <td>@onFocusIn</td>
-    <td>Fired when focus enters the select box, normalised if it contains an input</td>
-  </tr>
-  <tr>
-    <td>@onFocusOut</td>
-    <td>Fired when focus leaves the select box</td>
-  </tr>
-  <tr>
-    <td>@onPressKey</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>@onPressAlphanum</td>
-    <td>
-      Useful because using `keyDown=` would overwrite the component's method,
-      which is a bit of an Ember flaw. Also can be used for activating an option based on the
-      characters recently typed. See: `sb.activateOptionForKeyCode(e.keyCode)`
-    </td>
-  </tr>
-  <tr>
-    <td>@onPressBackspace</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>@onPressTab</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>@onPressEnter</td>
-    <td>Useful for preventing default action of event</td>
-  </tr>
-  <tr>
-    <td>@onPressEscape</td>
-    <td>Useful for closing and/or resetting a select box</td>
-  </tr>
-  <tr>
-    <td>@onPressLeft</td>
-    <td>Useful for navigating selected options</td>
-  </tr>
-  <tr>
-    <td>@onPressUp</td>
-    <td>Useful for navigating up</td>
-  </tr>
-  <tr>
-    <td>@onPressRight</td>
-    <td>Useful for navigating selected options</td>
-  </tr>
-  <tr>
-    <td>@onPressDown</td>
-    <td>Useful for navigating down</td>
-  </tr>
-</table>
+<details>
+  <summary>Actions</summary>
+  <table>
+    <tr>
+      <td width="200">@onOpen</td>
+      <td>
+        Fired when the select box is opened
+      </td>
+    </tr>
+    <tr>
+      <td>@onClose</td>
+      <td>
+        Fired when the select box is closed
+      </td>
+    </tr>
+    <tr>
+      <td>@onInit</td>
+      <td>Fired when the select box initialises. Useful opportunity to get
+      access to the select box's API which is passed as a parameter.</td>
+    </tr>
+    <tr>
+      <td>@onSelect</td>
+      <td>
+        Fired when an option is clicked, or enter is pressed regardless as
+        to whether the value changed or not. Also fired by use of the <code>select</code> API.
+      </td>
+    </tr>
+    <tr>
+      <td>@onUpdate</td>
+      <td>
+        Fired after the initial value has been resolved and the component has rendered.<br>
+        Also fired by use of the <code>update</code> API or if the value attribute changes.
+      </td>
+    </tr>
+    <tr>
+      <td>@onBuildSelection</td>
+      <td>
+        Fired whenever a selection is made. This function receives the value most recently
+        selected, and the currently selected values. The return value is used as the final selection.
+        This is primarily used to customise the default behaviour of a multiple select box, but in
+        most cases will not need to be used.
+      </td>
+    </tr>
+    <tr>
+      <td>@onSearch</td>
+      <td>Fired when the select box decides to run a search</td>
+    </tr>
+    <tr>
+      <td>@onSearched</td>
+      <td>Fired after the last succesful search attempt</td>
+    </tr>
+    <tr>
+      <td>@onSearchError</td>
+      <td>Fired if a search attempt failed</td>
+    </tr>
+    <tr>
+      <td>@onClickOutside</td>
+      <td>Useful for closing the select box</td>
+    </tr>
+    <tr>
+      <td>@onFocusIn</td>
+      <td>Fired when focus enters the select box, normalised if it contains an input</td>
+    </tr>
+    <tr>
+      <td>@onFocusOut</td>
+      <td>Fired when focus leaves the select box</td>
+    </tr>
+    <tr>
+      <td>@onPressKey</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>@onPressAlphanum</td>
+      <td>
+        Useful because using `keyDown=` would overwrite the component's method,
+        which is a bit of an Ember flaw. Also can be used for activating an option based on the
+        characters recently typed. See: `sb.activateOptionForKeyCode(e.keyCode)`
+      </td>
+    </tr>
+    <tr>
+      <td>@onPressBackspace</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>@onPressTab</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>@onPressEnter</td>
+      <td>Useful for preventing default action of event</td>
+    </tr>
+    <tr>
+      <td>@onPressEscape</td>
+      <td>Useful for closing and/or resetting a select box</td>
+    </tr>
+    <tr>
+      <td>@onPressLeft</td>
+      <td>Useful for navigating selected options</td>
+    </tr>
+    <tr>
+      <td>@onPressUp</td>
+      <td>Useful for navigating up</td>
+    </tr>
+    <tr>
+      <td>@onPressRight</td>
+      <td>Useful for navigating selected options</td>
+    </tr>
+    <tr>
+      <td>@onPressDown</td>
+      <td>Useful for navigating down</td>
+    </tr>
+  </table>
+</details>
 
-<table>
-  <caption>Yielded API actions</caption>
-  <tr>
-    <td width="200">sb.open</td>
-    <td>Opens the select box, adding <code>is-open</code> class name</td>
-  </tr>
-  <tr>
-    <td>sb.close</td>
-    <td>Closes the select box removing the <code>is-open</code> class name</td>
-  </tr>
-  <tr>
-    <td>sb.toggle</td>
-    <td>Opens or closes the select box</td>
-  </tr>
-  <tr>
-    <td>sb.select</td>
-    <td>Selects an arbitrary value(s) and fires the <code>onSelect</code> action</td>
-  </tr>
-  <tr>
-    <td>sb.update</td>
-    <td>Updates the selected value(s), but does not fire the <code>onSelect</code> action</td>
-  </tr>
-  <tr>
-    <td>sb.selectActiveOption</td>
-    <td>Selects the value of whichever option is currently active</td>
-  </tr>
-  <tr>
-    <td>sb.search</td>
-    <td>Runs an arbitrary search using the search function provided by <code>onSearch</code></td>
-  </tr>
-  <tr>
-    <td>sb.stopSearching</td>
-    <td>'Cancels' searches currently in progress (even though promises are not cancelable)</td>
-  </tr>
-  <tr>
-    <td>sb.setInputValue</td>
-    <td>Lets you update the input value, useful for when a selection has been made</td>
-  </tr>
-  <tr>
-    <td>sb.focusInput</td>
-    <td>Focuses the input associated with the select box</td>
-  </tr>
-  <tr>
-    <td>sb.blurInput</td>
-    <td>Unfocuses the input associated with the select box</td>
-  </tr>
-  <tr>
-    <td>sb.activateOptionAtIndex</td>
-    <td>
-      Adds an <code>is-active</code> class to the option at the index<br><br>
-      <code>index</code> Option to activate<br>
-      <code>scroll</code> Whether to scroll to the option (default <code>false</code>)
-    </td>
-  </tr>
-  <tr>
-    <td>sb.activateNextOption</td>
-    <td>
-      Activates the next option<br><br>
-      <code>scroll</code> Whether to scroll to the option (default <code>true</code>)
-    </td>
-  </tr>
-  <tr>
-    <td>sb.activatePreviousOption</td>
-    <td>As above but reverse</td>
-  </tr>
-  <tr>
-    <td>sb.activateOptionForKeyCode</td>
-    <td>
-      Mimics native select box behaviour by jumping to an appopriate option based on the <code>textContent</code> of the options. <a href="https://zestia.github.io/ember-select-box/#/simple-select">Demo</a><br><br>
-      <code>keyCode</code> Character to match in the option's text<br>
-      <code>scroll</code> Whether to scroll to the option (default <code>true</code>)
-    </td>
-  </tr>
-  <tr>
-    <td>sb.deactivateOptions</td>
-    <td>Makes no option be active</td>
-  </tr>
-  <tr>
-    <td>sb.activateSelectedOptionAtIndex</td>
-    <td>
-      Activates the selected option at the index<br><br>
-      <code>index</code> Selected option to activate<br>
-      <code>scroll</code> Whether to scroll to the option (default <code>false</code>)
-    </td>
-  </tr>
-  <tr>
-    <td>sb.activateNextSelectedOption</td>
-    <td>
-      Activates the next selected option<br><br>
-      <code>scroll</code> Whether to scroll to the selected option (default <code>true</code>)
-    </td>
-  </tr>
-  <tr>
-    <td>sb.activatePreviousSelectedOption</td>
-    <td>As above but reverse</td>
-  </tr>
-  <tr>
-    <td>sb.deactivateSelectedOptions</td>
-    <td>Makes no selected option be active</td>
-  </tr>
-</table>
+<details>
+  <summary>Yielded API actions</summary>
+  <table>
+    <tr>
+      <td width="200">sb.open</td>
+      <td>Opens the select box, adding <code>is-open</code> class name</td>
+    </tr>
+    <tr>
+      <td>sb.close</td>
+      <td>Closes the select box removing the <code>is-open</code> class name</td>
+    </tr>
+    <tr>
+      <td>sb.toggle</td>
+      <td>Opens or closes the select box</td>
+    </tr>
+    <tr>
+      <td>sb.select</td>
+      <td>Selects an arbitrary value(s) and fires the <code>onSelect</code> action</td>
+    </tr>
+    <tr>
+      <td>sb.update</td>
+      <td>Updates the selected value(s), but does not fire the <code>onSelect</code> action</td>
+    </tr>
+    <tr>
+      <td>sb.selectActiveOption</td>
+      <td>Selects the value of whichever option is currently active</td>
+    </tr>
+    <tr>
+      <td>sb.search</td>
+      <td>Runs an arbitrary search using the search function provided by <code>onSearch</code></td>
+    </tr>
+    <tr>
+      <td>sb.stopSearching</td>
+      <td>'Cancels' searches currently in progress (even though promises are not cancelable)</td>
+    </tr>
+    <tr>
+      <td>sb.setInputValue</td>
+      <td>Lets you update the input value, useful for when a selection has been made</td>
+    </tr>
+    <tr>
+      <td>sb.focusInput</td>
+      <td>Focuses the input associated with the select box</td>
+    </tr>
+    <tr>
+      <td>sb.blurInput</td>
+      <td>Unfocuses the input associated with the select box</td>
+    </tr>
+    <tr>
+      <td>sb.activateOptionAtIndex</td>
+      <td>
+        Adds an <code>is-active</code> class to the option at the index<br><br>
+        <code>index</code> Option to activate<br>
+        <code>scroll</code> Whether to scroll to the option (default <code>false</code>)
+      </td>
+    </tr>
+    <tr>
+      <td>sb.activateNextOption</td>
+      <td>
+        Activates the next option<br><br>
+        <code>scroll</code> Whether to scroll to the option (default <code>true</code>)
+      </td>
+    </tr>
+    <tr>
+      <td>sb.activatePreviousOption</td>
+      <td>As above but reverse</td>
+    </tr>
+    <tr>
+      <td>sb.activateOptionForKeyCode</td>
+      <td>
+        Mimics native select box behaviour by jumping to an appopriate option based on the <code>textContent</code> of the options. <a href="https://zestia.github.io/ember-select-box/#/simple-select">Demo</a><br><br>
+        <code>keyCode</code> Character to match in the option's text<br>
+        <code>scroll</code> Whether to scroll to the option (default <code>true</code>)
+      </td>
+    </tr>
+    <tr>
+      <td>sb.deactivateOptions</td>
+      <td>Makes no option be active</td>
+    </tr>
+    <tr>
+      <td>sb.activateSelectedOptionAtIndex</td>
+      <td>
+        Activates the selected option at the index<br><br>
+        <code>index</code> Selected option to activate<br>
+        <code>scroll</code> Whether to scroll to the option (default <code>false</code>)
+      </td>
+    </tr>
+    <tr>
+      <td>sb.activateNextSelectedOption</td>
+      <td>
+        Activates the next selected option<br><br>
+        <code>scroll</code> Whether to scroll to the selected option (default <code>true</code>)
+      </td>
+    </tr>
+    <tr>
+      <td>sb.activatePreviousSelectedOption</td>
+      <td>As above but reverse</td>
+    </tr>
+    <tr>
+      <td>sb.deactivateSelectedOptions</td>
+      <td>Makes no selected option be active</td>
+    </tr>
+  </table>
+</details>
 
-<table>
-  <caption>Yielded API properties</caption>
-  <tr>
-    <td width="200">sb.element</td>
-    <td>The DOM element of the select box</td>
-  </tr>
-  <tr>
-    <td>sb.value</td>
-    <td>The selected value(s) of the select box</td>
-  </tr>
-  <tr>
-    <td>sb.isOpen</td>
-    <td>True if the select box is open</td>
-  </tr>
-</table>
+<details>
+  <summary>Yielded API properties</summary>
+  <table>
+    <tr>
+      <td width="200">sb.element</td>
+      <td>The DOM element of the select box</td>
+    </tr>
+    <tr>
+      <td>sb.value</td>
+      <td>The selected value(s) of the select box</td>
+    </tr>
+    <tr>
+      <td>sb.isOpen</td>
+      <td>True if the select box is open</td>
+    </tr>
+  </table>
+</details>
 
-<table>
-  <caption>Yielded API propertes (template only)</caption>
-  <tr width="200">
-    <td>sb.isPending</td>
-    <td>True whilst <code>value</code> is being resovled</td>
-  </tr>
-  <tr>
-    <td>sb.isRejected</td>
-    <td>True if <code>value</code> failed to resolve</td>
-  </tr>
-  <tr>
-    <td>sb.isFulfilled</td>
-    <td>True if <code>value</code> resolved</td>
-  </tr>
-  <tr>
-    <td>sb.isSettled</td>
-    <td>True once <code>value</code> has resolved or rejected</td>
-  </tr>
-  <tr>
-    <td>sb.isSearching</td>
-    <td>True if the promise returned from the <code>onSearch</code> action is running</td>
-  </tr>
-  <tr>
-    <td>sb.isSlowSearch</td>
-    <td>True if the promised search results are taking a while</td>
-  </tr>
-</table>
+<details>
+  <summary>Yielded API propertes (template only)</summary>
+  <table>
+    <caption></caption>
+    <tr width="200">
+      <td>sb.isPending</td>
+      <td>True whilst <code>value</code> is being resovled</td>
+    </tr>
+    <tr>
+      <td>sb.isRejected</td>
+      <td>True if <code>value</code> failed to resolve</td>
+    </tr>
+    <tr>
+      <td>sb.isFulfilled</td>
+      <td>True if <code>value</code> resolved</td>
+    </tr>
+    <tr>
+      <td>sb.isSettled</td>
+      <td>True once <code>value</code> has resolved or rejected</td>
+    </tr>
+    <tr>
+      <td>sb.isSearching</td>
+      <td>True if the promise returned from the <code>onSearch</code> action is running</td>
+    </tr>
+    <tr>
+      <td>sb.isSlowSearch</td>
+      <td>True if the promised search results are taking a while</td>
+    </tr>
+  </table>
+</details>
 
 <hr>
 
@@ -367,77 +378,75 @@ ember install @zestia/ember-select-box
 </sb.option>
 ```
 
-<table>
-  <caption>Attributes</caption>
-  <tr>
-    <td>...attributes</td>
-    <td>Any of the usual HTML attributes</td>
-  </tr>
-</table>
+<details>
+  <summary>Arguments</summary>
+  <table>
+    <tr>
+      <td>@style</td>
+      <td>Escaped and processed as HTML safe. Alternatively use `style=`</td>
+    </tr>
+    <tr>
+      <td>@value</td>
+      <td>Can be anything, including a promise</td>
+    </tr>
+    <tr>
+      <td>@disabled</td>
+      <td></td>
+    </tr>
+  </table>
+</details>
 
-<table>
-  <caption>Arguments</caption>
-  <tr>
-    <td>@style</td>
-    <td>Escaped and processed as HTML safe. Alternatively use `style=`</td>
-  </tr>
-  <tr>
-    <td>@value</td>
-    <td>Can be anything, including a promise</td>
-  </tr>
-  <tr>
-    <td>@disabled</td>
-    <td></td>
-  </tr>
-</table>
+<details>
+  <summary>Actions</summary>
+  <table>
+    <tr>
+      <td width="200">@onSelect</td>
+      <td>Useful for firing one-off actions when an option is selected</td>
+    </tr>
+    <tr>
+      <td>@onActivate</td>
+      <td>Fired when an individual option is activated</td>
+    </tr>
+  </table>
+</details>
 
-<table>
-  <caption>Actions</caption>
-  <tr>
-    <td width="200">@onSelect</td>
-    <td>Useful for firing one-off actions when an option is selected</td>
-  </tr>
-  <tr>
-    <td>@onActivate</td>
-    <td>Fired when an individual option is activated</td>
-  </tr>
-</table>
-
-<table>
-  <caption>Yielded API properties (template only)</caption>
-  <tr>
-    <td>o.value</td>
-    <td>The value of the option</td>
-  </tr>
-  <tr>
-    <td>sb.isPending</td>
-    <td>True whilst <code>value</code> is being resovled</td>
-  </tr>
-  <tr>
-    <td>sb.isRejected</td>
-    <td>True if <code>value</code> failed to resolve</td>
-  </tr>
-  <tr>
-    <td>sb.isFulfilled</td>
-    <td>True if <code>value</code> resolved</td>
-  </tr>
-  <tr>
-    <td>sb.isSettled</td>
-    <td>True once <code>value</code> has resolved or rejected</td>
-  </tr>
-  <tr>
-    <td width="200">o.isSelected</td>
-    <td>Whether or not the option is currently selected</td>
-  </tr>
-  <tr>
-    <td>o.isDisabled</td>
-    <td>Whether or not the option is currently disabled</td>
-  </tr>
-  <tr>
-    <td>o.index</td>
-    <td>The index of the option amongst the options</td>
-  </tr>
-</table>
+<details>
+  <summary>Yielded API properties (template only)</summary>
+  <table>
+    <tr>
+      <td>o.value</td>
+      <td>The value of the option</td>
+    </tr>
+    <tr>
+      <td>o.isPending</td>
+      <td>True whilst <code>value</code> is being resovled</td>
+    </tr>
+    <tr>
+      <td>o.isRejected</td>
+      <td>True if <code>value</code> failed to resolve</td>
+    </tr>
+    <tr>
+      <td>o.isFulfilled</td>
+      <td>True if <code>value</code> resolved</td>
+    </tr>
+    <tr>
+      <td>o.isSettled</td>
+      <td>True once <code>value</code> has resolved or rejected</td>
+    </tr>
+    <tr>
+      <td width="200">o.isSelected</td>
+      <td>Whether or not the option is currently selected</td>
+    </tr>
+    <tr>
+      <td>o.isDisabled</td>
+      <td>Whether or not the option is currently disabled</td>
+    </tr>
+    <tr>
+      <td>o.index</td>
+      <td>The index of the option amongst the options</td>
+    </tr>
+  </table>
+</details>
 
 <hr>
 
@@ -465,16 +474,18 @@ You only need to wrap the options up in with `sb.options` if you require extra m
 </sb.options>
 ```
 
-<table>
-  <caption>Arguments</caption§>
-  <tr>
-    <td width="200">@style</td>
-    <td>
-      Useful for customising the style of the options container.<br>
-      Escaped and processed as HTML safe. Alternatively use `style=`
-    </td>
-  </tr>
-</table>
+<details>
+  <summary>Arguments</summary>
+  <table>
+    <tr>
+      <td width="200">@style</td>
+      <td>
+        Useful for customising the style of the options container.<br>
+        Escaped and processed as HTML safe. Alternatively use <code>style=</code>
+      </td>
+    </tr>
+  </table>
+</details>
 
 <hr>
 
@@ -486,29 +497,23 @@ Allows you to input text into the select box, usually for running searches/filte
 <sb.input />
 ```
 
-<table>
-  <caption>Actions</caption>
-  <tr>
-    <td width="200">@onInput</td>
-    <td>Fired when text is input</td>
-  </tr>
-  <tr>
-    <td>@onDelete</td>
-    <td>Fired when there is no text present, but backspace is pressed</td>
-  </tr>
-  <tr>
-    <td>@onClear</td>
-    <td>Fired when text is cleared completely</td>
-  </tr>
-</table>
-
-<table>
-  <caption>Attributes</caption>
-  <tr>
-    <td>...attributes</td>
-    <td>Any of the usual HTML attributes</td>
-  </tr>
-</table>
+<details>
+  <summary>Actions</summary>
+  <table>
+    <tr>
+      <td width="200">@onInput</td>
+      <td>Fired when text is input</td>
+    </tr>
+    <tr>
+      <td>@onDelete</td>
+      <td>Fired when there is no text present, but backspace is pressed</td>
+    </tr>
+    <tr>
+      <td>@onClear</td>
+      <td>Fired when text is cleared completely</td>
+    </tr>
+  </table>
+</details>
 
 <hr>
 
@@ -521,29 +526,26 @@ Does _not_ render the user's selected option automatically, but rather just prov
   {{so.value.name}}
 </sb.selectedOption>
 ```
-<table>
-  <caption>Attributes</caption>
-  <tr>
-    <td>...attributes</td>
-    <td>Any of the usual HTML attributes</td>
-  </tr>
-</table>
 
-<table>
-  <caption>Arguments</caption>
-  <tr>
-    <td>@style</td>
-    <td>Escaped and processed as HTML safe. Alternatively use `style=`</td>
-  </tr>
-</table>
+<details>
+  <summary>Arguments</summary>
+  <table>
+    <tr>
+      <td>@style</td>
+      <td>Escaped and processed as HTML safe. Alternatively use <code>style=</code></td>
+    </tr>
+  </table>
+</details>
 
-<table>
-  <caption>Actions</caption>
-  <tr>
-    <td width="200">@onActivate</td>
-    <td>Fired when a selected option is activated</td>
-  </tr>
-</table>
+<details>
+  <summary>Actions</summary>
+  <table>
+    <tr>
+      <td width="200">@onActivate</td>
+      <td>Fired when a selected option is activated</td>
+    </tr>
+  </table>
+</details>
 
 <hr>
 
@@ -559,13 +561,15 @@ Does _not_ render the user's selected option automatically, but rather just prov
 
 Provides a container for options that the user selected. Does not do anything by default, but it is possible to activate selected options using the API, thereby allowing you to create your own navigatable select box.
 
-<table>
-  <caption>Arguments</caption>
-  <tr>
-    <td width="200">@style</td>
-    <td>Escaped and processed as HTML safe. Alternatively use `style=`</td>
-  </tr>
-</table>
+<details>
+  <summary>Arguments</summary>
+  <table>
+    <tr>
+      <td width="200">@style</td>
+      <td>Escaped and processed as HTML safe. Alternatively use <code>style=</code></td>
+    </tr>
+  </table>
+</details>
 
 <hr>
 
