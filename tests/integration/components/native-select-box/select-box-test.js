@@ -15,7 +15,7 @@ module('native-select-box', function(hooks) {
   test('it renders', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`{{native-select-box}}`);
+    await render(hbs`<NativeSelectBox />`);
 
     assert.dom('select.select-box').exists({ count: 1 }, 'renders with correct class name and tag');
   });
@@ -23,16 +23,16 @@ module('native-select-box', function(hooks) {
   test('class prefix', async function(assert) {
     assert.expect(2);
 
-    await render(hbs`{{native-select-box classNamePrefix="foo"}}`);
+    await render(hbs`<NativeSelectBox @classNamePrefix="foo" />`);
 
     assert.dom('.foo').exists({ count: 1 }, 'can override the class prefix');
 
     await render(hbs`
-      {{#native-select-box classNamePrefix="foo" as |sb|}}
-        {{#sb.Group}}
-          {{sb.Option}}
-        {{/sb.Group}}
-      {{/native-select-box}}
+      <NativeSelectBox @classNamePrefix="foo" as |sb|>
+        <sb.Group>
+          <sb.Option />
+        </sb.Group>
+      </NativeSelectBox>
     `);
 
     assert.ok(
@@ -86,7 +86,7 @@ module('native-select-box', function(hooks) {
   test('disabling', async function(assert) {
     assert.expect(3);
 
-    await render(hbs`{{native-select-box}}`);
+    await render(hbs`<NativeSelectBox />`);
 
     assert.ok(!find('.select-box').hasAttribute('disabled'), 'enabled by default');
 
@@ -104,23 +104,19 @@ module('native-select-box', function(hooks) {
   test('tabindex', async function(assert) {
     assert.expect(2);
 
-    await render(hbs`{{native-select-box}}`);
+    await render(hbs`<NativeSelectBox />`);
 
-    assert.strictEqual(find('.select-box').getAttribute('tabindex'), null, 'default tabindex');
+    assert.dom('.select-box').doesNotHaveAttribute('tabindex', 'default tabindex');
 
     await render(hbs`{{native-select-box tabindex=5}}`);
 
-    assert.strictEqual(
-      find('.select-box').getAttribute('tabindex'),
-      '5',
-      'can specify a tabindex attribute'
-    );
+    assert.dom('.select-box').hasAttribute('tabindex', '5', 'can specify a tabindex attribute');
   });
 
   test('size', async function(assert) {
     assert.expect(2);
 
-    await render(hbs`{{native-select-box}}`);
+    await render(hbs`<NativeSelectBox />`);
 
     assert.strictEqual(find('.select-box').getAttribute('size'), null, 'default size');
 
@@ -139,10 +135,10 @@ module('native-select-box', function(hooks) {
     this.set('selectedValue', 'foo');
 
     await render(hbs`
-      {{#native-select-box value=this.selectedValue as |sb|}}
-        {{#sb.Option value="foo"}}Foo{{/sb.Option}}
-        {{#sb.Option value="bar"}}Bar{{/sb.Option}}
-      {{/native-select-box}}
+      <NativeSelectBox @value={{this.selectedValue}} as |sb|>
+        <sb.Option @value="foo">Foo</sb.Option>
+        <sb.Option @value="bar">Bar</sb.Option>
+      </NativeSelectBox>
     `);
 
     const foo = find('.select-box-option[value="foo"]');
@@ -179,13 +175,13 @@ module('native-select-box', function(hooks) {
     });
 
     await render(hbs`
-      {{#native-select-box
-        value=this.initialSelectedValue
-        onSelect=this.selected as |sb|}}
-        {{sb.Option value="foo"}}
-        {{sb.Option value="bar"}}
-        {{sb.Option value="baz"}}
-      {{/native-select-box}}
+      <NativeSelectBox
+        @value={{this.initialSelectedValue}}
+        @onSelect={{this.selected}} as |sb|>
+        <sb.Option @value="foo" />
+        <sb.Option @value="bar" />
+        <sb.Option @value="baz" />
+      </NativeSelectBox>
     `);
 
     await fillIn('.select-box', 'bar');
@@ -207,13 +203,13 @@ module('native-select-box', function(hooks) {
     this.set('selectedValue', 'bar');
 
     await render(hbs`
-      {{#native-select-box
-        value=this.selectedValue
-        onSelect=(action (mut this.selectedValue)) as |sb|}}
-        {{sb.Option value="foo"}}
-        {{sb.Option value="bar"}}
-        {{sb.Option value="baz"}}
-      {{/native-select-box}}
+      <NativeSelectBox
+        @value={{this.selectedValue}}
+        @onSelect={{action (mut this.selectedValue)}} as |sb|>
+        <sb.Option @value="foo" />
+        <sb.Option @value="bar" />
+        <sb.Option @value="baz" />
+      </NativeSelectBox>
     `);
 
     await fillIn('.select-box', 'foo');
@@ -228,11 +224,11 @@ module('native-select-box', function(hooks) {
 
     await render(hbs`
       {{! template-lint-disable no-unbound }}
-      {{#native-select-box value=(unbound this.selectedValue) as |sb|}}
-        {{sb.Option value="foo"}}
-        {{sb.Option value="bar"}}
-        {{sb.Option value="baz"}}
-      {{/native-select-box}}
+      <NativeSelectBox @value={{unbound this.selectedValue}} as |sb|>
+        <sb.Option @value="foo" />
+        <sb.Option @value="bar" />
+        <sb.Option @value="baz" />
+      </NativeSelectBox>
     `);
 
     this.set('selectedValue', 'bar');
@@ -319,10 +315,10 @@ module('native-select-box', function(hooks) {
     });
 
     await render(hbs`
-      {{#native-select-box onSelect=this.selected}}
+      <NativeSelectBox @onSelect={{this.selected}}>
         <option value={{this.nonPrimitive}}>Primitive</option>
         <option value={{this.primitive}}>Primitive</option>
-      {{/native-select-box}}
+      </NativeSelectBox>
     `);
 
     assert.equal(
@@ -381,13 +377,13 @@ module('native-select-box', function(hooks) {
 
     const layout = hbs`
       <div class="foo-select-display-label">
-        {{~this.displayLabel~}}
+        {{this.displayLabel}}
       </div>
-      {{#native-select-box
-        value=@value
-        onUpdate=(action "updateDisplayLabel") as |sb|}}
+      <NativeSelectBox
+        @value={{@value}}
+        @onUpdate={{action "updateDisplayLabel"}} as |sb|>
         {{yield sb}}
-      {{/native-select-box}}
+      </NativeSelectBox>
     `;
 
     const FooSelectBox = Component.extend({
@@ -404,11 +400,11 @@ module('native-select-box', function(hooks) {
     this.owner.register('component:select-box/foo', FooSelectBox);
 
     await render(hbs`
-      {{#select-box/foo value="bar" as |sb|}}
-        {{#sb.Option value="foo"}}Foo{{/sb.Option}}
-        {{#sb.Option value="bar"}}Bar{{/sb.Option}}
-        {{#sb.Option value="baz"}}Baz{{/sb.Option}}
-      {{/select-box/foo}}
+      <SelectBox::foo @value="bar" as |sb|>
+        <sb.Option @value="foo">Foo</sb.Option>
+        <sb.Option @value="bar">Bar</sb.Option>
+        <sb.Option @value="baz">Baz</sb.Option>
+      </SelectBox::foo>
     `);
 
     assert
@@ -427,9 +423,9 @@ module('native-select-box', function(hooks) {
     this.set('buildSelection', () => count++);
 
     await render(hbs`
-      {{#native-select-box onBuildSelection=this.buildSelection as |sb|}}
-        {{sb.Option value="foo"}}
-      {{/native-select-box}}
+      <NativeSelectBox @onBuildSelection={{this.buildSelection}} as |sb|>
+        <sb.Option @value="foo" />
+      </NativeSelectBox>
     `);
 
     await fillIn('.select-box', 'foo');
@@ -445,9 +441,9 @@ module('native-select-box', function(hooks) {
     this.set('selected', value => (selectedValue = value));
 
     await render(hbs`
-      {{#native-select-box onSelect=this.selected as |sb|}}
-        {{#sb.Option}}foo{{/sb.Option}}
-      {{/native-select-box}}
+      <NativeSelectBox @onSelect={{this.selected}} as |sb|>
+        <sb.Option>foo</sb.Option>
+      </NativeSelectBox>
     `);
 
     await fillIn('.select-box', 'foo');
@@ -459,9 +455,9 @@ module('native-select-box', function(hooks) {
     );
 
     await render(hbs`
-      {{#native-select-box onSelect=this.selected}}
+      <NativeSelectBox @onSelect={{this.selected}}>
         <option>foo</option>
-      {{/native-select-box}}
+      </NativeSelectBox>
     `);
 
     await fillIn('.select-box', 'foo');
@@ -477,11 +473,11 @@ module('native-select-box', function(hooks) {
     assert.expect(1);
 
     await render(hbs`
-      {{#native-select-box as |sb|}}
-        {{sb.Option}}
-        {{sb.Option}}
-        {{sb.Option}}
-      {{/native-select-box}}
+      <NativeSelectBox as |sb|>
+        <sb.Option />
+        <sb.Option />
+        <sb.Option />
+      </NativeSelectBox>
     `);
 
     assert.ok(

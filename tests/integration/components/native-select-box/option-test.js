@@ -10,7 +10,7 @@ module('native-select-box/option', function(hooks) {
   test('it renders', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`{{native-select-box/option}}`);
+    await render(hbs`<NativeSelectBox::option />`);
 
     assert
       .dom('option.select-box-option')
@@ -20,7 +20,7 @@ module('native-select-box/option', function(hooks) {
   test('class prefix', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`{{native-select-box/option classNamePrefix="foo"}}`);
+    await render(hbs`<NativeSelectBox::option @classNamePrefix="foo" />`);
 
     assert.dom('.foo-option').exists({ count: 1 }, 'can override the class prefix');
   });
@@ -54,12 +54,12 @@ module('native-select-box/option', function(hooks) {
 
     this.set('myValue', 123);
 
-    await render(hbs`{{native-select-box/option value=this.myValue}}`);
+    await render(hbs`<NativeSelectBox::option @value={{this.myValue}} />`);
 
     assert.strictEqual(
       find('.select-box-option').getAttribute('value'),
       '123',
-      'the specified value is set as an HTML attribute'
+      'the specified value argument is set as an HTML attribute'
     );
 
     this.set('myValue', 456);
@@ -67,7 +67,7 @@ module('native-select-box/option', function(hooks) {
     assert.strictEqual(
       find('.select-box-option').getAttribute('value'),
       '456',
-      'changing the value updates the HTML attribute'
+      'changing the value argument updates the HTML attribute'
     );
   });
 
@@ -79,9 +79,9 @@ module('native-select-box/option', function(hooks) {
     this.set('myValue', deferred.promise);
 
     await render(hbs`
-      {{#native-select-box/option value=this.myValue as |o|}}
+      <NativeSelectBox::option @value={{this.myValue}} as |o|>
         {{~this.myValue}}: {{o.value~}}
-      {{/native-select-box/option}}
+      </NativeSelectBox::option>
     `);
 
     assert
@@ -102,11 +102,7 @@ module('native-select-box/option', function(hooks) {
   test('block label', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`
-      {{#native-select-box/option~}}
-        Foo
-      {{~/native-select-box/option}}
-    `);
+    await render(hbs`<NativeSelectBox::option>Foo</NativeSelectBox::option>`);
 
     assert.strictEqual(
       find('.select-box-option').textContent,
@@ -121,18 +117,18 @@ module('native-select-box/option', function(hooks) {
     this.set('items', ['foo', 'bar']);
 
     await render(hbs`
-      {{#native-select-box value="foo" as |sb|}}
+      <NativeSelectBox @value="foo" as |sb|>
         {{#each this.items as |item|}}
-          {{#sb.Option value=item as |o|~}}
+          <sb.Option @value={{item}} as |o|>
             {{o.index}}={{o.value}}
-          {{~/sb.Option}}
+          </sb.Option>
         {{/each}}
-      {{/native-select-box}}
+      </NativeSelectBox>
     `);
 
     assert.ok(
-      findAll('.select-box-option')[0].textContent === '0=foo' &&
-        findAll('.select-box-option')[1].textContent === '1=bar',
+      findAll('.select-box-option')[0].textContent.trim() === '0=foo' &&
+        findAll('.select-box-option')[1].textContent.trim() === '1=bar',
       'native options can yield their index & value'
     );
   });
