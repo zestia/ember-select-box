@@ -118,15 +118,11 @@ module('native-select-box', function(hooks) {
 
     await render(hbs`<NativeSelectBox />`);
 
-    assert.strictEqual(find('.select-box').getAttribute('size'), null, 'default size');
+    assert.dom('.select-box').doesNotHaveAttribute('size', 'default size');
 
     await render(hbs`{{native-select-box size=2}}`);
 
-    assert.strictEqual(
-      find('.select-box').getAttribute('size'),
-      '2',
-      'can specify a size attribute'
-    );
+    assert.dom('.select-box').hasAttribute('size', '2', 'can specify a size attribute');
   });
 
   test('changing the selected value', async function(assert) {
@@ -321,11 +317,9 @@ module('native-select-box', function(hooks) {
       </NativeSelectBox>
     `);
 
-    assert.equal(
-      findAll('option')[0].getAttribute('value'),
-      '[object Object]',
-      'non primitive values are stringified'
-    );
+    assert
+      .dom('option:nth-child(1)')
+      .hasAttribute('value', '[object Object]', 'non primitive values are stringified');
 
     await fillIn('.select-box', '123');
   });

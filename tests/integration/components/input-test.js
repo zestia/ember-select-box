@@ -54,8 +54,7 @@ module('select-box/input', function(hooks) {
 
     await render(hbs`{{select-box/input}}`);
 
-    assert.ok(
-      !find('.select-box-input').getAttribute('type'),
+    assert.dom('.select-box-input').doesNotHaveAttribute('type',
       'select box inputs are not search boxes by default due to unwanted ' +
         'behaviour when you press escape'
     );

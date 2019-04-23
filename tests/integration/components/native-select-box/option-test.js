@@ -56,19 +56,15 @@ module('native-select-box/option', function(hooks) {
 
     await render(hbs`<NativeSelectBox::option @value={{this.myValue}} />`);
 
-    assert.strictEqual(
-      find('.select-box-option').getAttribute('value'),
-      '123',
-      'the specified value argument is set as an HTML attribute'
-    );
+    assert
+      .dom('.select-box-option')
+      .hasAttribute('value', '123', 'the specified value argument is set as an HTML attribute');
 
     this.set('myValue', 456);
 
-    assert.strictEqual(
-      find('.select-box-option').getAttribute('value'),
-      '456',
-      'changing the value argument updates the HTML attribute'
-    );
+    assert
+      .dom('.select-box-option')
+      .hasAttribute('value', '456', 'changing the value argument updates the HTML attribute');
   });
 
   test('promise value', async function(assert) {

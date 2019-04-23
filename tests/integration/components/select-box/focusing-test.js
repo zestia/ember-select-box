@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, find, triggerEvent } from '@ember/test-helpers';
+import { render, triggerEvent } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('select-box (focusing)', function(hooks) {
@@ -9,21 +9,24 @@ module('select-box (focusing)', function(hooks) {
   test('focus class name', async function(assert) {
     assert.expect(3);
 
-    const isFocused = () => {
-      return find('.select-box').classList.contains('is-focused');
-    };
+    await render(hbs`<SelectBox />`);
 
-    await render(hbs`{{select-box}}`);
-
-    assert.ok(!isFocused(), 'precondition, not focused');
+    assert.dom('.select-box').doesNotHaveClass('is-focused', 'precondition, not focused');
 
     await triggerEvent('.select-box', 'focus');
 
-    assert.ok(isFocused(), 'a focused select box has an appropriate class name');
+    assert
+      .dom('.select-box')
+      .hasClass('is-focused', 'a focused select box has an appropriate class name');
 
     await triggerEvent('.select-box', 'blur');
 
-    assert.ok(!isFocused(), 'the focused class name is removed when the select box is blurred');
+    assert
+      .dom('.select-box')
+      .doesNotHaveClass(
+        'is-focused',
+        'the focused class name is removed when the select box is blurred'
+      );
   });
 
   test('focus actions', async function(assert) {
@@ -36,11 +39,11 @@ module('select-box (focusing)', function(hooks) {
     this.set('blurred', () => (sentFocusOut = true));
 
     await render(hbs`
-      {{#select-box
-        onFocusIn=this.focused
-        onFocusOut=this.blurred}}
+      <SelectBox
+        @onFocusIn={{this.focused}}
+        @onFocusOut={{this.blurred}}>
         <button></button>
-      {{/select-box}}
+      </SelectBox>
     `);
 
     await triggerEvent('button', 'focus');
@@ -55,33 +58,35 @@ module('select-box (focusing)', function(hooks) {
   test('tabindex', async function(assert) {
     assert.expect(4);
 
-    const tabindex = () => {
-      return find('.select-box').getAttribute('tabindex');
-    };
+    await render(hbs`<SelectBox />`);
 
-    await render(hbs`{{select-box}}`);
-
-    assert.equal(tabindex(), '0', 'it should be possible to focus a select box');
+    assert
+      .dom('.select-box')
+      .hasAttribute('tabindex', '0', 'it should be possible to focus a select box');
 
     await render(hbs`{{select-box disabled=true}}`);
 
-    assert.equal(tabindex(), '-1', 'it should not be possible to focus a disabled select box');
+    assert
+      .dom('.select-box')
+      .hasAttribute('tabindex', '-1', 'it should not be possible to focus a disabled select box');
 
     await render(hbs`{{select-box tabindex=5}}`);
 
-    assert.equal(tabindex(), '5', 'can set the tabindex');
+    assert.dom('.select-box').hasAttribute('tabindex', '5', 'can set the tabindex');
 
     await render(hbs`
-      {{#select-box as |sb|}}
-        {{sb.Input}}
-      {{/select-box}}
+      <SelectBox as |sb|>
+        <sb.Input />
+      </SelectBox>
     `);
 
-    assert.equal(
-      tabindex(),
-      '-1',
-      'a select box should not be focusable if it contains an input ' +
-        'instead, pressing tab should jump directly to the input'
-    );
+    assert
+      .dom('.select-box')
+      .hasAttribute(
+        'tabindex',
+        '-1',
+        'a select box should not be focusable if it contains an input ' +
+          'instead, pressing tab should jump directly to the input'
+      );
   });
 });
