@@ -1,5 +1,9 @@
 # Changelog
 
+8.0.1
+
+* Fix backracking regression
+
 8.0.0
 
 * Switches from snake case arguments to camel case,<br>
