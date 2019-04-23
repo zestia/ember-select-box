@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled, find, findAll } from '@ember/test-helpers';
+import { click, render, settled, find, findAll } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import SelectBox from '@zestia/ember-select-box/components/select-box';
 import EmberArray, { A as emberA } from '@ember/array';
@@ -247,5 +247,25 @@ module('select-box', function(hooks) {
     this.set('value', { foo: 'bar' });
 
     assert.ok(!isFrozen(secondApi.value), 'is not frozen when in single mode');
+  });
+
+  test('regression test: does not blow up if destroyed', async function(assert) {
+    assert.expect(0);
+
+    this.set('show', true);
+
+    this.set('hide', () => {
+      this.set('show', false);
+    });
+
+    await render(hbs`
+      {{#if this.show}}
+        <SelectBox @onSelect={{this.hide}} as |sb|>
+          <sb.Option @value={{1}} />
+        </SelectBox>
+      {{/if}}
+    `);
+
+    await click('.select-box-option');
   });
 });
