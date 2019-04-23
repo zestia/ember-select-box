@@ -8,14 +8,14 @@
   @onSearch={{action "findBread"}}
   @onSelect={{action "selectedBread"}} as |sb newBread|>
   {{#each this.selectableBreads as |bread|}}
-    <sb.option @value={{bread}}>
+    <sb.Option @value={{bread}}>
       {{bread.name}}
-    </sb.option>
+    </sb.Option>
   {{else}}
-    <sb.option @click={{action "addNewBread" newBread}}>
+    <sb.Option @click={{action "addNewBread" newBread}}>
       No bread found<br>
       Add {{newBread}}...
-    </sb.option>
+    </sb.Option>
   {{/each}}
 </SearchSelect>
 

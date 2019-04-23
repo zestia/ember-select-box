@@ -9,11 +9,11 @@
   @onSearch={{action "filterPies"}}
   @onSelect={{action "selectedPie"}} as |sb|>
   {{#each this.selectablePies as |pie|}}
-    <sb.option @value={{pie}}>
+    <sb.Option @value={{pie}}>
       {{pie.name}}
-    </sb.option>
+    </sb.Option>
   {{else}}
-    <sb.option>No pies found</sb.option>
+    <sb.Option>No pies found</sb.Option>
   {{/each}}
 </FilterSelect>
 

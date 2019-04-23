@@ -102,7 +102,7 @@ module('select-box/input', function(hooks) {
 
     await render(hbs`
       {{#select-box as |sb|}}
-        {{sb.input onInput=this.inputText}}
+        {{sb.Input onInput=this.inputText}}
       {{/select-box}}
     `);
 
@@ -121,7 +121,7 @@ module('select-box/input', function(hooks) {
 
     await render(hbs`
       {{#select-box as |sb|}}
-        {{sb.input value="foo" onClear=this.cleared}}
+        {{sb.Input value="foo" onClear=this.cleared}}
       {{/select-box}}
     `);
 
@@ -141,7 +141,7 @@ module('select-box/input', function(hooks) {
 
     await render(hbs`
       {{#select-box as |sb|}}
-        {{sb.input value="f" onDelete=this.deleted}}
+        {{sb.Input value="f" onDelete=this.deleted}}
       {{/select-box}}
     `);
 

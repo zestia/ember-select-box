@@ -8,9 +8,9 @@
   @value={{this.selectedBiscuit}}
   @onSelect={{action "selectedBiscuit"}} as |sb|>
   {{#each this.selectableBiscuits as |biscuit|}}
-    <sb.option @value={{biscuit}}>
+    <sb.Option @value={{biscuit}}>
       {{biscuit.name}}
-    </sb.option>
+    </sb.Option>
   {{/each}}
 </NativeSimpleSelect>
 

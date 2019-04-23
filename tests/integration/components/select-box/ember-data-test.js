@@ -72,9 +72,9 @@ module('select-box (ember data)', function(hooks) {
           ...
         {{else}}
           {{#each this.foos as |foo|}}
-            {{#sb.option value=foo}}
+            {{#sb.Option value=foo}}
               {{foo.name}}
-            {{/sb.option}}
+            {{/sb.Option}}
           {{/each}}
         {{/if}}
       {{/select-box}}

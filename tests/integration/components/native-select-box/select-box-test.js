@@ -29,9 +29,9 @@ module('native-select-box', function(hooks) {
 
     await render(hbs`
       {{#native-select-box classNamePrefix="foo" as |sb|}}
-        {{#sb.group}}
-          {{sb.option}}
-        {{/sb.group}}
+        {{#sb.Group}}
+          {{sb.Option}}
+        {{/sb.Group}}
       {{/native-select-box}}
     `);
 
@@ -140,8 +140,8 @@ module('native-select-box', function(hooks) {
 
     await render(hbs`
       {{#native-select-box value=this.selectedValue as |sb|}}
-        {{#sb.option value="foo"}}Foo{{/sb.option}}
-        {{#sb.option value="bar"}}Bar{{/sb.option}}
+        {{#sb.Option value="foo"}}Foo{{/sb.Option}}
+        {{#sb.Option value="bar"}}Bar{{/sb.Option}}
       {{/native-select-box}}
     `);
 
@@ -182,9 +182,9 @@ module('native-select-box', function(hooks) {
       {{#native-select-box
         value=this.initialSelectedValue
         onSelect=this.selected as |sb|}}
-        {{sb.option value="foo"}}
-        {{sb.option value="bar"}}
-        {{sb.option value="baz"}}
+        {{sb.Option value="foo"}}
+        {{sb.Option value="bar"}}
+        {{sb.Option value="baz"}}
       {{/native-select-box}}
     `);
 
@@ -210,9 +210,9 @@ module('native-select-box', function(hooks) {
       {{#native-select-box
         value=this.selectedValue
         onSelect=(action (mut this.selectedValue)) as |sb|}}
-        {{sb.option value="foo"}}
-        {{sb.option value="bar"}}
-        {{sb.option value="baz"}}
+        {{sb.Option value="foo"}}
+        {{sb.Option value="bar"}}
+        {{sb.Option value="baz"}}
       {{/native-select-box}}
     `);
 
@@ -229,9 +229,9 @@ module('native-select-box', function(hooks) {
     await render(hbs`
       {{! template-lint-disable no-unbound }}
       {{#native-select-box value=(unbound this.selectedValue) as |sb|}}
-        {{sb.option value="foo"}}
-        {{sb.option value="bar"}}
-        {{sb.option value="baz"}}
+        {{sb.Option value="foo"}}
+        {{sb.Option value="bar"}}
+        {{sb.Option value="baz"}}
       {{/native-select-box}}
     `);
 
@@ -256,8 +256,8 @@ module('native-select-box', function(hooks) {
 
     await render(hbs`
       {{#native-select-box multiple=true onSelect=this.selected as |sb|}}
-        {{#sb.option value=this.foo}}Foo{{/sb.option}}
-        {{#sb.option value=this.bar}}Bar{{/sb.option}}
+        {{#sb.Option value=this.foo}}Foo{{/sb.Option}}
+        {{#sb.Option value=this.bar}}Bar{{/sb.Option}}
       {{/native-select-box}}
     `);
 
@@ -269,9 +269,9 @@ module('native-select-box', function(hooks) {
 
     await render(hbs`
       {{#native-select-box value="baz" as |sb|}}
-        {{sb.option value="foo" selected=false}}
-        {{sb.option value="bar" selected=true}}
-        {{sb.option value="baz" selected=false}}
+        {{sb.Option value="foo" selected=false}}
+        {{sb.Option value="bar" selected=true}}
+        {{sb.Option value="baz" selected=false}}
       {{/native-select-box}}
     `);
 
@@ -287,9 +287,9 @@ module('native-select-box', function(hooks) {
 
     await render(hbs`
       {{#native-select-box multiple=true as |sb|}}
-        {{sb.option value="foo"}}
-        {{sb.option value="bar" selected=this.barSelected}}
-        {{sb.option value="baz" selected=this.bazSelected}}
+        {{sb.Option value="foo"}}
+        {{sb.Option value="bar" selected=this.barSelected}}
+        {{sb.Option value="baz" selected=this.bazSelected}}
       {{/native-select-box}}
     `);
 
@@ -368,7 +368,7 @@ module('native-select-box', function(hooks) {
 
     await render(hbs`
       {{#native-select-box multiple=true onSelect=this.selected as |sb|}}
-        {{sb.option value="foo"}}
+        {{sb.Option value="foo"}}
         <option value="bar"></option>
       {{/native-select-box}}
     `);
@@ -405,9 +405,9 @@ module('native-select-box', function(hooks) {
 
     await render(hbs`
       {{#select-box/foo value="bar" as |sb|}}
-        {{#sb.option value="foo"}}Foo{{/sb.option}}
-        {{#sb.option value="bar"}}Bar{{/sb.option}}
-        {{#sb.option value="baz"}}Baz{{/sb.option}}
+        {{#sb.Option value="foo"}}Foo{{/sb.Option}}
+        {{#sb.Option value="bar"}}Bar{{/sb.Option}}
+        {{#sb.Option value="baz"}}Baz{{/sb.Option}}
       {{/select-box/foo}}
     `);
 
@@ -428,7 +428,7 @@ module('native-select-box', function(hooks) {
 
     await render(hbs`
       {{#native-select-box onBuildSelection=this.buildSelection as |sb|}}
-        {{sb.option value="foo"}}
+        {{sb.Option value="foo"}}
       {{/native-select-box}}
     `);
 
@@ -446,7 +446,7 @@ module('native-select-box', function(hooks) {
 
     await render(hbs`
       {{#native-select-box onSelect=this.selected as |sb|}}
-        {{#sb.option}}foo{{/sb.option}}
+        {{#sb.Option}}foo{{/sb.Option}}
       {{/native-select-box}}
     `);
 
@@ -478,9 +478,9 @@ module('native-select-box', function(hooks) {
 
     await render(hbs`
       {{#native-select-box as |sb|}}
-        {{sb.option}}
-        {{sb.option}}
-        {{sb.option}}
+        {{sb.Option}}
+        {{sb.Option}}
+        {{sb.Option}}
       {{/native-select-box}}
     `);
 

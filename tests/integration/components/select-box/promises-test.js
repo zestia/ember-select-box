@@ -99,9 +99,9 @@ module('select-box (promises)', function(hooks) {
 
     await render(hbs`
       {{#select-box value=this.promise2 as |sb|}}
-        {{sb.option value=this.promise1}}
-        {{sb.option value="bar"}}
-        {{sb.option value=this.promise2}}
+        {{sb.Option value=this.promise1}}
+        {{sb.Option value="bar"}}
+        {{sb.Option value=this.promise2}}
       {{/select-box}}
     `);
 
@@ -151,9 +151,9 @@ module('select-box (promises)', function(hooks) {
     await render(hbs`
       {{#select-box value=this.promises multiple=true as |sb|}}
         {{#each this.values as |value|}}
-          {{#sb.option value=value as |o|}}
+          {{#sb.Option value=value as |o|}}
             {{o.value}}
-          {{/sb.option}}
+          {{/sb.Option}}
         {{/each}}
       {{/select-box}}
     `);
@@ -177,9 +177,9 @@ module('select-box (promises)', function(hooks) {
 
     await render(hbs`
       {{#select-box value=this.promise as |sb|}}
-        {{sb.option value="foo"}}
-        {{sb.option value="bar"}}
-        {{sb.option value="baz"}}
+        {{sb.Option value="foo"}}
+        {{sb.Option value="bar"}}
+        {{sb.Option value="baz"}}
       {{/select-box}}
     `);
 
@@ -205,9 +205,9 @@ module('select-box (promises)', function(hooks) {
 
     await render(hbs`
       {{#select-box value=this.promise1 as |sb|}}
-        {{#sb.option value=this.promise2 as |o|}}{{o.value}}{{/sb.option}}
-        {{#sb.option value=this.promise3 as |o|}}{{o.value}}{{/sb.option}}
-        {{#sb.option value=this.promise4 as |o|}}{{o.value}}{{/sb.option}}
+        {{#sb.Option value=this.promise2 as |o|}}{{o.value}}{{/sb.Option}}
+        {{#sb.Option value=this.promise3 as |o|}}{{o.value}}{{/sb.Option}}
+        {{#sb.Option value=this.promise4 as |o|}}{{o.value}}{{/sb.Option}}
       {{/select-box}}
     `);
 
@@ -234,9 +234,9 @@ module('select-box (promises)', function(hooks) {
 
     await render(hbs`
       {{#select-box value=this.promise as |sb|}}
-        {{#sb.option value="foo"}}Foo{{/sb.option}}
-        {{#sb.option value="bar"}}Bar{{/sb.option}}
-        {{#sb.option value="baz"}}Baz{{/sb.option}}
+        {{#sb.Option value="foo"}}Foo{{/sb.Option}}
+        {{#sb.Option value="bar"}}Bar{{/sb.Option}}
+        {{#sb.Option value="baz"}}Baz{{/sb.Option}}
       {{/select-box}}
     `);
 
@@ -259,9 +259,9 @@ module('select-box (promises)', function(hooks) {
 
     await render(hbs`
       {{#select-box value="bar" as |sb|}}
-        {{#sb.option value=this.promise as |o|}}
+        {{#sb.Option value=this.promise as |o|}}
           {{~o.value~}}
-        {{/sb.option}}
+        {{/sb.Option}}
       {{/select-box}}
     `);
 
@@ -288,9 +288,9 @@ module('select-box (promises)', function(hooks) {
 
     await render(hbs`
       {{#select-box as |sb|}}
-        {{#sb.option value=this.promise as |o|}}
+        {{#sb.Option value=this.promise as |o|}}
           {{~o.value~}}
-        {{/sb.option}}
+        {{/sb.Option}}
       {{/select-box}}
     `);
 
@@ -313,9 +313,9 @@ module('select-box (promises)', function(hooks) {
     await render(hbs`
       {{#if this.showSelect}}
         {{#select-box onSelect=(action (mut this.selectedValue)) as |sb|}}
-          {{#sb.option value="foo"}}Foo{{/sb.option}}
-          {{#sb.option value="bar"}}Bar{{/sb.option}}
-          {{#sb.option value="baz"}}Baz{{/sb.option}}
+          {{#sb.Option value="foo"}}Foo{{/sb.Option}}
+          {{#sb.Option value="bar"}}Bar{{/sb.Option}}
+          {{#sb.Option value="baz"}}Baz{{/sb.Option}}
         {{/select-box}}
       {{/if}}
       <button onclick={{action this.show}}></button>

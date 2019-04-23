@@ -22,15 +22,15 @@ module('select-box', function(hooks) {
 
     await render(hbs`
       {{#select-box classNamePrefix="foo" as |sb|}}
-        {{sb.input}}
-        {{#sb.selectedOptions}}
-          {{sb.selectedOption}}
-        {{/sb.selectedOptions}}
-        {{#sb.options}}
-          {{#sb.group}}
-            {{sb.option}}
-          {{/sb.group}}
-        {{/sb.options}}
+        {{sb.Input}}
+        {{#sb.SelectedOptions}}
+          {{sb.SelectedOption}}
+        {{/sb.SelectedOptions}}
+        {{#sb.Options}}
+          {{#sb.Group}}
+            {{sb.Option}}
+          {{/sb.Group}}
+        {{/sb.Options}}
       {{/select-box}}
     `);
 

@@ -8,10 +8,10 @@
   @onClickOutside={{action "close"}}
   @onPressEscape={{action "close"}}
   @onSelect={{action "selected" @onSelect}} as |sb|>
-  <sb.input @click={{sb.open}} @onInput={{sb.open}} />
+  <sb.Input @click={{sb.open}} @onInput={{sb.open}} />
   {{#if sb.isOpen}}
-    <sb.options>
+    <sb.Options>
       {{yield sb}}
-    </sb.options>
+    </sb.Options>
   {{/if}}
 </SelectBox>

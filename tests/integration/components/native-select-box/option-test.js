@@ -123,9 +123,9 @@ module('native-select-box/option', function(hooks) {
     await render(hbs`
       {{#native-select-box value="foo" as |sb|}}
         {{#each this.items as |item|}}
-          {{#sb.option value=item as |o|~}}
+          {{#sb.Option value=item as |o|~}}
             {{o.index}}={{o.value}}
-          {{~/sb.option}}
+          {{~/sb.Option}}
         {{/each}}
       {{/native-select-box}}
     `);

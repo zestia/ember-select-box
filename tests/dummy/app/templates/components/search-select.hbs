@@ -7,15 +7,15 @@
   @onSearched={{action "searched"}}
   @onPressEscape={{action "close"}}
   @onClickOutside={{action "close"}} as |sb|>
-  <sb.input />
+  <sb.Input />
   {{#if sb.isSearching}}
-    <sb.option>
+    <sb.Option>
       Please wait...
       {{if sb.isSlowSearch "(hold tight!)"}}
-    </sb.option>
+    </sb.Option>
   {{else if sb.isOpen}}
-    <sb.options>
+    <sb.Options>
       {{yield sb this.lastQuery}}
-    </sb.options>
+    </sb.Options>
   {{/if}}
 </SelectBox>

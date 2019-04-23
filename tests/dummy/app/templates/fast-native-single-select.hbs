@@ -6,7 +6,7 @@
 
 <NativeSelectBox @onSelect={{action "selectModelId"}}>
   {{#each this.options as |o|}}
-    {{! Intentionally does not use sb.option }}
+    {{! Intentionally does not use sb.Option }}
     <option value={{o.model.id}} selected={{o.selected}}>
       {{o.model.name}}
     </option>

@@ -29,7 +29,7 @@ module('select-box (disabling)', function(hooks) {
 
     await render(hbs`
       {{#select-box disabled=true as |sb|}}
-        {{sb.input}}
+        {{sb.Input}}
       {{/select-box}}
     `);
 

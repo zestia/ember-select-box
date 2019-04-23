@@ -73,7 +73,7 @@ module('select-box (focusing)', function(hooks) {
 
     await render(hbs`
       {{#select-box as |sb|}}
-        {{sb.input}}
+        {{sb.Input}}
       {{/select-box}}
     `);
 

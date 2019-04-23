@@ -8,14 +8,14 @@
   @onClickOutside={{action "close"}}
   @onSelect={{action "selected" @onSelect}}
   @onUpdate={{action "updateDisplayLabel"}} as |sb|>
-  <sb.selectedOption @click={{sb.open}}>
+  <sb.SelectedOption @click={{sb.open}}>
     {{#if this.displayLabel}}
       {{this.displayLabel}}
     {{else}}
       &nbsp;
     {{/if}}
-  </sb.selectedOption>
-  <sb.options>
+  </sb.SelectedOption>
+  <sb.Options>
     {{yield sb}}
-  </sb.options>
+  </sb.Options>
 </SelectBox>

@@ -8,18 +8,18 @@
   @value={{this.selectedBread}}
   @onSelect={{action "selectedBread"}} as |sb|>
 
-  <sb.option @value={{this.bloomer}} @onSelect={{action "action1"}}>
+  <sb.Option @value={{this.bloomer}} @onSelect={{action "action1"}}>
     {{this.bloomer.name}} (Misc action 1)
-  </sb.option>
+  </sb.Option>
 
-  <sb.option @value={{this.brioche}} @onSelect={{action "action2"}}>
+  <sb.Option @value={{this.brioche}} @onSelect={{action "action2"}}>
     {{this.brioche.name}} (Misc action 2)
-  </sb.option>
+  </sb.Option>
 
   {{#each this.selectableBreads as |bread|}}
-    <sb.option @value={{bread}}>
+    <sb.Option @value={{bread}}>
       {{bread.name}}
-    </sb.option>
+    </sb.Option>
   {{/each}}
 </SelectBox>
 

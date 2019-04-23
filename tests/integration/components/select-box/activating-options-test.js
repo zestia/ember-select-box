@@ -21,10 +21,10 @@ module('select-box (activating options)', function(hooks) {
 
     await render(hbs`
       {{#select-box as |sb|}}
-        {{#sb.options}}
-          {{#sb.option value=1}}One{{/sb.option}}
-          {{#sb.option value=2}}Two{{/sb.option}}
-        {{/sb.options}}
+        {{#sb.Options}}
+          {{#sb.Option value=1}}One{{/sb.Option}}
+          {{#sb.Option value=2}}Two{{/sb.Option}}
+        {{/sb.Options}}
       {{/select-box}}
     `);
 
@@ -74,7 +74,7 @@ module('select-box (activating options)', function(hooks) {
 
     await render(hbs`
       {{#select-box as |sb|}}
-        {{sb.option value="foo" onActivate=this.activated}}
+        {{sb.Option value="foo" onActivate=this.activated}}
         <button onclick={{action sb.activateOptionAtIndex 0}}>Activate foo</button>
       {{/select-box}}
     `);
@@ -97,9 +97,9 @@ module('select-box (activating options)', function(hooks) {
       {{#select-box
         onPressDown=this.navigateDown
         onPressUp=this.navigateUp as |sb|}}
-        {{#sb.option value=1}}One{{/sb.option}}
-        {{#sb.option value=2}}Two{{/sb.option}}
-        {{#sb.option value=3}}Three{{/sb.option}}
+        {{#sb.Option value=1}}One{{/sb.Option}}
+        {{#sb.Option value=2}}Two{{/sb.Option}}
+        {{#sb.Option value=3}}Three{{/sb.Option}}
       {{/select-box}}
     `);
 
@@ -151,9 +151,9 @@ module('select-box (activating options)', function(hooks) {
 
     await render(hbs`
       {{#select-box onPressKey=this.autoActivate as |sb|}}
-        {{#sb.option value="foo"}}Foo{{/sb.option}}
-        {{#sb.option value="bar"}}Bar{{/sb.option}}
-        {{#sb.option value="baz"}}Baz{{/sb.option}}
+        {{#sb.Option value="foo"}}Foo{{/sb.Option}}
+        {{#sb.Option value="bar"}}Bar{{/sb.Option}}
+        {{#sb.Option value="baz"}}Baz{{/sb.Option}}
       {{/select-box}}
     `);
 
@@ -197,9 +197,9 @@ module('select-box (activating options)', function(hooks) {
 
     await render(hbs`
       {{#select-box onPressKey=this.autoActivate as |sb|}}
-        {{#sb.option value="foo"}}Foo{{/sb.option}}
-        {{#sb.option value="bar"}}Bar{{/sb.option}}
-        {{#sb.option value="baz"}}Baz{{/sb.option}}
+        {{#sb.Option value="foo"}}Foo{{/sb.Option}}
+        {{#sb.Option value="bar"}}Bar{{/sb.Option}}
+        {{#sb.Option value="baz"}}Baz{{/sb.Option}}
       {{/select-box}}
     `);
 
@@ -225,12 +225,12 @@ module('select-box (activating options)', function(hooks) {
 
     await render(hbs`
       {{#select-box onPressKey=this.autoActivate as |sb|}}
-        {{#sb.option value=1980}}1980{{/sb.option}}
-        {{#sb.option value=1981}}1981{{/sb.option}}
-        {{#sb.option value=1982}}1982{{/sb.option}}
-        {{#sb.option value=1983}}1983{{/sb.option}}
-        {{#sb.option value=1984}}1984{{/sb.option}}
-        {{#sb.option value=1985}}1985{{/sb.option}}
+        {{#sb.Option value=1980}}1980{{/sb.Option}}
+        {{#sb.Option value=1981}}1981{{/sb.Option}}
+        {{#sb.Option value=1982}}1982{{/sb.Option}}
+        {{#sb.Option value=1983}}1983{{/sb.Option}}
+        {{#sb.Option value=1984}}1984{{/sb.Option}}
+        {{#sb.Option value=1985}}1985{{/sb.Option}}
       {{/select-box}}
     `);
 

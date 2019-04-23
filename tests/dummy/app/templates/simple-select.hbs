@@ -10,9 +10,9 @@
   @labelKey="name"
   @onSelect={{action "selectedPudding"}} as |sb|>
   {{#each this.selectablePuddings as |pudding|}}
-    <sb.option @value={{pudding}}>
+    <sb.Option @value={{pudding}}>
       {{pudding.name}}
-    </sb.option>
+    </sb.Option>
   {{/each}}
 </SimpleSelect>
 

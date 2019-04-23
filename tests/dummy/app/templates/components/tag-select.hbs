@@ -10,9 +10,9 @@
   @onSelect={{action "addTag"}}
   @onSearch={{action "updateAvailableTags" @onSearch}} as |sb|>
 
-  <sb.selectedOptions>
+  <sb.SelectedOptions>
     {{#each @value as |tag|}}
-      <sb.selectedOption>
+      <sb.SelectedOption>
         {{tag}}
         {{! template-lint-disable invalid-interactive }}
         <span
@@ -20,28 +20,28 @@
           class="tag-select-remove">
           &times;
         </span>
-      </sb.selectedOption>
+      </sb.SelectedOption>
     {{/each}}
-  </sb.selectedOptions>
+  </sb.SelectedOptions>
 
-  <sb.input
+  <sb.Input
     autofocus={{true}}
     @click={{action "reveal" sb @onSearch}}
     @onInput={{sb.open}}
     @onDelete={{action "removeTag" @value.lastObject}} />
 
   {{#if sb.isOpen}}
-    <sb.options>
+    <sb.Options>
       {{#if this.availableTags.length}}
         {{#each this.availableTags as |tag|}}
-          <sb.option @value={{tag}}>{{tag}}</sb.option>
+          <sb.Option @value={{tag}}>{{tag}}</sb.Option>
         {{/each}}
       {{else if this.newTag}}
-        <sb.option @value={{this.newTag}}>
+        <sb.Option @value={{this.newTag}}>
           No tag found<br>
           Add {{this.newTag}}...
-        </sb.option>
+        </sb.Option>
       {{/if}}
-    </sb.options>
+    </sb.Options>
   {{/if}}
 </SelectBox>

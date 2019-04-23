@@ -5,21 +5,21 @@
   @onClickOutside={{action "close"}}
   @onPressEscape={{action "close"}} as |sb|>
 
-  <sb.selectedOption
+  <sb.SelectedOption
     @style={{concat "background:" sb.value}}
     @click={{sb.open}}
     @value={{sb.value}}>
     {{sb.value}}
-  </sb.selectedOption>
+  </sb.SelectedOption>
 
   {{#if sb.isOpen}}
-    <sb.options>
+    <sb.Options>
       {{#each this.colours as |colour|~}}
-        <sb.option @value={{colour}} @style={{concat "background:" colour}}>
+        <sb.Option @value={{colour}} @style={{concat "background:" colour}}>
           {{colour}}
-        </sb.option>
+        </sb.Option>
       {{~/each}}
-    </sb.options>
+    </sb.Options>
   {{/if}}
 
 </SelectBox>

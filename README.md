@@ -43,9 +43,9 @@ ember install @zestia/ember-select-box
 
 ```handlebars
 <NativeSelectBox as |sb|>
-  <sb.option @value="1"> One </sb.option>
-  <sb.option @value="2"> Two </sb.option>
-  <sb.option @value="3"> Three </sb.option>
+  <sb.Option @value="1"> One </sb.Option>
+  <sb.Option @value="2"> Two </sb.Option>
+  <sb.Option @value="3"> Three </sb.Option>
 </NativeSelectBox>
 ```
 
@@ -53,9 +53,9 @@ ember install @zestia/ember-select-box
 
 ```handlebars
 <SelectBox as |sb|>
-  <sb.option @value="1"> One </sb.option>
-  <sb.option @value="2"> Two </sb.option>
-  <sb.option @value="3"> Three </sb.option>
+  <sb.Option @value="1"> One </sb.Option>
+  <sb.Option @value="2"> Two </sb.Option>
+  <sb.Option @value="3"> Three </sb.Option>
 </SelectBox>
 ```
 
@@ -369,9 +369,9 @@ ember install @zestia/ember-select-box
 ### Option
 
 ```handlebars
-<sb.option @value={{model}} as |o|>
+<sb.Option @value={{model}} as |o|>
   {{o.value.name}}
-</sb.option>
+</sb.Option>
 ```
 
 <details>
@@ -453,22 +453,22 @@ Self explanitory, just wraps the options in extra markup.<br>
 (You can still navigate groups using the arrow keys / the API)
 
 ```handlebars
-<sb.group label="Things">
+<sb.Group label="Things">
 
-</sb.group>
+</sb.Group>
 ```
 
 <hr>
 
 ### Options
 
-You only need to wrap the options up in with `sb.options` if you require extra markup for styling.
+You only need to wrap the options up in with `sb.Options` if you require extra markup for styling.
 
 ```handlebars
-<sb.options>
-  <sb.option @value="1"> One </sb.option>
-  <sb.option @value="2"> Two </sb.option>
-</sb.options>
+<sb.Options>
+  <sb.Option @value="1"> One </sb.Option>
+  <sb.Option @value="2"> Two </sb.Option>
+</sb.Options>
 ```
 
 <details>
@@ -491,7 +491,7 @@ You only need to wrap the options up in with `sb.options` if you require extra m
 Allows you to input text into the select box, usually for running searches/filtering
 
 ```handlebars
-<sb.input />
+<sb.Input />
 ```
 
 <details>
@@ -519,9 +519,9 @@ Allows you to input text into the select box, usually for running searches/filte
 Does _not_ render the user's selected option automatically, but rather just provides a way for you to render the option(s) that have been selected.
 
 ```handlebars
-<sb.selectedOption @value={{model}} as |so|>
+<sb.SelectedOption @value={{model}} as |so|>
   {{so.value.name}}
-</sb.selectedOption>
+</sb.SelectedOption>
 ```
 
 <details>
@@ -549,11 +549,11 @@ Does _not_ render the user's selected option automatically, but rather just prov
 ### Selected options
 
 ```handlebars
-<sb.selectedOptions>
+<sb.SelectedOptions>
   {{#each sb.value as |value|}}
-    <sb.selectedOption>You chose this {{value}}</sb.selectedOption>
+    <sb.SelectedOption>You chose this {{value}}</sb.SelectedOption>
   {{/each}}
-</sb.selectedOptions>
+</sb.SelectedOptions>
 ```
 
 Provides a container for options that the user selected. Does not do anything by default, but it is possible to activate selected options using the API, thereby allowing you to create your own navigatable select box.
@@ -599,9 +599,9 @@ Option 1 is recommended. Define your component like so...
 
 ```handlebars
 <SelectBox @value={{@value}} @onSelect={{@onSelect}} @classNamePrefix="my-select-box" as |sb|>
-  <sb.selectedOption @click=sb.toggle>
+  <sb.SelectedOption @click=sb.toggle>
     {{sb.value.name}}
-  </sb.selectedOption>
+  </sb.SelectedOption>
   {{yield sb}}
 </SelectBox>
 ```
@@ -611,7 +611,7 @@ Option 1 is recommended. Define your component like so...
 ```handlebars
 <MySelect @value={{thing}} @onSelect={{action "selectedAThing"}} as |sb|>
   {{#each things as |thing|}}
-    <sb.option @value={{thing}}>{{thing.name}}</sb.option>
+    <sb.Option @value={{thing}}>{{thing.name}}</sb.Option>
   {{/each}}
 </MySelect>
 ```
@@ -646,5 +646,5 @@ Option 1 is recommended. Define your component like so...
 re-use components. You can fix this by adding `key="@index"` to your `#each`.
 
 * Problem: Rendering lots of options is slow.
-* Solution: If your select box only uses _primitive_ values, you do not need to use `<sb.option>`, instead you can
+* Solution: If your select box only uses _primitive_ values, you do not need to use `<sb.Option>`, instead you can
 use a plain old `<option>` element [[Example](tests/dummy/app/templates/fast-native-single-select.hbs)]. Which will be faster, because constructing components is expensive in Ember.

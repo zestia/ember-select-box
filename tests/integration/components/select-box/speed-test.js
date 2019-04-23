@@ -34,7 +34,7 @@ module('select-box (speed)', function(hooks) {
     await render(hbs`
       {{#select-box as |sb|}}
         {{#each this.items as |item|}}
-          {{#sb.option value=item}}{{item}}{{/sb.option}}
+          {{#sb.Option value=item}}{{item}}{{/sb.Option}}
         {{/each}}
       {{/select-box}}
     `);

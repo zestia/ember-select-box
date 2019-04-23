@@ -76,8 +76,8 @@ module('select-box/option', function(hooks) {
 
     await render(hbs`
       {{#select-box value=this.value as |sb|}}
-        {{#sb.option value=1}}One{{/sb.option}}
-        {{#sb.option value=2}}Two{{/sb.option}}
+        {{#sb.Option value=1}}One{{/sb.Option}}
+        {{#sb.Option value=2}}Two{{/sb.Option}}
       {{/select-box}}
     `);
 
@@ -112,20 +112,20 @@ module('select-box/option', function(hooks) {
 
     await render(hbs`
       {{#select-box value=this.selectedValue as |sb|}}
-        {{#sb.group label="Group 1"}}
+        {{#sb.Group label="Group 1"}}
           {{#each this.group1 as |item i|}}
-            {{#sb.option value=item as |o|~}}
+            {{#sb.Option value=item as |o|~}}
               {{o.value.myLabel}} {{i}} {{o.index}} {{o.isSelected}}
-            {{~/sb.option}}
+            {{~/sb.Option}}
           {{/each}}
-        {{/sb.group}}
-        {{#sb.group label="Group 2"}}
+        {{/sb.Group}}
+        {{#sb.Group label="Group 2"}}
           {{#each this.group2 as |item i|}}
-            {{#sb.option value=item as |o|~}}
+            {{#sb.Option value=item as |o|~}}
               {{o.value.myLabel}} {{i}} {{o.index}} {{o.isSelected}}
-            {{~/sb.option}}
+            {{~/sb.Option}}
           {{/each}}
-        {{/sb.group}}
+        {{/sb.Group}}
       {{/select-box}}
     `);
 
@@ -160,9 +160,9 @@ module('select-box/option', function(hooks) {
     await render(hbs`
       {{#select-box value="baz" as |sb|}}
         {{#each this.values as |value|}}
-          {{#sb.option value=value as |o|~}}
+          {{#sb.Option value=value as |o|~}}
             {{o.value}}: {{o.index}}
-          {{~/sb.option}}
+          {{~/sb.Option}}
         {{/each}}
       {{/select-box}}
     `);
@@ -181,9 +181,9 @@ module('select-box/option', function(hooks) {
     await render(hbs`
       {{#select-box value="baz" as |sb|}}
         {{#each this.values key="@index" as |value|}}
-          {{#sb.option value=value as |o|~}}
+          {{#sb.Option value=value as |o|~}}
             {{o.value}}: {{o.index}}
-          {{~/sb.option}}
+          {{~/sb.Option}}
         {{/each}}
       {{/select-box}}
     `);

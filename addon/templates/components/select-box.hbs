@@ -1,10 +1,10 @@
 {{yield (hash
-  selectedOptions=(component "select-box/selected-options"
+  SelectedOptions=(component "select-box/selected-options"
     aria-activedescendant=this.activeSelectedOption.elementId
     classNamePrefix=@classNamePrefix
     _onInit=(action "_registerSelectedOptionsContainer")
     _onDestroy=(action "_deregisterSelectedOptionsContainer"))
-  selectedOption=(component "select-box/selected-option"
+  SelectedOption=(component "select-box/selected-option"
     classNamePrefix=@classNamePrefix
     _parentComponents=this.selectedOptions
     _parentActiveIndex=this.activeSelectedOptionIndex
@@ -12,12 +12,12 @@
     _onInit=(action "_registerSelectedOption")
     _onDestroy=(action "_deregisterSelectedOption")
     _onActivate=(action "activateSelectedOptionAtIndex"))
-  options=(component "select-box/options"
+  Options=(component "select-box/options"
     aria-activedescendant=this.activeOption.elementId
     classNamePrefix=@classNamePrefix
     _onInit=(action "_registerOptionsContainer")
     _onDestroy=(action "_deregisterOptionsContainer"))
-  option=(component "select-box/option"
+  Option=(component "select-box/option"
     classNamePrefix=@classNamePrefix
     _parentComponents=this.options
     _parentActiveIndex=this.activeOptionIndex
@@ -28,9 +28,9 @@
     _onDestroy=(action "_deregisterOption")
     _onActivate=(action "activateOptionAtIndex")
     _onSelect=(action "_select"))
-  group=(component "select-box/group"
+  Group=(component "select-box/group"
     classNamePrefix=@classNamePrefix)
-  input=(component "select-box/input"
+  Input=(component "select-box/input"
     aria-controls=this.elementId
     disabled=this.isDisabled
     classNamePrefix=@classNamePrefix

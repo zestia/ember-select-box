@@ -11,16 +11,16 @@ module('select-box (activating selected options)', function(hooks) {
 
     await render(hbs`
       {{#select-box as |sb|}}
-        {{#sb.selectedOptions}}
-          {{#sb.selectedOption
+        {{#sb.SelectedOptions}}
+          {{#sb.SelectedOption
             click=(action sb.activateSelectedOptionAtIndex 0)~}}
             One
-          {{~/sb.selectedOption}}
-          {{#sb.selectedOption
+          {{~/sb.SelectedOption}}
+          {{#sb.SelectedOption
             click=(action sb.activateSelectedOptionAtIndex 1)~}}
             Two
-          {{/sb.selectedOption}}
-        {{/sb.selectedOptions}}
+          {{/sb.SelectedOption}}
+        {{/sb.SelectedOptions}}
       {{/select-box}}
     `);
 
@@ -65,7 +65,7 @@ module('select-box (activating selected options)', function(hooks) {
 
     await render(hbs`
       {{#select-box as |sb|}}
-        {{sb.selectedOption value="foo" onActivate=this.activated}}
+        {{sb.SelectedOption value="foo" onActivate=this.activated}}
         <button onclick={{action sb.activateSelectedOptionAtIndex 0}}>Activate foo</button>
       {{/select-box}}
     `);

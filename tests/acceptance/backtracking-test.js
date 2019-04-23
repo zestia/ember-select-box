@@ -31,9 +31,9 @@ module('backtracking focus use-case', function(hooks) {
         layout: hbs`
         {{#select-box classNamePrefix="backtrack-select" as |sb|}}
           {{yield (hash
-            selectedOption=(component sb.selectedOption click=sb.open)
+            selectedOption=(component sb.SelectedOption click=sb.open)
             close=sb.close
-            options=(if sb.isOpen sb.options)
+            options=(if sb.isOpen sb.Options)
           )}}
         {{/select-box}}
       `
