@@ -8,17 +8,13 @@
   <sb.SelectedOption
     @style={{concat "background:" sb.value}}
     @click={{sb.open}}
-    @value={{sb.value}}>
-    {{sb.value}}
-  </sb.SelectedOption>
+    @value={{sb.value}} />
 
   {{#if sb.isOpen}}
     <sb.Options>
-      {{#each this.colours as |colour|~}}
-        <sb.Option @value={{colour}} @style={{concat "background:" colour}}>
-          {{colour}}
-        </sb.Option>
-      {{~/each}}
+      {{~#each this.colours as |colour|~}}
+        <sb.Option @value={{colour}} @style={{concat "background:" colour}} />
+      {{~/each~}}
     </sb.Options>
   {{/if}}
 
