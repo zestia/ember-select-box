@@ -12,7 +12,7 @@
       {{bread.name}}
     </sb.Option>
   {{else}}
-    <sb.Option @click={{action "addNewBread" newBread}}>
+    <sb.Option onclick={{action "addNewBread" newBread}}>
       No bread found<br>
       Add {{newBread}}...
     </sb.Option>

@@ -599,7 +599,7 @@ Option 1 is recommended. Define your component like so...
 
 ```handlebars
 <SelectBox @value={{@value}} @onSelect={{@onSelect}} @classNamePrefix="my-select-box" as |sb|>
-  <sb.SelectedOption @click=sb.toggle>
+  <sb.SelectedOption onclick={{action sb.toggle}}>
     {{sb.value.name}}
   </sb.SelectedOption>
   {{yield sb}}
