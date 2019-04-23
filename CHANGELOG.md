@@ -3,7 +3,7 @@
 8.0.0
 
 * Switches from snake case arguments to camel case,<br>
-  (Upgrading should be an easy find-and-replace, e.g. `sb.selected-option` → `sb.SelectedOption`)
+  Upgrading should be an easy find-and-replace. For example: `sb.selected-option` → `sb.SelectedOption`
 
 7.2.3
 
