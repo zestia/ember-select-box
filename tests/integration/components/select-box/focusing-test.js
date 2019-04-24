@@ -64,13 +64,13 @@ module('select-box (focusing)', function(hooks) {
       .dom('.select-box')
       .hasAttribute('tabindex', '0', 'it should be possible to focus a select box');
 
-    await render(hbs`{{select-box disabled=true}}`);
+    await render(hbs`<SelectBox @disabled={{true}} />`);
 
     assert
       .dom('.select-box')
       .hasAttribute('tabindex', '-1', 'it should not be possible to focus a disabled select box');
 
-    await render(hbs`{{select-box tabindex=5}}`);
+    await render(hbs`{{select-box tabindex="5"}}`);
 
     assert.dom('.select-box').hasAttribute('tabindex', '5', 'can set the tabindex');
 

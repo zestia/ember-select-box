@@ -9,7 +9,7 @@ module('select-box/group', function(hooks) {
   test('it renders', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`{{select-box/group}}`);
+    await render(hbs`<SelectBox::group />`);
 
     assert
       .dom('div.select-box-group')
@@ -29,7 +29,7 @@ module('select-box/group', function(hooks) {
   test('class prefix', async function(assert) {
     assert.expect(3);
 
-    await render(hbs`{{select-box/group classNamePrefix="foo"}}`);
+    await render(hbs`<SelectBox::group @classNamePrefix="foo" />`);
 
     assert.dom('.foo-group').exists({ count: 1 }, 'can override the class prefix');
 
@@ -45,7 +45,7 @@ module('select-box/group', function(hooks) {
   test('label', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`{{select-box/group label="Foo"}}`);
+    await render(hbs`<SelectBox::group @label="Foo" />`);
 
     assert.dom('.select-box-group-label').hasText('Foo', 'displays the specified group label');
   });
@@ -54,9 +54,9 @@ module('select-box/group', function(hooks) {
     assert.expect(1);
 
     await render(hbs`
-      {{#select-box/group}}
-        {{select-box/option}}
-      {{/select-box/group}}
+      <SelectBox::group>
+        <SelectBox::option />
+      </SelectBox::group>
     `);
 
     assert

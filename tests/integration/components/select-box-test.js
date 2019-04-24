@@ -12,7 +12,7 @@ module('select-box', function(hooks) {
   test('it renders', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`{{select-box}}`);
+    await render(hbs`<SelectBox />`);
 
     assert.dom('div.select-box').exists({ count: 1 }, 'renders with correct class name and tag');
   });
@@ -21,17 +21,17 @@ module('select-box', function(hooks) {
     assert.expect(9);
 
     await render(hbs`
-      {{#select-box classNamePrefix="foo" as |sb|}}
-        {{sb.Input}}
-        {{#sb.SelectedOptions}}
-          {{sb.SelectedOption}}
-        {{/sb.SelectedOptions}}
-        {{#sb.Options}}
-          {{#sb.Group}}
-            {{sb.Option}}
-          {{/sb.Group}}
-        {{/sb.Options}}
-      {{/select-box}}
+      <SelectBox @classNamePrefix="foo" as |sb|>
+        <sb.Input />
+        <sb.SelectedOptions>
+          <sb.SelectedOption />
+        </sb.SelectedOptions>
+        <sb.Options>
+          <sb.Group>
+            <sb.Option />
+          </sb.Group>
+        </sb.Options>
+      </SelectBox>
     `);
 
     assert.dom('.foo').exists({ count: 1 });
@@ -54,7 +54,7 @@ module('select-box', function(hooks) {
 
     this.owner.register('component:select-box/foo', FooSelectBox);
 
-    await render(hbs`{{select-box/foo}}`);
+    await render(hbs`<SelectBox::foo />`);
 
     assert.ok(
       findAll('.foo').length,
@@ -66,7 +66,7 @@ module('select-box', function(hooks) {
   test('aria role', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`{{select-box}}`);
+    await render(hbs`<SelectBox />`);
 
     assert.dom('.select-box').doesNotHaveAttribute('role', 'select box has no aria role');
   });
@@ -74,7 +74,7 @@ module('select-box', function(hooks) {
   test('style', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`{{select-box style="color:red<script>"}}`);
+    await render(hbs`<SelectBox @style="color:red<script>" />`);
 
     assert.ok(
       find('.select-box').outerHTML.match('style="color:red&amp;lt;script&amp;gt;"'),
@@ -85,11 +85,11 @@ module('select-box', function(hooks) {
   test('multiple class', async function(assert) {
     assert.expect(2);
 
-    await render(hbs`{{select-box}}`);
+    await render(hbs`<SelectBox />`);
 
     assert.ok(!find('.select-box').classList.contains('is-multiple'), 'no multiple class');
 
-    await render(hbs`{{select-box multiple=true}}`);
+    await render(hbs`<SelectBox @multiple={{true}} />`);
 
     assert.dom('.select-box').hasClass('is-multiple', 'has multiple class');
   });
@@ -109,7 +109,7 @@ module('select-box', function(hooks) {
       );
     });
 
-    await render(hbs`{{select-box onUpdate=this.updated}}`);
+    await render(hbs`<SelectBox @onUpdate={{this.updated}} />`);
 
     assert.equal(called, 1, 'only fires once');
   });
@@ -130,9 +130,9 @@ module('select-box', function(hooks) {
     });
 
     await render(hbs`
-      {{select-box
-        value=this.selectedValue
-        onUpdate=this.updated}}
+      <SelectBox
+        @value={{this.selectedValue}}
+        @onUpdate={{this.updated}} />
     `);
 
     this.set('selectedValue', 'bar');
@@ -148,9 +148,9 @@ module('select-box', function(hooks) {
     });
 
     await render(hbs`
-      {{select-box
-        disabled=this.isDisabled
-        onUpdate=this.updated}}
+      <SelectBox
+        @disabled={{this.isDisabled}}
+        @onUpdate={{this.updated}} />
     `);
 
     this.set('isDisabled', true);
@@ -165,7 +165,7 @@ module('select-box', function(hooks) {
   test('no update action', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`{{select-box onUpdate=@onUpdate value=this.value}}`);
+    await render(hbs`<SelectBox @onUpdate={{@onUpdate}} @value={{this.value}} />`);
 
     this.set('value', 'foo');
 
@@ -182,7 +182,7 @@ module('select-box', function(hooks) {
 
     this.set('initialised', sb => (api = sb));
 
-    await render(hbs`{{select-box onInit=this.initialised}}`);
+    await render(hbs`<SelectBox @onInit={{this.initialised}} />`);
 
     assert.ok(!find('.select-box').classList.contains('is-open'), 'precondition, not open');
 
@@ -204,11 +204,11 @@ module('select-box', function(hooks) {
     this.set('updated', (value, sb) => (secondApi = sb));
 
     await render(hbs`
-      {{select-box
-        value=this.value
-        multiple=true
-        onInit=this.initialised
-        onUpdate=this.updated}}
+      <SelectBox
+        @value={{this.value}}
+        @multiple={{true}}
+        @onInit={{this.initialised}}
+        @onUpdate={{this.updated}} />
     `);
 
     assert.ok(!isFrozen(this.value), 'api does not accidentally freeze original value');
@@ -238,10 +238,10 @@ module('select-box', function(hooks) {
     );
 
     await render(hbs`
-      {{select-box
-        value=this.value
-        multiple=false
-        onUpdate=this.updated}}
+      <SelectBox
+        @value={{this.value}}
+        @multiple={{false}}
+        @onUpdate={{this.updated}} />
     `);
 
     this.set('value', { foo: 'bar' });

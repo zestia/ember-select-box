@@ -15,7 +15,7 @@ module('select-box (disabling)', function(hooks) {
 
     this.set('isDisabled', true);
 
-    await render(hbs`{{select-box disabled=this.isDisabled}}`);
+    await render(hbs`<SelectBox @disabled={{this.isDisabled}} />`);
 
     assert
       .dom('.select-box')
@@ -28,9 +28,9 @@ module('select-box (disabling)', function(hooks) {
       .doesNotHaveClass('is-disabled', 'can change the disabled state, removing the class name');
 
     await render(hbs`
-      {{#select-box disabled=true as |sb|}}
-        {{sb.Input}}
-      {{/select-box}}
+      <SelectBox @disabled={{true}} as |sb|>
+        <sb.Input />
+      </SelectBox>
     `);
 
     assert.ok(
@@ -44,7 +44,7 @@ module('select-box (disabling)', function(hooks) {
 
     this.set('disabled', true);
 
-    await render(hbs`{{select-box disabled=this.disabled}}`);
+    await render(hbs`<SelectBox @disabled={{this.disabled}} />`);
 
     assert
       .dom('.select-box')

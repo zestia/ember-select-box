@@ -91,17 +91,17 @@ module('select-box (searching)', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box
-        onSearch=this.findItems
-        onSearched=this.foundItems as |sb|}}
-        {{sb.Input}}
+      <SelectBox
+        @onSearch={{this.findItems}}
+        @onSearched={{this.foundItems}} as |sb|>
+        <sb.Input />
         Results for: {{this.query}}
         {{#each this.items as |item|}}
-          {{#sb.Option value=item}}
-            {{~item~}}
-          {{/sb.Option}}
+          <sb.Option @value={{item}}>
+            {{item}}
+          </sb.Option>
         {{/each}}
-      {{/select-box}}
+      </SelectBox>
     `);
 
     fillIn('.select-box-input', 'first');
@@ -118,8 +118,6 @@ module('select-box (searching)', function(hooks) {
       find('.select-box').textContent.match('Results for: third'),
       'yields results for the most recent query, ignoring later resolves'
     );
-
-    // return new Promise(() => {});
 
     assert
       .dom('.select-box-option')
@@ -142,14 +140,14 @@ module('select-box (searching)', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box
-        onSearch=this.findItems
-        onSearchError=this.failedToFindItems as |sb|}}
-        {{sb.Input}}
+      <SelectBox
+        @onSearch={{this.findItems}}
+        @onSearchError={{this.failedToFindItems}} as |sb|>
+        <sb.Input />
         {{#if this.error}}
           Error: {{this.error}} for {{this.query}}
         {{/if}}
-      {{/select-box}}
+      </SelectBox>
     `);
 
     assert.ok(!find('.select-box').textContent.match('Error:'), 'precondition, no error yet');
@@ -184,14 +182,14 @@ module('select-box (searching)', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box
-        onSearch=this.findItems
-        onSearched=this.searched
-        searchDelayTime=0
-        as |sb|}}
-        {{sb.Input}}
+      <SelectBox
+        @onSearch={{this.findItems}}
+        @onSearched={{this.searched}}
+        @searchDelayTime={{0}}
+        as |sb|>
+        <sb.Input />
         Searching: {{sb.isSearching}}
-      {{/select-box}}
+      </SelectBox>
     `);
 
     assert.equal(isSearching(), false, 'precondition, not searching yet');
@@ -219,12 +217,12 @@ module('select-box (searching)', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box
-        onSearch=this.findItems
-        onSearched=this.foundItems as |sb|}}
-        {{sb.Input}}
+      <SelectBox
+        @onSearch={{this.findItems}}
+        @onSearched={{this.foundItems}} as |sb|>
+        <sb.Input />
         {{this.items.[0]}}
-      {{/select-box}}
+      </SelectBox>
     `);
 
     deferred.resolve(['foo']);
@@ -257,13 +255,13 @@ module('select-box (searching)', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box
-        searchDelayTime=200
-        onSearch=this.findItems
-        onSearched=this.foundItems as |sb|}}
-        {{sb.Input}}
+      <SelectBox
+        @searchDelayTime={{200}}
+        @onSearch={{this.findItems}}
+        @onSearched={{this.foundItems}} as |sb|>
+        <sb.Input />
         {{this.items.[0]}}
-      {{/select-box}}
+      </SelectBox>
     `);
 
     deferred.resolve(['foo']);
@@ -297,14 +295,14 @@ module('select-box (searching)', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box
-        searchSlowTime=100
-        searchDelayTime=0
-        onSearch=this.findItems
-        onSearched=this.foundItems as |sb|}}
-        {{sb.Input}}
+      <SelectBox
+        @searchSlowTime={{100}}
+        @searchDelayTime={{0}}
+        @onSearch={{this.findItems}}
+        @onSearched={{this.foundItems}} as |sb|>
+        <sb.Input />
         Slow: {{sb.isSlowSearch}}
-      {{/select-box}}
+      </SelectBox>
     `);
 
     fillIn('.select-box-input', 'foo');
@@ -330,11 +328,11 @@ module('select-box (searching)', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box
-        searchDelayTime=0
-        onSearch=this.findItems as |sb|}}
-        {{sb.Input}}
-      {{/select-box}}
+      <SelectBox
+        @searchDelayTime={{0}}
+        @onSearch={{this.findItems}} as |sb|>
+        <sb.Input />
+      </SelectBox>
     `);
 
     deferred.resolve();
@@ -355,11 +353,11 @@ module('select-box (searching)', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box
-        searchDelayTime=0
-        onSearch=this.findItems as |sb|}}
-        {{sb.Input}}
-      {{/select-box}}
+      <SelectBox
+        @searchDelayTime={{0}}
+        @onSearch={{this.findItems}} as |sb|>
+        <sb.Input />
+      </SelectBox>
     `);
 
     deferred.resolve();
@@ -387,12 +385,12 @@ module('select-box (searching)', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box
-        searchMinChars=0
-        searchDelayTime=0
-        onSearch=this.findItems as |sb|}}
-        {{sb.Input}}
-      {{/select-box}}
+      <SelectBox
+        @searchMinChars={{0}}
+        @searchDelayTime={{0}}
+        @onSearch={{this.findItems}} as |sb|>
+        <sb.Input />
+      </SelectBox>
     `);
 
     deferred.resolve();
@@ -412,9 +410,9 @@ module('select-box (searching)', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box searchMinChars=2 onSearch=this.findItems as |sb|}}
+      <SelectBox @searchMinChars={{2}} @onSearch={{this.findItems}} as |sb|>
         <button onclick={{action sb.search ""}}></button>
-      {{/select-box}}
+      </SelectBox>
     `);
 
     deferred.resolve();
@@ -433,9 +431,9 @@ module('select-box (searching)', function(hooks) {
 
     await render(hbs`
       {{#if this.display}}
-        {{#select-box onSearch=this.findItems as |sb|}}
-          {{sb.Input}}
-        {{/select-box}}
+        <SelectBox @onSearch={{this.findItems}} as |sb|>
+          <sb.Input />
+        </SelectBox>
       {{/if}}
     `);
 
@@ -465,10 +463,10 @@ module('select-box (searching)', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box as |sb|}}
+      <SelectBox as |sb|>
         {{sb.Input value="foo" onInput=this.inputted}}
         <button onclick={{action sb.setInputValue "bar"}}>Reset</button>
-      {{/select-box}}
+      </SelectBox>
     `);
 
     const input = find('.select-box-input');
@@ -492,10 +490,10 @@ module('select-box (searching)', function(hooks) {
 
     await render(hbs`
       {{#if this.show}}
-        {{#select-box onSelect=(action this.hide) as |sb|}}
+        <SelectBox @onSelect={{action this.hide}} as |sb|>
           {{sb.Input value="foo"}}
-          {{sb.Option}}
-        {{/select-box}}
+          <sb.Option />
+        </SelectBox>
       {{/if}}
     `);
 
@@ -522,12 +520,12 @@ module('select-box (searching)', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box
-        searchDelayTime=0
-        onSearch=this.findItems
-        onSearched=this.foundItems as |sb|}}
+      <SelectBox
+        @searchDelayTime={{0}}
+        @onSearch={{this.findItems}}
+        @onSearched={{this.foundItems}} as |sb|>
         {{sb.Input value=this.myValue onClear=sb.stopSearching}}
-      {{/select-box}}
+      </SelectBox>
     `);
 
     const selectBox = find('.select-box');

@@ -9,7 +9,7 @@ module('select-box (toggling)', function(hooks) {
   test('opening an closing', async function(assert) {
     assert.expect(8);
 
-    await render(hbs`{{select-box}}`);
+    await render(hbs`<SelectBox />`);
 
     let selectBox = find('.select-box');
 
@@ -19,7 +19,7 @@ module('select-box (toggling)', function(hooks) {
 
     this.set('isOpen', true);
 
-    await render(hbs`{{select-box open=this.isOpen}}`);
+    await render(hbs`<SelectBox @open={{this.isOpen}} />`);
 
     selectBox = find('.select-box');
 
@@ -40,10 +40,10 @@ module('select-box (toggling)', function(hooks) {
       .hasAttribute('aria-expanded', 'false', 'open state is reflected as aria expanded attribute');
 
     await render(hbs`
-      {{#select-box as |sb|}}
+      <SelectBox as |sb|>
         <span>Open: {{sb.isOpen}}</span>
         <button onclick={{action sb.open}}></button>
-      {{/select-box}}
+      </SelectBox>
     `);
 
     assert.ok(find('span').textContent.match(/Open: false/), 'yields the open state when closed');
@@ -60,9 +60,9 @@ module('select-box (toggling)', function(hooks) {
     this.set('opened', sb => (opened = sb.isOpen));
 
     await render(hbs`
-      {{#select-box onOpen=this.opened as |sb|}}
+      <SelectBox @onOpen={{this.opened}} as |sb|>
         <button onclick={{action sb.open}}>open</button>
-      {{/select-box}}
+      </SelectBox>
     `);
 
     await click('button');
@@ -81,9 +81,9 @@ module('select-box (toggling)', function(hooks) {
     this.set('closed', sb => (closed = !sb.isOpen));
 
     await render(hbs`
-      {{#select-box onClose=this.closed as |sb|}}
+      <SelectBox @onClose={{this.closed}} as |sb|>
         <button onclick={{action sb.close}}>close</button>
-      {{/select-box}}
+      </SelectBox>
     `);
 
     await click('button');

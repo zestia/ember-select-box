@@ -15,11 +15,11 @@ module('select-box (styling)', function(hooks) {
   test('styling', async function(assert) {
     assert.expect(2);
 
-    await render(hbs`{{foo-select}}`);
+    await render(hbs`<FooSelect />`);
 
     assert.ok(!this.element.innerHTML.match('style'), 'style attribute is not present');
 
-    await render(hbs`{{foo-select style="color:red<script>"}}`);
+    await render(hbs`<FooSelect @style="color:red<script>" />`);
 
     assert.ok(
       this.element.innerHTML.match('style="color:red&amp;lt;script&amp;gt;"'),

@@ -9,7 +9,7 @@ module('select-box/selected-options', function(hooks) {
   test('it renders', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`{{select-box/selected-options}}`);
+    await render(hbs`<SelectBox::selected-options />`);
 
     assert
       .dom('div.select-box-selected-options')
@@ -19,7 +19,7 @@ module('select-box/selected-options', function(hooks) {
   test('class prefix', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`{{select-box/selected-options classNamePrefix="foo"}}`);
+    await render(hbs`<SelectBox::selected-options @classNamePrefix="foo" />`);
 
     assert.dom('.foo-selected-options').exists({ count: 1 }, 'can override the class prefix');
   });
@@ -27,7 +27,7 @@ module('select-box/selected-options', function(hooks) {
   test('style', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`{{select-box/selected-options style="color:red<script>"}}`);
+    await render(hbs`<SelectBox::selected-options @style="color:red<script>" />`);
 
     assert.ok(
       this.element.innerHTML.match('style="color:red&amp;lt;script&amp;gt;"'),
