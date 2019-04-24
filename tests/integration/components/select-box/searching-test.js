@@ -12,9 +12,9 @@ module('select-box (searching)', function(hooks) {
     assert.expect(1);
 
     await render(hbs`
-      {{#select-box as |sb|}}
-        {{sb.Input}}
-      {{/select-box}}
+      <SelectBox as |sb|>
+        <sb.Input />
+      </SelectBox>
     `);
 
     assert
@@ -26,9 +26,9 @@ module('select-box (searching)', function(hooks) {
     assert.expect(2);
 
     await render(hbs`
-      {{#select-box as |sb|}}
-        {{sb.Input}}
-      {{/select-box}}
+      <SelectBox as |sb|>
+        <sb.Input />
+      </SelectBox>
     `);
 
     assert
@@ -52,14 +52,14 @@ module('select-box (searching)', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box onSearch=this.findItems as |sb|}}
-        {{sb.Input}}
+      <SelectBox @onSearch={{this.findItems}} as |sb|>
+        <sb.Input />
         {{#each this.items as |item|}}
-          {{#sb.Option value=item}}
+          <sb.Option @value={{item}}>
             {{item}}
-          {{/sb.Option}}
+          </sb.Option>
         {{/each}}
-      {{/select-box}}
+      </SelectBox>
     `);
 
     await fillIn('.select-box-input', 'foo');

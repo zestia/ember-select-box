@@ -9,7 +9,7 @@ export default Mixin.create({
     this._super(...arguments);
 
     if (isPresent(this.disabled)) {
-      set(this, 'isDisabled', this.disabled);
+      set(this, 'isDisabled', Boolean(this.disabled));
     }
   }
 });

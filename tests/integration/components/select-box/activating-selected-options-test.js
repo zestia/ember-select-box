@@ -10,8 +10,8 @@ module('select-box (activating selected options)', function(hooks) {
     assert.expect(6);
 
     await render(hbs`
-      {{#select-box as |sb|}}
-        {{#sb.SelectedOptions}}
+      <SelectBox as |sb|>
+        <sb.SelectedOptions>
           {{#sb.SelectedOption
             click=(action sb.activateSelectedOptionAtIndex 0)~}}
             One
@@ -20,8 +20,8 @@ module('select-box (activating selected options)', function(hooks) {
             click=(action sb.activateSelectedOptionAtIndex 1)~}}
             Two
           {{/sb.SelectedOption}}
-        {{/sb.SelectedOptions}}
-      {{/select-box}}
+        </sb.SelectedOptions>
+      </SelectBox>
     `);
 
     const selectedOptions = find('.select-box-selected-options');
@@ -64,10 +64,10 @@ module('select-box (activating selected options)', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box as |sb|}}
-        {{sb.SelectedOption value="foo" onActivate=this.activated}}
+      <SelectBox as |sb|>
+        <sb.SelectedOption @value="foo" @onActivate={{this.activated}} />
         <button onclick={{action sb.activateSelectedOptionAtIndex 0}}>Activate foo</button>
-      {{/select-box}}
+      </SelectBox>
     `);
 
     await click('button');

@@ -21,12 +21,12 @@ module('select-box (promises)', function(hooks) {
     this.set('promise', deferred1.promise);
 
     await render(hbs`
-      {{#select-box value=this.promise as |sb|}}
+      <SelectBox @value={{this.promise}} as |sb|>
         isPending: {{sb.isPending}}<br>
         isRejected: {{sb.isRejected}}<br>
         isFulfilled: {{sb.isFulfilled}}<br>
         isSettled: {{sb.isSettled}}<br>
-      {{/select-box}}
+      </SelectBox>
     `);
 
     assert.dom(this.element).hasText(`
@@ -73,7 +73,7 @@ module('select-box (promises)', function(hooks) {
 
     this.set('promise', deferred.promise);
 
-    await render(hbs`{{select-box value=this.promise}}`);
+    await render(hbs`<SelectBox @value={{this.promise}} />`);
 
     assert.dom('.select-box').hasAttribute('aria-busy', 'true',
       'select box has busy attribute when resolving promise'
@@ -98,11 +98,11 @@ module('select-box (promises)', function(hooks) {
     this.set('promise2', deferred2.promise);
 
     await render(hbs`
-      {{#select-box value=this.promise2 as |sb|}}
-        {{sb.Option value=this.promise1}}
-        {{sb.Option value="bar"}}
-        {{sb.Option value=this.promise2}}
-      {{/select-box}}
+      <SelectBox @value={{this.promise2}} as |sb|>
+        <sb.Option @value={{this.promise1}} />
+        <sb.Option @value="bar" />
+        <sb.Option @value={{this.promise2}} />
+      </SelectBox>
     `);
 
     assert.ok(
@@ -149,13 +149,13 @@ module('select-box (promises)', function(hooks) {
     this.set('values', ['foo', 'bar', 'baz']);
 
     await render(hbs`
-      {{#select-box value=this.promises multiple=true as |sb|}}
+      <SelectBox @value={{this.promises}} @multiple={{true}} as |sb|>
         {{#each this.values as |value|}}
-          {{#sb.Option value=value as |o|}}
+          <sb.Option @value={{value}} as |o|>
             {{o.value}}
-          {{/sb.Option}}
+          </sb.Option>
         {{/each}}
-      {{/select-box}}
+      </SelectBox>
     `);
 
     deferred1.resolve('foo');
@@ -176,11 +176,11 @@ module('select-box (promises)', function(hooks) {
     this.set('promise', deferred.promise);
 
     await render(hbs`
-      {{#select-box value=this.promise as |sb|}}
-        {{sb.Option value="foo"}}
-        {{sb.Option value="bar"}}
-        {{sb.Option value="baz"}}
-      {{/select-box}}
+      <SelectBox @value={{this.promise}} as |sb|>
+        <sb.Option @value="foo" />
+        <sb.Option @value="bar" />
+        <sb.Option @value="baz" />
+      </SelectBox>
     `);
 
     deferred.reject();
@@ -204,11 +204,11 @@ module('select-box (promises)', function(hooks) {
     this.set('promise4', deferred4.promise);
 
     await render(hbs`
-      {{#select-box value=this.promise1 as |sb|}}
-        {{#sb.Option value=this.promise2 as |o|}}{{o.value}}{{/sb.Option}}
-        {{#sb.Option value=this.promise3 as |o|}}{{o.value}}{{/sb.Option}}
-        {{#sb.Option value=this.promise4 as |o|}}{{o.value}}{{/sb.Option}}
-      {{/select-box}}
+      <SelectBox @value={{this.promise1}} as |sb|>
+        <sb.Option @value={{this.promise2}} as |o|>{{o.value}}</sb.Option>
+        <sb.Option @value={{this.promise3}} as |o|>{{o.value}}</sb.Option>
+        <sb.Option @value={{this.promise4}} as |o|>{{o.value}}</sb.Option>
+      </SelectBox>
     `);
 
     deferred1.resolve('bar');
@@ -233,11 +233,11 @@ module('select-box (promises)', function(hooks) {
     assert.expect(1);
 
     await render(hbs`
-      {{#select-box value=this.promise as |sb|}}
-        {{#sb.Option value="foo"}}Foo{{/sb.Option}}
-        {{#sb.Option value="bar"}}Bar{{/sb.Option}}
-        {{#sb.Option value="baz"}}Baz{{/sb.Option}}
-      {{/select-box}}
+      <SelectBox @value={{this.promise}} as |sb|>
+        <sb.Option @value="foo">Foo</sb.Option>
+        <sb.Option @value="bar">Bar</sb.Option>
+        <sb.Option @value="baz">Baz</sb.Option>
+      </SelectBox>
     `);
 
     const deferred1 = defer();
@@ -258,11 +258,11 @@ module('select-box (promises)', function(hooks) {
     assert.expect(1);
 
     await render(hbs`
-      {{#select-box value="bar" as |sb|}}
-        {{#sb.Option value=this.promise as |o|}}
-          {{~o.value~}}
-        {{/sb.Option}}
-      {{/select-box}}
+      <SelectBox @value="bar" as |sb|>
+        <sb.Option @value={{this.promise}} as |o|>
+          {{o.value}}
+        </sb.Option>
+      </SelectBox>
     `);
 
     const deferred1 = defer();
@@ -287,11 +287,11 @@ module('select-box (promises)', function(hooks) {
     this.set('promise', deferred.promise);
 
     await render(hbs`
-      {{#select-box as |sb|}}
-        {{#sb.Option value=this.promise as |o|}}
-          {{~o.value~}}
-        {{/sb.Option}}
-      {{/select-box}}
+      <SelectBox as |sb|>
+        <sb.Option @value={{this.promise}} as |o|>
+          {{o.value}}
+        </sb.Option>
+      </SelectBox>
     `);
 
     deferred.reject('Soz');
@@ -312,11 +312,11 @@ module('select-box (promises)', function(hooks) {
 
     await render(hbs`
       {{#if this.showSelect}}
-        {{#select-box onSelect=(action (mut this.selectedValue)) as |sb|}}
-          {{#sb.Option value="foo"}}Foo{{/sb.Option}}
-          {{#sb.Option value="bar"}}Bar{{/sb.Option}}
-          {{#sb.Option value="baz"}}Baz{{/sb.Option}}
-        {{/select-box}}
+        <SelectBox @onSelect={{action (mut this.selectedValue)}} as |sb|>
+          <sb.Option @value="foo">Foo</sb.Option>
+          <sb.Option @value="bar">Bar</sb.Option>
+          <sb.Option @value="baz">Baz</sb.Option>
+        </SelectBox>
       {{/if}}
       <button onclick={{action this.show}}></button>
     `);
