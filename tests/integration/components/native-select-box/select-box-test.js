@@ -108,7 +108,7 @@ module('native-select-box', function(hooks) {
 
     assert.dom('.select-box').doesNotHaveAttribute('tabindex', 'default tabindex');
 
-    await render(hbs`{{native-select-box tabindex=5}}`);
+    await render(hbs`{{native-select-box tabindex="5"}}`);
 
     assert.dom('.select-box').hasAttribute('tabindex', '5', 'can specify a tabindex attribute');
   });
@@ -120,7 +120,7 @@ module('native-select-box', function(hooks) {
 
     assert.dom('.select-box').doesNotHaveAttribute('size', 'default size');
 
-    await render(hbs`{{native-select-box size=2}}`);
+    await render(hbs`{{native-select-box size="2"}}`);
 
     assert.dom('.select-box').hasAttribute('size', '2', 'can specify a size attribute');
   });
