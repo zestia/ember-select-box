@@ -175,9 +175,9 @@ ember install @zestia/ember-select-box
     <tr>
       <td>@onPressAlphanum</td>
       <td>
-        Useful because using `keyDown=` would overwrite the component's method,
+        Useful because using <code>keyDown=</code> would overwrite the component's method,
         which is a bit of an Ember flaw. Also can be used for activating an option based on the
-        characters recently typed. See: `sb.activateOptionForKeyCode(e.keyCode)`
+        characters recently typed. See: <code>sb.activateOptionForKeyCode(e.keyCode)</code>
       </td>
     </tr>
     <tr>
