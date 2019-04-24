@@ -14,7 +14,7 @@ module('select-box/input', function(hooks) {
   test('it renders', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`{{select-box/input}}`);
+    await render(hbs`<SelectBox::input />`);
 
     assert
       .dom('input.select-box-input')
@@ -24,7 +24,7 @@ module('select-box/input', function(hooks) {
   test('class prefix', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`{{select-box/input classNamePrefix="foo"}}`);
+    await render(hbs`<SelectBox::input @classNamePrefix="foo" />`);
 
     assert.dom('.foo-input').exists({ count: 1 }, 'can override the class prefix');
   });
@@ -32,7 +32,7 @@ module('select-box/input', function(hooks) {
   test('aria role', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`{{select-box/input}}`);
+    await render(hbs`<SelectBox::input />`);
 
     assert
       .dom('.select-box-input')
@@ -42,7 +42,7 @@ module('select-box/input', function(hooks) {
   test('aria multiline', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`{{select-box/input}}`);
+    await render(hbs`<SelectBox::input />`);
 
     assert
       .dom('.select-box-input')
@@ -52,10 +52,9 @@ module('select-box/input', function(hooks) {
   test('type', async function(assert) {
     assert.expect(2);
 
-    await render(hbs`{{select-box/input}}`);
+    await render(hbs`<SelectBox::input />`);
 
-    assert.ok(
-      !find('.select-box-input').getAttribute('type'),
+    assert.dom('.select-box-input').hasAttribute('type', '',
       'select box inputs are not search boxes by default due to unwanted ' +
         'behaviour when you press escape'
     );
@@ -101,9 +100,9 @@ module('select-box/input', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box as |sb|}}
-        {{sb.Input onInput=this.inputText}}
-      {{/select-box}}
+      <SelectBox as |sb|>
+        <sb.Input @onInput={{this.inputText}} />
+      </SelectBox>
     `);
 
     await fillIn('.select-box-input', 'foo');
@@ -120,9 +119,9 @@ module('select-box/input', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box as |sb|}}
+      <SelectBox as |sb|>
         {{sb.Input value="foo" onClear=this.cleared}}
-      {{/select-box}}
+      </SelectBox>
     `);
 
     await fillIn('.select-box-input', '');
@@ -140,9 +139,9 @@ module('select-box/input', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box as |sb|}}
+      <SelectBox as |sb|>
         {{sb.Input value="f" onDelete=this.deleted}}
-      {{/select-box}}
+      </SelectBox>
     `);
 
     const input = find('.select-box-input');

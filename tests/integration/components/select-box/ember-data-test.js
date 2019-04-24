@@ -67,17 +67,17 @@ module('select-box (ember data)', function(hooks) {
     );
 
     await render(hbs`
-      {{#select-box value=this.value multiple=true as |sb|}}
+      <SelectBox @value={{this.value}} @multiple={{true}} as |sb|>
         {{#if sb.isPending}}
           ...
         {{else}}
           {{#each this.foos as |foo|}}
-            {{#sb.Option value=foo}}
+            <sb.Option @value={{foo}}>
               {{foo.name}}
-            {{/sb.Option}}
+            </sb.Option>
           {{/each}}
         {{/if}}
-      {{/select-box}}
+      </SelectBox>
     `);
 
     assert.dom('.select-box-option.is-selected').exists({ count: 5 });

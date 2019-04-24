@@ -9,28 +9,28 @@ module('select-box (disabling)', function(hooks) {
   test('disabling and enabling', async function(assert) {
     assert.expect(4);
 
-    const isDisabled = () => {
-      return find('.select-box').classList.contains('is-disabled');
-    };
+    await render(hbs`<SelectBox />`);
 
-    await render(hbs`{{select-box}}`);
-
-    assert.ok(!isDisabled(), 'enabled by default');
+    assert.dom('.select-box').doesNotHaveClass('is-disabled', 'enabled by default');
 
     this.set('isDisabled', true);
 
-    await render(hbs`{{select-box disabled=this.isDisabled}}`);
+    await render(hbs`<SelectBox @disabled={{this.isDisabled}} />`);
 
-    assert.ok(isDisabled(), 'can set the disabled state, adding a class name');
+    assert
+      .dom('.select-box')
+      .hasClass('is-disabled', 'can set the disabled state, adding a class name');
 
     this.set('isDisabled', false);
 
-    assert.ok(!isDisabled(), 'can change the disabled state, removing the class name');
+    assert
+      .dom('.select-box')
+      .doesNotHaveClass('is-disabled', 'can change the disabled state, removing the class name');
 
     await render(hbs`
-      {{#select-box disabled=true as |sb|}}
-        {{sb.Input}}
-      {{/select-box}}
+      <SelectBox @disabled={{true}} as |sb|>
+        <sb.Input />
+      </SelectBox>
     `);
 
     assert.ok(
@@ -44,16 +44,29 @@ module('select-box (disabling)', function(hooks) {
 
     this.set('disabled', true);
 
-    await render(hbs`{{select-box disabled=this.disabled}}`);
+    await render(hbs`<SelectBox @disabled={{this.disabled}} />`);
 
-    assert.dom('.select-box').hasAttribute('aria-disabled', 'true',
-      'receives an aria disabled attribute when disabled'
-    );
+    assert
+      .dom('.select-box')
+      .hasAttribute('aria-disabled', 'true', 'receives an aria disabled attribute when disabled');
 
     this.set('disabled', false);
 
-    assert.dom('.select-box').hasAttribute('aria-disabled', 'false',
-      'aria disabled attribute is removed when enabled'
-    );
+    assert
+      .dom('.select-box')
+      .hasAttribute('aria-disabled', 'false', 'aria disabled attribute is removed when enabled');
+  });
+
+  test('disabled class name', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`<SelectBox @disabled="foo" />`);
+
+    assert
+      .dom('.select-box')
+      .doesNotHaveClass(
+        'foo',
+        'classNameBindings should not add the value of `isDisabled` as as a class name'
+      );
   });
 });

@@ -20,12 +20,12 @@ module('select-box (activating options)', function(hooks) {
     assert.expect(7);
 
     await render(hbs`
-      {{#select-box as |sb|}}
-        {{#sb.Options}}
-          {{#sb.Option value=1}}One{{/sb.Option}}
-          {{#sb.Option value=2}}Two{{/sb.Option}}
-        {{/sb.Options}}
-      {{/select-box}}
+      <SelectBox as |sb|>
+        <sb.Options>
+          <sb.Option @value={{1}}>One</sb.Option>
+          <sb.Option @value={{2}}>Two</sb.Option>
+        </sb.Options>
+      </SelectBox>
     `);
 
     const options = find('.select-box-options');
@@ -73,10 +73,10 @@ module('select-box (activating options)', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box as |sb|}}
-        {{sb.Option value="foo" onActivate=this.activated}}
+      <SelectBox as |sb|>
+        <sb.Option @value="foo" @onActivate={{this.activated}} />
         <button onclick={{action sb.activateOptionAtIndex 0}}>Activate foo</button>
-      {{/select-box}}
+      </SelectBox>
     `);
 
     await click('button');
@@ -94,13 +94,13 @@ module('select-box (activating options)', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box
-        onPressDown=this.navigateDown
-        onPressUp=this.navigateUp as |sb|}}
-        {{#sb.Option value=1}}One{{/sb.Option}}
-        {{#sb.Option value=2}}Two{{/sb.Option}}
-        {{#sb.Option value=3}}Three{{/sb.Option}}
-      {{/select-box}}
+      <SelectBox
+        @onPressDown={{this.navigateDown}}
+        @onPressUp={{this.navigateUp}} as |sb|>
+        <sb.Option @value={{1}}>One</sb.Option>
+        <sb.Option @value={{2}}>Two</sb.Option>
+        <sb.Option @value={{3}}>Three</sb.Option>
+      </SelectBox>
     `);
 
     assert.ok(!find('.select-box-option.is-active'), 'precondition: nothing active');
@@ -150,11 +150,11 @@ module('select-box (activating options)', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box onPressKey=this.autoActivate as |sb|}}
-        {{#sb.Option value="foo"}}Foo{{/sb.Option}}
-        {{#sb.Option value="bar"}}Bar{{/sb.Option}}
-        {{#sb.Option value="baz"}}Baz{{/sb.Option}}
-      {{/select-box}}
+      <SelectBox @onPressKey={{this.autoActivate}} as |sb|>
+        <sb.Option @value="foo">Foo</sb.Option>
+        <sb.Option @value="bar">Bar</sb.Option>
+        <sb.Option @value="baz">Baz</sb.Option>
+      </SelectBox>
     `);
 
     triggerKeyEvent('.select-box', 'keydown', 66); // B
@@ -196,11 +196,11 @@ module('select-box (activating options)', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box onPressKey=this.autoActivate as |sb|}}
-        {{#sb.Option value="foo"}}Foo{{/sb.Option}}
-        {{#sb.Option value="bar"}}Bar{{/sb.Option}}
-        {{#sb.Option value="baz"}}Baz{{/sb.Option}}
-      {{/select-box}}
+      <SelectBox @onPressKey={{this.autoActivate}} as |sb|>
+        <sb.Option @value="foo">Foo</sb.Option>
+        <sb.Option @value="bar">Bar</sb.Option>
+        <sb.Option @value="baz">Baz</sb.Option>
+      </SelectBox>
     `);
 
     triggerKeyEvent('.select-box', 'keydown', 66); // B
@@ -224,14 +224,14 @@ module('select-box (activating options)', function(hooks) {
     });
 
     await render(hbs`
-      {{#select-box onPressKey=this.autoActivate as |sb|}}
-        {{#sb.Option value=1980}}1980{{/sb.Option}}
-        {{#sb.Option value=1981}}1981{{/sb.Option}}
-        {{#sb.Option value=1982}}1982{{/sb.Option}}
-        {{#sb.Option value=1983}}1983{{/sb.Option}}
-        {{#sb.Option value=1984}}1984{{/sb.Option}}
-        {{#sb.Option value=1985}}1985{{/sb.Option}}
-      {{/select-box}}
+      <SelectBox @onPressKey={{this.autoActivate}} as |sb|>
+        <sb.Option @value={{1980}}>1980</sb.Option>
+        <sb.Option @value={{1981}}>1981</sb.Option>
+        <sb.Option @value={{1982}}>1982</sb.Option>
+        <sb.Option @value={{1983}}>1983</sb.Option>
+        <sb.Option @value={{1984}}>1984</sb.Option>
+        <sb.Option @value={{1985}}>1985</sb.Option>
+      </SelectBox>
     `);
 
     triggerKeyEvent('.select-box', 'keydown', 49); // 1

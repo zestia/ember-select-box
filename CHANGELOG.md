@@ -8,6 +8,7 @@
 
 * Switches from snake case arguments to camel case,<br>
   Upgrading should be an easy find-and-replace. For example: `sb.selected-option` → `sb.SelectedOption`
+* `class-prefix` renamed to `@classNamePrefix`
 
 7.2.3
 

@@ -9,7 +9,7 @@ module('select-box/selected-option', function(hooks) {
   test('it renders', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`{{select-box/selected-option}}`);
+    await render(hbs`<SelectBox::selected-option />`);
 
     assert
       .dom('div.select-box-selected-option')
@@ -19,7 +19,7 @@ module('select-box/selected-option', function(hooks) {
   test('class prefix', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`{{select-box/selected-option classNamePrefix="foo"}}`);
+    await render(hbs`<SelectBox::selected-option @classNamePrefix="foo" />`);
 
     assert.dom('.foo-selected-option').exists({ count: 1 }, 'can override the class prefix');
   });
@@ -37,7 +37,7 @@ module('select-box/selected-option', function(hooks) {
   test('style', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`{{select-box/selected-option style="color:red<script>"}}`);
+    await render(hbs`<SelectBox::selected-option @style="color:red<script>" />`);
 
     assert.ok(
       this.element.innerHTML.match('style="color:red&amp;lt;script&amp;gt;"'),
@@ -54,19 +54,19 @@ module('select-box/selected-option', function(hooks) {
     ]);
 
     await render(hbs`
-      {{#select-box as |sb|}}
+      <SelectBox as |sb|>
         {{#each this.selectedItems as |item|}}
-          {{#sb.SelectedOption value=item as |so|~}}
+          <sb.SelectedOption @value={{item}} as |so|>
             {{so.value.myLabel}} ({{so.index}})
-          {{~/sb.SelectedOption}}
+          </sb.SelectedOption>
         {{/each}}
-      {{/select-box}}
+      </SelectBox>
     `);
 
     assert.ok(
-      findAll('.select-box-selected-option')[0].textContent === 'Foo (0)' &&
-        findAll('.select-box-selected-option')[1].textContent === 'Bar (1)',
-      'selected options can yield their label, value & index'
+      findAll('.select-box-selected-option')[0].textContent.trim() === 'Foo (0)' &&
+        findAll('.select-box-selected-option')[1].textContent.trim() === 'Bar (1)',
+      'selected options can yield their value & index'
     );
   });
 });

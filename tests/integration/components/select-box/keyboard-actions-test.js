@@ -15,17 +15,17 @@ module('select-box (keyboard actions)', function(hooks) {
     this.set('ranAction', name => called.push(name));
     this.set('pressedKey', () => pressedKey++);
 
-    await render(hbs`{{select-box
-      onPressKey=this.pressedKey
-      onPressBackspace=(action this.ranAction "backspace")
-      onPressTab=(action this.ranAction "tab")
-      onPressEnter=(action this.ranAction "enter")
-      onPressEscape=(action this.ranAction "escape")
-      onPressLeft=(action this.ranAction "left")
-      onPressUp=(action this.ranAction "up")
-      onPressRight=(action this.ranAction "right")
-      onPressDown=(action this.ranAction "down")
-    }}`);
+    await render(hbs`<SelectBox
+      @onPressKey={{this.pressedKey}}
+      @onPressBackspace={{action this.ranAction "backspace"}}
+      @onPressTab={{action this.ranAction "tab"}}
+      @onPressEnter={{action this.ranAction "enter"}}
+      @onPressEscape={{action this.ranAction "escape"}}
+      @onPressLeft={{action this.ranAction "left"}}
+      @onPressUp={{action this.ranAction "up"}}
+      @onPressRight={{action this.ranAction "right"}}
+      @onPressDown={{action this.ranAction "down"}}
+    />`);
 
     // No longer works...
     // keys(eventKeys).forEach(async key => {
