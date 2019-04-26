@@ -9,10 +9,7 @@ module('select-box (class name helper)', function(hooks) {
   test('defaults', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`
-      {{!template-lint-disable no-implicit-this}}
-      {{select-box-class}}
-    `);
+    await render(hbs`{{!template-lint-disable no-implicit-this}}{{select-box-class}}`);
 
     assert.equal(this.element.innerHTML, 'select-box', 'outputs the default class name');
   });
