@@ -4,6 +4,7 @@ import {
   render,
   find,
   fillIn,
+  click,
   triggerKeyEvent
 } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
@@ -159,5 +160,27 @@ module('select-box/input', function(hooks) {
       1,
       'delete action is only fired when value is blank & backspace is pressed'
     );
+  });
+
+  test('input actions when no input', async function(assert) {
+    assert.expect(0);
+
+    this.set('select', (value, sb) => {
+      this.set('showInput', false);
+      sb.setInputValue('');
+      sb.focusInput();
+      sb.blurInput();
+    });
+
+    await render(hbs`
+      <SelectBox @onSelect={{this.select}} as |sb|>
+        {{#if this.showInput}}
+          <sb.Input />
+        {{/if}}
+        <sb.Option @value="foo">Foo</sb.Option>
+      </SelectBox>
+    `);
+
+    await click('.select-box-option');
   });
 });

@@ -1,5 +1,9 @@
 # Changelog
 
+8.0.3
+
+* Make input actions more fail silently if no input present
+
 8.0.2
 
 * Make sure tabindex updates automatically if `<sb.Input />` is present or not

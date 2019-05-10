@@ -60,11 +60,7 @@ export default Mixin.create({
   },
 
   _resolvedValue(id, failed, value) {
-    if (id < this.valueID) {
-      return;
-    }
-
-    if (this.isDestroyed) {
+    if (this.isDestroyed || id < this.valueID) {
       return;
     }
 

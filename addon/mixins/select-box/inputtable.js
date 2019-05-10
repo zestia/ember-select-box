@@ -23,7 +23,7 @@ export default Mixin.create({
 
   actions: {
     setInputValue(value) {
-      if (this.isDestroyed) {
+      if (this.isDestroyed || !this.input) {
         return;
       }
 
@@ -31,7 +31,7 @@ export default Mixin.create({
     },
 
     focusInput() {
-      if (this.isDestroyed) {
+      if (this.isDestroyed || !this.input) {
         return;
       }
 
@@ -39,7 +39,7 @@ export default Mixin.create({
     },
 
     blurInput() {
-      if (this.isDestroyed) {
+      if (this.isDestroyed || !this.input) {
         return;
       }
 

@@ -30,11 +30,7 @@ export default Mixin.create({
   focusOut(e) {
     this._super(...arguments);
 
-    if (this.isClosing) {
-      return;
-    }
-
-    if (this.isDestroyed) {
+    if (this.isDestroyed || this.isClosing) {
       return;
     }
 

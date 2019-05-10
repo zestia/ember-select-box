@@ -30,13 +30,9 @@ export default Mixin.create({
   },
 
   _runSearch(query) {
-    if (this.isDestroyed) {
-      return;
-    }
-
     query = `${query}`.trim();
 
-    if (!this._queryOK(query)) {
+    if (this.isDestroyed || !this._queryOK(query)) {
       return;
     }
 
@@ -59,11 +55,7 @@ export default Mixin.create({
   },
 
   _searchCompleted(id, query, result) {
-    if (id < this.searchID) {
-      return;
-    }
-
-    if (this.isDestroyed) {
+    if (this.isDestroyed || id < this.searchID) {
       return;
     }
 
