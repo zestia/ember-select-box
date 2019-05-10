@@ -23,17 +23,36 @@ module('select-box (searching)', function(hooks) {
   });
 
   test('aria', async function(assert) {
-    assert.expect(2);
+    assert.expect(7);
 
     await render(hbs`
       <SelectBox as |sb|>
-        <sb.Input />
+        {{#if this.showInput}}
+          <sb.Input />
+        {{/if}}
       </SelectBox>
     `);
+
+    assert.dom('.select-box').doesNotHaveAttribute('role', 'precondition');
+
+    assert
+      .dom('.select-box')
+      .hasAttribute('tabindex', '0', 'precondition: select box is focusable');
+
+    this.set('showInput', true);
 
     assert
       .dom('.select-box')
       .hasAttribute('role', 'combobox', 'a select box with an input has an appropriate aria role');
+
+    assert
+      .dom('.select-box')
+      .hasAttribute(
+        'tabindex',
+        '-1',
+        'a select box should not be focusable if it contains an input ' +
+          'instead, pressing tab should jump directly to the input'
+      );
 
     assert
       .dom('.select-box-input')
@@ -42,6 +61,14 @@ module('select-box (searching)', function(hooks) {
         find('.select-box').getAttribute('id'),
         'text box knows it controls the combo box'
       );
+
+    this.set('showInput', false);
+
+    assert.dom('.select-box').doesNotHaveAttribute('role', 'postcondition');
+
+    assert
+      .dom('.select-box')
+      .hasAttribute('tabindex', '0', 'postcondition: select box is focusable');
   });
 
   test('searching (promise)', async function(assert) {

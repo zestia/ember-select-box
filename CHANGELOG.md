@@ -1,5 +1,9 @@
 # Changelog
 
+8.0.2
+
+* Make sure tabindex updates automatically if `<sb.Input />` is present or not
+
 8.0.1
 
 * Fix backracking regression

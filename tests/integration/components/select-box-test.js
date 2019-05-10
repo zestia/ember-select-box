@@ -63,7 +63,7 @@ module('select-box', function(hooks) {
     );
   });
 
-  test('aria role', async function(assert) {
+  test('role', async function(assert) {
     assert.expect(1);
 
     await render(hbs`<SelectBox />`);

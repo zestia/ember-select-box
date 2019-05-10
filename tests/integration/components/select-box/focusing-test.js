@@ -56,7 +56,7 @@ module('select-box (focusing)', function(hooks) {
   });
 
   test('tabindex', async function(assert) {
-    assert.expect(4);
+    assert.expect(3);
 
     await render(hbs`<SelectBox />`);
 
@@ -73,20 +73,5 @@ module('select-box (focusing)', function(hooks) {
     await render(hbs`{{select-box tabindex="5"}}`);
 
     assert.dom('.select-box').hasAttribute('tabindex', '5', 'can set the tabindex');
-
-    await render(hbs`
-      <SelectBox as |sb|>
-        <sb.Input />
-      </SelectBox>
-    `);
-
-    assert
-      .dom('.select-box')
-      .hasAttribute(
-        'tabindex',
-        '-1',
-        'a select box should not be focusable if it contains an input ' +
-          'instead, pressing tab should jump directly to the input'
-      );
   });
 });

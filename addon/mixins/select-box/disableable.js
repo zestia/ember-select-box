@@ -11,7 +11,7 @@ export default Mixin.create({
     }
 
     if (this.isDisabled) {
-      set(this, 'tabIndex', -1);
+      set(this, 'tabIndex', '-1');
     }
   }
 });

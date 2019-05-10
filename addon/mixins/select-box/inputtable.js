@@ -8,8 +8,17 @@ export default Mixin.create({
       return;
     }
 
-    set(this, 'tabIndex', -1);
+    set(this, 'tabIndex', '-1');
     set(this, 'role', 'combobox');
+  },
+
+  _configureAsNotACombobox() {
+    if (this.isDestroyed) {
+      return;
+    }
+
+    set(this, 'tabIndex', '0');
+    set(this, 'role', null);
   },
 
   actions: {
@@ -43,6 +52,12 @@ export default Mixin.create({
       this._super(...arguments);
 
       scheduleOnce('afterRender', this, '_configureAsCombobox');
+    },
+
+    _deregisterInput() {
+      this._super(...arguments);
+
+      scheduleOnce('afterRender', this, '_configureAsNotACombobox');
     }
   }
 });
