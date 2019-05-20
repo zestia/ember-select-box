@@ -608,7 +608,7 @@ test('selecting things', async function(assert) {
   assert.expect(1);
 
   await render(hbs`
-    <NativeSelectBox @multiple={{true}} @onSelect={{this.selected}} as |sb|>
+    <NativeSelectBox @multiple={{true}} as |sb|>
       <sb.Option @value={{1}}>One</sb.Option>
       <sb.Option @value={{2}}>Two</sb.Option>
       <sb.Option @value={{3}}>Three</sb.Option>
