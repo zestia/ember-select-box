@@ -588,6 +588,42 @@ actions: {
 
 <hr>
 
+### Test helpers
+
+There are test helpers for selecting options inside a native select box. <br>
+For the faux select box, you can just use Ember's `click` or `triggerEvent` test helpers.
+
+Here is an example of selecting some options, and asserting that they have been selected:
+
+```javascript
+import {
+  getNativeMultipleSelectBoxValue,
+  selectNativeOptionsByValue,
+  selectNativeOptionsByLabel
+} from '@zestia/ember-select-box/test-support/helpers/selecting';
+
+// ...
+
+test('selecting things', async function(assert) {
+  assert.expect(1);
+
+  await render(hbs`
+    <NativeSelectBox @multiple={{true}} @onSelect={{this.selected}} as |sb|>
+      <sb.Option @value={{1}}>One</sb.Option>
+      <sb.Option @value={{2}}>Two</sb.Option>
+      <sb.Option @value={{3}}>Three</sb.Option>
+    </NativeSelectBox>
+  `);
+
+  await selectNativeOptionsByValue('.select-box', [1, 2]);
+  // await selectNativeOptionsByLabel('.select-box', ['One', 'Two']);
+
+  assert.deepEqual(getNativeMultipleSelectBoxValue('.select-box'), ['One', 'Two']);
+});
+```
+
+<hr>
+
 ## Customising
 
 There are a couple of ways to get what you want

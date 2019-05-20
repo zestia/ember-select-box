@@ -7,7 +7,7 @@ import {
   getNativeMultipleSelectBoxValue,
   selectNativeOptionsByValue,
   selectNativeOptionsByLabel
-} from '@zestia/ember-select-box/utils/select-box/test-helpers';
+} from '@zestia/ember-select-box/test-support/helpers/selecting';
 
 module('native-select-box', function(hooks) {
   setupRenderingTest(hooks);
