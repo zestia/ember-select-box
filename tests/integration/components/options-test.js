@@ -24,17 +24,6 @@ module('select-box/options', function(hooks) {
     assert.dom('.foo-options').exists({ count: 1 }, 'can override the class prefix');
   });
 
-  test('style', async function(assert) {
-    assert.expect(1);
-
-    await render(hbs`<SelectBox::options @style="color:red<script>" />`);
-
-    assert.ok(
-      find('.select-box-options').outerHTML.match('style="color:red&amp;lt;script&amp;gt;"'),
-      'options container can be styled, value is escaped'
-    );
-  });
-
   test('aria role', async function(assert) {
     assert.expect(1);
 

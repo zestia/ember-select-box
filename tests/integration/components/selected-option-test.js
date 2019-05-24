@@ -34,17 +34,6 @@ module('select-box/selected-option', function(hooks) {
       .hasAttribute('title', 'Foo', 'a selected option can have a title attribute');
   });
 
-  test('style', async function(assert) {
-    assert.expect(1);
-
-    await render(hbs`<SelectBox::selected-option @style="color:red<script>" />`);
-
-    assert.ok(
-      this.element.innerHTML.match('style="color:red&amp;lt;script&amp;gt;"'),
-      'a selected option can be styled, value is escaped'
-    );
-  });
-
   test('yield', async function(assert) {
     assert.expect(1);
 

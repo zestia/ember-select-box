@@ -7,13 +7,13 @@
 
   <sb.SelectedOption
     onclick={{sb.open}}
-    @style={{concat "background:" sb.value}}
+    style={{{concat "background:" sb.value}}}
     @value={{sb.value}} />
 
   {{#if sb.isOpen}}
     <sb.Options>
       {{~#each this.colours as |colour|~}}
-        <sb.Option @value={{colour}} @style={{concat "background:" colour}} />
+        <sb.Option @value={{colour}} style={{{concat "background:" colour}}} />
       {{~/each~}}
     </sb.Options>
   {{/if}}

@@ -75,10 +75,6 @@ ember install @zestia/ember-select-box
       <td>If true adds an <code>is-disabled</code> class</td>
     </tr>
     <tr>
-      <td>@style</td>
-      <td>Escaped and processed as HTML safe. Alternatively use <code>style=</code></td>
-    </tr>
-    <tr>
       <td>@classNamePrefix</td>
       <td>Adds a prefix to the class name of all child select-box components</td>
     </tr>
@@ -378,10 +374,6 @@ ember install @zestia/ember-select-box
   <summary>Arguments</summary>
   <table>
     <tr>
-      <td>@style</td>
-      <td>Escaped and processed as HTML safe. Alternatively use <code>style=</code></td>
-    </tr>
-    <tr>
       <td>@value</td>
       <td>Can be anything, including a promise</td>
     </tr>
@@ -471,19 +463,6 @@ You only need to wrap the options up in with `sb.Options` if you require extra m
 </sb.Options>
 ```
 
-<details>
-  <summary>Arguments</summary>
-  <table>
-    <tr>
-      <td width="200">@style</td>
-      <td>
-        Useful for customising the style of the options container.<br>
-        Escaped and processed as HTML safe. Alternatively use <code>style=</code>
-      </td>
-    </tr>
-  </table>
-</details>
-
 <hr>
 
 ### Input
@@ -525,16 +504,6 @@ Does _not_ render the user's selected option automatically, but rather just prov
 ```
 
 <details>
-  <summary>Arguments</summary>
-  <table>
-    <tr>
-      <td>@style</td>
-      <td>Escaped and processed as HTML safe. Alternatively use <code>style=</code></td>
-    </tr>
-  </table>
-</details>
-
-<details>
   <summary>Actions</summary>
   <table>
     <tr>
@@ -557,16 +526,6 @@ Does _not_ render the user's selected option automatically, but rather just prov
 ```
 
 Provides a container for options that the user selected. Does not do anything by default, but it is possible to activate selected options using the API, thereby allowing you to create your own navigatable select box.
-
-<details>
-  <summary>Arguments</summary>
-  <table>
-    <tr>
-      <td width="200">@style</td>
-      <td>Escaped and processed as HTML safe. Alternatively use <code>style=</code></td>
-    </tr>
-  </table>
-</details>
 
 <hr>
 

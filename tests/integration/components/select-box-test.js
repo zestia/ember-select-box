@@ -71,17 +71,6 @@ module('select-box', function(hooks) {
     assert.dom('.select-box').doesNotHaveAttribute('role', 'select box has no aria role');
   });
 
-  test('style', async function(assert) {
-    assert.expect(1);
-
-    await render(hbs`<SelectBox @style="color:red<script>" />`);
-
-    assert.ok(
-      find('.select-box').outerHTML.match('style="color:red&amp;lt;script&amp;gt;"'),
-      'a select box can be styled, value is escaped'
-    );
-  });
-
   test('multiple class', async function(assert) {
     assert.expect(2);
 

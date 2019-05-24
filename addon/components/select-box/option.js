@@ -7,7 +7,6 @@ import Indexable from '../../mixins/general/indexable';
 import Nameable from '../../mixins/general/nameable';
 import Registerable from '../../mixins/general/registerable';
 import Selectable from '../../mixins/select-box/option/selectable';
-import Styleable from '../../mixins/general/styleable';
 import boolString from '../../utils/bool-string';
 
 const mixins = [
@@ -17,8 +16,7 @@ const mixins = [
   Indexable,
   Nameable,
   Registerable,
-  Selectable,
-  Styleable
+  Selectable
 ];
 
 export default Component.extend(...mixins, {

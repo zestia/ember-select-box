@@ -1,5 +1,10 @@
 # Changelog
 
+9.0.0
+
+* Remove support for automatic escaping of style attribute, this no longer makes sense after the
+  move to named arguments / angle bracket components.
+
 8.0.5
 
 * Add isDestroying guard

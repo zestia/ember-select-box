@@ -21,7 +21,6 @@ import Searchable from '../mixins/select-box/searchable';
 import SelectActiveOption from '../mixins/select-box/select-active-option';
 import SelectActiveOptionOnEnter from '../mixins/select-box/select-active-option-on-enter';
 import SelectBoxAPI from '../mixins/select-box/api';
-import Styleable from '../mixins/general/styleable';
 import Toggleable from '../mixins/select-box/toggleable';
 import boolString from '../utils/bool-string';
 import { or } from '@ember/object/computed';
@@ -46,7 +45,6 @@ const mixins = [
   SelectActiveOption,
   SelectActiveOptionOnEnter,
   SelectBoxAPI,
-  Styleable,
   Toggleable
 ];
 
