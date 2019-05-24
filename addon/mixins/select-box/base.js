@@ -82,7 +82,7 @@ export default Mixin.create({
   },
 
   _rendered() {
-    if (this.isDestroyed) {
+    if (this.isDestroyed || this.isDestroying) {
       return;
     }
 

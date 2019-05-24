@@ -1,5 +1,9 @@
 # Changelog
 
+8.0.5
+
+* Add isDestroying guard
+
 8.0.4
 
 * Move location of test helpers to proper ember-cli location. See readme for import.
