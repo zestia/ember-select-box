@@ -11,7 +11,9 @@ export default Mixin.create({
 
     if (isPresent(this.tabindex)) {
       set(this, 'tabIndex', this.tabindex);
-    } else if (!isPresent(this.tabIndex)) {
+    }
+
+    if (!isPresent(this.tabIndex)) {
       set(this, 'tabIndex', '0');
     }
   },
