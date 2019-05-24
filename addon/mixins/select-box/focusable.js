@@ -30,11 +30,16 @@ export default Mixin.create({
   focusOut(e) {
     this._super(...arguments);
 
-    if (this.isDestroyed || this.isClosing) {
+    if (this.isDestroyed) {
       return;
     }
 
-    set(this, 'isFocused', false);
+    try {
+      set(this, 'isFocused', false);
+    } catch (error) {
+      // https://github.com/emberjs/ember.js/issues/18043
+    }
+
     invokeAction(this, 'onFocusOut', e, this.api);
   }
 });

@@ -1,5 +1,9 @@
 # Changelog
 
+8.0.5
+
+* Use alternative approach for [backtracking](tests/acceptance/backracking-test.js) [issue](https://github.com/emberjs/ember.js/issues/18043)
+
 8.0.4
 
 * Move location of test helpers to proper ember-cli location. See readme for import.

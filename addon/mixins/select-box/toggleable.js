@@ -30,14 +30,11 @@ export default Mixin.create({
     close() {
       this._super(...arguments);
 
-      run(() => trySet(this, 'isClosing', true));
-      run(() => trySet(this, 'isOpen', false));
-      run(() => trySet(this, 'isClosing', false));
-
       if (this.isDestroyed) {
         return;
       }
 
+      set(this, 'isOpen', false);
       invokeAction(this, 'onClose', this.api);
     },
 
