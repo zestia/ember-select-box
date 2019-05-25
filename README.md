@@ -455,6 +455,7 @@ Self explanitory, just wraps the options in extra markup.<br>
 ### Options
 
 You only need to wrap the options up in with `sb.Options` if you require extra markup for styling.
+(It's useful to use as the drop-down part of a select box).
 
 ```handlebars
 <sb.Options>
