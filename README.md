@@ -598,7 +598,9 @@ Option 1 is recommended. Define your component like so...
   <sb.SelectedOption onclick={{action sb.toggle}}>
     {{sb.value.name}}
   </sb.SelectedOption>
-  {{yield sb}}
+  <sb.Options>
+    {{yield sb}}
+  </sb.Options>
 </SelectBox>
 ```
 
@@ -618,9 +620,11 @@ Option 1 is recommended. Define your component like so...
 <div class="my-select">
   <div class="my-select-box">
     <div class="my-select-box-selected-option">Foo</div>
-    <div class="my-select-box-option is-selected">Foo</div>
-    <div class="my-select-box-option">Bar</div>
-    <div class="my-select-box-option">Baz</div>
+    <div class="my-select-box-options">
+      <div class="my-select-box-option is-selected">Foo</div>
+      <div class="my-select-box-option">Bar</div>
+      <div class="my-select-box-option">Baz</div>
+    </div>
   </div>
 </div>
 ```
