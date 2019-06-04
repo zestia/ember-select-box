@@ -1,115 +1,115 @@
 # Changelog
 
-9.0.1
+## 9.0.1
 
 - Upgrade dependencies
 - Remove jQuery from dummy test app
 
-  9.0.0
+## 9.0.0
 
 - Remove support for automatic escaping of style attribute, this no longer makes sense after the
   move to named arguments / angle bracket components. Please swap `@style=` to `style=`
 
-  8.0.5
+## 8.0.5
 
 - Add isDestroying guard
 
-  8.0.4
+## 8.0.4
 
 - Move location of test helpers to proper ember-cli location. See readme for import.
 - Use alternative approach for [backtracking](tests/acceptance/backtracking-test.js) [issue](https://github.com/emberjs/ember.js/issues/18043)
 
-  8.0.3
+## 8.0.3
 
 - Make input actions more fail silently if no input present
 
-  8.0.2
+## 8.0.2
 
 - Make sure tabindex updates automatically if `<sb.Input />` is present or not
 
-  8.0.1
+## 8.0.1
 
 - Fix backracking regression
 
-  8.0.0
+## 8.0.0
 
 - Switches from snake case arguments to camel case,<br>
   Upgrading should be an easy find-and-replace. For example: `sb.selected-option` → `sb.SelectedOption`
 - `class-prefix` renamed to `@classNamePrefix`
 
-  7.2.3
+## 7.2.3
 
 - Use get/set helpers
 - Guard more cases where component might set when destroyed
 
-  7.2.2
+## 7.2.2
 
 - ARIA: Make sure input knows it controls combo box
 - ARIA: Make sure attributes are _strings_
 
-  7.2.1
+## 7.2.1
 
 - Send event out with `on-click-outside` action
 
-  7.2.0
+## 7.2.0
 
 - Rename `@is-open` argument to `@open` to align with other args.
 
-  7.1.0
+## 7.1.0
 
 - Phase out internal method's like `press<Key>() {}` in favour of actions, like `on-press-<key>={{action "doSomething"}}`.
 - Add `on-press-alphanum` action
 
-  7.0.5
+## 7.0.5
 
 - Listen for touchstart so that clicking _outside_ a select box can be detected on mobile devices.
 
-  7.0.4
+## 7.0.4
 
 - Upgrade ember-cli
 
-  7.0.3
+## 7.0.3
 
 - Add missing `on-activate` action to selected options
 
-  7.0.2
+## 7.0.2
 
 - Fix error if no active option available to scroll into view
 
-  7.0.1
+## 7.0.1
 
 - Fix typo
 
-  7.0.0
+## 7.0.0
 
 - Move native selectbox from `{{select-box/native}}` to `{{native-select-box}}` for nicer integration
   with angle bracket components.
 
-  6.1.3
+## 6.1.3
 
 - Upgrade deps
 - Fix support for Ember 2.10
 - Fixes to the demos
 
-  6.1.2
+## 6.1.2
 
 - Use named arguments and fix no implicit this
 
-  6.1.0
+## 6.1.0
 
 - Update to use named arguments
 - Fix use of `.send` on destroyed/ing component
 
-  6.0.4
+## 6.0.4
 
 - Expose `isOpen` state on the yielded API as well as the template API.
 
-  6.0.3
+## 6.0.3
 
 - Fix an issue introduced in 6.0.2 where mousing over an option would cause it to be scrolled to.
 - Updated readme to better explain the behaviour of the `activate` actions.
 
-  6.0.2
+## 6.0.2
 
 - `activateNextOption` and `activatePreviousOption` default to scrolling the parent element.
   So there is no longer the requirement to pass in `true`, like `sb.activateNextOption(true)`. But,
@@ -120,11 +120,11 @@
   activated. It may not be suitable to use this feature if the selectbox also has an input field as the
   behaviours will likely conflict, but this will depend on your usecase.
 
-  6.0.1
+## 6.0.1
 
 - Fixes test helpers that select multiple options
 
-  6.0.0
+## 6.0.0
 
 - Improvements to aria attributes
   (Corrects listbox role. Adds combobox role when appropriate. Adds aria-busy)
@@ -132,7 +132,7 @@
 - Exposes some test helpers for selecting values
 - Removes jQuery from test suite
 
-  5.0.0
+## 5.0.0
 
 - Option's yielded properties are now prefixed with `is`, e.g. `{{o.isSelected}}`
 
@@ -142,22 +142,22 @@
 
 - Native select box option now uses same template as Faux select box option template.
 
-4.2.3
+## 4.2.3
 
 - Internal changes
 - One way value attributes
 
-  4.2.2
+## 4.2.2
 
 - Remove `invokeAction` util
 
-  4.2.1
+## 4.2.1
 
 - `value` for a multiple select can now be a promise for an array, whereas originally it was always
   expecting an array.
 - Removes `on-build-selection` from native select component
 
-  4.2.0
+## 4.2.0
 
 - Previously, the behaviour of selecting multiple options with the faux-select component was
   undefined. With the intention that developers use `sb.update(myValues)` to implement the multiple
@@ -169,270 +169,270 @@
 - When using a multiple select box, the `on-select` action will fire with an array of the selected
   values. This array is frozen, and is not the same as the one passed into the select box originally.
 
-  4.1.0
+## 4.1.0
 
 - Changes `scrollIntoView` signature. Now finds the first scrollable parent, and scrolls that
   rather than assuming the select box options will be the scrollable element.
 
-  4.0.1
+## 4.0.1
 
 - Make select box support style attribute
 
-  4.0.0
+## 4.0.0
 
 - Yield the main select box element on the api
 - Run [codemod](https://github.com/rwjblue/ember-qunit-codemod) on test sutie
 - Change path to certain mixins
 
-  3.0.10
+## 3.0.10
 
 - Fix travis builds
 - Fix dependencies
 
-  3.0.9
+## 3.0.9
 
 - Lint everything
 
-  3.0.7
+## 3.0.7
 
 - Add `blurInput` to API
 
-  3.0.6
+## 3.0.6
 
 - Minor changes to tests
 
-  3.0.5
+## 3.0.5
 
 - Update tests to work with Ember 2.15x as per https://github.com/emberjs/ember.js/issues/15569
 
-  3.0.4
+## 3.0.4
 
 - Adds a `on-init` action, useful for getting the select box's api
 
-  3.0.3
+## 3.0.3
 
 - Don't try to re-render if destroyed
 
-  3.0.2
+## 3.0.2
 
 - Adds `is-multiple` class to faux select box when `multiple=true`
 
-  3.0.1
+## 3.0.1
 
 - Adds ability to disable a faux option
 
-  3.0.0
+## 3.0.0
 
 - Make input way one again (accidently introduced two-way binding in 2.0.0)
 
-  2.0.0
+## 2.0.0
 
 - Phases out some use of jQuery
 - Select box input extends Ember's built-in text field helper
 
-  1.2.1
+## 1.2.1
 
 - Don't use jQuery's trim
 
-  1.2.0
+## 1.2.0
 
 - Adds `on-open` and `on-close` actions
 - Update dependancies
 - Use new imports
 
-  1.1.19
+## 1.1.19
 
 - Add better `trySet` whilst issue is still open
 
-  1.1.18
+## 1.1.18
 
 - Only set property if component not destroyed
 
-  1.1.17
+## 1.1.17
 
 - Make more reliable when toggling visibilty of options container
 
-  1.1.16
+## 1.1.16
 
 - Make sure toggle uses open and close actions
 
-  1.1.15
+## 1.1.15
 
 - Yield open state
 
-  1.1.14
+## 1.1.14
 
 - move ember-improved-cp to dependancies
 
-  1.1.13
+## 1.1.13
 
 - Eslint
 
-  1.1.12
+## 1.1.12
 
 - Remove use of `getAttr`
 
-  1.1.11
+## 1.1.11
 
 - Upgrade dependancies (babel 6 etc..)
 
-  1.1.10
+## 1.1.10
 
 - Upgrade dependancies
 
-  1.1.9
+## 1.1.9
 
 - Allow more attributes on the select box input
 
-  1.1.8
+## 1.1.8
 
 - Fastboot fixes
 
-  1.1.7
+## 1.1.7
 
 - Upgrade ember-cli
 
-  1.1.6
+## 1.1.6
 
 - Upgrade ember-cli
 
-  1.1.5
+## 1.1.5
 
 - Small bug fix
 
-  1.1.4
+## 1.1.4
 
 - Add support for options with promise values
 
-  1.1.3
+## 1.1.3
 
 - A few improvements around promises
 
-  1.1.2
+## 1.1.2
 
 - Add fix and regression test to make sure `on-update` is firing correctly
 
-  1.1.1
+## 1.1.1
 
 - Make sure there is no error if select box is destroyed
 
-  1.1.0
+## 1.1.0
 
 - Adds support for promise values
 
-  1.0.6
+## 1.0.6
 
 - Add support for plain `<option>`'s on native select. [Read more](README.md#native-select-box-info)
 
-  1.0.5
+## 1.0.5
 
 - Update for Glimmer 2 compat
 
-  1.0.4
+## 1.0.4
 
 - Fix adding class to `classNames` (which is frozen in future versions of Ember)
 
-  1.0.3
+## 1.0.3
 
 - Add `required` attribute binding for native select box
 
-  1.0.2
+## 1.0.2
 
 - Add `autofocus` attribute binding for native select box
 
-  1.0.1
+## 1.0.1
 
 - Bug fix `open` action not working in combination with `is-open` attr
 
-  1.0.0
+## 1.0.0
 
 - Add title attribute to native select box
 
-  0.2.3
+## 0.2.3
 
 - Make compatible with Glimmer Alpha
 
-  0.2.1
+## 0.2.1
 
 - Adds ability to set `selected` attribute of options
 
-  0.1.18
+## 0.1.18
 
 - Upgrade ember-cli
 
-  0.1.17
+## 0.1.17
 
 - Upgrade ember-cli
 
-  0.1.16
+## 0.1.16
 
 - Dodgy build
 
-  0.1.15
+## 0.1.15
 
 - Phase out use of `didInitAttrs`
 
-  0.1.14
+## 0.1.14
 
 - Bugfix - make sure `on-update` only fires when `value` changes
 
-  0.1.13
+## 0.1.13
 
 - Add `name` attribute to native select box
 
-  0.1.12
+## 0.1.12
 
 - Upgrade addon to ember-cli 2.3.0
 
-  0.1.11
+## 0.1.11
 
 - Add more aria attributes
 
-  0.1.10
+## 0.1.10
 
 - Prevent content security warnings in test suite
 
-  0.1.9
+## 0.1.9
 
 - Upgrade devDependencies
 
-  0.1.8
+## 0.1.8
 
 - Improve slow search detection
 
-  0.1.7
+## 0.1.7
 
 - Add `stopSearching`
 
-  0.1.6
+## 0.1.6
 
 - Remove `on-activate` from selected options
 - Fix `on-activate` usage for exposed api
 
-  0.1.5
+## 0.1.5
 
 - Add `on-activate` to options and selected options
 
-  0.1.4
+## 0.1.4
 
 - `setInputValue` no longer triggers input event
 
-  0.1.3
+## 0.1.3
 
 - Add `autocomplete="off"` to search input
 
-  0.1.2
+## 0.1.2
 
 - Improve `scrollIntoView`
 
-  0.1.1
+## 0.1.1
 
 - Fix `setInputValue` not working correctly
 
-  0.1.0
+## 0.1.0
 
 - Remove `on-ready` and `on-after-update` in favour of `on-update`
 
-  0.0.1
+## 0.0.1
 
 - Initial release
