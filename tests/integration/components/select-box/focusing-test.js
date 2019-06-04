@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, triggerEvent } from '@ember/test-helpers';
+import { render, focus, blur } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('select-box (focusing)', function(hooks) {
@@ -13,13 +13,13 @@ module('select-box (focusing)', function(hooks) {
 
     assert.dom('.select-box').doesNotHaveClass('is-focused', 'precondition, not focused');
 
-    await triggerEvent('.select-box', 'focus');
+    await focus('.select-box');
 
     assert
       .dom('.select-box')
       .hasClass('is-focused', 'a focused select box has an appropriate class name');
 
-    await triggerEvent('.select-box', 'blur');
+    await blur('.select-box');
 
     assert
       .dom('.select-box')
@@ -46,11 +46,11 @@ module('select-box (focusing)', function(hooks) {
       </SelectBox>
     `);
 
-    await triggerEvent('button', 'focus');
+    await focus('button');
 
     assert.ok(sentFocusIn, true, 'sends a focus in action');
 
-    await triggerEvent('button', 'blur');
+    await blur('button', 'blur');
 
     assert.ok(sentFocusOut, true, 'sends a focus out action');
   });
