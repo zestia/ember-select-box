@@ -1,0 +1,6 @@
+/vendor/
+/dist/
+/tmp/
+/bower_components/
+/node_modules/
+/.node_modules.ember-try/

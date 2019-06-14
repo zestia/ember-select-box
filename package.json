@@ -11,7 +11,7 @@
     "lint": "yarn lint:js && yarn lint:hbs && yarn lint:css",
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
-    "lint:css": "stylelint --allow-empty-input 'addon/**/*.{css,scss}' & stylelint --allow-empty-input 'app/**/*.{css,scss}'",
+    "lint:css": "stylelint --allow-empty-input '**/*.{css,scss}'",
     "start": "ember serve",
     "test": "ember test && yarn lint",
     "test:all": "ember try:each"
