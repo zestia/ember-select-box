@@ -14,7 +14,8 @@
     "lint:css": "stylelint --allow-empty-input '**/*.{css,scss}'",
     "start": "ember serve",
     "test": "ember test && yarn lint",
-    "test:all": "ember try:each"
+    "test:all": "ember try:each",
+    "deploy": "ember build --environment production && ember github-pages:commit --message \"Deploy gh-pages from commit $(git rev-parse HEAD)\" && git push origin gh-pages:gh-pages"
   },
   "repository": {
     "type": "git",
