@@ -1,26 +1,26 @@
-.single-select,
-.single-select * {
-  border: 1px solid silver;
+.single-select {
+  outline: none;
+  max-width: 200px;
+  border: 2px solid silver;
   margin: 2px;
   padding: 2px;
 }
 
-.single-select.select-box {
-  outline: none;
+.single-select.is-focused {
+  border-color: dimgrey;
 }
 
-.single-select.select-box.is-focused {
-  border-color: #666;
-}
-
-.single-select .select-box-option {
+.single-select-option {
   cursor: pointer;
+  border: 2px solid silver;
+  padding: 2px;
+  margin: 2px;
 }
 
-.single-select .select-box-option.is-active {
+.single-select-option.is-active {
   border-color: green;
 }
 
-.single-select .select-box-option.is-selected {
+.single-select-option.is-selected {
   border-color: red;
 }

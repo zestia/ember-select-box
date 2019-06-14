@@ -1,16 +1,10 @@
 .colour-select {
   display: inline-block;
-}
-
-.colour-select * {
-  border: 1px solid silver;
-  margin: 2px;
-  padding: 2px;
-}
-
-.colour-select.is-focused {
-  border-color: #666;
   outline: none;
+}
+
+.colour-select.is-focused .colour-select-selected-option {
+  border-color: dimgrey;
 }
 
 .colour-select-option,
@@ -18,14 +12,13 @@
   cursor: pointer;
   width: 20px;
   height: 20px;
+  border: 2px solid silver;
+  padding: 2px;
+  margin: 2px;
 }
 
 .colour-select-option {
   display: inline-block;
-}
-
-.colour-select-options {
-  height: 30px;
 }
 
 .colour-select-option.is-active {

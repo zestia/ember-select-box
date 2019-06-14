@@ -12,9 +12,8 @@
       {{bread.name}}
     </sb.Option>
   {{else}}
-    <sb.Option onclick={{action "addNewBread" newBread}}>
-      No bread found<br>
-      Add {{newBread}}...
+    <sb.Option @onSelect={{action "addNewBread" newBread}}>
+      No bread found, add {{newBread}}...
     </sb.Option>
   {{/each}}
 </SearchSelect>

@@ -1,28 +1,30 @@
 .tag-select {
   display: inline-block;
   min-width: 200px;
-}
-
-.tag-select,
-.tag-select * {
-  border: 1px solid silver;
+  outline: none;
+  border: 2px solid silver;
   margin: 2px;
   padding: 2px;
 }
 
 .tag-select.is-focused {
-  border-color: #666;
-  outline: none;
+  border-color: dimgrey;
 }
 
 .tag-select-input {
+  font-family: serif;
+  font-size: 100%;
   border: 0;
   outline: none;
   box-sizing: border-box;
 }
 
-.tag-select-option {
+.tag-select-option,
+.tag-select-selected-option {
   cursor: pointer;
+  border: 2px solid silver;
+  padding: 2px;
+  margin: 2px;
 }
 
 .tag-select-remove {
@@ -35,14 +37,9 @@
 }
 
 .tag-select-selected-options {
-  font-size: small;
   display: inline-block;
-  border: 0;
-  margin: 0;
-  padding: 0;
 }
 
-.tag-select-option.is-active,
-.tag-select-selected-option.is-active {
+.tag-select-option.is-active {
   border-color: green;
 }
