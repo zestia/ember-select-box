@@ -4,7 +4,7 @@
 
 - `@onPressKey` is now backed by a key press event, rather than an abstracted key down event
 - Deprecated `@onPressAlphanum`. If you were using this, please swap it to `@onPressKey`
-- Improved `activateOptionForKeyCode` to behave more like native select boxes.
+- [Improved](https://github.com/zestia/ember-select-box/blob/5006a7033e1df514a8979fce205b21b77e5ee69d/tests/integration/components/select-box/activating-options-test.js#L146-L282) `activateOptionForKeyCode` to behave more like native select boxes.
 
 ## 9.0.1
 
