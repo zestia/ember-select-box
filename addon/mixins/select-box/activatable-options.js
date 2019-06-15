@@ -32,12 +32,12 @@ export default Mixin.create({
     const lastChar = lastChars.substring(lastChars.length - 1);
     const ms = Date.now();
     const duration = lastMs ? ms - lastMs : 0;
-    const expired = duration > COLLECT_CHARS_MS;
+    const reset = duration > COLLECT_CHARS_MS;
 
     let chars;
     let matchIndex;
 
-    if (expired) {
+    if (reset) {
       chars = char;
       matchIndex = 0;
     } else if (char === lastChar) {
