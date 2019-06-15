@@ -1,9 +1,9 @@
 import Mixin from '@ember/object/mixin';
 import { computed, get, set } from '@ember/object';
 import scrollIntoView from '../../utils/select-box/scroll-into-view';
-import { isAlphaNumericChar } from '../../utils/alpha-num';
-import { later, cancel } from '@ember/runloop';
+import escapeRegExp from '../../utils/escape-regexp';
 const { fromCharCode } = String;
+export const COLLECT_CHARS_MS = 500;
 
 export default Mixin.create({
   init() {
@@ -26,35 +26,43 @@ export default Mixin.create({
   },
 
   _activateOptionForChar(char, scroll) {
-    cancel(this.activateOptionCharTimer);
-
-    const timer = later(this, '_resetActivateOptionChars', 1000);
-    const index = this.activateOptionCharIndex || 0;
-    const lastChars = this.activateOptionChars || '';
+    const lastChars = this._activateOptionChars || '';
+    const lastMs = this._activateOptionCharsMs;
+    const lastIndex = this._activateOptionCharsIndex || 0;
     const lastChar = lastChars.substring(lastChars.length - 1);
-    const chars = lastChars + char;
+    const ms = Date.now();
+    const duration = lastMs ? ms - lastMs : 0;
+    const expired = duration > COLLECT_CHARS_MS;
 
-    let options;
-    let option;
+    let chars;
+    let matchIndex;
 
-    if (lastChar && lastChar === char) {
-      options = this._findOptionsMatchingChars(char);
-      option = options[index];
+    if (expired) {
+      chars = char;
+      matchIndex = 0;
+    } else if (char === lastChar) {
+      chars = char;
+      matchIndex = lastIndex + 1;
     } else {
-      options = this._findOptionsMatchingChars(chars);
-      option = options[0];
+      chars = `${lastChars}${char}`;
+      matchIndex = 0;
     }
 
-    set(this, 'activateOptionChars', chars);
-    set(this, 'activateOptionCharTimer', timer);
-    set(this, 'activateOptionCharIndex', index >= options.length - 1 ? 0 : index + 1);
+    const options = this._findOptionsMatchingChars(chars);
+    const option = options[matchIndex];
 
     if (option) {
       this.send('activateOptionAtIndex', get(option, 'index'), scroll);
     }
+
+    set(this, '_activateOptionChars', chars);
+    set(this, '_activateOptionCharsMs', ms);
+    set(this, '_activateOptionCharsIndex', matchIndex);
   },
 
   _findOptionsMatchingChars(chars) {
+    chars = escapeRegExp(chars);
+
     const pattern = new RegExp(`^${chars}`, 'i');
 
     return this.options.filter(option => {
@@ -62,14 +70,10 @@ export default Mixin.create({
     });
   },
 
-  _resetActivateOptionChars() {
-    set(this, 'activateOptionChars', '');
-  },
-
   _activatedOption() {
-     const activeOption = get(this, 'activeOption');
+    const activeOption = get(this, 'activeOption');
 
-     if (activeOption) {
+    if (activeOption) {
       activeOption.send('_activated');
     }
   },
@@ -108,9 +112,7 @@ export default Mixin.create({
     activateOptionForKeyCode(keyCode, scroll = true) {
       const char = fromCharCode(keyCode);
 
-      if (isAlphaNumericChar(char)) {
-        this._activateOptionForChar(char, scroll);
-      }
+      this._activateOptionForChar(char, scroll);
     },
 
     deactivateOptions() {

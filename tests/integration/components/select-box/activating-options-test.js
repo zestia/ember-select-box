@@ -1,6 +1,8 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import { later } from '@ember/runloop';
+import { COLLECT_CHARS_MS } from '@zestia/ember-select-box/mixins/select-box/activatable-options';
 import {
   render,
   click,
@@ -8,13 +10,15 @@ import {
   findAll,
   triggerEvent,
   triggerKeyEvent,
-  waitUntil,
-  getSettledState,
-  settled
+  waitUntil
 } from '@ember/test-helpers';
 
 module('select-box (activating options)', function(hooks) {
   setupRenderingTest(hooks);
+
+  function waitForReset() {
+    return waitUntil(() => new Promise(resolve => later(resolve, COLLECT_CHARS_MS)));
+  }
 
   test('mouseover activates options', async function(assert) {
     assert.expect(7);
@@ -48,8 +52,9 @@ module('select-box (activating options)', function(hooks) {
       .dom('.select-box-option[aria-current]')
       .hasText('One', 'receives an aria current attribute when active');
 
-    assert.dom('.select-box-option[aria-current]').hasAttribute('aria-current', 'true',
-      'has correct string value when current');
+    assert
+      .dom('.select-box-option[aria-current]')
+      .hasAttribute('aria-current', 'true', 'has correct string value when current');
 
     await triggerEvent(two, 'mouseover');
 
@@ -139,11 +144,7 @@ module('select-box (activating options)', function(hooks) {
   });
 
   test('cycling through options', async function(assert) {
-    assert.expect(5);
-
-    function _settled() {
-      return waitUntil(() => getSettledState().hasRunLoop === false);
-    }
+    assert.expect(7);
 
     this.set('autoActivate', (e, sb) => {
       sb.activateOptionForKeyCode(e.keyCode);
@@ -151,45 +152,50 @@ module('select-box (activating options)', function(hooks) {
 
     await render(hbs`
       <SelectBox @onPressKey={{this.autoActivate}} as |sb|>
-        <sb.Option @value="foo">Foo</sb.Option>
-        <sb.Option @value="bar">Bar</sb.Option>
-        <sb.Option @value="baz">Baz</sb.Option>
+        <sb.Option @value="A1">A 1</sb.Option>
+        <sb.Option @value="A2">A 2</sb.Option>
+        <sb.Option @value="A3">A 3</sb.Option>
+        <sb.Option @value="B1">B 1</sb.Option>
+        <sb.Option @value="B2">B 2</sb.Option>
+        <sb.Option @value="B3">B 3</sb.Option>
       </SelectBox>
     `);
 
-    triggerKeyEvent('.select-box', 'keydown', 66); // B
+    await triggerKeyEvent('.select-box', 'keypress', 65); // a
 
-    await _settled();
+    assert.dom('.select-box-option.is-active').hasText('A 1');
 
-    assert.dom('.select-box-option.is-active').hasText('Bar');
+    await triggerKeyEvent('.select-box', 'keypress', 65); // a
 
-    triggerKeyEvent('.select-box', 'keydown', 66); // B
+    assert.dom('.select-box-option.is-active').hasText('A 2');
 
-    await _settled();
+    await triggerKeyEvent('.select-box', 'keypress', 65); // a
 
-    assert.dom('.select-box-option.is-active').hasText('Baz');
+    assert.dom('.select-box-option.is-active').hasText('A 3');
 
-    triggerKeyEvent('.select-box', 'keydown', 66); // B
+    await waitForReset();
 
-    await _settled();
+    await triggerKeyEvent('.select-box', 'keypress', 66); // b
 
-    assert.dom('.select-box-option.is-active').hasText('Bar');
+    assert.dom('.select-box-option.is-active').hasText('B 1');
 
-    triggerKeyEvent('.select-box', 'keydown', 66); // B
+    await triggerKeyEvent('.select-box', 'keypress', 66); // b
 
-    await settled();
+    assert.dom('.select-box-option.is-active').hasText('B 2');
 
-    assert.dom('.select-box-option.is-active').hasText('Baz');
+    await triggerKeyEvent('.select-box', 'keypress', 66); // b
 
-    triggerKeyEvent('.select-box', 'keydown', 70); // F
+    assert.dom('.select-box-option.is-active').hasText('B 3');
 
-    await _settled();
+    await waitForReset();
 
-    assert.dom('.select-box-option.is-active').hasText('Foo');
+    await triggerKeyEvent('.select-box', 'keypress', 65); // a
+
+    assert.dom('.select-box-option.is-active').hasText('A 1');
   });
 
-  test('jumping to an option (alpha)', async function(assert) {
-    assert.expect(2);
+  test('jumping to an option (reset timer)', async function(assert) {
+    assert.expect(4);
 
     this.set('autoActivate', (e, sb) => {
       sb.activateOptionForKeyCode(e.keyCode);
@@ -203,15 +209,21 @@ module('select-box (activating options)', function(hooks) {
       </SelectBox>
     `);
 
-    triggerKeyEvent('.select-box', 'keydown', 66); // B
-    triggerKeyEvent('.select-box', 'keydown', 65); // A
-    await triggerKeyEvent('.select-box', 'keydown', 90); // Z
+    await triggerKeyEvent('.select-box', 'keypress', 66); // b
 
-    assert
-      .dom('.select-box-option.is-active')
-      .hasText('Baz', 'jumps straight to the matching option');
+    assert.dom('.select-box-option.is-active').hasText('Bar');
 
-    await triggerKeyEvent('.select-box', 'keydown', 70); // F
+    await triggerKeyEvent('.select-box', 'keypress', 65); // a
+
+    assert.dom('.select-box-option.is-active').hasText('Bar');
+
+    await triggerKeyEvent('.select-box', 'keypress', 90); // z
+
+    assert.dom('.select-box-option.is-active').hasText('Baz');
+
+    await waitForReset();
+
+    await triggerKeyEvent('.select-box', 'keypress', 70); // f
 
     assert.dom('.select-box-option.is-active').hasText('Foo');
   });
@@ -234,13 +246,38 @@ module('select-box (activating options)', function(hooks) {
       </SelectBox>
     `);
 
-    triggerKeyEvent('.select-box', 'keydown', 49); // 1
-    triggerKeyEvent('.select-box', 'keydown', 57); // 9
-    triggerKeyEvent('.select-box', 'keydown', 56); // 8
-    await triggerKeyEvent('.select-box', 'keydown', 51); // 3
+    await triggerKeyEvent('.select-box', 'keypress', 49); // 1
+    await triggerKeyEvent('.select-box', 'keypress', 57); // 9
+    await triggerKeyEvent('.select-box', 'keypress', 56); // 8
+    await triggerKeyEvent('.select-box', 'keypress', 51); // 3
+
+    assert.dom('.select-box-option.is-active').hasText('1983');
+  });
+
+  test('jumping to an option (dodgy chars)', async function(assert) {
+    assert.expect(1);
+
+    this.set('autoActivate', (e, sb) => {
+      sb.activateOptionForKeyCode(e.keyCode);
+    });
+
+    await render(hbs`
+      <SelectBox @onPressKey={{this.autoActivate}} as |sb|>
+        <sb.Option @value={{1}}>Fred S</sb.Option>
+        <sb.Option @value={{2}}>Fred S[</sb.Option>
+      </SelectBox>
+    `);
+
+    await triggerKeyEvent('.select-box', 'keypress', 70); // f
+    await triggerKeyEvent('.select-box', 'keypress', 82); // r
+    await triggerKeyEvent('.select-box', 'keypress', 69); // e
+    await triggerKeyEvent('.select-box', 'keypress', 68); // d
+    await triggerKeyEvent('.select-box', 'keypress', 32); // space
+    await triggerKeyEvent('.select-box', 'keypress', 83); // s
+    await triggerKeyEvent('.select-box', 'keypress', 91); // [
 
     assert
       .dom('.select-box-option.is-active')
-      .hasText('1983', 'jumps straight to the matching option');
+      .hasText('Fred S[', "jumps to the matching option (regexp doesn't blow up)");
   });
 });

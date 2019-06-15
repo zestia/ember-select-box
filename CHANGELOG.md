@@ -1,5 +1,11 @@
 # Changelog
 
+## 10.0.0
+
+- `@onPressKey` is now backed by a key press event, rather than an abstracted key down event
+- Deprecated `@onPressAlphanum`. If you were using this, please swap it to `@onPressKey`
+- Improved `activateOptionForKeyCode` to behave more like native select boxes.
+
 ## 9.0.1
 
 - Upgrade dependencies

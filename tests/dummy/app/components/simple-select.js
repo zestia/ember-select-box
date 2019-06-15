@@ -7,7 +7,7 @@ export default Component.extend({
   tagName: '',
 
   actions: {
-    pressedAlphaNum(e, sb) {
+    pressedKey(e, sb) {
       sb.activateOptionForKeyCode(e.keyCode);
 
       if (!sb.isOpen) {
