@@ -28,10 +28,10 @@
   box-sizing: border-box;
 }
 
-.search-select-option.is-active {
-  border-color: green;
-}
-
 .search-select-option.is-selected {
   border-color: red;
+}
+
+.search-select-option.is-active {
+  border-color: green;
 }

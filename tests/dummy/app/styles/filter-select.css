@@ -28,10 +28,10 @@
   box-sizing: border-box;
 }
 
-.filter-select-option.is-active {
-  border-color: green;
-}
-
 .filter-select-option.is-selected {
   border-color: red;
+}
+
+.filter-select-option.is-active {
+  border-color: green;
 }

@@ -17,10 +17,10 @@
   margin: 2px;
 }
 
-.single-select-option.is-active {
-  border-color: green;
-}
-
 .single-select-option.is-selected {
   border-color: red;
+}
+
+.single-select-option.is-active {
+  border-color: green;
 }

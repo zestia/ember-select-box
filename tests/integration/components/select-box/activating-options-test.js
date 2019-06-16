@@ -144,7 +144,7 @@ module('select-box (activating options)', function(hooks) {
   });
 
   test('cycling through options', async function(assert) {
-    assert.expect(7);
+    assert.expect(9);
 
     this.set('autoActivate', (e, sb) => {
       sb.activateOptionForKeyCode(e.keyCode);
@@ -155,9 +155,6 @@ module('select-box (activating options)', function(hooks) {
         <sb.Option @value="A1">A 1</sb.Option>
         <sb.Option @value="A2">A 2</sb.Option>
         <sb.Option @value="A3">A 3</sb.Option>
-        <sb.Option @value="B1">B 1</sb.Option>
-        <sb.Option @value="B2">B 2</sb.Option>
-        <sb.Option @value="B3">B 3</sb.Option>
       </SelectBox>
     `);
 
@@ -173,25 +170,31 @@ module('select-box (activating options)', function(hooks) {
 
     assert.dom('.select-box-option.is-active').hasText('A 3');
 
-    await waitForReset();
+    await triggerKeyEvent('.select-box', 'keypress', 65); // a
 
-    await triggerKeyEvent('.select-box', 'keypress', 66); // b
+    assert.dom('.select-box-option.is-active').hasText('A 1');
 
-    assert.dom('.select-box-option.is-active').hasText('B 1');
+    await triggerKeyEvent('.select-box', 'keypress', 65); // a
 
-    await triggerKeyEvent('.select-box', 'keypress', 66); // b
+    assert.dom('.select-box-option.is-active').hasText('A 2');
 
-    assert.dom('.select-box-option.is-active').hasText('B 2');
+    await triggerKeyEvent('.select-box', 'keypress', 65); // a
 
-    await triggerKeyEvent('.select-box', 'keypress', 66); // b
-
-    assert.dom('.select-box-option.is-active').hasText('B 3');
+    assert.dom('.select-box-option.is-active').hasText('A 3');
 
     await waitForReset();
 
     await triggerKeyEvent('.select-box', 'keypress', 65); // a
 
     assert.dom('.select-box-option.is-active').hasText('A 1');
+
+    await triggerKeyEvent('.select-box', 'keypress', 65); // a
+
+    assert.dom('.select-box-option.is-active').hasText('A 2');
+
+    await triggerKeyEvent('.select-box', 'keypress', 65); // a
+
+    assert.dom('.select-box-option.is-active').hasText('A 3');
   });
 
   test('jumping to an option (reset timer)', async function(assert) {
@@ -279,5 +282,35 @@ module('select-box (activating options)', function(hooks) {
     assert
       .dom('.select-box-option.is-active')
       .hasText('Fred S[', "jumps to the matching option (regexp doesn't blow up)");
+  });
+
+  test('jumping to an option (same-char regression)', async function(assert) {
+    assert.expect(1);
+
+    this.set('autoActivate', (e, sb) => {
+      sb.activateOptionForKeyCode(e.keyCode);
+    });
+
+    await render(hbs`
+      <SelectBox @onPressKey={{this.autoActivate}} as |sb|>
+        <sb.Option @value={{1}}>Fred</sb.Option>
+        <sb.Option @value={{2}}>Reggie</sb.Option>
+        <sb.Option @value={{3}}>Geoffrey</sb.Option>
+      </SelectBox>
+    `);
+
+    await triggerKeyEvent('.select-box', 'keypress', 71); // g
+    await triggerKeyEvent('.select-box', 'keypress', 69); // e
+    await triggerKeyEvent('.select-box', 'keypress', 79); // o
+    await triggerKeyEvent('.select-box', 'keypress', 70); // f
+    await triggerKeyEvent('.select-box', 'keypress', 70); // f (for fred)
+    await triggerKeyEvent('.select-box', 'keypress', 82); // r (for reggie)
+
+    assert
+      .dom('.select-box-option.is-active')
+      .hasText(
+        'Geoffrey',
+        "does not start 'cycle through' behaviour, just because the same letter was typed"
+      );
   });
 });

@@ -3,7 +3,7 @@ import { computed, get, set } from '@ember/object';
 import scrollIntoView from '../../utils/select-box/scroll-into-view';
 import escapeRegExp from '../../utils/escape-regexp';
 const { fromCharCode } = String;
-export const COLLECT_CHARS_MS = 500;
+export const COLLECT_CHARS_MS = 1000;
 
 export default Mixin.create({
   init() {
@@ -27,37 +27,38 @@ export default Mixin.create({
 
   _activateOptionForChar(char, scroll) {
     const lastChars = this._activateOptionChars || '';
-    const lastMs = this._activateOptionCharsMs;
-    const lastIndex = this._activateOptionCharsIndex || 0;
+    const lastMs = this._activateOptionMs;
+    const lastIndex = this._activateOptionIndex || 0;
     const lastChar = lastChars.substring(lastChars.length - 1);
+    const repeatedChar = char === lastChar;
     const ms = Date.now();
     const duration = lastMs ? ms - lastMs : 0;
     const reset = duration > COLLECT_CHARS_MS;
 
-    let chars;
-    let matchIndex;
+    let chars = reset ? char : `${lastChars}${char}`;
+    let index = 0;
+    let options = this._findOptionsMatchingChars(chars);
+    let option = options[index];
 
-    if (reset) {
-      chars = char;
-      matchIndex = 0;
-    } else if (char === lastChar) {
-      chars = char;
-      matchIndex = lastIndex + 1;
-    } else {
-      chars = `${lastChars}${char}`;
-      matchIndex = 0;
+    if (options.length < 1 && repeatedChar) {
+      index = lastIndex + 1;
+      chars = lastChar;
+      options = this._findOptionsMatchingChars(chars);
+      option = options[index];
+
+      if (!option) {
+        index = 0;
+        option = options[index];
+      }
     }
-
-    const options = this._findOptionsMatchingChars(chars);
-    const option = options[matchIndex];
 
     if (option) {
       this.send('activateOptionAtIndex', get(option, 'index'), scroll);
     }
 
     set(this, '_activateOptionChars', chars);
-    set(this, '_activateOptionCharsMs', ms);
-    set(this, '_activateOptionCharsIndex', matchIndex);
+    set(this, '_activateOptionMs', ms);
+    set(this, '_activateOptionIndex', index);
   },
 
   _findOptionsMatchingChars(chars) {

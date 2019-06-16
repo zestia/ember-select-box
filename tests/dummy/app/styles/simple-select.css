@@ -29,10 +29,10 @@
   overflow: auto;
 }
 
-.simple-select-option.is-active {
-  border-color: green;
-}
-
 .simple-select-option.is-selected {
   border-color: red;
+}
+
+.simple-select-option.is-active {
+  border-color: green;
 }
