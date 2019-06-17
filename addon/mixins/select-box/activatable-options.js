@@ -27,12 +27,12 @@ export default Mixin.create({
 
   _activateOptionForChar(char, scroll) {
     const lastChars = this._activateOptionChars || '';
-    const lastMs = this._activateOptionMs;
+    const lastMs = this._activateOptionMs || 0;
     const lastIndex = this._activateOptionIndex || 0;
     const lastChar = lastChars.substring(lastChars.length - 1);
     const repeatedChar = char === lastChar;
     const ms = Date.now();
-    const duration = lastMs ? ms - lastMs : 0;
+    const duration = ms - lastMs;
     const reset = duration > COLLECT_CHARS_MS;
 
     let chars = reset ? char : `${lastChars}${char}`;
