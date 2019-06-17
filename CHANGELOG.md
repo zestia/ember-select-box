@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.0.1
+
+- Only attempt `activateOptionForKeyCode` if the key pressed resulted in a character being input
+
 ## 10.0.0
 
 - `@onPressKey` is now backed by a key press event, rather than an abstracted key down event
