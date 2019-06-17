@@ -113,7 +113,9 @@ export default Mixin.create({
     activateOptionForKeyCode(keyCode, scroll = true) {
       const char = fromCharCode(keyCode);
 
-      this._activateOptionForChar(char, scroll);
+      if (char) {
+        this._activateOptionForChar(char, scroll);
+      }
     },
 
     deactivateOptions() {
