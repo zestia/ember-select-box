@@ -22,7 +22,7 @@
     "url": "https://github.com/zestia/ember-select-box.git"
   },
   "engines": {
-    "node": "6.* || 8.* || >= 10.*"
+    "node": "8.* || >= 10.*"
   },
   "author": "Zestia",
   "license": "MIT",
