@@ -2,34 +2,36 @@
 
 <a href="https://badge.fury.io/js/%40zestia%2Fember-select-box"><img src="https://badge.fury.io/js/%40zestia%2Fember-select-box.svg" alt="npm version" height="18"></a> &nbsp; <a href="http://travis-ci.org/zestia/ember-select-box"><img src="https://travis-ci.org/zestia/ember-select-box.svg?branch=master"></a> &nbsp;<a href="https://david-dm.org/zestia/ember-select-box#badge-embed"><img src="https://david-dm.org/zestia/ember-select-box.svg"></a> &nbsp; <a href="https://david-dm.org/zestia/ember-select-box#dev-badge-embed"><img src="https://david-dm.org/zestia/ember-select-box/dev-status.svg"></a> &nbsp; <a href="https://emberobserver.com/addons/@zestia/ember-select-box"><img src="https://emberobserver.com/badges/-zestia-ember-select-box.svg"></a>
 
-
 Select box solutions are rarely perfect for what you want.
 
 They come with a myriad of options to configure every possible situation, and they make too many assumptions about how your select-box should behave.
 
 This addon does less, and gives you the primitives to easily _compose your own_.
 
-## Features / info
+## Info
 
-* [Easily customisable](#customising)
-* <a href="https://zestia.github.io/ember-select-box" target="_blank">Demo scenarios</a>
-* [FAQ](#faq)
-* [Troubleshooting](#troubleshooting)
-* Native select box _(that supports complex values)_ ✔︎
-* Faux select box _(mimics a native select box, but easily stylable)_ ✔︎
-* Navigatable options and groups ✔︎
-* ARIA Attributes ✔︎
-* Supports promises ✔︎
-* Any HTML you want ✔︎
-* Fully themeable using namespaced classes ✔︎
-* Will never come with built-in styles ✔︎
-* Ember Data friendly ✔︎
-* Does not use jQuery ✔︎
-* Easily create an autocompleter ✔︎
-* Easily create a dropdown menu ✔︎
-* Works well with [Ember Wormhole](https://github.com/yapplabs/ember-wormhole) ✔︎
-* Full control at all times with the [API](#api) ✔︎
-* Very few issues over many years of Ember! ✔︎
+- [Customising](#customising)
+- <a href="https://zestia.github.io/ember-select-box" target="_blank">Demo</a>
+- [FAQ](#faq)
+- [Troubleshooting](#troubleshooting)
+
+## Features
+
+- Native select box _(that supports complex values)_ ✔︎
+- Faux select box _(mimics a native select box, but easily stylable)_ ✔︎
+- Navigatable options and groups ✔︎
+- ARIA Attributes ✔︎
+- Supports promises ✔︎
+- Any HTML you want ✔︎
+- Fully themeable using namespaced classes ✔︎
+- Will never come with built-in styles ✔︎
+- Ember Data friendly ✔︎
+- Does not use jQuery ✔︎
+- Easily create an autocompleter ✔︎
+- Easily create a dropdown menu ✔︎
+- Works well with [Ember Wormhole](https://github.com/yapplabs/ember-wormhole) ✔︎
+- Full control at all times with the [API](#api) ✔︎
+- Very few issues over many years of Ember! ✔︎
 
 ## Installation
 
@@ -631,18 +633,18 @@ Option 1 is recommended. Define your component like so...
 
 #### FAQ
 
-* Question: Why aren't the native and faux select boxes two addons.<br>
-* Answer: Less effort maintaining 1 addon!
+- Question: Why aren't the native and faux select boxes two addons.<br>
+- Answer: Less effort maintaining 1 addon!
 
-* Question: Why would I not just use [Ember Power Select](https://github.com/cibernox/ember-power-select)?
-* Answer: `ember-power-select` is powerful in that it is feature-full, whereas `ember-select-box` is flexible in that it is minimal.
+- Question: Why would I not just use [Ember Power Select](https://github.com/cibernox/ember-power-select)?
+- Answer: `ember-power-select` is powerful in that it is feature-full, whereas `ember-select-box` is flexible in that it is minimal.
 
 #### Troubleshooting
 
-* Problem: When I navigate using the arrow keys, the wrong option becomes active
-* Solution: This may happen when you change the options that are displayed, because Ember will try to
-re-use components. You can fix this by adding `key="@index"` to your `#each`.
+- Problem: When I navigate using the arrow keys, the wrong option becomes active
+- Solution: This may happen when you change the options that are displayed, because Ember will try to
+  re-use components. You can fix this by adding `key="@index"` to your `#each`.
 
-* Problem: Rendering lots of options is slow.
-* Solution: If your select box only uses _primitive_ values, you do not need to use `<sb.Option>`, instead you can
-use a plain old `<option>` element [[Example](tests/dummy/app/templates/fast-native-single-select.hbs)]. Which will be faster, because constructing components is expensive in Ember.
+- Problem: Rendering lots of options is slow.
+- Solution: If your select box only uses _primitive_ values, you do not need to use `<sb.Option>`, instead you can
+  use a plain old `<option>` element [[Example](tests/dummy/app/templates/fast-native-single-select.hbs)]. Which will be faster, because constructing components is expensive in Ember.
