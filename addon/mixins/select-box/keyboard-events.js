@@ -1,7 +1,6 @@
 import Mixin from '@ember/object/mixin';
 import { capitalize } from '@ember/string';
 import invokeAction from '../../utils/invoke-action';
-import { isAlphaNumericKeyCode } from '../../utils/alpha-num';
 
 export const keys = {
   8: 'backspace',
@@ -15,18 +14,14 @@ export const keys = {
 };
 
 export default Mixin.create({
-  keyDown() {
+  keyPress(e) {
     this._super(...arguments);
-    this._handleKeyPress(...arguments);
+
+    invokeAction(this, `onPressKey`, e, this.api);
   },
 
-  _handleKeyPress(e) {
-    invokeAction(this, `onPressKey`, e, this.api);
-
-    if (isAlphaNumericKeyCode(e.keyCode)) {
-      invokeAction(this, `onPressAlphanum`, e, this.api);
-      return;
-    }
+  keyDown(e) {
+    this._super(...arguments);
 
     let key = keys[e.keyCode];
 

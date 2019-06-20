@@ -31,6 +31,7 @@ This addon does less, and gives you the primitives to easily _compose your own_.
 - Easily create a dropdown menu ✔︎
 - Works well with [Ember Wormhole](https://github.com/yapplabs/ember-wormhole) ✔︎
 - Full control at all times with the [API](#api) ✔︎
+- 'Jump-to option' behaviour based on keyboard input ✔︎
 - Very few issues over many years of Ember! ✔︎
 
 ## Installation
@@ -168,15 +169,9 @@ ember install @zestia/ember-select-box
     </tr>
     <tr>
       <td>@onPressKey</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>@onPressAlphanum</td>
-      <td>
-        Useful because using <code>keyDown=</code> would overwrite the component's method,
-        which is a bit of an Ember flaw. Also can be used for activating an option based on the
-        characters recently typed. See: <code>sb.activateOptionForKeyCode(e.keyCode)</code>
-      </td>
+      <td>A useful place to call <code>sb.activateOptionForKeyCode(e.keyCode)</code>, which
+      can be used to activate an option based on the characters recently typed. This mimics
+      the jump-to option behaviour found in native select boxes</td>
     </tr>
     <tr>
       <td>@onPressBackspace</td>

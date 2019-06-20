@@ -1,35 +1,37 @@
 .search-select {
   display: inline-block;
   min-width: 200px;
-}
-
-.search-select,
-.search-select * {
-  border: 1px solid silver;
+  outline: none;
+  border: 2px solid silver;
   margin: 2px;
   padding: 2px;
 }
 
 .search-select.is-focused {
-  border-color: #666;
-  outline: none;
+  border-color: dimgrey;
+}
+
+.search-select-option,
+.search-select-selected-option {
+  cursor: pointer;
+  border: 2px solid silver;
+  padding: 2px;
+  margin: 2px;
 }
 
 .search-select-input {
+  font-family: serif;
+  font-size: 100%;
   border: 0;
   outline: none;
   width: 100%;
   box-sizing: border-box;
 }
 
-.search-select-option {
-  cursor: pointer;
+.search-select-option.is-selected {
+  border-color: red;
 }
 
 .search-select-option.is-active {
   border-color: green;
-}
-
-.search-select-option.is-selected {
-  border-color: red;
 }

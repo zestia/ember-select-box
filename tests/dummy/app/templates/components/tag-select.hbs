@@ -14,19 +14,18 @@
     {{#each @value as |tag|}}
       <sb.SelectedOption>
         {{tag}}
-        {{! template-lint-disable invalid-interactive }}
-        <span
+        <button
           onclick={{action "removeTag" tag}}
           class="tag-select-remove">
           &times;
-        </span>
+        </button>
       </sb.SelectedOption>
     {{/each}}
   </sb.SelectedOptions>
 
   <sb.Input
     autofocus={{true}}
-    @click={{action "reveal" sb @onSearch}}
+    onclick={{action "reveal" sb @onSearch}}
     @onInput={{sb.open}}
     @onDelete={{action "removeTag" @value.lastObject}} />
 
@@ -38,8 +37,7 @@
         {{/each}}
       {{else if this.newTag}}
         <sb.Option @value={{this.newTag}}>
-          No tag found<br>
-          Add {{this.newTag}}...
+          No tag found, add {{this.newTag}}...
         </sb.Option>
       {{/if}}
     </sb.Options>

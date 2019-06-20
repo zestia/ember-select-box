@@ -1,39 +1,37 @@
 .filter-select {
   display: inline-block;
   min-width: 200px;
-}
-
-.filter-select,
-.filter-select * {
-  border: 1px solid silver;
+  outline: none;
+  border: 2px solid silver;
   margin: 2px;
   padding: 2px;
 }
 
 .filter-select.is-focused {
-  border-color: #666;
-  outline: none;
+  border-color: dimgrey;
+}
+
+.filter-select-option,
+.filter-select-selected-option {
+  cursor: pointer;
+  border: 2px solid silver;
+  padding: 2px;
+  margin: 2px;
 }
 
 .filter-select-input {
+  font-family: serif;
+  font-size: 100%;
   border: 0;
   outline: none;
   width: 100%;
   box-sizing: border-box;
 }
 
-.filter-select.is-focused .filter-select-selected {
-  border-color: #666;
-}
-
-.filter-select-option {
-  cursor: pointer;
+.filter-select-option.is-selected {
+  border-color: red;
 }
 
 .filter-select-option.is-active {
   border-color: green;
-}
-
-.filter-select-option.is-selected {
-  border-color: red;
 }

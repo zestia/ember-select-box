@@ -1,16 +1,16 @@
 .native-simple-select {
   display: inline-block;
   position: relative;
-  border: 1px solid silver;
+  border: 2px solid silver;
   padding: 2px;
   cursor: pointer;
 }
 
 .native-simple-select.is-focused {
-  border-color: #666
+  border-color: dimgrey;
 }
 
-.native-simple-select select {
+.native-simple-select .select-box {
   position: absolute;
   cursor: pointer;
   top: 0;

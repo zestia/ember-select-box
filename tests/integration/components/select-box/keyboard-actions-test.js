@@ -7,7 +7,7 @@ module('select-box (keyboard actions)', function(hooks) {
   setupRenderingTest(hooks);
 
   test('keyboard actions', async function(assert) {
-    assert.expect(2);
+    assert.expect(3);
 
     const called = [];
     let pressedKey = 0;
@@ -27,11 +27,6 @@ module('select-box (keyboard actions)', function(hooks) {
       @onPressDown={{action this.ranAction "down"}}
     />`);
 
-    // No longer works...
-    // keys(eventKeys).forEach(async key => {
-    //   await triggerKeyEvent('.select-box', 'keydown', key);
-    // });
-
     await triggerKeyEvent('.select-box', 'keydown', 8);
     await triggerKeyEvent('.select-box', 'keydown', 9);
     await triggerKeyEvent('.select-box', 'keydown', 13);
@@ -47,11 +42,10 @@ module('select-box (keyboard actions)', function(hooks) {
       'calls actions named that of the key that was pressed'
     );
 
-    assert.equal(
-      pressedKey,
-      8,
-      'sends a generic key press action whenever a key is pressed to avoid clash ' +
-        'when using keyDown=(action) which would wipeout functionality'
-    );
+    assert.equal(pressedKey, 0, 'no characters input yet');
+
+    await triggerKeyEvent('.select-box', 'keypress', 65); // a
+
+    assert.equal(pressedKey, 1, 'sends key press action when characters are input');
   });
 });

@@ -8,7 +8,7 @@
   @onPressEscape={{action "close"}} as |sb|>
 
   <sb.SelectedOption
-    onclick={{sb.open}}
+    onclick={{sb.toggle}}
     style={{style (concat "background:" sb.value)}}
     @value={{sb.value}} />
 
