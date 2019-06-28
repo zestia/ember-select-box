@@ -36,7 +36,7 @@ module('select-box/option', function(hooks) {
       .hasAttribute('role', 'option', 'a select box option has an appropriate aria role');
   });
 
-  test('title', async function(assert) {
+  test('classic: title', async function(assert) {
     assert.expect(1);
 
     await render(hbs`{{select-box/option title="Foo"}}`);
@@ -50,6 +50,18 @@ module('select-box/option', function(hooks) {
     assert.expect(2);
 
     await render(hbs`<SelectBox::option @disabled={{true}} />`);
+
+    assert
+      .dom('.select-box-option')
+      .hasClass('is-disabled', 'an option can be flagged as disabled');
+
+    assert.dom('.select-box-option').hasAttribute('aria-disabled', 'true');
+  });
+
+  test('classic: disabled', async function(assert) {
+    assert.expect(2);
+
+    await render(hbs`{{select-box/option disabled=true}}`);
 
     assert
       .dom('.select-box-option')
@@ -74,7 +86,8 @@ module('select-box/option', function(hooks) {
       .dom('.select-box-option:nth-child(1)[aria-selected]')
       .hasText('One', 'the selected option receives an aria selected attribute');
 
-    assert.dom('.select-box-option:nth-child(1)[aria-selected]')
+    assert
+      .dom('.select-box-option:nth-child(1)[aria-selected]')
       .hasAttribute('aria-selected', 'true', 'has correct string value when selected');
 
     this.set('value', 2);
@@ -83,7 +96,8 @@ module('select-box/option', function(hooks) {
       .dom('.select-box-option:nth-child(2)[aria-selected]')
       .hasText('Two', 'the aria selected attribute is redetermined when the value changes');
 
-    assert.dom('.select-box-option:nth-child(2)[aria-selected]')
+    assert
+      .dom('.select-box-option:nth-child(2)[aria-selected]')
       .hasAttribute('aria-selected', 'true', 'has correct string value when selected');
   });
 
@@ -270,16 +284,24 @@ module('select-box/option', function(hooks) {
 
     await render(hbs`<SelectBox::option @value={{this.promise}} />`);
 
-    assert.dom('.select-box-option').hasAttribute('aria-busy', 'true',
-      'select box option has busy attribute when resolving promise'
-    );
+    assert
+      .dom('.select-box-option')
+      .hasAttribute(
+        'aria-busy',
+        'true',
+        'select box option has busy attribute when resolving promise'
+      );
 
     deferred.resolve();
 
     await settled();
 
-    assert.dom('.select-box-option').hasAttribute('aria-busy', 'false',
-      'select box option no longer has busy attribute when promise has resolved'
-    );
+    assert
+      .dom('.select-box-option')
+      .hasAttribute(
+        'aria-busy',
+        'false',
+        'select box option no longer has busy attribute when promise has resolved'
+      );
   });
 });

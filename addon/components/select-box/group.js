@@ -6,5 +6,6 @@ const mixins = [Nameable];
 
 export default Component.extend(...mixins, {
   layout,
-  classNameSuffix: 'group'
+  classNameSuffix: 'group',
+  attributeBindings: ['style']
 });

@@ -51,7 +51,7 @@ const mixins = [
 export default Component.extend(...mixins, {
   layout,
 
-  attributeBindings: ['aria-busy', 'aria-disabled', 'aria-expanded', 'aria-label', 'role'],
+  attributeBindings: ['aria-busy', 'aria-disabled', 'aria-expanded', 'aria-label', 'role', 'style'],
 
   classNameBindings: [
     'isOpen',

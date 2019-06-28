@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.0.2
+
+- Add style attribute binding support for those who still use classic components
+
 ## 10.0.1
 
 - Only attempt `activateOptionForKeyCode` if the key pressed resulted in a character being input

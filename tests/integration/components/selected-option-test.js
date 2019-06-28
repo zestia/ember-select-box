@@ -2,6 +2,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, findAll } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import { htmlSafe } from '@ember/template';
 
 module('select-box/selected-option', function(hooks) {
   setupRenderingTest(hooks);
@@ -24,7 +25,7 @@ module('select-box/selected-option', function(hooks) {
     assert.dom('.foo-selected-option').exists({ count: 1 }, 'can override the class prefix');
   });
 
-  test('title', async function(assert) {
+  test('classic: title', async function(assert) {
     assert.expect(1);
 
     await render(hbs`{{select-box/selected-option title="Foo"}}`);
@@ -32,6 +33,18 @@ module('select-box/selected-option', function(hooks) {
     assert
       .dom('.select-box-selected-option')
       .hasAttribute('title', 'Foo', 'a selected option can have a title attribute');
+  });
+
+  test('classic: style', async function(assert) {
+    assert.expect(1);
+
+    this.set('style', htmlSafe('color: red'));
+
+    await render(hbs`{{select-box/selected-option style=this.style}}`);
+
+    assert
+      .dom('.select-box-selected-option')
+      .hasAttribute('style', 'color: red', 'can bind style to classic comp');
   });
 
   test('yield', async function(assert) {

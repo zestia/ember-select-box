@@ -1,13 +1,8 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import {
-  render,
-  find,
-  fillIn,
-  click,
-  triggerKeyEvent
-} from '@ember/test-helpers';
+import { render, find, fillIn, click, triggerKeyEvent } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import { htmlSafe } from '@ember/template';
 
 module('select-box/input', function(hooks) {
   setupRenderingTest(hooks);
@@ -51,14 +46,22 @@ module('select-box/input', function(hooks) {
   });
 
   test('type', async function(assert) {
-    assert.expect(2);
+    assert.expect(1);
 
     await render(hbs`<SelectBox::input />`);
 
-    assert.dom('.select-box-input').hasAttribute('type', '',
-      'select box inputs are not search boxes by default due to unwanted ' +
-        'behaviour when you press escape'
-    );
+    assert
+      .dom('.select-box-input')
+      .hasAttribute(
+        'type',
+        '',
+        'select box inputs are not search boxes by default due to unwanted ' +
+          'behaviour when you press escape'
+      );
+  });
+
+  test('classic: type', async function(assert) {
+    assert.expect(1);
 
     await render(hbs`{{select-box/input type="email"}}`);
 
@@ -67,7 +70,19 @@ module('select-box/input', function(hooks) {
       .hasAttribute('type', 'email', 'can change the type of the select box input');
   });
 
-  test('value', async function(assert) {
+  test('classic: style', async function(assert) {
+    assert.expect(1);
+
+    this.set('style', htmlSafe('color: red'));
+
+    await render(hbs`{{select-box/input style=this.style}}`);
+
+    assert
+      .dom('.select-box-input')
+      .hasAttribute('style', 'color: red', 'can bind style to classic comp');
+  });
+
+  test('classic: value', async function(assert) {
     assert.expect(3);
 
     this.set('myObj', { value: 'foo' });
@@ -121,7 +136,7 @@ module('select-box/input', function(hooks) {
 
     await render(hbs`
       <SelectBox as |sb|>
-        {{sb.Input value="foo" onClear=this.cleared}}
+        <sb.Input @value="foo" @onClear={{this.cleared}} />
       </SelectBox>
     `);
 
@@ -141,7 +156,7 @@ module('select-box/input', function(hooks) {
 
     await render(hbs`
       <SelectBox as |sb|>
-        {{sb.Input value="f" onDelete=this.deleted}}
+        <sb.Input @value="f" @onDelete={{this.deleted}} />
       </SelectBox>
     `);
 

@@ -4,6 +4,7 @@ import { click, render, settled, find, findAll } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import SelectBox from '@zestia/ember-select-box/components/select-box';
 import EmberArray, { A as emberA } from '@ember/array';
+import { htmlSafe } from '@ember/template';
 const { isFrozen } = Object;
 
 module('select-box', function(hooks) {
@@ -43,6 +44,16 @@ module('select-box', function(hooks) {
     assert.dom('.foo-group-options').exists({ count: 1 });
     assert.dom('.foo-option').exists({ count: 1 });
     assert.dom('.foo-selected-option').exists({ count: 1 });
+  });
+
+  test('classic: style', async function(assert) {
+    assert.expect(1);
+
+    this.set('style', htmlSafe('color: red'));
+
+    await render(hbs`{{select-box style=this.style}}`);
+
+    assert.dom('.select-box').hasAttribute('style', 'color: red', 'can bind style to classic comp');
   });
 
   test('extending with class prefix', async function(assert) {

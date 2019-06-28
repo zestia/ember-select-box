@@ -12,7 +12,7 @@ const mixins = [Activatable, BaseOption, Indexable, Nameable, Registerable];
 export default Component.extend(...mixins, {
   layout,
   classNameSuffix: 'selected-option',
-  attributeBindings: ['title', 'aria-current'],
+  attributeBindings: ['title', 'aria-current', 'style'],
   classNameBindings: ['isActive'],
 
   'aria-current': boolString('isActive')

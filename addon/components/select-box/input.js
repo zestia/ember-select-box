@@ -49,6 +49,7 @@ export default Component.extend(...mixins, {
     'size',
     'spellcheck',
     'step',
+    'style',
     'tabindex',
     'title',
     'type',

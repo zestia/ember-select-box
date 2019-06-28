@@ -47,6 +47,7 @@ module('select-box (input)', function(hooks) {
         'size',
         'spellcheck',
         'step',
+        'style',
         'tabindex',
         'title',
         'type',

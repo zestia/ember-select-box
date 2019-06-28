@@ -25,7 +25,7 @@ module('native-select-box/option', function(hooks) {
     assert.dom('.foo-option').exists({ count: 1 }, 'can override the class prefix');
   });
 
-  test('title', async function(assert) {
+  test('classic: title', async function(assert) {
     assert.expect(1);
 
     await render(hbs`{{native-select-box/option title="Foo"}}`);
@@ -35,7 +35,7 @@ module('native-select-box/option', function(hooks) {
       .hasAttribute('title', 'Foo', 'a native select box option can have a title attribute');
   });
 
-  test('disabling', async function(assert) {
+  test('classic: disabled', async function(assert) {
     assert.expect(2);
 
     this.set('optionDisabled', true);

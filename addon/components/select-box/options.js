@@ -8,6 +8,6 @@ const mixins = [Nameable, Registerable];
 export default Component.extend(...mixins, {
   layout,
   classNameSuffix: 'options',
-  attributeBindings: ['role', 'aria-activedescendant'],
+  attributeBindings: ['role', 'style', 'aria-activedescendant'],
   role: 'listbox'
 });

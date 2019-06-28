@@ -8,5 +8,5 @@ const mixins = [Nameable, Registerable];
 export default Component.extend(...mixins, {
   layout,
   classNameSuffix: 'selected-options',
-  attributeBindings: ['aria-activedescendant']
+  attributeBindings: ['aria-activedescendant', 'style']
 });

@@ -24,7 +24,7 @@ module('native-select-box/group', function(hooks) {
     assert.dom('.foo-group').exists({ count: 1 }, 'can override the class prefix');
   });
 
-  test('label', async function(assert) {
+  test('classic: label', async function(assert) {
     assert.expect(1);
 
     await render(hbs`{{native-select-box/group label="Foo"}}`);
@@ -34,7 +34,7 @@ module('native-select-box/group', function(hooks) {
       .hasAttribute('label', 'Foo', 'the specified label is applied as an HTML attribute');
   });
 
-  test('disabling', async function(assert) {
+  test('classic: disabled', async function(assert) {
     assert.expect(2);
 
     this.set('groupDisabled', true);

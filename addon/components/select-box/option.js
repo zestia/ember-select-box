@@ -31,7 +31,8 @@ export default Component.extend(...mixins, {
     'aria-disabled',
     'aria-selected',
     'role',
-    'title'
+    'title',
+    'style'
   ],
 
   classNameBindings: ['isActive', 'isDisabled', 'isSelected'],
