@@ -20,6 +20,15 @@ export default Mixin.create({
     this._update(this.value);
   },
 
+  didInsertElement() {
+    this._super(...arguments);
+    this.send('_insertedElement');
+  },
+
+  _insertedElement() {
+    invokeAction(this, 'onInsertElement', this.api);
+  },
+
   _select(value) {
     this._update(value).then(() => {
       invokeAction(this, 'onSelect', this.internalValue, this.api);
@@ -100,6 +109,10 @@ export default Mixin.create({
 
     _updated() {
       this._updated();
+    },
+
+    _insertedElement() {
+      this._insertedElement();
     },
 
     _select(value) {

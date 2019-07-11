@@ -94,6 +94,20 @@ module('select-box', function(hooks) {
     assert.dom('.select-box').hasClass('is-multiple', 'has multiple class');
   });
 
+  test('insert element action', async function(assert) {
+    assert.expect(1);
+
+    let el;
+
+    this.set('inserted', sb => {
+      el = sb.element;
+    });
+
+    await render(hbs`<SelectBox @onInsertElement={{this.inserted}} />`);
+
+    assert.deepEqual(el, find('.select-box'), 'sends the element out when inserted into the dom');
+  });
+
   test('initial update action', async function(assert) {
     assert.expect(2);
 

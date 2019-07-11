@@ -121,6 +121,11 @@ ember install @zestia/ember-select-box
       access to the select box's API which is passed as a parameter.</td>
     </tr>
     <tr>
+      <td>@onInsertElement</td>
+      <td>Fired when the select box's element is inserted into the DOM. Useful opportunity to
+      get access to the element, which is a property on the select box's API</td>
+    </tr>
+    <tr>
       <td>@onSelect</td>
       <td>
         Fired when an option is clicked, or enter is pressed regardless as
