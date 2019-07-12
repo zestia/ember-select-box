@@ -2,7 +2,7 @@
 
 ## 10.0.3
 
-- Upgrade deps
+- Upgrade dependancies
 
 ## 10.0.2
 
