@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.0.3
+
+- Upgrade deps
+
 ## 10.0.2
 
 - Add style attribute binding support for those who still use classic components
