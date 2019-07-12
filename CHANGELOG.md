@@ -2,7 +2,7 @@
 
 ## 10.0.3
 
-- Upgrade dependancies
+- Upgrade dependencies
 
 ## 10.0.2
 
@@ -255,7 +255,7 @@
 ## 1.2.0
 
 - Adds `on-open` and `on-close` actions
-- Update dependancies
+- Update dependencies
 - Use new imports
 
 ## 1.1.19
@@ -280,7 +280,7 @@
 
 ## 1.1.14
 
-- move ember-improved-cp to dependancies
+- move ember-improved-cp to dependencies
 
 ## 1.1.13
 
@@ -292,11 +292,11 @@
 
 ## 1.1.11
 
-- Upgrade dependancies (babel 6 etc..)
+- Upgrade dependencies (babel 6 etc..)
 
 ## 1.1.10
 
-- Upgrade dependancies
+- Upgrade dependencies
 
 ## 1.1.9
 
