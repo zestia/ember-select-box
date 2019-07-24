@@ -29,7 +29,7 @@
   "devDependencies": {
     "@ember/optional-features": "0.7.0",
     "@zestia/ember-template-lint-plugin": "2.0.4",
-    "@zestia/eslint-config": "2.0.18",
+    "@zestia/eslint-config": "2.0.21",
     "@zestia/prettier-config": "0.0.3",
     "@zestia/stylelint-config": "2.0.15",
     "broccoli-asset-rev": "3.0.0",

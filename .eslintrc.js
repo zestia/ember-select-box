@@ -6,7 +6,6 @@ module.exports = {
     {
       files: '**/*.js',
       rules: {
-        'no-restricted-imports': 'off',
         'ember/no-get': 'off',
         'ember/no-new-mixins': 'off'
       }
