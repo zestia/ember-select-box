@@ -10,8 +10,6 @@ export default Mixin.create({
       set(this, 'isDisabled', Boolean(this.disabled));
     }
 
-    if (this.isDisabled) {
-      set(this, 'tabIndex', '-1');
-    }
+    set(this, 'tabIndex', this.isDisabled ? '-1' : '0');
   }
 });

@@ -58,17 +58,27 @@ module('select-box (focusing)', function(hooks) {
   test('tabindex', async function(assert) {
     assert.expect(3);
 
-    await render(hbs`<SelectBox />`);
+    await render(hbs`<SelectBox @disabled={{this.disabled}} />`);
 
     assert
       .dom('.select-box')
-      .hasAttribute('tabindex', '0', 'it should be possible to focus a select box');
+      .hasAttribute('tabindex', '0', 'precondition: focusable');
 
-    await render(hbs`<SelectBox @disabled={{true}} />`);
+    this.set('disabled', true);
 
     assert
       .dom('.select-box')
-      .hasAttribute('tabindex', '-1', 'it should not be possible to focus a disabled select box');
+      .hasAttribute('tabindex', '-1', 'disabling, disables focusability');
+
+    this.set('disabled', false);
+
+    assert
+      .dom('.select-box')
+      .hasAttribute('tabindex', '0', 're-enabling, re-enables focusability');
+  });
+
+  test('classic: tabindex', async function(assert) {
+    assert.expect(1);
 
     await render(hbs`{{select-box tabindex="5"}}`);
 

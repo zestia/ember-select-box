@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.0.4
+
+- Fix restroring tabindex, when disabling, then un-disabling a select box.
+
 ## 10.0.3
 
 - Upgrade dependencies
