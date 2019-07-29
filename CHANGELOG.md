@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.0.6
+
+- Collapse whitespace when finding matching options using `sb.activateOptionForKeyCode`
+
 ## 10.0.5
 
 - Upgrade dependencies

@@ -313,4 +313,30 @@ module('select-box (activating options)', function(hooks) {
         "does not start 'cycle through' behaviour, just because the same letter was typed"
       );
   });
+
+  test('jumping to an option (collapsing whitespace)', async function(assert) {
+    assert.expect(1);
+
+    this.set('autoActivate', (e, sb) => {
+      sb.activateOptionForKeyCode(e.keyCode);
+    });
+
+    await render(hbs`
+      <SelectBox @onPressKey={{this.autoActivate}} as |sb|>
+        <sb.Option @value={{1}}> foo </sb.Option>
+        <sb.Option @value={{2}}> bar  baz </sb.Option>
+        <sb.Option @value={{3}}> qux </sb.Option>
+      </SelectBox>
+    `);
+
+    await triggerKeyEvent('.select-box', 'keypress', 66); // b
+    await triggerKeyEvent('.select-box', 'keypress', 65); // a
+    await triggerKeyEvent('.select-box', 'keypress', 82); // r
+    await triggerKeyEvent('.select-box', 'keypress', 32); // space
+    await triggerKeyEvent('.select-box', 'keypress', 65); // s
+
+    assert
+      .dom('.select-box-option.is-active')
+      .hasText('bar baz', 'jumps to the matching option');
+  });
 });

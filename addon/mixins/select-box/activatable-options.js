@@ -2,6 +2,7 @@ import Mixin from '@ember/object/mixin';
 import { computed, get, set } from '@ember/object';
 import scrollIntoView from '../../utils/select-box/scroll-into-view';
 import escapeRegExp from '../../utils/escape-regexp';
+import collapseWhitespace from '../../utils/collapse-whitespace';
 const { fromCharCode } = String;
 export const COLLECT_CHARS_MS = 1000;
 
@@ -67,7 +68,7 @@ export default Mixin.create({
     const pattern = new RegExp(`^${chars}`, 'i');
 
     return this.options.filter(option => {
-      return pattern.test(option.element.textContent.trim());
+      return pattern.test(collapseWhitespace(option.element.textContent));
     });
   },
 
