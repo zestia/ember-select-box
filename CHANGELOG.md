@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.0.7
+
+- Add missing test case for finding matching options
+
 ## 10.0.6
 
 - Collapse whitespace when finding matching options using `sb.activateOptionForKeyCode`

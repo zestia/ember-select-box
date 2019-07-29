@@ -197,6 +197,34 @@ module('select-box (activating options)', function(hooks) {
     assert.dom('.select-box-option.is-active').hasText('A 3');
   });
 
+  test('cycling through options (duplicate chars)', async function(assert) {
+    assert.expect(3);
+
+    this.set('autoActivate', (e, sb) => {
+      sb.activateOptionForKeyCode(e.keyCode);
+    });
+
+    await render(hbs`
+      <SelectBox @onPressKey={{this.autoActivate}} as |sb|>
+        <sb.Option @value="AAA1">AAA 1</sb.Option>
+        <sb.Option @value="AA2">AA 2</sb.Option>
+        <sb.Option @value="A3">A 3</sb.Option>
+      </SelectBox>
+    `);
+
+    await triggerKeyEvent('.select-box', 'keypress', 65); // a
+
+    assert.dom('.select-box-option.is-active').hasText('AAA 1');
+
+    await triggerKeyEvent('.select-box', 'keypress', 65); // a
+
+    assert.dom('.select-box-option.is-active').hasText('AA 2');
+
+    await triggerKeyEvent('.select-box', 'keypress', 65); // a
+
+    assert.dom('.select-box-option.is-active').hasText('A 3');
+  });
+
   test('jumping to an option (reset timer)', async function(assert) {
     assert.expect(4);
 

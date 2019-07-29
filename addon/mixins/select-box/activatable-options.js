@@ -31,26 +31,24 @@ export default Mixin.create({
     const lastMs = this._activateOptionMs || 0;
     const lastIndex = this._activateOptionIndex || 0;
     const lastChar = lastChars.substring(lastChars.length - 1);
-    const repeatedChar = char === lastChar;
     const ms = Date.now();
     const duration = ms - lastMs;
+    const repeatedChar = char === lastChar;
     const reset = duration > COLLECT_CHARS_MS;
-
-    let chars = reset ? char : `${lastChars}${char}`;
-    let index = 0;
+    const chars = reset ? char : `${lastChars}${char}`;
     let options = this._findOptionsMatchingChars(chars);
-    let option = options[index];
+    let index = 0;
+    let option;
 
-    if (options.length < 1 && repeatedChar) {
+    if (repeatedChar) {
       index = lastIndex + 1;
-      chars = lastChar;
-      options = this._findOptionsMatchingChars(chars);
+      options = this._findOptionsMatchingChars(lastChar);
       option = options[index];
+    }
 
-      if (!option) {
-        index = 0;
-        option = options[index];
-      }
+    if (!option) {
+      index = 0;
+      option = options[index];
     }
 
     if (option) {
