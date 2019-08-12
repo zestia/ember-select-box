@@ -248,6 +248,37 @@ module('select-box (selecting)', function(hooks) {
       .hasClass('is-selected', 'value is coerced to an array and correct option is selected');
   });
 
+  test('selected option but missing value', async function(assert) {
+    assert.expect(2);
+
+    const one = { name: 'One' };
+    const two = { name: 'Two' };
+    const three = { name: 'Three' };
+    const four = { name: 'Four' };
+
+    this.set('items', [one, two, three]);
+    this.set('value', two);
+
+    await render(hbs`
+      <SelectBox @value={{this.value}} as |sb|>
+        <sb.SelectedOption>
+          {{sb.value.name}}
+        </sb.SelectedOption>
+        {{#each this.items as |item|}}
+          <sb.Option @value={{item}} />
+        {{/each}}
+      </SelectBox>
+    `);
+
+    assert.dom('.select-box-selected-option').hasText('Two',
+      'correct selected option is yielded');
+
+    this.set('value', four);
+
+    assert.dom('.select-box-selected-option').hasText('Four',
+      'yielded selected option is available despite not being an option');
+  });
+
   test('press enter to select active option', async function(assert) {
     assert.expect(2);
 
