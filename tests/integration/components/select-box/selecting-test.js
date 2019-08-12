@@ -249,7 +249,7 @@ module('select-box (selecting)', function(hooks) {
   });
 
   test('selected option but missing value', async function(assert) {
-    assert.expect(2);
+    assert.expect(4);
 
     const one = { name: 'One' };
     const two = { name: 'Two' };
@@ -264,9 +264,11 @@ module('select-box (selecting)', function(hooks) {
         <sb.SelectedOption>
           {{sb.value.name}}
         </sb.SelectedOption>
-        {{#each this.items as |item|}}
-          <sb.Option @value={{item}} />
-        {{/each}}
+        <sb.Options>
+          {{#each this.items as |item|}}
+            <sb.Option @value={{item}} />
+          {{/each}}
+        </sb.Options>
       </SelectBox>
     `);
 
@@ -276,7 +278,19 @@ module('select-box (selecting)', function(hooks) {
     this.set('value', four);
 
     assert.dom('.select-box-selected-option').hasText('Four',
-      'yielded selected option is available despite not being an option');
+      'yielded selected option is available despite not being an option ' +
+      '(internal value is the value passed in as an argument)');
+
+    await click('.select-box-option:nth-child(2)');
+
+    assert.dom('.select-box-selected-option').hasText('Two',
+      'precondition');
+
+    this.set('items', [one, three]);
+
+    assert.dom('.select-box-selected-option').hasText('Two',
+      'selected value is retained, despite not being an option ' +
+      '(internal value is the value that was selected');
   });
 
   test('press enter to select active option', async function(assert) {
