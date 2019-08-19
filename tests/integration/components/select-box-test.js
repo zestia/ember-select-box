@@ -1,6 +1,12 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { click, render, settled, find, findAll } from '@ember/test-helpers';
+import {
+  click,
+  render,
+  settled,
+  find,
+  findAll
+} from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import SelectBox from '@zestia/ember-select-box/components/select-box';
 import EmberArray, { A as emberA } from '@ember/array';
