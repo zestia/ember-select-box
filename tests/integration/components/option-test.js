@@ -11,7 +11,7 @@ module('select-box/option', function(hooks) {
   test('it renders', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`<SelectBox::option />`);
+    await render(hbs`<SelectBox::Option />`);
 
     assert
       .dom('div.select-box-option')
@@ -21,19 +21,25 @@ module('select-box/option', function(hooks) {
   test('class prefix', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`<SelectBox::option @classNamePrefix="foo" />`);
+    await render(hbs`<SelectBox::Option @classNamePrefix="foo" />`);
 
-    assert.dom('.foo-option').exists({ count: 1 }, 'can override the class prefix');
+    assert
+      .dom('.foo-option')
+      .exists({ count: 1 }, 'can override the class prefix');
   });
 
   test('aria role', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`<SelectBox::option />`);
+    await render(hbs`<SelectBox::Option />`);
 
     assert
       .dom('.select-box-option')
-      .hasAttribute('role', 'option', 'a select box option has an appropriate aria role');
+      .hasAttribute(
+        'role',
+        'option',
+        'a select box option has an appropriate aria role'
+      );
   });
 
   test('classic: title', async function(assert) {
@@ -43,13 +49,17 @@ module('select-box/option', function(hooks) {
 
     assert
       .dom('.select-box-option')
-      .hasAttribute('title', 'Foo', 'a select box option can have a title attribute');
+      .hasAttribute(
+        'title',
+        'Foo',
+        'a select box option can have a title attribute'
+      );
   });
 
   test('disabled', async function(assert) {
     assert.expect(2);
 
-    await render(hbs`<SelectBox::option @disabled={{true}} />`);
+    await render(hbs`<SelectBox::Option @disabled={{true}} />`);
 
     assert
       .dom('.select-box-option')
@@ -84,21 +94,35 @@ module('select-box/option', function(hooks) {
 
     assert
       .dom('.select-box-option:nth-child(1)[aria-selected]')
-      .hasText('One', 'the selected option receives an aria selected attribute');
+      .hasText(
+        'One',
+        'the selected option receives an aria selected attribute'
+      );
 
     assert
       .dom('.select-box-option:nth-child(1)[aria-selected]')
-      .hasAttribute('aria-selected', 'true', 'has correct string value when selected');
+      .hasAttribute(
+        'aria-selected',
+        'true',
+        'has correct string value when selected'
+      );
 
     this.set('value', 2);
 
     assert
       .dom('.select-box-option:nth-child(2)[aria-selected]')
-      .hasText('Two', 'the aria selected attribute is redetermined when the value changes');
+      .hasText(
+        'Two',
+        'the aria selected attribute is redetermined when the value changes'
+      );
 
     assert
       .dom('.select-box-option:nth-child(2)[aria-selected]')
-      .hasAttribute('aria-selected', 'true', 'has correct string value when selected');
+      .hasAttribute(
+        'aria-selected',
+        'true',
+        'has correct string value when selected'
+      );
   });
 
   test('yield index', async function(assert) {
@@ -134,8 +158,10 @@ module('select-box/option', function(hooks) {
 
     assert.ok(
       findAll('.select-box-option')[0].textContent.trim() === 'Foo 0 0 false' &&
-        findAll('.select-box-option')[1].textContent.trim() === 'Bar 1 1 false' &&
-        findAll('.select-box-option')[2].textContent.trim() === 'Baz 0 2 true' &&
+        findAll('.select-box-option')[1].textContent.trim() ===
+          'Bar 1 1 false' &&
+        findAll('.select-box-option')[2].textContent.trim() ===
+          'Baz 0 2 true' &&
         findAll('.select-box-option')[3].textContent.trim() === 'Qux 1 3 false',
       'select box options can yield their label, value, index and selected state'
     );
@@ -144,8 +170,10 @@ module('select-box/option', function(hooks) {
 
     assert.ok(
       findAll('.select-box-option')[0].textContent.trim() === 'Foo 0 0 false' &&
-        findAll('.select-box-option')[1].textContent.trim() === 'Bar 1 1 false' &&
-        findAll('.select-box-option')[2].textContent.trim() === 'Qux 0 3 false' &&
+        findAll('.select-box-option')[1].textContent.trim() ===
+          'Bar 1 1 false' &&
+        findAll('.select-box-option')[2].textContent.trim() ===
+          'Qux 0 3 false' &&
         findAll('.select-box-option')[3].textContent.trim() === 'Baz 1 2 true',
       'index gets out of sync due to lack of key="@index"'
     );
@@ -170,7 +198,11 @@ module('select-box/option', function(hooks) {
       </SelectBox>
     `);
 
-    assert.deepEqual(labels(), ['foo: 0', 'bar: 1', 'baz: 2'], 'precondition, indexes are correct');
+    assert.deepEqual(
+      labels(),
+      ['foo: 0', 'bar: 1', 'baz: 2'],
+      'precondition, indexes are correct'
+    );
 
     this.set('values', ['foo', 'baz']);
     this.set('values', ['foo', 'bar', 'baz']);
@@ -191,7 +223,11 @@ module('select-box/option', function(hooks) {
       </SelectBox>
     `);
 
-    assert.deepEqual(labels(), ['foo: 0', 'bar: 1', 'baz: 2'], 'precondition, indexes are correct');
+    assert.deepEqual(
+      labels(),
+      ['foo: 0', 'bar: 1', 'baz: 2'],
+      'precondition, indexes are correct'
+    );
 
     this.set('values', ['foo', 'baz']);
     this.set('values', ['foo', 'bar', 'baz']);
@@ -209,16 +245,20 @@ module('select-box/option', function(hooks) {
     this.set('fooDisabled', true);
 
     await render(hbs`
-      <SelectBox::option @disabled={{this.fooDisabled}} as |o|>
+      <SelectBox::Option @disabled={{this.fooDisabled}} as |o|>
         foo {{if o.isDisabled "disabled"}}
-      </SelectBox::option>
+      </SelectBox::Option>
     `);
 
-    assert.dom('.select-box-option').hasText('foo disabled', 'yields disabled state');
+    assert
+      .dom('.select-box-option')
+      .hasText('foo disabled', 'yields disabled state');
 
     this.set('fooDisabled', false);
 
-    assert.dom('.select-box-option').hasText('foo', 'disabled state is updated');
+    assert
+      .dom('.select-box-option')
+      .hasText('foo', 'disabled state is updated');
   });
 
   test('yielded promise state', async function(assert) {
@@ -230,12 +270,12 @@ module('select-box/option', function(hooks) {
     this.set('promise', deferred1.promise);
 
     await render(hbs`
-      <SelectBox::option @value={{this.promise}} as |o|>
+      <SelectBox::Option @value={{this.promise}} as |o|>
         isPending: {{o.isPending}}<br>
         isRejected: {{o.isRejected}}<br>
         isFulfilled: {{o.isFulfilled}}<br>
         isSettled: {{o.isSettled}}<br>
-      </SelectBox::option>
+      </SelectBox::Option>
     `);
 
     assert.dom(this.element).hasText(`
@@ -282,7 +322,7 @@ module('select-box/option', function(hooks) {
 
     this.set('promise', deferred.promise);
 
-    await render(hbs`<SelectBox::option @value={{this.promise}} />`);
+    await render(hbs`<SelectBox::Option @value={{this.promise}} />`);
 
     assert
       .dom('.select-box-option')

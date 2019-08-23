@@ -1,12 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import {
-  click,
-  render,
-  settled,
-  find,
-  findAll
-} from '@ember/test-helpers';
+import { click, render, settled, find, findAll } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import SelectBox from '@zestia/ember-select-box/components/select-box';
 import EmberArray, { A as emberA } from '@ember/array';
@@ -21,14 +15,17 @@ module('select-box', function(hooks) {
 
     await render(hbs`<SelectBox />`);
 
-    assert.dom('div.select-box').exists({ count: 1 }, 'renders with correct class name and tag');
+    assert
+      .dom('div.select-box')
+      .exists({ count: 1 }, 'renders with correct class name and tag');
   });
 
   test('class prefix attr', async function(assert) {
-    assert.expect(9);
+    assert.expect(10);
 
     await render(hbs`
       <SelectBox @classNamePrefix="foo" as |sb|>
+        <sb.Focuser />
         <sb.Input />
         <sb.SelectedOptions>
           <sb.SelectedOption />
@@ -42,6 +39,7 @@ module('select-box', function(hooks) {
     `);
 
     assert.dom('.foo').exists({ count: 1 });
+    assert.dom('.foo-focuser').exists({ count: 1 });
     assert.dom('.foo-input').exists({ count: 1 });
     assert.dom('.foo-options').exists({ count: 1 });
     assert.dom('.foo-selected-options').exists({ count: 1 });
@@ -59,7 +57,9 @@ module('select-box', function(hooks) {
 
     await render(hbs`{{select-box style=this.style}}`);
 
-    assert.dom('.select-box').hasAttribute('style', 'color: red', 'can bind style to classic comp');
+    assert
+      .dom('.select-box')
+      .hasAttribute('style', 'color: red', 'can bind style to classic comp');
   });
 
   test('extending with class prefix', async function(assert) {
@@ -71,7 +71,7 @@ module('select-box', function(hooks) {
 
     this.owner.register('component:select-box/foo', FooSelectBox);
 
-    await render(hbs`<SelectBox::foo />`);
+    await render(hbs`<SelectBox::Foo />`);
 
     assert.ok(
       findAll('.foo').length,
@@ -85,7 +85,9 @@ module('select-box', function(hooks) {
 
     await render(hbs`<SelectBox />`);
 
-    assert.dom('.select-box').doesNotHaveAttribute('role', 'select box has no aria role');
+    assert
+      .dom('.select-box')
+      .doesNotHaveAttribute('role', 'select box has no aria role');
   });
 
   test('multiple class', async function(assert) {
@@ -93,7 +95,10 @@ module('select-box', function(hooks) {
 
     await render(hbs`<SelectBox />`);
 
-    assert.ok(!find('.select-box').classList.contains('is-multiple'), 'no multiple class');
+    assert.ok(
+      !find('.select-box').classList.contains('is-multiple'),
+      'no multiple class'
+    );
 
     await render(hbs`<SelectBox @multiple={{true}} />`);
 
@@ -111,7 +116,11 @@ module('select-box', function(hooks) {
 
     await render(hbs`<SelectBox @onInsertElement={{this.inserted}} />`);
 
-    assert.deepEqual(el, find('.select-box'), 'sends the element out when inserted into the dom');
+    assert.deepEqual(
+      el,
+      find('.select-box'),
+      'sends the element out when inserted into the dom'
+    );
   });
 
   test('initial update action', async function(assert) {
@@ -145,7 +154,11 @@ module('select-box', function(hooks) {
       count++;
 
       if (count === 2) {
-        assert.strictEqual(value, 'bar', 'fires an update action when the value changes');
+        assert.strictEqual(
+          value,
+          'bar',
+          'fires an update action when the value changes'
+        );
       }
     });
 
@@ -185,7 +198,9 @@ module('select-box', function(hooks) {
   test('no update action', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`<SelectBox @onUpdate={{@onUpdate}} @value={{this.value}} />`);
+    await render(
+      hbs`<SelectBox @onUpdate={{@onUpdate}} @value={{this.value}} />`
+    );
 
     this.set('value', 'foo');
 
@@ -204,13 +219,18 @@ module('select-box', function(hooks) {
 
     await render(hbs`<SelectBox @onInit={{this.initialised}} />`);
 
-    assert.ok(!find('.select-box').classList.contains('is-open'), 'precondition, not open');
+    assert.ok(
+      !find('.select-box').classList.contains('is-open'),
+      'precondition, not open'
+    );
 
     api.open();
 
     await settled();
 
-    assert.dom('.select-box').hasClass('is-open', 'action is called with the api');
+    assert
+      .dom('.select-box')
+      .hasClass('is-open', 'action is called with the api');
   });
 
   test('api value', async function(assert) {
@@ -231,11 +251,22 @@ module('select-box', function(hooks) {
         @onUpdate={{this.updated}} />
     `);
 
-    assert.ok(!isFrozen(this.value), 'api does not accidentally freeze original value');
+    assert.ok(
+      !isFrozen(this.value),
+      'api does not accidentally freeze original value'
+    );
 
-    assert.deepEqual(firstApi.value, ['foo'], 'yielded api on init has initial value');
+    assert.deepEqual(
+      firstApi.value,
+      ['foo'],
+      'yielded api on init has initial value'
+    );
 
-    assert.deepEqual(secondApi.value, ['foo'], 'the initial update action yields the value');
+    assert.deepEqual(
+      secondApi.value,
+      ['foo'],
+      'the initial update action yields the value'
+    );
 
     assert.strictEqual(
       EmberArray.detect(firstApi.value),

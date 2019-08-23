@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.0.8
+
+- Introduce `<sb.Focuser />` component. [Read more](README.md#focuser)
+
 ## 10.0.7
 
 - Add missing test case for finding matching options

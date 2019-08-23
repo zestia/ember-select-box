@@ -10,7 +10,7 @@ module('select-box/group', function(hooks) {
   test('it renders', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`<SelectBox::group />`);
+    await render(hbs`<SelectBox::Group />`);
 
     assert
       .dom('div.select-box-group')
@@ -38,9 +38,11 @@ module('select-box/group', function(hooks) {
   test('class prefix', async function(assert) {
     assert.expect(3);
 
-    await render(hbs`<SelectBox::group @classNamePrefix="foo" />`);
+    await render(hbs`<SelectBox::Group @classNamePrefix="foo" />`);
 
-    assert.dom('.foo-group').exists({ count: 1 }, 'can override the class prefix');
+    assert
+      .dom('.foo-group')
+      .exists({ count: 1 }, 'can override the class prefix');
 
     assert
       .dom('.foo-group-label')
@@ -48,24 +50,29 @@ module('select-box/group', function(hooks) {
 
     assert
       .dom('.foo-group-options')
-      .exists({ count: 1 }, 'child group options of a group have the prefix too');
+      .exists(
+        { count: 1 },
+        'child group options of a group have the prefix too'
+      );
   });
 
   test('label', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`<SelectBox::group @label="Foo" />`);
+    await render(hbs`<SelectBox::Group @label="Foo" />`);
 
-    assert.dom('.select-box-group-label').hasText('Foo', 'displays the specified group label');
+    assert
+      .dom('.select-box-group-label')
+      .hasText('Foo', 'displays the specified group label');
   });
 
   test('options', async function(assert) {
     assert.expect(1);
 
     await render(hbs`
-      <SelectBox::group>
-        <SelectBox::option />
-      </SelectBox::group>
+      <SelectBox::Group>
+        <SelectBox::Option />
+      </SelectBox::Group>
     `);
 
     assert

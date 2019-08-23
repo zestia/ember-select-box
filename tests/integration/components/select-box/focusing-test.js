@@ -11,13 +11,18 @@ module('select-box (focusing)', function(hooks) {
 
     await render(hbs`<SelectBox />`);
 
-    assert.dom('.select-box').doesNotHaveClass('is-focused', 'precondition, not focused');
+    assert
+      .dom('.select-box')
+      .doesNotHaveClass('is-focused', 'precondition, not focused');
 
     await focus('.select-box');
 
     assert
       .dom('.select-box')
-      .hasClass('is-focused', 'a focused select box has an appropriate class name');
+      .hasClass(
+        'is-focused',
+        'a focused select box has an appropriate class name'
+      );
 
     await blur('.select-box');
 
@@ -82,6 +87,8 @@ module('select-box (focusing)', function(hooks) {
 
     await render(hbs`{{select-box tabindex="5"}}`);
 
-    assert.dom('.select-box').hasAttribute('tabindex', '5', 'can set the tabindex');
+    assert
+      .dom('.select-box')
+      .hasAttribute('tabindex', '5', 'can set the tabindex');
   });
 });

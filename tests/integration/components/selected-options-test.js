@@ -22,7 +22,9 @@ module('select-box/selected-options', function(hooks) {
 
     await render(hbs`<SelectBox::SelectedOptions @classNamePrefix="foo" />`);
 
-    assert.dom('.foo-selected-options').exists({ count: 1 }, 'can override the class prefix');
+    assert
+      .dom('.foo-selected-options')
+      .exists({ count: 1 }, 'can override the class prefix');
   });
 
   test('classic: style', async function(assert) {

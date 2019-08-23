@@ -10,7 +10,7 @@ module('native-select-box/option', function(hooks) {
   test('it renders', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`<NativeSelectBox::option />`);
+    await render(hbs`<NativeSelectBox::Option />`);
 
     assert
       .dom('option.select-box-option')
@@ -20,9 +20,11 @@ module('native-select-box/option', function(hooks) {
   test('class prefix', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`<NativeSelectBox::option @classNamePrefix="foo" />`);
+    await render(hbs`<NativeSelectBox::Option @classNamePrefix="foo" />`);
 
-    assert.dom('.foo-option').exists({ count: 1 }, 'can override the class prefix');
+    assert
+      .dom('.foo-option')
+      .exists({ count: 1 }, 'can override the class prefix');
   });
 
   test('classic: title', async function(assert) {
@@ -32,7 +34,11 @@ module('native-select-box/option', function(hooks) {
 
     assert
       .dom('.select-box-option')
-      .hasAttribute('title', 'Foo', 'a native select box option can have a title attribute');
+      .hasAttribute(
+        'title',
+        'Foo',
+        'a native select box option can have a title attribute'
+      );
   });
 
   test('classic: disabled', async function(assert) {
@@ -40,13 +46,20 @@ module('native-select-box/option', function(hooks) {
 
     this.set('optionDisabled', true);
 
-    await render(hbs`{{native-select-box/option disabled=this.optionDisabled}}`);
+    await render(
+      hbs`{{native-select-box/option disabled=this.optionDisabled}}`
+    );
 
-    assert.dom('.select-box-option').isDisabled('a native select box option can be disabled');
+    assert
+      .dom('.select-box-option')
+      .isDisabled('a native select box option can be disabled');
 
     this.set('optionDisabled', false);
 
-    assert.ok(!find('.select-box-option').disabled, 'a native select box option can be re-enabled');
+    assert.ok(
+      !find('.select-box-option').disabled,
+      'a native select box option can be re-enabled'
+    );
   });
 
   test('value', async function(assert) {
@@ -54,17 +67,25 @@ module('native-select-box/option', function(hooks) {
 
     this.set('myValue', 123);
 
-    await render(hbs`<NativeSelectBox::option @value={{this.myValue}} />`);
+    await render(hbs`<NativeSelectBox::Option @value={{this.myValue}} />`);
 
     assert
       .dom('.select-box-option')
-      .hasAttribute('value', '123', 'the specified value argument is set as an HTML attribute');
+      .hasAttribute(
+        'value',
+        '123',
+        'the specified value argument is set as an HTML attribute'
+      );
 
     this.set('myValue', 456);
 
     assert
       .dom('.select-box-option')
-      .hasAttribute('value', '456', 'changing the value argument updates the HTML attribute');
+      .hasAttribute(
+        'value',
+        '456',
+        'changing the value argument updates the HTML attribute'
+      );
   });
 
   test('promise value', async function(assert) {
@@ -75,20 +96,25 @@ module('native-select-box/option', function(hooks) {
     this.set('myValue', deferred.promise);
 
     await render(hbs`
-      <NativeSelectBox::option @value={{this.myValue}} as |o|>
+      <NativeSelectBox::Option @value={{this.myValue}} as |o|>
         {{~this.myValue}}: {{o.value~}}
-      </NativeSelectBox::option>
+      </NativeSelectBox::Option>
     `);
 
     assert
       .dom('.select-box-option')
-      .hasText('[object Object]: [object Object]', 'the value is as you would expect');
+      .hasText(
+        '[object Object]: [object Object]',
+        'the value is as you would expect'
+      );
 
     deferred.resolve('123');
 
     await settled();
 
-    assert.dom('.select-box-option').hasText('[object Object]: 123', 'the value is resolved');
+    assert
+      .dom('.select-box-option')
+      .hasText('[object Object]: 123', 'the value is resolved');
 
     assert.deepEqual(this.myValue, deferred.promise, 'does not mutate value');
 
@@ -98,7 +124,7 @@ module('native-select-box/option', function(hooks) {
   test('block label', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`<NativeSelectBox::option>Foo</NativeSelectBox::option>`);
+    await render(hbs`<NativeSelectBox::Option>Foo</NativeSelectBox::Option>`);
 
     assert.strictEqual(
       find('.select-box-option').textContent,

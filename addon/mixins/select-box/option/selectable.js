@@ -3,7 +3,12 @@ import { computed } from '@ember/object';
 import { makeArray } from '@ember/array';
 import invokeAction from '../../../utils/invoke-action';
 
-const isSelectedKeys = ['selected', 'internalValue', '_parentIsMultiple', '_parentInternalValue'];
+const isSelectedKeys = [
+  'selected',
+  'internalValue',
+  '_parentIsMultiple',
+  '_parentInternalValue'
+];
 
 export default Mixin.create({
   isSelected: computed(...isSelectedKeys, function() {

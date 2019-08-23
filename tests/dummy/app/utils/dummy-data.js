@@ -88,7 +88,11 @@ export const puddings = [
   { id: 12, name: 'Trifle' }
 ];
 
-export const tags = [{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }, { id: 3, name: 'baz' }];
+export const tags = [
+  { id: 1, name: 'foo' },
+  { id: 2, name: 'bar' },
+  { id: 3, name: 'baz' }
+];
 
 export const colours = [
   'white',

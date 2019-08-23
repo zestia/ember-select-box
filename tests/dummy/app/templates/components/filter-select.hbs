@@ -8,7 +8,7 @@
   @onClickOutside={{action "close"}}
   @onPressEscape={{action "close"}}
   @onSelect={{action "selected" @onSelect}} as |sb|>
-  <sb.Input @click={{sb.open}} @onInput={{sb.open}} />
+  <sb.Input onclick={{sb.open}} @onInput={{sb.open}} />
   {{#if sb.isOpen}}
     <sb.Options>
       {{yield sb}}

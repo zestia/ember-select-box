@@ -11,7 +11,9 @@ module('select-box (api)', function(hooks) {
 
     let selectBox;
 
-    run(() => (selectBox = this.owner.factoryFor('component:select-box').create()));
+    run(
+      () => (selectBox = this.owner.factoryFor('component:select-box').create())
+    );
 
     const properties = keys(selectBox.api);
 

@@ -10,7 +10,7 @@ module('select-box/selected-option', function(hooks) {
   test('it renders', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`<SelectBox::selected-option />`);
+    await render(hbs`<SelectBox::SelectedOption />`);
 
     assert
       .dom('div.select-box-selected-option')
@@ -20,9 +20,11 @@ module('select-box/selected-option', function(hooks) {
   test('class prefix', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`<SelectBox::selected-option @classNamePrefix="foo" />`);
+    await render(hbs`<SelectBox::SelectedOption @classNamePrefix="foo" />`);
 
-    assert.dom('.foo-selected-option').exists({ count: 1 }, 'can override the class prefix');
+    assert
+      .dom('.foo-selected-option')
+      .exists({ count: 1 }, 'can override the class prefix');
   });
 
   test('classic: title', async function(assert) {
@@ -32,7 +34,11 @@ module('select-box/selected-option', function(hooks) {
 
     assert
       .dom('.select-box-selected-option')
-      .hasAttribute('title', 'Foo', 'a selected option can have a title attribute');
+      .hasAttribute(
+        'title',
+        'Foo',
+        'a selected option can have a title attribute'
+      );
   });
 
   test('classic: style', async function(assert) {
@@ -66,8 +72,10 @@ module('select-box/selected-option', function(hooks) {
     `);
 
     assert.ok(
-      findAll('.select-box-selected-option')[0].textContent.trim() === 'Foo (0)' &&
-        findAll('.select-box-selected-option')[1].textContent.trim() === 'Bar (1)',
+      findAll('.select-box-selected-option')[0].textContent.trim() ===
+        'Foo (0)' &&
+        findAll('.select-box-selected-option')[1].textContent.trim() ===
+          'Bar (1)',
       'selected options can yield their value & index'
     );
   });

@@ -9,7 +9,7 @@ module('native-select-box/group', function(hooks) {
   test('it renders', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`<NativeSelectBox::group />`);
+    await render(hbs`<NativeSelectBox::Group />`);
 
     assert
       .dom('optgroup.select-box-group')
@@ -19,9 +19,11 @@ module('native-select-box/group', function(hooks) {
   test('class prefix', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`<NativeSelectBox::group @classNamePrefix="foo" />`);
+    await render(hbs`<NativeSelectBox::Group @classNamePrefix="foo" />`);
 
-    assert.dom('.foo-group').exists({ count: 1 }, 'can override the class prefix');
+    assert
+      .dom('.foo-group')
+      .exists({ count: 1 }, 'can override the class prefix');
   });
 
   test('classic: label', async function(assert) {
@@ -31,7 +33,11 @@ module('native-select-box/group', function(hooks) {
 
     assert
       .dom('.select-box-group')
-      .hasAttribute('label', 'Foo', 'the specified label is applied as an HTML attribute');
+      .hasAttribute(
+        'label',
+        'Foo',
+        'the specified label is applied as an HTML attribute'
+      );
   });
 
   test('classic: disabled', async function(assert) {
@@ -41,10 +47,15 @@ module('native-select-box/group', function(hooks) {
 
     await render(hbs`{{native-select-box/group disabled=this.groupDisabled}}`);
 
-    assert.dom('.select-box-group').isDisabled('a select box group can be disabled');
+    assert
+      .dom('.select-box-group')
+      .isDisabled('a select box group can be disabled');
 
     this.set('groupDisabled', false);
 
-    assert.ok(!find('.select-box-group').disabled, 'a select box group can be re-enabled');
+    assert.ok(
+      !find('.select-box-group').disabled,
+      'a select box group can be re-enabled'
+    );
   });
 });

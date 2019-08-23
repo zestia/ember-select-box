@@ -46,6 +46,10 @@ module('select-box (keyboard actions)', function(hooks) {
 
     await triggerKeyEvent('.select-box', 'keypress', 65); // a
 
-    assert.equal(pressedKey, 1, 'sends key press action when characters are input');
+    assert.equal(
+      pressedKey,
+      1,
+      'sends key press action when characters are input'
+    );
   });
 });

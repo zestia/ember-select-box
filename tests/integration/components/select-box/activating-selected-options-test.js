@@ -34,22 +34,36 @@ module('select-box (activating selected options)', function(hooks) {
 
     await click(one);
 
-    assert.dom(one).hasClass('is-active', 'selected option gets an active class name');
+    assert
+      .dom(one)
+      .hasClass('is-active', 'selected option gets an active class name');
 
-    const [id] = selectedOptions.getAttribute('aria-activedescendant').match(/\d+/);
+    const [id] = selectedOptions
+      .getAttribute('aria-activedescendant')
+      .match(/\d+/);
 
     assert
       .dom('.select-box-selected-option[aria-current]')
       .hasText('One', 'receives an aria current attribute when active');
 
-    assert.dom('.select-box-selected-option[aria-current]').hasAttribute('aria-current', 'true',
-      'has correct string value when current');
+    assert
+      .dom('.select-box-selected-option[aria-current]')
+      .hasAttribute(
+        'aria-current',
+        'true',
+        'has correct string value when current'
+      );
 
-    assert.ok(id, 'active selected option id is added to the selected options container');
+    assert.ok(
+      id,
+      'active selected option id is added to the selected options container'
+    );
 
     await click(two);
 
-    const [nextID] = selectedOptions.getAttribute('aria-activedescendant').match(/\d+/);
+    const [nextID] = selectedOptions
+      .getAttribute('aria-activedescendant')
+      .match(/\d+/);
 
     assert.notEqual(id, nextID, 'the active descendant is updated');
   });
@@ -58,7 +72,11 @@ module('select-box (activating selected options)', function(hooks) {
     assert.expect(2);
 
     this.set('activated', (value, sb) => {
-      assert.equal(value, 'foo', 'activating an option sends an action with the value');
+      assert.equal(
+        value,
+        'foo',
+        'activating an option sends an action with the value'
+      );
 
       assert.ok(typeof sb === 'object', 'sends the api');
     });

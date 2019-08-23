@@ -1,11 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import {
-  render,
-  settled,
-  findAll,
-  click
-} from '@ember/test-helpers';
+import { render, settled, findAll, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { defer } from 'rsvp';
 
@@ -75,17 +70,25 @@ module('select-box (promises)', function(hooks) {
 
     await render(hbs`<SelectBox @value={{this.promise}} />`);
 
-    assert.dom('.select-box').hasAttribute('aria-busy', 'true',
-      'select box has busy attribute when resolving promise'
-    );
+    assert
+      .dom('.select-box')
+      .hasAttribute(
+        'aria-busy',
+        'true',
+        'select box has busy attribute when resolving promise'
+      );
 
     deferred.resolve();
 
     await settled();
 
-    assert.dom('.select-box').hasAttribute('aria-busy', 'false',
-      'select box no longer has busy attribute when promise has resolved'
-    );
+    assert
+      .dom('.select-box')
+      .hasAttribute(
+        'aria-busy',
+        'false',
+        'select box no longer has busy attribute when promise has resolved'
+      );
   });
 
   test('promise value (single)', async function(assert) {
@@ -131,7 +134,10 @@ module('select-box (promises)', function(hooks) {
 
     assert
       .dom(findAll('.select-box-option')[1])
-      .hasClass('is-selected', 'value is selected now that promise has resolved');
+      .hasClass(
+        'is-selected',
+        'value is selected now that promise has resolved'
+      );
 
     assert
       .dom(findAll('.select-box-option')[2])
@@ -163,7 +169,9 @@ module('select-box (promises)', function(hooks) {
 
     await settled();
 
-    const labels = findAll('.select-box-option.is-selected').map(o => o.textContent.trim());
+    const labels = findAll('.select-box-option.is-selected').map(o =>
+      o.textContent.trim()
+    );
 
     assert.deepEqual(labels, ['foo', 'bar'], 'resolves the promises');
   });
@@ -187,7 +195,9 @@ module('select-box (promises)', function(hooks) {
 
     await settled();
 
-    assert.dom('.select-box-option.is-selected').doesNotExist('does nothing with the value');
+    assert
+      .dom('.select-box-option.is-selected')
+      .doesNotExist('does nothing with the value');
   });
 
   test('promise option value', async function(assert) {
@@ -220,13 +230,18 @@ module('select-box (promises)', function(hooks) {
 
     assert
       .dom('.select-box-option.is-selected')
-      .hasText('bar', 'waits for promise to resolve before computing selected option');
+      .hasText(
+        'bar',
+        'waits for promise to resolve before computing selected option'
+      );
 
     this.set('promise1', deferred4.promise);
 
     await settled();
 
-    assert.dom('.select-box-option.is-selected').hasText('baz', 're-computation works');
+    assert
+      .dom('.select-box-option.is-selected')
+      .hasText('baz', 're-computation works');
   });
 
   test('promise value order', async function(assert) {
@@ -251,7 +266,9 @@ module('select-box (promises)', function(hooks) {
 
     await settled();
 
-    assert.dom('.select-box-option.is-selected').hasText('Bar', 'earlier promises are ignored');
+    assert
+      .dom('.select-box-option.is-selected')
+      .hasText('Bar', 'earlier promises are ignored');
   });
 
   test('promise option value order', async function(assert) {
@@ -276,7 +293,9 @@ module('select-box (promises)', function(hooks) {
 
     await settled();
 
-    assert.dom('.select-box-option.is-selected').hasText('bar', 'earlier promises are ignored');
+    assert
+      .dom('.select-box-option.is-selected')
+      .hasText('bar', 'earlier promises are ignored');
   });
 
   test('promise option value (failure)', async function(assert) {
@@ -298,7 +317,9 @@ module('select-box (promises)', function(hooks) {
 
     await settled();
 
-    assert.dom('.select-box-option').hasText('Soz', 'the value is the rejection reason');
+    assert
+      .dom('.select-box-option')
+      .hasText('Soz', 'the value is the rejection reason');
   });
 
   test('weird failure', async function(assert) {

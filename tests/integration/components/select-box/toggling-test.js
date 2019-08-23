@@ -13,9 +13,13 @@ module('select-box (toggling)', function(hooks) {
 
     let selectBox = find('.select-box');
 
-    assert.dom(selectBox).doesNotHaveClass('is-open', 'a select box is closed by default');
+    assert
+      .dom(selectBox)
+      .doesNotHaveClass('is-open', 'a select box is closed by default');
 
-    assert.dom(selectBox).hasAttribute('aria-expanded', 'false', 'not expanded by default');
+    assert
+      .dom(selectBox)
+      .hasAttribute('aria-expanded', 'false', 'not expanded by default');
 
     this.set('isOpen', true);
 
@@ -23,21 +27,34 @@ module('select-box (toggling)', function(hooks) {
 
     selectBox = find('.select-box');
 
-    assert.dom(selectBox).hasClass('is-open', 'the initial open state can be set');
+    assert
+      .dom(selectBox)
+      .hasClass('is-open', 'the initial open state can be set');
 
     assert
       .dom(selectBox)
-      .hasAttribute('aria-expanded', 'true', 'receives an aria-expanded attribute when open');
+      .hasAttribute(
+        'aria-expanded',
+        'true',
+        'receives an aria-expanded attribute when open'
+      );
 
     this.set('isOpen', false);
 
     assert
       .dom(selectBox)
-      .doesNotHaveClass('is-open', 'the open state can be changed via the open argument');
+      .doesNotHaveClass(
+        'is-open',
+        'the open state can be changed via the open argument'
+      );
 
     assert
       .dom(selectBox)
-      .hasAttribute('aria-expanded', 'false', 'open state is reflected as aria expanded attribute');
+      .hasAttribute(
+        'aria-expanded',
+        'false',
+        'open state is reflected as aria expanded attribute'
+      );
 
     await render(hbs`
       <SelectBox as |sb|>
@@ -46,11 +63,17 @@ module('select-box (toggling)', function(hooks) {
       </SelectBox>
     `);
 
-    assert.ok(find('span').textContent.match(/Open: false/), 'yields the open state when closed');
+    assert.ok(
+      find('span').textContent.match(/Open: false/),
+      'yields the open state when closed'
+    );
 
     await click('button');
 
-    assert.ok(find('span').textContent.match(/Open: true/), 'yields the open state when open');
+    assert.ok(
+      find('span').textContent.match(/Open: true/),
+      'yields the open state when open'
+    );
   });
 
   test('open action', async function(assert) {

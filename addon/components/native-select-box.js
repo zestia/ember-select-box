@@ -51,6 +51,8 @@ export default Component.extend(...mixins, {
   },
 
   _getUnregisteredSelectedValues() {
-    return from(this.element.querySelectorAll('option:checked')).map(option => option.value);
+    return from(this.element.querySelectorAll('option:checked')).map(
+      option => option.value
+    );
   }
 });

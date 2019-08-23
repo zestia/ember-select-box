@@ -17,7 +17,9 @@ module('select-box (activating options)', function(hooks) {
   setupRenderingTest(hooks);
 
   function waitForReset() {
-    return waitUntil(() => new Promise(resolve => later(resolve, COLLECT_CHARS_MS)));
+    return waitUntil(
+      () => new Promise(resolve => later(resolve, COLLECT_CHARS_MS))
+    );
   }
 
   test('mouseover activates options', async function(assert) {
@@ -42,7 +44,12 @@ module('select-box (activating options)', function(hooks) {
 
     await triggerEvent(one, 'mouseover');
 
-    assert.dom(one).hasClass('is-active', 'mousing over an option gives it an active class name');
+    assert
+      .dom(one)
+      .hasClass(
+        'is-active',
+        'mousing over an option gives it an active class name'
+      );
 
     const [id] = options.getAttribute('aria-activedescendant').match(/\d+/);
 
@@ -54,7 +61,11 @@ module('select-box (activating options)', function(hooks) {
 
     assert
       .dom('.select-box-option[aria-current]')
-      .hasAttribute('aria-current', 'true', 'has correct string value when current');
+      .hasAttribute(
+        'aria-current',
+        'true',
+        'has correct string value when current'
+      );
 
     await triggerEvent(two, 'mouseover');
 
@@ -63,7 +74,8 @@ module('select-box (activating options)', function(hooks) {
     assert.notEqual(id, nextID, 'the active descendant is updated');
 
     assert.ok(
-      !one.classList.contains('is-active') && two.classList.contains('is-active'),
+      !one.classList.contains('is-active') &&
+        two.classList.contains('is-active'),
       'mousing over another option moves the active class'
     );
   });
@@ -72,7 +84,11 @@ module('select-box (activating options)', function(hooks) {
     assert.expect(2);
 
     this.set('activated', (value, sb) => {
-      assert.equal(value, 'foo', 'activating an option sends an action with the value');
+      assert.equal(
+        value,
+        'foo',
+        'activating an option sends an action with the value'
+      );
 
       assert.ok(typeof sb === 'object', 'sends the api');
     });
@@ -108,7 +124,10 @@ module('select-box (activating options)', function(hooks) {
       </SelectBox>
     `);
 
-    assert.ok(!find('.select-box-option.is-active'), 'precondition: nothing active');
+    assert.ok(
+      !find('.select-box-option.is-active'),
+      'precondition: nothing active'
+    );
 
     await triggerKeyEvent('.select-box', 'keydown', 40);
 
@@ -126,7 +145,10 @@ module('select-box (activating options)', function(hooks) {
 
     assert
       .dom('.select-box-option.is-active')
-      .hasText('Three', 'does not cycle back to the beginning when reaching the end');
+      .hasText(
+        'Three',
+        'does not cycle back to the beginning when reaching the end'
+      );
 
     await triggerKeyEvent('.select-box', 'keydown', 38);
 
@@ -140,7 +162,10 @@ module('select-box (activating options)', function(hooks) {
 
     assert
       .dom('.select-box-option.is-active')
-      .hasText('One', 'does not cycle back to the end when reaching the beginning');
+      .hasText(
+        'One',
+        'does not cycle back to the end when reaching the beginning'
+      );
   });
 
   test('cycling through options', async function(assert) {
@@ -309,7 +334,10 @@ module('select-box (activating options)', function(hooks) {
 
     assert
       .dom('.select-box-option.is-active')
-      .hasText('Fred S[', "jumps to the matching option (regexp doesn't blow up)");
+      .hasText(
+        'Fred S[',
+        "jumps to the matching option (regexp doesn't blow up)"
+      );
   });
 
   test('jumping to an option (same-char regression)', async function(assert) {

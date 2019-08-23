@@ -10,7 +10,7 @@ module('select-box/options', function(hooks) {
   test('it renders', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`<SelectBox::options />`);
+    await render(hbs`<SelectBox::Options />`);
 
     assert
       .dom('div.select-box-options')
@@ -20,19 +20,25 @@ module('select-box/options', function(hooks) {
   test('class prefix', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`<SelectBox::options @classNamePrefix="foo" />`);
+    await render(hbs`<SelectBox::Options @classNamePrefix="foo" />`);
 
-    assert.dom('.foo-options').exists({ count: 1 }, 'can override the class prefix');
+    assert
+      .dom('.foo-options')
+      .exists({ count: 1 }, 'can override the class prefix');
   });
 
   test('aria role', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`<SelectBox::options />`);
+    await render(hbs`<SelectBox::Options />`);
 
     assert
       .dom('.select-box-options')
-      .hasAttribute('role', 'listbox', 'options container has an appropriate aria role');
+      .hasAttribute(
+        'role',
+        'listbox',
+        'options container has an appropriate aria role'
+      );
   });
 
   test('classic: style', async function(assert) {

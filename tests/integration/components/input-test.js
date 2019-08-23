@@ -16,7 +16,7 @@ module('select-box/input', function(hooks) {
   test('it renders', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`<SelectBox::input />`);
+    await render(hbs`<SelectBox::Input />`);
 
     assert
       .dom('input.select-box-input')
@@ -26,25 +26,31 @@ module('select-box/input', function(hooks) {
   test('class prefix', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`<SelectBox::input @classNamePrefix="foo" />`);
+    await render(hbs`<SelectBox::Input @classNamePrefix="foo" />`);
 
-    assert.dom('.foo-input').exists({ count: 1 }, 'can override the class prefix');
+    assert
+      .dom('.foo-input')
+      .exists({ count: 1 }, 'can override the class prefix');
   });
 
   test('aria role', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`<SelectBox::input />`);
+    await render(hbs`<SelectBox::Input />`);
 
     assert
       .dom('.select-box-input')
-      .hasAttribute('role', 'searchbox', 'a select box input has an appropriate aria role');
+      .hasAttribute(
+        'role',
+        'searchbox',
+        'a select box input has an appropriate aria role'
+      );
   });
 
   test('aria multiline', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`<SelectBox::input />`);
+    await render(hbs`<SelectBox::Input />`);
 
     assert
       .dom('.select-box-input')
@@ -54,7 +60,7 @@ module('select-box/input', function(hooks) {
   test('type', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`<SelectBox::input />`);
+    await render(hbs`<SelectBox::Input />`);
 
     assert
       .dom('.select-box-input')
@@ -73,7 +79,11 @@ module('select-box/input', function(hooks) {
 
     assert
       .dom('.select-box-input')
-      .hasAttribute('type', 'email', 'can change the type of the select box input');
+      .hasAttribute(
+        'type',
+        'email',
+        'can change the type of the select box input'
+      );
   });
 
   test('classic: style', async function(assert) {
@@ -101,7 +111,11 @@ module('select-box/input', function(hooks) {
 
     this.set('myObj.value', 'bar');
 
-    assert.equal(input.value, 'bar', 'updating the value updates the text box value');
+    assert.equal(
+      input.value,
+      'bar',
+      'updating the value updates the text box value'
+    );
 
     await fillIn(input, 'baz');
 
@@ -116,7 +130,11 @@ module('select-box/input', function(hooks) {
     assert.expect(2);
 
     this.set('inputText', (value, sb) => {
-      assert.equal(value, 'foo', 'inputting text sends an action with the value');
+      assert.equal(
+        value,
+        'foo',
+        'inputting text sends an action with the value'
+      );
 
       assert.ok(typeof sb === 'object', 'sends the api');
     });
@@ -157,7 +175,10 @@ module('select-box/input', function(hooks) {
     this.set('deleted', sb => {
       count++;
 
-      assert.ok(typeof sb === 'object', 'the onDelete action receives select box api');
+      assert.ok(
+        typeof sb === 'object',
+        'the onDelete action receives select box api'
+      );
     });
 
     await render(hbs`

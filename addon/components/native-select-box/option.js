@@ -12,7 +12,12 @@ export default Component.extend(...mixins, {
   layout,
   tagName: 'option',
 
-  attributeBindings: ['isSelected:selected', 'internalValue:value', 'disabled', 'title'],
+  attributeBindings: [
+    'isSelected:selected',
+    'internalValue:value',
+    'disabled',
+    'title'
+  ],
 
   classNameSuffix: 'option'
 });

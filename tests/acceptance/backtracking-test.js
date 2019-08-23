@@ -53,7 +53,9 @@ module('backtracking focus use-case', function(hooks) {
       .dom('.backtrack-select-options')
       .doesNotExist('precondition: options not rendered when closed');
 
-    assert.dom('.backtrack-select').doesNotHaveClass('is-focused', 'precondition: not focused');
+    assert
+      .dom('.backtrack-select')
+      .doesNotHaveClass('is-focused', 'precondition: not focused');
 
     await focus('.backtrack-select');
 
@@ -69,7 +71,9 @@ module('backtracking focus use-case', function(hooks) {
 
     assert
       .dom('.backtrack-select-options')
-      .doesNotExist('options destroyed successfully without throwing double render error');
+      .doesNotExist(
+        'options destroyed successfully without throwing double render error'
+      );
 
     await settled();
 

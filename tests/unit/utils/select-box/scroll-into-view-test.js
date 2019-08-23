@@ -38,7 +38,11 @@ module('select-box (scroll into view util)', function(hooks) {
 
     container.scrollTop = 1000;
 
-    assert.equal(container.scrollTop, 46, 'precondition, scrolled to the bottom');
+    assert.equal(
+      container.scrollTop,
+      46,
+      'precondition, scrolled to the bottom'
+    );
 
     scrollIntoView(top);
 

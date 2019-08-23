@@ -9,9 +9,15 @@ module('select-box (class name helper)', function(hooks) {
   test('defaults', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`{{!template-lint-disable no-implicit-this}}{{select-box-class}}`);
+    await render(
+      hbs`{{!template-lint-disable no-implicit-this}}{{select-box-class}}`
+    );
 
-    assert.equal(this.element.innerHTML, 'select-box', 'outputs the default class name');
+    assert.equal(
+      this.element.innerHTML,
+      'select-box',
+      'outputs the default class name'
+    );
   });
 
   test('prefix', async function(assert) {
@@ -19,11 +25,19 @@ module('select-box (class name helper)', function(hooks) {
 
     await render(hbs`{{select-box-class ""}}`);
 
-    assert.equal(this.element.innerHTML, 'select-box', 'generates the default class name');
+    assert.equal(
+      this.element.innerHTML,
+      'select-box',
+      'generates the default class name'
+    );
 
     await render(hbs`{{select-box-class "foo"}}`);
 
-    assert.equal(this.element.innerHTML, 'foo', 'uses the specified class name instead');
+    assert.equal(
+      this.element.innerHTML,
+      'foo',
+      'uses the specified class name instead'
+    );
   });
 
   test('suffix', async function(assert) {
@@ -39,7 +53,11 @@ module('select-box (class name helper)', function(hooks) {
 
     await render(hbs`{{select-box-class "" "foo"}}`);
 
-    assert.equal(this.element.innerHTML, 'select-box-foo', 'adds suffix to default class name');
+    assert.equal(
+      this.element.innerHTML,
+      'select-box-foo',
+      'adds suffix to default class name'
+    );
   });
 
   test('prefix and suffix', async function(assert) {
