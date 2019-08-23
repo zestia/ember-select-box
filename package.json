@@ -29,6 +29,7 @@
   "license": "MIT",
   "devDependencies": {
     "@ember/optional-features": "0.7.0",
+    "@ember/render-modifiers": "1.0.1",
     "@zestia/ember-template-lint-plugin": "2.0.4",
     "@zestia/eslint-config": "2.0.26",
     "@zestia/prettier-config": "0.0.5",

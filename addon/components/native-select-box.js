@@ -1,46 +1,38 @@
 import Component from '@ember/component';
 import layout from '../templates/components/native-select-box';
 import BaseSelectBox from '../mixins/select-box/base';
-import Focusable from '../mixins/select-box/focusable';
 import HasOptions from '../mixins/select-box/registration/has-options';
-import Nameable from '../mixins/general/nameable';
-import { get } from '@ember/object';
+import { get, set } from '@ember/object';
 const { from } = Array;
 
-const mixins = [BaseSelectBox, Focusable, HasOptions, Nameable];
+const mixins = [BaseSelectBox, HasOptions];
 
 export default Component.extend(...mixins, {
   layout,
-  tagName: 'select',
+  tagName: '',
 
-  attributeBindings: [
-    'name',
-    'title',
-    'tabindex',
-    'disabled',
-    'size',
-    'multiple',
-    'autofocus',
-    'required',
-    'aria-label'
-  ],
+  actions: {
+    inserted(element) {
+      set(this, '_element', element);
+    },
 
-  change() {
-    const registeredSelected = this._getRegisteredSelectedValues();
-    const unregisteredSelected = this._getUnregisteredSelectedValues();
+    changed() {
+      const registeredSelected = this._getRegisteredSelectedValues();
+      const unregisteredSelected = this._getUnregisteredSelectedValues();
 
-    let selectedValues;
+      let selectedValues;
 
-    if (registeredSelected.length > 0) {
-      selectedValues = registeredSelected;
-    } else {
-      selectedValues = unregisteredSelected;
-    }
+      if (registeredSelected.length > 0) {
+        selectedValues = registeredSelected;
+      } else {
+        selectedValues = unregisteredSelected;
+      }
 
-    if (get(this, 'isMultiple')) {
-      this.send('select', selectedValues);
-    } else {
-      this.send('select', selectedValues[0]);
+      if (get(this, 'isMultiple')) {
+        this.send('select', selectedValues);
+      } else {
+        this.send('select', selectedValues[0]);
+      }
     }
   },
 
@@ -51,7 +43,7 @@ export default Component.extend(...mixins, {
   },
 
   _getUnregisteredSelectedValues() {
-    return from(this.element.querySelectorAll('option:checked')).map(
+    return from(this._element.querySelectorAll('option:checked')).map(
       option => option.value
     );
   }
