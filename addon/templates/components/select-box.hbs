@@ -14,14 +14,13 @@
     (if this.isSlowSearch " is-slow-search")
   }}
   multiple={{this.isMultiple}}
-  onfocus={{action "_onfocus"}}
-  onblur={{action "_onblur"}}
+  onfocusin={{action "_onfocusin"}}
+  onfocusout={{action "_onfocusout"}}
   onkeydown={{action "_onkeydown"}}
   onkeypress={{action "_onkeypress"}}
   role={{this.role}}
   tabindex={{this.tabIndex}}
   ...attributes>
-  x{{this.activeSelectedOption.domElementId}}
   {{yield (hash
     SelectedOptions=(component "select-box/selected-options"
       aria-activedescendant=this.activeSelectedOption.domElementId

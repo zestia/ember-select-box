@@ -2,9 +2,9 @@
   {{this.displayLabel}}
 </div>
 <NativeSelectBox
+  onfocus={{action "focused"}}
+  onblur={{action "blurred"}}
   @value={{@value}}
-  @onSelect={{@onSelect}}
-  @onFocus={{action "focused"}}
-  @onBlur={{action "blurred"}} as |sb|>
+  @onSelect={{@onSelect}} as |sb|>
   {{yield sb}}
 </NativeSelectBox>
