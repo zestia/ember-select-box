@@ -1,5 +1,6 @@
 <div
   {{did-insert (action "_registerDomElement")}}
+  {{will-destroy (action "_deregisterDomElement")}}
   aria-busy={{if this.isPending "true" "false"}}
   aria-current={{if this.isActive "true" "false"}}
   aria-disabled={{if this.isDisabled "true" "false"}}

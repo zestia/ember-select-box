@@ -12,14 +12,12 @@ module('select-box (activating selected options)', function(hooks) {
     await render(hbs`
       <SelectBox as |sb|>
         <sb.SelectedOptions>
-          {{#sb.SelectedOption
-            click=(action sb.activateSelectedOptionAtIndex 0)~}}
+          <sb.SelectedOption onclick={{action sb.activateSelectedOptionAtIndex 0}}>
             One
-          {{~/sb.SelectedOption}}
-          {{#sb.SelectedOption
-            click=(action sb.activateSelectedOptionAtIndex 1)~}}
+          </sb.SelectedOption>
+          <sb.SelectedOption onclick={{action sb.activateSelectedOptionAtIndex 1}}>
             Two
-          {{/sb.SelectedOption}}
+          </sb.SelectedOption>
         </sb.SelectedOptions>
       </SelectBox>
     `);
