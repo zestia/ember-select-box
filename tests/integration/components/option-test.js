@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import { module, test, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, settled, findAll } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
@@ -42,7 +42,7 @@ module('select-box/option', function(hooks) {
       );
   });
 
-  test('classic: title', async function(assert) {
+  skip('classic: title', async function(assert) {
     assert.expect(1);
 
     await render(hbs`{{select-box/option title="Foo"}}`);
@@ -68,7 +68,7 @@ module('select-box/option', function(hooks) {
     assert.dom('.select-box-option').hasAttribute('aria-disabled', 'true');
   });
 
-  test('classic: disabled', async function(assert) {
+  skip('classic: disabled', async function(assert) {
     assert.expect(2);
 
     await render(hbs`{{select-box/option disabled=true}}`);

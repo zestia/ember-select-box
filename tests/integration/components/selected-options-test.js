@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import { module, test, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
@@ -27,7 +27,7 @@ module('select-box/selected-options', function(hooks) {
       .exists({ count: 1 }, 'can override the class prefix');
   });
 
-  test('classic: style', async function(assert) {
+  skip('classic: style', async function(assert) {
     assert.expect(1);
 
     this.set('style', htmlSafe('color: red'));

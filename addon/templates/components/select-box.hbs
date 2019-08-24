@@ -19,11 +19,6 @@
   onkeypress={{action "_onkeypress"}}
   role={{this.role}}
   tabindex={{this.tabIndex}}
-
-  {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
-  aria-label={{@aria-label}}
-  style={{@style}}
-
   ...attributes>
   {{yield (hash
     SelectedOptions=(component "select-box/selected-options"

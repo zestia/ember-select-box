@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import { module, test, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
@@ -17,7 +17,7 @@ module('select-box/group', function(hooks) {
       .exists({ count: 1 }, 'renders with correct class name and tag');
   });
 
-  test('classic: style attributes', async function(assert) {
+  skip('classic: style attributes', async function(assert) {
     assert.expect(1);
 
     this.set('style', htmlSafe('color: red'));

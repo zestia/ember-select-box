@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import { module, test, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, find, findAll, fillIn } from '@ember/test-helpers';
 import Component from '@ember/component';
@@ -43,7 +43,7 @@ module('native-select-box', function(hooks) {
     );
   });
 
-  test('classic: name', async function(assert) {
+  skip('classic: name', async function(assert) {
     assert.expect(1);
 
     await render(hbs`{{native-select-box name="foo"}}`);
@@ -53,7 +53,7 @@ module('native-select-box', function(hooks) {
       .hasAttribute('name', 'foo', 'can set a name attribute');
   });
 
-  test('classic: title', async function(assert) {
+  skip('classic: title', async function(assert) {
     assert.expect(1);
 
     await render(hbs`{{native-select-box title="foo"}}`);
@@ -73,7 +73,7 @@ module('native-select-box', function(hooks) {
       .doesNotHaveAttribute('tabindex', 'default tabindex');
   });
 
-  test('classic: tabindex', async function(assert) {
+  skip('classic: tabindex', async function(assert) {
     assert.expect(1);
 
     await render(hbs`{{native-select-box tabindex="5"}}`);
@@ -94,7 +94,7 @@ module('native-select-box', function(hooks) {
     );
   });
 
-  test('classic: disabled', async function(assert) {
+  skip('classic: disabled', async function(assert) {
     assert.expect(2);
 
     this.set('isDisabled', true);
@@ -119,7 +119,7 @@ module('native-select-box', function(hooks) {
     assert.dom('.select-box').doesNotHaveAttribute('size', 'default size');
   });
 
-  test('classic: size', async function(assert) {
+  skip('classic: size', async function(assert) {
     assert.expect(1);
 
     await render(hbs`{{native-select-box size="2"}}`);
@@ -129,7 +129,7 @@ module('native-select-box', function(hooks) {
       .hasAttribute('size', '2', 'can specify a size attribute');
   });
 
-  test('classic: aria label', async function(assert) {
+  skip('classic: aria label', async function(assert) {
     assert.expect(1);
 
     await render(hbs`{{native-select-box aria-label="Something"}}`);
@@ -139,7 +139,7 @@ module('native-select-box', function(hooks) {
       .hasAttribute('aria-label', 'Something', 'setting the aria label works');
   });
 
-  test('classic: autofocus', async function(assert) {
+  skip('classic: autofocus', async function(assert) {
     assert.expect(1);
 
     await render(hbs`{{native-select-box autofocus=true}}`);
@@ -150,7 +150,7 @@ module('native-select-box', function(hooks) {
     );
   });
 
-  test('classic: required', async function(assert) {
+  skip('classic: required', async function(assert) {
     assert.expect(1);
 
     await render(hbs`{{native-select-box required=true}}`);
@@ -161,7 +161,7 @@ module('native-select-box', function(hooks) {
     );
   });
 
-  test('classic: multiple', async function(assert) {
+  skip('classic: multiple', async function(assert) {
     assert.expect(1);
 
     await render(hbs`{{native-select-box multiple=true}}`);
@@ -286,7 +286,7 @@ module('native-select-box', function(hooks) {
     assert.dom('.select-box').hasValue('foo', 'value should not change');
   });
 
-  test('classic: selecting non primitives', async function(assert) {
+  skip('classic: selecting non primitives', async function(assert) {
     assert.expect(1);
 
     this.set('foo', ['foo']);
@@ -310,7 +310,7 @@ module('native-select-box', function(hooks) {
     await selectNativeOptionsByLabel('.select-box', ['Foo', 'Bar']);
   });
 
-  test('classic: manual selection (initial value)', async function(assert) {
+  skip('classic: manual selection (initial value)', async function(assert) {
     assert.expect(1);
 
     await render(hbs`
@@ -329,7 +329,7 @@ module('native-select-box', function(hooks) {
       );
   });
 
-  test('classic: manual selection (multiple values)', async function(assert) {
+  skip('classic: manual selection (multiple values)', async function(assert) {
     assert.expect(2);
 
     this.set('barSelected', true);
@@ -406,7 +406,7 @@ module('native-select-box', function(hooks) {
     await selectNativeOptionsByValue('.select-box', ['Hello', 'World']);
   });
 
-  test('classic: non-component options (mixed)', async function(assert) {
+  skip('classic: non-component options (mixed)', async function(assert) {
     assert.expect(1);
 
     this.set('selected', values => {

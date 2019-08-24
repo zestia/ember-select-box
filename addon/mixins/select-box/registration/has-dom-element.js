@@ -5,6 +5,7 @@ export default Mixin.create({
   actions: {
     _registerDomElement(element) {
       set(this, 'domElement', element);
+      this._super(...arguments);
     }
   }
 });

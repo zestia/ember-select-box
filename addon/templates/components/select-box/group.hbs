@@ -1,9 +1,5 @@
 <div
   class={{select-box-class @classNamePrefix "group"}}
-
-  {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
-  style={{@style}}
-
   ...attributes>
   <div class={{select-box-class @classNamePrefix "group-label"}}>{{@label}}</div>
   <div class={{select-box-class @classNamePrefix "group-options"}}>{{yield}}</div>

@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import { module, test, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, settled, find, click, fillIn } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
@@ -523,7 +523,7 @@ module('select-box (searching)', function(hooks) {
     deferred.resolve();
   });
 
-  test('classic: set input value', async function(assert) {
+  skip('classic: set input value', async function(assert) {
     assert.expect(2);
 
     this.set('inputted', value => {

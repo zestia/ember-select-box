@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import { module, test, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, find, findAll, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
@@ -27,7 +27,7 @@ module('native-select-box/option', function(hooks) {
       .exists({ count: 1 }, 'can override the class prefix');
   });
 
-  test('classic: title', async function(assert) {
+  skip('classic: title', async function(assert) {
     assert.expect(1);
 
     await render(hbs`{{native-select-box/option title="Foo"}}`);
@@ -41,7 +41,7 @@ module('native-select-box/option', function(hooks) {
       );
   });
 
-  test('classic: disabled', async function(assert) {
+  skip('classic: disabled', async function(assert) {
     assert.expect(2);
 
     this.set('optionDisabled', true);

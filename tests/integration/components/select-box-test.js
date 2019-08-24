@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import { module, test, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { click, render, settled, find, findAll } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
@@ -50,7 +50,7 @@ module('select-box', function(hooks) {
     assert.dom('.foo-selected-option').exists({ count: 1 });
   });
 
-  test('classic: style', async function(assert) {
+  skip('classic: style', async function(assert) {
     assert.expect(1);
 
     this.set('style', htmlSafe('color: red'));
@@ -62,7 +62,7 @@ module('select-box', function(hooks) {
       .hasAttribute('style', 'color: red', 'can bind style to classic comp');
   });
 
-  test('extending with class prefix', async function(assert) {
+  skip('deprecated: extending with class prefix', async function(assert) {
     assert.expect(1);
 
     const FooSelectBox = SelectBox.extend({

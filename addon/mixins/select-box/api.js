@@ -60,9 +60,9 @@ export default Mixin.create({
   },
 
   actions: {
-    _insertedElement() {
-      this._updateApi('element', this.domElement);
+    _registerDomElement() {
       this._super(...arguments);
+      this._updateApi('element', this.domElement);
     },
 
     _updated() {

@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import { module, test, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import {
   render,
@@ -72,7 +72,7 @@ module('select-box/input', function(hooks) {
       );
   });
 
-  test('classic: type', async function(assert) {
+  skip('classic: type', async function(assert) {
     assert.expect(1);
 
     await render(hbs`{{select-box/input type="email"}}`);
@@ -86,7 +86,7 @@ module('select-box/input', function(hooks) {
       );
   });
 
-  test('classic: style', async function(assert) {
+  skip('classic: style', async function(assert) {
     assert.expect(1);
 
     this.set('style', htmlSafe('color: red'));
@@ -98,7 +98,7 @@ module('select-box/input', function(hooks) {
       .hasAttribute('style', 'color: red', 'can bind style to classic comp');
   });
 
-  test('classic: value', async function(assert) {
+  skip('classic: value', async function(assert) {
     assert.expect(3);
 
     this.set('myObj', { value: 'foo' });

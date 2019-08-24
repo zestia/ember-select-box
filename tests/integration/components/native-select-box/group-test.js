@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import { module, test, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
@@ -26,7 +26,7 @@ module('native-select-box/group', function(hooks) {
       .exists({ count: 1 }, 'can override the class prefix');
   });
 
-  test('classic: label', async function(assert) {
+  skip('classic: label', async function(assert) {
     assert.expect(1);
 
     await render(hbs`{{native-select-box/group label="Foo"}}`);
@@ -40,7 +40,7 @@ module('native-select-box/group', function(hooks) {
       );
   });
 
-  test('classic: disabled', async function(assert) {
+  skip('classic: disabled', async function(assert) {
     assert.expect(2);
 
     this.set('groupDisabled', true);
