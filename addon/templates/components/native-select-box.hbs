@@ -1,6 +1,7 @@
 <select
   {{did-insert (action "inserted")}}
   class={{select-box-class @classNamePrefix}}
+  multiple={{this.isMultiple}}
   onchange={{action "changed"}}
   ...attributes>
   {{yield (hash
