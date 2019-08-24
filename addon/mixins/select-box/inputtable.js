@@ -27,7 +27,7 @@ export default Mixin.create({
         return;
       }
 
-      set(this, 'input.element.value', value);
+      set(this, 'input.domElement.value', value);
     },
 
     focusInput() {
@@ -35,7 +35,7 @@ export default Mixin.create({
         return;
       }
 
-      this.input.element.focus();
+      this.input.domElement.focus();
     },
 
     blurInput() {
@@ -43,7 +43,7 @@ export default Mixin.create({
         return;
       }
 
-      this.input.element.blur();
+      this.input.domElement.blur();
     },
 
     _inputText() {},

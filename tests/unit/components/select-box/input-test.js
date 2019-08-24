@@ -1,10 +1,12 @@
-import { module, test } from 'qunit';
+import { module, skip } from 'qunit';
 import { setupTest } from 'ember-qunit';
 
 module('select-box (input)', function(hooks) {
   setupTest(hooks);
 
-  test('input attribute bindings', function(assert) {
+  // No longer testable due to https://github.com/emberjs/rfcs/issues/497
+  // But eventually won't be needed.
+  skip('input attribute bindings', function(assert) {
     assert.expect(1);
 
     const input = this.owner.factoryFor('component:select-box/input').create();

@@ -1,71 +1,99 @@
-{{yield (hash
-  SelectedOptions=(component "select-box/selected-options"
-    aria-activedescendant=this.activeSelectedOption.elementId
-    classNamePrefix=@classNamePrefix
-    _onInit=(action "_registerSelectedOptionsContainer")
-    _onDestroy=(action "_deregisterSelectedOptionsContainer"))
-  SelectedOption=(component "select-box/selected-option"
-    classNamePrefix=@classNamePrefix
-    _parentComponents=this.selectedOptions
-    _parentActiveIndex=this.activeSelectedOptionIndex
-    _parentApi=this.api
-    _onInit=(action "_registerSelectedOption")
-    _onDestroy=(action "_deregisterSelectedOption")
-    _onActivate=(action "activateSelectedOptionAtIndex"))
-  Options=(component "select-box/options"
-    aria-activedescendant=this.activeOption.domElement.id
-    classNamePrefix=@classNamePrefix
-    _onInit=(action "_registerOptionsContainer")
-    _onDestroy=(action "_deregisterOptionsContainer"))
-  Option=(component "select-box/option"
-    classNamePrefix=@classNamePrefix
-    _parentComponents=this.options
-    _parentActiveIndex=this.activeOptionIndex
-    _parentApi=this.api
-    _parentIsMultiple=this.isMultiple
-    _parentInternalValue=this.internalValue
-    _onInit=(action "_registerOption")
-    _onDestroy=(action "_deregisterOption")
-    _onActivate=(action "activateOptionAtIndex")
-    _onSelect=(action "_select"))
-  Group=(component "select-box/group"
-    classNamePrefix=@classNamePrefix)
-  Input=(component "select-box/input"
-    aria-controls=this.domElement.id
-    disabled=this.isDisabled
-    classNamePrefix=@classNamePrefix
-    _parentApi=this.api
-    _onInit=(action "_registerInput")
-    _onDestroy=(action "_deregisterInput")
-    _onInput=(action "_inputText"))
-  Focuser=(component "select-box/focuser"
-    classNamePrefix=@classNamePrefix)
-  element=this.domElement
-  value=this.internalValue
-  isPending=this.isPending
-  isRejected=this.isRejected
-  isFulfilled=this.isFulfilled
-  isSettled=this.isSettled
-  isSearching=this.isSearching
-  isSlowSearch=this.isSlowSearch
-  isOpen=this.isOpen
-  open=(action "open")
-  close=(action "close")
-  toggle=(action "toggle")
-  select=(action "select")
-  update=(action "update")
-  selectActiveOption=(action "selectActiveOption")
-  search=(action "search")
-  stopSearching=(action "stopSearching")
-  setInputValue=(action "setInputValue")
-  focusInput=(action "focusInput")
-  blurInput=(action "blurInput")
-  activateOptionAtIndex=(action "activateOptionAtIndex")
-  activateNextOption=(action "activateNextOption")
-  activatePreviousOption=(action "activatePreviousOption")
-  deactivateOptions=(action "deactivateOptions")
-  activateSelectedOptionAtIndex=(action "activateSelectedOptionAtIndex")
-  activateNextSelectedOption=(action "activateNextSelectedOption")
-  activatePreviousSelectedOption=(action "activatePreviousSelectedOption")
-  deactivateSelectedOptions=(action "deactivateSelectedOptions")
-)}}
+<div
+  {{did-insert (action "_registerDomElement")}}
+  aria-expanded={{if this.isOpen "true" "false"}}
+  aria-busy={{if this.isBusy "true" "false"}}
+  aria-disabled={{if this.isDisabled "true" "false"}}
+  class={{concat
+    (select-box-class @classNamePrefix)
+    (if this.isOpen " is-open")
+    (if this.isFocused " is-focused")
+    (if this.isDisabled " is-disabled")
+    (if this.isMultiple " is-multiple")
+    (if this.isSearching " is-searching")
+    (if this.isSlowSearch " is-slow-search")
+  }}
+  multiple={{this.isMultiple}}
+  onfocusin={{action "_onfocusin"}}
+  onfocusout={{action "_onfocusout"}}
+  onkeydown={{action "_onkeydown"}}
+  onkeypress={{action "_onkeypress"}}
+  role={{this.role}}
+  tabindex={{this.tabIndex}}
+
+  {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
+  aria-label={{@aria-label}}
+  style={{@style}}
+
+  ...attributes>
+  {{yield (hash
+    SelectedOptions=(component "select-box/selected-options"
+      aria-activedescendant=this.activeSelectedOption.elementId
+      classNamePrefix=@classNamePrefix
+      _onInit=(action "_registerSelectedOptionsContainer")
+      _onDestroy=(action "_deregisterSelectedOptionsContainer"))
+    SelectedOption=(component "select-box/selected-option"
+      classNamePrefix=@classNamePrefix
+      _parentComponents=this.selectedOptions
+      _parentActiveIndex=this.activeSelectedOptionIndex
+      _parentApi=this.api
+      _onInit=(action "_registerSelectedOption")
+      _onDestroy=(action "_deregisterSelectedOption")
+      _onActivate=(action "activateSelectedOptionAtIndex"))
+    Options=(component "select-box/options"
+      aria-activedescendant=this.activeOption.domElement.id
+      classNamePrefix=@classNamePrefix
+      _onInit=(action "_registerOptionsContainer")
+      _onDestroy=(action "_deregisterOptionsContainer"))
+    Option=(component "select-box/option"
+      classNamePrefix=@classNamePrefix
+      _parentComponents=this.options
+      _parentActiveIndex=this.activeOptionIndex
+      _parentApi=this.api
+      _parentIsMultiple=this.isMultiple
+      _parentInternalValue=this.internalValue
+      _onInit=(action "_registerOption")
+      _onDestroy=(action "_deregisterOption")
+      _onActivate=(action "activateOptionAtIndex")
+      _onSelect=(action "_select"))
+    Group=(component "select-box/group"
+      classNamePrefix=@classNamePrefix)
+    Input=(component "select-box/input"
+      aria-controls=this.domElement.id
+      disabled=this.isDisabled
+      classNamePrefix=@classNamePrefix
+      _parentApi=this.api
+      _onInit=(action "_registerInput")
+      _onDestroy=(action "_deregisterInput")
+      _onInput=(action "_inputText"))
+    Focuser=(component "select-box/focuser"
+      classNamePrefix=@classNamePrefix)
+    element=this.domElement
+    value=this.internalValue
+    isPending=this.isPending
+    isRejected=this.isRejected
+    isFulfilled=this.isFulfilled
+    isSettled=this.isSettled
+    isSearching=this.isSearching
+    isSlowSearch=this.isSlowSearch
+    isOpen=this.isOpen
+    open=(action "open")
+    close=(action "close")
+    toggle=(action "toggle")
+    select=(action "select")
+    update=(action "update")
+    selectActiveOption=(action "selectActiveOption")
+    search=(action "search")
+    stopSearching=(action "stopSearching")
+    setInputValue=(action "setInputValue")
+    focusInput=(action "focusInput")
+    blurInput=(action "blurInput")
+    activateOptionAtIndex=(action "activateOptionAtIndex")
+    activateNextOption=(action "activateNextOption")
+    activatePreviousOption=(action "activatePreviousOption")
+    deactivateOptions=(action "deactivateOptions")
+    activateSelectedOptionAtIndex=(action "activateSelectedOptionAtIndex")
+    activateNextSelectedOption=(action "activateNextSelectedOption")
+    activatePreviousSelectedOption=(action "activatePreviousSelectedOption")
+    deactivateSelectedOptions=(action "deactivateSelectedOptions")
+  )}}
+</div>

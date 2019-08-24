@@ -6,6 +6,7 @@ import Disableable from '../../mixins/general/disableable';
 import Indexable from '../../mixins/general/indexable';
 import Registerable from '../../mixins/general/registerable';
 import Selectable from '../../mixins/select-box/option/selectable';
+import HasDomElement from '../../mixins/select-box/registration/has-dom-element';
 
 const mixins = [
   Activatable,
@@ -13,7 +14,8 @@ const mixins = [
   Disableable,
   Indexable,
   Registerable,
-  Selectable
+  Selectable,
+  HasDomElement
 ];
 
 export default Component.extend(...mixins, {

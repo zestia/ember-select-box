@@ -2,7 +2,7 @@
   {{did-insert (action "_registerDomElement")}}
   class={{select-box-class @classNamePrefix}}
   multiple={{this.isMultiple}}
-  onchange={{action "changed"}}
+  onchange={{action "_onchange"}}
 
   {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
   aria-label={{@aria-label}}

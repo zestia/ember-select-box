@@ -14,22 +14,24 @@ export const keys = {
 };
 
 export default Mixin.create({
-  keyPress(e) {
-    this._super(...arguments);
+  actions: {
+    _onkeypress(e) {
+      this._super(...arguments);
 
-    invokeAction(this, `onPressKey`, e, this.api);
-  },
+      invokeAction(this, `onPressKey`, e, this.api);
+    },
 
-  keyDown(e) {
-    this._super(...arguments);
+    _onkeydown(e) {
+      this._super(...arguments);
 
-    let key = keys[e.keyCode];
+      let key = keys[e.keyCode];
 
-    if (key) {
-      key = capitalize(key);
+      if (key) {
+        key = capitalize(key);
 
-      invokeAction(this, `onPress${key}`, e, this.api);
-      invokeAction(this, `_onPress${key}`, e);
+        invokeAction(this, `onPress${key}`, e, this.api);
+        invokeAction(this, `_onPress${key}`, e);
+      }
     }
   }
 });

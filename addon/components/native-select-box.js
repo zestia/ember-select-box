@@ -13,7 +13,9 @@ export default Component.extend(...mixins, {
   tagName: '',
 
   actions: {
-    changed() {
+    _onchange() {
+      this._super(...arguments);
+
       const registeredSelected = this._getRegisteredSelectedValues();
       const unregisteredSelected = this._getUnregisteredSelectedValues();
 

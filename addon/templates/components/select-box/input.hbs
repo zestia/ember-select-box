@@ -1,17 +1,17 @@
 <input
+  {{did-insert (action "_registerDomElement")}}
   aria-multiline="false"
   autocomplete="off"
   class={{select-box-class @classNamePrefix "input"}}
   role="searchbox"
   type="text"
-  oninput={{action "_inputtedText"}}
-  onkeydown={{action "_keyedDown"}}
+  oninput={{action "_oninput"}}
+  onkeydown={{action "_onkeydown"}}
 
   {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
   accept={{@accept}}
   aria-controls={{@aria-controls}}
   autocapitalize={{@autocapitalize}}
-  autocomplete={{@autocomplete}}
   autocorrect={{@autocorrect}}
   autofocus={{@autofocus}}
   autosave={{@autosave}}

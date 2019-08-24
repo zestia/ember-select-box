@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-
 import Component from '@ember/component';
 import ActivatableOptions from '../mixins/select-box/activatable-options';
 import ActivatableSelectedOptions from '../mixins/select-box/activatable-selected-options';
@@ -13,16 +11,15 @@ import HasOptions from '../mixins/select-box/registration/has-options';
 import HasOptionsContainer from '../mixins/select-box/registration/has-options-container';
 import HasSelectedOptions from '../mixins/select-box/registration/has-selected-options';
 import HasSelectedOptionsContainer from '../mixins/select-box/registration/has-selected-options-container';
+import HasDomElement from '../mixins/select-box/registration/has-dom-element';
 import Inputtable from '../mixins/select-box/inputtable';
 import KeyboardEvents from '../mixins/select-box/keyboard-events';
 import layout from '../templates/components/select-box';
-import Nameable from '../mixins/general/nameable';
 import Searchable from '../mixins/select-box/searchable';
 import SelectActiveOption from '../mixins/select-box/select-active-option';
 import SelectActiveOptionOnEnter from '../mixins/select-box/select-active-option-on-enter';
 import SelectBoxAPI from '../mixins/select-box/api';
 import Toggleable from '../mixins/select-box/toggleable';
-import boolString from '../utils/bool-string';
 import { or } from '@ember/object/computed';
 
 const mixins = [
@@ -38,9 +35,9 @@ const mixins = [
   HasOptionsContainer,
   HasSelectedOptions,
   HasSelectedOptionsContainer,
+  HasDomElement,
   Inputtable,
   KeyboardEvents,
-  Nameable,
   Searchable,
   SelectActiveOption,
   SelectActiveOptionOnEnter,
@@ -50,28 +47,7 @@ const mixins = [
 
 export default Component.extend(...mixins, {
   layout,
+  tagName: '',
 
-  attributeBindings: [
-    'aria-busy',
-    'aria-disabled',
-    'aria-expanded',
-    'aria-label',
-    'role',
-    'style'
-  ],
-
-  classNameBindings: [
-    'isOpen',
-    'isFocused',
-    'isDisabled',
-    'isMultiple',
-    'isSearching',
-    'isSlowSearch'
-  ],
-
-  isBusy: or('isPending', 'isSearching'),
-
-  'aria-expanded': boolString('isOpen'),
-  'aria-busy': boolString('isBusy'),
-  'aria-disabled': boolString('isDisabled')
+  isBusy: or('isPending', 'isSearching')
 });

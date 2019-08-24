@@ -66,7 +66,7 @@ export default Mixin.create({
     const pattern = new RegExp(`^${chars}`, 'i');
 
     return this.options.filter(option => {
-      return pattern.test(collapseWhitespace(option.element.textContent));
+      return pattern.test(collapseWhitespace(option.domElement.textContent));
     });
   },
 
@@ -86,7 +86,7 @@ export default Mixin.create({
     const activeOption = get(this, 'activeOption');
 
     if (activeOption) {
-      scrollIntoView(activeOption.element);
+      scrollIntoView(activeOption.domElement);
     }
   },
 
