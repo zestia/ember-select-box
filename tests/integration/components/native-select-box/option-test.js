@@ -129,7 +129,7 @@ module('native-select-box/option', function(hooks) {
     assert.strictEqual(
       find('.select-box-option').textContent,
       'Foo',
-      'renders the label inside the option element'
+      'renders the label inside the option element (correct whitespace)'
     );
   });
 

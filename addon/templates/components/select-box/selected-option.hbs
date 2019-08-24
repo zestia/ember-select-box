@@ -1,1 +1,15 @@
-{{yield}}
+<div
+  {{did-insert (action "_registerDomElement")}}
+  aria-current={{if this.isActive "true" "false"}}
+  class={{concat
+    (select-box-class @classNamePrefix "selected-option")
+    (if this.isActive " is-active")
+  }}
+
+  {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
+  style={{@style}}
+  title={{@title}}
+
+  ...attributes>
+  {{yield}}
+</div>

@@ -1,10 +1,32 @@
-{{yield (hash
-  index=this.index
-  value=this.internalValue
-  isPending=this.isPending
-  isRejected=this.isRejected
-  isFulfilled=this.isFulfilled
-  isSettled=this.isSettled
-  isSelected=this.isSelected
-  isDisabled=this.isDisabled
-)}}
+<div
+  {{did-insert (action "_registerDomElement")}}
+  aria-busy={{if this.isPending "true" "false"}}
+  aria-current={{if this.isActive "true" "false"}}
+  aria-disabled={{if this.isDisabled "true" "false"}}
+  aria-selected={{if this.isSelected "true" "false"}}
+  class={{concat
+    (select-box-class @classNamePrefix "option")
+    (if this.isActive " is-active")
+    (if this.isDisabled " is-disabled")
+    (if this.isSelected " is-selected")
+  }}
+  role="option"
+  onmouseenter={{action "_mouseEntered"}}
+  onclick={{action "_clicked"}}
+
+  {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
+  title={{@title}}
+  style={{@style}}
+
+  ...attributes>
+  {{~yield (hash
+    index=this.index
+    value=this.internalValue
+    isPending=this.isPending
+    isRejected=this.isRejected
+    isFulfilled=this.isFulfilled
+    isSettled=this.isSettled
+    isSelected=this.isSelected
+    isDisabled=this.isDisabled
+  )~}}
+</div>

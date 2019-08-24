@@ -2,20 +2,17 @@ import Component from '@ember/component';
 import layout from '../templates/components/native-select-box';
 import BaseSelectBox from '../mixins/select-box/base';
 import HasOptions from '../mixins/select-box/registration/has-options';
-import { get, set } from '@ember/object';
+import HasDomElement from '../mixins/select-box/registration/has-dom-element';
+import { get } from '@ember/object';
 const { from } = Array;
 
-const mixins = [BaseSelectBox, HasOptions];
+const mixins = [BaseSelectBox, HasOptions, HasDomElement];
 
 export default Component.extend(...mixins, {
   layout,
   tagName: '',
 
   actions: {
-    inserted(element) {
-      set(this, '_element', element);
-    },
-
     changed() {
       const registeredSelected = this._getRegisteredSelectedValues();
       const unregisteredSelected = this._getUnregisteredSelectedValues();
@@ -38,12 +35,12 @@ export default Component.extend(...mixins, {
 
   _getRegisteredSelectedValues() {
     return this.options
-      .filter(option => option.element.selected)
+      .filter(option => option.domElement.selected)
       .map(option => option.internalValue);
   },
 
   _getUnregisteredSelectedValues() {
-    return from(this._element.querySelectorAll('option:checked')).map(
+    return from(this.domElement.querySelectorAll('option:checked')).map(
       option => option.value
     );
   }

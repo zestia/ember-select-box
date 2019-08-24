@@ -3,17 +3,12 @@ import layout from '../../templates/components/select-box/option';
 import Activatable from '../../mixins/select-box/option/activatable';
 import BaseOption from '../../mixins/select-box/option/base';
 import Indexable from '../../mixins/general/indexable';
-import Nameable from '../../mixins/general/nameable';
 import Registerable from '../../mixins/general/registerable';
-import boolString from '../../utils/bool-string';
+import HasDomElement from '../../mixins/select-box/registration/has-dom-element';
 
-const mixins = [Activatable, BaseOption, Indexable, Nameable, Registerable];
+const mixins = [Activatable, BaseOption, Indexable, Registerable, HasDomElement];
 
 export default Component.extend(...mixins, {
   layout,
-  classNameSuffix: 'selected-option',
-  attributeBindings: ['title', 'aria-current', 'style'],
-  classNameBindings: ['isActive'],
-
-  'aria-current': boolString('isActive')
+  tagName: ''
 });

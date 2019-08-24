@@ -1,0 +1,22 @@
+<option
+  {{did-insert (action "_registerDomElement")}}
+  class={{select-box-class @classNamePrefix "option"}}
+  selected={{this.isSelected}}
+  value={{this.internalValue}}
+
+  {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
+  disabled={{@disabled}}
+  title={{@title}}
+
+  ...attributes>
+  {{~yield (hash
+    index=this.index
+    value=this.internalValue
+    isPending=this.isPending
+    isRejected=this.isRejected
+    isFulfilled=this.isFulfilled
+    isSettled=this.isSettled
+    isSelected=this.isSelected
+    isDisabled=this.isDisabled
+  )~}}
+</option>
