@@ -3,6 +3,18 @@
   class={{select-box-class @classNamePrefix}}
   multiple={{this.isMultiple}}
   onchange={{action "changed"}}
+
+  {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
+  name={{@name}}
+  title={{@title}}
+  tabindex={{@tabindex}}
+  disabled={{@disabled}}
+  size={{@size}}
+  multiple={{@multiple}}
+  autofocus={{@autofocus}}
+  required={{@required}}
+  aria-label={{@aria-label}}
+
   ...attributes>
   {{yield (hash
     Option=(component "native-select-box/option"

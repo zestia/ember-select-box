@@ -43,6 +43,135 @@ module('native-select-box', function(hooks) {
     );
   });
 
+  test('classic: name', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`{{native-select-box name="foo"}}`);
+
+    assert
+      .dom('.select-box')
+      .hasAttribute('name', 'foo', 'can set a name attribute');
+  });
+
+  test('classic: title', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`{{native-select-box title="foo"}}`);
+
+    assert
+      .dom('.select-box')
+      .hasAttribute('title', 'foo', 'can set a title attribute');
+  });
+
+  test('tabindex', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`<NativeSelectBox />`);
+
+    assert
+      .dom('.select-box')
+      .doesNotHaveAttribute('tabindex', 'default tabindex');
+  });
+
+  test('classic: tabindex', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`{{native-select-box tabindex="5"}}`);
+
+    assert
+      .dom('.select-box')
+      .hasAttribute('tabindex', '5', 'can specify a tabindex attribute');
+  });
+
+  test('disabled', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`<NativeSelectBox />`);
+
+    assert.ok(
+      !find('.select-box').hasAttribute('disabled'),
+      'enabled by default'
+    );
+  });
+
+  test('classic: disabled', async function(assert) {
+    assert.expect(2);
+
+    this.set('isDisabled', true);
+
+    await render(hbs`{{native-select-box disabled=this.isDisabled}}`);
+
+    assert.ok(find('.select-box').hasAttribute('disabled'), 'can be disabled');
+
+    this.set('isDisabled', false);
+
+    assert.ok(
+      !find('.select-box').hasAttribute('disabled'),
+      'can be re-enabled'
+    );
+  });
+
+  test('size', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`<NativeSelectBox />`);
+
+    assert.dom('.select-box').doesNotHaveAttribute('size', 'default size');
+  });
+
+  test('classic: size', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`{{native-select-box size="2"}}`);
+
+    assert
+      .dom('.select-box')
+      .hasAttribute('size', '2', 'can specify a size attribute');
+  });
+
+  test('classic: aria label', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`{{native-select-box aria-label="Something"}}`);
+
+    assert
+      .dom('.select-box')
+      .hasAttribute('aria-label', 'Something', 'setting the aria label works');
+  });
+
+  test('classic: autofocus', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`{{native-select-box autofocus=true}}`);
+
+    assert.ok(
+      find('.select-box').hasAttribute('autofocus'),
+      'can autofocus a native select box'
+    );
+  });
+
+  test('classic: required', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`{{native-select-box required=true}}`);
+
+    assert.ok(
+      find('.select-box').hasAttribute('required'),
+      'can set the required attribute'
+    );
+  });
+
+  test('classic: multiple', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`{{native-select-box multiple=true}}`);
+
+    assert.ok(
+      find('.select-box').hasAttribute('multiple'),
+      'can set the multiple attribute'
+    );
+  });
+
   test('changing the selected value', async function(assert) {
     assert.expect(3);
 
@@ -157,7 +286,7 @@ module('native-select-box', function(hooks) {
     assert.dom('.select-box').hasValue('foo', 'value should not change');
   });
 
-  test('selecting non primitives', async function(assert) {
+  test('classic: selecting non primitives', async function(assert) {
     assert.expect(1);
 
     this.set('foo', ['foo']);
@@ -172,24 +301,24 @@ module('native-select-box', function(hooks) {
     });
 
     await render(hbs`
-      <NativeSelectBox @multiple={{true}} @onSelect={{this.selected}} as |sb|>
-        <sb.Option @value={{this.foo}}>Foo</sb.Option>
-        <sb.Option @value={{this.bar}}>Bar</sb.Option>
-      </NativeSelectBox>
+      {{#native-select-box multiple=true onSelect=this.selected as |sb|}}
+        {{#sb.Option value=this.foo}}Foo{{/sb.Option}}
+        {{#sb.Option value=this.bar}}Bar{{/sb.Option}}
+      {{/native-select-box}}
     `);
 
     await selectNativeOptionsByLabel('.select-box', ['Foo', 'Bar']);
   });
 
-  test('manual selection (initial value)', async function(assert) {
+  test('classic: manual selection (initial value)', async function(assert) {
     assert.expect(1);
 
     await render(hbs`
-      <NativeSelectBox @value="baz" as |sb|>
-        <sb.Option @value="foo" selected={{false}} />
-        <sb.Option @value="bar" selected={{true}} />
-        <sb.Option @value="baz" selected={{false}} />
-      </NativeSelectBox>
+      {{#native-select-box value="baz" as |sb|}}
+        {{sb.Option value="foo" selected=false}}
+        {{sb.Option value="bar" selected=true}}
+        {{sb.Option value="baz" selected=false}}
+      {{/native-select-box}}
     `);
 
     assert
@@ -200,17 +329,17 @@ module('native-select-box', function(hooks) {
       );
   });
 
-  test('manual selection (multiple values)', async function(assert) {
+  test('classic: manual selection (multiple values)', async function(assert) {
     assert.expect(2);
 
     this.set('barSelected', true);
 
     await render(hbs`
-      <NativeSelectBox @multiple={{true}} as |sb|>
-        <sb.Option @value="foo" />
-        <sb.Option @value="bar" selected={{this.barSelected}} />
-        <sb.Option @value="baz" selected={{this.bazSelected}} />
-      </NativeSelectBox>
+      {{#native-select-box multiple=true as |sb|}}
+        {{sb.Option value="foo"}}
+        {{sb.Option value="bar" selected=this.barSelected}}
+        {{sb.Option value="baz" selected=this.bazSelected}}
+      {{/native-select-box}}
     `);
 
     assert.deepEqual(
@@ -277,7 +406,7 @@ module('native-select-box', function(hooks) {
     await selectNativeOptionsByValue('.select-box', ['Hello', 'World']);
   });
 
-  test('non-component options (mixed)', async function(assert) {
+  test('classic: non-component options (mixed)', async function(assert) {
     assert.expect(1);
 
     this.set('selected', values => {
@@ -289,10 +418,10 @@ module('native-select-box', function(hooks) {
     });
 
     await render(hbs`
-      <NativeSelectBox @multiple={{true}} @onSelect={{this.selected}} as |sb|>
-        <sb.Option @value="foo" />
+      {{#native-select-box multiple=true onSelect=this.selected as |sb|}}
+        {{sb.Option value="foo"}}
         <option value="bar"></option>
-      </NativeSelectBox>
+      {{/native-select-box}}
     `);
 
     await selectNativeOptionsByValue('.select-box', ['foo', 'bar']);

@@ -1,1 +1,10 @@
-{{yield}}
+<optgroup
+  class={{select-box-class @classNamePrefix "group"}}
+
+  {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
+  label={{@label}}
+  disabled={{@disabled}}
+
+  ...attributes>
+  {{yield}}
+</optgroup>
