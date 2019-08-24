@@ -1,0 +1,52 @@
+<input
+  aria-multiline="false"
+  autocomplete="off"
+  class={{select-box-class @classNamePrefix "input"}}
+  role="searchbox"
+  type="text"
+  oninput={{action "_inputtedText"}}
+  onkeydown={{action "_keyedDown"}}
+
+  {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
+  accept={{@accept}}
+  aria-controls={{@aria-controls}}
+  autocapitalize={{@autocapitalize}}
+  autocomplete={{@autocomplete}}
+  autocorrect={{@autocorrect}}
+  autofocus={{@autofocus}}
+  autosave={{@autosave}}
+  dir={{@dir}}
+  disabled={{@disabled}}
+  form={{@form}}
+  formaction={{@formaction}}
+  formenctype={{@formenctype}}
+  formmethod={{@formmethod}}
+  formnovalidate={{@formnovalidate}}
+  formtarget={{@formtarget}}
+  height={{@height}}
+  inputmode={{@inputmode}}
+  lang={{@lang}}
+  list={{@list}}
+  max={{@max}}
+  maxlength={{@maxlength}}
+  min={{@min}}
+  minlength={{@minlength}}
+  multiple={{@multiple}}
+  name={{@name}}
+  pattern={{@pattern}}
+  placeholder={{@placeholder}}
+  readonly={{@readonly}}
+  required={{@required}}
+  role={{@role}}
+  selectionDirection={{@selectionDirection}}
+  size={{@size}}
+  spellcheck={{@spellcheck}}
+  step={{@step}}
+  style={{@style}}
+  tabindex={{@tabindex}}
+  title={{@title}}
+  type={{@type}}
+  value={{@value}}
+  width={{@width}}
+
+  ...attributes>

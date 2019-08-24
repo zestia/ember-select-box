@@ -1,82 +1,35 @@
 import Component from '@ember/component';
-import Nameable from '../../mixins/general/nameable';
+import layout from '../../templates/components/select-box/input';
 import Registerable from '../../mixins/general/registerable';
 import invokeAction from '../../utils/invoke-action';
+import HasDomElement from '../../mixins/select-box/registration/has-dom-element';
 
-const mixins = [Nameable, Registerable];
+const mixins = [Registerable, HasDomElement];
 
 export default Component.extend(...mixins, {
-  tagName: 'input',
-  type: '',
+  layout,
+  tagName: '',
 
-  role: 'searchbox',
-  'aria-multiline': 'false',
-  autocomplete: 'off',
+  actions: {
+    _oninput() {
+      this._super(...arguments);
 
-  attributeBindings: [
-    'accept',
-    'aria-controls',
-    'aria-multiline',
-    'autocapitalize',
-    'autocomplete',
-    'autocorrect',
-    'autofocus',
-    'autosave',
-    'dir',
-    'disabled',
-    'form',
-    'formaction',
-    'formenctype',
-    'formmethod',
-    'formnovalidate',
-    'formtarget',
-    'height',
-    'inputmode',
-    'lang',
-    'list',
-    'max',
-    'maxlength',
-    'min',
-    'minlength',
-    'multiple',
-    'name',
-    'pattern',
-    'placeholder',
-    'readonly',
-    'required',
-    'role',
-    'selectionDirection',
-    'size',
-    'spellcheck',
-    'step',
-    'style',
-    'tabindex',
-    'title',
-    'type',
-    'value',
-    'width'
-  ],
+      const value = this.domElement.value;
 
-  classNameSuffix: 'input',
+      if (!value) {
+        invokeAction(this, 'onClear', this._parentApi);
+      }
 
-  input() {
-    this._super(...arguments);
+      invokeAction(this, '_onInput', value);
+      invokeAction(this, 'onInput', value, this._parentApi);
+    },
 
-    const value = this.element.value;
+    _onkeydown(e) {
+      this._super(...arguments);
 
-    if (!value) {
-      invokeAction(this, 'onClear', this._parentApi);
-    }
-
-    invokeAction(this, '_onInput', value);
-    invokeAction(this, 'onInput', value, this._parentApi);
-  },
-
-  keyDown(e) {
-    this._super(...arguments);
-
-    if (e.keyCode === 8 && !this.element.value) {
-      invokeAction(this, 'onDelete', this._parentApi);
+      if (e.keyCode === 8 && !this.domElement.value) {
+        invokeAction(this, 'onDelete', this._parentApi);
+      }
     }
   }
 });

@@ -11,8 +11,8 @@
     (if this.isSelected " is-selected")
   }}
   role="option"
-  onmouseenter={{action "_mouseEntered"}}
-  onclick={{action "_clicked"}}
+  onmouseenter={{action "_onmouseenter"}}
+  onclick={{action "_onclick"}}
 
   {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
   title={{@title}}

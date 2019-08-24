@@ -1,1 +1,11 @@
-{{yield}}
+<div
+  class={{select-box-class @classNamePrefix "options"}}
+  role="listbox"
+
+  {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
+  style={{@style}}
+  aria-activedescendant={{@aria-activedescendant}}
+
+  ...attributes>
+  {{yield}}
+</div>

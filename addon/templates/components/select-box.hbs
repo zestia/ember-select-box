@@ -13,7 +13,7 @@
     _onDestroy=(action "_deregisterSelectedOption")
     _onActivate=(action "activateSelectedOptionAtIndex"))
   Options=(component "select-box/options"
-    aria-activedescendant=this.activeOption.elementId
+    aria-activedescendant=this.activeOption.domElement.id
     classNamePrefix=@classNamePrefix
     _onInit=(action "_registerOptionsContainer")
     _onDestroy=(action "_deregisterOptionsContainer"))
@@ -31,7 +31,7 @@
   Group=(component "select-box/group"
     classNamePrefix=@classNamePrefix)
   Input=(component "select-box/input"
-    aria-controls=this.elementId
+    aria-controls=this.domElement.id
     disabled=this.isDisabled
     classNamePrefix=@classNamePrefix
     _parentApi=this.api
@@ -40,7 +40,7 @@
     _onInput=(action "_inputText"))
   Focuser=(component "select-box/focuser"
     classNamePrefix=@classNamePrefix)
-  element=this.element
+  element=this.domElement
   value=this.internalValue
   isPending=this.isPending
   isRejected=this.isRejected
