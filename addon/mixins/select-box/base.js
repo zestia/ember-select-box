@@ -103,6 +103,7 @@ export default Mixin.create({
     },
 
     _updated() {
+      this._super(...arguments);
       this._updated();
     },
 

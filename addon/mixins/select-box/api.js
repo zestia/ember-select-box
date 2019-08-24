@@ -66,8 +66,8 @@ export default Mixin.create({
     },
 
     _updated() {
-      this._updateApi('value', this.internalValue);
       this._super(...arguments);
+      this._updateApi('value', this.internalValue);
     },
 
     open() {
