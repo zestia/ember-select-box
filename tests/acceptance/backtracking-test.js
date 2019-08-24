@@ -31,7 +31,7 @@ module('backtracking focus use-case', function(hooks) {
         layout: hbs`
         <SelectBox @classNamePrefix="backtrack-select" as |sb|>
           {{yield (hash
-            SelectedOption=(component sb.SelectedOption click=sb.open)
+            SelectedOption=(component sb.SelectedOption onclick=sb.open)
             Options=(if sb.isOpen sb.Options)
             close=sb.close
           )}}
@@ -45,7 +45,7 @@ module('backtracking focus use-case', function(hooks) {
   // https://ember-twiddle.com/2f066b448da4242c29e241a5203d8840
 
   runTest('backtracking focus error', async function(assert) {
-    assert.expect(6);
+    assert.expect(5);
 
     await visit('/backtrack-select');
 
@@ -74,9 +74,5 @@ module('backtracking focus use-case', function(hooks) {
       .doesNotExist(
         'options destroyed successfully without throwing double render error'
       );
-
-    await settled();
-
-    assert.dom('.backtrack-select').hasClass('is-focused', 'no longer focused');
   });
 });

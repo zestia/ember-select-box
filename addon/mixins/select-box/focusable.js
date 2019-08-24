@@ -1,23 +1,12 @@
 import Mixin from '@ember/object/mixin';
 import { set } from '@ember/object';
-import { isPresent } from '@ember/utils';
 import invokeAction from '../../utils/invoke-action';
 
 export default Mixin.create({
-  didReceiveAttrs() {
-    this._super(...arguments);
-
-    if (isPresent(this.tabindex)) {
-      set(this, 'tabIndex', this.tabindex);
-    }
-
-    if (!isPresent(this.tabIndex)) {
-      set(this, 'tabIndex', '0');
-    }
-  },
+  tabIndex: '0',
 
   actions: {
-    _onfocusin(e) {
+    _onfocus(e) {
       this._super(...arguments);
 
       if (this.isDestroyed) {
@@ -25,10 +14,10 @@ export default Mixin.create({
       }
 
       set(this, 'isFocused', true);
-      invokeAction(this, 'onFocusIn', e, this.api);
+      invokeAction(this, 'onFocus', e, this.api);
     },
 
-    _onfocusout(e) {
+    _onblur(e) {
       this._super(...arguments);
 
       if (this.isDestroyed) {
@@ -41,7 +30,7 @@ export default Mixin.create({
         // https://github.com/emberjs/ember.js/issues/18043
       }
 
-      invokeAction(this, 'onFocusOut', e, this.api);
+      invokeAction(this, 'onBlur', e, this.api);
     }
   }
 });

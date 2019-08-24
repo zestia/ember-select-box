@@ -4,7 +4,7 @@
 <NativeSelectBox
   @value={{@value}}
   @onSelect={{@onSelect}}
-  @onFocusIn={{action "focusIn"}}
-  @onFocusOut={{action "focusOut"}} as |sb|>
+  @onFocus={{action "focused"}}
+  @onBlur={{action "blurred"}} as |sb|>
   {{yield sb}}
 </NativeSelectBox>

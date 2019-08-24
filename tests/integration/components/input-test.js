@@ -66,7 +66,7 @@ module('select-box/input', function(hooks) {
       .dom('.select-box-input')
       .hasAttribute(
         'type',
-        '',
+        'text',
         'select box inputs are not search boxes by default due to unwanted ' +
           'behaviour when you press escape'
       );

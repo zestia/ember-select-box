@@ -165,11 +165,11 @@ ember install @zestia/ember-select-box
       <td>Useful for closing the select box</td>
     </tr>
     <tr>
-      <td>@onFocusIn</td>
+      <td>@onFocus</td>
       <td>Fired when focus enters the select box, normalised if it contains an input</td>
     </tr>
     <tr>
-      <td>@onFocusOut</td>
+      <td>@onBlur</td>
       <td>Fired when focus leaves the select box</td>
     </tr>
     <tr>

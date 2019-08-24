@@ -18,11 +18,11 @@ export default Component.extend({
   },
 
   actions: {
-    focusIn() {
+    focused() {
       set(this, 'isFocused', true);
     },
 
-    focusOut() {
+    blurred() {
       set(this, 'isFocused', false);
     }
   }
