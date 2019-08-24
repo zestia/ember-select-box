@@ -22,7 +22,7 @@ module('select-box (activating options)', function(hooks) {
     );
   }
 
-  test('mouseover activates options', async function(assert) {
+  test('mouseenter activates options', async function(assert) {
     assert.expect(7);
 
     await render(hbs`
@@ -42,7 +42,7 @@ module('select-box (activating options)', function(hooks) {
       .dom('.select-box-option.is-active')
       .doesNotExist('precondition, there are no active options');
 
-    await triggerEvent(one, 'mouseover');
+    await triggerEvent(one, 'mouseenter');
 
     assert
       .dom(one)
@@ -67,7 +67,7 @@ module('select-box (activating options)', function(hooks) {
         'has correct string value when current'
       );
 
-    await triggerEvent(two, 'mouseover');
+    await triggerEvent(two, 'mouseenter');
 
     const [nextID] = options.getAttribute('aria-activedescendant').match(/\d+/);
 

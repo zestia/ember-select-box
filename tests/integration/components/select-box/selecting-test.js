@@ -355,7 +355,7 @@ module('select-box (selecting)', function(hooks) {
       </SelectBox>
     `);
 
-    await triggerEvent(findAll('.select-box-option')[1], 'mouseover');
+    await triggerEvent(findAll('.select-box-option')[1], 'mouseenter');
     await triggerKeyEvent('.select-box', 'keydown', 13);
   });
 
@@ -784,7 +784,7 @@ module('select-box (selecting)', function(hooks) {
       </SelectBox>
     `);
 
-    await triggerEvent(findAll('.select-box-option')[1], 'mouseover');
+    await triggerEvent(findAll('.select-box-option')[1], 'mouseenter');
 
     sb.selectActiveOption();
 
