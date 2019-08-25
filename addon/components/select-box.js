@@ -63,6 +63,7 @@ export default Component.extend(...mixins, {
 
   init() {
     this._super(...arguments);
+    set(this, 'api', this._buildApi());
     this._deactivateOptions();
     this._deactivateSelectedOptions();
     set(this, '_options', emberA());
@@ -623,7 +624,7 @@ export default Component.extend(...mixins, {
       return;
     }
 
-    invokeAction(this, 'onUpdate', this.internalValue, this.api);
     this._updateApi('value', this.internalValue);
+    invokeAction(this, 'onUpdate', this.internalValue, this.api);
   },
 });

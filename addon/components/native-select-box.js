@@ -17,14 +17,18 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
+    set(this, 'api', this._buildApi());
     set(this, '_options', emberA());
     set(this, 'options', emberA());
   },
 
+  didReceiveAttrs() {
+    this._super(...arguments);
+    this._update(this.value);
+  },
+
   actions: {
     _onChange() {
-      this._super(...arguments);
-
       const registeredSelected = this._getRegisteredSelectedValues();
       const unregisteredSelected = this._getUnregisteredSelectedValues();
 
@@ -109,5 +113,14 @@ export default Component.extend({
 
   async _update(value) {
     await updateSelectBoxValue(this, value);
+    scheduleOnce('afterRender', this, '_rendered');
+  },
+
+  _rendered() {
+    if (this.isDestroyed || this.isDestroying) {
+      return;
+    }
+
+    invokeAction(this, 'onUpdate', this.internalValue, this.api);
   },
 });

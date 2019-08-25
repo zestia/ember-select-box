@@ -5,11 +5,6 @@ import { set } from '@ember/object';
 const { seal } = Object;
 
 export default Mixin.create({
-  init() {
-    set(this, 'api', this._buildApi());
-    this._super(...arguments);
-  },
-
   _buildApi() {
     return seal(
       assign(
