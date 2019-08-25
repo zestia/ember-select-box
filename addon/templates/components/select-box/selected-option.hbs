@@ -6,6 +6,7 @@
     (select-box-class @classNamePrefix "selected-option")
     (if this.isActive " is-active")
   }}
+  id={{this.domElementId}}
 
   {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
   onclick={{@onclick}}

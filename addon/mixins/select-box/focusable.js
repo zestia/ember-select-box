@@ -5,7 +5,7 @@ export default Mixin.create({
   tabIndex: '0',
 
   actions: {
-    _onfocusin(e) {
+    _onFocusIn(e) {
       this._super(...arguments);
 
       if (this.isDestroyed) {
@@ -15,7 +15,7 @@ export default Mixin.create({
       set(this, 'isFocused', true);
     },
 
-    _onfocusout(e) {
+    _onFocusOut(e) {
       this._super(...arguments);
 
       if (this.isDestroyed) {

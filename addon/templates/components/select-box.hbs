@@ -1,6 +1,8 @@
 <div
   {{did-insert (action "_registerDomElement")}}
   {{will-destroy (action "_deregisterDomElement")}}
+  {{on "focusin" (action "_onFocusIn")}}
+  {{on "focusout" (action "_onFocusOut")}}
   aria-expanded={{if this.isOpen "true" "false"}}
   aria-busy={{if this.isBusy "true" "false"}}
   aria-disabled={{if this.isDisabled "true" "false"}}
@@ -13,9 +15,8 @@
     (if this.isSearching " is-searching")
     (if this.isSlowSearch " is-slow-search")
   }}
+  id={{this.domElementId}}
   multiple={{this.isMultiple}}
-  onfocusin={{action "_onfocusin"}}
-  onfocusout={{action "_onfocusout"}}
   onkeydown={{action "_onkeydown"}}
   onkeypress={{action "_onkeypress"}}
   role={{this.role}}

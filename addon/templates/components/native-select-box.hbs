@@ -2,6 +2,7 @@
   {{did-insert (action "_registerDomElement")}}
   {{will-destroy (action "_deregisterDomElement")}}
   class={{select-box-class @classNamePrefix}}
+  id={{this.domElementId}}
   multiple={{this.isMultiple}}
   onchange={{action "_onchange"}}
   ...attributes>
