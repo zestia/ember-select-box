@@ -1,8 +1,7 @@
 import Component from '@ember/component';
-import BaseSelectBox from '../mixins/select-box/base';
 import layout from '../templates/components/select-box';
 import API from '../mixins/select-box/api';
-import { or } from '@ember/object/computed';
+import { readOnly, or } from '@ember/object/computed';
 import { computed, get, set } from '@ember/object';
 import scrollIntoView from '../utils/scroll-into-view';
 import escapeRegExp from '../utils/escape-regexp';
@@ -13,9 +12,10 @@ import { bind, scheduleOnce, debounce } from '@ember/runloop';
 import { resolve } from 'rsvp';
 import { isPresent } from '@ember/utils';
 import invokeAction from '../utils/invoke-action';
+import updateSelectBoxValue from '../utils/update-select-box-value';
+import buildSelection from '../utils/build-selection';
 import { assert } from '@ember/debug';
 import { guidFor } from '@ember/object/internals';
-const { isArray, from } = Array;
 const { fromCharCode } = String;
 export const COLLECT_CHARS_MS = 1000;
 
@@ -31,8 +31,7 @@ export const keys = {
 };
 
 const mixins = [
-  API,
-  BaseSelectBox
+  API
 ];
 
 export default Component.extend(...mixins, {
@@ -46,6 +45,7 @@ export default Component.extend(...mixins, {
   searchDelayTime: 100,
   searchSlowTime: 500,
 
+  isMultiple: readOnly('multiple'),
   isBusy: or('isPending', 'isSearching'),
 
   activeSelectedOption: computed(
@@ -69,6 +69,7 @@ export default Component.extend(...mixins, {
     set(this, 'options', emberA());
     set(this, '_selectedOptions', emberA());
     set(this, 'selectedOptions', emberA());
+    invokeAction(this, 'onInit', this.api);
   },
 
   didReceiveAttrs() {
@@ -83,6 +84,8 @@ export default Component.extend(...mixins, {
     if (isPresent(this.open)) {
       set(this, 'isOpen', this.open);
     }
+
+    this._update(this.value);
   },
 
   actions: {
@@ -130,11 +133,6 @@ export default Component.extend(...mixins, {
       this._deactivateSelectedOptions();
     },
 
-    _select(value) {
-      value = this._buildSelectedValue(value, this.internalValue);
-      this._super(value);
-    },
-
     _onFocusIn(e) {
       this._super(...arguments);
 
@@ -170,7 +168,9 @@ export default Component.extend(...mixins, {
       document.addEventListener('click', this._documentClickHandler);
       document.addEventListener('touchstart', this._documentClickHandler);
 
-      this._super(...arguments);
+      this._updateApi('element', this.domElement);
+
+      invokeAction(this, 'onInsertElement', this.api);
     },
 
     _deregisterDomElement() {
@@ -288,6 +288,7 @@ export default Component.extend(...mixins, {
       }
 
       set(this, 'isOpen', true);
+      this._updateApi('isOpen', true);
       invokeAction(this, 'onOpen', this.api);
     },
 
@@ -299,6 +300,7 @@ export default Component.extend(...mixins, {
       }
 
       set(this, 'isOpen', false);
+      this._updateApi('isOpen', false);
       invokeAction(this, 'onClose', this.api);
     },
 
@@ -332,6 +334,19 @@ export default Component.extend(...mixins, {
       if (activeOption) {
         activeOption.send('select');
       }
+    },
+
+    update(value) {
+      this._update(value);
+    },
+
+    select(value) {
+      this._select(value);
+    },
+
+    _select(value) {
+      value = buildSelection(this, value);
+      this._select(value);
     }
   },
 
@@ -464,34 +479,6 @@ export default Component.extend(...mixins, {
     }
   },
 
-  _buildSelectedValue(value1, value2) {
-    let build = this.onBuildSelection;
-
-    if (typeof build !== 'function') {
-      build = bind(this, '_buildSelectedValueDefault');
-    }
-
-    return build(value1, value2);
-  },
-
-  _buildSelectedValueDefault(value1, value2) {
-    let value = value1;
-
-    if (get(this, 'isMultiple') && !isArray(value1)) {
-      const temp = emberA(from(value2));
-
-      if (temp.includes(value1)) {
-        temp.removeObject(value1);
-      } else {
-        temp.addObject(value1);
-      }
-
-      value = temp.toArray();
-    }
-
-    return value;
-  },
-
   _clickDocument() {
     if (this.isDestroyed) {
       return;
@@ -619,5 +606,24 @@ export default Component.extend(...mixins, {
     }
 
     set(this, 'isSlowSearch', this.isSearching);
+  },
+
+  async _select(value) {
+    await this._update(value);
+    invokeAction(this, 'onSelect', this.internalValue, this.api);
+  },
+
+  async _update(value) {
+    await updateSelectBoxValue(this, value);
+    scheduleOnce('afterRender', this, '_rendered');
+  },
+
+  _rendered() {
+    if (this.isDestroyed || this.isDestroying) {
+      return;
+    }
+
+    invokeAction(this, 'onUpdate', this.internalValue, this.api);
+    this._updateApi('value', this.internalValue);
   },
 });

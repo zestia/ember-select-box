@@ -57,27 +57,5 @@ export default Mixin.create({
       actions[name] = bind(this, this.actions[name]);
       return actions;
     }, {});
-  },
-
-  actions: {
-    _registerDomElement() {
-      this._super(...arguments);
-      this._updateApi('element', this.domElement);
-    },
-
-    _updated() {
-      this._super(...arguments);
-      this._updateApi('value', this.internalValue);
-    },
-
-    open() {
-      this._super(...arguments);
-      this._updateApi('isOpen', true);
-    },
-
-    close() {
-      this._super(...arguments);
-      this._updateApi('isOpen', false);
-    }
   }
 });

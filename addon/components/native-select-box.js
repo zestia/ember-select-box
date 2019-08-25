@@ -1,17 +1,19 @@
 import Component from '@ember/component';
 import layout from '../templates/components/native-select-box';
-import BaseSelectBox from '../mixins/select-box/base';
 import { guidFor } from '@ember/object/internals';
 import { set, get } from '@ember/object';
 import { scheduleOnce } from '@ember/runloop';
 import { A as emberA } from '@ember/array';
+import invokeAction from '../utils/invoke-action';
+import { readOnly } from '@ember/object/computed';
+import updateSelectBoxValue from '../utils/update-select-box-value';
 const { from } = Array;
 
-const mixins = [BaseSelectBox];
-
-export default Component.extend(...mixins, {
+export default Component.extend({
   layout,
   tagName: '',
+
+  isMultiple: readOnly('multiple'),
 
   init() {
     this._super(...arguments);
@@ -61,6 +63,18 @@ export default Component.extend(...mixins, {
     _deregisterOption(option) {
       this._options.removeObject(option);
       this._scheduleUpdateOptions();
+    },
+
+    update(value) {
+      this._update(value);
+    },
+
+    select(value) {
+      this._select(value);
+    },
+
+    _select(value) {
+      this._select(value);
     }
   },
 
@@ -86,5 +100,14 @@ export default Component.extend(...mixins, {
 
   _updateOptions() {
     set(this, 'options', emberA(this._options.toArray()));
+  },
+
+  async _select(value) {
+    await updateSelectBoxValue(this, value);
+    invokeAction(this, 'onSelect', this.internalValue, this.api);
+  },
+
+  async _update(value) {
+    await updateSelectBoxValue(this, value);
   },
 });
