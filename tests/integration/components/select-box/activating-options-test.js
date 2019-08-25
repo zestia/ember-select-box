@@ -2,7 +2,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { later } from '@ember/runloop';
-import { COLLECT_CHARS_MS } from '@zestia/ember-select-box/mixins/select-box/activatable-options';
+import { COLLECT_CHARS_MS } from '@zestia/ember-select-box/components/select-box';
 import {
   render,
   click,
