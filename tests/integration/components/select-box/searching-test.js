@@ -568,7 +568,7 @@ module('select-box (searching)', function(hooks) {
     await render(hbs`
       {{#if this.show}}
         <SelectBox @onSelect={{action this.hide}} as |sb|>
-          {{sb.Input value="foo"}}
+          <sb.Input value="foo" />
           <sb.Option />
         </SelectBox>
       {{/if}}

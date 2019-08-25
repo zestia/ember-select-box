@@ -12,5 +12,14 @@
   onclick={{@onclick}}
 
   ...attributes>
-  {{yield}}
+  {{~yield (hash
+    index=this.index
+    value=this.internalValue
+    isPending=this.isPending
+    isRejected=this.isRejected
+    isFulfilled=this.isFulfilled
+    isSettled=this.isSettled
+    isSelected=this.isSelected
+    isDisabled=this.isDisabled
+  )~}}
 </div>
