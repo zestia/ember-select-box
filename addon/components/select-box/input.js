@@ -12,6 +12,8 @@ export default Component.extend(...mixins, {
 
   actions: {
     _onInput() {
+      this._super(...arguments);
+
       const value = this.domElement.value;
 
       if (!value) {

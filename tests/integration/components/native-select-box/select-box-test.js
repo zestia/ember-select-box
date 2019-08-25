@@ -286,7 +286,7 @@ module('native-select-box', function(hooks) {
     assert.dom('.select-box').hasValue('foo', 'value should not change');
   });
 
-  skip('classic: selecting non primitives', async function(assert) {
+  test('selecting non primitives', async function(assert) {
     assert.expect(1);
 
     this.set('foo', ['foo']);
@@ -301,24 +301,24 @@ module('native-select-box', function(hooks) {
     });
 
     await render(hbs`
-      {{#native-select-box multiple=true onSelect=this.selected as |sb|}}
-        {{#sb.Option value=this.foo}}Foo{{/sb.Option}}
-        {{#sb.Option value=this.bar}}Bar{{/sb.Option}}
-      {{/native-select-box}}
+      <NativeSelectBox @multiple={{true}} @onSelect={{this.selected}} as |sb|>
+        <sb.Option @value={{this.foo}}>Foo</sb.Option>
+        <sb.Option @value={{this.bar}}>Bar</sb.Option>
+      </NativeSelectBox>
     `);
 
     await selectNativeOptionsByLabel('.select-box', ['Foo', 'Bar']);
   });
 
-  skip('classic: manual selection (initial value)', async function(assert) {
+  test('manual selection (initial value)', async function(assert) {
     assert.expect(1);
 
     await render(hbs`
-      {{#native-select-box value="baz" as |sb|}}
-        {{sb.Option value="foo" selected=false}}
-        {{sb.Option value="bar" selected=true}}
-        {{sb.Option value="baz" selected=false}}
-      {{/native-select-box}}
+      <NativeSelectBox @value="baz" as |sb|>
+        <sb.Option @value="foo" @selected={{false}} />
+        <sb.Option @value="bar" @selected={{true}} />
+        <sb.Option @value="baz" @selected={{false}} />
+      </NativeSelectBox>
     `);
 
     assert
@@ -329,17 +329,17 @@ module('native-select-box', function(hooks) {
       );
   });
 
-  skip('classic: manual selection (multiple values)', async function(assert) {
+  test('manual selection (multiple values)', async function(assert) {
     assert.expect(2);
 
     this.set('barSelected', true);
 
     await render(hbs`
-      {{#native-select-box multiple=true as |sb|}}
-        {{sb.Option value="foo"}}
-        {{sb.Option value="bar" selected=this.barSelected}}
-        {{sb.Option value="baz" selected=this.bazSelected}}
-      {{/native-select-box}}
+      <NativeSelectBox @multiple={{true}} as |sb|>
+        <sb.Option @value="foo" />
+        <sb.Option @value="bar" @selected={{this.barSelected}} />
+        <sb.Option @value="baz" @selected={{this.bazSelected}} />
+      </NativeSelectBox>
     `);
 
     assert.deepEqual(
@@ -406,7 +406,7 @@ module('native-select-box', function(hooks) {
     await selectNativeOptionsByValue('.select-box', ['Hello', 'World']);
   });
 
-  skip('classic: non-component options (mixed)', async function(assert) {
+  test('non-component options (mixed)', async function(assert) {
     assert.expect(1);
 
     this.set('selected', values => {
@@ -418,10 +418,10 @@ module('native-select-box', function(hooks) {
     });
 
     await render(hbs`
-      {{#native-select-box multiple=true onSelect=this.selected as |sb|}}
-        {{sb.Option value="foo"}}
+      <NativeSelectBox @multiple={{true}} @onSelect={{this.selected}} as |sb|>
+        <sb.Option @value="foo" />
         <option value="bar"></option>
-      {{/native-select-box}}
+      </NativeSelectBox>
     `);
 
     await selectNativeOptionsByValue('.select-box', ['foo', 'bar']);

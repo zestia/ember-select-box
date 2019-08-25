@@ -523,7 +523,7 @@ module('select-box (searching)', function(hooks) {
     deferred.resolve();
   });
 
-  skip('classic: set input value', async function(assert) {
+  test('set input value', async function(assert) {
     assert.expect(2);
 
     this.set('inputted', value => {
@@ -537,7 +537,7 @@ module('select-box (searching)', function(hooks) {
 
     await render(hbs`
       <SelectBox as |sb|>
-        {{sb.Input value="foo" onInput=this.inputted}}
+        <sb.Input value="foo" @onInput={{this.inputted}} />
         <button onclick={{action sb.setInputValue "bar"}}>Reset</button>
       </SelectBox>
     `);

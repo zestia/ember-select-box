@@ -17,7 +17,7 @@ module('select-box/group', function(hooks) {
       .exists({ count: 1 }, 'renders with correct class name and tag');
   });
 
-  skip('classic: style attributes', async function(assert) {
+  skip('classic: style', async function(assert) {
     assert.expect(1);
 
     this.set('style', htmlSafe('color: red'));

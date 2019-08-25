@@ -14,6 +14,8 @@ export default Component.extend(...mixins, {
 
   actions: {
     _onChange() {
+      this._super(...arguments);
+
       const registeredSelected = this._getRegisteredSelectedValues();
       const unregisteredSelected = this._getUnregisteredSelectedValues();
 
