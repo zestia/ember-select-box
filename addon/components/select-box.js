@@ -1,11 +1,7 @@
 import Component from '@ember/component';
 import BaseSelectBox from '../mixins/select-box/base';
 import layout from '../templates/components/select-box';
-import Searchable from '../mixins/select-box/searchable';
-import SelectActiveOption from '../mixins/select-box/select-active-option';
-import SelectActiveOptionOnEnter from '../mixins/select-box/select-active-option-on-enter';
 import API from '../mixins/select-box/api';
-import Toggleable from '../mixins/select-box/toggleable';
 import { or } from '@ember/object/computed';
 import { computed, get, set } from '@ember/object';
 import scrollIntoView from '../utils/select-box/scroll-into-view';
@@ -13,7 +9,8 @@ import escapeRegExp from '../utils/escape-regexp';
 import collapseWhitespace from '../utils/collapse-whitespace';
 import { A as emberA } from '@ember/array';
 import { capitalize } from '@ember/string';
-import { bind, scheduleOnce } from '@ember/runloop';
+import { bind, scheduleOnce, debounce } from '@ember/runloop';
+import { resolve } from 'rsvp';
 import { isPresent } from '@ember/utils';
 import invokeAction from '../utils/invoke-action';
 import { assert } from '@ember/debug';
@@ -35,11 +32,7 @@ export const keys = {
 
 const mixins = [
   API,
-  BaseSelectBox,
-  Searchable,
-  SelectActiveOption,
-  SelectActiveOptionOnEnter,
-  Toggleable
+  BaseSelectBox
 ];
 
 export default Component.extend(...mixins, {
@@ -47,6 +40,11 @@ export default Component.extend(...mixins, {
   tagName: '',
 
   tabIndex: '0',
+  isOpen: false,
+
+  searchMinChars: 1,
+  searchDelayTime: 100,
+  searchSlowTime: 500,
 
   isBusy: or('isPending', 'isSearching'),
 
@@ -81,6 +79,10 @@ export default Component.extend(...mixins, {
     }
 
     set(this, 'tabIndex', this.isDisabled ? '-1' : '0');
+
+    if (isPresent(this.open)) {
+      set(this, 'isOpen', this.open);
+    }
   },
 
   actions: {
@@ -276,7 +278,66 @@ export default Component.extend(...mixins, {
         invokeAction(this, `onPress${key}`, e, this.api);
         invokeAction(this, `_onPress${key}`, e);
       }
+    },
+
+    open() {
+      this._super(...arguments);
+
+      if (this.isDestroyed) {
+        return;
+      }
+
+      set(this, 'isOpen', true);
+      invokeAction(this, 'onOpen', this.api);
+    },
+
+    close() {
+      this._super(...arguments);
+
+      if (this.isDestroyed) {
+        return;
+      }
+
+      set(this, 'isOpen', false);
+      invokeAction(this, 'onClose', this.api);
+    },
+
+    toggle() {
+      this._super(...arguments);
+
+      if (this.isOpen) {
+        this.send('close');
+      } else {
+        this.send('open');
+      }
+    },
+
+    search(query) {
+      return this._search(query);
+    },
+
+    stopSearching() {
+      this.incrementProperty('searchID');
+      this._searchFinished();
+    },
+
+    _inputText(text) {
+      this._super(...arguments);
+      this._maybeSearch(text);
+    },
+
+    selectActiveOption() {
+      const activeOption = get(this, 'activeOption');
+
+      if (activeOption) {
+        activeOption.send('select');
+      }
     }
+  },
+
+  _onPressEnter() {
+    this._super(...arguments);
+    this.send('selectActiveOption');
   },
 
   clickDocument(e) {
@@ -480,5 +541,83 @@ export default Component.extend(...mixins, {
 
   _updateSelectedOptions() {
     set(this, 'selectedOptions', emberA(this._selectedOptions.toArray()));
+  },
+
+  _isSearchable() {
+    return typeof this.onSearch === 'function';
+  },
+
+  _queryOK(query) {
+    return query.length >= get(this, 'searchMinChars');
+  },
+
+  _maybeSearch(text) {
+    if (this._isSearchable()) {
+      this._runDebouncedSearch(text);
+    }
+  },
+
+  _runDebouncedSearch(query) {
+    const delay = get(this, 'searchDelayTime');
+    const immediate = !delay;
+    debounce(this, '_runSearch', query, delay, immediate);
+  },
+
+  _runSearch(query) {
+    query = `${query}`.trim();
+
+    if (this.isDestroyed || !this._queryOK(query)) {
+      return;
+    }
+
+    this._search(query);
+  },
+
+  _search(query = '') {
+    set(this, 'isSearching', true);
+
+    this.incrementProperty('searchID');
+
+    debounce(this, '_checkSlowSearch', get(this, 'searchSlowTime'));
+
+    const search = invokeAction(this, 'onSearch', query, this.api);
+
+    return resolve(search)
+      .then(bind(this, '_searchCompleted', this.searchID, query))
+      .catch(bind(this, '_searchFailed', query))
+      .finally(bind(this, '_searchFinished'));
+  },
+
+  _searchCompleted(id, query, result) {
+    if (this.isDestroyed || id < this.searchID) {
+      return;
+    }
+
+    invokeAction(this, 'onSearched', result, query, this.api);
+  },
+
+  _searchFailed(query, error) {
+    if (this.isDestroyed) {
+      return;
+    }
+
+    invokeAction(this, 'onSearchError', error, query, this.api);
+  },
+
+  _searchFinished() {
+    if (this.isDestroyed) {
+      return;
+    }
+
+    set(this, 'isSearching', false);
+    set(this, 'isSlowSearch', false);
+  },
+
+  _checkSlowSearch() {
+    if (this.isDestroyed) {
+      return;
+    }
+
+    set(this, 'isSlowSearch', this.isSearching);
   },
 });
