@@ -34,6 +34,32 @@ module('select-box (focusing)', function(hooks) {
       );
   });
 
+  test('focus actions', async function(assert) {
+    assert.expect(2);
+
+    let sentFocusIn;
+    let sentFocusOut;
+
+    this.set('focused', () => (sentFocusIn = true));
+    this.set('blurred', () => (sentFocusOut = true));
+
+    await render(hbs`
+      <SelectBox
+        @onFocusIn={{this.focused}}
+        @onFocusOut={{this.blurred}}>
+        <button></button>
+      </SelectBox>
+    `);
+
+    await focus('button');
+
+    assert.ok(sentFocusIn, true, 'sends a focus in action');
+
+    await blur('button', 'blur');
+
+    assert.ok(sentFocusOut, true, 'sends a focus out action');
+  });
+
   test('tabindex', async function(assert) {
     assert.expect(3);
 

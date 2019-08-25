@@ -3,6 +3,8 @@
   {{will-destroy (action "_deregisterDomElement")}}
   {{on "focusin" (action "_onFocusIn")}}
   {{on "focusout" (action "_onFocusOut")}}
+  {{on "keydown" (action "_onKeyDown")}}
+  {{on "keypress" (action "_onKeyPress")}}
   aria-expanded={{if this.isOpen "true" "false"}}
   aria-busy={{if this.isBusy "true" "false"}}
   aria-disabled={{if this.isDisabled "true" "false"}}
@@ -17,8 +19,6 @@
   }}
   id={{this.domElementId}}
   multiple={{this.isMultiple}}
-  onkeydown={{action "_onkeydown"}}
-  onkeypress={{action "_onkeypress"}}
   role={{this.role}}
   tabindex={{this.tabIndex}}
   ...attributes>

@@ -23,12 +23,12 @@ export default Component.extend(...mixins, {
   tagName: '',
 
   actions: {
-    _onmouseenter() {
+    _onMouseEnter() {
       this._super(...arguments);
       this.send('activate');
     },
 
-    _onclick() {
+    _onClick() {
       this._super(...arguments);
       this.send('select');
     }

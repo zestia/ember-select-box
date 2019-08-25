@@ -15,15 +15,11 @@ export const keys = {
 
 export default Mixin.create({
   actions: {
-    _onkeypress(e) {
-      this._super(...arguments);
-
+    _onKeyPress(e) {
       invokeAction(this, `onPressKey`, e, this.api);
     },
 
-    _onkeydown(e) {
-      this._super(...arguments);
-
+    _onKeyDown(e) {
       let key = keys[e.keyCode];
 
       if (key) {

@@ -11,9 +11,7 @@ export default Component.extend(...mixins, {
   tagName: '',
 
   actions: {
-    _oninput() {
-      this._super(...arguments);
-
+    _onInput() {
       const value = this.domElement.value;
 
       if (!value) {
@@ -24,7 +22,7 @@ export default Component.extend(...mixins, {
       invokeAction(this, 'onInput', value, this._parentApi);
     },
 
-    _onkeydown(e) {
+    _onKeyDown(e) {
       this._super(...arguments);
 
       if (e.keyCode === 8 && !this.domElement.value) {

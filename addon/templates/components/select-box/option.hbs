@@ -1,6 +1,8 @@
 <div
   {{did-insert (action "_registerDomElement")}}
   {{will-destroy (action "_deregisterDomElement")}}
+  {{on "mouseente" (action "_onMouseEnter")}}
+  {{on "click" (action "_onClick")}}
   aria-busy={{if this.isPending "true" "false"}}
   aria-current={{if this.isActive "true" "false"}}
   aria-disabled={{if this.isDisabled "true" "false"}}
@@ -11,10 +13,7 @@
     (if this.isDisabled " is-disabled")
     (if this.isSelected " is-selected")
   }}
-  id={{this.domElementId}}
   role="option"
-  onmouseenter={{action "_onmouseenter"}}
-  onclick={{action "_onclick"}}
   ...attributes>
   {{~yield (hash
     index=this.index

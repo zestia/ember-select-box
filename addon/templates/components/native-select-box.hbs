@@ -1,10 +1,10 @@
 <select
   {{did-insert (action "_registerDomElement")}}
   {{will-destroy (action "_deregisterDomElement")}}
+  {{on "change" (action "_onChange")}}
   class={{select-box-class @classNamePrefix}}
-  id={{this.domElementId}}
   multiple={{this.isMultiple}}
-  onchange={{action "_onchange"}}
+
   ...attributes>
   {{yield (hash
     Option=(component "native-select-box/option"
