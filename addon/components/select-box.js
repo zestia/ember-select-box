@@ -1,9 +1,5 @@
 import Component from '@ember/component';
 import BaseSelectBox from '../mixins/select-box/base';
-import HasOptions from '../mixins/select-box/registration/has-options';
-import HasSelectedOptions from '../mixins/select-box/registration/has-selected-options';
-import HasSelectedOptionsContainer from '../mixins/select-box/registration/has-selected-options-container';
-import KeyboardEvents from '../mixins/select-box/keyboard-events';
 import layout from '../templates/components/select-box';
 import Searchable from '../mixins/select-box/searchable';
 import SelectActiveOption from '../mixins/select-box/select-active-option';
@@ -16,6 +12,7 @@ import scrollIntoView from '../utils/select-box/scroll-into-view';
 import escapeRegExp from '../utils/escape-regexp';
 import collapseWhitespace from '../utils/collapse-whitespace';
 import { A as emberA } from '@ember/array';
+import { capitalize } from '@ember/string';
 import { bind, scheduleOnce } from '@ember/runloop';
 import { isPresent } from '@ember/utils';
 import invokeAction from '../utils/invoke-action';
@@ -25,13 +22,20 @@ const { isArray, from } = Array;
 const { fromCharCode } = String;
 export const COLLECT_CHARS_MS = 1000;
 
+export const keys = {
+  8: 'backspace',
+  9: 'tab',
+  13: 'enter',
+  27: 'escape',
+  37: 'left',
+  38: 'up',
+  39: 'right',
+  40: 'down'
+};
+
 const mixins = [
   API,
   BaseSelectBox,
-  HasOptions,
-  HasSelectedOptions,
-  HasSelectedOptionsContainer,
-  KeyboardEvents,
   Searchable,
   SelectActiveOption,
   SelectActiveOptionOnEnter,
@@ -63,6 +67,10 @@ export default Component.extend(...mixins, {
     this._super(...arguments);
     this._deactivateOptions();
     this._deactivateSelectedOptions();
+    set(this, '_options', emberA());
+    set(this, 'options', emberA());
+    set(this, '_selectedOptions', emberA());
+    set(this, 'selectedOptions', emberA());
   },
 
   didReceiveAttrs() {
@@ -218,6 +226,57 @@ export default Component.extend(...mixins, {
 
       this.input.domElement.blur();
     },
+
+    _registerOption(option) {
+      this._options.addObject(option);
+      this._scheduleUpdateOptions();
+    },
+
+    _deregisterOption(option) {
+      this._options.removeObject(option);
+      this._scheduleUpdateOptions();
+    },
+
+    _registerSelectedOption(selectedOption) {
+      this._selectedOptions.addObject(selectedOption);
+      this._scheduleUpdateSelectedOptions();
+    },
+
+    _deregisterSelectedOption(selectedOption) {
+      this._selectedOptions.removeObject(selectedOption);
+      this._scheduleUpdateSelectedOptions();
+    },
+
+    _registerSelectedOptionsContainer(container) {
+      assert(
+        'A select box can only have 1 selected options container',
+        !this._selectedOptionsContainer
+      );
+      set(this, '_selectedOptionsContainer', container);
+    },
+
+    _deregisterSelectedOptionsContainer() {
+      set(this, '_selectedOptionsContainer', null);
+    },
+
+    _onKeyPress(e) {
+      this._super(...arguments);
+
+      invokeAction(this, `onPressKey`, e, this.api);
+    },
+
+    _onKeyDown(e) {
+      this._super(...arguments);
+
+      let key = keys[e.keyCode];
+
+      if (key) {
+        key = capitalize(key);
+
+        invokeAction(this, `onPress${key}`, e, this.api);
+        invokeAction(this, `_onPress${key}`, e);
+      }
+    }
   },
 
   clickDocument(e) {
@@ -405,5 +464,21 @@ export default Component.extend(...mixins, {
 
     set(this, 'tabIndex', '0');
     set(this, 'role', null);
+  },
+
+  _scheduleUpdateOptions() {
+    scheduleOnce('afterRender', this, '_updateOptions');
+  },
+
+  _updateOptions() {
+    set(this, 'options', emberA(this._options.toArray()));
+  },
+
+  _scheduleUpdateSelectedOptions() {
+    scheduleOnce('afterRender', this, '_updateSelectedOptions');
+  },
+
+  _updateSelectedOptions() {
+    set(this, 'selectedOptions', emberA(this._selectedOptions.toArray()));
   },
 });

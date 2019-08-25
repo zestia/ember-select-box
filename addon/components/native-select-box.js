@@ -1,16 +1,23 @@
 import Component from '@ember/component';
 import layout from '../templates/components/native-select-box';
 import BaseSelectBox from '../mixins/select-box/base';
-import HasOptions from '../mixins/select-box/registration/has-options';
 import { guidFor } from '@ember/object/internals';
 import { set, get } from '@ember/object';
+import { scheduleOnce } from '@ember/runloop';
+import { A as emberA } from '@ember/array';
 const { from } = Array;
 
-const mixins = [BaseSelectBox, HasOptions];
+const mixins = [BaseSelectBox];
 
 export default Component.extend(...mixins, {
   layout,
   tagName: '',
+
+  init() {
+    this._super(...arguments);
+    set(this, '_options', emberA());
+    set(this, 'options', emberA());
+  },
 
   actions: {
     _onChange() {
@@ -44,6 +51,16 @@ export default Component.extend(...mixins, {
       set(this, 'domElement', null);
       set(this, 'domElementId', null);
       this._super(...arguments);
+    },
+
+    _registerOption(option) {
+      this._options.addObject(option);
+      this._scheduleUpdateOptions();
+    },
+
+    _deregisterOption(option) {
+      this._options.removeObject(option);
+      this._scheduleUpdateOptions();
     }
   },
 
@@ -61,5 +78,13 @@ export default Component.extend(...mixins, {
 
   _domElementIdFor(element) {
     return guidFor(element).replace('ember', 'select-box-el-');
-  }
+  },
+
+  _scheduleUpdateOptions() {
+    scheduleOnce('afterRender', this, '_updateOptions');
+  },
+
+  _updateOptions() {
+    set(this, 'options', emberA(this._options.toArray()));
+  },
 });

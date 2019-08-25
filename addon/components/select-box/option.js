@@ -1,15 +1,13 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/select-box/option';
-import Activatable from '../../mixins/select-box/option/activatable';
 import BaseOption from '../../mixins/select-box/option/base';
 import Selectable from '../../mixins/select-box/option/selectable';
 import invokeAction from '../../utils/invoke-action';
 import { isPresent } from '@ember/utils';
-import { computed, set } from '@ember/object';
+import { computed, get, set } from '@ember/object';
 import { guidFor } from '@ember/object/internals';
 
 const mixins = [
-  Activatable,
   BaseOption,
   Selectable
 ];
@@ -22,6 +20,10 @@ export default Component.extend(...mixins, {
 
   index: computed('_parentComponents', function() {
     return (this._parentComponents || []).indexOf(this);
+  }),
+
+  isActive: computed('index', '_parentActiveIndex', function() {
+    return get(this, 'index') === this._parentActiveIndex;
   }),
 
   init() {
@@ -63,6 +65,15 @@ export default Component.extend(...mixins, {
       set(this, 'domElement', null);
       set(this, 'domElementId', null);
       this._super(...arguments);
+    },
+
+    activate() {
+      this._super(...arguments);
+      invokeAction(this, '_onActivate', get(this, 'index'));
+    },
+
+    _activated() {
+      invokeAction(this, 'onActivate', this.internalValue, this._parentApi);
     }
   },
 
