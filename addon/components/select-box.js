@@ -4,7 +4,7 @@ import layout from '../templates/components/select-box';
 import API from '../mixins/select-box/api';
 import { or } from '@ember/object/computed';
 import { computed, get, set } from '@ember/object';
-import scrollIntoView from '../utils/select-box/scroll-into-view';
+import scrollIntoView from '../utils/scroll-into-view';
 import escapeRegExp from '../utils/escape-regexp';
 import collapseWhitespace from '../utils/collapse-whitespace';
 import { A as emberA } from '@ember/array';
