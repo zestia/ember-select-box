@@ -1,16 +1,18 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/native-select-box/option';
 import BaseOption from '../../mixins/select-box/option/base';
-import Selectable from '../../mixins/select-box/option/selectable';
 import invokeAction from '../../utils/invoke-action';
 import { guidFor } from '@ember/object/internals';
 import { computed, set } from '@ember/object';
+import isSelected from '../../utils/is-selected';
 
-const mixins = [BaseOption, Selectable];
+const mixins = [BaseOption];
 
 export default Component.extend(...mixins, {
   layout,
   tagName: '',
+
+  isSelected: isSelected(),
 
   index: computed('_parentComponents', function() {
     return (this._parentComponents || []).indexOf(this);
@@ -37,6 +39,17 @@ export default Component.extend(...mixins, {
       set(this, 'domElement', null);
       set(this, 'domElementId', null);
       this._super(...arguments);
+    },
+
+    select() {
+      this._super(...arguments);
+
+      if (this.isDisabled) {
+        return;
+      }
+
+      invokeAction(this, '_onSelect', this.internalValue);
+      invokeAction(this, 'onSelect', this.internalValue, this._parentApi);
     }
   },
 
