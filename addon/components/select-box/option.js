@@ -3,16 +3,15 @@ import layout from '../../templates/components/select-box/option';
 import Activatable from '../../mixins/select-box/option/activatable';
 import BaseOption from '../../mixins/select-box/option/base';
 import Selectable from '../../mixins/select-box/option/selectable';
-import HasDomElement from '../../mixins/select-box/registration/has-dom-element';
 import invokeAction from '../../utils/invoke-action';
 import { isPresent } from '@ember/utils';
 import { computed, set } from '@ember/object';
+import { guidFor } from '@ember/object/internals';
 
 const mixins = [
   Activatable,
   BaseOption,
-  Selectable,
-  HasDomElement
+  Selectable
 ];
 
 export default Component.extend(...mixins, {
@@ -25,17 +24,17 @@ export default Component.extend(...mixins, {
     return (this._parentComponents || []).indexOf(this);
   }),
 
+  init() {
+    this._super(...arguments);
+    invokeAction(this, '_onInit', this);
+  },
+
   didReceiveAttrs() {
     this._super(...arguments);
 
     if (isPresent(this.disabled)) {
       set(this, 'isDisabled', Boolean(this.disabled));
     }
-  },
-
-  init() {
-    this._super(...arguments);
-    invokeAction(this, '_onInit', this);
   },
 
   willDestroyElement() {
@@ -52,6 +51,22 @@ export default Component.extend(...mixins, {
     _onClick() {
       this._super(...arguments);
       this.send('select');
+    },
+
+    _registerDomElement(element) {
+      set(this, 'domElement', element);
+      set(this, 'domElementId', this._domElementIdFor(element));
+      this._super(...arguments);
+    },
+
+    _deregisterDomElement() {
+      set(this, 'domElement', null);
+      set(this, 'domElementId', null);
+      this._super(...arguments);
     }
+  },
+
+  _domElementIdFor(element) {
+    return guidFor(element).replace('ember', 'select-box-el-');
   }
 });

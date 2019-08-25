@@ -2,11 +2,11 @@ import Component from '@ember/component';
 import layout from '../templates/components/native-select-box';
 import BaseSelectBox from '../mixins/select-box/base';
 import HasOptions from '../mixins/select-box/registration/has-options';
-import HasDomElement from '../mixins/select-box/registration/has-dom-element';
-import { get } from '@ember/object';
+import { guidFor } from '@ember/object/internals';
+import { set, get } from '@ember/object';
 const { from } = Array;
 
-const mixins = [BaseSelectBox, HasOptions, HasDomElement];
+const mixins = [BaseSelectBox, HasOptions];
 
 export default Component.extend(...mixins, {
   layout,
@@ -32,6 +32,18 @@ export default Component.extend(...mixins, {
       } else {
         this.send('select', selectedValues[0]);
       }
+    },
+
+    _registerDomElement(element) {
+      set(this, 'domElement', element);
+      set(this, 'domElementId', this._domElementIdFor(element));
+      this._super(...arguments);
+    },
+
+    _deregisterDomElement() {
+      set(this, 'domElement', null);
+      set(this, 'domElementId', null);
+      this._super(...arguments);
     }
   },
 
@@ -45,5 +57,9 @@ export default Component.extend(...mixins, {
     return from(this.domElement.querySelectorAll('option:checked')).map(
       option => option.value
     );
+  },
+
+  _domElementIdFor(element) {
+    return guidFor(element).replace('ember', 'select-box-el-');
   }
 });

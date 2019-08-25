@@ -1,11 +1,10 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/select-box/input';
 import invokeAction from '../../utils/invoke-action';
-import HasDomElement from '../../mixins/select-box/registration/has-dom-element';
+import { guidFor } from '@ember/object/internals';
+import { set } from '@ember/object';
 
-const mixins = [HasDomElement];
-
-export default Component.extend(...mixins, {
+export default Component.extend({
   layout,
   tagName: '',
 
@@ -39,6 +38,22 @@ export default Component.extend(...mixins, {
       if (e.keyCode === 8 && !this.domElement.value) {
         invokeAction(this, 'onDelete', this._parentApi);
       }
+    },
+
+    _registerDomElement(element) {
+      set(this, 'domElement', element);
+      set(this, 'domElementId', this._domElementIdFor(element));
+      this._super(...arguments);
+    },
+
+    _deregisterDomElement() {
+      set(this, 'domElement', null);
+      set(this, 'domElementId', null);
+      this._super(...arguments);
     }
+  },
+
+  _domElementIdFor(element) {
+    return guidFor(element).replace('ember', 'select-box-el-');
   }
 });

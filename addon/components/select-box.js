@@ -1,12 +1,8 @@
 import Component from '@ember/component';
 import BaseSelectBox from '../mixins/select-box/base';
-import HasInput from '../mixins/select-box/registration/has-input';
 import HasOptions from '../mixins/select-box/registration/has-options';
-import HasOptionsContainer from '../mixins/select-box/registration/has-options-container';
 import HasSelectedOptions from '../mixins/select-box/registration/has-selected-options';
 import HasSelectedOptionsContainer from '../mixins/select-box/registration/has-selected-options-container';
-import HasDomElement from '../mixins/select-box/registration/has-dom-element';
-import Inputtable from '../mixins/select-box/inputtable';
 import KeyboardEvents from '../mixins/select-box/keyboard-events';
 import layout from '../templates/components/select-box';
 import Searchable from '../mixins/select-box/searchable';
@@ -20,9 +16,11 @@ import scrollIntoView from '../utils/select-box/scroll-into-view';
 import escapeRegExp from '../utils/escape-regexp';
 import collapseWhitespace from '../utils/collapse-whitespace';
 import { A as emberA } from '@ember/array';
-import { bind } from '@ember/runloop';
+import { bind, scheduleOnce } from '@ember/runloop';
 import { isPresent } from '@ember/utils';
 import invokeAction from '../utils/invoke-action';
+import { assert } from '@ember/debug';
+import { guidFor } from '@ember/object/internals';
 const { isArray, from } = Array;
 const { fromCharCode } = String;
 export const COLLECT_CHARS_MS = 1000;
@@ -30,13 +28,9 @@ export const COLLECT_CHARS_MS = 1000;
 const mixins = [
   API,
   BaseSelectBox,
-  HasInput,
   HasOptions,
-  HasOptionsContainer,
   HasSelectedOptions,
   HasSelectedOptionsContainer,
-  HasDomElement,
-  Inputtable,
   KeyboardEvents,
   Searchable,
   SelectActiveOption,
@@ -158,18 +152,72 @@ export default Component.extend(...mixins, {
       invokeAction(this, 'onFocusOut', e, this.api);
     },
 
-    _registerDomElement() {
-      this._super(...arguments);
+    _registerDomElement(element) {
+      set(this, 'domElement', element);
+      set(this, 'domElementId', this._domElementIdFor(element));
+
       set(this, '_documentClickHandler', bind(this, '_clickDocument'));
       document.addEventListener('click', this._documentClickHandler);
       document.addEventListener('touchstart', this._documentClickHandler);
+
+      this._super(...arguments);
     },
 
     _deregisterDomElement() {
-      this._super(...arguments);
+      set(this, 'domElement', null);
+      set(this, 'domElementId', null);
+
       document.removeEventListener('click', this._documentClickHandler);
       document.removeEventListener('touchstart', this._documentClickHandler);
-    }
+    },
+
+    _registerInput(input) {
+      assert('select-box can only have 1 input', !this.input);
+
+      set(this, 'input', input);
+      scheduleOnce('afterRender', this, '_configureAsCombobox');
+    },
+
+    _deregisterInput() {
+      set(this, 'input', null);
+      scheduleOnce('afterRender', this, '_configureAsNotACombobox');
+    },
+
+    _registerOptionsContainer(container) {
+      assert(
+        'A select box can only have 1 options container',
+        !this._optionsContainer
+      );
+      set(this, '_optionsContainer', container);
+    },
+
+    _deregisterOptionsContainer() {
+      set(this, '_optionsContainer', null);
+    },
+
+    setInputValue(value) {
+      if (this.isDestroyed || !this.input) {
+        return;
+      }
+
+      set(this, 'input.domElement.value', value);
+    },
+
+    focusInput() {
+      if (this.isDestroyed || !this.input) {
+        return;
+      }
+
+      this.input.domElement.focus();
+    },
+
+    blurInput() {
+      if (this.isDestroyed || !this.input) {
+        return;
+      }
+
+      this.input.domElement.blur();
+    },
   },
 
   clickDocument(e) {
@@ -335,5 +383,27 @@ export default Component.extend(...mixins, {
   clickOutside(e) {
     this._super(...arguments);
     invokeAction(this, 'onClickOutside', e, this.api);
-  }
+  },
+
+  _domElementIdFor(element) {
+    return guidFor(element).replace('ember', 'select-box-el-');
+  },
+
+  _configureAsCombobox() {
+    if (this.isDestroyed) {
+      return;
+    }
+
+    set(this, 'tabIndex', '-1');
+    set(this, 'role', 'combobox');
+  },
+
+  _configureAsNotACombobox() {
+    if (this.isDestroyed) {
+      return;
+    }
+
+    set(this, 'tabIndex', '0');
+    set(this, 'role', null);
+  },
 });
