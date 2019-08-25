@@ -1,10 +1,18 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/select-box/options';
-import Registerable from '../../mixins/general/registerable';
+import invokeAction from '../../utils/invoke-action';
 
-const mixins = [Registerable];
-
-export default Component.extend(...mixins, {
+export default Component.extend({
   layout,
-  tagName: ''
+  tagName: '',
+
+  init() {
+    this._super(...arguments);
+    invokeAction(this, '_onInit', this);
+  },
+
+  willDestroyElement() {
+    this._super(...arguments);
+    invokeAction(this, '_onDestroy', this);
+  },
 });

@@ -1,9 +1,5 @@
 import Component from '@ember/component';
 import BaseSelectBox from '../mixins/select-box/base';
-import BuildSelection from '../mixins/select-box/build-selection';
-import ClickOutsideEvent from '../mixins/select-box/click-outside-event';
-import Disableable from '../mixins/select-box/disableable';
-import Focusable from '../mixins/select-box/focusable';
 import HasInput from '../mixins/select-box/registration/has-input';
 import HasOptions from '../mixins/select-box/registration/has-options';
 import HasOptionsContainer from '../mixins/select-box/registration/has-options-container';
@@ -23,16 +19,17 @@ import { computed, get, set } from '@ember/object';
 import scrollIntoView from '../utils/select-box/scroll-into-view';
 import escapeRegExp from '../utils/escape-regexp';
 import collapseWhitespace from '../utils/collapse-whitespace';
+import { A as emberA } from '@ember/array';
+import { bind } from '@ember/runloop';
+import { isPresent } from '@ember/utils';
+import invokeAction from '../utils/invoke-action';
+const { isArray, from } = Array;
 const { fromCharCode } = String;
 export const COLLECT_CHARS_MS = 1000;
 
 const mixins = [
   API,
   BaseSelectBox,
-  BuildSelection,
-  ClickOutsideEvent,
-  Disableable,
-  Focusable,
   HasInput,
   HasOptions,
   HasOptionsContainer,
@@ -50,6 +47,8 @@ const mixins = [
 export default Component.extend(...mixins, {
   layout,
   tagName: '',
+
+  tabIndex: '0',
 
   isBusy: or('isPending', 'isSearching'),
 
@@ -70,6 +69,16 @@ export default Component.extend(...mixins, {
     this._super(...arguments);
     this._deactivateOptions();
     this._deactivateSelectedOptions();
+  },
+
+  didReceiveAttrs() {
+    this._super(...arguments);
+
+    if (isPresent(this.disabled)) {
+      set(this, 'isDisabled', Boolean(this.disabled));
+    }
+
+    set(this, 'tabIndex', this.isDisabled ? '-1' : '0');
   },
 
   actions: {
@@ -115,6 +124,63 @@ export default Component.extend(...mixins, {
 
     deactivateSelectedOptions() {
       this._deactivateSelectedOptions();
+    },
+
+    _select(value) {
+      value = this._buildSelectedValue(value, this.internalValue);
+      this._super(value);
+    },
+
+    _onFocusIn(e) {
+      this._super(...arguments);
+
+      if (this.isDestroyed) {
+        return;
+      }
+
+      set(this, 'isFocused', true);
+      invokeAction(this, 'onFocusIn', e, this.api);
+    },
+
+    _onFocusOut(e) {
+      this._super(...arguments);
+
+      if (this.isDestroyed) {
+        return;
+      }
+
+      try {
+        set(this, 'isFocused', false);
+      } catch (error) {
+        // https://github.com/emberjs/ember.js/issues/18043
+      }
+
+      invokeAction(this, 'onFocusOut', e, this.api);
+    },
+
+    _registerDomElement() {
+      this._super(...arguments);
+      set(this, '_documentClickHandler', bind(this, '_clickDocument'));
+      document.addEventListener('click', this._documentClickHandler);
+      document.addEventListener('touchstart', this._documentClickHandler);
+    },
+
+    _deregisterDomElement() {
+      this._super(...arguments);
+      document.removeEventListener('click', this._documentClickHandler);
+      document.removeEventListener('touchstart', this._documentClickHandler);
+    }
+  },
+
+  clickDocument(e) {
+    this._super(...arguments);
+    const el = this.domElement;
+    const clickedSelf = el === e.target;
+    const clickedInside = el.contains(e.target);
+    const clickedOutside = !clickedSelf && !clickedInside;
+
+    if (clickedOutside) {
+      this.clickOutside(e);
     }
   },
 
@@ -228,5 +294,46 @@ export default Component.extend(...mixins, {
     if (activeSelectedOption) {
       scrollIntoView(activeSelectedOption.domElement);
     }
+  },
+
+  _buildSelectedValue(value1, value2) {
+    let build = this.onBuildSelection;
+
+    if (typeof build !== 'function') {
+      build = bind(this, '_buildSelectedValueDefault');
+    }
+
+    return build(value1, value2);
+  },
+
+  _buildSelectedValueDefault(value1, value2) {
+    let value = value1;
+
+    if (get(this, 'isMultiple') && !isArray(value1)) {
+      const temp = emberA(from(value2));
+
+      if (temp.includes(value1)) {
+        temp.removeObject(value1);
+      } else {
+        temp.addObject(value1);
+      }
+
+      value = temp.toArray();
+    }
+
+    return value;
+  },
+
+  _clickDocument() {
+    if (this.isDestroyed) {
+      return;
+    }
+
+    this.clickDocument(...arguments);
+  },
+
+  clickOutside(e) {
+    this._super(...arguments);
+    invokeAction(this, 'onClickOutside', e, this.api);
   }
 });

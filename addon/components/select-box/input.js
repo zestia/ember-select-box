@@ -1,14 +1,23 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/select-box/input';
-import Registerable from '../../mixins/general/registerable';
 import invokeAction from '../../utils/invoke-action';
 import HasDomElement from '../../mixins/select-box/registration/has-dom-element';
 
-const mixins = [Registerable, HasDomElement];
+const mixins = [HasDomElement];
 
 export default Component.extend(...mixins, {
   layout,
   tagName: '',
+
+  init() {
+    this._super(...arguments);
+    invokeAction(this, '_onInit', this);
+  },
+
+  willDestroyElement() {
+    this._super(...arguments);
+    invokeAction(this, '_onDestroy', this);
+  },
 
   actions: {
     _onInput() {
