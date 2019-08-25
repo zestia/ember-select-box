@@ -1,14 +1,12 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/native-select-box/option';
-import BaseOption from '../../mixins/select-box/option/base';
 import invokeAction from '../../utils/invoke-action';
 import { guidFor } from '@ember/object/internals';
 import { computed, set } from '@ember/object';
 import isSelected from '../../utils/is-selected';
+import updateOptionValue from '../../utils/update-option-value';
 
-const mixins = [BaseOption];
-
-export default Component.extend(...mixins, {
+export default Component.extend({
   layout,
   tagName: '',
 
@@ -21,6 +19,11 @@ export default Component.extend(...mixins, {
   init() {
     this._super(...arguments);
     invokeAction(this, '_onInit', this);
+  },
+
+  didReceiveAttrs() {
+    this._super(...arguments);
+    updateOptionValue(this, this.value);
   },
 
   willDestroyElement() {

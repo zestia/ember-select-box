@@ -1,17 +1,13 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/select-box/option';
-import BaseOption from '../../mixins/select-box/option/base';
 import invokeAction from '../../utils/invoke-action';
 import { isPresent } from '@ember/utils';
 import { computed, get, set } from '@ember/object';
 import { guidFor } from '@ember/object/internals';
 import isSelected from '../../utils/is-selected';
+import updateOptionValue from '../../utils/update-option-value';
 
-const mixins = [
-  BaseOption
-];
-
-export default Component.extend(...mixins, {
+export default Component.extend({
   layout,
   tagName: '',
 
@@ -37,6 +33,8 @@ export default Component.extend(...mixins, {
     if (isPresent(this.disabled)) {
       set(this, 'isDisabled', Boolean(this.disabled));
     }
+
+    updateOptionValue(this, this.value);
   },
 
   willDestroyElement() {
