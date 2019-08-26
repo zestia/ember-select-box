@@ -1,8 +1,11 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/select-box/input';
-import invokeAction from '../../utils/invoke-action';
-import { guidFor } from '@ember/object/internals';
-import { set } from '@ember/object';
+import init from '../../utils/init';
+import destroy from '../../utils/destroy';
+import input from '../../utils/input';
+import keydown from '../../utils/keydown';
+import register from '../../utils/register';
+import deregister from '../../utils/deregister';
 
 export default Component.extend({
   layout,
@@ -10,50 +13,18 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    invokeAction(this, '_onInit', this);
+    init(this);
   },
 
   willDestroyElement() {
     this._super(...arguments);
-    invokeAction(this, '_onDestroy', this);
+    destroy(this);
   },
 
   actions: {
-    _onInput() {
-      this._super(...arguments);
-
-      const value = this.domElement.value;
-
-      if (!value) {
-        invokeAction(this, 'onClear', this._parentApi);
-      }
-
-      invokeAction(this, '_onInput', value);
-      invokeAction(this, 'onInput', value, this._parentApi);
-    },
-
-    _onKeyDown(e) {
-      this._super(...arguments);
-
-      if (e.keyCode === 8 && !this.domElement.value) {
-        invokeAction(this, 'onDelete', this._parentApi);
-      }
-    },
-
-    _registerDomElement(element) {
-      set(this, 'domElement', element);
-      set(this, 'domElementId', this._domElementIdFor(element));
-      this._super(...arguments);
-    },
-
-    _deregisterDomElement() {
-      set(this, 'domElement', null);
-      set(this, 'domElementId', null);
-      this._super(...arguments);
-    }
-  },
-
-  _domElementIdFor(element) {
-    return guidFor(element).replace('ember', 'select-box-el-');
+    input,
+    keydown,
+    register,
+    deregister
   }
 });

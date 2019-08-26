@@ -5,6 +5,8 @@ import { guidFor } from '@ember/object/internals';
 import { computed, set } from '@ember/object';
 import isSelected from '../../utils/is-selected';
 import updateOptionValue from '../../utils/update-option-value';
+import init from '../../utils/init';
+import destroy from '../../utils/destroy';
 
 export default Component.extend({
   layout,
@@ -18,7 +20,7 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    invokeAction(this, '_onInit', this);
+    init(this);
   },
 
   didReceiveAttrs() {
@@ -28,7 +30,7 @@ export default Component.extend({
 
   willDestroyElement() {
     this._super(...arguments);
-    invokeAction(this, '_onDestroy', this);
+    destroy(this);
   },
 
   actions: {

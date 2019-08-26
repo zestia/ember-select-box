@@ -1,8 +1,8 @@
 <input
-  {{did-insert (action "_registerDomElement")}}
-  {{will-destroy (action "_deregisterDomElement")}}
-  {{on "input" (action "_onInput")}}
-  {{on "keydown" (action "_onKeyDown")}}
+  {{did-insert (action "register" this)}}
+  {{will-destroy (action "deregister" this)}}
+  {{on "input" (action "input" this)}}
+  {{on "keydown" (action "keydown" this)}}
   aria-multiline="false"
   autocomplete="off"
   class={{select-box-class @classNamePrefix "input"}}
