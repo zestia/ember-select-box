@@ -1,6 +1,5 @@
 import Component from '@ember/component';
 import layout from '../templates/components/native-select-box';
-import { set, get } from '@ember/object';
 import { scheduleOnce } from '@ember/runloop';
 import invokeAction from '../utils/invoke-action';
 import { readOnly } from '@ember/object/computed';
@@ -10,7 +9,7 @@ import deregisterElement from '../utils/deregister-element';
 import initOptions from '../utils/init-options';
 import registerOption from '../utils/register-option';
 import deregisterOption from '../utils/deregister-option';
-const { from } = Array;
+import getSelectedValue from '../utils/get-selected-value';
 
 export default Component.extend({
   layout,
@@ -20,7 +19,7 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    set(this, 'api', this._buildApi());
+    // set(this, 'api', this._buildApi());
     initOptions(this);
   },
 
@@ -46,23 +45,10 @@ export default Component.extend({
       deregisterOption(this, option);
     },
 
-    _onChange() {
-      const registeredSelected = this._getRegisteredSelectedValues();
-      const unregisteredSelected = this._getUnregisteredSelectedValues();
-
-      let selectedValues;
-
-      if (registeredSelected.length > 0) {
-        selectedValues = registeredSelected;
-      } else {
-        selectedValues = unregisteredSelected;
-      }
-
-      if (get(this, 'isMultiple')) {
-        this.send('select', selectedValues);
-      } else {
-        this.send('select', selectedValues[0]);
-      }
+    async change() {
+      const value = getSelectedValue(this);
+      await updateSelectBoxValue(this, value);
+      invokeAction(this, 'onSelect', this.internalValue, this.api);
     },
 
     update(value) {
@@ -76,23 +62,6 @@ export default Component.extend({
     _select(value) {
       this._select(value);
     }
-  },
-
-  _getRegisteredSelectedValues() {
-    return this.options
-      .filter(option => option.domElement.selected)
-      .map(option => option.internalValue);
-  },
-
-  _getUnregisteredSelectedValues() {
-    return from(this.domElement.querySelectorAll('option:checked')).map(
-      option => option.value
-    );
-  },
-
-  async _select(value) {
-    await updateSelectBoxValue(this, value);
-    invokeAction(this, 'onSelect', this.internalValue, this.api);
   },
 
   async _update(value) {
