@@ -9,6 +9,7 @@ import updateSelectBoxValue from '../utils/update-select-box-value';
 import registerElement from '../utils/register-element';
 import deregisterElement from '../utils/deregister-element';
 import registerOption from '../utils/register-option';
+import deregisterOption from '../utils/deregister-option';
 const { from } = Array;
 
 export default Component.extend({
@@ -42,6 +43,10 @@ export default Component.extend({
       registerOption(this, option);
     },
 
+    destroyOption(option) {
+      deregisterOption(this, option);
+    },
+
     _onChange() {
       const registeredSelected = this._getRegisteredSelectedValues();
       const unregisteredSelected = this._getUnregisteredSelectedValues();
@@ -59,11 +64,6 @@ export default Component.extend({
       } else {
         this.send('select', selectedValues[0]);
       }
-    },
-
-    _deregisterOption(option) {
-      this._options.removeObject(option);
-      this._scheduleUpdateOptions();
     },
 
     update(value) {
