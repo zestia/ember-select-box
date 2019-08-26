@@ -2,12 +2,12 @@ import Component from '@ember/component';
 import layout from '../templates/components/native-select-box';
 import { set, get } from '@ember/object';
 import { scheduleOnce } from '@ember/runloop';
-import { A as emberA } from '@ember/array';
 import invokeAction from '../utils/invoke-action';
 import { readOnly } from '@ember/object/computed';
 import updateSelectBoxValue from '../utils/update-select-box-value';
 import registerElement from '../utils/register-element';
 import deregisterElement from '../utils/deregister-element';
+import initOptions from '../utils/init-options';
 import registerOption from '../utils/register-option';
 import deregisterOption from '../utils/deregister-option';
 const { from } = Array;
@@ -21,8 +21,7 @@ export default Component.extend({
   init() {
     this._super(...arguments);
     set(this, 'api', this._buildApi());
-    set(this, '_options', emberA());
-    set(this, 'options', emberA());
+    initOptions(this);
   },
 
   didReceiveAttrs() {

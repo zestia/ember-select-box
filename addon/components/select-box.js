@@ -18,6 +18,7 @@ import { assert } from '@ember/debug';
 import registerElement from '../utils/register-element';
 import deregisterElement from '../utils/deregister-element';
 import activated from '../utils/activated';
+import initOptions from '../utils/init-options';
 const { fromCharCode } = String;
 export const COLLECT_CHARS_MS = 1000;
 
@@ -68,8 +69,7 @@ export default Component.extend(...mixins, {
     set(this, 'api', this._buildApi());
     this._deactivateOptions();
     this._deactivateSelectedOptions();
-    set(this, '_options', emberA());
-    set(this, 'options', emberA());
+    initOptions(this);
     set(this, '_selectedOptions', emberA());
     set(this, 'selectedOptions', emberA());
     invokeAction(this, 'onInit', this.api);
