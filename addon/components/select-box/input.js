@@ -22,9 +22,20 @@ export default Component.extend({
   },
 
   actions: {
-    input,
-    keydown,
-    registerElement,
-    deregisterElement
+    insert() {
+      registerElement(...arguments);
+    },
+
+    destroy() {
+      deregisterElement(...arguments);
+    },
+
+    input() {
+      input(...arguments);
+    },
+
+    keydown() {
+      keydown(...arguments);
+    }
   }
 });

@@ -29,8 +29,13 @@ export default Component.extend({
   },
 
   actions: {
-    registerElement,
-    deregisterElement,
+    insert() {
+      registerElement(...arguments);
+    },
+
+    destroy() {
+      deregisterElement(...arguments);
+    },
 
     _onChange() {
       const registeredSelected = this._getRegisteredSelectedValues();

@@ -1,6 +1,6 @@
 <input
-  {{did-insert (action "registerElement" this)}}
-  {{will-destroy (action "deregisterElement" this)}}
+  {{did-insert (action "insert" this)}}
+  {{will-destroy (action "destroy" this)}}
   {{on "input" (action "input" this)}}
   {{on "keydown" (action "keydown" this)}}
   aria-multiline="false"

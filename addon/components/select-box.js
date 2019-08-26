@@ -17,6 +17,7 @@ import buildSelection from '../utils/build-selection';
 import { assert } from '@ember/debug';
 import registerElement from '../utils/register-element';
 import deregisterElement from '../utils/deregister-element';
+import activated from '../utils/activated';
 const { fromCharCode } = String;
 export const COLLECT_CHARS_MS = 1000;
 
@@ -162,7 +163,7 @@ export default Component.extend(...mixins, {
       invokeAction(this, 'onFocusOut', e, this.api);
     },
 
-    registerElement(component, element) {
+    insert(component, element) {
       registerElement(...arguments);
 
       set(this, '_documentClickHandler', bind(this, '_clickDocument'));
@@ -174,7 +175,7 @@ export default Component.extend(...mixins, {
       invokeAction(this, 'onInsertElement', this.api);
     },
 
-    deregisterElement(component, element) {
+    destroy(component, element) {
       deregisterElement(...arguments);
 
       document.removeEventListener('click', this._documentClickHandler);
@@ -443,7 +444,7 @@ export default Component.extend(...mixins, {
     const activeOption = get(this, 'activeOption');
 
     if (activeOption) {
-      activeOption.send('_activated');
+      activated(activeOption);
     }
   },
 
@@ -451,7 +452,7 @@ export default Component.extend(...mixins, {
     const activeSelectedOption = get(this, 'activeSelectedOption');
 
     if (activeSelectedOption) {
-      activeSelectedOption.send('_activated');
+      activated(activeSelectedOption);
     }
   },
 

@@ -35,8 +35,13 @@ export default Component.extend({
   },
 
   actions: {
-    registerElement,
-    deregisterElement,
+    insert() {
+      registerElement(...arguments);
+    },
+
+    destroy() {
+      deregisterElement(...arguments);
+    },
 
     select() {
       this._super(...arguments);
