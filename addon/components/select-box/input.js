@@ -4,8 +4,8 @@ import init from '../../utils/init';
 import destroy from '../../utils/destroy';
 import input from '../../utils/input';
 import keydown from '../../utils/keydown';
-import register from '../../utils/register';
-import deregister from '../../utils/deregister';
+import registerElement from '../../utils/register-element';
+import deregisterElement from '../../utils/deregister-element';
 
 export default Component.extend({
   layout,
@@ -24,7 +24,7 @@ export default Component.extend({
   actions: {
     input,
     keydown,
-    register,
-    deregister
+    registerElement,
+    deregisterElement
   }
 });

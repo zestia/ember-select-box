@@ -1,6 +1,6 @@
 <option
-  {{did-insert (action "_registerDomElement")}}
-  {{will-destroy (action "_deregisterDomElement")}}
+  {{did-insert (action "registerElement" this)}}
+  {{will-destroy (action "deregisterElement" this)}}
   class={{select-box-class @classNamePrefix "option"}}
   selected={{this.isSelected}}
   value={{this.internalValue}}

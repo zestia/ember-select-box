@@ -15,7 +15,8 @@ import invokeAction from '../utils/invoke-action';
 import updateSelectBoxValue from '../utils/update-select-box-value';
 import buildSelection from '../utils/build-selection';
 import { assert } from '@ember/debug';
-import { guidFor } from '@ember/object/internals';
+import registerElement from '../utils/register-element';
+import deregisterElement from '../utils/deregister-element';
 const { fromCharCode } = String;
 export const COLLECT_CHARS_MS = 1000;
 
@@ -161,9 +162,8 @@ export default Component.extend(...mixins, {
       invokeAction(this, 'onFocusOut', e, this.api);
     },
 
-    _registerDomElement(element) {
-      set(this, 'domElement', element);
-      set(this, 'domElementId', this._domElementIdFor(element));
+    registerElement(component, element) {
+      registerElement(...arguments);
 
       set(this, '_documentClickHandler', bind(this, '_clickDocument'));
       document.addEventListener('click', this._documentClickHandler);
@@ -174,9 +174,8 @@ export default Component.extend(...mixins, {
       invokeAction(this, 'onInsertElement', this.api);
     },
 
-    _deregisterDomElement() {
-      set(this, 'domElement', null);
-      set(this, 'domElementId', null);
+    deregisterElement(component, element) {
+      deregisterElement(...arguments);
 
       document.removeEventListener('click', this._documentClickHandler);
       document.removeEventListener('touchstart', this._documentClickHandler);
@@ -491,10 +490,6 @@ export default Component.extend(...mixins, {
   clickOutside(e) {
     this._super(...arguments);
     invokeAction(this, 'onClickOutside', e, this.api);
-  },
-
-  _domElementIdFor(element) {
-    return guidFor(element).replace('ember', 'select-box-el-');
   },
 
   _configureAsCombobox() {

@@ -1,6 +1,6 @@
 <select
-  {{did-insert (action "_registerDomElement")}}
-  {{will-destroy (action "_deregisterDomElement")}}
+  {{did-insert (action "registerElement" this)}}
+  {{will-destroy (action "deregisterElement" this)}}
   {{on "change" (action "_onChange")}}
   class={{select-box-class @classNamePrefix}}
   multiple={{this.isMultiple}}

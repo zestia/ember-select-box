@@ -1,12 +1,13 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/native-select-box/option';
 import invokeAction from '../../utils/invoke-action';
-import { guidFor } from '@ember/object/internals';
-import { computed, set } from '@ember/object';
+import { computed } from '@ember/object';
 import isSelected from '../../utils/is-selected';
 import updateOptionValue from '../../utils/update-option-value';
 import init from '../../utils/init';
 import destroy from '../../utils/destroy';
+import registerElement from '../../utils/register-element';
+import deregisterElement from '../../utils/deregister-element';
 
 export default Component.extend({
   layout,
@@ -34,17 +35,8 @@ export default Component.extend({
   },
 
   actions: {
-    _registerDomElement(element) {
-      set(this, 'domElement', element);
-      set(this, 'domElementId', this._domElementIdFor(element));
-      this._super(...arguments);
-    },
-
-    _deregisterDomElement() {
-      set(this, 'domElement', null);
-      set(this, 'domElementId', null);
-      this._super(...arguments);
-    },
+    registerElement,
+    deregisterElement,
 
     select() {
       this._super(...arguments);
@@ -56,9 +48,5 @@ export default Component.extend({
       invokeAction(this, '_onSelect', this.internalValue);
       invokeAction(this, 'onSelect', this.internalValue, this._parentApi);
     }
-  },
-
-  _domElementIdFor(element) {
-    return guidFor(element).replace('ember', 'select-box-el-');
   }
 });

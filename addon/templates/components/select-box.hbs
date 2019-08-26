@@ -1,6 +1,6 @@
 <div
-  {{did-insert (action "_registerDomElement")}}
-  {{will-destroy (action "_deregisterDomElement")}}
+  {{did-insert (action "registerElement" this)}}
+  {{will-destroy (action "deregisterElement" this)}}
   {{on "focusin" (action "_onFocusIn")}}
   {{on "focusout" (action "_onFocusOut")}}
   {{on "keydown" (action "_onKeyDown")}}

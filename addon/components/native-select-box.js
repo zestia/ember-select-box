@@ -1,12 +1,13 @@
 import Component from '@ember/component';
 import layout from '../templates/components/native-select-box';
-import { guidFor } from '@ember/object/internals';
 import { set, get } from '@ember/object';
 import { scheduleOnce } from '@ember/runloop';
 import { A as emberA } from '@ember/array';
 import invokeAction from '../utils/invoke-action';
 import { readOnly } from '@ember/object/computed';
 import updateSelectBoxValue from '../utils/update-select-box-value';
+import registerElement from '../utils/register-element';
+import deregisterElement from '../utils/deregister-element';
 const { from } = Array;
 
 export default Component.extend({
@@ -28,6 +29,9 @@ export default Component.extend({
   },
 
   actions: {
+    registerElement,
+    deregisterElement,
+
     _onChange() {
       const registeredSelected = this._getRegisteredSelectedValues();
       const unregisteredSelected = this._getUnregisteredSelectedValues();
@@ -45,18 +49,6 @@ export default Component.extend({
       } else {
         this.send('select', selectedValues[0]);
       }
-    },
-
-    _registerDomElement(element) {
-      set(this, 'domElement', element);
-      set(this, 'domElementId', this._domElementIdFor(element));
-      this._super(...arguments);
-    },
-
-    _deregisterDomElement() {
-      set(this, 'domElement', null);
-      set(this, 'domElementId', null);
-      this._super(...arguments);
     },
 
     _registerOption(option) {
@@ -92,10 +84,6 @@ export default Component.extend({
     return from(this.domElement.querySelectorAll('option:checked')).map(
       option => option.value
     );
-  },
-
-  _domElementIdFor(element) {
-    return guidFor(element).replace('ember', 'select-box-el-');
   },
 
   _scheduleUpdateOptions() {

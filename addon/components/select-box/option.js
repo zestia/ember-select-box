@@ -3,11 +3,14 @@ import layout from '../../templates/components/select-box/option';
 import invokeAction from '../../utils/invoke-action';
 import { isPresent } from '@ember/utils';
 import { computed, get, set } from '@ember/object';
-import { guidFor } from '@ember/object/internals';
 import isSelected from '../../utils/is-selected';
 import updateOptionValue from '../../utils/update-option-value';
 import init from '../../utils/init';
 import destroy from '../../utils/destroy';
+import registerElement from '../../utils/register-element';
+import deregisterElement from '../../utils/deregister-element';
+import index from '../../utils/index';
+import isActive from '../../utils/is-active';
 
 export default Component.extend({
   layout,
@@ -15,14 +18,8 @@ export default Component.extend({
 
   isDisabled: false,
   isSelected: isSelected(),
-
-  index: computed('_parentComponents', function() {
-    return (this._parentComponents || []).indexOf(this);
-  }),
-
-  isActive: computed('index', '_parentActiveIndex', function() {
-    return get(this, 'index') === this._parentActiveIndex;
-  }),
+  index: index(),
+  isActive: isActive(),
 
   init() {
     this._super(...arguments);
@@ -45,6 +42,9 @@ export default Component.extend({
   },
 
   actions: {
+    registerElement,
+    deregisterElement,
+
     _onMouseEnter() {
       this._super(...arguments);
       this.send('activate');
@@ -53,18 +53,6 @@ export default Component.extend({
     _onClick() {
       this._super(...arguments);
       this.send('select');
-    },
-
-    _registerDomElement(element) {
-      set(this, 'domElement', element);
-      set(this, 'domElementId', this._domElementIdFor(element));
-      this._super(...arguments);
-    },
-
-    _deregisterDomElement() {
-      set(this, 'domElement', null);
-      set(this, 'domElementId', null);
-      this._super(...arguments);
     },
 
     activate() {
@@ -86,9 +74,5 @@ export default Component.extend({
       invokeAction(this, '_onSelect', this.internalValue);
       invokeAction(this, 'onSelect', this.internalValue, this._parentApi);
     }
-  },
-
-  _domElementIdFor(element) {
-    return guidFor(element).replace('ember', 'select-box-el-');
   }
 });

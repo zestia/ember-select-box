@@ -1,11 +1,12 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/select-box/selected-option';
-import { computed, get, set } from '@ember/object';
+import { computed, get } from '@ember/object';
 import invokeAction from '../../utils/invoke-action';
-import { guidFor } from '@ember/object/internals';
 import updateOptionValue from '../../utils/update-option-value';
 import init from '../../utils/init';
 import destroy from '../../utils/destroy';
+import registerElement from '../../utils/register-element';
+import deregisterElement from '../../utils/deregister-element';
 
 export default Component.extend({
   layout,
@@ -35,17 +36,8 @@ export default Component.extend({
   },
 
   actions: {
-    _registerDomElement(element) {
-      set(this, 'domElement', element);
-      set(this, 'domElementId', this._domElementIdFor(element));
-      this._super(...arguments);
-    },
-
-    _deregisterDomElement() {
-      set(this, 'domElement', null);
-      set(this, 'domElementId', null);
-      this._super(...arguments);
-    },
+    registerElement,
+    deregisterElement,
 
     activate() {
       this._super(...arguments);
@@ -55,9 +47,5 @@ export default Component.extend({
     _activated() {
       invokeAction(this, 'onActivate', this.internalValue, this._parentApi);
     }
-  },
-
-  _domElementIdFor(element) {
-    return guidFor(element).replace('ember', 'select-box-el-');
   }
 });
