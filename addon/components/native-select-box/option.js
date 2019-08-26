@@ -35,12 +35,12 @@ export default Component.extend({
   },
 
   actions: {
-    insert() {
-      registerElement(...arguments);
+    insertElement(element) {
+      registerElement(this, element);
     },
 
-    destroy() {
-      deregisterElement(...arguments);
+    destroyElement(element) {
+      deregisterElement(this, element);
     },
 
     select() {

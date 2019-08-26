@@ -1,6 +1,5 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/select-box/option';
-import invokeAction from '../../utils/invoke-action';
 import { isPresent } from '@ember/utils';
 import { set } from '@ember/object';
 import isSelected from '../../utils/is-selected';
@@ -12,6 +11,7 @@ import deregisterElement from '../../utils/deregister-element';
 import index from '../../utils/index';
 import isActive from '../../utils/is-active';
 import activate from '../../utils/activate';
+import selectOptionValue from '../../utils/select-option-value';
 
 export default Component.extend({
   layout,
@@ -43,32 +43,20 @@ export default Component.extend({
   },
 
   actions: {
-    insert() {
-      registerElement(...arguments);
+    insertElement(element) {
+      registerElement(this, element);
     },
 
-    destroy() {
-      deregisterElement(...arguments);
+    destroyElement(element) {
+      deregisterElement(this, element);
     },
 
     mouseEnter() {
       activate(this);
     },
 
-    _onClick() {
-      this._super(...arguments);
-      this.send('select');
-    },
-
-    select() {
-      this._super(...arguments);
-
-      if (this.isDisabled) {
-        return;
-      }
-
-      invokeAction(this, '_onSelect', this.internalValue);
-      invokeAction(this, 'onSelect', this.internalValue, this._parentApi);
+    click(e) {
+      selectOptionValue(this);
     }
   }
 });

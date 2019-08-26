@@ -8,6 +8,7 @@ import { readOnly } from '@ember/object/computed';
 import updateSelectBoxValue from '../utils/update-select-box-value';
 import registerElement from '../utils/register-element';
 import deregisterElement from '../utils/deregister-element';
+import registerOption from '../utils/register-option';
 const { from } = Array;
 
 export default Component.extend({
@@ -29,12 +30,16 @@ export default Component.extend({
   },
 
   actions: {
-    insert() {
-      registerElement(...arguments);
+    insertElement(element) {
+      registerElement(this, element);
     },
 
-    destroy() {
-      deregisterElement(...arguments);
+    destroyElement(element) {
+      deregisterElement(this, element);
+    },
+
+    initOption(option) {
+      registerOption(this, option);
     },
 
     _onChange() {
@@ -54,11 +59,6 @@ export default Component.extend({
       } else {
         this.send('select', selectedValues[0]);
       }
-    },
-
-    _registerOption(option) {
-      this._options.addObject(option);
-      this._scheduleUpdateOptions();
     },
 
     _deregisterOption(option) {
@@ -89,14 +89,6 @@ export default Component.extend({
     return from(this.domElement.querySelectorAll('option:checked')).map(
       option => option.value
     );
-  },
-
-  _scheduleUpdateOptions() {
-    scheduleOnce('afterRender', this, '_updateOptions');
-  },
-
-  _updateOptions() {
-    set(this, 'options', emberA(this._options.toArray()));
   },
 
   async _select(value) {

@@ -163,8 +163,8 @@ export default Component.extend(...mixins, {
       invokeAction(this, 'onFocusOut', e, this.api);
     },
 
-    insert(component, element) {
-      registerElement(...arguments);
+    insertElement(element) {
+      registerElement(this, element);
 
       set(this, '_documentClickHandler', bind(this, '_clickDocument'));
       document.addEventListener('click', this._documentClickHandler);
@@ -175,8 +175,8 @@ export default Component.extend(...mixins, {
       invokeAction(this, 'onInsertElement', this.api);
     },
 
-    destroy(component, element) {
-      deregisterElement(...arguments);
+    destroyElement(element) {
+      deregisterElement(this, element);
 
       document.removeEventListener('click', this._documentClickHandler);
       document.removeEventListener('touchstart', this._documentClickHandler);

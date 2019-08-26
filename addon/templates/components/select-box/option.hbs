@@ -1,8 +1,8 @@
 <div
-  {{did-insert (action "insert" this)}}
-  {{will-destroy (action "destroy" this)}}
+  {{did-insert (action "insertElement")}}
+  {{will-destroy (action "destroyElement")}}
   {{on "mouseenter" (action "mouseEnter")}}
-  {{on "click" (action "_onClick")}}
+  {{on "click" (action "click")}}
   aria-busy={{if this.isPending "true" "false"}}
   aria-current={{if this.isActive "true" "false"}}
   aria-disabled={{if this.isDisabled "true" "false"}}

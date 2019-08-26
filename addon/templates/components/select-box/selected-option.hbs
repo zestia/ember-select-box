@@ -1,6 +1,6 @@
 <div
-  {{did-insert (action "insert" this)}}
-  {{will-destroy (action "destroy" this)}}
+  {{did-insert (action "insertElement")}}
+  {{will-destroy (action "destroyElement")}}
   aria-current={{if this.isActive "true" "false"}}
   class={{concat
     (select-box-class @classNamePrefix "selected-option")
