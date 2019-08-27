@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import { module, test, skip } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import { run } from '@ember/runloop';
 const { keys } = Object;
@@ -6,7 +6,7 @@ const { keys } = Object;
 module('select-box (api)', function(hooks) {
   setupTest(hooks);
 
-  test('api', function(assert) {
+  skip('api', function(assert) {
     assert.expect(1);
 
     let selectBox;

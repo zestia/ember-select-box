@@ -3,6 +3,7 @@ import layout from '../../templates/components/select-box/selected-option';
 import setValue from '../../utils/value/set';
 import initAction from '../../utils/actions/init';
 import destroyAction from '../../utils/actions/destroy';
+import noop from '../../utils/general/noop';
 import index from '../../utils/macros/index';
 import { equal } from '@ember/object/computed';
 import { registerElement, deregisterElement } from '../../utils/registration/element';
@@ -10,6 +11,8 @@ import { registerElement, deregisterElement } from '../../utils/registration/ele
 export default Component.extend({
   layout,
   tagName: '',
+
+  api: noop,
 
   index: index('selectedOptions'),
   isActive: equal('index', 'activeSelectedOptionIndex'),
