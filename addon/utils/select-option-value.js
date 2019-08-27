@@ -1,10 +1,10 @@
 import invokeAction from './invoke-action';
 
-export default function selectOptionValue(component, value) {
-  if (component.isDisabled) {
+export default function selectOptionValue(option) {
+  if (option.isDisabled) {
     return;
   }
 
-  invokeAction(component, '_onSelect', component.internalValue);
-  invokeAction(component, 'onSelect', component.internalValue, component._parentApi);
+  invokeAction(option, '_onSelect', option.internalValue);
+  invokeAction(option, 'onSelect', option.internalValue, option._parentApi);
 }

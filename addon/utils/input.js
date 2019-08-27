@@ -1,12 +1,12 @@
 import invokeAction from './invoke-action';
 
-export default function input(component) {
-  const value = component.domElement.value;
+export default function input(selectBox) {
+  const value = selectBox.domElement.value;
 
   if (!value) {
-    invokeAction(component, 'onClear', component._parentApi);
+    invokeAction(selectBox, 'onClear', selectBox._parentApi);
   }
 
-  invokeAction(component, '_onInput', value);
-  invokeAction(component, 'onInput', value, component._parentApi);
+  invokeAction(selectBox, '_onInput', value);
+  invokeAction(selectBox, 'onInput', value, selectBox._parentApi);
 }

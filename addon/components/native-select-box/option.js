@@ -1,9 +1,8 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/native-select-box/option';
-import invokeAction from '../../utils/invoke-action';
-import { computed } from '@ember/object';
+import index from '../../utils/index';
 import isSelected from '../../utils/is-selected';
-import updateOptionValue from '../../utils/update-option-value';
+import setOptionValue from '../../utils/set-option-value';
 import init from '../../utils/init';
 import destroy from '../../utils/destroy';
 import registerElement from '../../utils/register-element';
@@ -14,10 +13,7 @@ export default Component.extend({
   tagName: '',
 
   isSelected: isSelected(),
-
-  index: computed('_parentComponents', function() {
-    return (this._parentComponents || []).indexOf(this);
-  }),
+  index: index(),
 
   init() {
     this._super(...arguments);
@@ -26,7 +22,7 @@ export default Component.extend({
 
   didReceiveAttrs() {
     this._super(...arguments);
-    updateOptionValue(this, this.value);
+    setOptionValue(this, this.value);
   },
 
   willDestroyElement() {
@@ -41,17 +37,6 @@ export default Component.extend({
 
     destroyElement(element) {
       deregisterElement(this, element);
-    },
-
-    select() {
-      this._super(...arguments);
-
-      if (this.isDisabled) {
-        return;
-      }
-
-      invokeAction(this, '_onSelect', this.internalValue);
-      invokeAction(this, 'onSelect', this.internalValue, this._parentApi);
     }
   }
 });

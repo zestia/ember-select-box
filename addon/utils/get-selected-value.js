@@ -1,19 +1,19 @@
 import { get } from '@ember/object';
 const { from } = Array;
 
-export default function getSelectedValue(component) {
-  const selectedValues = getSelectedValues(component);
+export default function getSelectedValue(selectBox) {
+  const selectedValues = getSelectedValues(selectBox);
 
-  if (get(component, 'isMultiple')) {
+  if (get(selectBox, 'isMultiple')) {
     return selectedValues;
   } else {
     return selectedValues[0];
   }
 }
 
-function getSelectedValues(component) {
-  const registered = getRegisteredSelectedValues(component);
-  const unregistered = getUnregisteredSelectedValues(component);
+function getSelectedValues(selectBox) {
+  const registered = getRegisteredSelectedValues(selectBox);
+  const unregistered = getUnregisteredSelectedValues(selectBox);
 
   if (registered.length > 0) {
     return registered;
@@ -22,14 +22,14 @@ function getSelectedValues(component) {
   }
 }
 
-function getRegisteredSelectedValues(component) {
-  return component.options
+function getRegisteredSelectedValues(selectBox) {
+  return selectBox.options
     .filter(option => option.domElement.selected)
     .map(option => option.internalValue);
 }
 
-function getUnregisteredSelectedValues(component) {
-  return from(component.domElement.querySelectorAll('option:checked')).map(
+function getUnregisteredSelectedValues(selectBox) {
+  return from(selectBox.domElement.querySelectorAll('option:checked')).map(
     element => element.value
   );
 }

@@ -1,7 +1,7 @@
 import invokeAction from './invoke-action';
 
-export default function keydown(component, e) {
-  if (e.keyCode === 8 && !component.domElement.value) {
-    invokeAction(component, 'onDelete', component._parentApi);
+export default function keydown(input, e) {
+  if (e.keyCode === 8 && !input.domElement.value) {
+    invokeAction(input, 'onDelete', input._parentApi);
   }
 }

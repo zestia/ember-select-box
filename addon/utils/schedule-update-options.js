@@ -2,10 +2,10 @@ import { schedule } from '@ember/runloop';
 import { A as emberA } from '@ember/array';
 import { set } from '@ember/object';
 
-export default function scheduleUpdateOptions(component) {
-  schedule('afterRender', updateOptions, component);
+export default function scheduleUpdateOptions(selectBox) {
+  schedule('afterRender', updateOptions, selectBox);
 }
 
-function updateOptions(component) {
-  set(component, 'options', emberA(component._options.toArray()));
+function updateOptions(selectBox) {
+  set(selectBox, 'options', emberA(selectBox._options.toArray()));
 }

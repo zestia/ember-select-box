@@ -3,7 +3,7 @@ import layout from '../../templates/components/select-box/option';
 import { isPresent } from '@ember/utils';
 import { set } from '@ember/object';
 import isSelected from '../../utils/is-selected';
-import updateOptionValue from '../../utils/update-option-value';
+import setOptionValue from '../../utils/set-option-value';
 import init from '../../utils/init';
 import destroy from '../../utils/destroy';
 import registerElement from '../../utils/register-element';
@@ -34,7 +34,7 @@ export default Component.extend({
       set(this, 'isDisabled', Boolean(this.disabled));
     }
 
-    updateOptionValue(this, this.value);
+    setOptionValue(this, this.value);
   },
 
   willDestroyElement() {

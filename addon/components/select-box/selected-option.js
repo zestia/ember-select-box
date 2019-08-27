@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/select-box/selected-option';
-import updateOptionValue from '../../utils/update-option-value';
+import setOptionValue from '../../utils/set-option-value';
 import init from '../../utils/init';
 import destroy from '../../utils/destroy';
 import registerElement from '../../utils/register-element';
@@ -22,7 +22,7 @@ export default Component.extend({
 
   didReceiveAttrs() {
     this._super(...arguments);
-    updateOptionValue(this, this.value);
+    setOptionValue(this, this.value);
   },
 
   willDestroyElement() {

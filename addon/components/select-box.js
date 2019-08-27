@@ -12,13 +12,15 @@ import { bind, scheduleOnce, debounce } from '@ember/runloop';
 import { resolve } from 'rsvp';
 import { isPresent } from '@ember/utils';
 import invokeAction from '../utils/invoke-action';
-import updateSelectBoxValue from '../utils/update-select-box-value';
+import setSelectBoxValue from '../utils/set-select-box-value';
 import buildSelection from '../utils/build-selection';
 import { assert } from '@ember/debug';
 import registerElement from '../utils/register-element';
 import deregisterElement from '../utils/deregister-element';
 import activated from '../utils/activated';
 import initOptions from '../utils/init-options';
+import afterRender from '../utils/after-render';
+import updated from '../utils/updated';
 const { fromCharCode } = String;
 export const COLLECT_CHARS_MS = 1000;
 
@@ -611,16 +613,9 @@ export default Component.extend(...mixins, {
   },
 
   async _update(value) {
-    await updateSelectBoxValue(this, value);
-    scheduleOnce('afterRender', this, '_rendered');
-  },
-
-  _rendered() {
-    if (this.isDestroyed || this.isDestroying) {
-      return;
-    }
-
-    this._updateApi('value', this.internalValue);
-    invokeAction(this, 'onUpdate', this.internalValue, this.api);
+    await setSelectBoxValue(this, value);
+    await afterRender();
+    //update api
+    updated(this);
   },
 });
