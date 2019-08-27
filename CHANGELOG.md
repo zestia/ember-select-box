@@ -1,8 +1,13 @@
 # Changelog
 
+## 10.0.10.beta
+
+- Internal refactoring
+
+## 10.0.9
 ## 10.0.8
 
-- Introduce `<sb.Focuser />` component. [Read more](README.md#focuser)
+- Upgrade deps
 
 ## 10.0.7
 

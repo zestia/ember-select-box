@@ -518,20 +518,6 @@ Does _not_ render the user's selected option automatically, but rather just prov
 
 <hr>
 
-### Focuser
-
-```handlebars
-<sb.Focuser />
-```
-
-The point of this component, is to make sure the select box can be focused on mobile devices. On iOS, the arrow keys provided by the keyboard do not actually respect `tabindex="0"`. You can read more about this issue
-[here](https://github.com/Semantic-Org/Semantic-UI/issues/6293), and [here](https://github.com/angular/material/issues/8440), and [compare it for yourself](http://jsfiddle.net/amk221/jy0rsxfa/embedded/result) on mobile and desktop.
-
-- Use of this component is a bit of a hack. Any a11y advice welcome.
-- This component is not needed if you are already using `<sb.Input />`.
-
-<hr>
-
 ## API
 
 This addon exposes the select box's API to you as an argument to action handlers like so:
