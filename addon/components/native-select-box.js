@@ -1,8 +1,8 @@
 import Component from '@ember/component';
 import layout from '../templates/components/native-select-box';
 import { readOnly } from '@ember/object/computed';
-import getSelectedValue from '../utils/get-selected-value';
-import update from '../utils/update';
+import getSelectedValue from '../utils/selection/get';
+import update from '../utils/value/update';
 import selectAction from '../utils/actions/select';
 import { initOptions, registerOption, deregisterOption } from '../utils/registration/options';
 import { registerElement, deregisterElement } from '../utils/registration/element';

@@ -1,6 +1,6 @@
-import setValue from './set-value';
-import afterRender from './general/after-render';
-import updateAction from './actions/update';
+import setValue from './set';
+import afterRender from '../general/after-render';
+import updateAction from '../actions/update';
 
 export default async function update(selectBox, value) {
   await setValue(selectBox, value);

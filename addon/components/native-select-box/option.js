@@ -5,7 +5,7 @@ import initAction from '../../utils/actions/init';
 import isSelected from '../../utils/macros/is-selected';
 import layout from '../../templates/components/native-select-box/option';
 import { registerElement, deregisterElement } from '../../utils/registration/element';
-import setValue from '../../utils/set-value';
+import setValue from '../../utils/value/set';
 
 export default Component.extend({
   layout,

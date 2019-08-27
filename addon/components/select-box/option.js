@@ -8,7 +8,7 @@ import isActive from '../../utils/macros/is-active';
 import isSelected from '../../utils/macros/is-selected';
 import layout from '../../templates/components/select-box/option';
 import selectAction from '../../utils/actions/select';
-import setValue from '../../utils/set-value';
+import setValue from '../../utils/value/set';
 import { registerElement, deregisterElement } from '../../utils/registration/element';
 
 export default Component.extend({

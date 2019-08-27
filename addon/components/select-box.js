@@ -12,7 +12,7 @@ import invokeAction from '../utils/actions/invoke';
 import { bind, scheduleOnce, debounce } from '@ember/runloop';
 import { resolve } from 'rsvp';
 import { isPresent } from '@ember/utils';
-import buildSelection from '../utils/build-selection';
+import buildSelection from '../utils/selection/build';
 import { assert } from '@ember/debug';
 import { initOptions, registerOption, deregisterOption } from '../utils/registration/options';
 import { registerElement, deregisterElement } from '../utils/registration/element';
@@ -21,7 +21,7 @@ import initAction from '../utils/actions/init';
 import focusInAction from '../utils/actions/focus-in';
 import focusOutAction from '../utils/actions/focus-out';
 import selectAction from '../utils/actions/select';
-import update from '../utils/update';
+import update from '../utils/value/update';
 const { fromCharCode } = String;
 export const COLLECT_CHARS_MS = 1000;
 

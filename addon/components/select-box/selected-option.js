@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/select-box/selected-option';
-import setValue from '../../utils/set-value';
+import setValue from '../../utils/value/set';
 import initAction from '../../utils/actions/init';
 import destroyAction from '../../utils/actions/destroy';
 import index from '../../utils/macros/index';
