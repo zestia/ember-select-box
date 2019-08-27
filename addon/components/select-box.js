@@ -165,7 +165,7 @@ export default Component.extend(...mixins, {
       invokeAction(this, 'onFocusOut', e, this.api);
     },
 
-    insertedElement(element) {
+    didInsertElement(element) {
       registerElement(this, element);
 
       set(this, '_documentClickHandler', bind(this, '_clickDocument'));

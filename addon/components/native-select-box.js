@@ -28,7 +28,7 @@ export default Component.extend({
   },
 
   actions: {
-    insertedElement(element) {
+    didInsertElement(element) {
       registerElement(this, element);
     },
 

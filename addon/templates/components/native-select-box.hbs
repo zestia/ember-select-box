@@ -1,10 +1,9 @@
 <select
-  {{did-insert (action "insertedElement")}}
+  {{did-insert (action "didInsertElement")}}
   {{will-destroy (action "willDestroyElement")}}
   {{on "change" (action "change")}}
   class={{select-box-class @classNamePrefix}}
   multiple={{this.isMultiple}}
-
   ...attributes>
   {{yield (hash
     Option=(component "native-select-box/option"
