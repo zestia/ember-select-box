@@ -1,40 +1,34 @@
+import { readOnly } from '@ember/object/computed';
+import activateAction from '../../utils/actions/activate';
 import Component from '@ember/component';
-import layout from '../../templates/components/select-box/option';
-import { isPresent } from '@ember/utils';
-import { set } from '@ember/object';
-import isSelected from '../../utils/is-selected';
-import setOptionValue from '../../utils/set-option-value';
-import init from '../../utils/init';
-import destroy from '../../utils/destroy';
-import registerElement from '../../utils/register-element';
 import deregisterElement from '../../utils/deregister-element';
-import index from '../../utils/index';
-import isActive from '../../utils/is-active';
-import activate from '../../utils/activate';
-import selectOptionValue from '../../utils/select-option-value';
+import destroyAction from '../../utils/actions/destroy';
+import index from '../../utils/macros/index';
+import initAction from '../../utils/actions/init';
+import isActive from '../../utils/macros/is-active';
+import isSelected from '../../utils/macros/is-selected';
+import layout from '../../templates/components/select-box/option';
+import registerElement from '../../utils/register-element';
+import selectAction from '../../utils/actions/select';
+import setValue from '../../utils/set-value';
 
 export default Component.extend({
   layout,
   tagName: '',
 
-  isDisabled: false,
-  isSelected: isSelected(),
   index: index(),
   isActive: isActive(),
+  isDisabled: readOnly('disabled'),
+  isSelected: isSelected(),
 
   init() {
     this._super(...arguments);
-    init(this);
+    initAction(this);
   },
 
   didReceiveAttrs() {
     this._super(...arguments);
-
-    if (isPresent(this.disabled)) {
-      set(this, 'isDisabled', Boolean(this.disabled));
-    }
-
-    setOptionValue(this, this.value);
+    setValue(this, this.value);
   },
 
   actions: {
@@ -44,15 +38,15 @@ export default Component.extend({
 
     willDestroyElement(element) {
       deregisterElement(this, element);
-      destroy(this);
+      destroyAction(this);
     },
 
-    mouseEnter() {
-      activate(this);
+    onMouseEnter() {
+      activateAction(this);
     },
 
-    click(e) {
-      selectOptionValue(this);
+    onClick() {
+      selectAction(this);
     }
   }
 });

@@ -1,8 +1,8 @@
 <div
   {{did-insert (action "didInsertElement")}}
   {{will-destroy (action "willDestroyElement")}}
-  {{on "focusin" (action "_onFocusIn")}}
-  {{on "focusout" (action "_onFocusOut")}}
+  {{on "focusin" (action "onFocusIn")}}
+  {{on "focusout" (action "onFocusOut")}}
   {{on "keydown" (action "_onKeyDown")}}
   {{on "keypress" (action "_onKeyPress")}}
   aria-expanded={{if this.isOpen "true" "false"}}
@@ -29,36 +29,38 @@
       _onInit=(action "_registerSelectedOptionsContainer")
       _onDestroy=(action "_deregisterSelectedOptionsContainer"))
     SelectedOption=(component "select-box/selected-option"
+      api=this.api
       classNamePrefix=@classNamePrefix
+      _onActivate=(action "activateSelectedOptionAtIndex")
+
       _parentComponents=this.selectedOptions
       _parentActiveIndex=this.activeSelectedOptionIndex
-      _parentApi=this.api
       _onInit=(action "_registerSelectedOption")
-      _onDestroy=(action "_deregisterSelectedOption")
-      _onActivate=(action "activateSelectedOptionAtIndex"))
+      _onDestroy=(action "_deregisterSelectedOption"))
     Options=(component "select-box/options"
       aria-activedescendant=this.activeOption.domElementId
       classNamePrefix=@classNamePrefix
       _onInit=(action "_registerOptionsContainer")
       _onDestroy=(action "_deregisterOptionsContainer"))
     Option=(component "select-box/option"
+      api=this.api
       classNamePrefix=@classNamePrefix
+      _onActivate=(action "activateOptionAtIndex")
+      _onSelect=(action "select")
+
       _parentComponents=this.options
       _parentActiveIndex=this.activeOptionIndex
-      _parentApi=this.api
       _parentIsMultiple=this.isMultiple
       _parentInternalValue=this.internalValue
       _onInit=(action "_registerOption")
-      _onDestroy=(action "_deregisterOption")
-      _onActivate=(action "activateOptionAtIndex")
-      _onSelect=(action "_select"))
+      _onDestroy=(action "_deregisterOption"))
     Group=(component "select-box/group"
       classNamePrefix=@classNamePrefix)
     Input=(component "select-box/input"
+      api=this.api
       aria-controls=this.domElementId
       disabled=this.isDisabled
       classNamePrefix=@classNamePrefix
-      _parentApi=this.api
       _onInit=(action "_registerInput")
       _onDestroy=(action "_deregisterInput")
       _onInput=(action "_inputText"))

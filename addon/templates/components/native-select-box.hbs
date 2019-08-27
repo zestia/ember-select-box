@@ -7,13 +7,13 @@
   ...attributes>
   {{yield (hash
     Option=(component "native-select-box/option"
+      api=this.api
       classNamePrefix=@classNamePrefix
+      _onDestroy=(action "destroyOption")
       _parentComponents=this.options
-      _parentApi=this.api
       _parentIsMultiple=this.isMultiple
       _parentInternalValue=this.internalValue
-      _onInit=(action "initOption")
-      _onDestroy=(action "destroyOption"))
+      _onInit=(action "initOption"))
     Group=(component "native-select-box/group"
       classNamePrefix=@classNamePrefix)
   )}}

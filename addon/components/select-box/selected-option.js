@@ -1,12 +1,12 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/select-box/selected-option';
-import setOptionValue from '../../utils/set-option-value';
-import init from '../../utils/init';
-import destroy from '../../utils/destroy';
+import setValue from '../../utils/set-value';
+import initAction from '../../utils/actions/init';
+import destroyAction from '../../utils/actions/destroy';
 import registerElement from '../../utils/register-element';
 import deregisterElement from '../../utils/deregister-element';
-import index from '../../utils/index';
-import isActive from '../../utils/is-active';
+import index from '../../utils/macros/index';
+import isActive from '../../utils/macros/is-active';
 
 export default Component.extend({
   layout,
@@ -17,12 +17,12 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    init(this);
+    initAction(this);
   },
 
   didReceiveAttrs() {
     this._super(...arguments);
-    setOptionValue(this, this.value);
+    setValue(this, this.value);
   },
 
   actions: {
@@ -32,7 +32,7 @@ export default Component.extend({
 
     willDestroyElement(element) {
       deregisterElement(this, element);
-      destroy(this);
+      destroyAction(this);
     }
   }
 });

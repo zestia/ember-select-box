@@ -8,7 +8,7 @@ import registerOption from '../utils/register-option';
 import deregisterOption from '../utils/deregister-option';
 import getSelectedValue from '../utils/get-selected-value';
 import update from '../utils/update';
-import select from '../utils/select';
+import selectAction from '../utils/actions/select';
 
 export default Component.extend({
   layout,
@@ -47,7 +47,7 @@ export default Component.extend({
     async change() {
       const value = getSelectedValue(this);
       await update(this, value);
-      select(this);
+      selectAction(this);
     }
   }
 });

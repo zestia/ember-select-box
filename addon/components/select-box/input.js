@@ -1,11 +1,11 @@
 import Component from '@ember/component';
-import layout from '../../templates/components/select-box/input';
-import init from '../../utils/init';
-import destroy from '../../utils/destroy';
-import input from '../../utils/input';
-import keydown from '../../utils/keydown';
-import registerElement from '../../utils/register-element';
 import deregisterElement from '../../utils/deregister-element';
+import destroyAction from '../../utils/actions/destroy';
+import initAction from '../../utils/actions/init';
+import inputActions from '../../utils/actions/input';
+import keydownActions from '../../utils/actions/keydown';
+import layout from '../../templates/components/select-box/input';
+import registerElement from '../../utils/register-element';
 
 export default Component.extend({
   layout,
@@ -13,7 +13,7 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    init(this);
+    initAction(this);
   },
 
   actions: {
@@ -23,15 +23,15 @@ export default Component.extend({
 
     willDestroyElement(element) {
       deregisterElement(this, element);
-      destroy(this);
+      destroyAction(this);
     },
 
-    input(e) {
-      input(this, e);
+    onInput(e) {
+      inputActions(this, e);
     },
 
-    keydown(e) {
-      keydown(this, e);
+    onKeyDown(e) {
+      keydownActions(this, e);
     }
   }
 });

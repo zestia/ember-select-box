@@ -19,6 +19,8 @@ export default Mixin.create({
   },
 
   _updateApi(key, value) {
+    return
+
     if (this.isDestroyed) {
       return;
     }

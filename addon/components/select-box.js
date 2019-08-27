@@ -8,19 +8,21 @@ import escapeRegExp from '../utils/escape-regexp';
 import collapseWhitespace from '../utils/collapse-whitespace';
 import { A as emberA } from '@ember/array';
 import { capitalize } from '@ember/string';
+import invokeAction from '../utils/actions/invoke';
 import { bind, scheduleOnce, debounce } from '@ember/runloop';
 import { resolve } from 'rsvp';
 import { isPresent } from '@ember/utils';
-import invokeAction from '../utils/invoke-action';
-import setSelectBoxValue from '../utils/set-select-box-value';
 import buildSelection from '../utils/build-selection';
 import { assert } from '@ember/debug';
 import registerElement from '../utils/register-element';
 import deregisterElement from '../utils/deregister-element';
-import activated from '../utils/activated';
+import activateAction from '../utils/actions/activate';
 import initOptions from '../utils/init-options';
-import afterRender from '../utils/after-render';
-import updated from '../utils/updated';
+import initAction from '../utils/actions/init';
+import focusInAction from '../utils/actions/focus-in';
+import focusOutAction from '../utils/actions/focus-out';
+import selectAction from '../utils/actions/select';
+import update from '../utils/update';
 const { fromCharCode } = String;
 export const COLLECT_CHARS_MS = 1000;
 
@@ -68,13 +70,13 @@ export default Component.extend(...mixins, {
 
   init() {
     this._super(...arguments);
-    set(this, 'api', this._buildApi());
+    //set(this, 'api', this._buildApi());
     this._deactivateOptions();
     this._deactivateSelectedOptions();
     initOptions(this);
     set(this, '_selectedOptions', emberA());
     set(this, 'selectedOptions', emberA());
-    invokeAction(this, 'onInit', this.api);
+    initAction(this);
   },
 
   didReceiveAttrs() {
@@ -90,7 +92,7 @@ export default Component.extend(...mixins, {
       set(this, 'isOpen', this.open);
     }
 
-    this._update(this.value);
+    update(this, this.value);
   },
 
   actions: {
@@ -138,7 +140,7 @@ export default Component.extend(...mixins, {
       this._deactivateSelectedOptions();
     },
 
-    _onFocusIn(e) {
+    onFocusIn(e) {
       this._super(...arguments);
 
       if (this.isDestroyed) {
@@ -146,10 +148,10 @@ export default Component.extend(...mixins, {
       }
 
       set(this, 'isFocused', true);
-      invokeAction(this, 'onFocusIn', e, this.api);
+      focusInAction(this, e);
     },
 
-    _onFocusOut(e) {
+    onFocusOut(e) {
       this._super(...arguments);
 
       if (this.isDestroyed) {
@@ -162,7 +164,7 @@ export default Component.extend(...mixins, {
         // https://github.com/emberjs/ember.js/issues/18043
       }
 
-      invokeAction(this, 'onFocusOut', e, this.api);
+      focusOutAction(this, e);
     },
 
     didInsertElement(element) {
@@ -339,17 +341,14 @@ export default Component.extend(...mixins, {
       }
     },
 
-    update(value) {
-      this._update(value);
-    },
-
-    select(value) {
-      this._select(value);
-    },
-
-    _select(value) {
+    async select(value) {
       value = buildSelection(this, value);
-      this._select(value);
+      await update(this, value);
+      selectAction(this);
+    },
+
+    update(value) {
+      update(this, value);
     }
   },
 
@@ -446,7 +445,7 @@ export default Component.extend(...mixins, {
     const activeOption = get(this, 'activeOption');
 
     if (activeOption) {
-      activated(activeOption);
+      activateAction(activeOption);
     }
   },
 
@@ -454,7 +453,7 @@ export default Component.extend(...mixins, {
     const activeSelectedOption = get(this, 'activeSelectedOption');
 
     if (activeSelectedOption) {
-      activated(activeSelectedOption);
+      activateAction(activeSelectedOption);
     }
   },
 
@@ -605,17 +604,5 @@ export default Component.extend(...mixins, {
     }
 
     set(this, 'isSlowSearch', this.isSearching);
-  },
-
-  async _select(value) {
-    await this._update(value);
-    invokeAction(this, 'onSelect', this.internalValue, this.api);
-  },
-
-  async _update(value) {
-    await setSelectBoxValue(this, value);
-    await afterRender();
-    //update api
-    updated(this);
-  },
+  }
 });

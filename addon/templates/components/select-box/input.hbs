@@ -1,8 +1,8 @@
 <input
   {{did-insert (action "didInsertElement")}}
   {{will-destroy (action "willDestroyElement")}}
-  {{on "input" (action "input")}}
-  {{on "keydown" (action "keydown")}}
+  {{on "input" (action "onInput")}}
+  {{on "keydown" (action "onKeyDown")}}
   aria-multiline="false"
   autocomplete="off"
   class={{select-box-class @classNamePrefix "input"}}

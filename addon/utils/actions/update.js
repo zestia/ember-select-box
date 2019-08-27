@@ -1,6 +1,6 @@
-import invokeAction from './invoke-action';
+import invokeAction from './invoke';
 
-export default function updated(component) {
+export default function updateAction(component) {
   if (component.isDestroyed || component.isDestroying) {
     return;
   }
