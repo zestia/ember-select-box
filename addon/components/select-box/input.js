@@ -16,18 +16,14 @@ export default Component.extend({
     init(this);
   },
 
-  willDestroyElement() {
-    this._super(...arguments);
-    destroy(this);
-  },
-
   actions: {
-    insertElement(element) {
+    insertedElement(element) {
       registerElement(this, element);
     },
 
-    destroyElement(element) {
+    willDestroyElement(element) {
       deregisterElement(this, element);
+      destroy(this);
     },
 
     input(e) {

@@ -37,18 +37,14 @@ export default Component.extend({
     setOptionValue(this, this.value);
   },
 
-  willDestroyElement() {
-    this._super(...arguments);
-    destroy(this);
-  },
-
   actions: {
-    insertElement(element) {
+    insertedElement(element) {
       registerElement(this, element);
     },
 
-    destroyElement(element) {
+    willDestroyElement(element) {
       deregisterElement(this, element);
+      destroy(this);
     },
 
     mouseEnter() {

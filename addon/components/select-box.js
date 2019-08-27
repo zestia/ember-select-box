@@ -165,7 +165,7 @@ export default Component.extend(...mixins, {
       invokeAction(this, 'onFocusOut', e, this.api);
     },
 
-    insertElement(element) {
+    insertedElement(element) {
       registerElement(this, element);
 
       set(this, '_documentClickHandler', bind(this, '_clickDocument'));
@@ -177,7 +177,7 @@ export default Component.extend(...mixins, {
       invokeAction(this, 'onInsertElement', this.api);
     },
 
-    destroyElement(element) {
+    willDestroyElement(element) {
       deregisterElement(this, element);
 
       document.removeEventListener('click', this._documentClickHandler);

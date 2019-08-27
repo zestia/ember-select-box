@@ -12,8 +12,9 @@ export default Component.extend({
     init(this);
   },
 
-  willDestroyElement() {
-    this._super(...arguments);
-    destroy(this);
+  actions: {
+    willDestroyElement() {
+      destroy(this);
+    }
   }
 });

@@ -28,11 +28,11 @@ export default Component.extend({
   },
 
   actions: {
-    insertElement(element) {
+    insertedElement(element) {
       registerElement(this, element);
     },
 
-    destroyElement(element) {
+    willDestroyElement(element) {
       deregisterElement(this, element);
     },
 
