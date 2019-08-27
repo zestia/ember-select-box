@@ -5,6 +5,6 @@ export default function select(component) {
     return;
   }
 
-  invokeAction(component, '_onSelect', component.internalValue);
-  invokeAction(component, 'onSelect', component.internalValue, component.api);
+  invokeAction(component, '_onSelect', component.resolvedValue);
+  invokeAction(component, 'onSelect', component.resolvedValue, component.api());
 }

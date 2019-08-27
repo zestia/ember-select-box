@@ -4,6 +4,7 @@ import { readOnly } from '@ember/object/computed';
 import getSelectedValue from '../utils/selection/get';
 import update from '../utils/value/update';
 import selectAction from '../utils/actions/select';
+import api from '../utils/native-select-box/api';
 import { initOptions, registerOption, deregisterOption } from '../utils/registration/options';
 import { registerElement, deregisterElement } from '../utils/registration/element';
 
@@ -15,7 +16,6 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    // set(this, 'api', this._buildApi());
     initOptions(this, 'options');
   },
 
@@ -41,10 +41,14 @@ export default Component.extend({
       deregisterOption(this, 'options', option);
     },
 
-    async change() {
+    async onChange() {
       const value = getSelectedValue(this);
       await update(this, value);
       selectAction(this);
     }
+  },
+
+  api() {
+    return api(this);
   }
 });

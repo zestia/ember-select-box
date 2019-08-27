@@ -3,19 +3,21 @@ import { computed } from '@ember/object';
 
 const isSelectedKeys = [
   'selected',
-  'internalValue',
-  '_parentIsMultiple',
-  '_parentInternalValue'
+  'resolvedValue',
+  'selectBox.isMultiple',
+  'selectBox.resolvedValue'
 ];
 
 export default function isSelected() {
   return computed(...isSelectedKeys, function() {
     if (this.selected !== undefined) {
       return this.selected;
-    } else if (this._parentIsMultiple) {
-      return makeArray(this._parentInternalValue).includes(this.internalValue);
+    } else if (this.selectBox && this.selectBox.isMultiple) {
+      return makeArray(this.selectBox.resolvedValue).includes(this.resolvedValue);
+    } else if (this.selectBox) {
+      return this.resolvedValue === this.selectBox.resolvedValue;
     } else {
-      return this.internalValue === this._parentInternalValue;
+      return false;
     }
   })
 }

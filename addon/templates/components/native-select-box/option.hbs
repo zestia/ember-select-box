@@ -3,11 +3,11 @@
   {{will-destroy (action "willDestroyElement")}}
   class={{select-box-class @classNamePrefix "option"}}
   selected={{this.isSelected}}
-  value={{this.internalValue}}
+  value={{this.resolvedValue}}
   ...attributes>
   {{~yield (hash
     index=this.index
-    value=this.internalValue
+    value=this.resolvedValue
     isPending=this.isPending
     isRejected=this.isRejected
     isFulfilled=this.isFulfilled

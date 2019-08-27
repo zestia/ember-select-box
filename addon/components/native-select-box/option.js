@@ -6,12 +6,14 @@ import isSelected from '../../utils/macros/is-selected';
 import layout from '../../templates/components/native-select-box/option';
 import { registerElement, deregisterElement } from '../../utils/registration/element';
 import setValue from '../../utils/value/set';
+import noop from '../../utils/general/noop';
 
 export default Component.extend({
   layout,
   tagName: '',
 
-  index: index(),
+  api: noop,
+  index: index('selectBox.options'),
   isSelected: isSelected(),
 
   init() {

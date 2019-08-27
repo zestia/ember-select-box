@@ -1,18 +1,15 @@
 <select
   {{did-insert (action "didInsertElement")}}
   {{will-destroy (action "willDestroyElement")}}
-  {{on "change" (action "change")}}
+  {{on "change" (action "onChange")}}
   class={{select-box-class @classNamePrefix}}
   multiple={{this.isMultiple}}
   ...attributes>
   {{yield (hash
     Option=(component "native-select-box/option"
-      api=this.api
+      selectBox=this
       classNamePrefix=@classNamePrefix
       _onDestroy=(action "destroyOption")
-      _parentComponents=this.options
-      _parentIsMultiple=this.isMultiple
-      _parentInternalValue=this.internalValue
       _onInit=(action "initOption"))
     Group=(component "native-select-box/group"
       classNamePrefix=@classNamePrefix)

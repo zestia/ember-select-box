@@ -1,5 +1,5 @@
 import invokeAction from './invoke';
 
-export default function focusInAction(component, e) {
-  invokeAction(component, 'onFocusIn', e, component.api);
+export default function focusInAction(selectBox, e) {
+  invokeAction(selectBox, 'onFocusIn', e, selectBox.api());
 }

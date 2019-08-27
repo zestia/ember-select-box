@@ -3,12 +3,15 @@ import destroyAction from '../../utils/actions/destroy';
 import initAction from '../../utils/actions/init';
 import inputActions from '../../utils/actions/input';
 import keydownActions from '../../utils/actions/keydown';
+import noop from '../../utils/general/noop';
 import layout from '../../templates/components/select-box/input';
 import { registerElement, deregisterElement } from '../../utils/registration/element';
 
 export default Component.extend({
   layout,
   tagName: '',
+
+  api: noop,
 
   init() {
     this._super(...arguments);

@@ -1,7 +1,7 @@
-import { computed } from '@ember/object';
+import { computed, getWithDefault } from '@ember/object';
 
-export default function index() {
-  return computed('_parentComponents', function() {
-    return (this._parentComponents || []).indexOf(this);
+export default function index(key) {
+  return computed(key, function() {
+    return getWithDefault(this, key, []).indexOf(this);
   });
 }

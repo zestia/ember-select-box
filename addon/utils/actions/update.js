@@ -5,5 +5,5 @@ export default function updateAction(component) {
     return;
   }
 
-  invokeAction(component, 'onUpdate', component.internalValue, component.api);
+  invokeAction(component, 'onUpdate', component.resolvedValue, component.api());
 }

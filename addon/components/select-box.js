@@ -1,6 +1,5 @@
 import Component from '@ember/component';
 import layout from '../templates/components/select-box';
-import API from '../mixins/select-box/api';
 import { readOnly, or } from '@ember/object/computed';
 import { computed, get, set } from '@ember/object';
 import scrollIntoView from '../utils/dom/scroll-into-view';
@@ -19,9 +18,11 @@ import { registerElement, deregisterElement } from '../utils/registration/elemen
 import activateAction from '../utils/actions/activate';
 import initAction from '../utils/actions/init';
 import focusInAction from '../utils/actions/focus-in';
+import api from '../utils/select-box/api';
 import focusOutAction from '../utils/actions/focus-out';
 import selectAction from '../utils/actions/select';
 import update from '../utils/value/update';
+import { open, close, toggle } from '../utils/api/toggling';
 const { fromCharCode } = String;
 export const COLLECT_CHARS_MS = 1000;
 
@@ -36,16 +37,11 @@ export const keys = {
   40: 'down'
 };
 
-const mixins = [
-  API
-];
-
-export default Component.extend(...mixins, {
+export default Component.extend({
   layout,
   tagName: '',
 
   tabIndex: '0',
-  isOpen: false,
 
   searchMinChars: 1,
   searchDelayTime: 100,
@@ -69,7 +65,6 @@ export default Component.extend(...mixins, {
 
   init() {
     this._super(...arguments);
-    //set(this, 'api', this._buildApi());
     this._deactivateOptions();
     this._deactivateSelectedOptions();
     initOptions(this, 'options');
@@ -95,6 +90,35 @@ export default Component.extend(...mixins, {
   },
 
   actions: {
+    open() {
+      open(this);
+    },
+
+    close() {
+      close(this);
+    },
+
+    toggle() {
+      toggle(this);
+    },
+
+    initOption(option) {
+      registerOption(this, 'options', option);
+    },
+
+    destroyOption(option) {
+      deregisterOption(this, 'options', option);
+    },
+
+
+
+
+
+
+
+
+
+
     activateOptionAtIndex(index, scroll = false) {
       this._activateOptionAtIndex(index, scroll);
     },
@@ -173,9 +197,7 @@ export default Component.extend(...mixins, {
       document.addEventListener('click', this._documentClickHandler);
       document.addEventListener('touchstart', this._documentClickHandler);
 
-      this._updateApi('element', this.domElement);
-
-      invokeAction(this, 'onInsertElement', this.api);
+      invokeAction(this, 'onInsertElement', this.api());
     },
 
     willDestroyElement(element) {
@@ -233,15 +255,7 @@ export default Component.extend(...mixins, {
       this.input.domElement.blur();
     },
 
-    _registerOption(option) {
-      this._options.addObject(option);
-      this._scheduleUpdateOptions();
-    },
 
-    _deregisterOption(option) {
-      this._options.removeObject(option);
-      this._scheduleUpdateOptions();
-    },
 
     _registerSelectedOption(selectedOption) {
       this._selectedOptions.addObject(selectedOption);
@@ -268,7 +282,7 @@ export default Component.extend(...mixins, {
     _onKeyPress(e) {
       this._super(...arguments);
 
-      invokeAction(this, `onPressKey`, e, this.api);
+      invokeAction(this, `onPressKey`, e, this.api());
     },
 
     _onKeyDown(e) {
@@ -279,44 +293,11 @@ export default Component.extend(...mixins, {
       if (key) {
         key = capitalize(key);
 
-        invokeAction(this, `onPress${key}`, e, this.api);
+        invokeAction(this, `onPress${key}`, e, this.api());
         invokeAction(this, `_onPress${key}`, e);
       }
     },
 
-    open() {
-      this._super(...arguments);
-
-      if (this.isDestroyed) {
-        return;
-      }
-
-      set(this, 'isOpen', true);
-      this._updateApi('isOpen', true);
-      invokeAction(this, 'onOpen', this.api);
-    },
-
-    close() {
-      this._super(...arguments);
-
-      if (this.isDestroyed) {
-        return;
-      }
-
-      set(this, 'isOpen', false);
-      this._updateApi('isOpen', false);
-      invokeAction(this, 'onClose', this.api);
-    },
-
-    toggle() {
-      this._super(...arguments);
-
-      if (this.isOpen) {
-        this.send('close');
-      } else {
-        this.send('open');
-      }
-    },
 
     search(query) {
       return this._search(query);
@@ -490,7 +471,7 @@ export default Component.extend(...mixins, {
 
   clickOutside(e) {
     this._super(...arguments);
-    invokeAction(this, 'onClickOutside', e, this.api);
+    invokeAction(this, 'onClickOutside', e, this.api());
   },
 
   _configureAsCombobox() {
@@ -564,7 +545,7 @@ export default Component.extend(...mixins, {
 
     debounce(this, '_checkSlowSearch', get(this, 'searchSlowTime'));
 
-    const search = invokeAction(this, 'onSearch', query, this.api);
+    const search = invokeAction(this, 'onSearch', query, this.api());
 
     return resolve(search)
       .then(bind(this, '_searchCompleted', this.searchID, query))
@@ -577,7 +558,7 @@ export default Component.extend(...mixins, {
       return;
     }
 
-    invokeAction(this, 'onSearched', result, query, this.api);
+    invokeAction(this, 'onSearched', result, query, this.api());
   },
 
   _searchFailed(query, error) {
@@ -585,7 +566,7 @@ export default Component.extend(...mixins, {
       return;
     }
 
-    invokeAction(this, 'onSearchError', error, query, this.api);
+    invokeAction(this, 'onSearchError', error, query, this.api());
   },
 
   _searchFinished() {
@@ -603,5 +584,9 @@ export default Component.extend(...mixins, {
     }
 
     set(this, 'isSlowSearch', this.isSearching);
+  },
+
+  api() {
+    return api(this);
   }
 });

@@ -3,8 +3,10 @@
   {{will-destroy (action "willDestroyElement")}}
   {{on "focusin" (action "onFocusIn")}}
   {{on "focusout" (action "onFocusOut")}}
+
   {{on "keydown" (action "_onKeyDown")}}
   {{on "keypress" (action "_onKeyPress")}}
+
   aria-expanded={{if this.isOpen "true" "false"}}
   aria-busy={{if this.isBusy "true" "false"}}
   aria-disabled={{if this.isDisabled "true" "false"}}
@@ -29,12 +31,9 @@
       _onInit=(action "_registerSelectedOptionsContainer")
       _onDestroy=(action "_deregisterSelectedOptionsContainer"))
     SelectedOption=(component "select-box/selected-option"
-      api=this.api
+      selectBox=this
       classNamePrefix=@classNamePrefix
       _onActivate=(action "activateSelectedOptionAtIndex")
-
-      _parentComponents=this.selectedOptions
-      _parentActiveIndex=this.activeSelectedOptionIndex
       _onInit=(action "_registerSelectedOption")
       _onDestroy=(action "_deregisterSelectedOption"))
     Options=(component "select-box/options"
@@ -44,20 +43,16 @@
       _onDestroy=(action "_deregisterOptionsContainer"))
     Option=(component "select-box/option"
       api=this.api
+      selectBox=this
       classNamePrefix=@classNamePrefix
       _onActivate=(action "activateOptionAtIndex")
       _onSelect=(action "select")
-
-      _parentComponents=this.options
-      _parentActiveIndex=this.activeOptionIndex
-      _parentIsMultiple=this.isMultiple
-      _parentInternalValue=this.internalValue
-      _onInit=(action "_registerOption")
-      _onDestroy=(action "_deregisterOption"))
+      _onDestroy=(action "destroyOption")
+      _onInit=(action "initOption"))
     Group=(component "select-box/group"
       classNamePrefix=@classNamePrefix)
     Input=(component "select-box/input"
-      api=this.api
+      selectBox=this
       aria-controls=this.domElementId
       disabled=this.isDisabled
       classNamePrefix=@classNamePrefix
@@ -65,7 +60,7 @@
       _onDestroy=(action "_deregisterInput")
       _onInput=(action "_inputText"))
     element=this.domElement
-    value=this.internalValue
+    value=this.resolvedValue
     isPending=this.isPending
     isRejected=this.isRejected
     isFulfilled=this.isFulfilled

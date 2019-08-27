@@ -25,7 +25,7 @@ function getSelectedValues(selectBox) {
 function getRegisteredSelectedValues(selectBox) {
   return selectBox.options
     .filter(option => option.domElement.selected)
-    .map(option => option.internalValue);
+    .map(option => option.resolvedValue);
 }
 
 function getUnregisteredSelectedValues(selectBox) {

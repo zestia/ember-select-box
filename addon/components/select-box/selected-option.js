@@ -4,15 +4,15 @@ import setValue from '../../utils/value/set';
 import initAction from '../../utils/actions/init';
 import destroyAction from '../../utils/actions/destroy';
 import index from '../../utils/macros/index';
-import isActive from '../../utils/macros/is-active';
+import { equal } from '@ember/object/computed';
 import { registerElement, deregisterElement } from '../../utils/registration/element';
 
 export default Component.extend({
   layout,
   tagName: '',
 
-  index: index(),
-  isActive: isActive(),
+  index: index('selectedOptions'),
+  isActive: equal('index', 'activeSelectedOptionIndex'),
 
   init() {
     this._super(...arguments);

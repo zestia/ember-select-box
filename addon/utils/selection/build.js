@@ -3,7 +3,7 @@ import { get } from '@ember/object';
 const { isArray, from } = Array;
 
 export default function buildSelection(selectBox, value1) {
-  const value2 = selectBox.internalValue;
+  const value2 = selectBox.resolvedValue;
   const build = selectBox.onBuildSelection;
 
   if (typeof build === 'function') {

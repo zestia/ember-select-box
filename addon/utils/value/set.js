@@ -4,13 +4,13 @@ import { get, set } from '@ember/object';
 const { freeze } = Object;
 
 export default async function setValue(component, value) {
-  if (value === component.internalValue && component.valueID > 0) {
+  if (value === component.resolvedValue && component.valueID > 0) {
     return value;
   }
 
   const id = component.incrementProperty('valueID');
 
-  set(component, 'internalValue', value);
+  set(component, 'resolvedValue', value);
 
   let result;
 
@@ -54,5 +54,5 @@ function resolvedValue(component, id, failed, result) {
 
   set(component, 'isPending', false);
   set(component, 'isSettled', true);
-  set(component, 'internalValue', result);
+  set(component, 'resolvedValue', result);
 }
