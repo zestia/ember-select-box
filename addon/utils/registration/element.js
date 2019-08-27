@@ -1,5 +1,5 @@
 import { set } from '@ember/object';
-import domElementId from '../general/dom-element-id';
+import domElementId from '../dom/element-id';
 
 export function registerElement(component, element) {
   set(component, 'domElement', element);
