@@ -3,10 +3,9 @@ import layout from '../../templates/components/select-box/selected-option';
 import setValue from '../../utils/set-value';
 import initAction from '../../utils/actions/init';
 import destroyAction from '../../utils/actions/destroy';
-import registerElement from '../../utils/register-element';
-import deregisterElement from '../../utils/deregister-element';
 import index from '../../utils/macros/index';
 import isActive from '../../utils/macros/is-active';
+import { registerElement, deregisterElement } from '../../utils/registration/element';
 
 export default Component.extend({
   layout,

@@ -1,14 +1,11 @@
 import Component from '@ember/component';
 import layout from '../templates/components/native-select-box';
 import { readOnly } from '@ember/object/computed';
-import registerElement from '../utils/register-element';
-import deregisterElement from '../utils/deregister-element';
-import initOptions from '../utils/init-options';
-import registerOption from '../utils/register-option';
-import deregisterOption from '../utils/deregister-option';
 import getSelectedValue from '../utils/get-selected-value';
 import update from '../utils/update';
 import selectAction from '../utils/actions/select';
+import { initOptions, registerOption, deregisterOption } from '../utils/registration/options';
+import { registerElement, deregisterElement } from '../utils/registration/element';
 
 export default Component.extend({
   layout,
@@ -19,7 +16,7 @@ export default Component.extend({
   init() {
     this._super(...arguments);
     // set(this, 'api', this._buildApi());
-    initOptions(this);
+    initOptions(this, 'options');
   },
 
   didReceiveAttrs() {
@@ -37,11 +34,11 @@ export default Component.extend({
     },
 
     initOption(option) {
-      registerOption(this, option);
+      registerOption(this, 'options', option);
     },
 
     destroyOption(option) {
-      deregisterOption(this, option);
+      deregisterOption(this, 'options', option);
     },
 
     async change() {

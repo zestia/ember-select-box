@@ -1,11 +1,10 @@
 import Component from '@ember/component';
-import deregisterElement from '../../utils/deregister-element';
 import destroyAction from '../../utils/actions/destroy';
 import initAction from '../../utils/actions/init';
 import inputActions from '../../utils/actions/input';
 import keydownActions from '../../utils/actions/keydown';
 import layout from '../../templates/components/select-box/input';
-import registerElement from '../../utils/register-element';
+import { registerElement, deregisterElement } from '../../utils/registration/element';
 
 export default Component.extend({
   layout,
