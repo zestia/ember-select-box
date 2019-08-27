@@ -25,7 +25,6 @@ module('select-box', function(hooks) {
 
     await render(hbs`
       <SelectBox @classNamePrefix="foo" as |sb|>
-        <sb.Focuser />
         <sb.Input />
         <sb.SelectedOptions>
           <sb.SelectedOption />
@@ -39,7 +38,6 @@ module('select-box', function(hooks) {
     `);
 
     assert.dom('.foo').exists({ count: 1 });
-    assert.dom('.foo-focuser').exists({ count: 1 });
     assert.dom('.foo-input').exists({ count: 1 });
     assert.dom('.foo-options').exists({ count: 1 });
     assert.dom('.foo-selected-options').exists({ count: 1 });
