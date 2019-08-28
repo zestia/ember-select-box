@@ -3,5 +3,10 @@ import layout from '../../templates/components/native-select-box/group';
 
 export default Component.extend({
   layout,
-  tagName: ''
+  tagName: '',
+
+  // Arguments
+
+  classNamePrefix: null,
+  selectBox: null
 });

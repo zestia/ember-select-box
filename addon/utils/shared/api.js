@@ -1,11 +1,19 @@
-import { get } from '@ember/object';
-const { seal, keys } = Object;
+import { computed, get } from '@ember/object';
+const { freeze, keys } = Object;
 
-export default function buildAPI(component, publicProperties, publicActions) {
+export default function apiMacro(publicProperties, publicActions) {
+  const propNames = keys(publicProperties);
+
+  return computed(...propNames, function() {
+    return buildAPI(this);
+  })
+}
+
+function buildAPI(component, publicProperties, publicActions) {
   const properties = apiProperties(component, publicProperties);
   const actions = apiActions(component, publicActions);
 
-  return seal({ ...properties, ...actions });
+  return freeze({ ...properties, ...actions });
 }
 
 function apiProperties(component, publicProperties) {

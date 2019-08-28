@@ -17,11 +17,11 @@ function _input(input, text) {
 }
 
 function clearedInput(input) {
-  invokeAction(input, 'onClear', input.api());
+  invokeAction(input, 'onClear', input.selectBox.api);
 }
 
 function inputText(input, text) {
-  invokeAction(input, 'onInput', text, input.api());
+  invokeAction(input, 'onInput', text, input.selectBox.api);
 }
 
 function deletedText(input) {

@@ -1,7 +1,6 @@
 import Component from '@ember/component';
 import { _initComponent, _destroyComponent } from '../../utils/shared/lifecycle';
 import { input, keyDown } from '../../utils/select-box/input/keyboard';
-import noop from '../../utils/general/noop';
 import layout from '../../templates/components/select-box/input';
 import { registerElement, deregisterElement } from '../../utils/registration/element';
 
@@ -9,7 +8,15 @@ export default Component.extend({
   layout,
   tagName: '',
 
-  api: noop,
+  // Arguments
+  selectBox: null,
+  classNamePrefix: null,
+
+  // Actions
+
+  onInput: null,
+  onDelete: null,
+  onClear: null,
 
   init() {
     this._super(...arguments);
@@ -17,6 +24,8 @@ export default Component.extend({
   },
 
   actions: {
+    // Internal actions
+
     didInsertElement(element) {
       registerElement(this, element);
     },

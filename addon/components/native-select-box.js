@@ -11,6 +11,16 @@ export default Component.extend({
   layout,
   tagName: '',
 
+  // Arguments
+
+  classNamePrefix: null,
+  disabled: null,
+  multiple: null,
+  value: null,
+
+  // Computed state
+
+  api: api(),
   isMultiple: readOnly('multiple'),
 
   init() {
@@ -24,6 +34,8 @@ export default Component.extend({
   },
 
   actions: {
+    // Internal actions
+
     didInsertElement(element) {
       registerElement(this, element);
     },
@@ -43,9 +55,7 @@ export default Component.extend({
     onChange() {
       selectValue(this);
     }
-  },
 
-  api() {
-    return api(this);
+    // Public API Actions
   }
 });

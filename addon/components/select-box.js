@@ -23,7 +23,7 @@ import { maybeSearch, search, cancelSearch } from '../utils/select-box/search';
 import { focusInput, blurInput } from '../utils/select-box/input/focus';
 import { keyPress, keyDown } from '../utils/select-box/keyboard';
 import { setInputValue } from '../utils/select-box/input/value';
-import objectAtIndex from '../utils/macros/object-at-index';
+import objectAtIndex from '../utils/general/object-at-index';
 import activateOptionAtIndex from '../utils/select-box/option/activate';
 const { fromCharCode } = String;
 export const COLLECT_CHARS_MS = 1000;
@@ -36,13 +36,19 @@ export default Component.extend({
 
   // Arguments
 
-  tabIndex: '0',
-  searchMinChars: 1,
+  classNamePrefix: null,
+  disabled: null,
+  multiple: null,
+  open: null,
   searchDelayTime: 100,
+  searchMinChars: 1,
   searchSlowTime: 500,
+  tabIndex: '0',
+  value: null,
 
   // Computed state
 
+  api: api(),
   isMultiple: readOnly('multiple'),
   isBusy: or('isPending', 'isSearching'),
   activeOption: objectAtIndex('options', 'activeOptionIndex'),

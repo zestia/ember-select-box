@@ -1,4 +1,4 @@
-import buildAPI from '../shared/api';
+import apiMacro from '../shared/api';
 
 const publicProperties = {
   'resolvedValue': 'value',
@@ -16,6 +16,6 @@ const publicActions = {
   // 'activate': true
 };
 
-export default function api(option) {
-  return buildAPI(option, publicProperties, publicActions);
+export default function api() {
+  return apiMacro(publicProperties, publicActions);
 }

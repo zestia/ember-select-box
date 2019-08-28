@@ -5,15 +5,12 @@ const publicProperties = {
   'isPending': true,
   'isFulfilled': true,
   'isSettled': true,
-  'isSelected': true,
-  'isDisabled': true,
   'isActive': true,
   'index': true,
   'domElement': 'element'
 };
 
 const publicActions = {
-  // 'select': true,
   // 'update': true,
   // 'activate': true
 };

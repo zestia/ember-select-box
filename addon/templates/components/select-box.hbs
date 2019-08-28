@@ -41,7 +41,6 @@
       _onInit=(action "_registerOptionsContainer")
       _onDestroy=(action "_deregisterOptionsContainer"))
     Option=(component "select-box/option"
-      api=this.api
       selectBox=this
       classNamePrefix=@classNamePrefix
       _onActivate=(action "onActivateOption")
@@ -51,7 +50,6 @@
     Group=(component "select-box/group"
       classNamePrefix=@classNamePrefix)
     Input=(component "select-box/input"
-      api=this.api
       selectBox=this
       aria-controls=this.domElementId
       disabled=this.isDisabled

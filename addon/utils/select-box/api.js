@@ -1,7 +1,8 @@
-import buildAPI from '../shared/api';
+import apiMacro from '../shared/api';
 
 const publicProperties = {
   'resolvedValue': 'value',
+  'index': true,
   'isPending': true,
   'isFulfilled': true,
   'isSettled': true,
@@ -24,7 +25,7 @@ const publicActions = {
   // 'selectActiveOption': true,
   // 'search': true,
   // 'stopSearching': true,
-  // 'setInputValue': true,
+  'setInputValue': true,
   // 'focusInput': true,
   // 'blurInput': true,
   // 'activateOptionAtIndex': true,
@@ -38,6 +39,6 @@ const publicActions = {
   // 'deactivateSelectedOptions' : true
 };
 
-export default function api(option) {
-  return buildAPI(option, publicProperties, publicActions);
+export default function api() {
+  return apiMacro(publicProperties, publicActions);
 }

@@ -1,20 +1,29 @@
 import { readOnly, equal } from '@ember/object/computed';
 import Component from '@ember/component';
-import index from '../../utils/macros/index';
+import index from '../../utils/general/index';
 import { _initComponent, _destroyComponent } from '../../utils/shared/lifecycle';
 import isSelected from '../../utils/macros/is-selected';
 import layout from '../../templates/components/select-box/option';
 import { _activateOption } from '../../utils/select-box/option/activate';
 import { _selectOption } from '../../utils/select-box/option/select';
 import resolveValue from '../../utils/shared/resolve-value';
-import noop from '../../utils/general/noop';
+import api from '../../utils/select-box/option/api';
 import { registerElement, deregisterElement } from '../../utils/registration/element';
 
 export default Component.extend({
   layout,
   tagName: '',
 
-  api: noop,
+  // Arguments
+
+  classNamePrefix: null,
+  selectBox: null,
+  value: null,
+  disabled: null,
+
+  // Computed state
+
+  api: api(),
   index: index('options'),
   isActive: equal('index', 'activeOptionIndex'),
   isDisabled: readOnly('disabled'),
@@ -31,6 +40,8 @@ export default Component.extend({
   },
 
   actions: {
+    // Internal actions
+
     didInsertElement(element) {
       registerElement(this, element);
     },

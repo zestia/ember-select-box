@@ -2,8 +2,8 @@ import Component from '@ember/component';
 import layout from '../../templates/components/select-box/selected-option';
 import resolveValue from '../../utils/shared/resolve-value';
 import { _initComponent, _destroyComponent } from '../../utils/shared/lifecycle';
-import noop from '../../utils/general/noop';
-import index from '../../utils/macros/index';
+import api from '../../utils/select-box/selected-option/api';
+import index from '../../utils/general/index';
 import { equal } from '@ember/object/computed';
 import { registerElement, deregisterElement } from '../../utils/registration/element';
 
@@ -11,8 +11,15 @@ export default Component.extend({
   layout,
   tagName: '',
 
-  api: noop,
+  // Arguments
 
+  classNamePrefix: null,
+  selectBox: null,
+  value: null,
+
+  // Computed state
+
+  api: api(),
   index: index('selectedOptions'),
   isActive: equal('index', 'activeSelectedOptionIndex'),
 
@@ -27,6 +34,8 @@ export default Component.extend({
   },
 
   actions: {
+    // Internal actions
+
     didInsertElement(element) {
       registerElement(this, element);
     },

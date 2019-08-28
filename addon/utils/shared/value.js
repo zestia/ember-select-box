@@ -19,5 +19,5 @@ export function updatedValue(selectBox) {
 }
 
 export function selectedValue(selectBox) {
-  invokeAction(selectBox, 'onSelect', selectBox.resolvedValue, selectBox.api());
+  invokeAction(selectBox, 'onSelect', 'x', selectBox.api());
 }

@@ -447,7 +447,7 @@ Self explanitory, just wraps the options in extra markup.<br>
 (You can still navigate groups using the arrow keys / the API)
 
 ```handlebars
-<sb.Group label="Things">
+<sb.Group @label="Things">
 
 </sb.Group>
 ```

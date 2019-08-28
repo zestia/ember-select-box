@@ -6,12 +6,18 @@ export default Component.extend({
   layout,
   tagName: '',
 
+  // Arguments
+
+  classNamePrefix: null,
+
   init() {
     this._super(...arguments);
     _initComponent(this);
   },
 
   actions: {
+    // Internal actions
+
     willDestroyElement() {
       _destroyComponent(this);
     }
