@@ -60,7 +60,5 @@ export default Component.extend({
     onChange() {
       selectValue(this);
     }
-
-    // Public API Actions
   }
 });

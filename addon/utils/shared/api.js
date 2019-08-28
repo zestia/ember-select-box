@@ -13,8 +13,6 @@ function buildAPI(component, publicProperties, publicActions) {
   const properties = apiProperties(component, publicProperties);
   const actions = apiActions(component, publicActions);
 
-  console.log('f', freeze({ ...properties, ...actions }));
-
   return freeze({ ...properties, ...actions });
 }
 

@@ -455,9 +455,5 @@ export default Component.extend({
 
   _updateSelectedOptions() {
     set(this, 'selectedOptions', emberA(this._selectedOptions.toArray()));
-  },
-
-  api() {
-    return api(this);
   }
 });

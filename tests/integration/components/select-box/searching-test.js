@@ -561,8 +561,6 @@ module('select-box (searching)', function(hooks) {
     this.set('show', true);
 
     this.hide = (value, sb) => {
-      console.log('sb', sb);
-
       this.set('show', false);
       sb.setInputValue('bar');
     };
