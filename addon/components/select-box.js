@@ -136,7 +136,7 @@ export default Component.extend({
     },
 
     update(value) {
-      updateValue(this, value);
+      return updateValue(this, value);
     },
 
     open() {
@@ -152,7 +152,7 @@ export default Component.extend({
     },
 
     search(query) {
-      search(this, query);
+      return search(this, query);
     },
 
     cancelSearch() {

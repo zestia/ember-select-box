@@ -1,6 +1,7 @@
 import invokeAction from '../shared/invoke-action';
 import { debounce } from '@ember/runloop';
 import { get, set } from '@ember/object';
+import { resolve } from 'rsvp';
 
 export function maybeSearch(selectBox, query) {
   if (isSearchable(selectBox)) {
@@ -13,7 +14,7 @@ export function cancelSearch(selectBox) {
   searchFinished(selectBox);
 }
 
-export async function search(selectBox, query) {
+export function search(selectBox, query) {
   const delay = get(selectBox, 'searchSlowTime');
 
   set(selectBox, 'isSearching', true);
@@ -22,15 +23,17 @@ export async function search(selectBox, query) {
 
   debounce(selectBox, checkSlowSearch, selectBox, delay);
 
-  try {
-    const action = invokeAction(selectBox, 'onSearch', query, selectBox.api());
-    const result = await action;
+  const action = invokeAction(selectBox, 'onSearch', query, selectBox.api());
+
+  return resolve(action).then(result => {
     searchCompleted(selectBox, searchID, query, result);
-  } catch (error) {
+    return result;
+  }).catch(error => {
     searchFailed(selectBox, query, error);
-  } finally {
-    searchFinished(selectBox)
-  }
+    return error;
+  }).finally(() => {
+    searchFinished(selectBox);
+  });
 }
 
 function debouncedSearchAttempt(selectBox, query) {

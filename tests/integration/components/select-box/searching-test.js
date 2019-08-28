@@ -161,11 +161,7 @@ module('select-box (searching)', function(hooks) {
   test('searching (failure)', async function(assert) {
     assert.expect(5);
 
-    const error = new Error('foo');
-
-    this.set('findItems', () => {
-      throw error;
-    });
+    this.set('findItems', () => reject('no results'));
 
     this.set('failedToFindItems', (error, query, sb) => {
       this.setProperties({ error, query });
@@ -573,14 +569,11 @@ module('select-box (searching)', function(hooks) {
       {{#if this.show}}
         <SelectBox @onSelect={{action this.hide}} as |sb|>
           <sb.Input value="foo" />
-          <sb.Option />
         </SelectBox>
       {{/if}}
     `);
 
     assert.dom('.select-box-input').hasValue('foo', 'precondition');
-
-    await click('.select-box-option');
 
     assert
       .dom('.select-box-input')

@@ -2,16 +2,18 @@ import resolveValue from './resolve-value';
 import afterRender from '../general/after-render';
 import invokeAction from '../shared/invoke-action';
 
-export async function updateValue(selectBox, value) {
-  await resolveValue(selectBox, value);
+export function updateValue(selectBox, value) {
+  console.log(selectBox, value);
 
-  await afterRender();
+  return resolveValue(selectBox, value)
+    .then(() => afterRender())
+    .then(() => {
+      if (selectBox.isDestroyed || selectBox.isDestroying) {
+        return;
+      }
 
-  if (selectBox.isDestroyed || selectBox.isDestroying) {
-    return;
-  }
-
-  updatedValue(selectBox);
+      updatedValue(selectBox);
+    });
 }
 
 export function updatedValue(selectBox) {
