@@ -93,6 +93,8 @@ module('select-box (searching)', function(hooks) {
       </SelectBox>
     `);
 
+    return new Promise(() => {});
+
     await fillIn('.select-box-input', 'foo');
 
     assert

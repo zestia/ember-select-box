@@ -8,8 +8,7 @@ import collapseWhitespace from '../utils/general/collapse-whitespace';
 import { A as emberA } from '@ember/array';
 import { capitalize } from '@ember/string';
 import invokeAction from '../utils/actions/invoke';
-import { bind, scheduleOnce, debounce } from '@ember/runloop';
-import { resolve } from 'rsvp';
+import { bind, scheduleOnce } from '@ember/runloop';
 import { isPresent } from '@ember/utils';
 import buildSelection from '../utils/selection/build';
 import { assert } from '@ember/debug';
@@ -21,8 +20,9 @@ import { initAction, destroyAction } from '../utils/actions/lifecycle';
 import api from '../utils/select-box/api';
 import selectAction from '../utils/actions/select';
 import update from '../utils/value/update';
-import { open, close, toggle } from '../utils/select-box/toggling';
-import { focusIn, focusOut } from '../utils/select-box/focusing';
+import { open, close, toggle } from '../utils/select-box/toggle';
+import { focusIn, focusOut } from '../utils/select-box/focus';
+import { maybeSearch, search, cancelSearch } from '../utils/select-box/search';
 import objectAtIndex from '../utils/macros/object-at-index';
 const { fromCharCode } = String;
 export const COLLECT_CHARS_MS = 1000;
@@ -101,6 +101,10 @@ export default Component.extend({
       deregisterInput(this, input);
     },
 
+    onInputText(text) {
+      maybeSearch(this, text);
+    },
+
     onFocusIn(e) {
       focusIn(this, e);
     },
@@ -123,6 +127,13 @@ export default Component.extend({
       toggle(this);
     },
 
+    search(query) {
+      search(this, query);
+    },
+
+    cancelSearch() {
+      cancelSearch(this);
+    },
 
 
 
@@ -276,19 +287,10 @@ export default Component.extend({
     },
 
 
-    search(query) {
-      return this._search(query);
-    },
 
-    stopSearching() {
-      this.incrementProperty('searchID');
-      this._searchFinished();
-    },
 
-    _inputText(text) {
-      this._super(...arguments);
-      this._maybeSearch(text);
-    },
+
+
 
     selectActiveOption() {
       const activeOption = get(this, 'activeOption');
@@ -465,84 +467,6 @@ export default Component.extend({
 
   _updateSelectedOptions() {
     set(this, 'selectedOptions', emberA(this._selectedOptions.toArray()));
-  },
-
-  _isSearchable() {
-    return typeof this.onSearch === 'function';
-  },
-
-  _queryOK(query) {
-    return query.length >= get(this, 'searchMinChars');
-  },
-
-  _maybeSearch(text) {
-    if (this._isSearchable()) {
-      this._runDebouncedSearch(text);
-    }
-  },
-
-  _runDebouncedSearch(query) {
-    const delay = get(this, 'searchDelayTime');
-    const immediate = !delay;
-    debounce(this, '_runSearch', query, delay, immediate);
-  },
-
-  _runSearch(query) {
-    query = `${query}`.trim();
-
-    if (this.isDestroyed || !this._queryOK(query)) {
-      return;
-    }
-
-    this._search(query);
-  },
-
-  _search(query = '') {
-    set(this, 'isSearching', true);
-
-    this.incrementProperty('searchID');
-
-    debounce(this, '_checkSlowSearch', get(this, 'searchSlowTime'));
-
-    const search = invokeAction(this, 'onSearch', query, this.api());
-
-    return resolve(search)
-      .then(bind(this, '_searchCompleted', this.searchID, query))
-      .catch(bind(this, '_searchFailed', query))
-      .finally(bind(this, '_searchFinished'));
-  },
-
-  _searchCompleted(id, query, result) {
-    if (this.isDestroyed || id < this.searchID) {
-      return;
-    }
-
-    invokeAction(this, 'onSearched', result, query, this.api());
-  },
-
-  _searchFailed(query, error) {
-    if (this.isDestroyed) {
-      return;
-    }
-
-    invokeAction(this, 'onSearchError', error, query, this.api());
-  },
-
-  _searchFinished() {
-    if (this.isDestroyed) {
-      return;
-    }
-
-    set(this, 'isSearching', false);
-    set(this, 'isSlowSearch', false);
-  },
-
-  _checkSlowSearch() {
-    if (this.isDestroyed) {
-      return;
-    }
-
-    set(this, 'isSlowSearch', this.isSearching);
   },
 
   api() {

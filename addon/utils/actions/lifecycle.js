@@ -1,6 +1,6 @@
 import invokeAction from './invoke';
 
-export default function initAction(component) {
+export function initAction(component) {
   invokeAction(component, 'onInit', component);
 }
 

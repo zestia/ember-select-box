@@ -57,8 +57,8 @@
       disabled=this.isDisabled
       classNamePrefix=@classNamePrefix
       _onInit=(action "onInitInput")
-      _onDestroy=(action "_deregisterInput")
-      _onInput=(action "_inputText"))
+      _onDestroy=(action "onDestroyInput")
+      _onInput=(action "onInputText"))
     element=this.domElement
     value=this.resolvedValue
     isPending=this.isPending
@@ -75,7 +75,7 @@
     update=(action "update")
     selectActiveOption=(action "selectActiveOption")
     search=(action "search")
-    stopSearching=(action "stopSearching")
+    cancelSearch=(action "cancelSearch")
     setInputValue=(action "setInputValue")
     focusInput=(action "focusInput")
     blurInput=(action "blurInput")

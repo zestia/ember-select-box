@@ -8,7 +8,7 @@ export default async function setValue(component, value) {
     return value;
   }
 
-  const id = component.incrementProperty('valueID');
+  const valueID = component.incrementProperty('valueID');
 
   set(component, 'resolvedValue', value);
 
@@ -16,9 +16,9 @@ export default async function setValue(component, value) {
 
   try {
     result = await resolveValue(component, value);
-    resolvedValue(component, id, false, result);
+    resolvedValue(component, valueID, false, result);
   } catch (error) {
-    resolvedValue(component, id, false, error);
+    resolvedValue(component, valueID, false, error);
   }
 }
 
@@ -37,8 +37,8 @@ async function resolveValue(component, value) {
   return value;
 }
 
-function resolvedValue(component, id, failed, result) {
-  if (component.isDestroyed || id < component.valueID) {
+function resolvedValue(component, valueID, failed, result) {
+  if (component.isDestroyed || valueID < component.valueID) {
     return;
   }
 
