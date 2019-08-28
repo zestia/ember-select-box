@@ -93,8 +93,6 @@ module('select-box (searching)', function(hooks) {
       </SelectBox>
     `);
 
-    return new Promise(() => {});
-
     await fillIn('.select-box-input', 'foo');
 
     assert
@@ -163,16 +161,20 @@ module('select-box (searching)', function(hooks) {
   test('searching (failure)', async function(assert) {
     assert.expect(5);
 
-    this.set('findItems', () => reject('no results'));
+    const error = new Error('foo');
+
+    this.set('findItems', () => {
+      throw error;
+    });
 
     this.set('failedToFindItems', (error, query, sb) => {
       this.setProperties({ error, query });
 
       assert.equal(query, 'foo', 'sends the query that caused the failure');
 
-      assert.equal(
+      assert.deepEqual(
         error,
-        'no results',
+        this.error,
         'sends the error that was the result of the failure'
       );
 

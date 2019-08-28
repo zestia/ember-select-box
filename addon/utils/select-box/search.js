@@ -2,9 +2,9 @@ import invokeAction from '../actions/invoke';
 import { debounce } from '@ember/runloop';
 import { get, set } from '@ember/object';
 
-export function maybeSearch(selectBox, text) {
+export function maybeSearch(selectBox, query) {
   if (isSearchable(selectBox)) {
-    debouncedSearchAttempt(text);
+    debouncedSearchAttempt(selectBox, query);
   }
 }
 
@@ -18,17 +18,16 @@ export async function search(selectBox, query) {
 
   set(selectBox, 'isSearching', true);
 
-  selectBox.incrementProperty('searchID');
+  const searchID = selectBox.incrementProperty('searchID');
 
   debounce(selectBox, checkSlowSearch, selectBox, delay);
 
-  const action = invokeAction(selectBox, 'onSearch', query, selectBox.api);
-
   try {
+    const action = invokeAction(selectBox, 'onSearch', query, selectBox.api);
     const result = await action;
-    searchCompleted(selectBox, query, result);
+    searchCompleted(selectBox, searchID, query, result);
   } catch (error) {
-    searchFailed(selectBox, selectBox.searchID, query, error);
+    searchFailed(selectBox, query, error);
   } finally {
     searchFinished(selectBox)
   }
