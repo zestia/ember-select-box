@@ -5,7 +5,7 @@ export default function apiMacro(publicProperties, publicActions) {
   const propNames = keys(publicProperties);
 
   return computed(...propNames, function() {
-    return buildAPI(this);
+    return buildAPI(this, publicProperties, publicActions);
   })
 }
 

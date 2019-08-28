@@ -26,9 +26,9 @@ export function focusOut(selectBox, e) {
 }
 
 function focusedIn(selectBox, e) {
-  invokeAction(selectBox, 'onFocusIn', e, selectBox.api());
+  invokeAction(selectBox, 'onFocusIn', e, selectBox.api);
 }
 
 function focusedOut(selectBox, e) {
-  invokeAction(selectBox, 'onFocusOut', e, selectBox.api());
+  invokeAction(selectBox, 'onFocusOut', e, selectBox.api);
 }

@@ -25,7 +25,7 @@ function inputText(input, text) {
 }
 
 function deletedText(input) {
-  invokeAction(input, 'onDelete', input.api());
+  invokeAction(input, 'onDelete', input.api);
 }
 
 export function keyDown(input, e) {

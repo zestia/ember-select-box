@@ -124,7 +124,6 @@ export default Component.extend({
     },
 
     onSelectOption(option) {
-      console.log('!', option);
       selectOption(this, option);
     },
 
@@ -241,7 +240,7 @@ export default Component.extend({
       document.addEventListener('click', this._documentClickHandler);
       document.addEventListener('touchstart', this._documentClickHandler);
 
-      invokeAction(this, 'onInsertElement', this.api());
+      invokeAction(this, 'onInsertElement', this.api);
     },
 
     willDestroyElement(element) {
@@ -414,7 +413,7 @@ export default Component.extend({
 
   clickOutside(e) {
     this._super(...arguments);
-    invokeAction(this, 'onClickOutside', e, this.api());
+    invokeAction(this, 'onClickOutside', e, this.api);
   },
 
   _scheduleUpdateOptions() {

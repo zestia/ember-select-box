@@ -8,7 +8,7 @@ export function open(selectBox) {
 
   set(selectBox, 'isOpen', true);
 
-  invokeAction(selectBox, 'onOpen', selectBox.api());
+  invokeAction(selectBox, 'onOpen', selectBox.api);
 }
 
 export function close(selectBox) {
@@ -18,7 +18,7 @@ export function close(selectBox) {
 
   set(selectBox, 'isOpen', false);
 
-  invokeAction(selectBox, 'onClose', selectBox.api());
+  invokeAction(selectBox, 'onClose', selectBox.api);
 }
 
 export function toggle(selectBox) {

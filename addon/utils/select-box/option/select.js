@@ -17,5 +17,5 @@ export function selectOption(selectBox, option) {
 }
 
 export function selectedOption(option) {
-  invokeAction(option, 'onSelect', option.internalValue, option.api());
+  invokeAction(option, 'onSelect', option.internalValue, option.api);
 }

@@ -7,7 +7,7 @@ export function _activateOption(option) {
 }
 
 function activatedOption(option) {
-  invokeAction(option, 'onActivate', option.resolvedValue, option.api());
+  invokeAction(option, 'onActivate', option.resolvedValue, option.api);
 }
 
 

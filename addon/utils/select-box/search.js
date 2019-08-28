@@ -23,7 +23,7 @@ export function search(selectBox, query) {
 
   debounce(selectBox, checkSlowSearch, selectBox, delay);
 
-  const action = invokeAction(selectBox, 'onSearch', query, selectBox.api());
+  const action = invokeAction(selectBox, 'onSearch', query, selectBox.api);
 
   return resolve(action).then(result => {
     searchCompleted(selectBox, searchID, query, result);
@@ -74,7 +74,7 @@ function searchCompleted(selectBox, searchID, query, result) {
     return;
   }
 
-  invokeAction(selectBox, 'onSearched', result, query, selectBox.api());
+  invokeAction(selectBox, 'onSearched', result, query, selectBox.api);
 }
 
 function searchFailed(selectBox, query, error) {
@@ -82,7 +82,7 @@ function searchFailed(selectBox, query, error) {
     return;
   }
 
-  invokeAction(selectBox, 'onSearchError', error, query, selectBox.api());
+  invokeAction(selectBox, 'onSearchError', error, query, selectBox.api);
 }
 
 function searchFinished(selectBox) {
