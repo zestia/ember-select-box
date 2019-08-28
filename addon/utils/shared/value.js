@@ -3,8 +3,6 @@ import afterRender from '../general/after-render';
 import invokeAction from '../shared/invoke-action';
 
 export function updateValue(selectBox, value) {
-  console.log(selectBox, value);
-
   return resolveValue(selectBox, value)
     .then(() => afterRender())
     .then(() => {

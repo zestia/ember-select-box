@@ -4,12 +4,12 @@ export function input(input, e) {
   const text = input.domElement.value;
 
   if (!text) {
-    clearedInput()
+    clearedInput(input);
   }
 
   _input(input, text);
 
-  inputText(input);
+  inputText(input, text);
 }
 
 function _input(input, text) {
