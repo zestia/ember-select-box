@@ -3,9 +3,8 @@
   {{will-destroy (action "willDestroyElement")}}
   {{on "focusin" (action "onFocusIn")}}
   {{on "focusout" (action "onFocusOut")}}
-
-  {{on "keydown" (action "_onKeyDown")}}
-  {{on "keypress" (action "_onKeyPress")}}
+  {{on "keydown" (action "onKeyDown")}}
+  {{on "keypress" (action "onKeyPress")}}
 
   aria-expanded={{if this.isOpen "true" "false"}}
   aria-busy={{if this.isBusy "true" "false"}}
@@ -33,7 +32,7 @@
     SelectedOption=(component "select-box/selected-option"
       selectBox=this
       classNamePrefix=@classNamePrefix
-      _onActivate=(action "activateSelectedOptionAtIndex")
+      _onActivate=(action "onActivateSelectedOption")
       _onInit=(action "_registerSelectedOption")
       _onDestroy=(action "_deregisterSelectedOption"))
     Options=(component "select-box/options"
@@ -45,8 +44,8 @@
       api=this.api
       selectBox=this
       classNamePrefix=@classNamePrefix
-      _onActivate=(action "activateOptionAtIndex")
-      _onSelect=(action "select")
+      _onActivate=(action "onActivateOption")
+      _onSelect=(action "onSelectOption")
       _onDestroy=(action "onDestroyOption")
       _onInit=(action "onInitOption"))
     Group=(component "select-box/group"

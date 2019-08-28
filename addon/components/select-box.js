@@ -2,41 +2,33 @@ import Component from '@ember/component';
 import layout from '../templates/components/select-box';
 import { readOnly, or } from '@ember/object/computed';
 import { get, set } from '@ember/object';
-import scrollIntoView from '../utils/dom/scroll-into-view';
 import escapeRegExp from '../utils/general/escape-regexp';
 import collapseWhitespace from '../utils/general/collapse-whitespace';
 import { A as emberA } from '@ember/array';
-import { capitalize } from '@ember/string';
-import invokeAction from '../utils/actions/invoke';
+import invokeAction from '../utils/shared/invoke-action';
 import { bind, scheduleOnce } from '@ember/runloop';
 import { isPresent } from '@ember/utils';
-import buildSelection from '../utils/selection/build';
 import { assert } from '@ember/debug';
 import { initOptions, registerOption, deregisterOption } from '../utils/registration/options';
 import { registerElement, deregisterElement } from '../utils/registration/element';
 import { registerInput, deregisterInput } from '../utils/registration/input';
-import activateAction from '../utils/actions/activate';
-import { initAction, destroyAction } from '../utils/actions/lifecycle';
+import { initComponent, destroyComponent } from '../utils/shared/lifecycle';
 import api from '../utils/select-box/api';
-import selectAction from '../utils/actions/select';
-import update from '../utils/value/update';
+import { _selectOption, selectOption } from '../utils/select-box/option/select';
+import { updateValue } from '../utils/shared/value';
+import { selectValue } from '../utils/select-box/value';
 import { open, close, toggle } from '../utils/select-box/toggle';
 import { focusIn, focusOut } from '../utils/select-box/focus';
 import { maybeSearch, search, cancelSearch } from '../utils/select-box/search';
+import { focusInput, blurInput } from '../utils/select-box/input/focus';
+import { keyPress, keyDown } from '../utils/select-box/keyboard';
+import { setInputValue } from '../utils/select-box/input/value';
 import objectAtIndex from '../utils/macros/object-at-index';
+import activateOptionAtIndex from '../utils/select-box/option/activate';
 const { fromCharCode } = String;
 export const COLLECT_CHARS_MS = 1000;
 
-export const keys = {
-  8: 'backspace',
-  9: 'tab',
-  13: 'enter',
-  27: 'escape',
-  37: 'left',
-  38: 'up',
-  39: 'right',
-  40: 'down'
-};
+
 
 export default Component.extend({
   layout,
@@ -63,7 +55,7 @@ export default Component.extend({
     initOptions(this, 'options');
     set(this, '_selectedOptions', emberA());
     set(this, 'selectedOptions', emberA());
-    initAction(this);
+    initComponent(this);
   },
 
   didReceiveAttrs() {
@@ -79,7 +71,7 @@ export default Component.extend({
       set(this, 'isOpen', this.open);
     }
 
-    update(this, this.value);
+    updateValue(this, this.value);
   },
 
   actions: {
@@ -113,7 +105,39 @@ export default Component.extend({
       focusOut(this, e);
     },
 
+    onKeyPress(e) {
+      keyPress(this, e);
+    },
+
+    onKeyDown(e) {
+      keyDown(this, e);
+    },
+
+    onPressEnter() {
+      _selectOption(this.activeOption);
+    },
+
+    onSelectOption(option) {
+      selectOption(this, option);
+    },
+
+    onActivateOption(option) {
+      activateOptionAtIndex(this, option.index);
+    },
+
+    onActivateSelectedOption(selectedOption) {
+      activateOptionAtIndex(this, selectedOption.index);
+    },
+
     // Public API Actions
+
+    select(value) {
+      selectValue(this, value);
+    },
+
+    update(value) {
+      updateValue(this, value);
+    },
 
     open() {
       open(this);
@@ -135,16 +159,31 @@ export default Component.extend({
       cancelSearch(this);
     },
 
+    focusInput() {
+      focusInput(this);
+    },
 
+    blurInput() {
+      blurInput(this);
+    },
 
-
-
-
-
+    setInputValue(value) {
+      setInputValue(this, value);
+    },
 
     activateOptionAtIndex(index, scroll = false) {
-      this._activateOptionAtIndex(index, scroll);
+      activateOptionAtIndex(this, index, scroll);
     },
+
+
+
+
+
+
+
+
+
+
 
     activateSelectedOptionAtIndex(index, scroll = false) {
       this._activateSelectedOptionAtIndex(index, scroll);
@@ -204,7 +243,7 @@ export default Component.extend({
       document.removeEventListener('click', this._documentClickHandler);
       document.removeEventListener('touchstart', this._documentClickHandler);
 
-      destroyAction(this);
+      destroyComponent(this);
     },
 
     _registerOptionsContainer(container) {
@@ -219,29 +258,7 @@ export default Component.extend({
       set(this, '_optionsContainer', null);
     },
 
-    setInputValue(value) {
-      if (this.isDestroyed || !this.input) {
-        return;
-      }
 
-      set(this, 'input.domElement.value', value);
-    },
-
-    focusInput() {
-      if (this.isDestroyed || !this.input) {
-        return;
-      }
-
-      this.input.domElement.focus();
-    },
-
-    blurInput() {
-      if (this.isDestroyed || !this.input) {
-        return;
-      }
-
-      this.input.domElement.blur();
-    },
 
 
 
@@ -267,25 +284,6 @@ export default Component.extend({
       set(this, '_selectedOptionsContainer', null);
     },
 
-    _onKeyPress(e) {
-      this._super(...arguments);
-
-      invokeAction(this, `onPressKey`, e, this.api());
-    },
-
-    _onKeyDown(e) {
-      this._super(...arguments);
-
-      let key = keys[e.keyCode];
-
-      if (key) {
-        key = capitalize(key);
-
-        invokeAction(this, `onPress${key}`, e, this.api());
-        invokeAction(this, `_onPress${key}`, e);
-      }
-    },
-
 
 
 
@@ -298,23 +296,10 @@ export default Component.extend({
       if (activeOption) {
         activeOption.send('select');
       }
-    },
-
-    async select(value) {
-      value = buildSelection(this, value);
-      await update(this, value);
-      selectAction(this);
-    },
-
-    update(value) {
-      update(this, value);
     }
   },
 
-  _onPressEnter() {
-    this._super(...arguments);
-    this.send('selectActiveOption');
-  },
+
 
   clickDocument(e) {
     this._super(...arguments);
@@ -325,20 +310,6 @@ export default Component.extend({
 
     if (clickedOutside) {
       this.clickOutside(e);
-    }
-  },
-
-  _activateOptionAtIndex(index, scroll) {
-    const under = index < 0;
-    const over = index > this.options.length - 1;
-
-    if (!(under || over)) {
-      set(this, 'activeOptionIndex', index);
-      this._activatedOption();
-    }
-
-    if (scroll) {
-      this._scrollActiveOptionIntoView();
     }
   },
 
@@ -400,19 +371,12 @@ export default Component.extend({
     });
   },
 
-  _activatedOption() {
-    const activeOption = get(this, 'activeOption');
-
-    if (activeOption) {
-      activateAction(activeOption);
-    }
-  },
 
   _activatedSelectedOption() {
     const activeSelectedOption = get(this, 'activeSelectedOption');
 
     if (activeSelectedOption) {
-      activateAction(activeSelectedOption);
+      // activateAction(activeSelectedOption);
     }
   },
 
@@ -424,19 +388,12 @@ export default Component.extend({
     set(this, 'activeSelectedOptionIndex', -1);
   },
 
-  _scrollActiveOptionIntoView() {
-    const activeOption = get(this, 'activeOption');
-
-    if (activeOption) {
-      scrollIntoView(activeOption.domElement);
-    }
-  },
 
   _scrollActiveSelectedOptionIntoView() {
     const activeSelectedOption = get(this, 'activeSelectedOption');
 
     if (activeSelectedOption) {
-      scrollIntoView(activeSelectedOption.domElement);
+      // scrollIntoView(activeSelectedOption.domElement);
     }
   },
 

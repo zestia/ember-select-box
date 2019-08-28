@@ -1,7 +1,6 @@
 import Component from '@ember/component';
-import { _initAction, _destroyAction } from '../../utils/actions/lifecycle';
-import inputActions from '../../utils/actions/input';
-import keydownActions from '../../utils/actions/keydown';
+import { _initComponent, _destroyComponent } from '../../utils/shared/lifecycle';
+import { input, keyDown } from '../../utils/select-box/input/keyboard';
 import noop from '../../utils/general/noop';
 import layout from '../../templates/components/select-box/input';
 import { registerElement, deregisterElement } from '../../utils/registration/element';
@@ -14,7 +13,7 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    _initAction(this);
+    _initComponent(this);
   },
 
   actions: {
@@ -24,15 +23,15 @@ export default Component.extend({
 
     willDestroyElement(element) {
       deregisterElement(this, element);
-      _destroyAction(this);
+      _destroyComponent(this);
     },
 
     onInput(e) {
-      inputActions(this, e);
+      input(this, e);
     },
 
     onKeyDown(e) {
-      keydownActions(this, e);
+      keyDown(this, e);
     }
   }
 });

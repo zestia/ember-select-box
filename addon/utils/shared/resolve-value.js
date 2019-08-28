@@ -3,7 +3,7 @@ import { makeArray } from '@ember/array';
 import { get, set } from '@ember/object';
 const { freeze } = Object;
 
-export default async function setValue(component, value) {
+export default async function resolveValue(component, value) {
   if (value === component.resolvedValue && component.valueID > 0) {
     return value;
   }
@@ -15,20 +15,22 @@ export default async function setValue(component, value) {
   let result;
 
   try {
-    result = await resolveValue(component, value);
-    resolvedValue(component, valueID, false, result);
+    result = await beginResolvingValue(component, value);
+    finishResolvingValue(component, valueID, false, result);
   } catch (error) {
-    resolvedValue(component, valueID, false, error);
+    finishResolvingValue(component, valueID, false, error);
   }
 }
 
-async function resolveValue(component, value) {
+async function beginResolvingValue(component, value) {
   set(component, 'isPending', true);
   set(component, 'isRejected', false);
   set(component, 'isFulfilled', false);
   set(component, 'isSettled', false);
 
   value = await value;
+
+  // todo await
 
   if (get(component, 'isMultiple')) {
     return all(makeArray(value));
@@ -37,7 +39,7 @@ async function resolveValue(component, value) {
   return value;
 }
 
-function resolvedValue(component, valueID, failed, result) {
+function finishResolvingValue(component, valueID, failed, result) {
   if (component.isDestroyed || valueID < component.valueID) {
     return;
   }

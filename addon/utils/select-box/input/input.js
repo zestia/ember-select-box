@@ -1,6 +1,6 @@
-import invokeAction from './invoke';
+import invokeAction from './invoke-action';
 
-export default function inputActions(input) {
+export default function inputText(input, e) {
   const value = input.domElement.value;
 
   if (!value) {

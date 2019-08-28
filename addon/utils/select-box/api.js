@@ -1,4 +1,4 @@
-import buildAPI from '../api/build';
+import buildAPI from '../shared/api';
 
 const publicProperties = {
   'resolvedValue': 'value',

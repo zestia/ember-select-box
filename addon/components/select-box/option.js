@@ -1,12 +1,12 @@
 import { readOnly, equal } from '@ember/object/computed';
-import activateAction from '../../utils/actions/activate';
 import Component from '@ember/component';
 import index from '../../utils/macros/index';
-import { _initAction, _destroyAction } from '../../utils/actions/lifecycle';
+import { _initComponent, _destroyComponent } from '../../utils/shared/lifecycle';
 import isSelected from '../../utils/macros/is-selected';
 import layout from '../../templates/components/select-box/option';
-import selectAction from '../../utils/actions/select';
-import resolveValue from '../../utils/value/resolve';
+import { _activateOption } from '../../utils/select-box/option/activate';
+import { _selectOption } from '../../utils/select-box/option/select';
+import resolveValue from '../../utils/shared/resolve-value';
 import noop from '../../utils/general/noop';
 import { registerElement, deregisterElement } from '../../utils/registration/element';
 
@@ -22,7 +22,7 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    _initAction(this);
+    _initComponent(this);
   },
 
   didReceiveAttrs() {
@@ -37,15 +37,15 @@ export default Component.extend({
 
     willDestroyElement(element) {
       deregisterElement(this, element);
-      _destroyAction(this);
+      _destroyComponent(this);
     },
 
     onMouseEnter() {
-      activateAction(this);
+      _activateOption(this);
     },
 
     onClick() {
-      selectAction(this);
+      _selectOption(this);
     }
   }
 });

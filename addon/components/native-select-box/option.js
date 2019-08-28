@@ -1,10 +1,10 @@
 import Component from '@ember/component';
-import { _initAction, _destroyAction } from '../../utils/actions/lifecycle';
+import { _initComponent, _destroyComponent } from '../../utils/shared/lifecycle';
 import index from '../../utils/macros/index';
 import isSelected from '../../utils/macros/is-selected';
 import layout from '../../templates/components/native-select-box/option';
 import { registerElement, deregisterElement } from '../../utils/registration/element';
-import resolveValue from '../../utils/value/resolve';
+import resolveValue from '../../utils/shared/resolve-value';
 import noop from '../../utils/general/noop';
 
 export default Component.extend({
@@ -17,7 +17,7 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    _initAction(this);
+    _initComponent(this);
   },
 
   didReceiveAttrs() {
@@ -32,7 +32,7 @@ export default Component.extend({
 
     willDestroyElement(element) {
       deregisterElement(this, element);
-      _destroyAction(this);
+      _destroyComponent(this);
     }
   }
 });

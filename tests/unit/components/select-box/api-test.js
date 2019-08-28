@@ -28,7 +28,7 @@ module('select-box (api)', function(hooks) {
       'update',
       'selectActiveOption',
       'search',
-      'stopSearching',
+      'cancelSearch',
       'setInputValue',
       'focusInput',
       'blurInput',

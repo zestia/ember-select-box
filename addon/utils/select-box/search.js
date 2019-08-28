@@ -1,4 +1,4 @@
-import invokeAction from '../actions/invoke';
+import invokeAction from '../shared/invoke-action';
 import { debounce } from '@ember/runloop';
 import { get, set } from '@ember/object';
 
@@ -23,7 +23,7 @@ export async function search(selectBox, query) {
   debounce(selectBox, checkSlowSearch, selectBox, delay);
 
   try {
-    const action = invokeAction(selectBox, 'onSearch', query, selectBox.api);
+    const action = invokeAction(selectBox, 'onSearch', query, selectBox.api());
     const result = await action;
     searchCompleted(selectBox, searchID, query, result);
   } catch (error) {
@@ -71,7 +71,7 @@ function searchCompleted(selectBox, searchID, query, result) {
     return;
   }
 
-  invokeAction(selectBox, 'onSearched', result, query, selectBox.api);
+  invokeAction(selectBox, 'onSearched', result, query, selectBox.api());
 }
 
 function searchFailed(selectBox, query, error) {
@@ -79,7 +79,7 @@ function searchFailed(selectBox, query, error) {
     return;
   }
 
-  invokeAction(selectBox, 'onSearchError', error, query, selectBox.api);
+  invokeAction(selectBox, 'onSearchError', error, query, selectBox.api());
 }
 
 function searchFinished(selectBox) {

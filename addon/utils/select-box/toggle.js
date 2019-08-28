@@ -1,4 +1,4 @@
-import invokeAction from '../actions/invoke';
+import invokeAction from '../shared/invoke-action';
 import { set } from '@ember/object';
 
 export function open(selectBox) {

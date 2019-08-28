@@ -607,7 +607,7 @@ module('select-box (searching)', function(hooks) {
         @searchDelayTime={{0}}
         @onSearch={{this.findItems}}
         @onSearched={{this.foundItems}} as |sb|>
-        {{sb.Input value=this.myValue onClear=sb.stopSearching}}
+        {{sb.Input value=this.myValue onClear=sb.cancelSearch}}
       </SelectBox>
     `);
 

@@ -1,1 +1,1 @@
-export { default } from '@zestia/ember-select-box/utils/general/class-name';
+export { default } from '@zestia/ember-select-box/utils/shared/class-name';
