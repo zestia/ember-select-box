@@ -1,8 +1,7 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/select-box/selected-option';
-import setValue from '../../utils/value/set';
-import initAction from '../../utils/actions/init';
-import destroyAction from '../../utils/actions/destroy';
+import resolveValue from '../../utils/value/resolve';
+import { _initAction, _destroyAction } from '../../utils/actions/lifecycle';
 import noop from '../../utils/general/noop';
 import index from '../../utils/macros/index';
 import { equal } from '@ember/object/computed';
@@ -19,12 +18,12 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    initAction(this);
+    _initAction(this);
   },
 
   didReceiveAttrs() {
     this._super(...arguments);
-    setValue(this, this.value);
+    resolveValue(this, this.value);
   },
 
   actions: {
@@ -34,7 +33,7 @@ export default Component.extend({
 
     willDestroyElement(element) {
       deregisterElement(this, element);
-      destroyAction(this);
+      _destroyAction(this);
     }
   }
 });

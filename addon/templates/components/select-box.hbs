@@ -47,8 +47,8 @@
       classNamePrefix=@classNamePrefix
       _onActivate=(action "activateOptionAtIndex")
       _onSelect=(action "select")
-      _onDestroy=(action "destroyOption")
-      _onInit=(action "initOption"))
+      _onDestroy=(action "onDestroyOption")
+      _onInit=(action "onInitOption"))
     Group=(component "select-box/group"
       classNamePrefix=@classNamePrefix)
     Input=(component "select-box/input"
@@ -56,7 +56,7 @@
       aria-controls=this.domElementId
       disabled=this.isDisabled
       classNamePrefix=@classNamePrefix
-      _onInit=(action "_registerInput")
+      _onInit=(action "onInitInput")
       _onDestroy=(action "_deregisterInput")
       _onInput=(action "_inputText"))
     element=this.domElement

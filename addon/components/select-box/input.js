@@ -1,6 +1,5 @@
 import Component from '@ember/component';
-import destroyAction from '../../utils/actions/destroy';
-import initAction from '../../utils/actions/init';
+import { _initAction, _destroyAction } from '../../utils/actions/lifecycle';
 import inputActions from '../../utils/actions/input';
 import keydownActions from '../../utils/actions/keydown';
 import noop from '../../utils/general/noop';
@@ -15,7 +14,7 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    initAction(this);
+    _initAction(this);
   },
 
   actions: {
@@ -25,7 +24,7 @@ export default Component.extend({
 
     willDestroyElement(element) {
       deregisterElement(this, element);
-      destroyAction(this);
+      _destroyAction(this);
     },
 
     onInput(e) {

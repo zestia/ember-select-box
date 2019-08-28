@@ -1,7 +1,6 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/select-box/selected-options';
-import initAction from '../../utils/actions/init';
-import destroyAction from '../../utils/actions/destroy';
+import { _initAction, _destroyAction } from '../../utils/actions/lifecycle';
 
 export default Component.extend({
   layout,
@@ -9,12 +8,12 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    initAction(this);
+    _initAction(this);
   },
 
   actions: {
     willDestroyElement() {
-      destroyAction(this);
+      _destroyAction(this);
     }
   }
 });

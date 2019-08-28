@@ -33,11 +33,11 @@ export default Component.extend({
       deregisterElement(this, element);
     },
 
-    initOption(option) {
+    onInitOption(option) {
       registerOption(this, 'options', option);
     },
 
-    destroyOption(option) {
+    onDestroyOption(option) {
       deregisterOption(this, 'options', option);
     },
 

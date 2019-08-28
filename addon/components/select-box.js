@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import layout from '../templates/components/select-box';
 import { readOnly, or } from '@ember/object/computed';
-import { computed, get, set } from '@ember/object';
+import { get, set } from '@ember/object';
 import scrollIntoView from '../utils/dom/scroll-into-view';
 import escapeRegExp from '../utils/general/escape-regexp';
 import collapseWhitespace from '../utils/general/collapse-whitespace';
@@ -15,14 +15,15 @@ import buildSelection from '../utils/selection/build';
 import { assert } from '@ember/debug';
 import { initOptions, registerOption, deregisterOption } from '../utils/registration/options';
 import { registerElement, deregisterElement } from '../utils/registration/element';
+import { registerInput, deregisterInput } from '../utils/registration/input';
 import activateAction from '../utils/actions/activate';
-import initAction from '../utils/actions/init';
-import focusInAction from '../utils/actions/focus-in';
+import { initAction, destroyAction } from '../utils/actions/lifecycle';
 import api from '../utils/select-box/api';
-import focusOutAction from '../utils/actions/focus-out';
 import selectAction from '../utils/actions/select';
 import update from '../utils/value/update';
-import { open, close, toggle } from '../utils/api/toggling';
+import { open, close, toggle } from '../utils/select-box/toggling';
+import { focusIn, focusOut } from '../utils/select-box/focusing';
+import objectAtIndex from '../utils/macros/object-at-index';
 const { fromCharCode } = String;
 export const COLLECT_CHARS_MS = 1000;
 
@@ -41,27 +42,19 @@ export default Component.extend({
   layout,
   tagName: '',
 
-  tabIndex: '0',
+  // Arguments
 
+  tabIndex: '0',
   searchMinChars: 1,
   searchDelayTime: 100,
   searchSlowTime: 500,
 
+  // Computed state
+
   isMultiple: readOnly('multiple'),
   isBusy: or('isPending', 'isSearching'),
-
-  activeSelectedOption: computed(
-    'activeSelectedOptionIndex',
-    'selectedOptions',
-    function() {
-      return this.selectedOptions.objectAt(
-        get(this, 'activeSelectedOptionIndex')
-      );
-    }),
-
-  activeOption: computed('activeOptionIndex', 'options', function() {
-    return this.options.objectAt(get(this, 'activeOptionIndex'));
-  }),
+  activeOption: objectAtIndex('options', 'activeOptionIndex'),
+  activeSelectedOption: objectAtIndex('selectedOptions', 'activeSelectedOptionIndex'),
 
   init() {
     this._super(...arguments);
@@ -90,6 +83,34 @@ export default Component.extend({
   },
 
   actions: {
+    // Internal actions
+
+    onInitOption(option) {
+      registerOption(this, 'options', option);
+    },
+
+    onDestroyOption(option) {
+      deregisterOption(this, 'options', option);
+    },
+
+    onInitInput(input) {
+      registerInput(this, input);
+    },
+
+    onDestroyInput(input) {
+      deregisterInput(this, input);
+    },
+
+    onFocusIn(e) {
+      focusIn(this, e);
+    },
+
+    onFocusOut(e) {
+      focusOut(this, e);
+    },
+
+    // Public API Actions
+
     open() {
       open(this);
     },
@@ -101,15 +122,6 @@ export default Component.extend({
     toggle() {
       toggle(this);
     },
-
-    initOption(option) {
-      registerOption(this, 'options', option);
-    },
-
-    destroyOption(option) {
-      deregisterOption(this, 'options', option);
-    },
-
 
 
 
@@ -163,32 +175,7 @@ export default Component.extend({
       this._deactivateSelectedOptions();
     },
 
-    onFocusIn(e) {
-      this._super(...arguments);
 
-      if (this.isDestroyed) {
-        return;
-      }
-
-      set(this, 'isFocused', true);
-      focusInAction(this, e);
-    },
-
-    onFocusOut(e) {
-      this._super(...arguments);
-
-      if (this.isDestroyed) {
-        return;
-      }
-
-      try {
-        set(this, 'isFocused', false);
-      } catch (error) {
-        // https://github.com/emberjs/ember.js/issues/18043
-      }
-
-      focusOutAction(this, e);
-    },
 
     didInsertElement(element) {
       registerElement(this, element);
@@ -205,18 +192,8 @@ export default Component.extend({
 
       document.removeEventListener('click', this._documentClickHandler);
       document.removeEventListener('touchstart', this._documentClickHandler);
-    },
 
-    _registerInput(input) {
-      assert('select-box can only have 1 input', !this.input);
-
-      set(this, 'input', input);
-      scheduleOnce('afterRender', this, '_configureAsCombobox');
-    },
-
-    _deregisterInput() {
-      set(this, 'input', null);
-      scheduleOnce('afterRender', this, '_configureAsNotACombobox');
+      destroyAction(this);
     },
 
     _registerOptionsContainer(container) {
@@ -472,24 +449,6 @@ export default Component.extend({
   clickOutside(e) {
     this._super(...arguments);
     invokeAction(this, 'onClickOutside', e, this.api());
-  },
-
-  _configureAsCombobox() {
-    if (this.isDestroyed) {
-      return;
-    }
-
-    set(this, 'tabIndex', '-1');
-    set(this, 'role', 'combobox');
-  },
-
-  _configureAsNotACombobox() {
-    if (this.isDestroyed) {
-      return;
-    }
-
-    set(this, 'tabIndex', '0');
-    set(this, 'role', null);
   },
 
   _scheduleUpdateOptions() {

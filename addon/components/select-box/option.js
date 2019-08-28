@@ -1,13 +1,12 @@
 import { readOnly, equal } from '@ember/object/computed';
 import activateAction from '../../utils/actions/activate';
 import Component from '@ember/component';
-import destroyAction from '../../utils/actions/destroy';
 import index from '../../utils/macros/index';
-import initAction from '../../utils/actions/init';
+import { _initAction, _destroyAction } from '../../utils/actions/lifecycle';
 import isSelected from '../../utils/macros/is-selected';
 import layout from '../../templates/components/select-box/option';
 import selectAction from '../../utils/actions/select';
-import setValue from '../../utils/value/set';
+import resolveValue from '../../utils/value/resolve';
 import noop from '../../utils/general/noop';
 import { registerElement, deregisterElement } from '../../utils/registration/element';
 
@@ -23,12 +22,12 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    initAction(this);
+    _initAction(this);
   },
 
   didReceiveAttrs() {
     this._super(...arguments);
-    setValue(this, this.value);
+    resolveValue(this, this.value);
   },
 
   actions: {
@@ -38,7 +37,7 @@ export default Component.extend({
 
     willDestroyElement(element) {
       deregisterElement(this, element);
-      destroyAction(this);
+      _destroyAction(this);
     },
 
     onMouseEnter() {
