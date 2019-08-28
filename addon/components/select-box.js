@@ -28,8 +28,6 @@ import { activateOption } from '../utils/select-box/option/activate';
 const { fromCharCode } = String;
 export const COLLECT_CHARS_MS = 1000;
 
-
-
 export default Component.extend({
   layout,
   tagName: '',

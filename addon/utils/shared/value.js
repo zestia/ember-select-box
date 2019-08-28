@@ -5,19 +5,17 @@ import invokeAction from '../shared/invoke-action';
 export function updateValue(selectBox, value) {
   return resolveValue(selectBox, value)
     .then(() => afterRender())
-    .then(() => {
-      if (selectBox.isDestroyed || selectBox.isDestroying) {
-        return;
-      }
-
-      updatedValue(selectBox);
-    });
+    .then(() => updatedValue(selectBox));
 }
 
 export function updatedValue(selectBox) {
+  if (selectBox.isDestroyed || selectBox.isDestroying) {
+    return;
+  }
+
   invokeAction(selectBox, 'onUpdate', selectBox.resolvedValue, selectBox.api);
 }
 
 export function selectedValue(selectBox) {
-  invokeAction(selectBox, 'onSelect', 'x', selectBox.api);
+  invokeAction(selectBox, 'onSelect', selectBox.resolvedValue, selectBox.api);
 }
