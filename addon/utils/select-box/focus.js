@@ -8,7 +8,7 @@ export function focusIn(selectBox, e) {
 
   set(selectBox, 'isFocused', true);
 
-  invokeAction(selectBox, 'onFocusIn', e, selectBox.api());
+  focusedIn(selectBox, e);
 }
 
 export function focusOut(selectBox, e) {
@@ -22,5 +22,13 @@ export function focusOut(selectBox, e) {
     // https://github.com/emberjs/ember.js/issues/18043
   }
 
+  focusedOut(selectBox, e);
+}
+
+function focusedIn(selectBox, e) {
+  invokeAction(selectBox, 'onFocusIn', e, selectBox.api());
+}
+
+function focusedOut(selectBox, e) {
   invokeAction(selectBox, 'onFocusOut', e, selectBox.api());
 }

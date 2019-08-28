@@ -13,7 +13,7 @@ export const keys = {
 };
 
 export function keyPress(selectBox, e) {
-  invokeAction(selectBox, 'onPressKey', e, selectBox.api());
+  pressedKey(selectBox, e);
 }
 
 export function keyDown(selectBox, e) {
@@ -22,7 +22,19 @@ export function keyDown(selectBox, e) {
   if (key) {
     key = capitalize(key);
 
-    invokeAction(selectBox, `_onPress${key}`, e);
-    invokeAction(selectBox, `onPress${key}`, e, selectBox.api());
+    _keyedDown(selectBox, key, e);
+    keyedDown(selectBox, key, e);
   }
+}
+
+function pressedKey(selectBox, e) {
+  invokeAction(selectBox, 'onPressKey', e, selectBox.api);
+}
+
+function _keyedDown(selectBox, key, e) {
+  selectBox.send(`onPress${key}`, e);
+}
+
+function keyedDown(selectBox, key, e) {
+  invokeAction(selectBox, `onPress${key}`, e, selectBox.api);
 }

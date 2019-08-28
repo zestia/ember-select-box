@@ -24,7 +24,7 @@ import { focusInput, blurInput } from '../utils/select-box/input/focus';
 import { keyPress, keyDown } from '../utils/select-box/keyboard';
 import { setInputValue } from '../utils/select-box/input/value';
 import objectAtIndex from '../utils/general/object-at-index';
-import activateOptionAtIndex from '../utils/select-box/option/activate';
+import { activateOption } from '../utils/select-box/option/activate';
 const { fromCharCode } = String;
 export const COLLECT_CHARS_MS = 1000;
 
@@ -124,15 +124,16 @@ export default Component.extend({
     },
 
     onSelectOption(option) {
+      console.log('!', option);
       selectOption(this, option);
     },
 
     onActivateOption(option) {
-      activateOptionAtIndex(this, option.index);
+      activateOption(this, option);
     },
 
     onActivateSelectedOption(selectedOption) {
-      activateOptionAtIndex(this, selectedOption.index);
+      // activateOptionAtIndex(this, selectedOption.index);
     },
 
     // Public API Actions

@@ -2,7 +2,7 @@ import { readOnly, equal } from '@ember/object/computed';
 import Component from '@ember/component';
 import index from '../../utils/general/index';
 import { _initComponent, _destroyComponent } from '../../utils/shared/lifecycle';
-import isSelected from '../../utils/macros/is-selected';
+import isSelected from '../../utils/shared/is-selected';
 import layout from '../../templates/components/select-box/option';
 import { _activateOption } from '../../utils/select-box/option/activate';
 import { _selectOption } from '../../utils/select-box/option/select';
