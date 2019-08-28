@@ -13,9 +13,9 @@ export default Component.extend({
 
   // Arguments
 
-  classNamePrefix: null,
-  selectBox: null,
-  value: null,
+  classNamePrefix: undefined,
+  selectBox: undefined,
+  value: undefined,
 
   // Computed state
 

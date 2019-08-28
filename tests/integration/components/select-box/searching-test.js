@@ -561,6 +561,8 @@ module('select-box (searching)', function(hooks) {
     this.set('show', true);
 
     this.hide = (value, sb) => {
+      console.log('sb', sb);
+
       this.set('show', false);
       sb.setInputValue('bar');
     };
@@ -569,11 +571,14 @@ module('select-box (searching)', function(hooks) {
       {{#if this.show}}
         <SelectBox @onSelect={{action this.hide}} as |sb|>
           <sb.Input value="foo" />
+          <sb.Option @value="baz" />
         </SelectBox>
       {{/if}}
     `);
 
     assert.dom('.select-box-input').hasValue('foo', 'precondition');
+
+    await click('.select-box-option');
 
     assert
       .dom('.select-box-input')

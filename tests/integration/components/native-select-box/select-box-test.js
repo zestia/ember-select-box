@@ -504,29 +504,31 @@ module('native-select-box', function(hooks) {
     await render(hbs`
       <NativeSelectBox @onSelect={{this.selected}} as |sb|>
         <sb.Option>foo</sb.Option>
+        <sb.Option>bar</sb.Option>
       </NativeSelectBox>
     `);
 
-    await fillIn('.select-box', 'foo');
+    await fillIn('.select-box', 'bar');
 
     assert.strictEqual(
       selectedValue,
       undefined,
-      "'label' is not considered the option's value with component option"
+      "text content is not considered the option's value (non-native option)"
     );
 
     await render(hbs`
       <NativeSelectBox @onSelect={{this.selected}}>
         <option>foo</option>
+        <option>bar</option>
       </NativeSelectBox>
     `);
 
-    await fillIn('.select-box', 'foo');
+    await fillIn('.select-box', 'bar');
 
     assert.strictEqual(
       selectedValue,
-      'foo',
-      "'label' is considered the option's value with native element"
+      'bar',
+      "text content is considered the option's value (native option)"
     );
   });
 

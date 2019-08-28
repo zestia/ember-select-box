@@ -34,15 +34,40 @@ export default Component.extend({
 
   // Arguments
 
-  classNamePrefix: null,
-  disabled: null,
-  multiple: null,
-  open: null,
+  classNamePrefix: undefined,
+  disabled: undefined,
+  multiple: undefined,
+  open: undefined,
   searchDelayTime: 100,
   searchMinChars: 1,
   searchSlowTime: 500,
   tabIndex: '0',
-  value: null,
+  value: undefined,
+
+  // Actions
+
+  onBuildSelection: null,
+  onClickOutside: null,
+  onClose: null,
+  onFocusIn: null,
+  onFocusOut: null,
+  onInit: null,
+  onInsertElement: null,
+  onOpen: null,
+  onPressBackspace: null,
+  onPressDown: null,
+  onPressEnter: null,
+  onPressEscape: null,
+  onPressKey: null,
+  onPressLeft: null,
+  onPressRight: null,
+  onPressTab: null,
+  onPressUp: null,
+  onSearch: null,
+  onSearched: null,
+  onSearchError: null,
+  onSelect: null,
+  onUpdate: null,
 
   // Computed state
 
@@ -51,6 +76,8 @@ export default Component.extend({
   isBusy: or('isPending', 'isSearching'),
   activeOption: objectAtIndex('options', 'activeOptionIndex'),
   activeSelectedOption: objectAtIndex('selectedOptions', 'activeSelectedOptionIndex'),
+
+  // Actions
 
   init() {
     this._super(...arguments);

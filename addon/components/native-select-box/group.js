@@ -7,6 +7,6 @@ export default Component.extend({
 
   // Arguments
 
-  classNamePrefix: null,
-  selectBox: null
+  classNamePrefix: undefined,
+  selectBox: undefined
 });

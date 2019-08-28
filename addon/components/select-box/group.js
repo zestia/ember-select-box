@@ -7,7 +7,7 @@ export default Component.extend({
 
   // Arguments
 
-  classNamePrefix: null,
-  selectBox: null,
-  label: null
+  classNamePrefix: undefined,
+  selectBox: undefined,
+  label: undefined
 });

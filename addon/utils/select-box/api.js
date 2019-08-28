@@ -40,5 +40,7 @@ const publicActions = {
 };
 
 export default function api() {
+  console.log('p1', publicProperties);
+  console.log('a1', publicActions);
   return apiMacro(publicProperties, publicActions);
 }

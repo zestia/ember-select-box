@@ -13,10 +13,15 @@ export default Component.extend({
 
   // Arguments
 
-  classNamePrefix: null,
-  disabled: null,
-  multiple: null,
-  value: null,
+  classNamePrefix: undefined,
+  disabled: undefined,
+  multiple: undefined,
+  value: undefined,
+
+  // Actions
+
+  onSelect: null,
+  onUpdate: null,
 
   // Computed state
 
