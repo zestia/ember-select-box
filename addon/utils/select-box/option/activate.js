@@ -16,8 +16,6 @@ export function activateOption(selectBox, option) {
 }
 
 export function activateOptionAtIndex(selectBox, index, scroll) {
-  console.log(selectBox, index);
-
   const under = index < 0;
   const over = index > selectBox.options.length - 1;
 
@@ -25,13 +23,9 @@ export function activateOptionAtIndex(selectBox, index, scroll) {
     return;
   }
 
-  console.log('before', selectBox.activeOption);
-
-  set(this, 'activeOptionIndex', index);
+  set(selectBox, 'activeOptionIndex', index);
 
   const option = selectBox.activeOption;
-
-  console.log('after', option);
 
   if (scroll) {
     scrollIntoView(option.domElement);

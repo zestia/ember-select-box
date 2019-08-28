@@ -2,7 +2,6 @@ import invokeAction from '../../shared/invoke-action';
 import { selectValue } from '../value';
 
 export function _selectOption(option) {
-  console.log('here', option);
   if (!option || option.isDisabled) {
     return;
   }

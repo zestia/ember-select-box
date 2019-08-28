@@ -1,4 +1,4 @@
-import { schedule } from '@ember/runloop';
+import { scheduleOnce } from '@ember/runloop';
 import { A as emberA } from '@ember/array';
 import { set } from '@ember/object';
 
@@ -18,7 +18,7 @@ export function deregisterOption(selectBox, key, option) {
 
 function scheduleUpdateOptions(selectBox, key) {
   // TODO once
-  schedule('afterRender', updateOptions, selectBox, key);
+  scheduleOnce('afterRender', updateOptions, selectBox, key);
 }
 
 function updateOptions(selectBox, key) {

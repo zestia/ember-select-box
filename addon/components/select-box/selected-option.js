@@ -20,7 +20,7 @@ export default Component.extend({
   // Computed state
 
   api: api(),
-  index: index('selectedOptions'),
+  index: index('selectBox.selectedOptions'),
   isActive: equal('index', 'activeSelectedOptionIndex'),
 
   init() {
