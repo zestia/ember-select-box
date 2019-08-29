@@ -6,9 +6,13 @@ import escapeRegExp from '../utils/general/escape-regexp';
 import collapseWhitespace from '../utils/general/collapse-whitespace';
 import { A as emberA } from '@ember/array';
 import invokeAction from '../utils/shared/invoke-action';
-import { bind, scheduleOnce } from '@ember/runloop';
+import { scheduleOnce } from '@ember/runloop';
 import { assert } from '@ember/debug';
-import { activateOptionAtIndex, activateOption } from '../utils/select-box/option/activate';
+import { insertElement, destroyElement } from '../utils/select-box/element';
+import {
+  activateOptionAtIndex,
+  activateOption
+} from '../utils/select-box/option/activate';
 import {
   initOptions,
   registerOption,
@@ -86,6 +90,7 @@ export default Component.extend({
   domElement: null,
   domElementId: null,
   tabIndex: '0',
+  documentClickHandler: null,
 
   // Computed state
 
@@ -123,6 +128,17 @@ export default Component.extend({
 
   actions: {
     // Internal actions
+
+    didInsertElement(element) {
+      registerElement(this, element);
+      insertElement(this);
+    },
+
+    willDestroyElement(element) {
+      deregisterElement(this, element);
+      destroyElement(this);
+      destroyComponent(this);
+    },
 
     onInitOption(option) {
       registerOption(this, 'options', option);
@@ -222,23 +238,23 @@ export default Component.extend({
       activateOptionAtIndex(this, index, scroll);
     },
 
-    activateSelectedOptionAtIndex(index, scroll = false) {
-      this._activateSelectedOptionAtIndex(index, scroll);
+    activateNextOption(scroll = true) {
+      activateOptionAtIndex(this, this.activeOptionIndex + 1, scroll);
     },
 
-    activateNextOption(scroll = true) {
-      const next = this.activeOptionIndex + 1;
-      this._activateOptionAtIndex(next, scroll);
+    activatePreviousOption(scroll = true) {
+      activateOptionAtIndex(this, this.activeOptionIndex - 1, scroll);
+    },
+
+    // Todo
+
+    activateSelectedOptionAtIndex(index, scroll = false) {
+      this._activateSelectedOptionAtIndex(index, scroll);
     },
 
     activateNextSelectedOption(scroll = true) {
       const next = this.activeSelectedOptionIndex + 1;
       this._activateSelectedOptionAtIndex(next, scroll);
-    },
-
-    activatePreviousOption(scroll = true) {
-      const prev = this.activeOptionIndex - 1;
-      this._activateOptionAtIndex(prev, scroll);
     },
 
     activatePreviousSelectedOption(scroll = true) {
@@ -260,25 +276,6 @@ export default Component.extend({
 
     deactivateSelectedOptions() {
       this._deactivateSelectedOptions();
-    },
-
-    didInsertElement(element) {
-      registerElement(this, element);
-
-      set(this, '_documentClickHandler', bind(this, '_clickDocument'));
-      document.addEventListener('click', this._documentClickHandler);
-      document.addEventListener('touchstart', this._documentClickHandler);
-
-      invokeAction(this, 'onInsertElement', getAPI(this));
-    },
-
-    willDestroyElement(element) {
-      deregisterElement(this, element);
-
-      document.removeEventListener('click', this._documentClickHandler);
-      document.removeEventListener('touchstart', this._documentClickHandler);
-
-      destroyComponent(this);
     },
 
     _registerOptionsContainer(container) {
@@ -321,18 +318,6 @@ export default Component.extend({
       if (activeOption) {
         activeOption.send('select');
       }
-    }
-  },
-
-  clickDocument(e) {
-    this._super(...arguments);
-    const el = this.domElement;
-    const clickedSelf = el === e.target;
-    const clickedInside = el.contains(e.target);
-    const clickedOutside = !clickedSelf && !clickedInside;
-
-    if (clickedOutside) {
-      this.clickOutside(e);
     }
   },
 
@@ -416,27 +401,6 @@ export default Component.extend({
     if (activeSelectedOption) {
       // scrollIntoView(activeSelectedOption.domElement);
     }
-  },
-
-  _clickDocument() {
-    if (this.isDestroyed) {
-      return;
-    }
-
-    this.clickDocument(...arguments);
-  },
-
-  clickOutside(e) {
-    this._super(...arguments);
-    invokeAction(this, 'onClickOutside', e, getAPI(this));
-  },
-
-  _scheduleUpdateOptions() {
-    scheduleOnce('afterRender', this, '_updateOptions');
-  },
-
-  _updateOptions() {
-    set(this, 'options', emberA(this._options.toArray()));
   },
 
   _scheduleUpdateSelectedOptions() {
