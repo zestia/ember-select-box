@@ -1,5 +1,5 @@
 import invokeAction from '../../shared/invoke-action';
-import { getAPI } from '../shared/api';
+import { getAPI } from '../../shared/api';
 
 export function input(input, e) {
   const text = input.domElement.value;

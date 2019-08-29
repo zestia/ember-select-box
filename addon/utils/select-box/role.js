@@ -14,8 +14,6 @@ export function configureAsListbox(selectBox) {
     return;
   }
 
-  // todo if has options
-
   set(selectBox, 'tabIndex', '0');
   set(selectBox, 'role', 'listbox');
 }

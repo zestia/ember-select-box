@@ -68,7 +68,7 @@ module('select-box (searching)', function(hooks) {
 
     this.set('showInput', false);
 
-    assert.dom('.select-box').doesNotHaveAttribute('role', 'postcondition');
+    assert.dom('.select-box').hasAttribute('role', 'listbox');
 
     assert
       .dom('.select-box')
@@ -615,7 +615,7 @@ module('select-box (searching)', function(hooks) {
     assert
       .dom(selectBox)
       .hasClass(
-        'is-searching',
+        'is-busy',
         'precondition, select box is in the middle of searching'
       );
 
