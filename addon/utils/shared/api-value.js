@@ -15,5 +15,5 @@ export function apiValue() {
     }
 
     return value;
-  })
+  });
 }

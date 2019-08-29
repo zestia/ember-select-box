@@ -1,7 +1,10 @@
 import { readOnly } from '@ember/object/computed';
 import Component from '@ember/component';
 import index from '../../utils/general/index';
-import { _initComponent, _destroyComponent } from '../../utils/shared/lifecycle';
+import {
+  _initComponent,
+  _destroyComponent
+} from '../../utils/shared/lifecycle';
 import isSelected from '../../utils/shared/is-selected';
 import isEqual from '../../utils/general/is-equal';
 import layout from '../../templates/components/select-box/option';
@@ -9,7 +12,10 @@ import { _activateOption } from '../../utils/select-box/option/activate';
 import { _selectOption } from '../../utils/select-box/option/select';
 import resolveValue from '../../utils/shared/resolve-value';
 import api from '../../utils/select-box/option/api';
-import { registerElement, deregisterElement } from '../../utils/registration/element';
+import {
+  registerElement,
+  deregisterElement
+} from '../../utils/registration/element';
 
 export default Component.extend({
   layout,

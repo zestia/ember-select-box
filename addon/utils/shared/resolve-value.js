@@ -6,11 +6,13 @@ export default function resolveValue(component, value) {
 
   startedResolvingValue(component, value);
 
-  return resolve(value).then(result => {
-    finishedResolvingValue(component, valueID, false, result);
-  }).catch(error => {
-    finishedResolvingValue(component, valueID, false, error);
-  });
+  return resolve(value)
+    .then(result => {
+      finishedResolvingValue(component, valueID, false, result);
+    })
+    .catch(error => {
+      finishedResolvingValue(component, valueID, false, error);
+    });
 }
 
 export function startedResolvingValue(component, value) {

@@ -25,15 +25,18 @@ export function search(selectBox, query) {
 
   const action = invokeAction(selectBox, 'onSearch', query, selectBox.api);
 
-  return resolve(action).then(result => {
-    searchCompleted(selectBox, searchID, query, result);
-    return result;
-  }).catch(error => {
-    searchFailed(selectBox, query, error);
-    return error;
-  }).finally(() => {
-    searchFinished(selectBox);
-  });
+  return resolve(action)
+    .then(result => {
+      searchCompleted(selectBox, searchID, query, result);
+      return result;
+    })
+    .catch(error => {
+      searchFailed(selectBox, query, error);
+      return error;
+    })
+    .finally(() => {
+      searchFinished(selectBox);
+    });
 }
 
 function debouncedSearchAttempt(selectBox, query) {

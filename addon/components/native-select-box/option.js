@@ -1,9 +1,15 @@
 import Component from '@ember/component';
-import { _initComponent, _destroyComponent } from '../../utils/shared/lifecycle';
+import {
+  _initComponent,
+  _destroyComponent
+} from '../../utils/shared/lifecycle';
 import index from '../../utils/general/index';
 import isSelected from '../../utils/shared/is-selected';
 import layout from '../../templates/components/native-select-box/option';
-import { registerElement, deregisterElement } from '../../utils/registration/element';
+import {
+  registerElement,
+  deregisterElement
+} from '../../utils/registration/element';
 import resolveValue from '../../utils/shared/resolve-value';
 import api from '../../utils/native-select-box/option/api';
 

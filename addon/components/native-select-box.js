@@ -5,8 +5,15 @@ import { updateValue } from '../utils/shared/value';
 import { selectValue } from '../utils/native-select-box/value';
 import { apiValue } from '../utils/shared/api-value';
 import api from '../utils/native-select-box/api';
-import { initOptions, registerOption, deregisterOption } from '../utils/registration/options';
-import { registerElement, deregisterElement } from '../utils/registration/element';
+import {
+  initOptions,
+  registerOption,
+  deregisterOption
+} from '../utils/registration/options';
+import {
+  registerElement,
+  deregisterElement
+} from '../utils/registration/element';
 
 export default Component.extend({
   layout,

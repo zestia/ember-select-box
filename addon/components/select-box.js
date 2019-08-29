@@ -9,8 +9,15 @@ import invokeAction from '../utils/shared/invoke-action';
 import { bind, scheduleOnce } from '@ember/runloop';
 import { isPresent } from '@ember/utils';
 import { assert } from '@ember/debug';
-import { initOptions, registerOption, deregisterOption } from '../utils/registration/options';
-import { registerElement, deregisterElement } from '../utils/registration/element';
+import {
+  initOptions,
+  registerOption,
+  deregisterOption
+} from '../utils/registration/options';
+import {
+  registerElement,
+  deregisterElement
+} from '../utils/registration/element';
 import { registerInput, deregisterInput } from '../utils/registration/input';
 import { initComponent, destroyComponent } from '../utils/shared/lifecycle';
 import api from '../utils/select-box/api';
@@ -85,7 +92,10 @@ export default Component.extend({
   isDisabled: readOnly('disabled'),
   isBusy: or('isPending', 'isSearching'),
   activeOption: objectAtIndex('options', 'activeOptionIndex'),
-  activeSelectedOption: objectAtIndex('selectedOptions', 'activeSelectedOptionIndex'),
+  activeSelectedOption: objectAtIndex(
+    'selectedOptions',
+    'activeSelectedOptionIndex'
+  ),
 
   // Actions
 
@@ -209,16 +219,6 @@ export default Component.extend({
       activateOptionAtIndex(this, index, scroll);
     },
 
-
-
-
-
-
-
-
-
-
-
     activateSelectedOptionAtIndex(index, scroll = false) {
       this._activateSelectedOptionAtIndex(index, scroll);
     },
@@ -259,8 +259,6 @@ export default Component.extend({
       this._deactivateSelectedOptions();
     },
 
-
-
     didInsertElement(element) {
       registerElement(this, element);
 
@@ -292,10 +290,6 @@ export default Component.extend({
       set(this, '_optionsContainer', null);
     },
 
-
-
-
-
     _registerSelectedOption(selectedOption) {
       this._selectedOptions.addObject(selectedOption);
       this._scheduleUpdateSelectedOptions();
@@ -318,12 +312,6 @@ export default Component.extend({
       set(this, '_selectedOptionsContainer', null);
     },
 
-
-
-
-
-
-
     selectActiveOption() {
       const activeOption = get(this, 'activeOption');
 
@@ -332,8 +320,6 @@ export default Component.extend({
       }
     }
   },
-
-
 
   clickDocument(e) {
     this._super(...arguments);
@@ -405,7 +391,6 @@ export default Component.extend({
     });
   },
 
-
   _activatedSelectedOption() {
     const activeSelectedOption = get(this, 'activeSelectedOption');
 
@@ -421,7 +406,6 @@ export default Component.extend({
   _deactivateSelectedOptions() {
     set(this, 'activeSelectedOptionIndex', -1);
   },
-
 
   _scrollActiveSelectedOptionIntoView() {
     const activeSelectedOption = get(this, 'activeSelectedOption');

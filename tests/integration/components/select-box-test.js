@@ -250,8 +250,7 @@ module('select-box', function(hooks) {
         @onUpdate={{this.updated}} />
     `);
 
-    assert.ok(isFrozen(apis[0]),
-      'api is a frozen state');
+    assert.ok(isFrozen(apis[0]), 'api is a frozen state');
 
     assert.ok(
       !isFrozen(this.value),
@@ -268,7 +267,7 @@ module('select-box', function(hooks) {
       apis[0].value,
       ['foo'],
       'the initial update action yields the value, despite that it may still ' +
-      'be resolving'
+        'be resolving'
     );
 
     assert.strictEqual(
@@ -283,14 +282,20 @@ module('select-box', function(hooks) {
 
     this.set('value', value2);
 
-    assert.notDeepEqual(apis[1].value, ['bar'],
+    assert.notDeepEqual(
+      apis[1].value,
+      ['bar'],
       'update action fired due to value change, but api not acknowledged ' +
-      'the change yet, because value is still resolving');
+        'the change yet, because value is still resolving'
+    );
 
     await settled();
 
-    assert.deepEqual(apis[2].value, ['bar'],
-      'update action fired due to value being resolved');
+    assert.deepEqual(
+      apis[2].value,
+      ['bar'],
+      'update action fired due to value being resolved'
+    );
   });
 
   test('regression test: does not blow up if destroyed', async function(assert) {

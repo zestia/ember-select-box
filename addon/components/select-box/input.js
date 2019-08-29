@@ -1,8 +1,14 @@
 import Component from '@ember/component';
-import { _initComponent, _destroyComponent } from '../../utils/shared/lifecycle';
+import {
+  _initComponent,
+  _destroyComponent
+} from '../../utils/shared/lifecycle';
 import { input, keyDown } from '../../utils/select-box/input/keyboard';
 import layout from '../../templates/components/select-box/input';
-import { registerElement, deregisterElement } from '../../utils/registration/element';
+import {
+  registerElement,
+  deregisterElement
+} from '../../utils/registration/element';
 
 export default Component.extend({
   layout,

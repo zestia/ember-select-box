@@ -10,7 +10,6 @@ function activatedOption(option) {
   invokeAction(option, 'onActivate', option.resolvedValue, option.api);
 }
 
-
 export function activateOption(selectBox, option) {
   activateOptionAtIndex(selectBox, option.index);
 }
