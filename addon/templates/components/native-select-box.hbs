@@ -5,7 +5,7 @@
   class={{select-box-class @classNamePrefix}}
   multiple={{this.isMultiple}}
   ...attributes>
-  {{yield (hash
+  {{#let (hash
     Option=(component "native-select-box/option"
       selectBox=this
       classNamePrefix=@classNamePrefix
@@ -13,5 +13,7 @@
       _onInit=(action "onInitOption"))
     Group=(component "native-select-box/group"
       classNamePrefix=@classNamePrefix)
-  )}}
+  ) as |components|}}
+    {{yield (merge components this.api)}}
+  {{/let}}
 </select>

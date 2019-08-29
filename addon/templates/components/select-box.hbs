@@ -23,7 +23,7 @@
   role={{this.role}}
   tabindex={{this.tabIndex}}
   ...attributes>
-  {{yield (hash
+  {{#let (hash
     SelectedOptions=(component "select-box/selected-options"
       classNamePrefix=@classNamePrefix
       _onInit=(action "_registerSelectedOptionsContainer")
@@ -55,33 +55,7 @@
       _onInit=(action "onInitInput")
       _onDestroy=(action "onDestroyInput")
       _onInput=(action "onInputText"))
-    element=this.domElement
-    value=this.resolvedValue
-    isPending=this.isPending
-    isRejected=this.isRejected
-    isFulfilled=this.isFulfilled
-    isSettled=this.isSettled
-    isSearching=this.isSearching
-    isSlowSearch=this.isSlowSearch
-    isOpen=this.isOpen
-    open=(action "open")
-    close=(action "close")
-    toggle=(action "toggle")
-    select=(action "select")
-    update=(action "update")
-    selectActiveOption=(action "selectActiveOption")
-    search=(action "search")
-    cancelSearch=(action "cancelSearch")
-    setInputValue=(action "setInputValue")
-    focusInput=(action "focusInput")
-    blurInput=(action "blurInput")
-    activateOptionAtIndex=(action "activateOptionAtIndex")
-    activateNextOption=(action "activateNextOption")
-    activatePreviousOption=(action "activatePreviousOption")
-    deactivateOptions=(action "deactivateOptions")
-    activateSelectedOptionAtIndex=(action "activateSelectedOptionAtIndex")
-    activateNextSelectedOption=(action "activateNextSelectedOption")
-    activatePreviousSelectedOption=(action "activatePreviousSelectedOption")
-    deactivateSelectedOptions=(action "deactivateSelectedOptions")
-  )}}
+  ) as |components|}}
+    {{yield (merge components this.api)}}
+  {{/let}}
 </div>

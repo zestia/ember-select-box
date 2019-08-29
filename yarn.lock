@@ -3843,6 +3843,13 @@ ember-maybe-import-regenerator@0.1.6:
     ember-cli-babel "^6.0.0-beta.4"
     regenerator-runtime "^0.9.5"
 
+ember-merge-helper@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/ember-merge-helper/-/ember-merge-helper-0.1.1.tgz#00bd05b4dc5a4b86cb05b453d5a51490e0bb35e7"
+  integrity sha1-AL0FtNxaS4bLBbRT1aUUkOC7Nec=
+  dependencies:
+    ember-cli-babel "^6.6.0"
+
 ember-modifier-manager-polyfill@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/ember-modifier-manager-polyfill/-/ember-modifier-manager-polyfill-1.1.0.tgz#06397b05a3f9a5868b05fca11fe10c7f6b78a328"
