@@ -4,14 +4,12 @@ import { readOnly, or } from '@ember/object/computed';
 import { get, set } from '@ember/object';
 import escapeRegExp from '../utils/general/escape-regexp';
 import collapseWhitespace from '../utils/general/collapse-whitespace';
-import { A as emberA } from '@ember/array';
-import { scheduleOnce } from '@ember/runloop';
-import { assert } from '@ember/debug';
 import { insertElement, destroyElement } from '../utils/select-box/element';
 import {
   registerOptionsContainer,
   deregisterOptionsContainer
 } from '../utils/registration/options';
+import { receiveArgs } from '../utils/select-box/args';
 import {
   registerSelectedOptionsContainer,
   deregisterSelectedOptionsContainer
@@ -21,10 +19,21 @@ import {
   activateOption
 } from '../utils/select-box/option/activate';
 import {
+  activateSelectedOptionAtIndex,
+  activateSelectedOption
+} from '../utils/select-box/selected-option/activate';
+import { deactivateOptions } from '../utils/select-box/option/deactivate';
+import { deactivateSelectedOptions } from '../utils/select-box/selected-option/deactivate';
+import {
   initOptions,
   registerOption,
   deregisterOption
 } from '../utils/registration/option';
+import {
+  initSelectedOptions,
+  registerSelectedOption,
+  deregisterSelectedOption
+} from '../utils/registration/selected-option';
 import {
   registerElement,
   deregisterElement
@@ -88,15 +97,17 @@ export default Component.extend({
 
   // State
 
-  isPending: true,
-  isRejected: false,
-  isFulfilled: false,
-  isSettled: false,
-  isSelectBox: true,
+  activeOptionIndex: -1,
+  activeSelectedOptionIndex: -1,
+  documentClickHandler: null,
   domElement: null,
   domElementId: null,
+  isFulfilled: false,
+  isPending: true,
+  isRejected: false,
+  isSelectBox: true,
+  isSettled: false,
   tabIndex: '0',
-  documentClickHandler: null,
 
   // Child components
   input: null,
@@ -122,20 +133,14 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    this._deactivateOptions();
-    this._deactivateSelectedOptions();
-    initOptions(this, 'options');
-    set(this, '_selectedOptions', emberA());
-    set(this, 'selectedOptions', emberA());
+    initOptions(this);
+    initSelectedOptions(this);
     initComponent(this);
   },
 
   didReceiveAttrs() {
     this._super(...arguments);
-
-    set(this, 'tabIndex', this.isDisabled ? '-1' : '0');
-    set(this, 'isOpen', !!this.open);
-
+    receiveArgs(this);
     updateValue(this, this.value);
   },
 
@@ -154,11 +159,19 @@ export default Component.extend({
     },
 
     onInitOption(option) {
-      registerOption(this, 'options', option);
+      registerOption(this, option);
     },
 
     onDestroyOption(option) {
-      deregisterOption(this, 'options', option);
+      deregisterOption(this, option);
+    },
+
+    onInitSelectedOption(option) {
+      registerSelectedOption(this, option);
+    },
+
+    onDestroySelectedOption(option) {
+      deregisterSelectedOption(this, option);
     },
 
     onInitOptionsContainer(optionsContainer) {
@@ -218,7 +231,7 @@ export default Component.extend({
     },
 
     onActivateSelectedOption(selectedOption) {
-      // activateOptionAtIndex(this, selectedOption.index);
+      activateSelectedOption(this, selectedOption);
     },
 
     // Public API Actions
@@ -275,21 +288,27 @@ export default Component.extend({
       activateOptionAtIndex(this, this.activeOptionIndex - 1, scroll);
     },
 
-    // Todo
-
     activateSelectedOptionAtIndex(index, scroll = false) {
-      this._activateSelectedOptionAtIndex(index, scroll);
+      activateSelectedOptionAtIndex(this, index, scroll);
     },
 
     activateNextSelectedOption(scroll = true) {
-      const next = this.activeSelectedOptionIndex + 1;
-      this._activateSelectedOptionAtIndex(next, scroll);
+      activateSelectedOptionAtIndex(this, this.activeSelectedOptionIndex + 1, scroll);
     },
 
-    activatePreviousSelectedOption(scroll = true) {
-      const prev = this.activeSelectedOptionIndex - 1;
-      this._activateSelectedOptionAtIndex(prev, scroll);
+    activateSelectedPreviousOption(scroll = true) {
+      activateSelectedOptionAtIndex(this, this.activeSelectedOptionIndex - 1, scroll);
     },
+
+    deactivateOptions() {
+      deactivateOptions(this);
+    },
+
+    deactivateSelectedOptions() {
+      deactivateSelectedOptions(this);
+    },
+
+    // Todo
 
     activateOptionForKeyCode(keyCode, scroll = true) {
       const char = fromCharCode(keyCode);
@@ -299,56 +318,12 @@ export default Component.extend({
       }
     },
 
-    deactivateOptions() {
-      this._deactivateOptions();
-    },
-
-    deactivateSelectedOptions() {
-      this._deactivateSelectedOptions();
-    },
-
-    _registerSelectedOption(selectedOption) {
-      this._selectedOptions.addObject(selectedOption);
-      this._scheduleUpdateSelectedOptions();
-    },
-
-    _deregisterSelectedOption(selectedOption) {
-      this._selectedOptions.removeObject(selectedOption);
-      this._scheduleUpdateSelectedOptions();
-    },
-
-    _registerSelectedOptionsContainer(container) {
-      assert(
-        'A select box can only have 1 selected options container',
-        !this._selectedOptionsContainer
-      );
-      set(this, '_selectedOptionsContainer', container);
-    },
-
-    _deregisterSelectedOptionsContainer() {
-      set(this, '_selectedOptionsContainer', null);
-    },
-
     selectActiveOption() {
       const activeOption = get(this, 'activeOption');
 
       if (activeOption) {
         activeOption.send('select');
       }
-    }
-  },
-
-  _activateSelectedOptionAtIndex(index, scroll) {
-    const under = index < 0;
-    const over = index > this.selectedOptions.length - 1;
-
-    if (!(under || over)) {
-      set(this, 'activeSelectedOptionIndex', index);
-      this._activatedSelectedOption();
-    }
-
-    if (scroll) {
-      this._scrollActiveSelectedOptionIntoView();
     }
   },
 
@@ -394,37 +369,5 @@ export default Component.extend({
     return this.options.filter(option => {
       return pattern.test(collapseWhitespace(option.domElement.textContent));
     });
-  },
-
-  _activatedSelectedOption() {
-    const activeSelectedOption = get(this, 'activeSelectedOption');
-
-    if (activeSelectedOption) {
-      // activateAction(activeSelectedOption);
-    }
-  },
-
-  _deactivateOptions() {
-    set(this, 'activeOptionIndex', -1);
-  },
-
-  _deactivateSelectedOptions() {
-    set(this, 'activeSelectedOptionIndex', -1);
-  },
-
-  _scrollActiveSelectedOptionIntoView() {
-    const activeSelectedOption = get(this, 'activeSelectedOption');
-
-    if (activeSelectedOption) {
-      // scrollIntoView(activeSelectedOption.domElement);
-    }
-  },
-
-  _scheduleUpdateSelectedOptions() {
-    scheduleOnce('afterRender', this, '_updateSelectedOptions');
-  },
-
-  _updateSelectedOptions() {
-    set(this, 'selectedOptions', emberA(this._selectedOptions.toArray()));
   }
 });

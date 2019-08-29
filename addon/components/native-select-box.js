@@ -49,7 +49,7 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    initOptions(this, 'options');
+    initOptions(this);
   },
 
   didReceiveAttrs() {
@@ -69,11 +69,11 @@ export default Component.extend({
     },
 
     onInitOption(option) {
-      registerOption(this, 'options', option);
+      registerOption(this, option);
     },
 
     onDestroyOption(option) {
-      deregisterOption(this, 'options', option);
+      deregisterOption(this, option);
     },
 
     onChange() {

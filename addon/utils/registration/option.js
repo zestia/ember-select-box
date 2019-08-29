@@ -2,25 +2,25 @@ import { scheduleOnce } from '@ember/runloop';
 import { A as emberA } from '@ember/array';
 import { set } from '@ember/object';
 
-export function initOptions(selectBox, key) {
-  set(selectBox, key, emberA());
+export function initOptions(selectBox) {
+  set(selectBox, 'options', emberA());
 }
 
-export function registerOption(selectBox, key, option) {
-  selectBox[key].addObject(option);
-  scheduleUpdateOptions(selectBox, key);
+export function registerOption(selectBox, option) {
+  selectBox.options.addObject(option);
+  scheduleUpdateOptions(selectBox);
 }
 
-export function deregisterOption(selectBox, key, option) {
-  selectBox[key].removeObject(option);
-  scheduleUpdateOptions(selectBox, key);
+export function deregisterOption(selectBox, option) {
+  selectBox.options.removeObject(option);
+  scheduleUpdateOptions(selectBox);
 }
 
-function scheduleUpdateOptions(selectBox, key) {
+function scheduleUpdateOptions(selectBox) {
   // TODO once
-  scheduleOnce('afterRender', updateOptions, selectBox, key);
+  scheduleOnce('afterRender', updateOptions, selectBox);
 }
 
-function updateOptions(selectBox, key) {
-  set(selectBox, key, emberA(selectBox[key].toArray()));
+function updateOptions(selectBox) {
+  set(selectBox, 'options', emberA(selectBox.options.toArray()));
 }
