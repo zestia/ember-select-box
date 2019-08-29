@@ -1,6 +1,9 @@
 import invokeAction from '../shared/invoke-action';
 import { getAPI } from '../shared/api';
-import { addDocumentClickListener, removeDocumentClickListener } from './document';
+import {
+  addDocumentClickListener,
+  removeDocumentClickListener
+} from './document';
 
 export function insertElement(selectBox) {
   addDocumentClickListener(selectBox);

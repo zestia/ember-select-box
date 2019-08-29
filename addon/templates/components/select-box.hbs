@@ -26,8 +26,8 @@
   {{#let (hash
     SelectedOptions=(component "select-box/selected-options"
       classNamePrefix=@classNamePrefix
-      _onInit=(action "_registerSelectedOptionsContainer")
-      _onDestroy=(action "_deregisterSelectedOptionsContainer"))
+      _onInit=(action "onInitSelectedOptionsContainer")
+      _onDestroy=(action "onDestroySelectedOptionsContainer"))
     SelectedOption=(component "select-box/selected-option"
       selectBox=this
       classNamePrefix=@classNamePrefix

@@ -8,7 +8,14 @@ import { A as emberA } from '@ember/array';
 import { scheduleOnce } from '@ember/runloop';
 import { assert } from '@ember/debug';
 import { insertElement, destroyElement } from '../utils/select-box/element';
-import { registerOptionsContainer, deregisterOptionsContainer } from '../utils/registration/options';
+import {
+  registerOptionsContainer,
+  deregisterOptionsContainer
+} from '../utils/registration/options';
+import {
+  registerSelectedOptionsContainer,
+  deregisterSelectedOptionsContainer
+} from '../utils/registration/selected-options';
 import {
   activateOptionAtIndex,
   activateOption
@@ -160,6 +167,14 @@ export default Component.extend({
 
     onDestroyOptionsContainer(optionsContainer) {
       deregisterOptionsContainer(this, optionsContainer);
+    },
+
+    onInitSelectedOptionsContainer(selectedOptionsContainer) {
+      registerSelectedOptionsContainer(this, selectedOptionsContainer);
+    },
+
+    onDestroySelectedOptionsContainer(selectedOptionsContainer) {
+      deregisterSelectedOptionsContainer(this, selectedOptionsContainer);
     },
 
     onInitInput(input) {

@@ -7,7 +7,7 @@ export function registerOptionsContainer(selectBox, optionsContainer) {
     !selectBox.optionsContainer
   );
 
-  set(this, 'optionsContainer', optionsContainer);
+  set(selectBox, 'optionsContainer', optionsContainer);
 }
 
 export function deregisterOptionsContainer(selectBox, optionsContainer) {
