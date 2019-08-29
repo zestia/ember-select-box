@@ -97,7 +97,7 @@ module('native-select-box/option', function(hooks) {
 
     await render(hbs`
       <NativeSelectBox::Option @value={{this.myValue}} as |o|>
-        {{~this.myValue}}: {{o.value~}}
+        {{this.myValue}}: {{o.value}}
       </NativeSelectBox::Option>
     `);
 
@@ -105,7 +105,7 @@ module('native-select-box/option', function(hooks) {
       .dom('.select-box-option')
       .hasText(
         '[object Object]: [object Object]',
-        'the value is as you would expect'
+        'the value is as you would expect (yields unresolved value)'
       );
 
     deferred.resolve('123');

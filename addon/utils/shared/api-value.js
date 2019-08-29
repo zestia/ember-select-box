@@ -1,5 +1,5 @@
 import { computed, get } from '@ember/object';
-const { from } = Array;
+import { makeArray } from '@ember/array';
 const { freeze } = Object;
 
 export function apiValue() {
@@ -11,7 +11,7 @@ export function apiValue() {
     }
 
     if (get(this, 'isMultiple')) {
-      return freeze(from(value).slice());
+      return freeze(makeArray(value).slice());
     }
 
     return value;
