@@ -5,10 +5,10 @@ import { get, set } from '@ember/object';
 import escapeRegExp from '../utils/general/escape-regexp';
 import collapseWhitespace from '../utils/general/collapse-whitespace';
 import { A as emberA } from '@ember/array';
-import invokeAction from '../utils/shared/invoke-action';
 import { scheduleOnce } from '@ember/runloop';
 import { assert } from '@ember/debug';
 import { insertElement, destroyElement } from '../utils/select-box/element';
+import { registerOptionsContainer, deregisterOptionsContainer } from '../utils/registration/options';
 import {
   activateOptionAtIndex,
   activateOption
@@ -17,7 +17,7 @@ import {
   initOptions,
   registerOption,
   deregisterOption
-} from '../utils/registration/options';
+} from '../utils/registration/option';
 import {
   registerElement,
   deregisterElement
@@ -25,7 +25,6 @@ import {
 import { registerInput, deregisterInput } from '../utils/registration/input';
 import { initComponent, destroyComponent } from '../utils/shared/lifecycle';
 import api from '../utils/select-box/api';
-import { getAPI } from '../utils/shared/api';
 import { _selectOption, selectOption } from '../utils/select-box/option/select';
 import { updateValue } from '../utils/shared/value';
 import { apiValue } from '../utils/shared/api-value';
@@ -92,6 +91,13 @@ export default Component.extend({
   tabIndex: '0',
   documentClickHandler: null,
 
+  // Child components
+  input: null,
+  options: null,
+  optionsContainer: null,
+  selectedOptions: null,
+  selectedOptionsContainer: null,
+
   // Computed state
 
   api: api(),
@@ -146,6 +152,14 @@ export default Component.extend({
 
     onDestroyOption(option) {
       deregisterOption(this, 'options', option);
+    },
+
+    onInitOptionsContainer(optionsContainer) {
+      registerOptionsContainer(this, optionsContainer);
+    },
+
+    onDestroyOptionsContainer(optionsContainer) {
+      deregisterOptionsContainer(this, optionsContainer);
     },
 
     onInitInput(input) {
@@ -276,18 +290,6 @@ export default Component.extend({
 
     deactivateSelectedOptions() {
       this._deactivateSelectedOptions();
-    },
-
-    _registerOptionsContainer(container) {
-      assert(
-        'A select box can only have 1 options container',
-        !this._optionsContainer
-      );
-      set(this, '_optionsContainer', container);
-    },
-
-    _deregisterOptionsContainer() {
-      set(this, '_optionsContainer', null);
     },
 
     _registerSelectedOption(selectedOption) {

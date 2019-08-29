@@ -36,8 +36,8 @@
       _onDestroy=(action "_deregisterSelectedOption"))
     Options=(component "select-box/options"
       classNamePrefix=@classNamePrefix
-      _onInit=(action "_registerOptionsContainer")
-      _onDestroy=(action "_deregisterOptionsContainer"))
+      _onInit=(action "onInitOptionsContainer")
+      _onDestroy=(action "onDestroyOptionsContainer"))
     Option=(component "select-box/option"
       selectBox=this
       classNamePrefix=@classNamePrefix

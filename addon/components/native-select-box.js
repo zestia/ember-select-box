@@ -9,7 +9,7 @@ import {
   initOptions,
   registerOption,
   deregisterOption
-} from '../utils/registration/options';
+} from '../utils/registration/option';
 import {
   registerElement,
   deregisterElement

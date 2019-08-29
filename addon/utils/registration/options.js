@@ -1,26 +1,15 @@
-import { scheduleOnce } from '@ember/runloop';
-import { A as emberA } from '@ember/array';
+import { assert } from '@ember/debug';
 import { set } from '@ember/object';
 
-export function initOptions(selectBox, key) {
-  set(selectBox, key, emberA());
+export function registerOptionsContainer(selectBox, optionsContainer) {
+  assert(
+    'A select box can only have 1 options container',
+    !selectBox.optionsContainer
+  );
+
+  set(this, 'optionsContainer', optionsContainer);
 }
 
-export function registerOption(selectBox, key, option) {
-  selectBox[key].addObject(option);
-  scheduleUpdateOptions(selectBox, key);
-}
-
-export function deregisterOption(selectBox, key, option) {
-  selectBox[key].removeObject(option);
-  scheduleUpdateOptions(selectBox, key);
-}
-
-function scheduleUpdateOptions(selectBox, key) {
-  // TODO once
-  scheduleOnce('afterRender', updateOptions, selectBox, key);
-}
-
-function updateOptions(selectBox, key) {
-  set(selectBox, key, emberA(selectBox[key].toArray()));
+export function deregisterOptionsContainer(selectBox, optionsContainer) {
+  set(selectBox, 'optionsContainer', null);
 }
