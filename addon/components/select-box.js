@@ -296,7 +296,7 @@ export default Component.extend({
       activateSelectedOptionAtIndex(this, this.activeSelectedOptionIndex + 1, scroll);
     },
 
-    activateSelectedPreviousOption(scroll = true) {
+    activatePreviousSelectedOption(scroll = true) {
       activateSelectedOptionAtIndex(this, this.activeSelectedOptionIndex - 1, scroll);
     },
 

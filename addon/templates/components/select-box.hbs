@@ -24,16 +24,6 @@
   tabindex={{this.tabIndex}}
   ...attributes>
   {{#let (hash
-    SelectedOptions=(component "select-box/selected-options"
-      classNamePrefix=@classNamePrefix
-      _onInit=(action "onInitSelectedOptionsContainer")
-      _onDestroy=(action "onDestroySelectedOptionsContainer"))
-    SelectedOption=(component "select-box/selected-option"
-      selectBox=this
-      classNamePrefix=@classNamePrefix
-      _onActivate=(action "onActivateSelectedOption")
-      _onInit=(action "_registerSelectedOption")
-      _onDestroy=(action "_deregisterSelectedOption"))
     Options=(component "select-box/options"
       classNamePrefix=@classNamePrefix
       _onInit=(action "onInitOptionsContainer")
@@ -45,6 +35,16 @@
       _onSelect=(action "onSelectOption")
       _onDestroy=(action "onDestroyOption")
       _onInit=(action "onInitOption"))
+    SelectedOptions=(component "select-box/selected-options"
+      classNamePrefix=@classNamePrefix
+      _onInit=(action "onInitSelectedOptionsContainer")
+      _onDestroy=(action "onDestroySelectedOptionsContainer"))
+    SelectedOption=(component "select-box/selected-option"
+      selectBox=this
+      classNamePrefix=@classNamePrefix
+      _onActivate=(action "onActivateSelectedOption")
+      _onInit=(action "onInitSelectedOption")
+      _onDestroy=(action "onDestroySelectedOption"))
     Group=(component "select-box/group"
       classNamePrefix=@classNamePrefix)
     Input=(component "select-box/input"

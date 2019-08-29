@@ -22,5 +22,5 @@ function scheduleUpdateSelectedOptions(selectBox) {
 }
 
 function updateSelectedOptions(selectBox) {
-  set(selectBox, 'selectedOption', emberA(selectBox.selectedOption.toArray()));
+  set(selectBox, 'selectedOption', emberA(selectBox.selectedOptions.toArray()));
 }
