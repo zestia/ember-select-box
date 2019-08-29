@@ -20,7 +20,7 @@ import {
 import { registerInput, deregisterInput } from '../utils/registration/input';
 import { initComponent, destroyComponent } from '../utils/shared/lifecycle';
 import api from '../utils/select-box/api';
-import getAPI from '../utils/shared/api';
+import { getAPI } from '../utils/shared/api';
 import { _selectOption, selectOption } from '../utils/select-box/option/select';
 import { updateValue } from '../utils/shared/value';
 import { apiValue } from '../utils/shared/api-value';
