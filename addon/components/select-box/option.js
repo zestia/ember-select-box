@@ -17,10 +17,17 @@ export default Component.extend({
 
   // Arguments
 
-  classNamePrefix: undefined,
-  selectBox: undefined,
+  classNamePrefix: '',
+  selectBox: null,
   value: undefined,
-  disabled: undefined,
+  disabled: false,
+
+  // State
+
+  isPending: true,
+  isRejected: false,
+  isFulfilled: false,
+  isSettled: false,
 
   // Computed state
 

@@ -9,8 +9,8 @@ export default Component.extend({
   tagName: '',
 
   // Arguments
-  selectBox: undefined,
-  classNamePrefix: undefined,
+  selectBox: null,
+  classNamePrefix: '',
 
   // Actions
 

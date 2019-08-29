@@ -8,7 +8,7 @@ export default Component.extend({
 
   // Arguments
 
-  classNamePrefix: undefined,
+  classNamePrefix: '',
 
   init() {
     this._super(...arguments);

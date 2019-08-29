@@ -35,14 +35,13 @@ export default Component.extend({
 
   // Arguments
 
-  classNamePrefix: undefined,
-  disabled: undefined,
-  multiple: undefined,
-  open: undefined,
+  classNamePrefix: '',
+  disabled: false,
+  multiple: false,
+  open: false,
   searchDelayTime: 100,
   searchMinChars: 1,
   searchSlowTime: 500,
-  tabIndex: '0',
   value: undefined,
 
   // Actions
@@ -70,11 +69,20 @@ export default Component.extend({
   onSelect: null,
   onUpdate: null,
 
+  // State
+
+  isPending: true,
+  isRejected: false,
+  isFulfilled: false,
+  isSettled: false,
+  tabIndex: '0',
+
   // Computed state
 
   api: api(),
   apiValue: apiValue(),
   isMultiple: readOnly('multiple'),
+  isDisabled: readOnly('disabled'),
   isBusy: or('isPending', 'isSearching'),
   activeOption: objectAtIndex('options', 'activeOptionIndex'),
   activeSelectedOption: objectAtIndex('selectedOptions', 'activeSelectedOptionIndex'),
@@ -94,15 +102,8 @@ export default Component.extend({
   didReceiveAttrs() {
     this._super(...arguments);
 
-    if (isPresent(this.disabled)) {
-      set(this, 'isDisabled', Boolean(this.disabled));
-    }
-
     set(this, 'tabIndex', this.isDisabled ? '-1' : '0');
-
-    if (isPresent(this.open)) {
-      set(this, 'isOpen', this.open);
-    }
+    set(this, 'isOpen', !!this.open);
 
     updateValue(this, this.value);
   },

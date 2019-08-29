@@ -15,14 +15,5 @@
   }}
   role="option"
   ...attributes>
-  {{~yield (hash
-    index=this.index
-    value=this.resolvedValue
-    isPending=this.isPending
-    isRejected=this.isRejected
-    isFulfilled=this.isFulfilled
-    isSettled=this.isSettled
-    isSelected=this.isSelected
-    isDisabled=this.isDisabled
-  )~}}
+  {{yield this.api}}
 </div>

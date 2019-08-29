@@ -3,10 +3,10 @@ const { from } = Array;
 const { freeze } = Object;
 
 export function apiValue() {
-  return computed('resolvedValue', function() {
+  return computed('resolvedValue', 'isPending', function() {
     let value = this.resolvedValue;
 
-    if (this.resolvedValue === undefined && this.value !== undefined) {
+    if (this.isPending) {
       value = this.value;
     }
 

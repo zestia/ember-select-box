@@ -14,15 +14,22 @@ export default Component.extend({
 
   // Arguments
 
-  classNamePrefix: undefined,
-  disabled: undefined,
-  multiple: undefined,
+  classNamePrefix: '',
+  disabled: false,
+  multiple: false,
   value: undefined,
 
   // Actions
 
   onSelect: null,
   onUpdate: null,
+
+  // State
+
+  isPending: true,
+  isRejected: false,
+  isFulfilled: false,
+  isSettled: false,
 
   // Computed state
 
