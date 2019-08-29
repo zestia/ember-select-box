@@ -11,7 +11,7 @@ export default function resolveValue(component, value) {
       finishedResolvingValue(component, valueID, false, result);
     })
     .catch(error => {
-      finishedResolvingValue(component, valueID, false, error);
+      finishedResolvingValue(component, valueID, true, error);
     });
 }
 

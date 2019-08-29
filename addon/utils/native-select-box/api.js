@@ -2,13 +2,14 @@ import apiMacro from '../shared/api';
 
 const publicProperties = {
   apiValue: 'value',
-  index: true,
-  isPending: true,
-  isFulfilled: true,
-  isSettled: true,
+  domElement: 'element',
+  isBusy: true,
   isDisabled: true,
+  isFulfilled: true,
   isMultiple: true,
-  domElement: 'element'
+  isPending: true,
+  isRejected: true,
+  isSettled: true,
 };
 
 const publicActions = {

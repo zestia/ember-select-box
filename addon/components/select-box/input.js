@@ -15,8 +15,14 @@ export default Component.extend({
   tagName: '',
 
   // Arguments
+
   selectBox: null,
   classNamePrefix: '',
+
+  // State
+
+  domElement: null,
+  domElementId: null,
 
   // Actions
 

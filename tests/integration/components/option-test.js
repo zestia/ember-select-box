@@ -285,7 +285,7 @@ module('select-box/option', function(hooks) {
         isSettled: false
     `);
 
-    deferred1.resolve();
+    deferred1.resolve('foo');
     await settled();
 
     assert.dom(this.element).hasText(`
@@ -304,7 +304,7 @@ module('select-box/option', function(hooks) {
         isSettled: false
     `);
 
-    deferred2.reject();
+    deferred2.reject('bar');
     await settled();
 
     assert.dom(this.element).hasText(`

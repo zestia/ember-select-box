@@ -29,6 +29,8 @@ export default Component.extend({
   isRejected: false,
   isFulfilled: false,
   isSettled: false,
+  domElement: null,
+  domElementId: null,
 
   // Computed state
 

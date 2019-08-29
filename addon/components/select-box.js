@@ -7,7 +7,6 @@ import collapseWhitespace from '../utils/general/collapse-whitespace';
 import { A as emberA } from '@ember/array';
 import invokeAction from '../utils/shared/invoke-action';
 import { bind, scheduleOnce } from '@ember/runloop';
-import { isPresent } from '@ember/utils';
 import { assert } from '@ember/debug';
 import {
   initOptions,
@@ -82,6 +81,8 @@ export default Component.extend({
   isRejected: false,
   isFulfilled: false,
   isSettled: false,
+  domElement: null,
+  domElementId: null,
   tabIndex: '0',
 
   // Computed state

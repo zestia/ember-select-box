@@ -23,6 +23,10 @@ export default Component.extend({
   selectBox: null,
   value: undefined,
 
+  // State
+  domElement: null,
+  domElementId: null,
+
   // Computed state
 
   api: api(),

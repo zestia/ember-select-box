@@ -1,13 +1,15 @@
 import apiMacro from '../../shared/api';
 
 const publicProperties = {
-  resolvedValue: 'value',
-  isPending: true,
-  isFulfilled: true,
-  isSettled: true,
-  isSelected: true,
+  domElement: 'element',
+  index: true,
   isDisabled: true,
-  index: true
+  isFulfilled: true,
+  isPending: true,
+  isRejected: true,
+  isSelected: true,
+  isSettled: true,
+  resolvedValue: 'value'
 };
 
 const publicActions = {
