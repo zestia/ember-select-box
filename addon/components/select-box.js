@@ -8,6 +8,7 @@ import { A as emberA } from '@ember/array';
 import invokeAction from '../utils/shared/invoke-action';
 import { bind, scheduleOnce } from '@ember/runloop';
 import { assert } from '@ember/debug';
+import { activateOptionAtIndex, activateOption } from '../utils/select-box/option/activate';
 import {
   initOptions,
   registerOption,
@@ -32,7 +33,6 @@ import { focusInput, blurInput } from '../utils/select-box/input/focus';
 import { keyPress, keyDown } from '../utils/select-box/keyboard';
 import { setInputValue } from '../utils/select-box/input/value';
 import objectAtIndex from '../utils/general/object-at-index';
-import { activateOption } from '../utils/select-box/option/activate';
 const { fromCharCode } = String;
 export const COLLECT_CHARS_MS = 1000;
 
