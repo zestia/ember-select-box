@@ -1,6 +1,7 @@
 import resolveValue from './resolve-value';
 import afterRender from '../general/after-render';
 import invokeAction from '../shared/invoke-action';
+import { getAPI } from '../shared/api';
 
 export function updateValue(selectBox, value) {
   return resolveValue(selectBox, value)
@@ -13,9 +14,19 @@ export function updatedValue(selectBox) {
     return;
   }
 
-  invokeAction(selectBox, 'onUpdate', selectBox.resolvedValue, selectBox.api);
+  invokeAction(
+    selectBox,
+    'onUpdate',
+    selectBox.resolvedValue,
+    getAPI(selectBox)
+  );
 }
 
 export function selectedValue(selectBox) {
-  invokeAction(selectBox, 'onSelect', selectBox.resolvedValue, selectBox.api);
+  invokeAction(
+    selectBox,
+    'onSelect',
+    selectBox.resolvedValue,
+    getAPI(selectBox)
+  );
 }

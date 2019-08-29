@@ -1,4 +1,5 @@
 import invokeAction from '../shared/invoke-action';
+import { getAPI } from '../shared/api';
 import { set } from '@ember/object';
 
 export function focusIn(selectBox, e) {
@@ -26,9 +27,9 @@ export function focusOut(selectBox, e) {
 }
 
 function focusedIn(selectBox, e) {
-  invokeAction(selectBox, 'onFocusIn', e, selectBox.api);
+  invokeAction(selectBox, 'onFocusIn', e, getAPI(selectBox));
 }
 
 function focusedOut(selectBox, e) {
-  invokeAction(selectBox, 'onFocusOut', e, selectBox.api);
+  invokeAction(selectBox, 'onFocusOut', e, getAPI(selectBox));
 }

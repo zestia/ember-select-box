@@ -1,7 +1,15 @@
 import { computed, get } from '@ember/object';
 const { freeze, keys } = Object;
 
-export default function apiMacro(publicProperties, publicActions) {
+export function getAPI(component) {
+  if (component.isSelectBox) {
+    return component.api;
+  } else {
+    return component.selectBox.api;
+  }
+}
+
+export function apiMacro(publicProperties, publicActions) {
   const propNames = keys(publicProperties);
 
   return computed(...propNames, function() {

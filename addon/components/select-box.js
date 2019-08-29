@@ -20,6 +20,7 @@ import {
 import { registerInput, deregisterInput } from '../utils/registration/input';
 import { initComponent, destroyComponent } from '../utils/shared/lifecycle';
 import api from '../utils/select-box/api';
+import getAPI from '../utils/shared/api';
 import { _selectOption, selectOption } from '../utils/select-box/option/select';
 import { updateValue } from '../utils/shared/value';
 import { apiValue } from '../utils/shared/api-value';
@@ -81,6 +82,7 @@ export default Component.extend({
   isRejected: false,
   isFulfilled: false,
   isSettled: false,
+  isSelectBox: true,
   domElement: null,
   domElementId: null,
   tabIndex: '0',
@@ -267,7 +269,7 @@ export default Component.extend({
       document.addEventListener('click', this._documentClickHandler);
       document.addEventListener('touchstart', this._documentClickHandler);
 
-      invokeAction(this, 'onInsertElement', this.api);
+      invokeAction(this, 'onInsertElement', getAPI(this));
     },
 
     willDestroyElement(element) {
@@ -426,7 +428,7 @@ export default Component.extend({
 
   clickOutside(e) {
     this._super(...arguments);
-    invokeAction(this, 'onClickOutside', e, this.api);
+    invokeAction(this, 'onClickOutside', e, getAPI(this));
   },
 
   _scheduleUpdateOptions() {

@@ -1,5 +1,6 @@
 import invokeAction from '../../shared/invoke-action';
 import { selectValue } from '../value';
+import { getAPI } from '../../shared/api';
 
 export function _selectOption(option) {
   if (!option || option.isDisabled) {
@@ -17,5 +18,5 @@ export function selectOption(selectBox, option) {
 }
 
 export function selectedOption(option) {
-  invokeAction(option, 'onSelect', option.resolvedValue, option.api);
+  invokeAction(option, 'onSelect', option.resolvedValue, getAPI(option));
 }

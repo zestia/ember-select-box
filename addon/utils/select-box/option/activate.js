@@ -1,5 +1,6 @@
 import { set } from '@ember/object';
 import invokeAction from '../../shared/invoke-action';
+import { getAPI } from '../../shared/api';
 import scrollIntoView from '../../dom/scroll-into-view';
 
 export function _activateOption(option) {
@@ -7,7 +8,7 @@ export function _activateOption(option) {
 }
 
 function activatedOption(option) {
-  invokeAction(option, 'onActivate', option.resolvedValue, option.api);
+  invokeAction(option, 'onActivate', option.resolvedValue, getAPI(option));
 }
 
 export function activateOption(selectBox, option) {

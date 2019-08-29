@@ -1,5 +1,6 @@
 import invokeAction from '../shared/invoke-action';
 import { set } from '@ember/object';
+import { getAPI } from '../shared/api';
 
 export function open(selectBox) {
   if (selectBox.isDestroyed) {
@@ -22,11 +23,11 @@ export function close(selectBox) {
 }
 
 function opened(selectBox) {
-  invokeAction(selectBox, 'onOpen', selectBox.api);
+  invokeAction(selectBox, 'onOpen', getAPI(selectBox));
 }
 
 function closed(selectBox) {
-  invokeAction(selectBox, 'onClose', selectBox.api);
+  invokeAction(selectBox, 'onClose', getAPI(selectBox));
 }
 
 export function toggle(selectBox) {

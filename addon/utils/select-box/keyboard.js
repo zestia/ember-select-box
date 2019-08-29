@@ -1,5 +1,6 @@
 import invokeAction from '../shared/invoke-action';
 import { capitalize } from '@ember/string';
+import { getAPI } from '../shared/api';
 
 export const keys = {
   8: 'backspace',
@@ -28,7 +29,7 @@ export function keyDown(selectBox, e) {
 }
 
 function pressedKey(selectBox, e) {
-  invokeAction(selectBox, 'onPressKey', e, selectBox.api);
+  invokeAction(selectBox, 'onPressKey', e, getAPI(selectBox));
 }
 
 function _keyedDown(selectBox, key, e) {
@@ -38,5 +39,5 @@ function _keyedDown(selectBox, key, e) {
 }
 
 function keyedDown(selectBox, key, e) {
-  invokeAction(selectBox, `onPress${key}`, e, selectBox.api);
+  invokeAction(selectBox, `onPress${key}`, e, getAPI(selectBox));
 }

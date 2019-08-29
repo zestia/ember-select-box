@@ -1,4 +1,4 @@
-import apiMacro from '../shared/api';
+import { apiMacro } from '../shared/api';
 
 const publicProperties = {
   apiValue: 'value',
@@ -9,7 +9,7 @@ const publicProperties = {
   isMultiple: true,
   isPending: true,
   isRejected: true,
-  isSettled: true,
+  isSettled: true
 };
 
 const publicActions = {

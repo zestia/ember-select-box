@@ -1,4 +1,4 @@
-import apiMacro from '../../shared/api';
+import { apiMacro } from '../../shared/api';
 
 const publicProperties = {
   resolvedValue: 'value',

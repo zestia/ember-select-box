@@ -37,6 +37,7 @@ export default Component.extend({
   isRejected: false,
   isFulfilled: false,
   isSettled: false,
+  isSelectBox: true,
   domElement: null,
   domElementId: null,
 
