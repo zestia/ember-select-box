@@ -4,7 +4,7 @@ import resolveValue from '../../utils/shared/resolve-value';
 import { _initComponent, _destroyComponent } from '../../utils/shared/lifecycle';
 import api from '../../utils/select-box/selected-option/api';
 import index from '../../utils/general/index';
-import { equal } from '@ember/object/computed';
+import isEqual from '../../utils/general/is-equal';
 import { registerElement, deregisterElement } from '../../utils/registration/element';
 
 export default Component.extend({
@@ -21,7 +21,7 @@ export default Component.extend({
 
   api: api(),
   index: index('selectBox.selectedOptions'),
-  isActive: equal('index', 'activeSelectedOptionIndex'),
+  isActive: isEqual('index', 'selectBox.activeSelectedOptionIndex'),
 
   init() {
     this._super(...arguments);

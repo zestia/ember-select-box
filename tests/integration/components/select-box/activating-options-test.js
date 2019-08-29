@@ -27,14 +27,12 @@ module('select-box (activating options)', function(hooks) {
 
     await render(hbs`
       <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option @value={{1}}>One</sb.Option>
-          <sb.Option @value={{2}}>Two</sb.Option>
-        </sb.Options>
+        <sb.Option @value={{1}}>One</sb.Option>
+        <sb.Option @value={{2}}>Two</sb.Option>
       </SelectBox>
     `);
 
-    const options = find('.select-box-options');
+    const box = find('.select-box');
     const one = findAll('.select-box-option')[0];
     const two = findAll('.select-box-option')[1];
 
@@ -51,7 +49,7 @@ module('select-box (activating options)', function(hooks) {
         'mousing over an option gives it an active class name'
       );
 
-    const [id] = options.getAttribute('aria-activedescendant').match(/\d+/);
+    const [id] = box.getAttribute('aria-activedescendant').match(/\d+/);
 
     assert.ok(id, 'active option id is added to the options container');
 
@@ -69,7 +67,7 @@ module('select-box (activating options)', function(hooks) {
 
     await triggerEvent(two, 'mouseenter');
 
-    const [nextID] = options.getAttribute('aria-activedescendant').match(/\d+/);
+    const [nextID] = box.getAttribute('aria-activedescendant').match(/\d+/);
 
     assert.notEqual(id, nextID, 'the active descendant is updated');
 

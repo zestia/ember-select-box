@@ -1,8 +1,9 @@
-import { readOnly, equal } from '@ember/object/computed';
+import { readOnly } from '@ember/object/computed';
 import Component from '@ember/component';
 import index from '../../utils/general/index';
 import { _initComponent, _destroyComponent } from '../../utils/shared/lifecycle';
 import isSelected from '../../utils/shared/is-selected';
+import isEqual from '../../utils/general/is-equal';
 import layout from '../../templates/components/select-box/option';
 import { _activateOption } from '../../utils/select-box/option/activate';
 import { _selectOption } from '../../utils/select-box/option/select';
@@ -25,7 +26,7 @@ export default Component.extend({
 
   api: api(),
   index: index('selectBox.options'),
-  isActive: equal('index', 'activeOptionIndex'),
+  isActive: isEqual('index', 'selectBox.activeOptionIndex'),
   isDisabled: readOnly('disabled'),
   isSelected: isSelected(),
 
