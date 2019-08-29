@@ -14,9 +14,6 @@ export default function resolveValue(component, value) {
 }
 
 export function startedResolvingValue(component, value) {
-  // todo maybe remove
-  set(component, 'resolvedValue', value);
-
   set(component, 'isPending', true);
   set(component, 'isRejected', false);
   set(component, 'isFulfilled', false);

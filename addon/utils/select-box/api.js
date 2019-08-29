@@ -1,7 +1,7 @@
 import apiMacro from '../shared/api';
 
 const publicProperties = {
-  'resolvedValue': 'value',
+  'apiValue': 'value',
   'index': true,
   'isPending': true,
   'isFulfilled': true,

@@ -16,6 +16,7 @@ import { initComponent, destroyComponent } from '../utils/shared/lifecycle';
 import api from '../utils/select-box/api';
 import { _selectOption, selectOption } from '../utils/select-box/option/select';
 import { updateValue } from '../utils/shared/value';
+import { apiValue } from '../utils/shared/api-value';
 import { selectValue } from '../utils/select-box/value';
 import { open, close, toggle } from '../utils/select-box/toggle';
 import { focusIn, focusOut } from '../utils/select-box/focus';
@@ -72,6 +73,7 @@ export default Component.extend({
   // Computed state
 
   api: api(),
+  apiValue: apiValue(),
   isMultiple: readOnly('multiple'),
   isBusy: or('isPending', 'isSearching'),
   activeOption: objectAtIndex('options', 'activeOptionIndex'),

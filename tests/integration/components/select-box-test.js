@@ -21,7 +21,7 @@ module('select-box', function(hooks) {
   });
 
   test('class prefix attr', async function(assert) {
-    assert.expect(10);
+    assert.expect(9);
 
     await render(hbs`
       <SelectBox @classNamePrefix="foo" as |sb|>
@@ -234,12 +234,13 @@ module('select-box', function(hooks) {
   test('api value', async function(assert) {
     assert.expect(8);
 
-    let firstApi;
-    let secondApi;
+    const value1 = emberA(['foo']);
+    const value2 = emberA(['bar']);
+    const apis = [];
 
-    this.set('value', emberA(['foo']));
-    this.set('initialised', sb => (firstApi = sb));
-    this.set('updated', (value, sb) => (secondApi = sb));
+    this.set('value', value1);
+    this.set('initialised', sb => apis.push(sb));
+    this.set('updated', (value, sb) => apis.push(sb));
 
     await render(hbs`
       <SelectBox
@@ -249,53 +250,47 @@ module('select-box', function(hooks) {
         @onUpdate={{this.updated}} />
     `);
 
+    assert.ok(isFrozen(apis[0]),
+      'api is a frozen state');
+
     assert.ok(
       !isFrozen(this.value),
       'api does not accidentally freeze original value'
     );
 
     assert.deepEqual(
-      firstApi.value,
+      apis[0].value,
       ['foo'],
       'yielded api on init has initial value'
     );
 
     assert.deepEqual(
-      secondApi.value,
+      apis[0].value,
       ['foo'],
-      'the initial update action yields the value'
+      'the initial update action yields the value, despite that it may still ' +
+      'be resolving'
     );
 
     assert.strictEqual(
-      EmberArray.detect(firstApi.value),
+      EmberArray.detect(apis[0].value),
       false,
       'the yielded api value is not the original array (or an ember array)'
     );
 
-    assert.ok(isFrozen(secondApi.value), 'is frozen when in multiple mode');
-
     assert.throws(() => {
-      secondApi.foo = 'bar';
+      apis[0].foo = 'bar';
     }, 'cannot alter the api');
 
-    this.set('value', emberA(['bar']));
+    this.set('value', value2);
 
-    assert.deepEqual(
-      secondApi.value,
-      ['bar'],
-      'the yielded api reflects any changes to the value attribute'
-    );
+    assert.notDeepEqual(apis[1].value, ['bar'],
+      'update action fired due to value change, but api not acknowledged ' +
+      'the change yet, because value is still resolving');
 
-    await render(hbs`
-      <SelectBox
-        @value={{this.value}}
-        @multiple={{false}}
-        @onUpdate={{this.updated}} />
-    `);
+    await settled();
 
-    this.set('value', { foo: 'bar' });
-
-    assert.ok(!isFrozen(secondApi.value), 'is not frozen when in single mode');
+    assert.deepEqual(apis[2].value, ['bar'],
+      'update action fired due to value being resolved');
   });
 
   test('regression test: does not blow up if destroyed', async function(assert) {

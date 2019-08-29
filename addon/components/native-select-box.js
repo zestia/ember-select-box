@@ -3,6 +3,7 @@ import layout from '../templates/components/native-select-box';
 import { readOnly } from '@ember/object/computed';
 import { updateValue } from '../utils/shared/value';
 import { selectValue } from '../utils/native-select-box/value';
+import { apiValue } from '../utils/shared/api-value';
 import api from '../utils/native-select-box/api';
 import { initOptions, registerOption, deregisterOption } from '../utils/registration/options';
 import { registerElement, deregisterElement } from '../utils/registration/element';
@@ -26,6 +27,7 @@ export default Component.extend({
   // Computed state
 
   api: api(),
+  apiValue: apiValue(),
   isMultiple: readOnly('multiple'),
 
   init() {

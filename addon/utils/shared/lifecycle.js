@@ -1,7 +1,7 @@
 import invokeAction from '../shared/invoke-action';
 
 export function initComponent(component) {
-  invokeAction(component, 'onInit', component);
+  invokeAction(component, 'onInit', component.api);
 }
 
 export function _initComponent(component) {
@@ -9,7 +9,7 @@ export function _initComponent(component) {
 }
 
 export function destroyComponent(component) {
-  invokeAction(component, 'onDestroy', component);
+  invokeAction(component, 'onDestroy', component.api);
 }
 
 export function _destroyComponent(component) {
