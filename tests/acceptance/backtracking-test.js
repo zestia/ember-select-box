@@ -1,7 +1,7 @@
 import { VERSION } from '@ember/version';
 import { module, skip, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
-import { visit, click, settled, focus } from '@ember/test-helpers';
+import { visit, click, focus } from '@ember/test-helpers';
 import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 
@@ -19,7 +19,7 @@ module('backtracking focus use-case', function(hooks) {
           open
         </sb.SelectedOption>
         <sb.Options>
-          <button onclick={{action sb.close}} class="backtrack-select-close">close</button>
+          <button {{on "click" sb.close}} class="backtrack-select-close">close</button>
         </sb.Options>
       </BacktrackSelect>
     `

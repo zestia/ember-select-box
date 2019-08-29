@@ -15,7 +15,7 @@
       <sb.SelectedOption>
         {{tag}}
         <button
-          onclick={{action "removeTag" tag}}
+          {{on "click" (action "removeTag" tag)}}
           class="tag-select-remove">
           &times;
         </button>
@@ -24,8 +24,8 @@
   </sb.SelectedOptions>
 
   <sb.Input
+    {{on "click" (action "reveal" sb @onSearch)}}
     autofocus={{true}}
-    onclick={{action "reveal" sb @onSearch}}
     @onInput={{sb.open}}
     @onDelete={{action "removeTag" @value.lastObject}} />
 
