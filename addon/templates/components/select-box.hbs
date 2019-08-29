@@ -8,6 +8,8 @@
   aria-expanded={{if this.isOpen "true" "false"}}
   aria-busy={{if this.isBusy "true" "false"}}
   aria-disabled={{if this.isDisabled "true" "false"}}
+  aria-multiselectable={{if this.isMultiple "true" "false"}}
+  aria-activedescendant={{this.activeOption.domElementId}}
   class={{concat
     (select-box-class @classNamePrefix)
     (if this.isOpen " is-open")
@@ -24,7 +26,6 @@
   ...attributes>
   {{yield (hash
     SelectedOptions=(component "select-box/selected-options"
-      aria-activedescendant=this.activeSelectedOption.domElementId
       classNamePrefix=@classNamePrefix
       _onInit=(action "_registerSelectedOptionsContainer")
       _onDestroy=(action "_deregisterSelectedOptionsContainer"))
@@ -35,7 +36,6 @@
       _onInit=(action "_registerSelectedOption")
       _onDestroy=(action "_deregisterSelectedOption"))
     Options=(component "select-box/options"
-      aria-activedescendant=this.activeOption.domElementId
       classNamePrefix=@classNamePrefix
       _onInit=(action "_registerOptionsContainer")
       _onDestroy=(action "_deregisterOptionsContainer"))
