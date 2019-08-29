@@ -2,9 +2,14 @@
 
 ## 10.0.10.beta
 
-- Internal refactoring
+- Internal refactoring away from mixins
+- Internal refactoring to Angle Bracket components
+- Removed resolving of _all_ entries in the array, when `@multiple` is true
+- Removed `is-searching` class name in favour of `is-busy` and/or aria attribute
 
 ## 10.0.9
+
+- Upgrade deps
 
 ## 10.0.8
 

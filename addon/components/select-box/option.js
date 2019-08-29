@@ -27,6 +27,7 @@ export default Component.extend({
   selectBox: null,
   value: undefined,
   disabled: false,
+  selected: false,
 
   // State
 
