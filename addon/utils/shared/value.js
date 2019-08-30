@@ -1,18 +1,15 @@
 import afterRender from '../general/after-render';
 import invokeAction from '../component/invoke-action';
-import { initComponent } from '../component/lifecycle';
+import { initialise } from '../component/lifecycle';
 import { resolveValue } from '../component/value';
-import { get, set } from '@ember/object';
+import { get } from '@ember/object';
 import { getAPI } from '../component/api';
 import { makeArray } from '@ember/array';
 const { freeze } = Object;
 
 export function receiveValue(selectBox) {
   updateValue(selectBox, selectBox.value).then(() => {
-    if (!selectBox.initialised) {
-      initComponent(selectBox);
-      set(selectBox, 'isInitialised', true);
-    }
+    initialise(selectBox);
   });
 }
 
