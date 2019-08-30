@@ -4,7 +4,7 @@ import { bool } from '@ember/object/computed';
 import { receiveValue, updateValue, selectValue } from '../utils/shared/value';
 import { selectValue as _selectValue } from '../utils/native-select-box/value';
 import api from '../utils/native-select-box/api';
-import { initComponent, destroyComponent } from '../utils/component/lifecycle';
+import { destroyComponent } from '../utils/component/lifecycle';
 import {
   initOptions,
   registerOption,
@@ -52,7 +52,6 @@ export default Component.extend({
   init() {
     this._super(...arguments);
     initOptions(this);
-    initComponent(this);
   },
 
   didReceiveAttrs() {
