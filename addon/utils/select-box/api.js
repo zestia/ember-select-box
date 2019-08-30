@@ -1,7 +1,7 @@
-import { apiMacro } from '../shared/api';
+import { apiMacro } from '../component/api';
 
 const publicProperties = {
-  apiValue: 'value',
+  resolvedValue: 'value',
   domElement: 'element',
   index: true,
   isBusy: true,

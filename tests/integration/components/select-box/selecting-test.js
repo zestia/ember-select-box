@@ -725,8 +725,6 @@ module('select-box (selecting)', function(hooks) {
         'selection used is the selection returned from onBuildSelection'
       );
 
-    await settled();
-
     assert.deepEqual(sb.value, ['baz'], 'value is correct');
 
     assert.strictEqual(arg1, 'foo', 'first argument is the value selected');

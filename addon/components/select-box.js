@@ -39,12 +39,11 @@ import {
   deregisterElement
 } from '../utils/registration/element';
 import { registerInput, deregisterInput } from '../utils/registration/input';
-import { initComponent, destroyComponent } from '../utils/shared/lifecycle';
+import { initComponent, destroyComponent } from '../utils/component/lifecycle';
 import api from '../utils/select-box/api';
 import { _selectOption, selectOption } from '../utils/select-box/option/select';
-import { updateValue } from '../utils/shared/value';
-import { apiValue } from '../utils/shared/api-value';
-import { selectValue } from '../utils/select-box/value';
+import { initValue, updateValue, receiveValue } from '../utils/shared/value';
+import { _selectValue } from '../utils/select-box/value';
 import { open, close, toggle } from '../utils/select-box/toggle';
 import { focusIn, focusOut } from '../utils/select-box/focus';
 import { maybeSearch, search, cancelSearch } from '../utils/select-box/search';
@@ -97,6 +96,8 @@ export default Component.extend({
 
   // State
 
+  resolvedValue: null,
+  previousResolvedValue: null,
   activeOptionIndex: -1,
   activeSelectedOptionIndex: -1,
   documentClickHandler: null,
@@ -105,11 +106,13 @@ export default Component.extend({
   isFulfilled: false,
   isPending: true,
   isRejected: false,
-  isSelectBox: true,
   isSettled: false,
   tabIndex: '0',
+  valueID: 0,
+  searchID: 0,
 
   // Child components
+
   input: null,
   options: null,
   optionsContainer: null,
@@ -119,7 +122,6 @@ export default Component.extend({
   // Computed state
 
   api: api(),
-  apiValue: apiValue(),
   isMultiple: readOnly('multiple'),
   isDisabled: readOnly('disabled'),
   isBusy: or('isPending', 'isSearching'),
@@ -133,6 +135,7 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
+    initValue(this);
     initOptions(this);
     initSelectedOptions(this);
     initComponent(this);
@@ -141,7 +144,7 @@ export default Component.extend({
   didReceiveAttrs() {
     this._super(...arguments);
     receiveArgs(this);
-    updateValue(this, this.value);
+    receiveValue(this);
   },
 
   actions: {
@@ -237,7 +240,7 @@ export default Component.extend({
     // Public API Actions
 
     select(value) {
-      selectValue(this, value);
+      return _selectValue(this, value, true);
     },
 
     update(value) {
@@ -293,11 +296,19 @@ export default Component.extend({
     },
 
     activateNextSelectedOption(scroll = true) {
-      activateSelectedOptionAtIndex(this, this.activeSelectedOptionIndex + 1, scroll);
+      activateSelectedOptionAtIndex(
+        this,
+        this.activeSelectedOptionIndex + 1,
+        scroll
+      );
     },
 
     activatePreviousSelectedOption(scroll = true) {
-      activateSelectedOptionAtIndex(this, this.activeSelectedOptionIndex - 1, scroll);
+      activateSelectedOptionAtIndex(
+        this,
+        this.activeSelectedOptionIndex - 1,
+        scroll
+      );
     },
 
     deactivateOptions() {

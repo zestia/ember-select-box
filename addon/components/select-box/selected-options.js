@@ -3,7 +3,7 @@ import layout from '../../templates/components/select-box/selected-options';
 import {
   _initComponent,
   _destroyComponent
-} from '../../utils/shared/lifecycle';
+} from '../../utils/component/lifecycle';
 
 export default Component.extend({
   layout,

@@ -427,6 +427,20 @@ module('native-select-box', function(hooks) {
     await selectNativeOptionsByValue('.select-box', ['foo', 'bar']);
   });
 
+  test('initial update action (undefined value)', async function(assert) {
+    assert.expect(1);
+
+    this.updated = () => {
+      assert.ok(true, 'update action fired');
+    };
+
+    await this.render(hbs`
+      <NativeSelectBox @onUpdate={{this.updated}} as |sb|>
+        {{yield sb}}
+      </NativeSelectBox>
+    `);
+  });
+
   test('initial update action', async function(assert) {
     assert.expect(1);
 

@@ -1,6 +1,6 @@
-import invokeAction from '../../shared/invoke-action';
+import invokeAction from '../../component/invoke-action';
 import { selectValue } from '../value';
-import { getAPI } from '../../shared/api';
+import { getAPI } from '../../component/api';
 
 export function _selectOption(option) {
   if (!option || option.isDisabled) {

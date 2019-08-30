@@ -1,10 +1,10 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/select-box/selected-option';
-import resolveValue from '../../utils/shared/resolve-value';
+import { receiveValue } from '../../utils/component/value';
 import {
   _initComponent,
   _destroyComponent
-} from '../../utils/shared/lifecycle';
+} from '../../utils/component/lifecycle';
 import api from '../../utils/select-box/selected-option/api';
 import index from '../../utils/general/index';
 import isEqual from '../../utils/general/is-equal';
@@ -31,6 +31,7 @@ export default Component.extend({
   isSettled: false,
   domElement: null,
   domElementId: null,
+  valueID: 0,
 
   // Computed state
 
@@ -45,7 +46,7 @@ export default Component.extend({
 
   didReceiveAttrs() {
     this._super(...arguments);
-    resolveValue(this, this.value);
+    receiveValue(this);
   },
 
   actions: {

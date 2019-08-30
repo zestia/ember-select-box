@@ -1,11 +1,12 @@
 import { computed, get } from '@ember/object';
-const { freeze, keys } = Object;
+import { assign } from '@ember/polyfills';
+const { seal, keys } = Object;
 
 export function getAPI(component) {
-  if (component.isSelectBox) {
-    return component.api;
-  } else {
+  if (component.selectBox) {
     return component.selectBox.api;
+  } else {
+    return component.api;
   }
 }
 
@@ -13,15 +14,24 @@ export function apiMacro(publicProperties, publicActions) {
   const propNames = keys(publicProperties);
 
   return computed(...propNames, function() {
-    return buildAPI(this, publicProperties, publicActions);
+    buildAPI(this, publicActions);
+    updateAPI(this, publicProperties);
+
+    return seal(this._api);
   });
 }
 
-function buildAPI(component, publicProperties, publicActions) {
-  const properties = apiProperties(component, publicProperties);
-  const actions = apiActions(component, publicActions);
+function buildAPI(component, publicActions) {
+  if (component._api) {
+    return;
+  }
 
-  return freeze({ ...properties, ...actions });
+  component._api = apiActions(component, publicActions);
+}
+
+function updateAPI(component, publicProperties) {
+  const properties = apiProperties(component, publicProperties);
+  component._api = assign(component._api, properties);
 }
 
 function apiProperties(component, publicProperties) {

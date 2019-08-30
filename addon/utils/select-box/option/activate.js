@@ -1,6 +1,6 @@
 import { set } from '@ember/object';
-import invokeAction from '../../shared/invoke-action';
-import { getAPI } from '../../shared/api';
+import invokeAction from '../../component/invoke-action';
+import { getAPI } from '../../component/api';
 import scrollIntoView from '../../dom/scroll-into-view';
 
 export function _activateOption(option) {

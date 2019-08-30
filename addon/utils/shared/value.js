@@ -1,16 +1,41 @@
-import resolveValue from './resolve-value';
 import afterRender from '../general/after-render';
-import invokeAction from '../shared/invoke-action';
-import { getAPI } from '../shared/api';
+import invokeAction from '../component/invoke-action';
+import { resolveValue } from '../component/value';
+import { get, set } from '@ember/object';
+import { getAPI } from '../component/api';
+import { makeArray } from '@ember/array';
+const { freeze } = Object;
 
-export function updateValue(selectBox, value) {
-  return resolveValue(selectBox, value)
-    .then(() => afterRender())
+export function initValue(selectBox) {
+  set(selectBox, 'resolvedValue', processValue(selectBox, selectBox.value));
+}
+
+export function receiveValue(selectBox) {
+  updateValue(selectBox, selectBox.value);
+}
+
+export function updateValue(selectBox, unresolvedValue) {
+  return resolveValue(selectBox, unresolvedValue, processValue)
+    .then(afterRender)
     .then(() => updatedValue(selectBox));
 }
 
+function processValue(selectBox, value) {
+  if (get(selectBox, 'isMultiple')) {
+    return freeze(makeArray(value).slice());
+  }
+
+  return value;
+}
+
 export function updatedValue(selectBox) {
-  if (selectBox.isDestroyed || selectBox.isDestroying) {
+  // console.log(selectBox.resolvedValue, selectBox.previousResolvedValue);
+
+  if (
+    selectBox.isDestroyed ||
+    selectBox.isDestroying //||
+    // selectBox.resolvedValue === selectBox.previousResolvedValue
+  ) {
     return;
   }
 

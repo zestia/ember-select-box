@@ -4,6 +4,10 @@ import buildSelection from './build-selection';
 export function selectValue(selectBox, value) {
   value = buildSelection(selectBox, value);
 
+  return _selectValue(selectBox, value);
+}
+
+export function _selectValue(selectBox, value) {
   return updateValue(selectBox, value).then(() => {
     selectedValue(selectBox);
   });

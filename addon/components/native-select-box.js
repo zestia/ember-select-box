@@ -1,10 +1,10 @@
 import Component from '@ember/component';
 import layout from '../templates/components/native-select-box';
 import { readOnly } from '@ember/object/computed';
-import { updateValue } from '../utils/shared/value';
+import { initValue, receiveValue } from '../utils/shared/value';
 import { selectValue } from '../utils/native-select-box/value';
-import { apiValue } from '../utils/shared/api-value';
 import api from '../utils/native-select-box/api';
+import { initComponent, destroyComponent } from '../utils/component/lifecycle';
 import {
   initOptions,
   registerOption,
@@ -33,28 +33,31 @@ export default Component.extend({
 
   // State
 
+  resolvedValue: null,
+  previousResolvedValue: null,
   isPending: true,
   isRejected: false,
   isFulfilled: false,
   isSettled: false,
-  isSelectBox: true,
   domElement: null,
   domElementId: null,
+  valueID: 0,
 
   // Computed state
 
   api: api(),
-  apiValue: apiValue(),
   isMultiple: readOnly('multiple'),
 
   init() {
     this._super(...arguments);
+    initValue(this);
     initOptions(this);
+    initComponent(this);
   },
 
   didReceiveAttrs() {
     this._super(...arguments);
-    updateValue(this, this.value);
+    receiveValue(this);
   },
 
   actions: {
@@ -66,6 +69,7 @@ export default Component.extend({
 
     willDestroyElement(element) {
       deregisterElement(this, element);
+      destroyComponent(this);
     },
 
     onInitOption(option) {

@@ -2,7 +2,7 @@ import Component from '@ember/component';
 import {
   _initComponent,
   _destroyComponent
-} from '../../utils/shared/lifecycle';
+} from '../../utils/component/lifecycle';
 import index from '../../utils/general/index';
 import isSelected from '../../utils/shared/is-selected';
 import layout from '../../templates/components/native-select-box/option';
@@ -10,7 +10,7 @@ import {
   registerElement,
   deregisterElement
 } from '../../utils/registration/element';
-import resolveValue from '../../utils/shared/resolve-value';
+import { receiveValue } from '../../utils/component/value';
 import api from '../../utils/native-select-box/option/api';
 
 export default Component.extend({
@@ -24,6 +24,13 @@ export default Component.extend({
   value: undefined,
 
   // State
+
+  resolvedValue: null,
+  previousResolvedValue: null,
+  isPending: true,
+  isRejected: false,
+  isFulfilled: false,
+  isSettled: false,
   domElement: null,
   domElementId: null,
 
@@ -40,7 +47,7 @@ export default Component.extend({
 
   didReceiveAttrs() {
     this._super(...arguments);
-    resolveValue(this, this.value);
+    receiveValue(this);
   },
 
   actions: {

@@ -5,7 +5,7 @@ import hbs from 'htmlbars-inline-precompile';
 import SelectBox from '@zestia/ember-select-box/components/select-box';
 import EmberArray, { A as emberA } from '@ember/array';
 import { htmlSafe } from '@ember/template';
-const { isFrozen } = Object;
+const { isFrozen, isSealed } = Object;
 
 module('select-box', function(hooks) {
   setupRenderingTest(hooks);
@@ -232,7 +232,7 @@ module('select-box', function(hooks) {
   });
 
   test('api value', async function(assert) {
-    assert.expect(8);
+    assert.expect(9);
 
     const value1 = emberA(['foo']);
     const value2 = emberA(['bar']);
@@ -250,7 +250,7 @@ module('select-box', function(hooks) {
         @onUpdate={{this.updated}} />
     `);
 
-    assert.ok(isFrozen(apis[0]), 'api is a frozen state');
+    assert.ok(isSealed(apis[0]), 'api is sealed');
 
     assert.ok(
       !isFrozen(this.value),
@@ -295,6 +295,12 @@ module('select-box', function(hooks) {
       apis[2].value,
       ['bar'],
       'update action fired due to value being resolved'
+    );
+
+    assert.deepEqual(
+      apis[0].value,
+      ['bar'],
+      'yielded api is always the same instance, not a new api each time'
     );
   });
 

@@ -4,13 +4,13 @@ import index from '../../utils/general/index';
 import {
   _initComponent,
   _destroyComponent
-} from '../../utils/shared/lifecycle';
+} from '../../utils/component/lifecycle';
 import isSelected from '../../utils/shared/is-selected';
 import isEqual from '../../utils/general/is-equal';
 import layout from '../../templates/components/select-box/option';
+import { receiveValue } from '../../utils/component/value';
 import { _activateOption } from '../../utils/select-box/option/activate';
 import { _selectOption } from '../../utils/select-box/option/select';
-import resolveValue from '../../utils/shared/resolve-value';
 import api from '../../utils/select-box/option/api';
 import {
   registerElement,
@@ -31,12 +31,15 @@ export default Component.extend({
 
   // State
 
+  resolvedValue: null,
+  previousResolvedValue: null,
   isPending: true,
   isRejected: false,
   isFulfilled: false,
   isSettled: false,
   domElement: null,
   domElementId: null,
+  valueID: 0,
 
   // Computed state
 
@@ -53,7 +56,7 @@ export default Component.extend({
 
   didReceiveAttrs() {
     this._super(...arguments);
-    resolveValue(this, this.value);
+    receiveValue(this);
   },
 
   actions: {

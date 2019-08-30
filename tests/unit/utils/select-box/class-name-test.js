@@ -1,4 +1,4 @@
-import className from '@zestia/ember-select-box/utils/shared/class-name';
+import className from '@zestia/ember-select-box/utils/component/class-name';
 import { module, test } from 'qunit';
 
 module('select-box (class name util)', function() {

@@ -1,5 +1,5 @@
-import invokeAction from '../shared/invoke-action';
-import { getAPI } from '../shared/api';
+import invokeAction from './invoke-action';
+import { getAPI } from './api';
 
 export function initComponent(component) {
   invokeAction(component, 'onInit', getAPI(component));

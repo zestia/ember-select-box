@@ -1,5 +1,5 @@
-import { makeArray } from '@ember/array';
 import { computed } from '@ember/object';
+import { makeArray } from '@ember/array';
 
 const isSelectedKeys = [
   'selected',

@@ -1,6 +1,6 @@
-import invokeAction from '../shared/invoke-action';
+import invokeAction from '../component/invoke-action';
 import { set } from '@ember/object';
-import { getAPI } from '../shared/api';
+import { getAPI } from '../component/api';
 
 export function addDocumentClickListener(selectBox) {
   set(selectBox, 'documentClickHandler', e =>

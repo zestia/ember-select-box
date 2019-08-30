@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import { helper } from '@ember/component/helper';
 import { htmlSafe } from '@ember/string';
-import className from '../utils/shared/class-name';
+import className from '../utils/component/class-name';
 const { escapeExpression } = Ember.Handlebars.Utils;
 
 export default helper(function(args = []) {

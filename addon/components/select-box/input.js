@@ -2,7 +2,7 @@ import Component from '@ember/component';
 import {
   _initComponent,
   _destroyComponent
-} from '../../utils/shared/lifecycle';
+} from '../../utils/component/lifecycle';
 import { input, keyDown } from '../../utils/select-box/input/keyboard';
 import layout from '../../templates/components/select-box/input';
 import {
