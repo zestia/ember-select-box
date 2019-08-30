@@ -5,7 +5,7 @@
 - Internal refactoring removing use of `Mixin.create()`
 - Internal refactoring to Angle Bracket components
 - Removed `is-searching` class name in favour of `is-busy` and/or aria attribute
-- Removed ability to control open/closed state via an argument. (Use the API instead)
+- Removed `@open` argument. (Please use the API instead)
 
 ## 10.0.9
 
