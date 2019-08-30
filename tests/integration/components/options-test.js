@@ -27,20 +27,6 @@ module('select-box/options', function(hooks) {
       .exists({ count: 1 }, 'can override the class prefix');
   });
 
-  test('aria role', async function(assert) {
-    assert.expect(1);
-
-    await render(hbs`<SelectBox::Options />`);
-
-    assert
-      .dom('.select-box-options')
-      .hasAttribute(
-        'role',
-        'listbox',
-        'options container has an appropriate aria role'
-      );
-  });
-
   skip('classic: style', async function(assert) {
     assert.expect(1);
 

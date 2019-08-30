@@ -32,8 +32,8 @@ function closed(selectBox) {
 
 export function toggle(selectBox) {
   if (selectBox.isOpen) {
-    open(selectBox);
-  } else {
     close(selectBox);
+  } else {
+    open(selectBox);
   }
 }

@@ -102,6 +102,7 @@ export default Component.extend({
   documentClickHandler: null,
   domElement: null,
   domElementId: null,
+  isOpen: false,
   isFulfilled: false,
   isPending: true,
   isRejected: false,
