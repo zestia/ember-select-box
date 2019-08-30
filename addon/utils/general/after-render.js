@@ -1,8 +1,7 @@
-import { schedule } from '@ember/runloop';
+import { scheduleOnce } from '@ember/runloop';
 
 export default function afterRender() {
   return new Promise(resolve => {
-    // todo once
-    schedule('afterRender', resolve);
+    scheduleOnce('afterRender', resolve);
   });
 }
