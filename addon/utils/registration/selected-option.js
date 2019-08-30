@@ -12,7 +12,7 @@ export function registerSelectedOption(selectBox, selectedOption) {
 }
 
 export function deregisterSelectedOption(selectBox, selectedOption) {
-  selectBox.selectedOption.removeObject(selectedOption);
+  selectBox.selectedOptions.removeObject(selectedOption);
   scheduleUpdateSelectedOptions(selectBox);
 }
 
