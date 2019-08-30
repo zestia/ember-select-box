@@ -39,10 +39,10 @@ import {
   deregisterElement
 } from '../utils/registration/element';
 import { registerInput, deregisterInput } from '../utils/registration/input';
-import { initComponent, destroyComponent } from '../utils/component/lifecycle';
+import { destroyComponent } from '../utils/component/lifecycle';
 import api from '../utils/select-box/api';
 import { _selectOption, selectOption } from '../utils/select-box/option/select';
-import { initValue, updateValue, receiveValue } from '../utils/shared/value';
+import { updateValue, receiveValue } from '../utils/shared/value';
 import { _selectValue } from '../utils/select-box/value';
 import { open, close, toggle } from '../utils/select-box/toggle';
 import { focusIn, focusOut } from '../utils/select-box/focus';
@@ -110,6 +110,7 @@ export default Component.extend({
   tabIndex: '0',
   valueID: 0,
   searchID: 0,
+  isInitialised: false,
 
   // Child components
 
@@ -135,10 +136,8 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    initValue(this);
     initOptions(this);
     initSelectedOptions(this);
-    initComponent(this);
   },
 
   didReceiveAttrs() {

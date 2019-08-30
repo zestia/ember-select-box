@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import layout from '../templates/components/native-select-box';
 import { readOnly } from '@ember/object/computed';
-import { initValue, receiveValue } from '../utils/shared/value';
+import { receiveValue } from '../utils/shared/value';
 import { selectValue } from '../utils/native-select-box/value';
 import api from '../utils/native-select-box/api';
 import { initComponent, destroyComponent } from '../utils/component/lifecycle';
@@ -42,6 +42,7 @@ export default Component.extend({
   domElement: null,
   domElementId: null,
   valueID: 0,
+  isInitialised: false,
 
   // Computed state
 
@@ -50,7 +51,6 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    initValue(this);
     initOptions(this);
     initComponent(this);
   },

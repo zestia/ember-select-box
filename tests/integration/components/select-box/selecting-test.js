@@ -483,7 +483,7 @@ module('select-box (selecting)', function(hooks) {
 
     assert.ok(
       find('.select-box').textContent.match('internal: bar'),
-      'internal value is updated (regression test)'
+      'internal value is updated'
     );
   });
 

@@ -480,10 +480,7 @@ module('native-select-box', function(hooks) {
 
     assert
       .dom('.foo-select-display-label')
-      .hasText(
-        'Bar',
-        'regression test: the update action is fired after all options have rendered'
-      );
+      .hasText('Bar', 'the action is fired after all options have rendered');
   });
 
   test('customising selection', async function(assert) {

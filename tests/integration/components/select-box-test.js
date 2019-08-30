@@ -209,7 +209,7 @@ module('select-box', function(hooks) {
   });
 
   test('init action', async function(assert) {
-    assert.expect(2);
+    assert.expect(3);
 
     let api;
 
@@ -225,6 +225,8 @@ module('select-box', function(hooks) {
     api.open();
 
     await settled();
+
+    assert.strictEqual(api.value, undefined, 'has expected value');
 
     assert
       .dom('.select-box')
@@ -304,7 +306,7 @@ module('select-box', function(hooks) {
     );
   });
 
-  test('regression test: does not blow up if destroyed', async function(assert) {
+  test('does not blow up if destroyed', async function(assert) {
     assert.expect(0);
 
     this.set('show', true);
