@@ -7,7 +7,7 @@ export function _selectOption(option) {
     return;
   }
 
-  invokeAction(option, '_onSelect', option);
+  return invokeAction(option, '_onSelect', option);
 }
 
 export function selectOption(selectBox, option) {

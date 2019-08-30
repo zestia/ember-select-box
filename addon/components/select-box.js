@@ -224,7 +224,7 @@ export default Component.extend({
     },
 
     onSelectOption(option) {
-      selectOption(this, option);
+      return selectOption(this, option);
     },
 
     onActivateOption(option) {
@@ -243,6 +243,10 @@ export default Component.extend({
 
     update(value) {
       return updateValue(this, value);
+    },
+
+    selectActiveOption() {
+      return _selectOption(this.activeOption);
     },
 
     open() {
@@ -324,14 +328,6 @@ export default Component.extend({
 
       if (char) {
         this._activateOptionForChar(char, scroll);
-      }
-    },
-
-    selectActiveOption() {
-      const activeOption = get(this, 'activeOption');
-
-      if (activeOption) {
-        activeOption.send('select');
       }
     }
   },

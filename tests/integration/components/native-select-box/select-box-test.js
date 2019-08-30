@@ -581,9 +581,7 @@ module('native-select-box', function(hooks) {
       </NativeSelectBox>
     `);
 
-    api.select('2');
-
-    await settled();
+    await api.select('2');
 
     assert.dom('.select-box').hasValue('2');
     assert.dom('.select-box-option:checked').hasText('2');
@@ -612,9 +610,7 @@ module('native-select-box', function(hooks) {
       </NativeSelectBox>
     `);
 
-    api.select(this.two);
-
-    await settled();
+    await api.select(this.two);
 
     assert.dom('.select-box').hasValue('[object Object]');
     assert.dom('.select-box-option:checked').hasText('2');
