@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import layout from '../templates/components/select-box';
-import { readOnly, or } from '@ember/object/computed';
+import { bool, or } from '@ember/object/computed';
 import { get, set } from '@ember/object';
 import escapeRegExp from '../utils/general/escape-regexp';
 import collapseWhitespace from '../utils/general/collapse-whitespace';
@@ -102,10 +102,13 @@ export default Component.extend({
   documentClickHandler: null,
   domElement: null,
   domElementId: null,
+  isFocused: false,
+  isSlowSearch: false,
   isOpen: false,
   isFulfilled: false,
   isPending: true,
   isRejected: false,
+  isSearching: false,
   isSettled: false,
   tabIndex: '0',
   valueID: 0,
@@ -123,8 +126,8 @@ export default Component.extend({
   // Computed state
 
   api: api(),
-  isMultiple: readOnly('multiple'),
-  isDisabled: readOnly('disabled'),
+  isMultiple: bool('multiple'),
+  isDisabled: bool('disabled'),
   isBusy: or('isPending', 'isSearching'),
   activeOption: objectAtIndex('options', 'activeOptionIndex'),
   activeSelectedOption: objectAtIndex(

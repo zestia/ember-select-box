@@ -3,7 +3,7 @@ import { set } from '@ember/object';
 import { getAPI } from '../component/api';
 
 export function open(selectBox) {
-  if (selectBox.isDestroyed) {
+  if (selectBox.isDestroyed || selectBox.isOpen) {
     return;
   }
 
@@ -13,7 +13,7 @@ export function open(selectBox) {
 }
 
 export function close(selectBox) {
-  if (selectBox.isDestroyed) {
+  if (selectBox.isDestroyed || !selectBox.isOpen) {
     return;
   }
 

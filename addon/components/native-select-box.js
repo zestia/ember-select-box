@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import layout from '../templates/components/native-select-box';
-import { readOnly } from '@ember/object/computed';
+import { bool } from '@ember/object/computed';
 import { receiveValue, updateValue, selectValue } from '../utils/shared/value';
 import { selectValue as _selectValue } from '../utils/native-select-box/value';
 import api from '../utils/native-select-box/api';
@@ -47,7 +47,7 @@ export default Component.extend({
   // Computed state
 
   api: api(),
-  isMultiple: readOnly('multiple'),
+  isMultiple: bool('multiple'),
 
   init() {
     this._super(...arguments);

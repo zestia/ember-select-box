@@ -3,7 +3,6 @@ import { apiMacro } from '../component/api';
 const publicProperties = {
   resolvedValue: 'value',
   domElement: 'element',
-  index: true,
   isBusy: true,
   isDisabled: true,
   isFocused: true,
@@ -13,7 +12,6 @@ const publicProperties = {
   isPending: true,
   isRejected: true,
   isSearching: true,
-  isSelected: true,
   isSettled: true,
   isSlowSearch: true
 };

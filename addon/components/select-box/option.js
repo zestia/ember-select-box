@@ -1,4 +1,4 @@
-import { readOnly } from '@ember/object/computed';
+import { bool } from '@ember/object/computed';
 import Component from '@ember/component';
 import index from '../../utils/general/index';
 import {
@@ -46,7 +46,7 @@ export default Component.extend({
   api: api(),
   index: index('selectBox.options'),
   isActive: isEqual('index', 'selectBox.activeOptionIndex'),
-  isDisabled: readOnly('disabled'),
+  isDisabled: bool('disabled'),
   isSelected: isSelected(),
 
   init() {

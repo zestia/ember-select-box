@@ -10,8 +10,12 @@
   aria-disabled={{if this.isDisabled "true" "false"}}
   aria-multiselectable={{if this.isMultiple "true" "false"}}
   aria-activedescendant={{this.activeOption.domElementId}}
+
+  {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
+
   class={{concat
     (select-box-class @classNamePrefix)
+    (if @class (concat " " @class))
     (if this.isOpen " is-open")
     (if this.isFocused " is-focused")
     (if this.isDisabled " is-disabled")
