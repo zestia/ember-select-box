@@ -1,8 +1,8 @@
 import Component from '@ember/component';
 import layout from '../templates/components/native-select-box';
 import { readOnly } from '@ember/object/computed';
-import { receiveValue } from '../utils/shared/value';
-import { selectValue } from '../utils/native-select-box/value';
+import { receiveValue, updateValue, selectValue } from '../utils/shared/value';
+import { _selectValue } from '../utils/native-select-box/value';
 import api from '../utils/native-select-box/api';
 import { initComponent, destroyComponent } from '../utils/component/lifecycle';
 import {
@@ -81,7 +81,17 @@ export default Component.extend({
     },
 
     onChange() {
-      selectValue(this);
+      _selectValue(this);
+    },
+
+    // Public API Actions
+
+    select(value) {
+      return selectValue(this, value);
+    },
+
+    update(value) {
+      return updateValue(this, value);
     }
   }
 });

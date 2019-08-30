@@ -380,6 +380,12 @@ module('select-box (selecting)', function(hooks) {
     await click('button');
 
     assert.strictEqual(
+      updated,
+      'foo',
+      'the select box sends and update action'
+    );
+
+    assert.strictEqual(
       selected,
       'foo',
       'the select box acknowledges the selection and sends an action'
@@ -390,22 +396,23 @@ module('select-box (selecting)', function(hooks) {
       undefined,
       'the option does not fire its onSelect action'
     );
-
-    assert.strictEqual(
-      updated,
-      'foo',
-      'the select box sends and update action after the selection has been made'
-    );
   });
 
   test('updating via the api', async function(assert) {
-    assert.expect(3);
+    assert.expect(5);
 
-    let updated;
-    let selected;
+    let updated = 0;
+    let updatedValue;
+    let selected = 0;
 
-    this.set('updated', value => (updated = value));
-    this.set('selected', value => (selected = value));
+    this.set('updated', value => {
+      updated++;
+      updatedValue = value;
+    });
+
+    this.set('selected', value => {
+      selected++;
+    });
 
     await render(hbs`
       <SelectBox @onUpdate={{this.updated}} @onSelect={{this.selected}} as |sb|>
@@ -416,11 +423,13 @@ module('select-box (selecting)', function(hooks) {
       </SelectBox>
     `);
 
+    assert.equal(updated, 1, 'initial update action');
+
     await click(findAll('button')[1]);
 
-    assert.strictEqual(updated, 'bar', 'has fired initial updated action');
-
-    assert.strictEqual(selected, undefined, 'has not fired a select action');
+    assert.equal(updated, 2, 'update value action');
+    assert.strictEqual(updatedValue, 'bar', 'has fired update action');
+    assert.strictEqual(selected, 0, 'has not fired a select action');
 
     assert
       .dom('.select-box-option.is-selected')

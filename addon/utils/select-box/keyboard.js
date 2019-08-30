@@ -33,8 +33,10 @@ function pressedKey(selectBox, e) {
 }
 
 function _keyedDown(selectBox, key, e) {
-  if (typeof selectBox.actions[key] === 'function') {
-    selectBox.send(`onPress${key}`, e);
+  const name = `onPress${key}`;
+
+  if (typeof selectBox.actions[name] === 'function') {
+    selectBox.send(name, e);
   }
 }
 

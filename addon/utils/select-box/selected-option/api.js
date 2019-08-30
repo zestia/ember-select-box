@@ -10,10 +10,7 @@ const publicProperties = {
   domElement: 'element'
 };
 
-const publicActions = {
-  // 'update': true,
-  // 'activate': true
-};
+const publicActions = {};
 
 export default function api() {
   return apiMacro(publicProperties, publicActions);

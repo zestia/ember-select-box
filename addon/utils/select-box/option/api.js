@@ -13,11 +13,7 @@ const publicProperties = {
   resolvedValue: 'value'
 };
 
-const publicActions = {
-  // 'select': true,
-  // 'update': true,
-  // 'activate': true
-};
+const publicActions = {};
 
 export default function api() {
   return apiMacro(publicProperties, publicActions);

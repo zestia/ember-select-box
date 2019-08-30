@@ -1,6 +1,6 @@
 import { module, test, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, find, findAll, fillIn } from '@ember/test-helpers';
+import { settled, render, find, findAll, fillIn } from '@ember/test-helpers';
 import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 import {
@@ -560,5 +560,63 @@ module('native-select-box', function(hooks) {
         findAll('.select-box-option')[2].selected,
       'single value native select considers the last option as the selected one'
     );
+  });
+
+  test('select api', async function(assert) {
+    assert.expect(3);
+
+    let api;
+
+    this.initialised = sb => (api = sb);
+
+    this.selected = (value, sb) => {
+      assert.equal(value, 2, 'sends action with selected value');
+    };
+
+    await render(hbs`
+      <NativeSelectBox @onInit={{this.initialised}} @onSelect={{this.selected}} as |sb|>
+        <sb.Option @value="1">1</sb.Option>
+        <sb.Option @value="2">2</sb.Option>
+        <sb.Option @value="3">3</sb.Option>
+      </NativeSelectBox>
+    `);
+
+    api.select('2');
+
+    await settled();
+
+    assert.dom('.select-box').hasValue('2');
+    assert.dom('.select-box-option:checked').hasText('2');
+  });
+
+  test('select api (non primitive)', async function(assert) {
+    assert.expect(3);
+
+    this.set('one', { one: true });
+    this.set('two', { two: true });
+    this.set('three', { three: true });
+
+    let api;
+
+    this.initialised = sb => (api = sb);
+
+    this.selected = (value, sb) => {
+      assert.equal(value, this.two, 'sends action with selected value');
+    };
+
+    await render(hbs`
+      <NativeSelectBox @onInit={{this.initialised}} @onSelect={{this.selected}} as |sb|>
+        <sb.Option @value={{this.one}}>1</sb.Option>
+        <sb.Option @value={{this.two}}>2</sb.Option>
+        <sb.Option @value={{this.three}}>3</sb.Option>
+      </NativeSelectBox>
+    `);
+
+    api.select(this.two);
+
+    await settled();
+
+    assert.dom('.select-box').hasValue('[object Object]');
+    assert.dom('.select-box-option:checked').hasText('2');
   });
 });

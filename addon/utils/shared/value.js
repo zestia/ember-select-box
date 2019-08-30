@@ -22,6 +22,12 @@ export function updateValue(selectBox, unresolvedValue) {
     .then(() => updatedValue(selectBox));
 }
 
+export function selectValue(selectBox, value) {
+  return updateValue(selectBox, value).then(() => {
+    selectedValue(selectBox);
+  });
+}
+
 function processValue(selectBox, value) {
   if (get(selectBox, 'isMultiple')) {
     return freeze(makeArray(value).slice());

@@ -13,8 +13,8 @@ const publicProperties = {
 };
 
 const publicActions = {
-  // 'select': true,
-  // 'update': true
+  select: true,
+  update: true
 };
 
 export default function api() {

@@ -43,7 +43,7 @@ import { destroyComponent } from '../utils/component/lifecycle';
 import api from '../utils/select-box/api';
 import { _selectOption, selectOption } from '../utils/select-box/option/select';
 import { updateValue, receiveValue } from '../utils/shared/value';
-import { _selectValue } from '../utils/select-box/value';
+import { selectValue } from '../utils/select-box/value';
 import { open, close, toggle } from '../utils/select-box/toggle';
 import { focusIn, focusOut } from '../utils/select-box/focus';
 import { maybeSearch, search, cancelSearch } from '../utils/select-box/search';
@@ -239,7 +239,7 @@ export default Component.extend({
     // Public API Actions
 
     select(value) {
-      return _selectValue(this, value, true);
+      return selectValue(this, value);
     },
 
     update(value) {

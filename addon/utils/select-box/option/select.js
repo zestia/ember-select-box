@@ -14,7 +14,8 @@ export function selectOption(selectBox, option) {
   // todo test action order
 
   selectedOption(option);
-  selectValue(selectBox, option.resolvedValue);
+
+  return selectValue(selectBox, option.resolvedValue);
 }
 
 export function selectedOption(option) {
