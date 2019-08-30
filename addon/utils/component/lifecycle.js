@@ -19,7 +19,7 @@ export function _destroyComponent(component) {
 }
 
 export function initialise(component) {
-  if (component.isDestroyed || component.initialised) {
+  if (component.isDestroyed || component.isInitialised) {
     return;
   }
 
