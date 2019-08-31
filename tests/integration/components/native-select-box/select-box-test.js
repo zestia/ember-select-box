@@ -1,12 +1,12 @@
-import { module, test, skip } from 'qunit';
+import { module, skip, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, find, findAll, fillIn } from '@ember/test-helpers';
+import { fillIn, find, findAll, render } from '@ember/test-helpers';
 import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 import {
   getNativeMultipleSelectBoxValue,
-  selectNativeOptionsByValue,
-  selectNativeOptionsByLabel
+  selectNativeOptionsByLabel,
+  selectNativeOptionsByValue
 } from '@zestia/ember-select-box/test-support/helpers/selecting';
 
 module('native-select-box', function(hooks) {

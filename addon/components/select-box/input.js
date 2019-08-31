@@ -1,13 +1,13 @@
 import Component from '@ember/component';
 import {
-  _initComponent,
-  _destroyComponent
+  _destroyComponent,
+  _initComponent
 } from '../../utils/component/lifecycle';
 import { input, keyDown } from '../../utils/select-box/input/keyboard';
 import layout from '../../templates/components/select-box/input';
 import {
-  registerElement,
-  deregisterElement
+  deregisterElement,
+  registerElement
 } from '../../utils/registration/element';
 
 export default Component.extend({

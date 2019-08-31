@@ -4,13 +4,13 @@ import hbs from 'htmlbars-inline-precompile';
 import EmberArray, { A as emberA } from '@ember/array';
 import { defer } from 'rsvp';
 import {
-  render,
-  settled,
-  triggerKeyEvent,
-  triggerEvent,
+  click,
   find,
   findAll,
-  click
+  render,
+  settled,
+  triggerEvent,
+  triggerKeyEvent
 } from '@ember/test-helpers';
 const { isFrozen } = Object;
 

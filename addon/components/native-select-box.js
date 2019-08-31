@@ -1,22 +1,22 @@
 import Component from '@ember/component';
-import layout from '../templates/components/native-select-box';
 import { bool } from '@ember/object/computed';
-import { receiveValue, updateValue, selectValue } from '../utils/shared/value';
+import layout from '../templates/components/native-select-box';
+import { receiveValue, selectValue, updateValue } from '../utils/shared/value';
 import { selectValue as _selectValue } from '../utils/native-select-box/value';
 import api from '../utils/native-select-box/api';
-import { initComponent, destroyComponent } from '../utils/component/lifecycle';
+import { destroyComponent, initComponent } from '../utils/component/lifecycle';
 import {
-  insertElement,
-  destroyElement
+  destroyElement,
+  insertElement
 } from '../utils/native-select-box/element';
 import {
+  deregisterOption,
   initOptions,
-  registerOption,
-  deregisterOption
+  registerOption
 } from '../utils/registration/option';
 import {
-  registerElement,
-  deregisterElement
+  deregisterElement,
+  registerElement
 } from '../utils/registration/element';
 
 export default Component.extend({

@@ -1,4 +1,4 @@
-import { insertedElement, destroyedElement } from '../shared/element';
+import { destroyedElement, insertedElement } from '../shared/element';
 import {
   addDocumentClickListener,
   removeDocumentClickListener

@@ -5,10 +5,10 @@ import { later } from '@ember/runloop';
 import { A as emberA } from '@ember/array';
 import { COLLECT_CHARS_MS } from '@zestia/ember-select-box/components/select-box';
 import {
-  render,
   click,
   find,
   findAll,
+  render,
   triggerEvent,
   triggerKeyEvent,
   waitUntil

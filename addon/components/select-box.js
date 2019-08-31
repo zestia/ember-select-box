@@ -4,50 +4,50 @@ import { bool, or } from '@ember/object/computed';
 import { get, set } from '@ember/object';
 import escapeRegExp from '../utils/general/escape-regexp';
 import collapseWhitespace from '../utils/general/collapse-whitespace';
-import { insertElement, destroyElement } from '../utils/select-box/element';
+import { destroyElement, insertElement } from '../utils/select-box/element';
 import {
-  registerOptionsContainer,
-  deregisterOptionsContainer
+  deregisterOptionsContainer,
+  registerOptionsContainer
 } from '../utils/registration/options';
 import { receiveArgs } from '../utils/select-box/args';
 import {
-  registerSelectedOptionsContainer,
-  deregisterSelectedOptionsContainer
+  deregisterSelectedOptionsContainer,
+  registerSelectedOptionsContainer
 } from '../utils/registration/selected-options';
 import {
-  activateOptionAtIndex,
-  activateOption
+  activateOption,
+  activateOptionAtIndex
 } from '../utils/select-box/option/activate';
 import {
-  activateSelectedOptionAtIndex,
-  activateSelectedOption
+  activateSelectedOption,
+  activateSelectedOptionAtIndex
 } from '../utils/select-box/selected-option/activate';
 import { deactivateOptions } from '../utils/select-box/option/deactivate';
 import { deactivateSelectedOptions } from '../utils/select-box/selected-option/deactivate';
 import {
+  deregisterOption,
   initOptions,
-  registerOption,
-  deregisterOption
+  registerOption
 } from '../utils/registration/option';
 import {
+  deregisterSelectedOption,
   initSelectedOptions,
-  registerSelectedOption,
-  deregisterSelectedOption
+  registerSelectedOption
 } from '../utils/registration/selected-option';
 import {
-  registerElement,
-  deregisterElement
+  deregisterElement,
+  registerElement
 } from '../utils/registration/element';
-import { registerInput, deregisterInput } from '../utils/registration/input';
-import { initComponent, destroyComponent } from '../utils/component/lifecycle';
+import { deregisterInput, registerInput } from '../utils/registration/input';
+import { destroyComponent, initComponent } from '../utils/component/lifecycle';
 import api from '../utils/select-box/api';
 import { _selectOption, selectOption } from '../utils/select-box/option/select';
-import { updateValue, receiveValue, selectValue } from '../utils/shared/value';
-import { open, close, toggle } from '../utils/select-box/toggle';
+import { receiveValue, selectValue, updateValue } from '../utils/shared/value';
+import { close, open, toggle } from '../utils/select-box/toggle';
 import { focusIn, focusOut } from '../utils/select-box/focus';
-import { maybeSearch, search, cancelSearch } from '../utils/select-box/search';
-import { focusInput, blurInput } from '../utils/select-box/input/focus';
-import { keyPress, keyDown } from '../utils/select-box/keyboard';
+import { cancelSearch, maybeSearch, search } from '../utils/select-box/search';
+import { blurInput, focusInput } from '../utils/select-box/input/focus';
+import { keyDown, keyPress } from '../utils/select-box/keyboard';
 import { setInputValue } from '../utils/select-box/input/value';
 import objectAtIndex from '../utils/general/object-at-index';
 const { fromCharCode } = String;

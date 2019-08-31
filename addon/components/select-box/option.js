@@ -2,8 +2,8 @@ import { bool } from '@ember/object/computed';
 import Component from '@ember/component';
 import index from '../../utils/general/index';
 import {
-  _initComponent,
-  _destroyComponent
+  _destroyComponent,
+  _initComponent
 } from '../../utils/component/lifecycle';
 import isSelected from '../../utils/shared/is-selected';
 import isEqual from '../../utils/general/is-equal';
@@ -13,8 +13,8 @@ import { _activateOption } from '../../utils/select-box/option/activate';
 import { _selectOption } from '../../utils/select-box/option/select';
 import api from '../../utils/select-box/option/api';
 import {
-  registerElement,
-  deregisterElement
+  deregisterElement,
+  registerElement
 } from '../../utils/registration/element';
 
 export default Component.extend({

@@ -1,14 +1,14 @@
 import Component from '@ember/component';
 import {
-  _initComponent,
-  _destroyComponent
+  _destroyComponent,
+  _initComponent
 } from '../../utils/component/lifecycle';
 import index from '../../utils/general/index';
 import isSelected from '../../utils/shared/is-selected';
 import layout from '../../templates/components/native-select-box/option';
 import {
-  registerElement,
-  deregisterElement
+  deregisterElement,
+  registerElement
 } from '../../utils/registration/element';
 import { receiveValue } from '../../utils/component/value';
 import api from '../../utils/native-select-box/option/api';

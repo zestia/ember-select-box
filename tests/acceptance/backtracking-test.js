@@ -1,7 +1,7 @@
 import { VERSION } from '@ember/version';
 import { module, skip, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
-import { visit, click, focus } from '@ember/test-helpers';
+import { click, focus, visit } from '@ember/test-helpers';
 import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 

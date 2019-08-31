@@ -2,15 +2,15 @@ import Component from '@ember/component';
 import layout from '../../templates/components/select-box/selected-option';
 import { receiveValue } from '../../utils/component/value';
 import {
-  _initComponent,
-  _destroyComponent
+  _destroyComponent,
+  _initComponent
 } from '../../utils/component/lifecycle';
 import api from '../../utils/select-box/selected-option/api';
 import index from '../../utils/general/index';
 import isEqual from '../../utils/general/is-equal';
 import {
-  registerElement,
-  deregisterElement
+  deregisterElement,
+  registerElement
 } from '../../utils/registration/element';
 
 export default Component.extend({
