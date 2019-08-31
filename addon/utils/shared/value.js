@@ -42,12 +42,7 @@ export function updatedValue(selectBox) {
     return;
   }
 
-  invokeAction(
-    selectBox,
-    'onUpdate',
-    selectBox.resolvedValue,
-    getAPI(selectBox)
-  );
+  invokeAction(selectBox, 'onUpdate', getAPI(selectBox));
 }
 
 export function selectedValue(selectBox) {

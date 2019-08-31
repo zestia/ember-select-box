@@ -126,11 +126,11 @@ module('select-box', function(hooks) {
 
     let called = 0;
 
-    this.set('updated', value => {
+    this.set('updated', sb => {
       called++;
 
       assert.strictEqual(
-        value,
+        sb.value,
         undefined,
         'fires an initial update action with the selected value'
       );
@@ -148,12 +148,12 @@ module('select-box', function(hooks) {
 
     this.set('selectedValue', 'foo');
 
-    this.set('updated', value => {
+    this.set('updated', sb => {
       count++;
 
       if (count === 2) {
         assert.strictEqual(
-          value,
+          sb.value,
           'bar',
           'fires an update action when the value changes'
         );
@@ -242,7 +242,7 @@ module('select-box', function(hooks) {
 
     this.set('value', value1);
     this.set('initialised', sb => apis.push(sb));
-    this.set('updated', (value, sb) => apis.push(sb));
+    this.set('updated', sb => apis.push(sb));
 
     await render(hbs`
       <SelectBox

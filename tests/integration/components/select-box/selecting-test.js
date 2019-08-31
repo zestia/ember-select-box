@@ -368,7 +368,7 @@ module('select-box (selecting)', function(hooks) {
 
     this.set('selected', value => (selected = value));
     this.set('selectedFoo', value => (selectedFoo = value));
-    this.set('updated', value => (updated = value));
+    this.set('updated', sb => (updated = sb.value));
 
     await render(hbs`
       <SelectBox @onSelect={{this.selected}} @onUpdate={{this.updated}} as |sb|>
@@ -405,9 +405,9 @@ module('select-box (selecting)', function(hooks) {
     let updatedValue;
     let selected = 0;
 
-    this.set('updated', value => {
+    this.set('updated', sb => {
       updated++;
-      updatedValue = value;
+      updatedValue = sb.value;
     });
 
     this.set('selected', value => {
