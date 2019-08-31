@@ -17,7 +17,7 @@ const { isFrozen } = Object;
 module('select-box (selecting)', function(hooks) {
   setupRenderingTest(hooks);
 
-  test('changing the value attribute', async function(assert) {
+  test('changing the value argument', async function(assert) {
     assert.expect(3);
 
     this.set('selectedValue', 'foo');
@@ -63,7 +63,7 @@ module('select-box (selecting)', function(hooks) {
     );
   });
 
-  test('changing the value attribute to nothing (common misconception)', async function(assert) {
+  test('changing the value argument to nothing (common misconception)', async function(assert) {
     assert.expect(3);
 
     this.set('selectedValue', null);
@@ -91,8 +91,8 @@ module('select-box (selecting)', function(hooks) {
       .dom('.select-box-option.is-selected')
       .hasText(
         'Bar',
-        'selecting null does not clear the selected option, because technically nothing has ' +
-          'changed, so `didReceiveAttrs` will not fire'
+        'selecting null does not clear the selected option, because as far as the ' +
+          'select box is concerned, nothing has changed (i.e. `didReceiveAttrs` has not fired)'
       );
   });
 

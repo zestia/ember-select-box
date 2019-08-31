@@ -157,7 +157,7 @@ module('select-box', function(hooks) {
     assert.equal(
       count,
       1,
-      'updating attributes other than the `value` should not fire update action'
+      'updating arguments other than the `value` should not fire update action'
     );
   });
 
