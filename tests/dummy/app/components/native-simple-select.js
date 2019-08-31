@@ -4,18 +4,7 @@ import layout from '../templates/components/native-simple-select';
 
 export default Component.extend({
   layout,
-  classNames: ['native-simple-select'],
-  classNameBindings: ['isFocused'],
-
-  didRender() {
-    this._super(...arguments);
-
-    const label = this.element
-      .querySelector('option:checked')
-      .textContent.trim();
-
-    set(this, 'displayLabel', label);
-  },
+  tagName: '',
 
   actions: {
     focused() {
@@ -24,6 +13,14 @@ export default Component.extend({
 
     blurred() {
       set(this, 'isFocused', false);
+    },
+
+    updateDisplay(sb) {
+      const label = sb.element
+        .querySelector('option:checked')
+        .textContent.trim();
+
+      set(this, 'displayLabel', label);
     }
   }
 });

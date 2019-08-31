@@ -6,7 +6,8 @@
   @onSearch={{@onSearch}}
   @onSearched={{action "searched"}}
   @onPressEscape={{action "close"}}
-  @onClickOutside={{action "close"}} as |sb|>
+  @onClickOutside={{action "close"}}
+  ...attributes as |sb|>
   <sb.Input />
   {{#if sb.isSearching}}
     <sb.Option>

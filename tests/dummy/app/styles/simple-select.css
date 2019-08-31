@@ -36,3 +36,7 @@
 .simple-select-option.is-active {
   border-color: green;
 }
+
+.simple-select-selected-option {
+  min-height: 18px;
+}
