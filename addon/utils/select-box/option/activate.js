@@ -46,7 +46,7 @@ export function activateOptionForKeyCode(selectBox, keyCode, scroll = true) {
   const option = optionForChar(selectBox, char);
 
   if (option) {
-    activateOptionAtIndex(selectBox, get(option, 'index'), scroll);
+    activateOptionAtIndex(selectBox, option.index, scroll);
   }
 }
 

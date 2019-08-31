@@ -42,7 +42,7 @@ function buildProperties(component, publicProperties) {
   return keys(publicProperties).reduce((properties, key) => {
     const name = publicName(publicProperties, key);
 
-    properties[name] = get(component, key);
+    properties[name] = component[key];
 
     return properties;
   }, {});

@@ -1,7 +1,7 @@
-import { computed, get } from '@ember/object';
+import { computed } from '@ember/object';
 
 export default function objectAtIndex(arrayKey, indexKey) {
   return computed(arrayKey, indexKey, function() {
-    return this[arrayKey].objectAt(get(this, indexKey));
+    return this[arrayKey].objectAt(this[indexKey]);
   });
 }

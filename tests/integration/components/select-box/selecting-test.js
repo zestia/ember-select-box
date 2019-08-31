@@ -849,7 +849,7 @@ module('select-box (selecting)', function(hooks) {
   });
 
   test('selecting action order', async function(assert) {
-    assert.expect(1);
+    assert.expect(3);
 
     this.set('selected', () => assert.step('selected'));
     this.set('selectedOption', () => assert.step('selectedOption'));

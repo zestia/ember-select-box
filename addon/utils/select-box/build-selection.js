@@ -1,5 +1,4 @@
 import { A as emberA } from '@ember/array';
-import { get } from '@ember/object';
 const { isArray, from } = Array;
 
 export default function buildSelection(selectBox, value1) {
@@ -16,7 +15,7 @@ export default function buildSelection(selectBox, value1) {
 function buildSelectionDefault(selectBox, value1, value2) {
   let value = value1;
 
-  if (get(selectBox, 'isMultiple') && !isArray(value1)) {
+  if (selectBox.isMultiple && !isArray(value1)) {
     // todo: check from
 
     const temp = emberA(from(value2));

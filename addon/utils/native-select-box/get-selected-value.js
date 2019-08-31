@@ -1,10 +1,9 @@
-import { get } from '@ember/object';
 const { from } = Array;
 
 export default function getSelectedValue(selectBox) {
   const selectedValues = getSelectedValues(selectBox);
 
-  if (get(selectBox, 'isMultiple')) {
+  if (selectBox.isMultiple) {
     return selectedValues;
   } else {
     return selectedValues[0];

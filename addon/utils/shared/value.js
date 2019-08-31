@@ -1,7 +1,6 @@
 import afterRender from '../general/after-render';
 import invokeAction from '../component/invoke-action';
 import { resolveValue } from '../component/value';
-import { get } from '@ember/object';
 import { getAPI } from '../component/api';
 import { makeArray } from '@ember/array';
 const { freeze } = Object;
@@ -23,7 +22,7 @@ export function selectValue(selectBox, value) {
 }
 
 function processValue(selectBox, value) {
-  if (get(selectBox, 'isMultiple')) {
+  if (selectBox.isMultiple) {
     return freeze(makeArray(value).slice());
   }
 
