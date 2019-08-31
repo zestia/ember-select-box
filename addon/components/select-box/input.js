@@ -3,12 +3,12 @@ import {
   _destroyComponent,
   _initComponent
 } from '../../utils/component/lifecycle';
-import { input, keyDown } from '../../utils/select-box/input/keyboard';
-import layout from '../../templates/components/select-box/input';
 import {
   deregisterElement,
   registerElement
 } from '../../utils/registration/element';
+import { input, keyDown } from '../../utils/select-box/input/keyboard';
+import layout from '../../templates/components/select-box/input';
 
 export default Component.extend({
   layout,
@@ -16,8 +16,8 @@ export default Component.extend({
 
   // Arguments
 
-  selectBox: null,
   classNamePrefix: '',
+  selectBox: null,
 
   // State
 
@@ -26,9 +26,9 @@ export default Component.extend({
 
   // Actions
 
-  onInput: null,
-  onDelete: null,
   onClear: null,
+  onDelete: null,
+  onInput: null,
 
   init() {
     this._super(...arguments);

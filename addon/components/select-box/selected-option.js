@@ -1,17 +1,17 @@
 import Component from '@ember/component';
-import layout from '../../templates/components/select-box/selected-option';
-import { receiveValue } from '../../utils/component/value';
 import {
   _destroyComponent,
   _initComponent
 } from '../../utils/component/lifecycle';
-import api from '../../utils/select-box/selected-option/api';
-import index from '../../utils/general/index';
-import isEqual from '../../utils/general/is-equal';
 import {
   deregisterElement,
   registerElement
 } from '../../utils/registration/element';
+import { receiveValue } from '../../utils/component/value';
+import api from '../../utils/select-box/selected-option/api';
+import index from '../../utils/general/index';
+import isEqual from '../../utils/general/is-equal';
+import layout from '../../templates/components/select-box/selected-option';
 
 export default Component.extend({
   layout,
@@ -25,14 +25,14 @@ export default Component.extend({
 
   // State
 
-  isPending: true,
-  isRejected: false,
-  isFulfilled: false,
-  isSettled: false,
   domElement: null,
   id: null,
-  valueID: 0,
+  isFulfilled: false,
+  isPending: true,
+  isRejected: false,
+  isSettled: false,
   memoisedAPI: null,
+  valueID: 0,
 
   // Computed state
 

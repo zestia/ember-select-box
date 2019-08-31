@@ -1,9 +1,9 @@
 import Component from '@ember/component';
-import layout from '../../templates/components/select-box/options';
 import {
   _destroyComponent,
   _initComponent
 } from '../../utils/component/lifecycle';
+import layout from '../../templates/components/select-box/options';
 
 export default Component.extend({
   layout,

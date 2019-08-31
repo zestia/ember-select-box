@@ -1,21 +1,21 @@
-import { bool } from '@ember/object/computed';
 import Component from '@ember/component';
-import index from '../../utils/general/index';
+import { _activateOption } from '../../utils/select-box/option/activate';
 import {
   _destroyComponent,
   _initComponent
 } from '../../utils/component/lifecycle';
-import isSelected from '../../utils/shared/is-selected';
-import isEqual from '../../utils/general/is-equal';
-import layout from '../../templates/components/select-box/option';
-import { receiveValue } from '../../utils/component/value';
-import { _activateOption } from '../../utils/select-box/option/activate';
 import { _selectOption } from '../../utils/select-box/option/select';
-import api from '../../utils/select-box/option/api';
+import { bool } from '@ember/object/computed';
 import {
   deregisterElement,
   registerElement
 } from '../../utils/registration/element';
+import { receiveValue } from '../../utils/component/value';
+import api from '../../utils/select-box/option/api';
+import index from '../../utils/general/index';
+import isEqual from '../../utils/general/is-equal';
+import isSelected from '../../utils/shared/is-selected';
+import layout from '../../templates/components/select-box/option';
 
 export default Component.extend({
   layout,
@@ -24,23 +24,23 @@ export default Component.extend({
   // Arguments
 
   classNamePrefix: '',
-  selectBox: null,
-  value: undefined,
   disabled: false,
+  selectBox: null,
   selected: undefined,
+  value: undefined,
 
   // State
 
-  resolvedValue: null,
-  previousResolvedValue: null,
-  isPending: true,
-  isRejected: false,
-  isFulfilled: false,
-  isSettled: false,
   domElement: null,
   id: null,
-  valueID: 0,
+  isFulfilled: false,
+  isPending: true,
+  isRejected: false,
+  isSettled: false,
   memoisedAPI: null,
+  previousResolvedValue: null,
+  resolvedValue: null,
+  valueID: 0,
 
   // Computed state
 

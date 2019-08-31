@@ -1,16 +1,5 @@
 import Component from '@ember/component';
-import layout from '../templates/components/select-box';
-import { bool, or } from '@ember/object/computed';
-import { destroyElement, insertElement } from '../utils/select-box/element';
-import {
-  deregisterOptionsContainer,
-  registerOptionsContainer
-} from '../utils/registration/options';
-import { receiveArgs } from '../utils/select-box/args';
-import {
-  deregisterSelectedOptionsContainer,
-  registerSelectedOptionsContainer
-} from '../utils/registration/selected-options';
+import { _selectOption, selectOption } from '../utils/select-box/option/select';
 import {
   activateOption,
   activateOptionAtIndex,
@@ -21,33 +10,44 @@ import {
   activateSelectedOptionAtIndex,
   activateSelectedOptionForKeyCode
 } from '../utils/select-box/selected-option/activate';
+import { blurInput, focusInput } from '../utils/select-box/input/focus';
+import { bool, or } from '@ember/object/computed';
+import { cancelSearch, maybeSearch, search } from '../utils/select-box/search';
+import { close, open, toggle } from '../utils/select-box/toggle';
 import { deactivateOptions } from '../utils/select-box/option/deactivate';
 import { deactivateSelectedOptions } from '../utils/select-box/selected-option/deactivate';
+import {
+  deregisterElement,
+  registerElement
+} from '../utils/registration/element';
+import { deregisterInput, registerInput } from '../utils/registration/input';
 import {
   deregisterOption,
   initOptions,
   registerOption
 } from '../utils/registration/option';
 import {
+  deregisterOptionsContainer,
+  registerOptionsContainer
+} from '../utils/registration/options';
+import {
   deregisterSelectedOption,
   initSelectedOptions,
   registerSelectedOption
 } from '../utils/registration/selected-option';
 import {
-  deregisterElement,
-  registerElement
-} from '../utils/registration/element';
-import { deregisterInput, registerInput } from '../utils/registration/input';
+  deregisterSelectedOptionsContainer,
+  registerSelectedOptionsContainer
+} from '../utils/registration/selected-options';
 import { destroyComponent, initComponent } from '../utils/component/lifecycle';
-import api from '../utils/select-box/api';
-import { _selectOption, selectOption } from '../utils/select-box/option/select';
-import { receiveValue, selectValue, updateValue } from '../utils/shared/value';
-import { close, open, toggle } from '../utils/select-box/toggle';
+import { destroyElement, insertElement } from '../utils/select-box/element';
 import { focusIn, focusOut } from '../utils/select-box/focus';
-import { cancelSearch, maybeSearch, search } from '../utils/select-box/search';
-import { blurInput, focusInput } from '../utils/select-box/input/focus';
 import { keyDown, keyPress } from '../utils/select-box/keyboard';
+import { receiveArgs } from '../utils/select-box/args';
+import { receiveValue, selectValue, updateValue } from '../utils/shared/value';
 import { setInputValue } from '../utils/select-box/input/value';
+import api from '../utils/select-box/api';
+import layout from '../templates/components/select-box';
 import objectAtIndex from '../utils/general/object-at-index';
 
 export default Component.extend({
@@ -92,26 +92,26 @@ export default Component.extend({
 
   // State
 
-  resolvedValue: null,
-  previousResolvedValue: null,
   activeOptionIndex: -1,
   activeSelectedOptionIndex: -1,
   documentClickHandler: null,
   domElement: null,
   id: null,
   isFocused: false,
-  isSlowSearch: false,
-  isOpen: false,
   isFulfilled: false,
-  optionCharState: null,
+  isOpen: false,
   isPending: true,
   isRejected: false,
   isSearching: false,
   isSettled: false,
+  isSlowSearch: false,
+  memoisedAPI: null,
+  optionCharState: null,
+  previousResolvedValue: null,
+  resolvedValue: null,
+  searchID: 0,
   tabIndex: '0',
   valueID: 0,
-  searchID: 0,
-  memoisedAPI: null,
 
   // Child components
 
@@ -123,10 +123,10 @@ export default Component.extend({
 
   // Computed state
 
-  api: api(),
-  isMultiple: bool('multiple'),
   isDisabled: bool('disabled'),
   isBusy: or('isPending', 'isSearching'),
+  isMultiple: bool('multiple'),
+  api: api(),
   activeOption: objectAtIndex('options', 'activeOptionIndex'),
   activeSelectedOption: objectAtIndex(
     'selectedOptions',

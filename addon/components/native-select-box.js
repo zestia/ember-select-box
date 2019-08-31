@@ -1,23 +1,23 @@
 import Component from '@ember/component';
 import { bool } from '@ember/object/computed';
-import layout from '../templates/components/native-select-box';
-import { receiveValue, selectValue, updateValue } from '../utils/shared/value';
-import { selectValue as _selectValue } from '../utils/native-select-box/value';
-import api from '../utils/native-select-box/api';
-import { destroyComponent, initComponent } from '../utils/component/lifecycle';
 import {
-  destroyElement,
-  insertElement
-} from '../utils/native-select-box/element';
+  deregisterElement,
+  registerElement
+} from '../utils/registration/element';
 import {
   deregisterOption,
   initOptions,
   registerOption
 } from '../utils/registration/option';
+import { destroyComponent, initComponent } from '../utils/component/lifecycle';
 import {
-  deregisterElement,
-  registerElement
-} from '../utils/registration/element';
+  destroyElement,
+  insertElement
+} from '../utils/native-select-box/element';
+import { receiveValue, selectValue, updateValue } from '../utils/shared/value';
+import { selectValue as _selectValue } from '../utils/native-select-box/value';
+import api from '../utils/native-select-box/api';
+import layout from '../templates/components/native-select-box';
 
 export default Component.extend({
   layout,
@@ -32,21 +32,22 @@ export default Component.extend({
 
   // Actions
 
+  onInsertElement: null,
   onSelect: null,
   onUpdate: null,
 
   // State
 
-  resolvedValue: null,
-  previousResolvedValue: null,
-  isPending: true,
-  isRejected: false,
-  isFulfilled: false,
-  isSettled: false,
   domElement: null,
   id: null,
-  valueID: 0,
+  isFulfilled: false,
+  isPending: true,
+  isRejected: false,
+  isSettled: false,
   memoisedAPI: null,
+  previousResolvedValue: null,
+  resolvedValue: null,
+  valueID: 0,
 
   // Computed state
 
