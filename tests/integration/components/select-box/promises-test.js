@@ -144,7 +144,7 @@ module('select-box (promises)', function(hooks) {
       .hasClass('is-selected', 'resolved value is selected');
   });
 
-  // Removed in beta
+  // Removed in v11
   skip('promise value (multiple)', async function(assert) {
     assert.expect(1);
 
