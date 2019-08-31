@@ -80,7 +80,7 @@
     "configPath": "tests/dummy/config",
     "demoURL": "https://zestia.github.io/ember-select-box",
     "versionCompatibility": {
-      "ember": ">=2.12.0 <=canary"
+      "ember": ">=3.8 <=canary"
     }
   },
   "bugs": {
