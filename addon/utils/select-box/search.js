@@ -22,7 +22,7 @@ export function search(selectBox, query) {
 
   const searchID = selectBox.incrementProperty('searchID');
 
-  debounce(selectBox, checkSlowSearch, selectBox, delay);
+  setTimeout(() => checkSlowSearch(selectBox), delay);
 
   const action = invokeAction(selectBox, 'onSearch', query, getAPI(selectBox));
 
