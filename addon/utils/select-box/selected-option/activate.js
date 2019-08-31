@@ -38,3 +38,7 @@ export function activateSelectedOptionAtIndex(selectBox, index, scroll) {
 
   activatedSelectedOption(selectedOption);
 }
+
+export function activateSelectedOptionForKeyCode() {
+  throw new Error('Not implemented');
+}

@@ -3,7 +3,6 @@ import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { later } from '@ember/runloop';
 import { A as emberA } from '@ember/array';
-import { COLLECT_CHARS_MS } from '@zestia/ember-select-box/components/select-box';
 import {
   click,
   find,
@@ -18,9 +17,7 @@ module('select-box (activating options)', function(hooks) {
   setupRenderingTest(hooks);
 
   function waitForReset() {
-    return waitUntil(
-      () => new Promise(resolve => later(resolve, COLLECT_CHARS_MS))
-    );
+    return waitUntil(() => new Promise(resolve => later(resolve, 1000)));
   }
 
   test('mouseenter activates options', async function(assert) {

@@ -2,8 +2,7 @@ import { get, set } from '@ember/object';
 import invokeAction from '../../component/invoke-action';
 import { getAPI } from '../../component/api';
 import scrollIntoView from '../../general/scroll-into-view';
-import escapeRegExp from '../../general/escape-regexp';
-import collapseWhitespace from '../../general/collapse-whitespace';
+import { filterComponentsByTextContent } from '../../component/filter';
 const { fromCharCode } = String;
 
 export function _activateOption(option) {
@@ -40,28 +39,33 @@ export function activateOptionAtIndex(selectBox, index, scroll) {
 export function activateOptionForKeyCode(selectBox, keyCode, scroll = true) {
   const char = fromCharCode(keyCode);
 
-  if (char) {
-    activateOptionForChar(selectBox, char, scroll);
+  if (!char) {
+    return;
+  }
+
+  const option = optionForChar(selectBox, char);
+
+  if (option) {
+    activateOptionAtIndex(selectBox, get(option, 'index'), scroll);
   }
 }
 
-function activateOptionForChar(selectBox, char, scroll) {
-  const lastChars = selectBox._activateOptionChars || '';
-  const lastMs = selectBox._activateOptionMs || 0;
-  const lastIndex = selectBox._activateOptionIndex || 0;
-  const lastChar = lastChars.substring(lastChars.length - 1);
+function optionForChar(selectBox, char) {
+  const prev = selectBox.optionCharState || { chars: '', ms: 0, index: 0 };
+  const prevChar = prev.chars.substring(prev.chars.length - 1);
   const ms = Date.now();
-  const duration = ms - lastMs;
-  const repeatedChar = char === lastChar;
+  const duration = ms - prev.ms;
+  const repeatedChar = char === prevChar;
   const reset = duration > 1000;
-  const chars = reset ? char : `${lastChars}${char}`;
-  let options = findOptionsMatchingChars(selectBox, chars);
+  const chars = reset ? char : `${prev.chars}${char}`;
+
+  let options = filterComponentsByTextContent(selectBox.options, chars);
   let index = 0;
-  let option;
+  let option = null;
 
   if (repeatedChar) {
-    index = lastIndex + 1;
-    options = findOptionsMatchingChars(selectBox, lastChar);
+    index = prev.index + 1;
+    options = filterComponentsByTextContent(selectBox.options, prevChar);
     option = options[index];
   }
 
@@ -70,21 +74,7 @@ function activateOptionForChar(selectBox, char, scroll) {
     option = options[index];
   }
 
-  if (option) {
-    activateOptionAtIndex(selectBox, get(option, 'index'), scroll);
-  }
+  set(selectBox, 'optionCharState', { chars, ms, index });
 
-  set(selectBox, '_activateOptionChars', chars);
-  set(selectBox, '_activateOptionMs', ms);
-  set(selectBox, '_activateOptionIndex', index);
-}
-
-function findOptionsMatchingChars(selectBox, chars) {
-  chars = escapeRegExp(chars);
-
-  const pattern = new RegExp(`^${chars}`, 'i');
-
-  return selectBox.options.filter(option => {
-    return pattern.test(collapseWhitespace(option.domElement.textContent));
-  });
+  return option;
 }

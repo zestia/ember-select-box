@@ -1,9 +1,6 @@
 import Component from '@ember/component';
 import layout from '../templates/components/select-box';
 import { bool, or } from '@ember/object/computed';
-import { get, set } from '@ember/object';
-import escapeRegExp from '../utils/general/escape-regexp';
-import collapseWhitespace from '../utils/general/collapse-whitespace';
 import { destroyElement, insertElement } from '../utils/select-box/element';
 import {
   deregisterOptionsContainer,
@@ -52,8 +49,6 @@ import { blurInput, focusInput } from '../utils/select-box/input/focus';
 import { keyDown, keyPress } from '../utils/select-box/keyboard';
 import { setInputValue } from '../utils/select-box/input/value';
 import objectAtIndex from '../utils/general/object-at-index';
-const { fromCharCode } = String;
-export const COLLECT_CHARS_MS = 1000;
 
 export default Component.extend({
   layout,
@@ -108,6 +103,7 @@ export default Component.extend({
   isSlowSearch: false,
   isOpen: false,
   isFulfilled: false,
+  optionCharState: null,
   isPending: true,
   isRejected: false,
   isSearching: false,
@@ -300,7 +296,7 @@ export default Component.extend({
       activateOptionAtIndex(this, this.activeOptionIndex - 1, scroll);
     },
 
-    activateOptionForKeyCode(keyCode) {
+    activateOptionForKeyCode(keyCode, scroll) {
       activateOptionForKeyCode(this, keyCode, scroll);
     },
 
@@ -324,8 +320,8 @@ export default Component.extend({
       );
     },
 
-    activateSelectedOptionForKeyCode(keyCode) {
-      activateOptionForKeyCode(this, keyCode, scroll);
+    activateSelectedOptionForKeyCode(keyCode, scroll) {
+      activateSelectedOptionForKeyCode(this, keyCode, scroll);
     },
 
     deactivateOptions() {

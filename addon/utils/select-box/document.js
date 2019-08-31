@@ -8,12 +8,16 @@ export function addDocumentClickListener(selectBox) {
   );
 
   document.addEventListener('click', selectBox.documentClickHandler);
-  document.addEventListener('touchstart', selectBox.documentClickHandler);
+  document.addEventListener('touchstart', selectBox.documentClickHandler, {
+    passive: true
+  });
 }
 
 export function removeDocumentClickListener(selectBox) {
   document.removeEventListener('click', selectBox.documentClickHandler);
-  document.removeEventListener('touchstart', selectBox.documentClickHandler);
+  document.removeEventListener('touchstart', selectBox.documentClickHandler, {
+    passive: true
+  });
 
   set(selectBox, 'documentClickHandler', null);
 }
