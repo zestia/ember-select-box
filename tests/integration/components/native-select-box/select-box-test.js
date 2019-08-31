@@ -1,6 +1,6 @@
 import { module, test, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { settled, render, find, findAll, fillIn } from '@ember/test-helpers';
+import { render, find, findAll, fillIn } from '@ember/test-helpers';
 import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 import {
@@ -20,6 +20,18 @@ module('native-select-box', function(hooks) {
     assert
       .dom('select.select-box')
       .exists({ count: 1 }, 'renders with correct class name and tag');
+  });
+
+  test('insert action', async function(assert) {
+    assert.expect(1);
+
+    let api;
+
+    this.inserted = sb => (api = sb);
+
+    await render(hbs`<NativeSelectBox @onInsertElement={{this.inserted}} />`);
+
+    assert.ok(api.element, 'exposes element');
   });
 
   test('class prefix', async function(assert) {

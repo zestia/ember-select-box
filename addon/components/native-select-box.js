@@ -6,6 +6,10 @@ import { selectValue as _selectValue } from '../utils/native-select-box/value';
 import api from '../utils/native-select-box/api';
 import { destroyComponent } from '../utils/component/lifecycle';
 import {
+  insertElement,
+  destroyElement
+} from '../utils/native-select-box/element';
+import {
   initOptions,
   registerOption,
   deregisterOption
@@ -64,10 +68,12 @@ export default Component.extend({
 
     didInsertElement(element) {
       registerElement(this, element);
+      insertElement(this);
     },
 
     willDestroyElement(element) {
       deregisterElement(this, element);
+      destroyElement(this);
       destroyComponent(this);
     },
 
