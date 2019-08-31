@@ -1,4 +1,4 @@
-import { computed, get } from '@ember/object';
+import { computed } from '@ember/object';
 const { seal, keys, assign } = Object;
 
 export function getAPI(component) {

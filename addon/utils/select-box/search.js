@@ -1,6 +1,6 @@
 import invokeAction from '../component/invoke-action';
 import { debounce } from '@ember/runloop';
-import { get, set } from '@ember/object';
+import { set } from '@ember/object';
 import { resolve } from 'rsvp';
 import { getAPI } from '../component/api';
 

@@ -1,4 +1,4 @@
-import { get, set } from '@ember/object';
+import { set } from '@ember/object';
 import invokeAction from '../../component/invoke-action';
 import { getAPI } from '../../component/api';
 import scrollIntoView from '../../general/scroll-into-view';
