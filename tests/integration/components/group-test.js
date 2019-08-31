@@ -1,8 +1,7 @@
-import { module, skip, test } from 'qunit';
+import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import { htmlSafe } from '@ember/template';
 
 module('select-box/group', function(hooks) {
   setupRenderingTest(hooks);
@@ -15,16 +14,6 @@ module('select-box/group', function(hooks) {
     assert
       .dom('div.select-box-group')
       .exists({ count: 1 }, 'renders with correct class name and tag');
-  });
-
-  skip('classic: style', async function(assert) {
-    assert.expect(1);
-
-    this.set('style', htmlSafe('color: red'));
-
-    await render(hbs`{{select-box/group style=this.style}}`);
-
-    assert.dom('.select-box-group').hasAttribute('style', 'color: red');
   });
 
   test('class prefix', async function(assert) {

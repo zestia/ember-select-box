@@ -1,4 +1,4 @@
-import { module, skip, test } from 'qunit';
+import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import {
   click,
@@ -8,7 +8,6 @@ import {
   triggerKeyEvent
 } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import { htmlSafe } from '@ember/template';
 
 module('select-box/input', function(hooks) {
   setupRenderingTest(hooks);
@@ -70,60 +69,6 @@ module('select-box/input', function(hooks) {
         'select box inputs are not search boxes by default due to unwanted ' +
           'behaviour when you press escape'
       );
-  });
-
-  skip('classic: type', async function(assert) {
-    assert.expect(1);
-
-    await render(hbs`{{select-box/input type="email"}}`);
-
-    assert
-      .dom('.select-box-input')
-      .hasAttribute(
-        'type',
-        'email',
-        'can change the type of the select box input'
-      );
-  });
-
-  skip('classic: style', async function(assert) {
-    assert.expect(1);
-
-    this.set('style', htmlSafe('color: red'));
-
-    await render(hbs`{{select-box/input style=this.style}}`);
-
-    assert
-      .dom('.select-box-input')
-      .hasAttribute('style', 'color: red', 'can bind style to classic comp');
-  });
-
-  skip('classic: value', async function(assert) {
-    assert.expect(3);
-
-    this.set('myObj', { value: 'foo' });
-
-    await render(hbs`{{select-box/input value=this.myObj.value}}`);
-
-    const input = find('.select-box-input');
-
-    assert.equal(input.value, 'foo', 'can specify the initial value');
-
-    this.set('myObj.value', 'bar');
-
-    assert.equal(
-      input.value,
-      'bar',
-      'updating the value updates the text box value'
-    );
-
-    await fillIn(input, 'baz');
-
-    assert.equal(
-      this.myObj.value,
-      'bar',
-      'changing the input value does not mutate the value attribute'
-    );
   });
 
   test('inputting', async function(assert) {

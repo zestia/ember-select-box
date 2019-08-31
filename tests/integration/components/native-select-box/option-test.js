@@ -1,4 +1,4 @@
-import { module, skip, test } from 'qunit';
+import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { find, findAll, render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
@@ -25,41 +25,6 @@ module('native-select-box/option', function(hooks) {
     assert
       .dom('.foo-option')
       .exists({ count: 1 }, 'can override the class prefix');
-  });
-
-  skip('classic: title', async function(assert) {
-    assert.expect(1);
-
-    await render(hbs`{{native-select-box/option title="Foo"}}`);
-
-    assert
-      .dom('.select-box-option')
-      .hasAttribute(
-        'title',
-        'Foo',
-        'a native select box option can have a title attribute'
-      );
-  });
-
-  skip('classic: disabled', async function(assert) {
-    assert.expect(2);
-
-    this.set('optionDisabled', true);
-
-    await render(
-      hbs`{{native-select-box/option disabled=this.optionDisabled}}`
-    );
-
-    assert
-      .dom('.select-box-option')
-      .isDisabled('a native select box option can be disabled');
-
-    this.set('optionDisabled', false);
-
-    assert.ok(
-      !find('.select-box-option').disabled,
-      'a native select box option can be re-enabled'
-    );
   });
 
   test('value', async function(assert) {

@@ -1,10 +1,8 @@
-import { module, skip, test } from 'qunit';
+import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { click, find, findAll, render, settled } from '@ember/test-helpers';
+import { click, find, render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import SelectBox from '@zestia/ember-select-box/components/select-box';
 import EmberArray, { A as emberA } from '@ember/array';
-import { htmlSafe } from '@ember/template';
 const { isFrozen, isSealed } = Object;
 
 module('select-box', function(hooks) {
@@ -46,36 +44,6 @@ module('select-box', function(hooks) {
     assert.dom('.foo-group-options').exists({ count: 1 });
     assert.dom('.foo-option').exists({ count: 1 });
     assert.dom('.foo-selected-option').exists({ count: 1 });
-  });
-
-  skip('classic: style', async function(assert) {
-    assert.expect(1);
-
-    this.set('style', htmlSafe('color: red'));
-
-    await render(hbs`{{select-box style=this.style}}`);
-
-    assert
-      .dom('.select-box')
-      .hasAttribute('style', 'color: red', 'can bind style to classic comp');
-  });
-
-  skip('deprecated: extending with class prefix', async function(assert) {
-    assert.expect(1);
-
-    const FooSelectBox = SelectBox.extend({
-      classNamePrefix: 'foo'
-    });
-
-    this.owner.register('component:foo-select-box', FooSelectBox);
-
-    await render(hbs`<FooSelectBox />`);
-
-    assert.ok(
-      findAll('.foo').length,
-      1,
-      'can set the class name prefix to create custom select boxes'
-    );
   });
 
   test('role', async function(assert) {

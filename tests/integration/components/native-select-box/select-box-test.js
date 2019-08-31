@@ -1,4 +1,4 @@
-import { module, skip, test } from 'qunit';
+import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { fillIn, find, findAll, render } from '@ember/test-helpers';
 import Component from '@ember/component';
@@ -55,133 +55,12 @@ module('native-select-box', function(hooks) {
     );
   });
 
-  skip('classic: name', async function(assert) {
-    assert.expect(1);
-
-    await render(hbs`{{native-select-box name="foo"}}`);
-
-    assert
-      .dom('.select-box')
-      .hasAttribute('name', 'foo', 'can set a name attribute');
-  });
-
-  skip('classic: title', async function(assert) {
-    assert.expect(1);
-
-    await render(hbs`{{native-select-box title="foo"}}`);
-
-    assert
-      .dom('.select-box')
-      .hasAttribute('title', 'foo', 'can set a title attribute');
-  });
-
-  test('tabindex', async function(assert) {
-    assert.expect(1);
-
-    await render(hbs`<NativeSelectBox />`);
-
-    assert
-      .dom('.select-box')
-      .doesNotHaveAttribute('tabindex', 'default tabindex');
-  });
-
-  skip('classic: tabindex', async function(assert) {
-    assert.expect(1);
-
-    await render(hbs`{{native-select-box tabindex="5"}}`);
-
-    assert
-      .dom('.select-box')
-      .hasAttribute('tabindex', '5', 'can specify a tabindex attribute');
-  });
-
-  test('disabled', async function(assert) {
-    assert.expect(1);
-
-    await render(hbs`<NativeSelectBox />`);
-
-    assert.ok(
-      !find('.select-box').hasAttribute('disabled'),
-      'enabled by default'
-    );
-  });
-
-  skip('classic: disabled', async function(assert) {
-    assert.expect(2);
-
-    this.set('isDisabled', true);
-
-    await render(hbs`{{native-select-box disabled=this.isDisabled}}`);
-
-    assert.ok(find('.select-box').hasAttribute('disabled'), 'can be disabled');
-
-    this.set('isDisabled', false);
-
-    assert.ok(
-      !find('.select-box').hasAttribute('disabled'),
-      'can be re-enabled'
-    );
-  });
-
   test('size', async function(assert) {
     assert.expect(1);
 
     await render(hbs`<NativeSelectBox />`);
 
     assert.dom('.select-box').doesNotHaveAttribute('size', 'default size');
-  });
-
-  skip('classic: size', async function(assert) {
-    assert.expect(1);
-
-    await render(hbs`{{native-select-box size="2"}}`);
-
-    assert
-      .dom('.select-box')
-      .hasAttribute('size', '2', 'can specify a size attribute');
-  });
-
-  skip('classic: aria label', async function(assert) {
-    assert.expect(1);
-
-    await render(hbs`{{native-select-box aria-label="Something"}}`);
-
-    assert
-      .dom('.select-box')
-      .hasAttribute('aria-label', 'Something', 'setting the aria label works');
-  });
-
-  skip('classic: autofocus', async function(assert) {
-    assert.expect(1);
-
-    await render(hbs`{{native-select-box autofocus=true}}`);
-
-    assert.ok(
-      find('.select-box').hasAttribute('autofocus'),
-      'can autofocus a native select box'
-    );
-  });
-
-  skip('classic: required', async function(assert) {
-    assert.expect(1);
-
-    await render(hbs`{{native-select-box required=true}}`);
-
-    assert.ok(
-      find('.select-box').hasAttribute('required'),
-      'can set the required attribute'
-    );
-  });
-
-  skip('classic: multiple', async function(assert) {
-    assert.expect(1);
-
-    await render(hbs`{{native-select-box multiple=true}}`);
-
-    assert.ok(
-      find('.select-box').hasAttribute('multiple'),
-      'can set the multiple attribute'
-    );
   });
 
   test('changing the selected value', async function(assert) {

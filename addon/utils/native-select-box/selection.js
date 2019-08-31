@@ -1,6 +1,6 @@
 const { from } = Array;
 
-export default function getSelectedValue(selectBox) {
+export function getSelectedValue(selectBox) {
   const selectedValues = getSelectedValues(selectBox);
 
   if (selectBox.isMultiple) {

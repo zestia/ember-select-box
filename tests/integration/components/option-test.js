@@ -1,4 +1,4 @@
-import { module, skip, test } from 'qunit';
+import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { findAll, render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
@@ -42,36 +42,10 @@ module('select-box/option', function(hooks) {
       );
   });
 
-  skip('classic: title', async function(assert) {
-    assert.expect(1);
-
-    await render(hbs`{{select-box/option title="Foo"}}`);
-
-    assert
-      .dom('.select-box-option')
-      .hasAttribute(
-        'title',
-        'Foo',
-        'a select box option can have a title attribute'
-      );
-  });
-
   test('disabled', async function(assert) {
     assert.expect(2);
 
     await render(hbs`<SelectBox::Option @disabled={{true}} />`);
-
-    assert
-      .dom('.select-box-option')
-      .hasClass('is-disabled', 'an option can be flagged as disabled');
-
-    assert.dom('.select-box-option').hasAttribute('aria-disabled', 'true');
-  });
-
-  skip('classic: disabled', async function(assert) {
-    assert.expect(2);
-
-    await render(hbs`{{select-box/option disabled=true}}`);
 
     assert
       .dom('.select-box-option')
