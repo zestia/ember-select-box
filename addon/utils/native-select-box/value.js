@@ -1,5 +1,5 @@
 import { selectValue as _selectValue } from '../shared/value';
-import getSelectedValue from './get-selected-value';
+import { getSelectedValue } from './selection';
 
 export function selectValue(selectBox) {
   const value = getSelectedValue(selectBox);
