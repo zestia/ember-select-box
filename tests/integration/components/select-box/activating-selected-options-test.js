@@ -7,15 +7,17 @@ module('select-box (activating selected options)', function(hooks) {
   setupRenderingTest(hooks);
 
   test('activating selected options', async function(assert) {
-    assert.expect(4);
+    assert.expect(3);
 
     await render(hbs`
       <SelectBox as |sb|>
         <sb.SelectedOptions>
-          <sb.SelectedOption {{on "click" (action sb.activateSelectedOptionAtIndex 0)}}>
+          {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
+
+          <sb.SelectedOption @onclick={{action sb.activateSelectedOptionAtIndex 0}}>
             One
           </sb.SelectedOption>
-          <sb.SelectedOption {{on "click" (action sb.activateSelectedOptionAtIndex 1)}}>
+          <sb.SelectedOption @onclick={{action sb.activateSelectedOptionAtIndex 1}}>
             Two
           </sb.SelectedOption>
         </sb.SelectedOptions>
@@ -40,11 +42,7 @@ module('select-box (activating selected options)', function(hooks) {
       );
 
     assert
-      .dom('.select-box-selected-option[aria-current]')
-      .hasText('One', 'receives an aria current attribute when active');
-
-    assert
-      .dom('.select-box-selected-option[aria-current]')
+      .dom('.select-box-selected-option.is-active')
       .hasAttribute(
         'aria-current',
         'true',

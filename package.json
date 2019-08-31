@@ -62,12 +62,13 @@
     "stylelint": "10.1.0"
   },
   "dependencies": {
+    "@ember/render-modifiers": "1.0.1",
     "ember-angle-bracket-invocation-polyfill": "^2.0.2",
     "ember-cli-babel": "^7.10.0",
     "ember-cli-htmlbars": "^3.1.0",
     "ember-merge-helper": "^0.1.1",
-    "@ember/render-modifiers": "1.0.1",
-    "ember-named-arguments-polyfill": "^1.0.0"
+    "ember-named-arguments-polyfill": "^1.0.0",
+    "ember-on-modifier": "^1.0.0"
   },
   "keywords": [
     "ember-addon",

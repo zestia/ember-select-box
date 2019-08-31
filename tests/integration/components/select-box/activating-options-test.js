@@ -21,7 +21,7 @@ module('select-box (activating options)', function(hooks) {
   }
 
   test('mouseenter activates options', async function(assert) {
-    assert.expect(7);
+    assert.expect(6);
 
     await render(hbs`
       <SelectBox as |sb|>
@@ -52,11 +52,7 @@ module('select-box (activating options)', function(hooks) {
     assert.ok(id, 'active option id is added to the options container');
 
     assert
-      .dom('.select-box-option[aria-current]')
-      .hasText('One', 'receives an aria current attribute when active');
-
-    assert
-      .dom('.select-box-option[aria-current]')
+      .dom('.select-box-option.is-active')
       .hasAttribute(
         'aria-current',
         'true',
@@ -92,7 +88,7 @@ module('select-box (activating options)', function(hooks) {
     await render(hbs`
       <SelectBox as |sb|>
         <sb.Option @value="foo" @onActivate={{this.activated}} />
-        <button {{on "click" (fn sb.activateOptionAtIndex 0)}}>Activate foo</button>
+        <button {{on "click" (action sb.activateOptionAtIndex 0)}}>Activate foo</button>
       </SelectBox>
     `);
 

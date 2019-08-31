@@ -17,7 +17,6 @@ export function deregisterSelectedOption(selectBox, selectedOption) {
 }
 
 function scheduleUpdateSelectedOptions(selectBox) {
-  // TODO once
   scheduleOnce('afterRender', updateSelectedOptions, selectBox);
 }
 
