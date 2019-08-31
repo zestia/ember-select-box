@@ -1,12 +1,15 @@
 import invokeAction from './invoke-action';
-import { getAPI } from './api';
 import { set } from '@ember/object';
+import { guidFor } from '@ember/object/internals';
+import { getAPI } from './api';
 
 export function initComponent(component) {
+  generateId(component);
   invokeAction(component, 'onInit', getAPI(component));
 }
 
 export function _initComponent(component) {
+  generateId(component);
   invokeAction(component, '_onInit', component);
 }
 
@@ -18,12 +21,10 @@ export function _destroyComponent(component) {
   invokeAction(component, '_onDestroy', component);
 }
 
-export function initialise(component) {
-  if (component.isDestroyed || component.isInitialised) {
-    return;
-  }
+function generateId(component) {
+  set(component, 'id', componentId(component));
+}
 
-  initComponent(component);
-
-  set(component, 'isInitialised', true);
+function componentId(component) {
+  return guidFor(component).replace('ember', 'select-box-el-');
 }

@@ -9,7 +9,7 @@
   aria-busy={{if this.isBusy "true" "false"}}
   aria-disabled={{if this.isDisabled "true" "false"}}
   aria-multiselectable={{if this.isMultiple "true" "false"}}
-  aria-activedescendant={{this.activeOption.domElementId}}
+  aria-activedescendant={{this.activeOption.id}}
 
   {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
 
@@ -22,7 +22,7 @@
     (if this.isMultiple " is-multiple")
     (if this.isBusy " is-busy")
   }}
-  id={{this.domElementId}}
+  id={{this.id}}
   multiple={{this.isMultiple}}
   role={{this.role}}
   tabindex={{this.tabIndex}}
@@ -53,7 +53,7 @@
       classNamePrefix=@classNamePrefix)
     Input=(component "select-box/input"
       selectBox=this
-      aria-controls=this.domElementId
+      aria-controls=this.id
       disabled=this.isDisabled
       classNamePrefix=@classNamePrefix
       _onInit=(action "onInitInput")

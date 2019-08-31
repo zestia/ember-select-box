@@ -4,7 +4,7 @@ import { bool } from '@ember/object/computed';
 import { receiveValue, updateValue, selectValue } from '../utils/shared/value';
 import { selectValue as _selectValue } from '../utils/native-select-box/value';
 import api from '../utils/native-select-box/api';
-import { destroyComponent } from '../utils/component/lifecycle';
+import { initComponent, destroyComponent } from '../utils/component/lifecycle';
 import {
   insertElement,
   destroyElement
@@ -44,9 +44,9 @@ export default Component.extend({
   isFulfilled: false,
   isSettled: false,
   domElement: null,
-  domElementId: null,
+  id: null,
   valueID: 0,
-  isInitialised: false,
+  memoisedAPI: null,
 
   // Computed state
 
@@ -56,6 +56,7 @@ export default Component.extend({
   init() {
     this._super(...arguments);
     initOptions(this);
+    initComponent(this);
   },
 
   didReceiveAttrs() {

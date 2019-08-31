@@ -1,6 +1,5 @@
 import afterRender from '../general/after-render';
 import invokeAction from '../component/invoke-action';
-import { initialise } from '../component/lifecycle';
 import { resolveValue } from '../component/value';
 import { get } from '@ember/object';
 import { getAPI } from '../component/api';
@@ -8,9 +7,7 @@ import { makeArray } from '@ember/array';
 const { freeze } = Object;
 
 export function receiveValue(selectBox) {
-  updateValue(selectBox, selectBox.value).then(() => {
-    initialise(selectBox);
-  });
+  updateValue(selectBox, selectBox.value);
 }
 
 export function updateValue(selectBox, unresolvedValue) {

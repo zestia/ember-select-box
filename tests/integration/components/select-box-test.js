@@ -67,9 +67,9 @@ module('select-box', function(hooks) {
       classNamePrefix: 'foo'
     });
 
-    this.owner.register('component:select-box/foo', FooSelectBox);
+    this.owner.register('component:foo-select-box', FooSelectBox);
 
-    await render(hbs`<SelectBox::Foo />`);
+    await render(hbs`<FooSelectBox />`);
 
     assert.ok(
       findAll('.foo').length,

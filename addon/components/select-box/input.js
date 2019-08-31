@@ -22,7 +22,7 @@ export default Component.extend({
   // State
 
   domElement: null,
-  domElementId: null,
+  id: null,
 
   // Actions
 

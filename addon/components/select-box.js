@@ -39,7 +39,7 @@ import {
   deregisterElement
 } from '../utils/registration/element';
 import { registerInput, deregisterInput } from '../utils/registration/input';
-import { destroyComponent } from '../utils/component/lifecycle';
+import { initComponent, destroyComponent } from '../utils/component/lifecycle';
 import api from '../utils/select-box/api';
 import { _selectOption, selectOption } from '../utils/select-box/option/select';
 import { updateValue, receiveValue, selectValue } from '../utils/shared/value';
@@ -101,7 +101,7 @@ export default Component.extend({
   activeSelectedOptionIndex: -1,
   documentClickHandler: null,
   domElement: null,
-  domElementId: null,
+  id: null,
   isFocused: false,
   isSlowSearch: false,
   isOpen: false,
@@ -113,7 +113,7 @@ export default Component.extend({
   tabIndex: '0',
   valueID: 0,
   searchID: 0,
-  isInitialised: false,
+  memoisedAPI: null,
 
   // Child components
 
@@ -141,6 +141,7 @@ export default Component.extend({
     this._super(...arguments);
     initOptions(this);
     initSelectedOptions(this);
+    initComponent(this);
   },
 
   didReceiveAttrs() {

@@ -1,6 +1,5 @@
 import { computed, get } from '@ember/object';
-import { assign } from '@ember/polyfills';
-const { seal, keys } = Object;
+const { seal, keys, assign } = Object;
 
 export function getAPI(component) {
   if (component.selectBox) {
@@ -10,34 +9,38 @@ export function getAPI(component) {
   }
 }
 
-export function apiMacro(publicProperties, publicActions) {
-  const propNames = keys(publicProperties);
+export function apiMacro(properties, actions) {
+  const propNames = keys(properties);
 
   return computed(...propNames, function() {
-    buildAPI(this, publicActions);
-    updateAPI(this, publicProperties);
+    buildAPI(this, actions);
+    updateProperties(this, properties);
 
-    return seal(this._api);
+    return seal(this.memoisedAPI);
   });
 }
 
-function buildAPI(component, publicActions) {
-  if (component._api) {
+function buildAPI(component, actions) {
+  if (component.memoisedAPI) {
     return;
   }
 
-  component._api = apiActions(component, publicActions);
+  component.memoisedAPI = {};
+
+  memoiseActions(component, actions);
 }
 
-function updateAPI(component, publicProperties) {
-  const properties = apiProperties(component, publicProperties);
-  component._api = assign(component._api, properties);
+function memoiseActions(component, actions) {
+  assign(component.memoisedAPI, buildActions(component, actions));
 }
 
-function apiProperties(component, publicProperties) {
+function updateProperties(component, properties) {
+  assign(component.memoisedAPI, buildProperties(component, properties));
+}
+
+function buildProperties(component, publicProperties) {
   return keys(publicProperties).reduce((properties, key) => {
-    const mappedName = publicProperties[key];
-    const name = typeof mappedName === 'boolean' ? key : mappedName;
+    const name = publicName(publicProperties, key);
 
     properties[name] = get(component, key);
 
@@ -45,13 +48,17 @@ function apiProperties(component, publicProperties) {
   }, {});
 }
 
-function apiActions(component, publicActions) {
+function buildActions(component, publicActions) {
   return keys(publicActions).reduce((actions, key) => {
-    const mappedName = publicActions[key];
-    const name = typeof mappedName === 'boolean' ? key : mappedName;
+    const name = publicName(publicActions, key);
 
     actions[name] = component.actions[name].bind(component);
 
     return actions;
   }, {});
+}
+
+function publicName(object, key) {
+  const mappedName = object[key];
+  return typeof mappedName === 'boolean' ? key : mappedName;
 }

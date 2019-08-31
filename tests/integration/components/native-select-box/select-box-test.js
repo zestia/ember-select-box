@@ -480,14 +480,14 @@ module('native-select-box', function(hooks) {
       }
     });
 
-    this.owner.register('component:select-box/foo', FooSelectBox);
+    this.owner.register('component:foo-select-box', FooSelectBox);
 
     await render(hbs`
-      <SelectBox::Foo @value="bar" as |sb|>
+      <FooSelectBox @value="bar" as |sb|>
         <sb.Option @value="foo">Foo</sb.Option>
         <sb.Option @value="bar">Bar</sb.Option>
         <sb.Option @value="baz">Baz</sb.Option>
-      </SelectBox::Foo>
+      </FooSelectBox>
     `);
 
     assert

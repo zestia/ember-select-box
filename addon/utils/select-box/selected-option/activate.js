@@ -1,7 +1,7 @@
 import { set } from '@ember/object';
 import invokeAction from '../../component/invoke-action';
 import { getAPI } from '../../component/api';
-import scrollIntoView from '../../dom/scroll-into-view';
+import scrollIntoView from '../../general/scroll-into-view';
 
 export function _activateSelectedOption(selectedOption) {
   invokeAction(selectedOption, '_onActivate', selectedOption);

@@ -32,7 +32,8 @@ export default Component.extend({
   isFulfilled: false,
   isSettled: false,
   domElement: null,
-  domElementId: null,
+  id: null,
+  memoisedAPI: null,
 
   // Computed state
 
