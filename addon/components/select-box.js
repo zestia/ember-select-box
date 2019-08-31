@@ -16,11 +16,13 @@ import {
 } from '../utils/registration/selected-options';
 import {
   activateOption,
-  activateOptionAtIndex
+  activateOptionAtIndex,
+  activateOptionForKeyCode
 } from '../utils/select-box/option/activate';
 import {
   activateSelectedOption,
-  activateSelectedOptionAtIndex
+  activateSelectedOptionAtIndex,
+  activateSelectedOptionForKeyCode
 } from '../utils/select-box/selected-option/activate';
 import { deactivateOptions } from '../utils/select-box/option/deactivate';
 import { deactivateSelectedOptions } from '../utils/select-box/selected-option/deactivate';
@@ -298,6 +300,10 @@ export default Component.extend({
       activateOptionAtIndex(this, this.activeOptionIndex - 1, scroll);
     },
 
+    activateOptionForKeyCode(keyCode) {
+      activateOptionForKeyCode(this, keyCode, scroll);
+    },
+
     activateSelectedOptionAtIndex(index, scroll = false) {
       activateSelectedOptionAtIndex(this, index, scroll);
     },
@@ -318,66 +324,16 @@ export default Component.extend({
       );
     },
 
+    activateSelectedOptionForKeyCode(keyCode) {
+      activateOptionForKeyCode(this, keyCode, scroll);
+    },
+
     deactivateOptions() {
       deactivateOptions(this);
     },
 
     deactivateSelectedOptions() {
       deactivateSelectedOptions(this);
-    },
-
-    // Todo
-
-    activateOptionForKeyCode(keyCode, scroll = true) {
-      const char = fromCharCode(keyCode);
-
-      if (char) {
-        this._activateOptionForChar(char, scroll);
-      }
     }
-  },
-
-  _activateOptionForChar(char, scroll) {
-    const lastChars = this._activateOptionChars || '';
-    const lastMs = this._activateOptionMs || 0;
-    const lastIndex = this._activateOptionIndex || 0;
-    const lastChar = lastChars.substring(lastChars.length - 1);
-    const ms = Date.now();
-    const duration = ms - lastMs;
-    const repeatedChar = char === lastChar;
-    const reset = duration > COLLECT_CHARS_MS;
-    const chars = reset ? char : `${lastChars}${char}`;
-    let options = this._findOptionsMatchingChars(chars);
-    let index = 0;
-    let option;
-
-    if (repeatedChar) {
-      index = lastIndex + 1;
-      options = this._findOptionsMatchingChars(lastChar);
-      option = options[index];
-    }
-
-    if (!option) {
-      index = 0;
-      option = options[index];
-    }
-
-    if (option) {
-      this.send('activateOptionAtIndex', get(option, 'index'), scroll);
-    }
-
-    set(this, '_activateOptionChars', chars);
-    set(this, '_activateOptionMs', ms);
-    set(this, '_activateOptionIndex', index);
-  },
-
-  _findOptionsMatchingChars(chars) {
-    chars = escapeRegExp(chars);
-
-    const pattern = new RegExp(`^${chars}`, 'i');
-
-    return this.options.filter(option => {
-      return pattern.test(collapseWhitespace(option.domElement.textContent));
-    });
   }
 });

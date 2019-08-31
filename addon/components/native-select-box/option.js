@@ -62,7 +62,5 @@ export default Component.extend({
       deregisterElement(this, element);
       _destroyComponent(this);
     }
-
-    // Public API Actions
   }
 });
