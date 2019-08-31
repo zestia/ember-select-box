@@ -1,15 +1,11 @@
 # Changelog
 
-## 10.0.10.beta
+## 10.0.9-beta.0
 
 - Internal refactoring removing use of `Mixin.create()`
 - Internal refactoring to Angle Bracket components
 - Removed `is-searching` class name in favour of `is-busy` and/or aria attribute
 - Removed `@open` argument. (Please use the API instead)
-
-## 10.0.9
-
-- Upgrade deps
 
 ## 10.0.8
 
