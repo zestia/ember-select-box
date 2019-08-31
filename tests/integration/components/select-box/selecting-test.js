@@ -847,4 +847,24 @@ module('select-box (selecting)', function(hooks) {
       'selecting a value whose promise rejected, selects the rejection reason'
     );
   });
+
+  test('selecting action order', async function(assert) {
+    assert.expect(1);
+
+    this.set('selected', () => assert.step('selected'));
+    this.set('selectedOption', () => assert.step('selectedOption'));
+
+    await render(hbs`
+      <SelectBox @onSelect={{this.selected}} as |sb|>
+        <sb.Option @onSelect={{this.selectedOption}} />
+      </SelectBox>
+    `);
+
+    await click('.select-box-option');
+
+    assert.verifySteps(
+      ['selectedOption', 'selected'],
+      'actions fire in correct order'
+    );
+  });
 });
