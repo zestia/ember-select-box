@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.0.9-beta.1
+
+- Remove use of `{{on}}` helper due to lack of splattributes forwarding.
+
 ## 10.0.9-beta.0
 
 - Internal refactoring removing use of `Mixin.create()`
