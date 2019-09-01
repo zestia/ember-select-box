@@ -9,7 +9,7 @@
   ...attributes as |sb|>
 
   <sb.SelectedOption
-    {{on "click" sb.toggle}}
+    onclick={{sb.toggle}}
     style={{style (concat "background:" sb.value)}}
     @value={{sb.value}} />
 

@@ -88,7 +88,7 @@ module('select-box (activating options)', function(hooks) {
     await render(hbs`
       <SelectBox as |sb|>
         <sb.Option @value="foo" @onActivate={{this.activated}} />
-        <button {{on "click" (action sb.activateOptionAtIndex 0)}}>Activate foo</button>
+        <button onclick={{action sb.activateOptionAtIndex 0}}>Activate foo</button>
       </SelectBox>
     `);
 
