@@ -215,21 +215,21 @@ ember install @zestia/ember-select-box
     <tr>
       <td width="200">sb.activateNextOption</td>
       <td>
-        Activates the next option<br><br>
+        Activates the next option<br>
         <code>scroll</code> Whether to scroll to the option (default <code>true</code>)
       </td>
     </tr>
     <tr>
       <td>sb.activateNextSelectedOption</td>
       <td>
-        Activates the next selected option<br><br>
+        Activates the next selected option<br>
         <code>scroll</code> Whether to scroll to the selected option (default <code>true</code>)
       </td>
     </tr>
     <tr>
       <td>sb.activateOptionAtIndex</td>
       <td>
-        Adds an <code>is-active</code> class to the option at the index<br><br>
+        Adds an <code>is-active</code> class to the option at the index<br>
         <code>index</code> Option to activate<br>
         <code>scroll</code> Whether to scroll to the option (default <code>false</code>)
       </td>
@@ -237,7 +237,7 @@ ember install @zestia/ember-select-box
     <tr>
       <td>sb.activateOptionForKeyCode</td>
       <td>
-        Mimics native select box behaviour by jumping to an appopriate option based on the <code>textContent</code> of the options. <a href="https://zestia.github.io/ember-select-box/#/simple-select">Demo</a><br><br>
+        Mimics native select box behaviour by jumping to an appopriate option based on the <code>textContent</code> of the options. <a href="https://zestia.github.io/ember-select-box/#/simple-select">Demo</a><br>
         <code>keyCode</code> Character to match in the option's text<br>
         <code>scroll</code> Whether to scroll to the option (default <code>true</code>)
       </td>
@@ -245,21 +245,21 @@ ember install @zestia/ember-select-box
     <tr>
       <td>sb.activatePreviousOption</td>
       <td>
-        Activates the previous option<br><br>
+        Activates the previous option<br>
         <code>scroll</code> Whether to scroll to the option (default <code>true</code>)
       </td>
     </tr>
     <tr>
       <td>sb.activatePreviousSelectedOption</td>
       <td>
-        Activates the previous selected option<br><br>
+        Activates the previous selected option<br>
         <code>scroll</code> Whether to scroll to the selected option (default <code>true</code>)
       </td>
     </tr>
     <tr>
       <td>sb.activateSelectedOptionAtIndex</td>
       <td>
-        Activates the selected option at the index<br><br>
+        Activates the selected option at the index<br>
         <code>index</code> Selected option to activate<br>
         <code>scroll</code> Whether to scroll to the option (default <code>false</code>)
       </td>
