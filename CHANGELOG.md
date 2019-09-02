@@ -1,5 +1,9 @@
 # Changelog
 
+## 11.0.0
+
+- Release changes from version 10 beta
+
 ## 10.0.9-beta.1
 
 - Remove use of `{{on}}` helper due to lack of splattributes forwarding.
