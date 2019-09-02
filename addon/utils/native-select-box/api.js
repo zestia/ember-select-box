@@ -1,7 +1,6 @@
 import { apiMacro } from '../component/api';
 
 const publicProperties = {
-  resolvedValue: 'value',
   domElement: 'element',
   isBusy: true,
   isDisabled: true,
@@ -9,7 +8,8 @@ const publicProperties = {
   isMultiple: true,
   isPending: true,
   isRejected: true,
-  isSettled: true
+  isSettled: true,
+  resolvedValue: 'value'
 };
 
 const publicActions = {

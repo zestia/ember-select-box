@@ -14,6 +14,7 @@
 - Internal refactoring to Angle Bracket components
 - Removed `is-searching` class name in favour of `is-busy` and/or aria attribute
 - Removed `@open` argument. (Please use the API instead)
+- Normalise API properties with template properties
 
 ## 10.0.8
 

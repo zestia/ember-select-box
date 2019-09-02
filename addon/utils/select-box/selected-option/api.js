@@ -1,13 +1,13 @@
 import { apiMacro } from '../../component/api';
 
 const publicProperties = {
-  resolvedValue: 'value',
-  isPending: true,
-  isFulfilled: true,
-  isSettled: true,
-  isActive: true,
+  domElement: 'element',
   index: true,
-  domElement: 'element'
+  isActive: true,
+  isFulfilled: true,
+  isPending: true,
+  isSettled: true,
+  resolvedValue: 'value'
 };
 
 const publicActions = {};

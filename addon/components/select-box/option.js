@@ -29,6 +29,11 @@ export default Component.extend({
   selected: undefined,
   value: undefined,
 
+  // Actions
+
+  onActivate: null,
+  onSelect: null,
+
   // State
 
   domElement: null,

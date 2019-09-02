@@ -65,37 +65,33 @@ ember install @zestia/ember-select-box
 <details>
   <summary>Arguments</summary>
   <table>
-    <tr>
-      <td width="200">@value</td>
-      <td>Used to determine which option is selected, can be a promise</td>
-    </tr>
-    <tr>
-      <td>@multiple</td>
-      <td>If true, <code>value</code> should be an array. Also adds an <code>is-multiple</code> class</td>
+    <tr width="200">
+      <td>@classNamePrefix</td>
+      <td>Adds a prefix to the class name of the select box and its child components</td>
     </tr>
     <tr>
       <td>@disabled</td>
-      <td>If true adds an <code>is-disabled</code> class</td>
+      <td>If true adds an <code>is-disabled</code> class and makes it unfocusable with <code>tabindex="-1"</code></td>
     </tr>
     <tr>
-      <td>@classNamePrefix</td>
-      <td>Adds a prefix to the class name of all child select-box components</td>
-    </tr>
-    <tr>
-      <td>@open</td>
-      <td>Controls the open/closed state</td>
-    </tr>
-    <tr>
-      <td>@searchMinChars</td>
-      <td>Prevents the <code>onSearch</code> action from firing until there are enough chars (default 1)</td>
+      <td>@multiple</td>
+      <td>If true, <code>@value</code> should be an array. Also adds an <code>is-multiple</code> class</td>
     </tr>
     <tr>
       <td>@searchDelayTime</td>
-      <td>Milliseconds to debounce the <code>onSearch</code> action from firing (default 100)</td>
+      <td>Milliseconds to debounce the <code>@onSearch</code> action from firing (default 100)</td>
+    </tr>
+    <tr>
+      <td>@searchMinChars</td>
+      <td>Prevents the <code>@onSearch</code> action from firing until there are enough chars (default 1)</td>
     </tr>
     <tr>
       <td>@searchSlowTime</td>
       <td>Milliseconds considered for a search to be taking too long (default 500)</td>
+    </tr>
+    <tr>
+      <td>@value</td>
+      <td>Used to determine which option(s) are selected, can be a promise</td>
     </tr>
   </table>
 </details>
@@ -104,16 +100,31 @@ ember install @zestia/ember-select-box
   <summary>Actions</summary>
   <table>
     <tr>
-      <td width="200">@onOpen</td>
+      <td width="200">@onBuildSelection</td>
       <td>
-        Fired when the select box is opened
+        Fired whenever a selection is made. This function receives the value most recently
+        selected, and the currently selected values. The return value is used as the final selection.
+        This is primarily used to customise the default behaviour of a multiple select box, but in
+        most cases will not need to be used.
       </td>
+    </tr>
+    <tr>
+      <td>@onClickOutside</td>
+      <td>Useful for closing the select box</td>
     </tr>
     <tr>
       <td>@onClose</td>
       <td>
         Fired when the select box is closed
       </td>
+    </tr>
+    <tr>
+      <td>@onFocusIn</td>
+      <td>Fired when focus enters the select box</td>
+    </tr>
+    <tr>
+      <td>@onFocusOut</td>
+      <td>Fired when focus leaves the select box</td>
     </tr>
     <tr>
       <td>@onInit</td>
@@ -126,27 +137,48 @@ ember install @zestia/ember-select-box
       get access to the element, which is a property on the select box's API</td>
     </tr>
     <tr>
-      <td>@onSelect</td>
+      <td>@onOpen</td>
       <td>
-        Fired when an option is clicked, or enter is pressed regardless as
-        to whether the value changed or not. Also fired by use of the <code>select</code> API.
+        Fired when the select box is opened
       </td>
     </tr>
     <tr>
-      <td>@onUpdate</td>
-      <td>
-        Fired after the initial value has been resolved and the component has rendered.<br>
-        Also fired by use of the <code>update</code> API or if the value attribute changes.
-      </td>
+      <td>@onPressBackspace</td>
+      <td></td>
     </tr>
     <tr>
-      <td>@onBuildSelection</td>
-      <td>
-        Fired whenever a selection is made. This function receives the value most recently
-        selected, and the currently selected values. The return value is used as the final selection.
-        This is primarily used to customise the default behaviour of a multiple select box, but in
-        most cases will not need to be used.
-      </td>
+      <td>@onPressDown</td>
+      <td>Useful for navigating down</td>
+    </tr>
+    <tr>
+      <td>@onPressEnter</td>
+      <td>Useful for preventing default action of event</td>
+    </tr>
+    <tr>
+      <td>@onPressEscape</td>
+      <td>Useful for closing and/or resetting a select box</td>
+    </tr>
+    <tr>
+      <td>@onPressKey</td>
+      <td>A useful place to call <code>sb.activateOptionForKeyCode(e.keyCode)</code>, which
+      can be used to activate an option based on the characters recently typed. This mimics
+      the jump-to option behaviour found in native select boxes</td>
+    </tr>
+    <tr>
+      <td>@onPressLeft</td>
+      <td>Useful for navigating selected options</td>
+    </tr>
+    <tr>
+      <td>@onPressRight</td>
+      <td>Useful for navigating selected options</td>
+    </tr>
+    <tr>
+      <td>@onPressTab</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>@onPressUp</td>
+      <td>Useful for navigating up</td>
     </tr>
     <tr>
       <td>@onSearch</td>
@@ -161,54 +193,18 @@ ember install @zestia/ember-select-box
       <td>Fired if a search attempt failed</td>
     </tr>
     <tr>
-      <td>@onClickOutside</td>
-      <td>Useful for closing the select box</td>
+      <td>@onSelect</td>
+      <td>
+        Fired when an option is clicked, or enter is pressed regardless as
+        to whether the value changed or not (because a selection was made).
+      </td>
     </tr>
     <tr>
-      <td>@onFocusIn</td>
-      <td>Fired when focus enters the select box</td>
-    </tr>
-    <tr>
-      <td>@onFocusOut</td>
-      <td>Fired when focus leaves the select box</td>
-    </tr>
-    <tr>
-      <td>@onPressKey</td>
-      <td>A useful place to call <code>sb.activateOptionForKeyCode(e.keyCode)</code>, which
-      can be used to activate an option based on the characters recently typed. This mimics
-      the jump-to option behaviour found in native select boxes</td>
-    </tr>
-    <tr>
-      <td>@onPressBackspace</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>@onPressTab</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>@onPressEnter</td>
-      <td>Useful for preventing default action of event</td>
-    </tr>
-    <tr>
-      <td>@onPressEscape</td>
-      <td>Useful for closing and/or resetting a select box</td>
-    </tr>
-    <tr>
-      <td>@onPressLeft</td>
-      <td>Useful for navigating selected options</td>
-    </tr>
-    <tr>
-      <td>@onPressUp</td>
-      <td>Useful for navigating up</td>
-    </tr>
-    <tr>
-      <td>@onPressRight</td>
-      <td>Useful for navigating selected options</td>
-    </tr>
-    <tr>
-      <td>@onPressDown</td>
-      <td>Useful for navigating down</td>
+      <td>@onUpdate</td>
+      <td>
+        Fired whenever the value changes, either by a new <code>@value</code>
+        argument being passed in, or a selection is made that results in the value changing.
+      </td>
     </tr>
   </table>
 </details>
@@ -218,86 +214,10 @@ ember install @zestia/ember-select-box
   <table>
     <caption>Actions</caption>
     <tr>
-      <td width="200">sb.open</td>
-      <td>Opens the select box, adding <code>is-open</code> class name</td>
-    </tr>
-    <tr>
-      <td>sb.close</td>
-      <td>Closes the select box removing the <code>is-open</code> class name</td>
-    </tr>
-    <tr>
-      <td>sb.toggle</td>
-      <td>Opens or closes the select box</td>
-    </tr>
-    <tr>
-      <td>sb.select</td>
-      <td>Selects an arbitrary value(s) and fires the <code>onSelect</code> action</td>
-    </tr>
-    <tr>
-      <td>sb.update</td>
-      <td>Updates the selected value(s), but does not fire the <code>onSelect</code> action</td>
-    </tr>
-    <tr>
-      <td>sb.selectActiveOption</td>
-      <td>Selects the value of whichever option is currently active</td>
-    </tr>
-    <tr>
-      <td>sb.search</td>
-      <td>Runs an arbitrary search using the search function provided by <code>onSearch</code></td>
-    </tr>
-    <tr>
-      <td>sb.stopSearching</td>
-      <td>'Cancels' searches currently in progress (even though promises are not cancelable)</td>
-    </tr>
-    <tr>
-      <td>sb.setInputValue</td>
-      <td>Lets you update the input value, useful for when a selection has been made</td>
-    </tr>
-    <tr>
-      <td>sb.focusInput</td>
-      <td>Focuses the input associated with the select box</td>
-    </tr>
-    <tr>
-      <td>sb.blurInput</td>
-      <td>Unfocuses the input associated with the select box</td>
-    </tr>
-    <tr>
-      <td>sb.activateOptionAtIndex</td>
-      <td>
-        Adds an <code>is-active</code> class to the option at the index<br><br>
-        <code>index</code> Option to activate<br>
-        <code>scroll</code> Whether to scroll to the option (default <code>false</code>)
-      </td>
-    </tr>
-    <tr>
-      <td>sb.activateNextOption</td>
+      <td width="200">sb.activateNextOption</td>
       <td>
         Activates the next option<br><br>
         <code>scroll</code> Whether to scroll to the option (default <code>true</code>)
-      </td>
-    </tr>
-    <tr>
-      <td>sb.activatePreviousOption</td>
-      <td>As above but reverse</td>
-    </tr>
-    <tr>
-      <td>sb.activateOptionForKeyCode</td>
-      <td>
-        Mimics native select box behaviour by jumping to an appopriate option based on the <code>textContent</code> of the options. <a href="https://zestia.github.io/ember-select-box/#/simple-select">Demo</a><br><br>
-        <code>keyCode</code> Character to match in the option's text<br>
-        <code>scroll</code> Whether to scroll to the option (default <code>true</code>)
-      </td>
-    </tr>
-    <tr>
-      <td>sb.deactivateOptions</td>
-      <td>Makes no option be active</td>
-    </tr>
-    <tr>
-      <td>sb.activateSelectedOptionAtIndex</td>
-      <td>
-        Activates the selected option at the index<br><br>
-        <code>index</code> Selected option to activate<br>
-        <code>scroll</code> Whether to scroll to the option (default <code>false</code>)
       </td>
     </tr>
     <tr>
@@ -308,12 +228,105 @@ ember install @zestia/ember-select-box
       </td>
     </tr>
     <tr>
+      <td>sb.activateOptionAtIndex</td>
+      <td>
+        Adds an <code>is-active</code> class to the option at the index<br><br>
+        <code>index</code> Option to activate<br>
+        <code>scroll</code> Whether to scroll to the option (default <code>false</code>)
+      </td>
+    </tr>
+    <tr>
+      <td>sb.activateOptionForKeyCode</td>
+      <td>
+        Mimics native select box behaviour by jumping to an appopriate option based on the <code>textContent</code> of the options. <a href="https://zestia.github.io/ember-select-box/#/simple-select">Demo</a><br><br>
+        <code>keyCode</code> Character to match in the option's text<br>
+        <code>scroll</code> Whether to scroll to the option (default <code>true</code>)
+      </td>
+    </tr>
+    <tr>
+      <td>sb.activatePreviousOption</td>
+      <td>
+        Activates the previous option<br><br>
+        <code>scroll</code> Whether to scroll to the option (default <code>true</code>)
+      </td>
+    </tr>
+    <tr>
       <td>sb.activatePreviousSelectedOption</td>
-      <td>As above but reverse</td>
+      <td>
+        Activates the previous selected option<br><br>
+        <code>scroll</code> Whether to scroll to the selected option (default <code>true</code>)
+      </td>
+    </tr>
+    <tr>
+      <td>sb.activateSelectedOptionAtIndex</td>
+      <td>
+        Activates the selected option at the index<br><br>
+        <code>index</code> Selected option to activate<br>
+        <code>scroll</code> Whether to scroll to the option (default <code>false</code>)
+      </td>
+    </tr>
+    <tr>
+      <td>sb.blurInput</td>
+      <td>Unfocuses the input associated with the select box</td>
+    </tr>
+    <tr>
+      <td>sb.cancelSearch</td>
+      <td>
+        'Cancels' searches currently in progress (even though promises are not cancelable).
+      </td>
+    </tr>
+    <tr>
+      <td>sb.close</td>
+      <td>Closes the select box removing the <code>is-open</code> class name</td>
+    </tr>
+    <tr>
+      <td>sb.deactivateOptions</td>
+      <td>Makes no option be active</td>
     </tr>
     <tr>
       <td>sb.deactivateSelectedOptions</td>
       <td>Makes no selected option be active</td>
+    </tr>
+    <tr>
+      <td>sb.focusInput</td>
+      <td>Focuses the input associated with the select box</td>
+    </tr>
+    <tr>
+      <td>sb.open</td>
+      <td>Opens the select box, adding <code>is-open</code> class name</td>
+    </tr>
+    <tr>
+      <td>sb.search</td>
+      <td>Runs an arbitrary search using the search function provided by <code>@onSearch</code></td>
+    </tr>
+    <tr>
+      <td>sb.select</td>
+      <td>
+        Selects arbitrary value(s).
+        <code>@onSelect</code> will fire.
+      </td>
+    </tr>
+    <tr>
+      <td>sb.selectActiveOption</td>
+      <td>Selects the value of whichever option is currently active</td>
+    </tr>
+    <tr>
+      <td>sb.setInputValue</td>
+      <td>
+        Lets you update the input value.
+        Useful for prefilling the input with the active option text for example.
+      </td>
+    </tr>
+    <tr>
+      <td>sb.toggle</td>
+      <td>Opens or closes the select box</td>
+    </tr>
+    <tr>
+      <td>sb.update</td>
+      <td>
+        Updates the selectbox with a new value(s).
+        <code>@onUpdate</code> will fire.
+      </td>
     </tr>
   </table>
 
@@ -324,40 +337,48 @@ ember install @zestia/ember-select-box
       <td>The DOM element of the select box</td>
     </tr>
     <tr>
-      <td>sb.value</td>
-      <td>The selected value(s) of the select box</td>
+      <td>sb.isBusy</td>
+      <td>True if the select box is waiting for the <code>@value</code> argument, or it is waiting for a search to finish</td>
+    </tr>
+    <tr>
+      <td>sb.isDisabled</td>
+      <td>Whether or not the select box is currently disabled</td>
+    </tr>
+    <tr>
+      <td>sb.isFocused</td>
+      <td>Whether or not the select box is currently has focus</td>
+    </tr>
+    <tr>
+      <td>sb.isFulfilled</td>
+      <td>True if <code>@value</code> resolved</td>
+    </tr>
+    <tr>
+      <td>sb.isMultiple</td>
+      <td>True if the select box is allows selectiong multiple values</td>
     </tr>
     <tr>
       <td>sb.isOpen</td>
       <td>True if the select box is open</td>
     </tr>
-  </table>
-
-  <table>
-    <caption>Template only properties</caption>
-    <tr width="200">
+    <tr>
       <td>sb.isPending</td>
-      <td>True whilst <code>value</code> is being resovled</td>
+      <td>True whilst <code>@value</code> is being resovled</td>
     </tr>
     <tr>
       <td>sb.isRejected</td>
-      <td>True if <code>value</code> failed to resolve</td>
-    </tr>
-    <tr>
-      <td>sb.isFulfilled</td>
-      <td>True if <code>value</code> resolved</td>
+      <td>True if <code>@value</code> failed to resolve</td>
     </tr>
     <tr>
       <td>sb.isSettled</td>
-      <td>True once <code>value</code> has resolved or rejected</td>
-    </tr>
-    <tr>
-      <td>sb.isSearching</td>
-      <td>True if the promise returned from the <code>onSearch</code> action is running</td>
+      <td>True once <code>@value</code> has resolved or rejected</td>
     </tr>
     <tr>
       <td>sb.isSlowSearch</td>
       <td>True if the promised search results are taking a while</td>
+    </tr>
+    <tr>
+      <td>sb.value</td>
+      <td>The selected value(s) of the select box</td>
     </tr>
   </table>
 </details>
@@ -376,12 +397,19 @@ ember install @zestia/ember-select-box
   <summary>Arguments</summary>
   <table>
     <tr>
-      <td>@value</td>
-      <td>Can be anything, including a promise</td>
+      <td>@disabled</td>
+      <td>Prevents the option from being selected</td>
     </tr>
     <tr>
-      <td>@disabled</td>
-      <td></td>
+      <td>@selected</td>
+      <td>
+        For manually specifying that this option is selected.
+        Preferably, allow selection to be automatically computed by just setting the <code>@values</code>
+      </td>
+    </tr>
+    <tr>
+      <td>@value</td>
+      <td>Can be anything, including a promise</td>
     </tr>
   </table>
 </details>
@@ -389,13 +417,13 @@ ember install @zestia/ember-select-box
 <details>
   <summary>Actions</summary>
   <table>
-    <tr>
-      <td width="200">@onSelect</td>
-      <td>Useful for firing one-off actions when an option is selected</td>
-    </tr>
-    <tr>
+    <tr width="200">
       <td>@onActivate</td>
       <td>Fired when an individual option is activated</td>
+    </tr>
+    <tr>
+      <td>@onSelect</td>
+      <td>Useful for firing one-off actions when an option is selected</td>
     </tr>
   </table>
 </details>
@@ -404,37 +432,45 @@ ember install @zestia/ember-select-box
   <summary>API</summary>
   <table>
     <caption>Template only properties</caption>
-    <tr>
-      <td>o.value</td>
-      <td>The value of the option</td>
+    <tr width="200">
+      <td>o.element</td>
+      <td>The DOM element of the option component</td>
     </tr>
     <tr>
-      <td>o.isPending</td>
-      <td>True whilst <code>value</code> is being resovled</td>
+      <td>o.index</td>
+      <td>The index of the option amongst the options</td>
     </tr>
     <tr>
-      <td>o.isRejected</td>
-      <td>True if <code>value</code> failed to resolve</td>
-    </tr>
-    <tr>
-      <td>o.isFulfilled</td>
-      <td>True if <code>value</code> resolved</td>
-    </tr>
-    <tr>
-      <td>o.isSettled</td>
-      <td>True once <code>value</code> has resolved or rejected</td>
-    </tr>
-    <tr>
-      <td width="200">o.isSelected</td>
-      <td>Whether or not the option is currently selected</td>
+      <td>o.isActive</td>
+      <td>True if the option is active</td>
     </tr>
     <tr>
       <td>o.isDisabled</td>
       <td>Whether or not the option is currently disabled</td>
     </tr>
     <tr>
-      <td>o.index</td>
-      <td>The index of the option amongst the options</td>
+      <td>o.isFulfilled</td>
+      <td>True if <code>@value</code> resolved</td>
+    </tr>
+    <tr>
+      <td>o.isPending</td>
+      <td>True whilst <code>@value</code> is being resovled</td>
+    </tr>
+    <tr>
+      <td>o.isRejected</td>
+      <td>True if <code>@value</code> failed to resolve</td>
+    </tr>
+    <tr>
+      <td>o.isSelected</td>
+      <td>Whether or not the option is currently selected</td>
+    </tr>
+    <tr>
+      <td>o.isSettled</td>
+      <td>True once <code>@value</code> has resolved or rejected</td>
+    </tr>
+    <tr>
+      <td>o.value</td>
+      <td>The value of the option</td>
     </tr>
   </table>
 </details>
@@ -444,7 +480,7 @@ ember install @zestia/ember-select-box
 ### Group
 
 Self explanitory, just wraps the options in extra markup.<br>
-(You can still navigate groups using the arrow keys / the API)
+You can still navigate options using the arrow keys (or the API) even if they are inside groups.
 
 ```handlebars
 <sb.Group @label="Things">
@@ -457,7 +493,7 @@ Self explanitory, just wraps the options in extra markup.<br>
 ### Options
 
 You only need to wrap the options up in with `sb.Options` if you require extra markup for styling.
-(It's useful to use as the drop-down part of a select box).
+It's useful to use as the drop-down part of a select box, which can be opened or closed.
 
 ```handlebars
 <sb.Options>
@@ -479,17 +515,17 @@ Allows you to input text into the select box, usually for running searches/filte
 <details>
   <summary>Actions</summary>
   <table>
-    <tr>
-      <td width="200">@onInput</td>
-      <td>Fired when text is input</td>
+    <tr width="200">
+      <td>@onClear</td>
+      <td>Fired when text is cleared completely</td>
     </tr>
     <tr>
       <td>@onDelete</td>
       <td>Fired when there is no text present, but backspace is pressed</td>
     </tr>
     <tr>
-      <td>@onClear</td>
-      <td>Fired when text is cleared completely</td>
+      <td>@onInput</td>
+      <td>Fired when text is input</td>
     </tr>
   </table>
 </details>
@@ -506,15 +542,7 @@ Does _not_ render the user's selected option automatically, but rather just prov
 </sb.SelectedOption>
 ```
 
-<details>
-  <summary>Actions</summary>
-  <table>
-    <tr>
-      <td width="200">@onActivate</td>
-      <td>Fired when a selected option is activated</td>
-    </tr>
-  </table>
-</details>
+This component has a similar API to a normal `<sb.Option />`, except that it can't be selected.
 
 <hr>
 
@@ -538,8 +566,8 @@ actions: {
 
 ### Test helpers
 
-There are test helpers for selecting options inside a native select box. <br>
-For the faux select box, you can just use Ember's `click` or `triggerEvent` test helpers.
+- For the native select box, this addon provides test helpers for selecting options
+- For the faux select box, no custom test helpers are needed - you can just use Ember's `click` or `triggerEvent` test helpers.
 
 Here is an example of selecting some options, and asserting that they have been selected:
 
@@ -567,7 +595,7 @@ test('selecting things', async function(assert) {
   `);
 
   await selectNativeOptionsByValue('.select-box', [1, 2]);
-  // await selectNativeOptionsByLabel('.select-box', ['One', 'Two']);
+  // or: await selectNativeOptionsByLabel('.select-box', ['One', 'Two']);
 
   assert.deepEqual(getNativeMultipleSelectBoxValue('.select-box'), [
     'One',
@@ -582,12 +610,7 @@ test('selecting things', async function(assert) {
 
 ## Customising
 
-There are a couple of ways to get what you want
-
-1. [compose](#compose) a new one
-2. OR [extend](#extend) an existing one
-
-Option 1 is recommended. Define your component like so...
+To create your own select box, make a new component that renders a select box:
 
 ```handlebars
 <SelectBox @value={{@value}} @onSelect={{@onSelect}} @classNamePrefix="my-select-box" as |sb|>
@@ -628,7 +651,7 @@ Option 1 is recommended. Define your component like so...
 #### FAQ
 
 - Question: Why aren't the native and faux select boxes two addons.<br>
-- Answer: Less effort maintaining 1 addon!
+- Answer: Less effort maintaining 1 addon
 
 - Question: Why would I not just use [Ember Power Select](https://github.com/cibernox/ember-power-select)?
 - Answer: `ember-power-select` is powerful in that it is feature-full, whereas `ember-select-box` is flexible in that it is minimal.

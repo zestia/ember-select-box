@@ -59,7 +59,6 @@ export default Component.extend({
   classNamePrefix: '',
   disabled: false,
   multiple: false,
-  open: false,
   searchDelayTime: 100,
   searchMinChars: 1,
   searchSlowTime: 500,
