@@ -478,7 +478,7 @@ ember install @zestia/ember-select-box
 
 ### Group
 
-Self explanitory, just wraps the options in extra markup.<br>
+Wraps the options in extra markup.<br>
 You can still navigate options using the arrow keys (or the API) even if they are inside groups.
 
 ```handlebars
