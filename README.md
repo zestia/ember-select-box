@@ -29,7 +29,6 @@ This addon does less, and gives you the primitives to easily _compose your own_.
 - Does not use jQuery ✔︎
 - Easily create an autocompleter ✔︎
 - Easily create a dropdown menu ✔︎
-- Works well with [Ember Wormhole](https://github.com/yapplabs/ember-wormhole) ✔︎
 - Full control at all times with the [API](#api) ✔︎
 - 'Jump-to option' behaviour based on keyboard input ✔︎
 - Very few issues over many years of Ember! ✔︎
