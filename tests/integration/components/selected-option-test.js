@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { findAll, render } from '@ember/test-helpers';
+import { find, findAll, render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('select-box/selected-option', function(hooks) {
@@ -24,6 +24,29 @@ module('select-box/selected-option', function(hooks) {
     assert
       .dom('.foo-selected-option')
       .exists({ count: 1 }, 'can override the class prefix');
+  });
+
+  test('aria role', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`<SelectBox::SelectedOption />`);
+
+    assert
+      .dom('.select-box-selected-option')
+      .hasAttribute('role', 'option', 'defined as an option');
+  });
+
+  test('id', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`<SelectBox::SelectedOption />`);
+
+    assert.ok(
+      find('.select-box-selected-option')
+        .getAttribute('id')
+        .match(/select-box-el-\d+/),
+      'gets a unique id'
+    );
   });
 
   test('yield', async function(assert) {

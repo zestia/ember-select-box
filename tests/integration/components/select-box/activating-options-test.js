@@ -47,23 +47,28 @@ module('select-box (activating options)', function(hooks) {
         'mousing over an option gives it an active class name'
       );
 
-    const [id] = box.getAttribute('aria-activedescendant').match(/\d+/);
-
-    assert.ok(id, 'active option id is added to the options container');
+    assert.ok(
+      one.getAttribute('id').match(/select-box-el-\d+/),
+      'active option has an id with a numeric part'
+    );
 
     assert
-      .dom('.select-box-option.is-active')
+      .dom(box)
       .hasAttribute(
-        'aria-current',
-        'true',
-        'has correct string value when current'
+        'aria-activedescendant',
+        one.id,
+        'the select box has the correct active descendant id'
       );
 
     await triggerEvent(two, 'mouseenter');
 
-    const [nextID] = box.getAttribute('aria-activedescendant').match(/\d+/);
-
-    assert.notEqual(id, nextID, 'the active descendant is updated');
+    assert
+      .dom(box)
+      .hasAttribute(
+        'aria-activedescendant',
+        two.getAttribute('id'),
+        'the select box active descendant id is updated'
+      );
 
     assert.ok(
       !one.classList.contains('is-active') &&

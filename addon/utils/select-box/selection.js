@@ -16,8 +16,6 @@ function buildSelectionDefault(selectBox, value1, value2) {
   let value = value1;
 
   if (selectBox.isMultiple && !isArray(value1)) {
-    // todo: check from
-
     const temp = emberA(from(value2));
 
     if (temp.includes(value1)) {

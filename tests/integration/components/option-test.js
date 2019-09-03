@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { findAll, render, settled } from '@ember/test-helpers';
+import { find, findAll, render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { defer } from 'rsvp';
 const { from } = Array;
@@ -35,11 +35,20 @@ module('select-box/option', function(hooks) {
 
     assert
       .dom('.select-box-option')
-      .hasAttribute(
-        'role',
-        'option',
-        'a select box option has an appropriate aria role'
-      );
+      .hasAttribute('role', 'option', 'defined as an option');
+  });
+
+  test('id', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`<SelectBox::Option />`);
+
+    assert.ok(
+      find('.select-box-option')
+        .getAttribute('id')
+        .match(/select-box-el-\d+/),
+      'gets a unique id'
+    );
   });
 
   test('disabled', async function(assert) {
