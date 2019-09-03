@@ -132,8 +132,6 @@ export default Component.extend({
     'activeSelectedOptionIndex'
   ),
 
-  // Actions
-
   init() {
     this._super(...arguments);
     initOptions(this);
