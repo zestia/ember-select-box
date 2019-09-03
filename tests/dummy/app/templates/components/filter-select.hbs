@@ -1,13 +1,13 @@
 <SelectBox
   @classNamePrefix="filter-select"
   @value={{@value}}
-  @labelKey="name"
   @searchMinChars={{0}}
   @searchDelayTime={{0}}
   @onSearch={{@onSearch}}
   @onClickOutside={{action "close"}}
   @onPressEscape={{action "close"}}
-  @onSelect={{action "selected" @onSelect}} as |sb|>
+  @onSelect={{action "selected" @onSelect}}
+  ...attributes as |sb|>
   <sb.Input onclick={{sb.open}} @onInput={{sb.open}} />
   {{#if sb.isOpen}}
     <sb.Options>

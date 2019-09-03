@@ -1,8 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, findAll } from '@ember/test-helpers';
+import { find, findAll, render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import { htmlSafe } from '@ember/template';
 
 module('select-box/selected-option', function(hooks) {
   setupRenderingTest(hooks);
@@ -27,30 +26,27 @@ module('select-box/selected-option', function(hooks) {
       .exists({ count: 1 }, 'can override the class prefix');
   });
 
-  test('classic: title', async function(assert) {
+  test('aria role', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`{{select-box/selected-option title="Foo"}}`);
+    await render(hbs`<SelectBox::SelectedOption />`);
 
     assert
       .dom('.select-box-selected-option')
-      .hasAttribute(
-        'title',
-        'Foo',
-        'a selected option can have a title attribute'
-      );
+      .hasAttribute('role', 'option', 'defined as an option');
   });
 
-  test('classic: style', async function(assert) {
+  test('id', async function(assert) {
     assert.expect(1);
 
-    this.set('style', htmlSafe('color: red'));
+    await render(hbs`<SelectBox::SelectedOption />`);
 
-    await render(hbs`{{select-box/selected-option style=this.style}}`);
-
-    assert
-      .dom('.select-box-selected-option')
-      .hasAttribute('style', 'color: red', 'can bind style to classic comp');
+    assert.ok(
+      find('.select-box-selected-option')
+        .getAttribute('id')
+        .match(/select-box-el-\d+/),
+      'gets a unique id'
+    );
   });
 
   test('yield', async function(assert) {

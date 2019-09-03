@@ -1,54 +1,88 @@
 import Component from '@ember/component';
+import { _activateOption } from '../../utils/select-box/option/activate';
+import {
+  _destroyComponent,
+  _initComponent
+} from '../../utils/component/lifecycle';
+import { _selectOption } from '../../utils/select-box/option/select';
+import { bool } from '@ember/object/computed';
+import {
+  deregisterElement,
+  registerElement
+} from '../../utils/registration/element';
+import { receiveValue } from '../../utils/component/value';
+import api from '../../utils/select-box/option/api';
+import index from '../../utils/general/index';
+import isEqual from '../../utils/general/is-equal';
+import isSelected from '../../utils/shared/is-selected';
 import layout from '../../templates/components/select-box/option';
-import Activatable from '../../mixins/select-box/option/activatable';
-import BaseOption from '../../mixins/select-box/option/base';
-import Disableable from '../../mixins/general/disableable';
-import Indexable from '../../mixins/general/indexable';
-import Nameable from '../../mixins/general/nameable';
-import Registerable from '../../mixins/general/registerable';
-import Selectable from '../../mixins/select-box/option/selectable';
-import boolString from '../../utils/bool-string';
 
-const mixins = [
-  Activatable,
-  BaseOption,
-  Disableable,
-  Indexable,
-  Nameable,
-  Registerable,
-  Selectable
-];
-
-export default Component.extend(...mixins, {
+export default Component.extend({
   layout,
-  classNameSuffix: 'option',
+  tagName: '',
 
-  role: 'option',
+  // Arguments
 
-  attributeBindings: [
-    'aria-busy',
-    'aria-current',
-    'aria-disabled',
-    'aria-selected',
-    'role',
-    'title',
-    'style'
-  ],
+  classNamePrefix: '',
+  disabled: false,
+  selectBox: null,
+  selected: undefined,
+  value: undefined,
 
-  classNameBindings: ['isActive', 'isDisabled', 'isSelected'],
+  // Actions
 
-  'aria-current': boolString('isActive'),
-  'aria-disabled': boolString('isDisabled'),
-  'aria-selected': boolString('isSelected'),
-  'aria-busy': boolString('isPending'),
+  onActivate: null,
+  onSelect: null,
 
-  mouseEnter() {
+  // State
+
+  domElement: null,
+  id: null,
+  isFulfilled: false,
+  isPending: true,
+  isRejected: false,
+  isSettled: false,
+  memoisedAPI: null,
+  previousResolvedValue: null,
+  resolvedValue: null,
+  valueID: 0,
+
+  // Computed state
+
+  api: api(),
+  index: index('selectBox.options'),
+  isActive: isEqual('index', 'selectBox.activeOptionIndex'),
+  isDisabled: bool('disabled'),
+  isSelected: isSelected(),
+
+  init() {
     this._super(...arguments);
-    this.send('activate');
+    _initComponent(this);
   },
 
-  click() {
+  didReceiveAttrs() {
     this._super(...arguments);
-    this.send('select');
+    receiveValue(this);
+  },
+
+  actions: {
+    // Internal actions
+
+    didInsertElement(element) {
+      registerElement(this, element);
+    },
+
+    willDestroyElement(element) {
+      deregisterElement(this, element);
+      _destroyComponent(this);
+    },
+
+    onMouseEnter() {
+      _activateOption(this);
+    },
+
+    onClick() {
+      _selectOption(this);
+    }
   }
 });

@@ -1,10 +1,13 @@
-<div class="simple-select-display-label">
-  {{this.displayLabel}}
+<div class="native-simple-select {{if this.isFocused "is-focused"}}" ...attributes>
+  <div class="simple-select-display-label">
+    {{this.displayLabel}}
+  </div>
+  <NativeSelectBox
+    onfocus={{action "focused"}}
+    onblur={{action "blurred"}}
+    @value={{@value}}
+    @onSelect={{@onSelect}}
+    @onUpdate={{action "updateDisplay"}} as |sb|>
+    {{yield sb}}
+  </NativeSelectBox>
 </div>
-<NativeSelectBox
-  @value={{@value}}
-  @onSelect={{@onSelect}}
-  @onFocusIn={{action "focusIn"}}
-  @onFocusOut={{action "focusOut"}} as |sb|>
-  {{yield sb}}
-</NativeSelectBox>

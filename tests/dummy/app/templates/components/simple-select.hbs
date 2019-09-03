@@ -7,16 +7,8 @@
   @onPressEscape={{action "close"}}
   @onClickOutside={{action "close"}}
   @onSelect={{action "selected" @onSelect}}
-  @onUpdate={{action "updateDisplayLabel"}} as |sb|>
-  <sb.Focuser />
-  <sb.SelectedOption onclick={{sb.open}}>
-    {{#if this.displayLabel}}
-      {{this.displayLabel}}
-    {{else}}
-      &nbsp;
-    {{/if}}
-  </sb.SelectedOption>
-  <sb.Options>
-    {{yield sb}}
-  </sb.Options>
+  ...attributes as |sb|>
+  {{yield (merge sb (hash
+    SelectedOption=(component sb.SelectedOption onclick=sb.open))
+  )}}
 </SelectBox>

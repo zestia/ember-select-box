@@ -1,5 +1,5 @@
 import Controller from '@ember/controller';
-import { pastries, biscuits } from '../utils/dummy-data';
+import { biscuits, pastries } from '../utils/dummy-data';
 import { set } from '@ember/object';
 
 export default Controller.extend({

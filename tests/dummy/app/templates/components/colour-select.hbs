@@ -5,7 +5,8 @@
   @value={{@value}}
   @onSelect={{@onSelect}}
   @onClickOutside={{action "close"}}
-  @onPressEscape={{action "close"}} as |sb|>
+  @onPressEscape={{action "close"}}
+  ...attributes as |sb|>
 
   <sb.SelectedOption
     onclick={{sb.toggle}}

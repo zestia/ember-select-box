@@ -1,69 +1,65 @@
-{{yield (hash
-  SelectedOptions=(component "select-box/selected-options"
-    aria-activedescendant=this.activeSelectedOption.elementId
-    classNamePrefix=@classNamePrefix
-    _onInit=(action "_registerSelectedOptionsContainer")
-    _onDestroy=(action "_deregisterSelectedOptionsContainer"))
-  SelectedOption=(component "select-box/selected-option"
-    classNamePrefix=@classNamePrefix
-    _parentComponents=this.selectedOptions
-    _parentActiveIndex=this.activeSelectedOptionIndex
-    _parentApi=this.api
-    _onInit=(action "_registerSelectedOption")
-    _onDestroy=(action "_deregisterSelectedOption")
-    _onActivate=(action "activateSelectedOptionAtIndex"))
-  Options=(component "select-box/options"
-    aria-activedescendant=this.activeOption.elementId
-    classNamePrefix=@classNamePrefix
-    _onInit=(action "_registerOptionsContainer")
-    _onDestroy=(action "_deregisterOptionsContainer"))
-  Option=(component "select-box/option"
-    classNamePrefix=@classNamePrefix
-    _parentComponents=this.options
-    _parentActiveIndex=this.activeOptionIndex
-    _parentApi=this.api
-    _parentIsMultiple=this.isMultiple
-    _parentInternalValue=this.internalValue
-    _onInit=(action "_registerOption")
-    _onDestroy=(action "_deregisterOption")
-    _onActivate=(action "activateOptionAtIndex")
-    _onSelect=(action "_select"))
-  Group=(component "select-box/group"
-    classNamePrefix=@classNamePrefix)
-  Input=(component "select-box/input"
-    aria-controls=this.elementId
-    disabled=this.isDisabled
-    classNamePrefix=@classNamePrefix
-    _parentApi=this.api
-    _onInit=(action "_registerInput")
-    _onDestroy=(action "_deregisterInput")
-    _onInput=(action "_inputText"))
-  element=this.element
-  value=this.internalValue
-  isPending=this.isPending
-  isRejected=this.isRejected
-  isFulfilled=this.isFulfilled
-  isSettled=this.isSettled
-  isSearching=this.isSearching
-  isSlowSearch=this.isSlowSearch
-  isOpen=this.isOpen
-  open=(action "open")
-  close=(action "close")
-  toggle=(action "toggle")
-  select=(action "select")
-  update=(action "update")
-  selectActiveOption=(action "selectActiveOption")
-  search=(action "search")
-  stopSearching=(action "stopSearching")
-  setInputValue=(action "setInputValue")
-  focusInput=(action "focusInput")
-  blurInput=(action "blurInput")
-  activateOptionAtIndex=(action "activateOptionAtIndex")
-  activateNextOption=(action "activateNextOption")
-  activatePreviousOption=(action "activatePreviousOption")
-  deactivateOptions=(action "deactivateOptions")
-  activateSelectedOptionAtIndex=(action "activateSelectedOptionAtIndex")
-  activateNextSelectedOption=(action "activateNextSelectedOption")
-  activatePreviousSelectedOption=(action "activatePreviousSelectedOption")
-  deactivateSelectedOptions=(action "deactivateSelectedOptions")
-)}}
+<div
+  {{did-insert (action "didInsertElement")}}
+  {{will-destroy (action "willDestroyElement")}}
+  {{on "focusin" (action "onFocusIn")}}
+  {{on "focusout" (action "onFocusOut")}}
+  {{on "keydown" (action "onKeyDown")}}
+  {{on "keypress" (action "onKeyPress")}}
+  aria-expanded={{if this.isOpen "true" "false"}}
+  aria-busy={{if this.isBusy "true" "false"}}
+  aria-disabled={{if this.isDisabled "true" "false"}}
+  aria-multiselectable={{if this.isMultiple "true" "false"}}
+  aria-activedescendant={{this.activeOption.id}}
+
+  {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
+
+  class={{concat
+    (select-box-class @classNamePrefix)
+    (if @class (concat " " @class))
+    (if this.isOpen " is-open")
+    (if this.isFocused " is-focused")
+    (if this.isDisabled " is-disabled")
+    (if this.isMultiple " is-multiple")
+    (if this.isBusy " is-busy")
+  }}
+  id={{this.id}}
+  multiple={{this.isMultiple}}
+  role={{this.role}}
+  tabindex={{this.tabIndex}}
+  ...attributes>
+  {{#let (hash
+    Options=(component "select-box/options"
+      classNamePrefix=@classNamePrefix
+      _onInit=(action "onInitOptionsContainer")
+      _onDestroy=(action "onDestroyOptionsContainer"))
+    Option=(component "select-box/option"
+      selectBox=this
+      classNamePrefix=@classNamePrefix
+      _onActivate=(action "onActivateOption")
+      _onSelect=(action "onSelectOption")
+      _onDestroy=(action "onDestroyOption")
+      _onInit=(action "onInitOption"))
+    SelectedOptions=(component "select-box/selected-options"
+      classNamePrefix=@classNamePrefix
+      _onInit=(action "onInitSelectedOptionsContainer")
+      _onDestroy=(action "onDestroySelectedOptionsContainer"))
+    SelectedOption=(component "select-box/selected-option"
+      selectBox=this
+      classNamePrefix=@classNamePrefix
+      _onActivate=(action "onActivateSelectedOption")
+      _onInit=(action "onInitSelectedOption")
+      _onDestroy=(action "onDestroySelectedOption"))
+    Group=(component "select-box/group"
+      classNamePrefix=@classNamePrefix)
+    Input=(component "select-box/input"
+      selectBox=this
+      aria-controls=this.id
+      disabled=this.isDisabled
+      classNamePrefix=@classNamePrefix
+      _onInit=(action "onInitInput")
+      _onDestroy=(action "onDestroyInput")
+      _onInput=(action "onInputText"))
+  ) as |components|}}
+    {{yield (merge components this.api)}}
+  {{/let}}
+</div>

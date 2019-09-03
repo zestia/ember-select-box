@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, focus, blur } from '@ember/test-helpers';
+import { blur, focus, render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('select-box (focusing)', function(hooks) {
@@ -80,15 +80,5 @@ module('select-box (focusing)', function(hooks) {
     assert
       .dom('.select-box')
       .hasAttribute('tabindex', '0', 're-enabling, re-enables focusability');
-  });
-
-  test('classic: tabindex', async function(assert) {
-    assert.expect(1);
-
-    await render(hbs`{{select-box tabindex="5"}}`);
-
-    assert
-      .dom('.select-box')
-      .hasAttribute('tabindex', '5', 'can set the tabindex');
   });
 });

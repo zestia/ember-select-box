@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, find, findAll, settled } from '@ember/test-helpers';
+import { find, findAll, render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { defer } from 'rsvp';
 
@@ -25,41 +25,6 @@ module('native-select-box/option', function(hooks) {
     assert
       .dom('.foo-option')
       .exists({ count: 1 }, 'can override the class prefix');
-  });
-
-  test('classic: title', async function(assert) {
-    assert.expect(1);
-
-    await render(hbs`{{native-select-box/option title="Foo"}}`);
-
-    assert
-      .dom('.select-box-option')
-      .hasAttribute(
-        'title',
-        'Foo',
-        'a native select box option can have a title attribute'
-      );
-  });
-
-  test('classic: disabled', async function(assert) {
-    assert.expect(2);
-
-    this.set('optionDisabled', true);
-
-    await render(
-      hbs`{{native-select-box/option disabled=this.optionDisabled}}`
-    );
-
-    assert
-      .dom('.select-box-option')
-      .isDisabled('a native select box option can be disabled');
-
-    this.set('optionDisabled', false);
-
-    assert.ok(
-      !find('.select-box-option').disabled,
-      'a native select box option can be re-enabled'
-    );
   });
 
   test('value', async function(assert) {
@@ -97,7 +62,7 @@ module('native-select-box/option', function(hooks) {
 
     await render(hbs`
       <NativeSelectBox::Option @value={{this.myValue}} as |o|>
-        {{~this.myValue}}: {{o.value~}}
+        {{this.myValue}}: {{o.value}}
       </NativeSelectBox::Option>
     `);
 
@@ -105,7 +70,7 @@ module('native-select-box/option', function(hooks) {
       .dom('.select-box-option')
       .hasText(
         '[object Object]: [object Object]',
-        'the value is as you would expect'
+        'the value is as you would expect (yields unresolved value)'
       );
 
     deferred.resolve('123');
@@ -129,7 +94,7 @@ module('native-select-box/option', function(hooks) {
     assert.strictEqual(
       find('.select-box-option').textContent,
       'Foo',
-      'renders the label inside the option element'
+      'renders the label inside the option element (correct whitespace)'
     );
   });
 

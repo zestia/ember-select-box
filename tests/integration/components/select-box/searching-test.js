@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled, find, click, fillIn } from '@ember/test-helpers';
+import { click, fillIn, find, render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { later, next } from '@ember/runloop';
 import { defer, reject } from 'rsvp';
@@ -68,7 +68,7 @@ module('select-box (searching)', function(hooks) {
 
     this.set('showInput', false);
 
-    assert.dom('.select-box').doesNotHaveAttribute('role', 'postcondition');
+    assert.dom('.select-box').hasAttribute('role', 'listbox');
 
     assert
       .dom('.select-box')
@@ -168,9 +168,9 @@ module('select-box (searching)', function(hooks) {
 
       assert.equal(query, 'foo', 'sends the query that caused the failure');
 
-      assert.equal(
+      assert.deepEqual(
         error,
-        'no results',
+        this.error,
         'sends the error that was the result of the failure'
       );
 
@@ -523,7 +523,7 @@ module('select-box (searching)', function(hooks) {
     deferred.resolve();
   });
 
-  test('classic: set input value', async function(assert) {
+  test('set input value', async function(assert) {
     assert.expect(2);
 
     this.set('inputted', value => {
@@ -537,7 +537,9 @@ module('select-box (searching)', function(hooks) {
 
     await render(hbs`
       <SelectBox as |sb|>
-        {{sb.Input value="foo" onInput=this.inputted}}
+        {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
+
+        <sb.Input @value="foo" @onInput={{this.inputted}} />
         <button onclick={{action sb.setInputValue "bar"}}>Reset</button>
       </SelectBox>
     `);
@@ -568,8 +570,8 @@ module('select-box (searching)', function(hooks) {
     await render(hbs`
       {{#if this.show}}
         <SelectBox @onSelect={{action this.hide}} as |sb|>
-          {{sb.Input value="foo"}}
-          <sb.Option />
+          <sb.Input @value="foo" />
+          <sb.Option @value="baz" />
         </SelectBox>
       {{/if}}
     `);
@@ -603,7 +605,7 @@ module('select-box (searching)', function(hooks) {
         @searchDelayTime={{0}}
         @onSearch={{this.findItems}}
         @onSearched={{this.foundItems}} as |sb|>
-        {{sb.Input value=this.myValue onClear=sb.stopSearching}}
+        {{sb.Input value=this.myValue onClear=sb.cancelSearch}}
       </SelectBox>
     `);
 
@@ -615,7 +617,7 @@ module('select-box (searching)', function(hooks) {
     assert
       .dom(selectBox)
       .hasClass(
-        'is-searching',
+        'is-busy',
         'precondition, select box is in the middle of searching'
       );
 

@@ -1,13 +1,13 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, click } from '@ember/test-helpers';
+import { blur, click, render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('select-box (clicking outside)', function(hooks) {
   setupRenderingTest(hooks);
 
   test('clicking outside', async function(assert) {
-    assert.expect(3);
+    assert.expect(4);
 
     let count = 0;
 
@@ -32,6 +32,20 @@ module('select-box (clicking outside)', function(hooks) {
 
     await click('.outside');
 
-    assert.equal(count, 1, 'clicking outside the select box is outside');
+    assert.equal(
+      count,
+      1,
+      'clicking outside the select box sends the onClickOutside action, when the select box was focused'
+    );
+
+    await blur('.select-box');
+
+    await click('.outside');
+
+    assert.equal(
+      count,
+      2,
+      "clicking outside the select box still sends the onClickOutside action, even if it was wasn't in use"
+    );
   });
 });

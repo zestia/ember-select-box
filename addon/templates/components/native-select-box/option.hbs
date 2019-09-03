@@ -1,0 +1,9 @@
+<option
+  {{did-insert (action "didInsertElement")}}
+  {{will-destroy (action "willDestroyElement")}}
+  class={{select-box-class @classNamePrefix "option"}}
+  selected={{this.isSelected}}
+  value={{this.resolvedValue}}
+  ...attributes>
+  {{~yield this.api~}}
+</option>

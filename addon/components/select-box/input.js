@@ -1,82 +1,58 @@
 import Component from '@ember/component';
-import Nameable from '../../mixins/general/nameable';
-import Registerable from '../../mixins/general/registerable';
-import invokeAction from '../../utils/invoke-action';
+import {
+  _destroyComponent,
+  _initComponent
+} from '../../utils/component/lifecycle';
+import {
+  deregisterElement,
+  registerElement
+} from '../../utils/registration/element';
+import { input, keyDown } from '../../utils/select-box/input/keyboard';
+import layout from '../../templates/components/select-box/input';
 
-const mixins = [Nameable, Registerable];
+export default Component.extend({
+  layout,
+  tagName: '',
 
-export default Component.extend(...mixins, {
-  tagName: 'input',
-  type: '',
+  // Arguments
 
-  role: 'searchbox',
-  'aria-multiline': 'false',
-  autocomplete: 'off',
+  classNamePrefix: '',
+  selectBox: null,
 
-  attributeBindings: [
-    'accept',
-    'aria-controls',
-    'aria-multiline',
-    'autocapitalize',
-    'autocomplete',
-    'autocorrect',
-    'autofocus',
-    'autosave',
-    'dir',
-    'disabled',
-    'form',
-    'formaction',
-    'formenctype',
-    'formmethod',
-    'formnovalidate',
-    'formtarget',
-    'height',
-    'inputmode',
-    'lang',
-    'list',
-    'max',
-    'maxlength',
-    'min',
-    'minlength',
-    'multiple',
-    'name',
-    'pattern',
-    'placeholder',
-    'readonly',
-    'required',
-    'role',
-    'selectionDirection',
-    'size',
-    'spellcheck',
-    'step',
-    'style',
-    'tabindex',
-    'title',
-    'type',
-    'value',
-    'width'
-  ],
+  // State
 
-  classNameSuffix: 'input',
+  domElement: null,
+  id: null,
 
-  input() {
+  // Actions
+
+  onClear: null,
+  onDelete: null,
+  onInput: null,
+
+  init() {
     this._super(...arguments);
-
-    const value = this.element.value;
-
-    if (!value) {
-      invokeAction(this, 'onClear', this._parentApi);
-    }
-
-    invokeAction(this, '_onInput', value);
-    invokeAction(this, 'onInput', value, this._parentApi);
+    _initComponent(this);
   },
 
-  keyDown(e) {
-    this._super(...arguments);
+  actions: {
+    // Internal actions
 
-    if (e.keyCode === 8 && !this.element.value) {
-      invokeAction(this, 'onDelete', this._parentApi);
+    didInsertElement(element) {
+      registerElement(this, element);
+    },
+
+    willDestroyElement(element) {
+      deregisterElement(this, element);
+      _destroyComponent(this);
+    },
+
+    onInput(e) {
+      input(this, e);
+    },
+
+    onKeyDown(e) {
+      keyDown(this, e);
     }
   }
 });

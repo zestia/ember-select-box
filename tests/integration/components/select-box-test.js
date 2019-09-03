@@ -1,11 +1,9 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { click, render, settled, find, findAll } from '@ember/test-helpers';
+import { click, find, render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import SelectBox from '@zestia/ember-select-box/components/select-box';
 import EmberArray, { A as emberA } from '@ember/array';
-import { htmlSafe } from '@ember/template';
-const { isFrozen } = Object;
+const { isFrozen, isSealed } = Object;
 
 module('select-box', function(hooks) {
   setupRenderingTest(hooks);
@@ -21,7 +19,7 @@ module('select-box', function(hooks) {
   });
 
   test('class prefix attr', async function(assert) {
-    assert.expect(10);
+    assert.expect(9);
 
     await render(hbs`
       <SelectBox @classNamePrefix="foo" as |sb|>
@@ -46,36 +44,6 @@ module('select-box', function(hooks) {
     assert.dom('.foo-group-options').exists({ count: 1 });
     assert.dom('.foo-option').exists({ count: 1 });
     assert.dom('.foo-selected-option').exists({ count: 1 });
-  });
-
-  test('classic: style', async function(assert) {
-    assert.expect(1);
-
-    this.set('style', htmlSafe('color: red'));
-
-    await render(hbs`{{select-box style=this.style}}`);
-
-    assert
-      .dom('.select-box')
-      .hasAttribute('style', 'color: red', 'can bind style to classic comp');
-  });
-
-  test('extending with class prefix', async function(assert) {
-    assert.expect(1);
-
-    const FooSelectBox = SelectBox.extend({
-      classNamePrefix: 'foo'
-    });
-
-    this.owner.register('component:select-box/foo', FooSelectBox);
-
-    await render(hbs`<SelectBox::Foo />`);
-
-    assert.ok(
-      findAll('.foo').length,
-      1,
-      'can set the class name prefix to create custom select boxes'
-    );
   });
 
   test('role', async function(assert) {
@@ -126,11 +94,11 @@ module('select-box', function(hooks) {
 
     let called = 0;
 
-    this.set('updated', value => {
+    this.set('updated', sb => {
       called++;
 
       assert.strictEqual(
-        value,
+        sb.value,
         undefined,
         'fires an initial update action with the selected value'
       );
@@ -148,12 +116,12 @@ module('select-box', function(hooks) {
 
     this.set('selectedValue', 'foo');
 
-    this.set('updated', value => {
+    this.set('updated', sb => {
       count++;
 
       if (count === 2) {
         assert.strictEqual(
-          value,
+          sb.value,
           'bar',
           'fires an update action when the value changes'
         );
@@ -189,7 +157,7 @@ module('select-box', function(hooks) {
     assert.equal(
       count,
       1,
-      'updating attributes other than the `value` should not fire update action'
+      'updating arguments other than the `value` should not fire update action'
     );
   });
 
@@ -209,7 +177,7 @@ module('select-box', function(hooks) {
   });
 
   test('init action', async function(assert) {
-    assert.expect(2);
+    assert.expect(3);
 
     let api;
 
@@ -226,20 +194,23 @@ module('select-box', function(hooks) {
 
     await settled();
 
+    assert.strictEqual(api.value, undefined, 'has expected value');
+
     assert
       .dom('.select-box')
       .hasClass('is-open', 'action is called with the api');
   });
 
   test('api value', async function(assert) {
-    assert.expect(8);
+    assert.expect(9);
 
-    let firstApi;
-    let secondApi;
+    const value1 = emberA(['foo']);
+    const value2 = emberA(['bar']);
+    const apis = [];
 
-    this.set('value', emberA(['foo']));
-    this.set('initialised', sb => (firstApi = sb));
-    this.set('updated', (value, sb) => (secondApi = sb));
+    this.set('value', value1);
+    this.set('initialised', sb => apis.push(sb));
+    this.set('updated', sb => apis.push(sb));
 
     await render(hbs`
       <SelectBox
@@ -249,56 +220,61 @@ module('select-box', function(hooks) {
         @onUpdate={{this.updated}} />
     `);
 
+    assert.ok(isSealed(apis[0]), 'api is sealed');
+
     assert.ok(
       !isFrozen(this.value),
       'api does not accidentally freeze original value'
     );
 
     assert.deepEqual(
-      firstApi.value,
+      apis[0].value,
       ['foo'],
       'yielded api on init has initial value'
     );
 
     assert.deepEqual(
-      secondApi.value,
+      apis[0].value,
       ['foo'],
-      'the initial update action yields the value'
+      'the initial update action yields the value, despite that it may still ' +
+        'be resolving'
     );
 
     assert.strictEqual(
-      EmberArray.detect(firstApi.value),
+      EmberArray.detect(apis[0].value),
       false,
       'the yielded api value is not the original array (or an ember array)'
     );
 
-    assert.ok(isFrozen(secondApi.value), 'is frozen when in multiple mode');
-
     assert.throws(() => {
-      secondApi.foo = 'bar';
+      apis[0].foo = 'bar';
     }, 'cannot alter the api');
 
-    this.set('value', emberA(['bar']));
+    this.set('value', value2);
 
-    assert.deepEqual(
-      secondApi.value,
+    assert.notDeepEqual(
+      apis[1].value,
       ['bar'],
-      'the yielded api reflects any changes to the value attribute'
+      'update action fired due to value change, but api not acknowledged ' +
+        'the change yet, because value is still resolving'
     );
 
-    await render(hbs`
-      <SelectBox
-        @value={{this.value}}
-        @multiple={{false}}
-        @onUpdate={{this.updated}} />
-    `);
+    await settled();
 
-    this.set('value', { foo: 'bar' });
+    assert.deepEqual(
+      apis[2].value,
+      ['bar'],
+      'update action fired due to value being resolved'
+    );
 
-    assert.ok(!isFrozen(secondApi.value), 'is not frozen when in single mode');
+    assert.deepEqual(
+      apis[0].value,
+      ['bar'],
+      'yielded api is always the same instance, not a new api each time'
+    );
   });
 
-  test('regression test: does not blow up if destroyed', async function(assert) {
+  test('does not blow up if destroyed', async function(assert) {
     assert.expect(0);
 
     this.set('show', true);

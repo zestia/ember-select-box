@@ -1,1 +1,18 @@
-{{yield}}
+<div
+  {{did-insert (action "didInsertElement")}}
+  {{will-destroy (action "willDestroyElement")}}
+  aria-current={{if this.isActive "true" "false"}}
+  class={{concat
+    (select-box-class @classNamePrefix "selected-option")
+    (if this.isActive " is-active")
+  }}
+  id={{this.id}}
+  role="option"
+
+  {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
+  {{! template-lint-disable no-invalid-interactive }}
+  onclick={{@onclick}}
+
+  ...attributes>
+  {{~yield this.api~}}
+</div>

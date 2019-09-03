@@ -4,20 +4,20 @@ import hbs from 'htmlbars-inline-precompile';
 import EmberArray, { A as emberA } from '@ember/array';
 import { defer } from 'rsvp';
 import {
-  render,
-  settled,
-  triggerKeyEvent,
-  triggerEvent,
+  click,
   find,
   findAll,
-  click
+  render,
+  settled,
+  triggerEvent,
+  triggerKeyEvent
 } from '@ember/test-helpers';
 const { isFrozen } = Object;
 
 module('select-box (selecting)', function(hooks) {
   setupRenderingTest(hooks);
 
-  test('changing the value attribute', async function(assert) {
+  test('changing the value argument', async function(assert) {
     assert.expect(3);
 
     this.set('selectedValue', 'foo');
@@ -63,7 +63,7 @@ module('select-box (selecting)', function(hooks) {
     );
   });
 
-  test('changing the value attribute to nothing (common misconception)', async function(assert) {
+  test('changing the value argument to nothing (common misconception)', async function(assert) {
     assert.expect(3);
 
     this.set('selectedValue', null);
@@ -91,8 +91,8 @@ module('select-box (selecting)', function(hooks) {
       .dom('.select-box-option.is-selected')
       .hasText(
         'Bar',
-        'selecting null does not clear the selected option, because technically nothing has ' +
-          'changed, so `didReceiveAttrs` will not fire'
+        'selecting null does not clear the selected option, because as far as the ' +
+          'select box is concerned, nothing has changed (i.e. `didReceiveAttrs` has not fired)'
       );
   });
 
@@ -355,7 +355,7 @@ module('select-box (selecting)', function(hooks) {
       </SelectBox>
     `);
 
-    await triggerEvent(findAll('.select-box-option')[1], 'mouseover');
+    await triggerEvent(findAll('.select-box-option')[1], 'mouseenter');
     await triggerKeyEvent('.select-box', 'keydown', 13);
   });
 
@@ -368,7 +368,7 @@ module('select-box (selecting)', function(hooks) {
 
     this.set('selected', value => (selected = value));
     this.set('selectedFoo', value => (selectedFoo = value));
-    this.set('updated', value => (updated = value));
+    this.set('updated', sb => (updated = sb.value));
 
     await render(hbs`
       <SelectBox @onSelect={{this.selected}} @onUpdate={{this.updated}} as |sb|>
@@ -378,6 +378,12 @@ module('select-box (selecting)', function(hooks) {
     `);
 
     await click('button');
+
+    assert.strictEqual(
+      updated,
+      'foo',
+      'the select box sends and update action'
+    );
 
     assert.strictEqual(
       selected,
@@ -390,22 +396,23 @@ module('select-box (selecting)', function(hooks) {
       undefined,
       'the option does not fire its onSelect action'
     );
-
-    assert.strictEqual(
-      updated,
-      'foo',
-      'the select box sends and update action after the selection has been made'
-    );
   });
 
   test('updating via the api', async function(assert) {
-    assert.expect(3);
+    assert.expect(5);
 
-    let updated;
-    let selected;
+    let updated = 0;
+    let updatedValue;
+    let selected = 0;
 
-    this.set('updated', value => (updated = value));
-    this.set('selected', value => (selected = value));
+    this.set('updated', sb => {
+      updated++;
+      updatedValue = sb.value;
+    });
+
+    this.set('selected', value => {
+      selected++;
+    });
 
     await render(hbs`
       <SelectBox @onUpdate={{this.updated}} @onSelect={{this.selected}} as |sb|>
@@ -416,11 +423,13 @@ module('select-box (selecting)', function(hooks) {
       </SelectBox>
     `);
 
+    assert.equal(updated, 1, 'initial update action');
+
     await click(findAll('button')[1]);
 
-    assert.strictEqual(updated, 'bar', 'has fired initial updated action');
-
-    assert.strictEqual(selected, undefined, 'has not fired a select action');
+    assert.equal(updated, 2, 'update value action');
+    assert.strictEqual(updatedValue, 'bar', 'has fired update action');
+    assert.strictEqual(selected, 0, 'has not fired a select action');
 
     assert
       .dom('.select-box-option.is-selected')
@@ -483,7 +492,7 @@ module('select-box (selecting)', function(hooks) {
 
     assert.ok(
       find('.select-box').textContent.match('internal: bar'),
-      'internal value is updated (regression test)'
+      'internal value is updated'
     );
   });
 
@@ -725,8 +734,6 @@ module('select-box (selecting)', function(hooks) {
         'selection used is the selection returned from onBuildSelection'
       );
 
-    await settled();
-
     assert.deepEqual(sb.value, ['baz'], 'value is correct');
 
     assert.strictEqual(arg1, 'foo', 'first argument is the value selected');
@@ -737,9 +744,7 @@ module('select-box (selecting)', function(hooks) {
       'second argument is the currently selected value'
     );
 
-    sb.update(['bar']);
-
-    await settled();
+    await sb.update(['bar']);
 
     assert.equal(
       calledBuild,
@@ -784,11 +789,9 @@ module('select-box (selecting)', function(hooks) {
       </SelectBox>
     `);
 
-    await triggerEvent(findAll('.select-box-option')[1], 'mouseover');
+    await triggerEvent(findAll('.select-box-option')[1], 'mouseenter');
 
-    sb.selectActiveOption();
-
-    await settled();
+    await sb.selectActiveOption();
 
     assert.equal(
       selectedValue,
@@ -842,6 +845,26 @@ module('select-box (selecting)', function(hooks) {
       selectedValue,
       'Fail',
       'selecting a value whose promise rejected, selects the rejection reason'
+    );
+  });
+
+  test('selecting action order', async function(assert) {
+    assert.expect(3);
+
+    this.set('selected', () => assert.step('selected'));
+    this.set('selectedOption', () => assert.step('selectedOption'));
+
+    await render(hbs`
+      <SelectBox @onSelect={{this.selected}} as |sb|>
+        <sb.Option @onSelect={{this.selectedOption}} />
+      </SelectBox>
+    `);
+
+    await click('.select-box-option');
+
+    assert.verifySteps(
+      ['selectedOption', 'selected'],
+      'actions fire in correct order'
     );
   });
 });

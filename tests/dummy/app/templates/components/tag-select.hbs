@@ -8,7 +8,8 @@
   @onPressUp={{action "pressedUp"}}
   @onClickOutside={{action "close"}}
   @onSelect={{action "addTag"}}
-  @onSearch={{action "updateAvailableTags" @onSearch}} as |sb|>
+  @onSearch={{action "updateAvailableTags" @onSearch}}
+  ...attributes as |sb|>
 
   <sb.SelectedOptions>
     {{#each @value as |tag|}}
@@ -24,8 +25,8 @@
   </sb.SelectedOptions>
 
   <sb.Input
-    autofocus={{true}}
     onclick={{action "reveal" sb @onSearch}}
+    autofocus={{true}}
     @onInput={{sb.open}}
     @onDelete={{action "removeTag" @value.lastObject}} />
 

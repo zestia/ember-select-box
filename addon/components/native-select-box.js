@@ -1,58 +1,104 @@
 import Component from '@ember/component';
+import { bool } from '@ember/object/computed';
+import {
+  deregisterElement,
+  registerElement
+} from '../utils/registration/element';
+import {
+  deregisterOption,
+  initOptions,
+  registerOption
+} from '../utils/registration/option';
+import { destroyComponent, initComponent } from '../utils/component/lifecycle';
+import {
+  destroyElement,
+  insertElement
+} from '../utils/native-select-box/element';
+import { receiveValue, selectValue, updateValue } from '../utils/shared/value';
+import { selectValue as _selectValue } from '../utils/native-select-box/value';
+import api from '../utils/native-select-box/api';
 import layout from '../templates/components/native-select-box';
-import BaseSelectBox from '../mixins/select-box/base';
-import Focusable from '../mixins/select-box/focusable';
-import HasOptions from '../mixins/select-box/registration/has-options';
-import Nameable from '../mixins/general/nameable';
-import { get } from '@ember/object';
-const { from } = Array;
 
-const mixins = [BaseSelectBox, Focusable, HasOptions, Nameable];
-
-export default Component.extend(...mixins, {
+export default Component.extend({
   layout,
-  tagName: 'select',
+  tagName: '',
 
-  attributeBindings: [
-    'name',
-    'title',
-    'tabindex',
-    'disabled',
-    'size',
-    'multiple',
-    'autofocus',
-    'required',
-    'aria-label'
-  ],
+  // Arguments
 
-  change() {
-    const registeredSelected = this._getRegisteredSelectedValues();
-    const unregisteredSelected = this._getUnregisteredSelectedValues();
+  classNamePrefix: '',
+  disabled: false,
+  multiple: false,
+  value: undefined,
 
-    let selectedValues;
+  // Actions
 
-    if (registeredSelected.length > 0) {
-      selectedValues = registeredSelected;
-    } else {
-      selectedValues = unregisteredSelected;
-    }
+  onInsertElement: null,
+  onSelect: null,
+  onUpdate: null,
 
-    if (get(this, 'isMultiple')) {
-      this.send('select', selectedValues);
-    } else {
-      this.send('select', selectedValues[0]);
-    }
+  // State
+
+  domElement: null,
+  id: null,
+  isFulfilled: false,
+  isPending: true,
+  isRejected: false,
+  isSettled: false,
+  memoisedAPI: null,
+  previousResolvedValue: null,
+  resolvedValue: null,
+  valueID: 0,
+
+  // Computed state
+
+  api: api(),
+  isMultiple: bool('multiple'),
+
+  init() {
+    this._super(...arguments);
+    initOptions(this);
+    initComponent(this);
   },
 
-  _getRegisteredSelectedValues() {
-    return this.options
-      .filter(option => option.element.selected)
-      .map(option => option.internalValue);
+  didReceiveAttrs() {
+    this._super(...arguments);
+    receiveValue(this);
   },
 
-  _getUnregisteredSelectedValues() {
-    return from(this.element.querySelectorAll('option:checked')).map(
-      option => option.value
-    );
+  actions: {
+    // Internal actions
+
+    didInsertElement(element) {
+      registerElement(this, element);
+      insertElement(this);
+    },
+
+    willDestroyElement(element) {
+      deregisterElement(this, element);
+      destroyElement(this);
+      destroyComponent(this);
+    },
+
+    onInitOption(option) {
+      registerOption(this, option);
+    },
+
+    onDestroyOption(option) {
+      deregisterOption(this, option);
+    },
+
+    onChange() {
+      _selectValue(this);
+    },
+
+    // Public API Actions
+
+    select(value) {
+      return selectValue(this, value);
+    },
+
+    update(value) {
+      return updateValue(this, value);
+    }
   }
 });

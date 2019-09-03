@@ -1,1 +1,12 @@
-{{yield}}
+<div
+  {{will-destroy (action "willDestroyElement")}}
+  class={{select-box-class @classNamePrefix "options"}}
+
+  {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
+  {{! template-lint-disable no-invalid-interactive }}
+  aria-activedescendant={{@aria-activedescendant}}
+  onclick={{@onclick}}
+
+  ...attributes>
+  {{yield}}
+</div>

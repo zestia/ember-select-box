@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled, findAll } from '@ember/test-helpers';
+import { find, findAll, render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { defer } from 'rsvp';
 const { from } = Array;
@@ -35,43 +35,26 @@ module('select-box/option', function(hooks) {
 
     assert
       .dom('.select-box-option')
-      .hasAttribute(
-        'role',
-        'option',
-        'a select box option has an appropriate aria role'
-      );
+      .hasAttribute('role', 'option', 'defined as an option');
   });
 
-  test('classic: title', async function(assert) {
+  test('id', async function(assert) {
     assert.expect(1);
 
-    await render(hbs`{{select-box/option title="Foo"}}`);
+    await render(hbs`<SelectBox::Option />`);
 
-    assert
-      .dom('.select-box-option')
-      .hasAttribute(
-        'title',
-        'Foo',
-        'a select box option can have a title attribute'
-      );
+    assert.ok(
+      find('.select-box-option')
+        .getAttribute('id')
+        .match(/select-box-el-\d+/),
+      'gets a unique id'
+    );
   });
 
   test('disabled', async function(assert) {
     assert.expect(2);
 
     await render(hbs`<SelectBox::Option @disabled={{true}} />`);
-
-    assert
-      .dom('.select-box-option')
-      .hasClass('is-disabled', 'an option can be flagged as disabled');
-
-    assert.dom('.select-box-option').hasAttribute('aria-disabled', 'true');
-  });
-
-  test('classic: disabled', async function(assert) {
-    assert.expect(2);
-
-    await render(hbs`{{select-box/option disabled=true}}`);
 
     assert
       .dom('.select-box-option')
@@ -285,7 +268,7 @@ module('select-box/option', function(hooks) {
         isSettled: false
     `);
 
-    deferred1.resolve();
+    deferred1.resolve('foo');
     await settled();
 
     assert.dom(this.element).hasText(`
@@ -304,7 +287,7 @@ module('select-box/option', function(hooks) {
         isSettled: false
     `);
 
-    deferred2.reject();
+    deferred2.reject('bar');
     await settled();
 
     assert.dom(this.element).hasText(`

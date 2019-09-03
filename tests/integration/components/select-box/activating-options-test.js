@@ -2,12 +2,12 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { later } from '@ember/runloop';
-import { COLLECT_CHARS_MS } from '@zestia/ember-select-box/mixins/select-box/activatable-options';
+import { A as emberA } from '@ember/array';
 import {
-  render,
   click,
   find,
   findAll,
+  render,
   triggerEvent,
   triggerKeyEvent,
   waitUntil
@@ -17,24 +17,20 @@ module('select-box (activating options)', function(hooks) {
   setupRenderingTest(hooks);
 
   function waitForReset() {
-    return waitUntil(
-      () => new Promise(resolve => later(resolve, COLLECT_CHARS_MS))
-    );
+    return waitUntil(() => new Promise(resolve => later(resolve, 1000)));
   }
 
-  test('mouseover activates options', async function(assert) {
-    assert.expect(7);
+  test('mouseenter activates options', async function(assert) {
+    assert.expect(6);
 
     await render(hbs`
       <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option @value={{1}}>One</sb.Option>
-          <sb.Option @value={{2}}>Two</sb.Option>
-        </sb.Options>
+        <sb.Option @value={{1}}>One</sb.Option>
+        <sb.Option @value={{2}}>Two</sb.Option>
       </SelectBox>
     `);
 
-    const options = find('.select-box-options');
+    const box = find('.select-box');
     const one = findAll('.select-box-option')[0];
     const two = findAll('.select-box-option')[1];
 
@@ -42,7 +38,7 @@ module('select-box (activating options)', function(hooks) {
       .dom('.select-box-option.is-active')
       .doesNotExist('precondition, there are no active options');
 
-    await triggerEvent(one, 'mouseover');
+    await triggerEvent(one, 'mouseenter');
 
     assert
       .dom(one)
@@ -51,27 +47,28 @@ module('select-box (activating options)', function(hooks) {
         'mousing over an option gives it an active class name'
       );
 
-    const [id] = options.getAttribute('aria-activedescendant').match(/\d+/);
-
-    assert.ok(id, 'active option id is added to the options container');
-
-    assert
-      .dom('.select-box-option[aria-current]')
-      .hasText('One', 'receives an aria current attribute when active');
+    assert.ok(
+      one.getAttribute('id').match(/select-box-el-\d+/),
+      'active option has an id with a numeric part'
+    );
 
     assert
-      .dom('.select-box-option[aria-current]')
+      .dom(box)
       .hasAttribute(
-        'aria-current',
-        'true',
-        'has correct string value when current'
+        'aria-activedescendant',
+        one.id,
+        'the select box has the correct active descendant id'
       );
 
-    await triggerEvent(two, 'mouseover');
+    await triggerEvent(two, 'mouseenter');
 
-    const [nextID] = options.getAttribute('aria-activedescendant').match(/\d+/);
-
-    assert.notEqual(id, nextID, 'the active descendant is updated');
+    assert
+      .dom(box)
+      .hasAttribute(
+        'aria-activedescendant',
+        two.getAttribute('id'),
+        'the select box active descendant id is updated'
+      );
 
     assert.ok(
       !one.classList.contains('is-active') &&
@@ -394,5 +391,32 @@ module('select-box (activating options)', function(hooks) {
     assert
       .dom('.select-box-option.is-active')
       .hasText('bar baz', 'jumps to the matching option');
+  });
+
+  test('active option element id infinite rendering', async function(assert) {
+    assert.expect(0);
+
+    const item1 = { name: 'item 1' };
+    const item2 = { name: 'item 2' };
+    const item3 = { name: 'item 3' };
+
+    this.set('items', emberA([item1, item2, item3]));
+    // this.set('value', item2);
+
+    this.remove = item => this.items.removeObject(item);
+
+    await render(hbs`
+      <SelectBox as |sb|>
+        {{#each this.items as |item|}}
+          <sb.Option
+            @value={{item}}
+            @onActivate={{this.remove}}>
+            {{item.name}}
+          </sb.Option>
+        {{/each}}
+      </SelectBox>
+    `);
+
+    await triggerEvent('.select-box-option:nth-child(2)', 'mouseenter');
   });
 });

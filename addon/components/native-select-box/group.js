@@ -1,12 +1,12 @@
 import Component from '@ember/component';
-import Nameable from '../../mixins/general/nameable';
 import layout from '../../templates/components/native-select-box/group';
 
-const mixins = [Nameable];
-
-export default Component.extend(...mixins, {
+export default Component.extend({
   layout,
-  classNameSuffix: 'group',
-  tagName: 'optgroup',
-  attributeBindings: ['label', 'disabled']
+  tagName: '',
+
+  // Arguments
+
+  classNamePrefix: '',
+  selectBox: null
 });

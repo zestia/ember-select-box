@@ -1,13 +1,28 @@
 import Component from '@ember/component';
+import {
+  _destroyComponent,
+  _initComponent
+} from '../../utils/component/lifecycle';
 import layout from '../../templates/components/select-box/options';
-import Nameable from '../../mixins/general/nameable';
-import Registerable from '../../mixins/general/registerable';
 
-const mixins = [Nameable, Registerable];
-
-export default Component.extend(...mixins, {
+export default Component.extend({
   layout,
-  classNameSuffix: 'options',
-  attributeBindings: ['role', 'style', 'aria-activedescendant'],
-  role: 'listbox'
+  tagName: '',
+
+  // Arguments
+
+  classNamePrefix: '',
+
+  init() {
+    this._super(...arguments);
+    _initComponent(this);
+  },
+
+  actions: {
+    // Internal actions
+
+    willDestroyElement() {
+      _destroyComponent(this);
+    }
+  }
 });

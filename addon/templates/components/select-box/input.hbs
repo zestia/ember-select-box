@@ -1,0 +1,18 @@
+<input
+  {{did-insert (action "didInsertElement")}}
+  {{will-destroy (action "willDestroyElement")}}
+  {{on "input" (action "onInput")}}
+  {{on "keydown" (action "onKeyDown")}}
+  aria-multiline="false"
+  autocomplete="off"
+  class={{select-box-class @classNamePrefix "input"}}
+  role="searchbox"
+  type="text"
+
+  {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
+  aria-controls={{@aria-controls}}
+  disabled={{@disabled}}
+  onclick={{@onclick}}
+  value={{@value}}
+
+  ...attributes>

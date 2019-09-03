@@ -1,6 +1,6 @@
-import { module, test } from 'qunit';
+import { module, skip, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled, findAll, click } from '@ember/test-helpers';
+import { click, findAll, render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { defer } from 'rsvp';
 
@@ -31,7 +31,7 @@ module('select-box (promises)', function(hooks) {
         isSettled: false
     `);
 
-    deferred1.resolve();
+    deferred1.resolve('foo');
     await settled();
 
     assert.dom(this.element).hasText(`
@@ -50,7 +50,7 @@ module('select-box (promises)', function(hooks) {
         isSettled: false
     `);
 
-    deferred2.reject();
+    deferred2.reject('bar');
     await settled();
 
     assert.dom(this.element).hasText(`
@@ -144,7 +144,8 @@ module('select-box (promises)', function(hooks) {
       .hasClass('is-selected', 'resolved value is selected');
   });
 
-  test('promise value (multiple)', async function(assert) {
+  // Removed in v11
+  skip('promise value (multiple)', async function(assert) {
     assert.expect(1);
 
     const deferred1 = defer();

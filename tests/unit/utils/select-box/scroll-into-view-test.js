@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 
-import scrollIntoView from '@zestia/ember-select-box/utils/select-box/scroll-into-view';
+import scrollIntoView from '@zestia/ember-select-box/utils/general/scroll-into-view';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
