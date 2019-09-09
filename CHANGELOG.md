@@ -15,10 +15,11 @@
 ## 10.0.9-beta.0
 
 - Internal refactoring removing use of `Mixin.create()`
-- Internal refactoring to Angle Bracket components
+- Internal refactoring to Angle Bracket components / splattributes
 - Removed `is-searching` class name in favour of `is-busy` and/or aria attribute
 - Rename `stopSearching` to `cancelSearch`
 - Removed `@open` argument. (Please use the API instead)
+- Change signature of `onUpdate`, now receives API as first argument
 - Normalise API properties with template properties
 
 ## 10.0.8
