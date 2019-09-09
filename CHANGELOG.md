@@ -17,6 +17,7 @@
 - Internal refactoring removing use of `Mixin.create()`
 - Internal refactoring to Angle Bracket components
 - Removed `is-searching` class name in favour of `is-busy` and/or aria attribute
+- Rename `stopSearching` to `cancelSearch`
 - Removed `@open` argument. (Please use the API instead)
 - Normalise API properties with template properties
 
