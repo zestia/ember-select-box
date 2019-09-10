@@ -5,6 +5,7 @@ import hbs from 'htmlbars-inline-precompile';
 import Model from 'ember-data/model';
 import attr from 'ember-data/attr';
 import Adapter from 'ember-data/adapters/json-api';
+import { Promise } from 'rsvp';
 import { later } from '@ember/runloop';
 
 module('select-box (ember data)', function(hooks) {

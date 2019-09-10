@@ -1,4 +1,3 @@
-import afterRender from '../general/after-render';
 import invokeAction from '../component/invoke-action';
 import { resolveValue } from '../component/value';
 import { getAPI } from '../component/api';
@@ -10,9 +9,9 @@ export function receiveValue(selectBox) {
 }
 
 export function updateValue(selectBox, unresolvedValue) {
-  return resolveValue(selectBox, unresolvedValue, processValue)
-    .then(afterRender)
-    .then(() => updatedValue(selectBox));
+  return resolveValue(selectBox, unresolvedValue, processValue).then(() =>
+    updatedValue(selectBox)
+  );
 }
 
 export function selectValue(selectBox, value) {

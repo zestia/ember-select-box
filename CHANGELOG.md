@@ -4,6 +4,10 @@
 
 - Release changes from version 10.0.9-beta
 
+## 10.0.9-beta.3
+
+- Fix use with Promise Proxy Objects
+
 ## 10.0.9-beta.2
 
 - Make sure options have element IDs so that aria-activedescendant works correctly

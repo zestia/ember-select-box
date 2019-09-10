@@ -3,6 +3,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { later } from '@ember/runloop';
 import { A as emberA } from '@ember/array';
+import { Promise } from 'rsvp';
 import {
   click,
   find,

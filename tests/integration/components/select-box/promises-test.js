@@ -144,8 +144,7 @@ module('select-box (promises)', function(hooks) {
       .hasClass('is-selected', 'resolved value is selected');
   });
 
-  // Removed in v11
-  skip('promise value (multiple)', async function(assert) {
+  test('promise value (multiple)', async function(assert) {
     assert.expect(1);
 
     const deferred1 = defer();
@@ -174,7 +173,7 @@ module('select-box (promises)', function(hooks) {
       o.textContent.trim()
     );
 
-    assert.deepEqual(labels, ['foo', 'bar'], 'resolves the promises');
+    assert.deepEqual(labels, [], 'does not resolve the promises');
   });
 
   test('promise value (failure)', async function(assert) {

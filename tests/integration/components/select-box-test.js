@@ -202,7 +202,7 @@ module('select-box', function(hooks) {
   });
 
   test('api value', async function(assert) {
-    assert.expect(9);
+    assert.expect(7);
 
     const value1 = emberA(['foo']);
     const value2 = emberA(['bar']);
@@ -233,13 +233,6 @@ module('select-box', function(hooks) {
       'yielded api on init has initial value'
     );
 
-    assert.deepEqual(
-      apis[0].value,
-      ['foo'],
-      'the initial update action yields the value, despite that it may still ' +
-        'be resolving'
-    );
-
     assert.strictEqual(
       EmberArray.detect(apis[0].value),
       false,
@@ -252,25 +245,16 @@ module('select-box', function(hooks) {
 
     this.set('value', value2);
 
-    assert.notDeepEqual(
+    assert.deepEqual(
       apis[1].value,
       ['bar'],
-      'update action fired due to value change, but api not acknowledged ' +
-        'the change yet, because value is still resolving'
-    );
-
-    await settled();
-
-    assert.deepEqual(
-      apis[2].value,
-      ['bar'],
-      'update action fired due to value being resolved'
+      'update action fired due to value change, api value correct'
     );
 
     assert.deepEqual(
       apis[0].value,
       ['bar'],
-      'yielded api is always the same instance, not a new api each time'
+      "yielded api's are always up to date"
     );
   });
 

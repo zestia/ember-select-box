@@ -3,6 +3,9 @@ import { setupRenderingTest } from 'ember-qunit';
 import { fillIn, find, findAll, render } from '@ember/test-helpers';
 import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
+import ObjectProxy from '@ember/object/proxy';
+import PromiseProxyMixin from '@ember/object/promise-proxy-mixin';
+import { resolve } from 'rsvp';
 import {
   getNativeMultipleSelectBoxValue,
   selectNativeOptionsByLabel,
@@ -318,22 +321,34 @@ module('native-select-box', function(hooks) {
     await selectNativeOptionsByValue('.select-box', ['foo', 'bar']);
   });
 
-  test('initial update action (undefined value)', async function(assert) {
+  test('initial update action (no actual update needed)', async function(assert) {
     assert.expect(1);
 
     this.updated = () => {
-      assert.ok(true, 'update action fired');
+      assert.step('updated');
     };
 
     await this.render(hbs`
-      <NativeSelectBox @onUpdate={{this.updated}} as |sb|>
-        {{yield sb}}
+      <NativeSelectBox @onUpdate={{this.updated}} @value={{null}} as |sb|>
+        <sb.Option @value={{null}}>One</sb.Option>
       </NativeSelectBox>
     `);
+
+    assert.verifySteps(
+      [],
+      'does not fire onUpdate action because values match'
+    );
   });
 
   test('initial update action', async function(assert) {
     assert.expect(1);
+
+    this.set(
+      'barProxy',
+      ObjectProxy.extend(PromiseProxyMixin).create({
+        promise: resolve('bar')
+      })
+    );
 
     const layout = hbs`
       <div class="foo-select-display-label">
@@ -349,8 +364,8 @@ module('native-select-box', function(hooks) {
     const FooSelectBox = Component.extend({
       layout,
       actions: {
-        updateDisplayLabel() {
-          const label = this.element
+        updateDisplayLabel(sb) {
+          const label = sb.element
             .querySelector('option:checked')
             .textContent.trim();
 
@@ -362,7 +377,7 @@ module('native-select-box', function(hooks) {
     this.owner.register('component:foo-select-box', FooSelectBox);
 
     await render(hbs`
-      <FooSelectBox @value="bar" as |sb|>
+      <FooSelectBox @value={{this.barProxy}} as |sb|>
         <sb.Option @value="foo">Foo</sb.Option>
         <sb.Option @value="bar">Bar</sb.Option>
         <sb.Option @value="baz">Baz</sb.Option>
@@ -371,7 +386,11 @@ module('native-select-box', function(hooks) {
 
     assert
       .dom('.foo-select-display-label')
-      .hasText('Bar', 'the action is fired after all options have rendered');
+      .hasText(
+        'Bar',
+        'the action is fired after all options have rendered ' +
+          '(and isSelected computed properties have recomputed)'
+      );
   });
 
   test('customising selection', async function(assert) {
