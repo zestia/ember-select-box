@@ -340,7 +340,7 @@ module('native-select-box', function(hooks) {
     );
   });
 
-  test('initial update action', async function(assert) {
+  test('initial update action (proxies)', async function(assert) {
     assert.expect(1);
 
     this.set(
