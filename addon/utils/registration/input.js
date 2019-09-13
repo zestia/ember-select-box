@@ -8,11 +8,11 @@ export function registerInput(selectBox, input) {
 
   set(selectBox, 'input', input);
 
-  scheduleOnce('afterRender', configureAsCombobox, selectBox);
+  scheduleOnce('afterRender', selectBox, configureAsCombobox, selectBox);
 }
 
 export function deregisterInput(selectBox, input) {
   set(selectBox, 'input', null);
 
-  scheduleOnce('afterRender', configureAsListbox, selectBox);
+  scheduleOnce('afterRender', selectBox, configureAsListbox, selectBox);
 }

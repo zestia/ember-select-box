@@ -4,6 +4,11 @@
 
 - Release changes from version 10.0.9-beta
 
+## 10.0.9-beta.4
+
+- Correct use of `scheduleOnce`
+- Fix calling `set` on destroyed select box
+
 ## 10.0.9-beta.3
 
 - Fix use with Promise Proxy Objects

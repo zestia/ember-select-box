@@ -17,9 +17,13 @@ export function deregisterOption(selectBox, option) {
 }
 
 function scheduleUpdateOptions(selectBox) {
-  scheduleOnce('afterRender', updateOptions, selectBox);
+  scheduleOnce('afterRender', selectBox, updateOptions, selectBox);
 }
 
 function updateOptions(selectBox) {
+  if (selectBox.isDestroyed) {
+    return;
+  }
+
   set(selectBox, 'options', emberA(selectBox.options.toArray()));
 }
