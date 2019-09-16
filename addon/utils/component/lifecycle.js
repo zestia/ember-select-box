@@ -10,6 +10,7 @@ export function _initComponent(component) {
 
 export function initComponent(component) {
   _initComponent(component);
+
   invokeAction(component, 'onInit', getAPI(component));
 }
 

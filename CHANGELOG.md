@@ -4,6 +4,11 @@
 
 - Release changes from version 10.0.9-beta
 
+## 10.0.9-beta.5
+
+- Fix performance regression
+- Add regression test
+
 ## 10.0.9-beta.4
 
 - Correct use of `scheduleOnce`

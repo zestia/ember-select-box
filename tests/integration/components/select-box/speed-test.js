@@ -14,6 +14,24 @@ module('select-box (speed)', function(hooks) {
     }
   });
 
+  test('component options', async function(assert) {
+    assert.expect(1);
+
+    const start = Date.now();
+
+    await render(hbs`
+      <SelectBox as |sb|>
+        {{#each this.items as |item|}}
+          <sb.Option @value={{item}}>{{item}}</sb.Option>
+        {{/each}}
+      </SelectBox>
+    `);
+
+    const end = Date.now() - start;
+
+    assert.ok(end < 1500, `${end}ms too slow`);
+  });
+
   test('non-component options', async function(assert) {
     assert.expect(1);
 

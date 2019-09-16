@@ -1,6 +1,5 @@
 import { set } from '@ember/object';
 import { resolve } from 'rsvp';
-import { run } from '@ember/runloop';
 
 export function receiveValue(component) {
   resolveValue(component, component.value);
@@ -13,14 +12,10 @@ export function resolveValue(component, unresolvedValue, process) {
 
   return resolve(unresolvedValue)
     .then(result => {
-      run(() => {
-        finishedResolvingValue(component, valueID, false, result, process);
-      });
+      finishedResolvingValue(component, valueID, false, result, process);
     })
     .catch(error => {
-      run(() => {
-        finishedResolvingValue(component, valueID, true, error, process);
-      });
+      finishedResolvingValue(component, valueID, true, error, process);
     });
 }
 

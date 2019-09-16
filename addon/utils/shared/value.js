@@ -2,6 +2,7 @@ import invokeAction from '../component/invoke-action';
 import { resolveValue } from '../component/value';
 import { getAPI } from '../component/api';
 import { makeArray } from '@ember/array';
+import { run } from '@ember/runloop';
 const { freeze } = Object;
 
 export function receiveValue(selectBox) {
@@ -28,7 +29,7 @@ function processValue(selectBox, value) {
   return value;
 }
 
-export function updatedValue(selectBox) {
+function updatedValue(selectBox) {
   if (
     selectBox.isDestroyed ||
     selectBox.isDestroying ||
@@ -37,7 +38,7 @@ export function updatedValue(selectBox) {
     return;
   }
 
-  invokeAction(selectBox, 'onUpdate', getAPI(selectBox));
+  invokeAction(selectBox, 'onUpdate', run(getAPI, selectBox));
 }
 
 export function selectedValue(selectBox) {

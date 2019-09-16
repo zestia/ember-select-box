@@ -1,10 +1,8 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { fillIn, find, findAll, render } from '@ember/test-helpers';
+import { fillIn, find, findAll, render, settled } from '@ember/test-helpers';
 import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
-import ObjectProxy from '@ember/object/proxy';
-import PromiseProxyMixin from '@ember/object/promise-proxy-mixin';
 import { resolve } from 'rsvp';
 import {
   getNativeMultipleSelectBoxValue,
@@ -340,15 +338,10 @@ module('native-select-box', function(hooks) {
     );
   });
 
-  test('initial update action (proxies)', async function(assert) {
+  test('initial update action (promises)', async function(assert) {
     assert.expect(1);
 
-    this.set(
-      'barProxy',
-      ObjectProxy.extend(PromiseProxyMixin).create({
-        promise: resolve('bar')
-      })
-    );
+    this.set('barPromise', resolve('bar'));
 
     const layout = hbs`
       <div class="foo-select-display-label">
@@ -377,7 +370,7 @@ module('native-select-box', function(hooks) {
     this.owner.register('component:foo-select-box', FooSelectBox);
 
     await render(hbs`
-      <FooSelectBox @value={{this.barProxy}} as |sb|>
+      <FooSelectBox @value={{this.barPromise}} as |sb|>
         <sb.Option @value="foo">Foo</sb.Option>
         <sb.Option @value="bar">Bar</sb.Option>
         <sb.Option @value="baz">Baz</sb.Option>
