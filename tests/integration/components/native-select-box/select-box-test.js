@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { fillIn, find, findAll, render, settled } from '@ember/test-helpers';
+import { fillIn, find, findAll, render } from '@ember/test-helpers';
 import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 import { resolve } from 'rsvp';
