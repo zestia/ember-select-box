@@ -202,22 +202,32 @@ module('select-box', function(hooks) {
   });
 
   test('api value', async function(assert) {
-    assert.expect(7);
+    assert.expect(10);
 
     const value1 = emberA(['foo']);
     const value2 = emberA(['bar']);
     const apis = [];
 
     this.set('value', value1);
-    this.set('initialised', sb => apis.push(sb));
-    this.set('updated', sb => apis.push(sb));
+
+    this.set('checkAPI', sb => {
+      apis.push(sb);
+
+      if (apis.length === 1) {
+        assert.strictEqual(sb.value, null, 'value still being resolved');
+      } else if (apis.length === 2) {
+        assert.deepEqual(sb.value, ['foo']);
+      } else if (apis.length === 3) {
+        assert.deepEqual(sb.value, ['bar']);
+      }
+    });
 
     await render(hbs`
       <SelectBox
         @value={{this.value}}
         @multiple={{true}}
-        @onInit={{this.initialised}}
-        @onUpdate={{this.updated}} />
+        @onInit={{this.checkAPI}}
+        @onUpdate={{this.checkAPI}} />
     `);
 
     assert.ok(isSealed(apis[0]), 'api is sealed');
@@ -230,7 +240,7 @@ module('select-box', function(hooks) {
     assert.deepEqual(
       apis[0].value,
       ['foo'],
-      'yielded api on init has initial value'
+      "yielded api's are always up to date"
     );
 
     assert.strictEqual(

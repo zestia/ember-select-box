@@ -744,7 +744,9 @@ module('select-box (selecting)', function(hooks) {
       'second argument is the currently selected value'
     );
 
-    await sb.update(['bar']);
+    sb.update(['bar']);
+
+    await settled();
 
     assert.equal(
       calledBuild,
@@ -791,7 +793,7 @@ module('select-box (selecting)', function(hooks) {
 
     await triggerEvent(findAll('.select-box-option')[1], 'mouseenter');
 
-    await sb.selectActiveOption();
+    sb.selectActiveOption();
 
     assert.equal(
       selectedValue,

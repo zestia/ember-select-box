@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { fillIn, find, findAll, render } from '@ember/test-helpers';
+import { fillIn, find, findAll, render, settled } from '@ember/test-helpers';
 import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 import { resolve } from 'rsvp';
@@ -484,7 +484,9 @@ module('native-select-box', function(hooks) {
       </NativeSelectBox>
     `);
 
-    await api.select('2');
+    api.select('2');
+
+    await settled();
 
     assert.dom('.select-box').hasValue('2');
     assert.dom('.select-box-option:checked').hasText('2');
@@ -513,7 +515,9 @@ module('native-select-box', function(hooks) {
       </NativeSelectBox>
     `);
 
-    await api.select(this.two);
+    api.select(this.two);
+
+    await settled();
 
     assert.dom('.select-box').hasValue('[object Object]');
     assert.dom('.select-box-option:checked').hasText('2');
