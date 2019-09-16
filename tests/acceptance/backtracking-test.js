@@ -28,6 +28,7 @@ module('backtracking focus use-case', function(hooks) {
     this.owner.register(
       'component:backtrack-select',
       Component.extend({
+        tagName: '',
         layout: hbs`
         <SelectBox @classNamePrefix="backtrack-select" as |sb|>
           {{yield (hash

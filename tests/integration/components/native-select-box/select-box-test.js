@@ -355,6 +355,7 @@ module('native-select-box', function(hooks) {
     `;
 
     const FooSelectBox = Component.extend({
+      tagName: '',
       layout,
       actions: {
         updateDisplayLabel(sb) {
