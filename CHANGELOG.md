@@ -1,5 +1,9 @@
 # Changelog
 
+## 11.0.1
+
+- Unpin render modifier dependancy
+
 ## 11.0.0
 
 - Release changes from version 10.0.9-beta

@@ -62,7 +62,7 @@
     "stylelint": "11.0.0"
   },
   "dependencies": {
-    "@ember/render-modifiers": "1.0.2",
+    "@ember/render-modifiers": "^1.0.2",
     "ember-angle-bracket-invocation-polyfill": "^2.0.2",
     "ember-cli-babel": "^7.12.0",
     "ember-cli-htmlbars": "^4.0.5",
