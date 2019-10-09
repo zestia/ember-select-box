@@ -27,11 +27,6 @@
   margin: 2px;
 }
 
-.tag-select__remove {
-  cursor: pointer;
-  display: inline-block;
-}
-
 .tag-select__selected-option {
   display: inline-block;
 }
