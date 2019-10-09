@@ -7,19 +7,19 @@
   padding: 2px;
 }
 
-.filter-select.is-focused {
+.filter-select--focused {
   border-color: dimgrey;
 }
 
-.filter-select-option,
-.filter-select-selected-option {
+.filter-select__option,
+.filter-select__selected-option {
   cursor: pointer;
   border: 2px solid silver;
   padding: 2px;
   margin: 2px;
 }
 
-.filter-select-input {
+.filter-select__input {
   font-family: serif;
   font-size: 100%;
   border: 0;
@@ -28,10 +28,10 @@
   box-sizing: border-box;
 }
 
-.filter-select-option.is-selected {
+.filter-select__option--selected {
   border-color: red;
 }
 
-.filter-select-option.is-active {
+.filter-select__option--active {
   border-color: green;
 }

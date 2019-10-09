@@ -51,7 +51,8 @@ module('native-select-box', function(hooks) {
     `);
 
     assert.ok(
-      findAll('.foo-group').length === 1 && findAll('.foo-option').length === 1,
+      findAll('.foo__group').length === 1 &&
+        findAll('.foo__option').length === 1,
       'class prefix trickles down to children'
     );
   });
@@ -76,8 +77,8 @@ module('native-select-box', function(hooks) {
       </NativeSelectBox>
     `);
 
-    const foo = find('.select-box-option[value="foo"]');
-    const bar = find('.select-box-option[value="bar"]');
+    const foo = find('.select-box__option[value="foo"]');
+    const bar = find('.select-box__option[value="bar"]');
 
     assert.ok(
       foo.selected && !bar.selected,
@@ -134,7 +135,7 @@ module('native-select-box', function(hooks) {
     );
 
     assert.ok(
-      findAll('.select-box-option')[1].selected,
+      findAll('.select-box__option')[1].selected,
       'renders the correct selected option'
     );
   });
@@ -344,7 +345,7 @@ module('native-select-box', function(hooks) {
     this.set('barPromise', resolve('bar'));
 
     const layout = hbs`
-      <div class="foo-select-display-label">
+      <div class="foo-select__display-label">
         {{this.displayLabel}}
       </div>
       <NativeSelectBox
@@ -379,7 +380,7 @@ module('native-select-box', function(hooks) {
     `);
 
     assert
-      .dom('.foo-select-display-label')
+      .dom('.foo-select__display-label')
       .hasText(
         'Bar',
         'the action is fired after all options have rendered ' +
@@ -459,9 +460,9 @@ module('native-select-box', function(hooks) {
     `);
 
     assert.ok(
-      !findAll('.select-box-option')[0].selected &&
-        !findAll('.select-box-option')[1].selected &&
-        findAll('.select-box-option')[2].selected,
+      !findAll('.select-box__option')[0].selected &&
+        !findAll('.select-box__option')[1].selected &&
+        findAll('.select-box__option')[2].selected,
       'single value native select considers the last option as the selected one'
     );
   });
@@ -490,7 +491,7 @@ module('native-select-box', function(hooks) {
     await settled();
 
     assert.dom('.select-box').hasValue('2');
-    assert.dom('.select-box-option:checked').hasText('2');
+    assert.dom('.select-box__option:checked').hasText('2');
   });
 
   test('select api (non primitive)', async function(assert) {
@@ -521,6 +522,6 @@ module('native-select-box', function(hooks) {
     await settled();
 
     assert.dom('.select-box').hasValue('[object Object]');
-    assert.dom('.select-box-option:checked').hasText('2');
+    assert.dom('.select-box__option:checked').hasText('2');
   });
 });

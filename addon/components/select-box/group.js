@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/select-box/group';
+import { className } from '../../utils/shared/attributes';
 
 export default Component.extend({
   layout,
@@ -9,5 +10,9 @@ export default Component.extend({
 
   classNamePrefix: '',
   selectBox: null,
-  label: ''
+  label: '',
+
+  // Computed state
+
+  className: className()
 });

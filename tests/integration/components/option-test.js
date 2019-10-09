@@ -14,7 +14,7 @@ module('select-box/option', function(hooks) {
     await render(hbs`<SelectBox::Option />`);
 
     assert
-      .dom('div.select-box-option')
+      .dom('div.select-box__option')
       .exists({ count: 1 }, 'renders with correct class name and tag');
   });
 
@@ -24,7 +24,7 @@ module('select-box/option', function(hooks) {
     await render(hbs`<SelectBox::Option @classNamePrefix="foo" />`);
 
     assert
-      .dom('.foo-option')
+      .dom('.foo__option')
       .exists({ count: 1 }, 'can override the class prefix');
   });
 
@@ -34,7 +34,7 @@ module('select-box/option', function(hooks) {
     await render(hbs`<SelectBox::Option />`);
 
     assert
-      .dom('.select-box-option')
+      .dom('.select-box__option')
       .hasAttribute('role', 'option', 'defined as an option');
   });
 
@@ -44,7 +44,7 @@ module('select-box/option', function(hooks) {
     await render(hbs`<SelectBox::Option />`);
 
     assert.ok(
-      find('.select-box-option')
+      find('.select-box__option')
         .getAttribute('id')
         .match(/select-box-el-\d+/),
       'gets a unique id'
@@ -57,10 +57,13 @@ module('select-box/option', function(hooks) {
     await render(hbs`<SelectBox::Option @disabled={{true}} />`);
 
     assert
-      .dom('.select-box-option')
-      .hasClass('is-disabled', 'an option can be flagged as disabled');
+      .dom('.select-box__option')
+      .hasClass(
+        'select-box__option--disabled',
+        'an option can be flagged as disabled'
+      );
 
-    assert.dom('.select-box-option').hasAttribute('aria-disabled', 'true');
+    assert.dom('.select-box__option').hasAttribute('aria-disabled', 'true');
   });
 
   test('aria selected', async function(assert) {
@@ -76,14 +79,14 @@ module('select-box/option', function(hooks) {
     `);
 
     assert
-      .dom('.select-box-option:nth-child(1)[aria-selected]')
+      .dom('.select-box__option:nth-child(1)[aria-selected]')
       .hasText(
         'One',
         'the selected option receives an aria selected attribute'
       );
 
     assert
-      .dom('.select-box-option:nth-child(1)[aria-selected]')
+      .dom('.select-box__option:nth-child(1)[aria-selected]')
       .hasAttribute(
         'aria-selected',
         'true',
@@ -93,14 +96,14 @@ module('select-box/option', function(hooks) {
     this.set('value', 2);
 
     assert
-      .dom('.select-box-option:nth-child(2)[aria-selected]')
+      .dom('.select-box__option:nth-child(2)[aria-selected]')
       .hasText(
         'Two',
         'the aria selected attribute is redetermined when the value changes'
       );
 
     assert
-      .dom('.select-box-option:nth-child(2)[aria-selected]')
+      .dom('.select-box__option:nth-child(2)[aria-selected]')
       .hasAttribute(
         'aria-selected',
         'true',
@@ -140,24 +143,27 @@ module('select-box/option', function(hooks) {
     `);
 
     assert.ok(
-      findAll('.select-box-option')[0].textContent.trim() === 'Foo 0 0 false' &&
-        findAll('.select-box-option')[1].textContent.trim() ===
+      findAll('.select-box__option')[0].textContent.trim() ===
+        'Foo 0 0 false' &&
+        findAll('.select-box__option')[1].textContent.trim() ===
           'Bar 1 1 false' &&
-        findAll('.select-box-option')[2].textContent.trim() ===
+        findAll('.select-box__option')[2].textContent.trim() ===
           'Baz 0 2 true' &&
-        findAll('.select-box-option')[3].textContent.trim() === 'Qux 1 3 false',
+        findAll('.select-box__option')[3].textContent.trim() ===
+          'Qux 1 3 false',
       'select box options can yield their label, value, index and selected state'
     );
 
     this.set('group2', [qux, baz]);
 
     assert.ok(
-      findAll('.select-box-option')[0].textContent.trim() === 'Foo 0 0 false' &&
-        findAll('.select-box-option')[1].textContent.trim() ===
+      findAll('.select-box__option')[0].textContent.trim() ===
+        'Foo 0 0 false' &&
+        findAll('.select-box__option')[1].textContent.trim() ===
           'Bar 1 1 false' &&
-        findAll('.select-box-option')[2].textContent.trim() ===
+        findAll('.select-box__option')[2].textContent.trim() ===
           'Qux 0 3 false' &&
-        findAll('.select-box-option')[3].textContent.trim() === 'Baz 1 2 true',
+        findAll('.select-box__option')[3].textContent.trim() === 'Baz 1 2 true',
       'index gets out of sync due to lack of key="@index"'
     );
   });
@@ -166,7 +172,9 @@ module('select-box/option', function(hooks) {
     assert.expect(4);
 
     const labels = () => {
-      return from(findAll('.select-box-option')).map(o => o.textContent.trim());
+      return from(findAll('.select-box__option')).map(o =>
+        o.textContent.trim()
+      );
     };
 
     this.set('values', ['foo', 'bar', 'baz']);
@@ -234,13 +242,13 @@ module('select-box/option', function(hooks) {
     `);
 
     assert
-      .dom('.select-box-option')
+      .dom('.select-box__option')
       .hasText('foo disabled', 'yields disabled state');
 
     this.set('fooDisabled', false);
 
     assert
-      .dom('.select-box-option')
+      .dom('.select-box__option')
       .hasText('foo', 'disabled state is updated');
   });
 
@@ -308,7 +316,7 @@ module('select-box/option', function(hooks) {
     await render(hbs`<SelectBox::Option @value={{this.promise}} />`);
 
     assert
-      .dom('.select-box-option')
+      .dom('.select-box__option')
       .hasAttribute(
         'aria-busy',
         'true',
@@ -320,7 +328,7 @@ module('select-box/option', function(hooks) {
     await settled();
 
     assert
-      .dom('.select-box-option')
+      .dom('.select-box__option')
       .hasAttribute(
         'aria-busy',
         'false',

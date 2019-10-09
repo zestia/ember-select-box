@@ -13,7 +13,7 @@ module('select-box (disabling)', function(hooks) {
 
     assert
       .dom('.select-box')
-      .doesNotHaveClass('is-disabled', 'enabled by default');
+      .doesNotHaveClass('select-box--disabled', 'enabled by default');
 
     this.set('isDisabled', true);
 
@@ -22,7 +22,7 @@ module('select-box (disabling)', function(hooks) {
     assert
       .dom('.select-box')
       .hasClass(
-        'is-disabled',
+        'select-box--disabled',
         'can set the disabled state, adding a class name'
       );
 
@@ -31,7 +31,7 @@ module('select-box (disabling)', function(hooks) {
     assert
       .dom('.select-box')
       .doesNotHaveClass(
-        'is-disabled',
+        'select-box--disabled',
         'can change the disabled state, removing the class name'
       );
 
@@ -42,7 +42,7 @@ module('select-box (disabling)', function(hooks) {
     `);
 
     assert.ok(
-      find('.select-box-input').hasAttribute('disabled'),
+      find('.select-box__input').hasAttribute('disabled'),
       "a select box's input element is disabled if the select box is disabled"
     );
   });

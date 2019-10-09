@@ -6,21 +6,21 @@
   padding: 2px;
 }
 
-.single-select.is-focused {
+.single-select--focused {
   border-color: dimgrey;
 }
 
-.single-select-option {
+.single-select__option {
   cursor: pointer;
   border: 2px solid silver;
   padding: 2px;
   margin: 2px;
 }
 
-.single-select-option.is-selected {
+.single-select__option--selected {
   border-color: red;
 }
 
-.single-select-option.is-active {
+.single-select__option--active {
   border-color: green;
 }

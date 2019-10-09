@@ -12,7 +12,7 @@ module('select-box/selected-options', function(hooks) {
     await render(hbs`<SelectBox::SelectedOptions />`);
 
     assert
-      .dom('div.select-box-selected-options')
+      .dom('div.select-box__selected-options')
       .exists({ count: 1 }, 'renders with correct class name and tag');
   });
 
@@ -22,7 +22,7 @@ module('select-box/selected-options', function(hooks) {
     await render(hbs`<SelectBox::SelectedOptions @classNamePrefix="foo" />`);
 
     assert
-      .dom('.foo-selected-options')
+      .dom('.foo__selected-options')
       .exists({ count: 1 }, 'can override the class prefix');
   });
 });

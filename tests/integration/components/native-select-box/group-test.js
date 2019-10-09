@@ -12,7 +12,7 @@ module('native-select-box/group', function(hooks) {
     await render(hbs`<NativeSelectBox::Group />`);
 
     assert
-      .dom('optgroup.select-box-group')
+      .dom('optgroup.select-box__group')
       .exists({ count: 1 }, 'renders with correct class name and tag');
   });
 
@@ -22,7 +22,7 @@ module('native-select-box/group', function(hooks) {
     await render(hbs`<NativeSelectBox::Group @classNamePrefix="foo" />`);
 
     assert
-      .dom('.foo-group')
+      .dom('.foo__group')
       .exists({ count: 1 }, 'can override the class prefix');
   });
 });

@@ -25,10 +25,10 @@ module('select-box (activating selected options)', function(hooks) {
     `);
 
     const box = find('.select-box');
-    const one = findAll('.select-box-selected-option')[0];
+    const one = findAll('.select-box__selected-option')[0];
 
     assert
-      .dom('.select-box-selected-option.is-active')
+      .dom('.select-box__selected-option--active')
       .doesNotExist('precondition, there are no active selected options');
 
     await click(one);
@@ -42,7 +42,7 @@ module('select-box (activating selected options)', function(hooks) {
       );
 
     assert
-      .dom('.select-box-selected-option.is-active')
+      .dom('.select-box__selected-option--active')
       .hasAttribute(
         'aria-current',
         'true',

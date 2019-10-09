@@ -1,17 +1,17 @@
 <div
-  {{did-insert (action "didInsertElement")}}
-  {{will-destroy (action "willDestroyElement")}}
-  {{on "mouseenter" (action "onMouseEnter")}}
-  {{on "click" (action "onClick")}}
+  {{did-insert (action "handleInsertElement")}}
+  {{will-destroy (action "handleDestroyElement")}}
+  {{on "mouseenter" (action "handleMouseEnter")}}
+  {{on "click" (action "handleClick")}}
   aria-busy={{if this.isPending "true" "false"}}
   aria-current={{if this.isActive "true" "false"}}
   aria-disabled={{if this.isDisabled "true" "false"}}
   aria-selected={{if this.isSelected "true" "false"}}
   class={{concat
-    (select-box-class @classNamePrefix "option")
-    (if this.isActive " is-active")
-    (if this.isDisabled " is-disabled")
-    (if this.isSelected " is-selected")
+    (concat this.className "__option")
+    (if this.isActive (concat " " this.className "__option--active"))
+    (if this.isDisabled (concat " " this.className "__option--disabled"))
+    (if this.isSelected (concat " " this.className "__option--selected"))
   }}
   id={{this.id}}
   role="option"

@@ -12,6 +12,7 @@ import api from '../../utils/native-select-box/option/api';
 import index from '../../utils/general/index';
 import isSelected from '../../utils/shared/is-selected';
 import layout from '../../templates/components/native-select-box/option';
+import { className } from '../../utils/shared/attributes';
 
 export default Component.extend({
   layout,
@@ -38,6 +39,7 @@ export default Component.extend({
   // Computed state
 
   api: api(),
+  className: className(),
   index: index('selectBox.options'),
   isSelected: isSelected(),
 
@@ -54,11 +56,11 @@ export default Component.extend({
   actions: {
     // Internal actions
 
-    didInsertElement(element) {
+    handleInsertElement(element) {
       registerElement(this, element);
     },
 
-    willDestroyElement(element) {
+    handleDestroyElement(element) {
       deregisterElement(this, element);
       _destroyComponent(this);
     }

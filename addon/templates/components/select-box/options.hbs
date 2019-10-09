@@ -1,6 +1,6 @@
 <div
-  {{will-destroy (action "willDestroyElement")}}
-  class={{select-box-class @classNamePrefix "options"}}
+  {{will-destroy (action "handleDestroyElement")}}
+  class={{concat this.className "__options"}}
 
   {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
   {{! template-lint-disable no-invalid-interactive }}

@@ -6,7 +6,7 @@
   cursor: pointer;
 }
 
-.native-simple-select.is-focused {
+.native-simple-select--is-focused {
   border-color: dimgrey;
 }
 

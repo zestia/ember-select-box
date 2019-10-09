@@ -16,6 +16,7 @@ import index from '../../utils/general/index';
 import isEqual from '../../utils/general/is-equal';
 import isSelected from '../../utils/shared/is-selected';
 import layout from '../../templates/components/select-box/option';
+import { id, className } from '../../utils/shared/attributes';
 
 export default Component.extend({
   layout,
@@ -37,7 +38,6 @@ export default Component.extend({
   // State
 
   domElement: null,
-  id: null,
   isFulfilled: false,
   isPending: true,
   isRejected: false,
@@ -50,6 +50,8 @@ export default Component.extend({
   // Computed state
 
   api: api(),
+  className: className(),
+  id: id(),
   index: index('selectBox.options'),
   isActive: isEqual('index', 'selectBox.activeOptionIndex'),
   isDisabled: bool('disabled'),
@@ -68,20 +70,20 @@ export default Component.extend({
   actions: {
     // Internal actions
 
-    didInsertElement(element) {
+    handleInsertElement(element) {
       registerElement(this, element);
     },
 
-    willDestroyElement(element) {
+    handleDestroyElement(element) {
       deregisterElement(this, element);
       _destroyComponent(this);
     },
 
-    onMouseEnter() {
+    handleMouseEnter() {
       _activateOption(this);
     },
 
-    onClick() {
+    handleClick() {
       _selectOption(this);
     }
   }

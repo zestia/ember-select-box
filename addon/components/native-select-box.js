@@ -18,6 +18,7 @@ import { receiveValue, selectValue, updateValue } from '../utils/shared/value';
 import { selectValue as _selectValue } from '../utils/native-select-box/value';
 import api from '../utils/native-select-box/api';
 import layout from '../templates/components/native-select-box';
+import { className } from '../utils/shared/attributes';
 
 export default Component.extend({
   layout,
@@ -52,6 +53,7 @@ export default Component.extend({
   // Computed state
 
   api: api(),
+  className: className(),
   isMultiple: bool('multiple'),
 
   init() {
@@ -68,26 +70,26 @@ export default Component.extend({
   actions: {
     // Internal actions
 
-    didInsertElement(element) {
+    handleInsertElement(element) {
       registerElement(this, element);
       insertElement(this);
     },
 
-    willDestroyElement(element) {
+    handleDestroyElement(element) {
       deregisterElement(this, element);
       destroyElement(this);
       destroyComponent(this);
     },
 
-    onInitOption(option) {
+    handleInitOption(option) {
       registerOption(this, option);
     },
 
-    onDestroyOption(option) {
+    handleDestroyOption(option) {
       deregisterOption(this, option);
     },
 
-    onChange() {
+    handleChange() {
       _selectValue(this);
     },
 

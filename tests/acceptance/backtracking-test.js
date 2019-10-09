@@ -19,7 +19,7 @@ module('backtracking focus use-case', function(hooks) {
           open
         </sb.SelectedOption>
         <sb.Options>
-          <button onclick={{sb.close}} class="backtrack-select-close">close</button>
+          <button onclick={{sb.close}} class="backtrack-select__close">close</button>
         </sb.Options>
       </BacktrackSelect>
     `
@@ -51,27 +51,32 @@ module('backtracking focus use-case', function(hooks) {
     await visit('/backtrack-select');
 
     assert
-      .dom('.backtrack-select-options')
+      .dom('.backtrack-select__options')
       .doesNotExist('precondition: options not rendered when closed');
 
     assert
       .dom('.backtrack-select')
-      .doesNotHaveClass('is-focused', 'precondition: not focused');
+      .doesNotHaveClass(
+        '.backtrack-select--focused',
+        'precondition: not focused'
+      );
 
     await focus('.backtrack-select');
 
-    assert.dom('.backtrack-select').hasClass('is-focused', 'focused');
+    assert
+      .dom('.backtrack-select')
+      .hasClass('backtrack-select--focused', 'focused');
 
-    await click('.backtrack-select-selected-option');
+    await click('.backtrack-select__selected-option');
 
     assert
-      .dom('.backtrack-select-options')
+      .dom('.backtrack-select__options')
       .exists({ count: 1 }, 'precondition: options rendered when open');
 
-    await click('.backtrack-select-close');
+    await click('.backtrack-select__close');
 
     assert
-      .dom('.backtrack-select-options')
+      .dom('.backtrack-select__options')
       .doesNotExist(
         'options destroyed successfully without throwing double render error'
       );

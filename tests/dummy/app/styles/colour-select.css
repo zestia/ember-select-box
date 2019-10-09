@@ -3,12 +3,12 @@
   outline: none;
 }
 
-.colour-select.is-focused .colour-select-selected-option {
+.colour-select--focused .colour-select__selected-option {
   border-color: dimgrey;
 }
 
-.colour-select-option,
-.colour-select-selected-option {
+.colour-select__option,
+.colour-select__selected-option {
   cursor: pointer;
   width: 20px;
   height: 20px;
@@ -17,14 +17,14 @@
   margin: 2px;
 }
 
-.colour-select-option {
+.colour-select__option {
   display: inline-block;
 }
 
-.colour-select-option.is-selected {
+.colour-select__option--selected {
   border-color: red;
 }
 
-.colour-select-option.is-active {
+.colour-select__option--active {
   border-color: green;
 }

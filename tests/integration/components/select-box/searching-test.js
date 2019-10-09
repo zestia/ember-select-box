@@ -18,7 +18,7 @@ module('select-box (searching)', function(hooks) {
     `);
 
     assert
-      .dom('.select-box-input')
+      .dom('.select-box__input')
       .hasAttribute('autocomplete', 'off', 'autocompletion off by default');
   });
 
@@ -59,7 +59,7 @@ module('select-box (searching)', function(hooks) {
       );
 
     assert
-      .dom('.select-box-input')
+      .dom('.select-box__input')
       .hasAttribute(
         'aria-controls',
         find('.select-box').getAttribute('id'),
@@ -93,10 +93,10 @@ module('select-box (searching)', function(hooks) {
       </SelectBox>
     `);
 
-    await fillIn('.select-box-input', 'foo');
+    await fillIn('.select-box__input', 'foo');
 
     assert
-      .dom('.select-box-option')
+      .dom('.select-box__option')
       .hasText(
         'foo',
         "resolves results even if the onSearch action doesn't return a promise"
@@ -138,9 +138,9 @@ module('select-box (searching)', function(hooks) {
       </SelectBox>
     `);
 
-    fillIn('.select-box-input', 'first');
-    fillIn('.select-box-input', 'second');
-    fillIn('.select-box-input', 'third');
+    fillIn('.select-box__input', 'first');
+    fillIn('.select-box__input', 'second');
+    fillIn('.select-box__input', 'third');
 
     deferred3.resolve(['third']);
     deferred2.resolve(['second']);
@@ -154,7 +154,7 @@ module('select-box (searching)', function(hooks) {
     );
 
     assert
-      .dom('.select-box-option')
+      .dom('.select-box__option')
       .hasText('third', 'can render options using the search results');
   });
 
@@ -193,7 +193,7 @@ module('select-box (searching)', function(hooks) {
       'precondition, no error yet'
     );
 
-    await fillIn('.select-box-input', 'foo');
+    await fillIn('.select-box__input', 'foo');
 
     assert.ok(
       find('.select-box').textContent.match('Error: no results for foo'),
@@ -235,7 +235,7 @@ module('select-box (searching)', function(hooks) {
 
     assert.equal(isSearching(), false, 'precondition, not searching yet');
 
-    await fillIn('.select-box-input', 'a');
+    await fillIn('.select-box__input', 'a');
 
     assert.equal(
       isSearching(),
@@ -268,7 +268,7 @@ module('select-box (searching)', function(hooks) {
 
     deferred.resolve(['foo']);
 
-    fillIn('.select-box-input', 'foo');
+    fillIn('.select-box__input', 'foo');
 
     assert.ok(
       !find('.select-box').textContent.match('foo'),
@@ -313,7 +313,7 @@ module('select-box (searching)', function(hooks) {
 
     deferred.resolve(['foo']);
 
-    fillIn('.select-box-input', 'foo');
+    fillIn('.select-box__input', 'foo');
 
     const start = Date.now();
 
@@ -361,7 +361,7 @@ module('select-box (searching)', function(hooks) {
       </SelectBox>
     `);
 
-    fillIn('.select-box-input', 'foo');
+    fillIn('.select-box__input', 'foo');
 
     assert.ok(!isSlow(), 'precondition, not considered a slow search yet');
 
@@ -396,7 +396,7 @@ module('select-box (searching)', function(hooks) {
 
     deferred.resolve();
 
-    await fillIn('.select-box-input', ' foo ');
+    await fillIn('.select-box__input', ' foo ');
   });
 
   test('default min chars', async function(assert) {
@@ -421,13 +421,13 @@ module('select-box (searching)', function(hooks) {
 
     deferred.resolve();
 
-    await fillIn('.select-box-input', '');
+    await fillIn('.select-box__input', '');
 
     assert.equal(searches, 0, 'a search is not run if there are too few chars');
 
     await settled();
 
-    await fillIn('.select-box-input', 'f');
+    await fillIn('.select-box__input', 'f');
 
     assert.equal(
       searches,
@@ -461,7 +461,7 @@ module('select-box (searching)', function(hooks) {
 
     deferred.resolve();
 
-    await fillIn('.select-box-input', '');
+    await fillIn('.select-box__input', '');
   });
 
   test('manually running a search', async function(assert) {
@@ -507,7 +507,7 @@ module('select-box (searching)', function(hooks) {
       {{/if}}
     `);
 
-    fillIn('.select-box-input', 'foo');
+    fillIn('.select-box__input', 'foo');
 
     later(() => {
       this.set('display', false);
@@ -544,7 +544,7 @@ module('select-box (searching)', function(hooks) {
       </SelectBox>
     `);
 
-    const input = find('.select-box-input');
+    const input = find('.select-box__input');
 
     assert.equal(input.value, 'foo', 'precondition, has a value');
 
@@ -576,12 +576,12 @@ module('select-box (searching)', function(hooks) {
       {{/if}}
     `);
 
-    assert.dom('.select-box-input').hasValue('foo', 'precondition');
+    assert.dom('.select-box__input').hasValue('foo', 'precondition');
 
-    await click('.select-box-option');
+    await click('.select-box__option');
 
     assert
-      .dom('.select-box-input')
+      .dom('.select-box__input')
       .doesNotExist(
         'does not blow up attempting to set value of element that is not present'
       );
@@ -610,14 +610,14 @@ module('select-box (searching)', function(hooks) {
     `);
 
     const selectBox = find('.select-box');
-    const input = find('.select-box-input');
+    const input = find('.select-box__input');
 
     await fillIn(input, 'foo');
 
     assert
       .dom(selectBox)
       .hasClass(
-        'is-busy',
+        'select-box--busy',
         'precondition, select box is in the middle of searching'
       );
 
@@ -627,10 +627,12 @@ module('select-box (searching)', function(hooks) {
 
     await fillIn(input, '');
 
-    assert.ok(
-      !selectBox.classList.contains('is-searching'),
-      'select box is no longer searching'
-    );
+    assert
+      .dom(selectBox)
+      .doesNotHaveClass(
+        'select-box--busy',
+        'select box is no longer busy searching'
+      );
 
     assert
       .dom(selectBox)

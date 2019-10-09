@@ -13,14 +13,14 @@ module('select-box (focusing)', function(hooks) {
 
     assert
       .dom('.select-box')
-      .doesNotHaveClass('is-focused', 'precondition, not focused');
+      .doesNotHaveClass('select-box--focused', 'precondition, not focused');
 
     await focus('.select-box');
 
     assert
       .dom('.select-box')
       .hasClass(
-        'is-focused',
+        'select-box--focused',
         'a focused select box has an appropriate class name'
       );
 
@@ -29,7 +29,7 @@ module('select-box (focusing)', function(hooks) {
     assert
       .dom('.select-box')
       .doesNotHaveClass(
-        'is-focused',
+        'select-box--focused',
         'the focused class name is removed when the select box is blurred'
       );
   });

@@ -1,11 +1,11 @@
 <input
-  {{did-insert (action "didInsertElement")}}
-  {{will-destroy (action "willDestroyElement")}}
-  {{on "input" (action "onInput")}}
-  {{on "keydown" (action "onKeyDown")}}
+  {{did-insert (action "handleInsertElement")}}
+  {{will-destroy (action "handleDestroyElement")}}
+  {{on "input" (action "handleInput")}}
+  {{on "keydown" (action "handleKeyDown")}}
   aria-multiline="false"
   autocomplete="off"
-  class={{select-box-class @classNamePrefix "input"}}
+  class={{concat this.className "__input"}}
   role="searchbox"
   type="text"
 

@@ -7,36 +7,36 @@
   padding: 2px;
 }
 
-.simple-select.is-focused {
+.simple-select--focused {
   border-color: dimgrey;
 }
 
-.simple-select.is-open .simple-select-options {
+.simple-select--open .simple-select__options {
   display: block;
 }
 
-.simple-select-option,
-.simple-select-selected-option {
+.simple-select__option,
+.simple-select__selected-option {
   cursor: pointer;
   border: 2px solid silver;
   margin: 2px;
   padding: 2px;
 }
 
-.simple-select-options {
+.simple-select__options {
   display: none;
   max-height: 200px;
   overflow: auto;
 }
 
-.simple-select-option.is-selected {
+.simple-select__option--selected {
   border-color: red;
 }
 
-.simple-select-option.is-active {
+.simple-select__option--active {
   border-color: green;
 }
 
-.simple-select-selected-option {
+.simple-select__selected-option {
   min-height: 18px;
 }

@@ -612,7 +612,7 @@ test('selecting things', async function(assert) {
 To create your own select box, make a new component that renders a select box:
 
 ```handlebars
-<SelectBox @value={{@value}} @onSelect={{@onSelect}} @classNamePrefix="my-select-box" as |sb|>
+<SelectBox @value={{@value}} @onSelect={{@onSelect}} @classNamePrefix="foo-select" as |sb|>
   <sb.SelectedOption {{on "click" sb.toggle}}>
     {{sb.value.name}}
   </sb.SelectedOption>
@@ -625,22 +625,22 @@ To create your own select box, make a new component that renders a select box:
 ...and then use it like this:
 
 ```handlebars
-<MySelect @value={{thing}} @onSelect={{action "selectedAThing"}} as |sb|>
-  {{#each things as |thing|}}
-    <sb.Option @value={{thing}}>{{thing.name}}</sb.Option>
+<FooSelect @value={{foo}} @onSelect={{action "selectedFoo"}} as |sb|>
+  {{#each this.foos as |foo|}}
+    <sb.Option @value={{foo}}>{{foo.name}}</sb.Option>
   {{/each}}
-</MySelect>
+</FooSelect>
 ```
 
 ...which will render...
 
 ```html
-<div class="my-select-box">
-  <div class="my-select-box-selected-option">Foo</div>
-  <div class="my-select-box-options">
-    <div class="my-select-box-option is-selected">Foo</div>
-    <div class="my-select-box-option">Bar</div>
-    <div class="my-select-box-option">Baz</div>
+<div class="foo-select">
+  <div class="foo-select__selected-option">Foo</div>
+  <div class="foo-select__options">
+    <div class="foo-select__option">Foo</div>
+    <div class="foo-select__option foo-select__option--selected">Bar</div>
+    <div class="foo-select__option">Baz</div>
   </div>
 </div>
 ```

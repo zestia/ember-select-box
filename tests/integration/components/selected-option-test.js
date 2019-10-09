@@ -12,7 +12,7 @@ module('select-box/selected-option', function(hooks) {
     await render(hbs`<SelectBox::SelectedOption />`);
 
     assert
-      .dom('div.select-box-selected-option')
+      .dom('div.select-box__selected-option')
       .exists({ count: 1 }, 'renders with correct class name and tag');
   });
 
@@ -22,7 +22,7 @@ module('select-box/selected-option', function(hooks) {
     await render(hbs`<SelectBox::SelectedOption @classNamePrefix="foo" />`);
 
     assert
-      .dom('.foo-selected-option')
+      .dom('.foo__selected-option')
       .exists({ count: 1 }, 'can override the class prefix');
   });
 
@@ -32,7 +32,7 @@ module('select-box/selected-option', function(hooks) {
     await render(hbs`<SelectBox::SelectedOption />`);
 
     assert
-      .dom('.select-box-selected-option')
+      .dom('.select-box__selected-option')
       .hasAttribute('role', 'option', 'defined as an option');
   });
 
@@ -42,7 +42,7 @@ module('select-box/selected-option', function(hooks) {
     await render(hbs`<SelectBox::SelectedOption />`);
 
     assert.ok(
-      find('.select-box-selected-option')
+      find('.select-box__selected-option')
         .getAttribute('id')
         .match(/select-box-el-\d+/),
       'gets a unique id'
@@ -68,9 +68,9 @@ module('select-box/selected-option', function(hooks) {
     `);
 
     assert.ok(
-      findAll('.select-box-selected-option')[0].textContent.trim() ===
+      findAll('.select-box__selected-option')[0].textContent.trim() ===
         'Foo (0)' &&
-        findAll('.select-box-selected-option')[1].textContent.trim() ===
+        findAll('.select-box__selected-option')[1].textContent.trim() ===
           'Bar (1)',
       'selected options can yield their value & index'
     );

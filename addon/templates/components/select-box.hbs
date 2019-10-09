@@ -1,10 +1,10 @@
 <div
-  {{did-insert (action "didInsertElement")}}
-  {{will-destroy (action "willDestroyElement")}}
-  {{on "focusin" (action "onFocusIn")}}
-  {{on "focusout" (action "onFocusOut")}}
-  {{on "keydown" (action "onKeyDown")}}
-  {{on "keypress" (action "onKeyPress")}}
+  {{did-insert (action "handleInsertElement")}}
+  {{will-destroy (action "handleDestroyElement")}}
+  {{on "focusin" (action "handleFocusIn")}}
+  {{on "focusout" (action "handleFocusOut")}}
+  {{on "keydown" (action "handleKeyDown")}}
+  {{on "keypress" (action "handleKeyPress")}}
   aria-expanded={{if this.isOpen "true" "false"}}
   aria-busy={{if this.isBusy "true" "false"}}
   aria-disabled={{if this.isDisabled "true" "false"}}
@@ -14,13 +14,13 @@
   {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
 
   class={{concat
-    (select-box-class @classNamePrefix)
+    this.className
     (if @class (concat " " @class))
-    (if this.isOpen " is-open")
-    (if this.isFocused " is-focused")
-    (if this.isDisabled " is-disabled")
-    (if this.isMultiple " is-multiple")
-    (if this.isBusy " is-busy")
+    (if this.isOpen (concat " " this.className "--open"))
+    (if this.isFocused (concat " " this.className "--focused"))
+    (if this.isDisabled (concat " " this.className "--disabled"))
+    (if this.isMultiple (concat " " this.className "--multiple"))
+    (if this.isBusy (concat " " this.className "--busy"))
   }}
   id={{this.id}}
   multiple={{this.isMultiple}}
@@ -30,25 +30,25 @@
   {{#let (hash
     Options=(component "select-box/options"
       classNamePrefix=@classNamePrefix
-      _onInit=(action "onInitOptionsContainer")
-      _onDestroy=(action "onDestroyOptionsContainer"))
+      _onInit=(action "handleInitOptionsContainer")
+      _onDestroy=(action "handleDestroyOptionsContainer"))
     Option=(component "select-box/option"
       selectBox=this
       classNamePrefix=@classNamePrefix
-      _onActivate=(action "onActivateOption")
-      _onSelect=(action "onSelectOption")
-      _onDestroy=(action "onDestroyOption")
-      _onInit=(action "onInitOption"))
+      _onActivate=(action "handleActivateOption")
+      _onSelect=(action "handleSelectOption")
+      _onDestroy=(action "handleDestroyOption")
+      _onInit=(action "handleInitOption"))
     SelectedOptions=(component "select-box/selected-options"
       classNamePrefix=@classNamePrefix
-      _onInit=(action "onInitSelectedOptionsContainer")
-      _onDestroy=(action "onDestroySelectedOptionsContainer"))
+      _onInit=(action "handleInitSelectedOptionsContainer")
+      _onDestroy=(action "handleDestroySelectedOptionsContainer"))
     SelectedOption=(component "select-box/selected-option"
       selectBox=this
       classNamePrefix=@classNamePrefix
-      _onActivate=(action "onActivateSelectedOption")
-      _onInit=(action "onInitSelectedOption")
-      _onDestroy=(action "onDestroySelectedOption"))
+      _onActivate=(action "handleActivateSelectedOption")
+      _onInit=(action "handleInitSelectedOption")
+      _onDestroy=(action "handleDestroySelectedOption"))
     Group=(component "select-box/group"
       classNamePrefix=@classNamePrefix)
     Input=(component "select-box/input"
@@ -56,9 +56,9 @@
       aria-controls=this.id
       disabled=this.isDisabled
       classNamePrefix=@classNamePrefix
-      _onInit=(action "onInitInput")
-      _onDestroy=(action "onDestroyInput")
-      _onInput=(action "onInputText"))
+      _onInit=(action "handleInitInput")
+      _onDestroy=(action "handleDestroyInput")
+      _onInput=(action "handleInputText"))
   ) as |components|}}
     {{yield (merge components this.api)}}
   {{/let}}

@@ -18,7 +18,7 @@ module('select-box/input', function(hooks) {
     await render(hbs`<SelectBox::Input />`);
 
     assert
-      .dom('input.select-box-input')
+      .dom('input.select-box__input')
       .exists({ count: 1 }, 'renders with correct class name and tag');
   });
 
@@ -28,7 +28,7 @@ module('select-box/input', function(hooks) {
     await render(hbs`<SelectBox::Input @classNamePrefix="foo" />`);
 
     assert
-      .dom('.foo-input')
+      .dom('.foo__input')
       .exists({ count: 1 }, 'can override the class prefix');
   });
 
@@ -38,7 +38,7 @@ module('select-box/input', function(hooks) {
     await render(hbs`<SelectBox::Input />`);
 
     assert
-      .dom('.select-box-input')
+      .dom('.select-box__input')
       .hasAttribute(
         'role',
         'searchbox',
@@ -52,7 +52,7 @@ module('select-box/input', function(hooks) {
     await render(hbs`<SelectBox::Input />`);
 
     assert
-      .dom('.select-box-input')
+      .dom('.select-box__input')
       .hasAttribute('aria-multiline', 'false', 'single line text input');
   });
 
@@ -62,7 +62,7 @@ module('select-box/input', function(hooks) {
     await render(hbs`<SelectBox::Input />`);
 
     assert
-      .dom('.select-box-input')
+      .dom('.select-box__input')
       .hasAttribute(
         'type',
         'text',
@@ -90,7 +90,7 @@ module('select-box/input', function(hooks) {
       </SelectBox>
     `);
 
-    await fillIn('.select-box-input', 'foo');
+    await fillIn('.select-box__input', 'foo');
   });
 
   test('onClear action', async function(assert) {
@@ -109,7 +109,7 @@ module('select-box/input', function(hooks) {
       </SelectBox>
     `);
 
-    await fillIn('.select-box-input', '');
+    await fillIn('.select-box__input', '');
   });
 
   test('onDelete action', async function(assert) {
@@ -132,7 +132,7 @@ module('select-box/input', function(hooks) {
       </SelectBox>
     `);
 
-    const input = find('.select-box-input');
+    const input = find('.select-box__input');
 
     input.value = 'x';
 
@@ -168,6 +168,6 @@ module('select-box/input', function(hooks) {
       </SelectBox>
     `);
 
-    await click('.select-box-option');
+    await click('.select-box__option');
   });
 });

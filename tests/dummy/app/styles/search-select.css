@@ -7,19 +7,19 @@
   padding: 2px;
 }
 
-.search-select.is-focused {
+.search-select--focused {
   border-color: dimgrey;
 }
 
-.search-select-option,
-.search-select-selected-option {
+.search-select__option,
+.search-select__selected-option {
   cursor: pointer;
   border: 2px solid silver;
   padding: 2px;
   margin: 2px;
 }
 
-.search-select-input {
+.search-select__input {
   font-family: serif;
   font-size: 100%;
   border: 0;
@@ -28,10 +28,10 @@
   box-sizing: border-box;
 }
 
-.search-select-option.is-selected {
+.search-select__option--selected {
   border-color: red;
 }
 
-.search-select-option.is-active {
+.search-select__option--active {
   border-color: green;
 }

@@ -32,11 +32,11 @@ module('select-box (activating options)', function(hooks) {
     `);
 
     const box = find('.select-box');
-    const one = findAll('.select-box-option')[0];
-    const two = findAll('.select-box-option')[1];
+    const one = findAll('.select-box__option')[0];
+    const two = findAll('.select-box__option')[1];
 
     assert
-      .dom('.select-box-option.is-active')
+      .dom('.select-box__option--active')
       .doesNotExist('precondition, there are no active options');
 
     await triggerEvent(one, 'mouseenter');
@@ -44,7 +44,7 @@ module('select-box (activating options)', function(hooks) {
     assert
       .dom(one)
       .hasClass(
-        'is-active',
+        'select-box__option--active',
         'mousing over an option gives it an active class name'
       );
 
@@ -72,8 +72,8 @@ module('select-box (activating options)', function(hooks) {
       );
 
     assert.ok(
-      !one.classList.contains('is-active') &&
-        two.classList.contains('is-active'),
+      !one.classList.contains('select-box__option--active') &&
+        two.classList.contains('select-box__option--active'),
       'mousing over another option moves the active class'
     );
   });
@@ -123,26 +123,26 @@ module('select-box (activating options)', function(hooks) {
     `);
 
     assert.ok(
-      !find('.select-box-option.is-active'),
+      !find('.select-box__option--active'),
       'precondition: nothing active'
     );
 
     await triggerKeyEvent('.select-box', 'keydown', 40);
 
-    assert.dom('.select-box-option.is-active').hasText('One');
+    assert.dom('.select-box__option--active').hasText('One');
 
     await triggerKeyEvent('.select-box', 'keydown', 40);
 
-    assert.dom('.select-box-option.is-active').hasText('Two');
+    assert.dom('.select-box__option--active').hasText('Two');
 
     await triggerKeyEvent('.select-box', 'keydown', 40);
 
-    assert.dom('.select-box-option.is-active').hasText('Three');
+    assert.dom('.select-box__option--active').hasText('Three');
 
     await triggerKeyEvent('.select-box', 'keydown', 40);
 
     assert
-      .dom('.select-box-option.is-active')
+      .dom('.select-box__option--active')
       .hasText(
         'Three',
         'does not cycle back to the beginning when reaching the end'
@@ -150,16 +150,16 @@ module('select-box (activating options)', function(hooks) {
 
     await triggerKeyEvent('.select-box', 'keydown', 38);
 
-    assert.dom('.select-box-option.is-active').hasText('Two');
+    assert.dom('.select-box__option--active').hasText('Two');
 
     await triggerKeyEvent('.select-box', 'keydown', 38);
 
-    assert.dom('.select-box-option.is-active').hasText('One');
+    assert.dom('.select-box__option--active').hasText('One');
 
     await triggerKeyEvent('.select-box', 'keydown', 38);
 
     assert
-      .dom('.select-box-option.is-active')
+      .dom('.select-box__option--active')
       .hasText(
         'One',
         'does not cycle back to the end when reaching the beginning'
@@ -183,41 +183,41 @@ module('select-box (activating options)', function(hooks) {
 
     await triggerKeyEvent('.select-box', 'keypress', 65); // a
 
-    assert.dom('.select-box-option.is-active').hasText('A 1');
+    assert.dom('.select-box__option--active').hasText('A 1');
 
     await triggerKeyEvent('.select-box', 'keypress', 65); // a
 
-    assert.dom('.select-box-option.is-active').hasText('A 2');
+    assert.dom('.select-box__option--active').hasText('A 2');
 
     await triggerKeyEvent('.select-box', 'keypress', 65); // a
 
-    assert.dom('.select-box-option.is-active').hasText('A 3');
+    assert.dom('.select-box__option--active').hasText('A 3');
 
     await triggerKeyEvent('.select-box', 'keypress', 65); // a
 
-    assert.dom('.select-box-option.is-active').hasText('A 1');
+    assert.dom('.select-box__option--active').hasText('A 1');
 
     await triggerKeyEvent('.select-box', 'keypress', 65); // a
 
-    assert.dom('.select-box-option.is-active').hasText('A 2');
+    assert.dom('.select-box__option--active').hasText('A 2');
 
     await triggerKeyEvent('.select-box', 'keypress', 65); // a
 
-    assert.dom('.select-box-option.is-active').hasText('A 3');
+    assert.dom('.select-box__option--active').hasText('A 3');
 
     await waitForReset();
 
     await triggerKeyEvent('.select-box', 'keypress', 65); // a
 
-    assert.dom('.select-box-option.is-active').hasText('A 1');
+    assert.dom('.select-box__option--active').hasText('A 1');
 
     await triggerKeyEvent('.select-box', 'keypress', 65); // a
 
-    assert.dom('.select-box-option.is-active').hasText('A 2');
+    assert.dom('.select-box__option--active').hasText('A 2');
 
     await triggerKeyEvent('.select-box', 'keypress', 65); // a
 
-    assert.dom('.select-box-option.is-active').hasText('A 3');
+    assert.dom('.select-box__option--active').hasText('A 3');
   });
 
   test('cycling through options (duplicate chars)', async function(assert) {
@@ -237,15 +237,15 @@ module('select-box (activating options)', function(hooks) {
 
     await triggerKeyEvent('.select-box', 'keypress', 65); // a
 
-    assert.dom('.select-box-option.is-active').hasText('AAA 1');
+    assert.dom('.select-box__option--active').hasText('AAA 1');
 
     await triggerKeyEvent('.select-box', 'keypress', 65); // a
 
-    assert.dom('.select-box-option.is-active').hasText('AA 2');
+    assert.dom('.select-box__option--active').hasText('AA 2');
 
     await triggerKeyEvent('.select-box', 'keypress', 65); // a
 
-    assert.dom('.select-box-option.is-active').hasText('A 3');
+    assert.dom('.select-box__option--active').hasText('A 3');
   });
 
   test('jumping to an option (reset timer)', async function(assert) {
@@ -265,21 +265,21 @@ module('select-box (activating options)', function(hooks) {
 
     await triggerKeyEvent('.select-box', 'keypress', 66); // b
 
-    assert.dom('.select-box-option.is-active').hasText('Bar');
+    assert.dom('.select-box__option--active').hasText('Bar');
 
     await triggerKeyEvent('.select-box', 'keypress', 65); // a
 
-    assert.dom('.select-box-option.is-active').hasText('Bar');
+    assert.dom('.select-box__option--active').hasText('Bar');
 
     await triggerKeyEvent('.select-box', 'keypress', 90); // z
 
-    assert.dom('.select-box-option.is-active').hasText('Baz');
+    assert.dom('.select-box__option--active').hasText('Baz');
 
     await waitForReset();
 
     await triggerKeyEvent('.select-box', 'keypress', 70); // f
 
-    assert.dom('.select-box-option.is-active').hasText('Foo');
+    assert.dom('.select-box__option--active').hasText('Foo');
   });
 
   test('jumping to an option (numeric)', async function(assert) {
@@ -305,7 +305,7 @@ module('select-box (activating options)', function(hooks) {
     await triggerKeyEvent('.select-box', 'keypress', 56); // 8
     await triggerKeyEvent('.select-box', 'keypress', 51); // 3
 
-    assert.dom('.select-box-option.is-active').hasText('1983');
+    assert.dom('.select-box__option--active').hasText('1983');
   });
 
   test('jumping to an option (dodgy chars)', async function(assert) {
@@ -331,7 +331,7 @@ module('select-box (activating options)', function(hooks) {
     await triggerKeyEvent('.select-box', 'keypress', 91); // [
 
     assert
-      .dom('.select-box-option.is-active')
+      .dom('.select-box__option--active')
       .hasText(
         'Fred S[',
         "jumps to the matching option (regexp doesn't blow up)"
@@ -361,7 +361,7 @@ module('select-box (activating options)', function(hooks) {
     await triggerKeyEvent('.select-box', 'keypress', 82); // r (for reggie)
 
     assert
-      .dom('.select-box-option.is-active')
+      .dom('.select-box__option--active')
       .hasText(
         'Geoffrey',
         "does not start 'cycle through' behaviour, just because the same letter was typed"
@@ -390,7 +390,7 @@ module('select-box (activating options)', function(hooks) {
     await triggerKeyEvent('.select-box', 'keypress', 65); // s
 
     assert
-      .dom('.select-box-option.is-active')
+      .dom('.select-box__option--active')
       .hasText('bar baz', 'jumps to the matching option');
   });
 
@@ -418,6 +418,6 @@ module('select-box (activating options)', function(hooks) {
       </SelectBox>
     `);
 
-    await triggerEvent('.select-box-option:nth-child(2)', 'mouseenter');
+    await triggerEvent('.select-box__option:nth-child(2)', 'mouseenter');
   });
 });

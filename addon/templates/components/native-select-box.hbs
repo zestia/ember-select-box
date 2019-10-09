@@ -1,16 +1,16 @@
 <select
-  {{did-insert (action "didInsertElement")}}
-  {{will-destroy (action "willDestroyElement")}}
-  {{on "change" (action "onChange")}}
-  class={{select-box-class @classNamePrefix}}
+  {{did-insert (action "handleInsertElement")}}
+  {{will-destroy (action "handleDestroyElement")}}
+  {{on "change" (action "handleChange")}}
+  class={{this.className}}
   multiple={{this.isMultiple}}
   ...attributes>
   {{#let (hash
     Option=(component "native-select-box/option"
       selectBox=this
       classNamePrefix=@classNamePrefix
-      _onDestroy=(action "onDestroyOption")
-      _onInit=(action "onInitOption"))
+      _onDestroy=(action "handleDestroyOption")
+      _onInit=(action "handleInitOption"))
     Group=(component "native-select-box/group"
       classNamePrefix=@classNamePrefix)
   ) as |components|}}

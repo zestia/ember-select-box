@@ -1,5 +1,10 @@
 # Changelog
 
+## 12.0.0
+
+- Switch to BEM syntax for markup
+- Remove `class-name-prefix` helper
+
 ## 11.0.1
 
 - Unpin render modifier dependancy

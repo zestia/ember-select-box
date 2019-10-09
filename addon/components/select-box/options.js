@@ -4,6 +4,7 @@ import {
   _initComponent
 } from '../../utils/component/lifecycle';
 import layout from '../../templates/components/select-box/options';
+import { className } from '../../utils/shared/attributes';
 
 export default Component.extend({
   layout,
@@ -13,6 +14,10 @@ export default Component.extend({
 
   classNamePrefix: '',
 
+  // Computed state
+
+  className: className(),
+
   init() {
     this._super(...arguments);
     _initComponent(this);
@@ -21,7 +26,7 @@ export default Component.extend({
   actions: {
     // Internal actions
 
-    willDestroyElement() {
+    handleDestroyElement() {
       _destroyComponent(this);
     }
   }

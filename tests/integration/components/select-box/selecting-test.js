@@ -36,28 +36,28 @@ module('select-box (selecting)', function(hooks) {
       </SelectBox>
     `);
 
-    const foo = findAll('.select-box-option')[0];
-    const bar = findAll('.select-box-option')[1];
+    const foo = findAll('.select-box__option')[0];
+    const bar = findAll('.select-box__option')[1];
 
     assert.ok(
-      foo.classList.contains('is-selected') &&
-        !bar.classList.contains('is-selected'),
+      foo.classList.contains('select-box__option--selected') &&
+        !bar.classList.contains('select-box__option--selected'),
       'the option with the matching value is marked selected'
     );
 
     this.set('selectedValue', 'bar');
 
     assert.ok(
-      !foo.classList.contains('is-selected') &&
-        bar.classList.contains('is-selected'),
+      !foo.classList.contains('select-box__option--selected') &&
+        bar.classList.contains('select-box__option--selected'),
       'changing the value causes the options to re-compute which is selected'
     );
 
     this.set('selectedValue', null);
 
     assert.ok(
-      !foo.classList.contains('is-selected') &&
-        !bar.classList.contains('is-selected'),
+      !foo.classList.contains('select-box__option--selected') &&
+        !bar.classList.contains('select-box__option--selected'),
       'clearing selected value results in no selected options, ' +
         '(and does not result in the first "default" option being selected)'
     );
@@ -76,19 +76,19 @@ module('select-box (selecting)', function(hooks) {
     `);
 
     assert
-      .dom('.select-box-option.is-selected')
+      .dom('.select-box__option--selected')
       .doesNotExist('precondition: no selected options');
 
-    await click(findAll('.select-box-option')[1]);
+    await click(findAll('.select-box__option')[1]);
 
     assert
-      .dom('.select-box-option.is-selected')
+      .dom('.select-box__option--selected')
       .hasText('Bar', 'precondition: user has selected an option');
 
     this.set('selectedValue', null);
 
     assert
-      .dom('.select-box-option.is-selected')
+      .dom('.select-box__option--selected')
       .hasText(
         'Bar',
         'selecting null does not clear the selected option, because as far as the ' +
@@ -114,8 +114,8 @@ module('select-box (selecting)', function(hooks) {
       </SelectBox>
     `);
 
-    const foo = findAll('.select-box-option')[0];
-    const bar = findAll('.select-box-option')[1];
+    const foo = findAll('.select-box__option')[0];
+    const bar = findAll('.select-box__option')[1];
 
     await click(foo);
 
@@ -133,13 +133,16 @@ module('select-box (selecting)', function(hooks) {
 
     assert
       .dom(foo)
-      .hasClass('is-selected', 'the option clicked is marked as selected');
+      .hasClass(
+        'select-box__option--selected',
+        'the option clicked is marked as selected'
+      );
 
     await click(bar);
 
     assert.ok(
-      !foo.classList.contains('is-selected') &&
-        bar.classList.contains('is-selected'),
+      !foo.classList.contains('select-box__option--selected') &&
+        bar.classList.contains('select-box__option--selected'),
       'clicking another option selects it instead'
     );
   });
@@ -158,10 +161,10 @@ module('select-box (selecting)', function(hooks) {
       </SelectBox>
     `);
 
-    await click('.select-box-option');
-    await click('.select-box-option');
-    await click('.select-box-option');
-    await click('.select-box-option');
+    await click('.select-box__option');
+    await click('.select-box__option');
+    await click('.select-box__option');
+    await click('.select-box__option');
 
     assert.equal(
       selected,
@@ -188,16 +191,16 @@ module('select-box (selecting)', function(hooks) {
       </SelectBox>
     `);
 
-    const one = findAll('.select-box-option')[0];
-    const two = findAll('.select-box-option')[1];
-    const three = findAll('.select-box-option')[2];
+    const one = findAll('.select-box__option')[0];
+    const two = findAll('.select-box__option')[1];
+    const three = findAll('.select-box__option')[2];
 
     await click(two);
 
     assert.ok(
-      !one.classList.contains('is-selected') &&
-        two.classList.contains('is-selected') &&
-        three.classList.contains('is-selected'),
+      !one.classList.contains('select-box__option--selected') &&
+        two.classList.contains('select-box__option--selected') &&
+        three.classList.contains('select-box__option--selected'),
       'all options with matching values are selected, even on a non-multiple select'
     );
   });
@@ -220,8 +223,8 @@ module('select-box (selecting)', function(hooks) {
       </SelectBox>
     `);
 
-    const foo = findAll('.select-box-option')[0];
-    const bar = findAll('.select-box-option')[1];
+    const foo = findAll('.select-box__option')[0];
+    const bar = findAll('.select-box__option')[1];
 
     await click(bar);
 
@@ -268,14 +271,16 @@ module('select-box (selecting)', function(hooks) {
     `);
 
     assert.ok(
-      !findAll('.select-box-option')[0].classList.contains('is-selected'),
+      !findAll('.select-box__option')[0].classList.contains(
+        'select-box__option--selected'
+      ),
       'not selected'
     );
 
     assert
-      .dom(findAll('.select-box-option')[1])
+      .dom(findAll('.select-box__option')[1])
       .hasClass(
-        'is-selected',
+        'select-box__option--selected',
         'value is coerced to an array and correct option is selected'
       );
   });
@@ -305,27 +310,27 @@ module('select-box (selecting)', function(hooks) {
     `);
 
     assert
-      .dom('.select-box-selected-option')
+      .dom('.select-box__selected-option')
       .hasText('Two', 'correct selected option is yielded');
 
     this.set('value', four);
 
     assert
-      .dom('.select-box-selected-option')
+      .dom('.select-box__selected-option')
       .hasText(
         'Four',
         'yielded selected option is available despite not being an option ' +
           '(internal value is the value passed in as an argument)'
       );
 
-    await click('.select-box-option:nth-child(2)');
+    await click('.select-box__option:nth-child(2)');
 
-    assert.dom('.select-box-selected-option').hasText('Two', 'precondition');
+    assert.dom('.select-box__selected-option').hasText('Two', 'precondition');
 
     this.set('items', [one, three]);
 
     assert
-      .dom('.select-box-selected-option')
+      .dom('.select-box__selected-option')
       .hasText(
         'Two',
         'selected value is retained, despite not being an option ' +
@@ -355,7 +360,7 @@ module('select-box (selecting)', function(hooks) {
       </SelectBox>
     `);
 
-    await triggerEvent(findAll('.select-box-option')[1], 'mouseenter');
+    await triggerEvent(findAll('.select-box__option')[1], 'mouseenter');
     await triggerKeyEvent('.select-box', 'keydown', 13);
   });
 
@@ -432,7 +437,7 @@ module('select-box (selecting)', function(hooks) {
     assert.strictEqual(selected, 0, 'has not fired a select action');
 
     assert
-      .dom('.select-box-option.is-selected')
+      .dom('.select-box__option--selected')
       .hasText('Bar', "select box's internal value is updated with the value");
   });
 
@@ -449,22 +454,25 @@ module('select-box (selecting)', function(hooks) {
       </SelectBox>
     `);
 
-    const bar = findAll('.select-box-option')[1];
-    const baz = findAll('.select-box-option')[2];
+    const bar = findAll('.select-box__option')[1];
+    const baz = findAll('.select-box__option')[2];
 
     assert
       .dom(bar)
-      .hasClass('is-selected', 'manually selected options are selected');
+      .hasClass(
+        'select-box__option--selected',
+        'manually selected options are selected'
+      );
 
     assert.ok(
-      !baz.classList.contains('is-selected'),
+      !baz.classList.contains('select-box__option--selected'),
       'initially selected options are not selected if manually overridden'
     );
 
     this.set('barSelected', false);
 
     assert.ok(
-      !bar.classList.contains('is-selected'),
+      !bar.classList.contains('select-box__option--selected'),
       'can manually deselect an option'
     );
   });
@@ -483,7 +491,7 @@ module('select-box (selecting)', function(hooks) {
       </SelectBox>
     `);
 
-    await click(findAll('.select-box-option')[1]);
+    await click(findAll('.select-box__option')[1]);
 
     assert.ok(
       this.element.textContent.match('external: bar'),
@@ -534,13 +542,13 @@ module('select-box (selecting)', function(hooks) {
     `);
 
     assert
-      .dom(findAll('.select-box-option')[0])
+      .dom(findAll('.select-box__option')[0])
       .hasClass(
-        'is-selected',
+        'select-box__option--selected',
         'option that is disabled, is intentionally still marked as selected (by value)'
       );
 
-    await click(findAll('.select-box-option')[3]);
+    await click(findAll('.select-box__option')[3]);
 
     assert.equal(
       selected,
@@ -549,11 +557,13 @@ module('select-box (selecting)', function(hooks) {
     );
 
     assert.ok(
-      !findAll('.select-box-option')[3].classList.contains('is-selected'),
+      !findAll('.select-box__option')[3].classList.contains(
+        'select-box__option--selected'
+      ),
       'option is not selected, due to being disabled'
     );
 
-    await click(findAll('.select-box-option')[1]);
+    await click(findAll('.select-box__option')[1]);
 
     assert.deepEqual(
       lastSelectedValue,
@@ -561,11 +571,14 @@ module('select-box (selecting)', function(hooks) {
       'disabled option values are still out as a selection'
     );
 
-    await click(findAll('.select-box-option')[2]);
+    await click(findAll('.select-box__option')[2]);
 
     assert
-      .dom(findAll('.select-box-option')[2])
-      .hasClass('is-selected', 'option is selected (by value)');
+      .dom(findAll('.select-box__option')[2])
+      .hasClass(
+        'select-box__option--selected',
+        'option is selected (by value)'
+      );
   });
 
   test('changing arguments other than value', async function(assert) {
@@ -607,13 +620,13 @@ module('select-box (selecting)', function(hooks) {
     `);
 
     assert
-      .dom('.select-box-option.is-selected')
+      .dom('.select-box__option--selected')
       .hasText('Bar', 'works as expected');
 
     this.set('value', 'foo');
 
     assert
-      .dom('.select-box-option.is-selected')
+      .dom('.select-box__option--selected')
       .hasText('Foo', 'updating the value works');
   });
 
@@ -631,7 +644,7 @@ module('select-box (selecting)', function(hooks) {
     `);
 
     assert
-      .dom('.select-box-option.is-selected')
+      .dom('.select-box__option--selected')
       .doesNotExist('works as expected');
   });
 
@@ -651,7 +664,7 @@ module('select-box (selecting)', function(hooks) {
     this.values.addObject('baz');
 
     assert
-      .dom('.select-box-option.is-selected')
+      .dom('.select-box__option--selected')
       .exists(
         { count: 1 },
         'changes to the multiple choice values does not update the select box ' +
@@ -725,10 +738,10 @@ module('select-box (selecting)', function(hooks) {
       </SelectBox>
     `);
 
-    await click(findAll('.select-box-option')[0]);
+    await click(findAll('.select-box__option')[0]);
 
     assert
-      .dom('.select-box-option.is-selected')
+      .dom('.select-box__option--selected')
       .hasText(
         'Baz',
         'selection used is the selection returned from onBuildSelection'
@@ -755,7 +768,7 @@ module('select-box (selecting)', function(hooks) {
     );
 
     assert
-      .dom('.select-box-option.is-selected')
+      .dom('.select-box__option--selected')
       .hasText('Bar', 'update still works');
 
     sb.select(['qux']);
@@ -769,7 +782,7 @@ module('select-box (selecting)', function(hooks) {
     );
 
     assert
-      .dom('.select-box-option.is-selected')
+      .dom('.select-box__option--selected')
       .hasText('Qux', 'select still works');
 
     assert.deepEqual(sb.value, ['qux'], 'value is correct');
@@ -791,7 +804,7 @@ module('select-box (selecting)', function(hooks) {
       </SelectBox>
     `);
 
-    await triggerEvent(findAll('.select-box-option')[1], 'mouseenter');
+    await triggerEvent(findAll('.select-box__option')[1], 'mouseenter');
 
     sb.selectActiveOption();
 
@@ -813,7 +826,7 @@ module('select-box (selecting)', function(hooks) {
     `);
 
     assert
-      .dom('.select-box-option.is-selected')
+      .dom('.select-box__option--selected')
       .exists(
         { count: 2 },
         "select box's default value and options' default value is undefined"
@@ -841,7 +854,7 @@ module('select-box (selecting)', function(hooks) {
 
     await settled();
 
-    await click('.select-box-option');
+    await click('.select-box__option');
 
     assert.equal(
       selectedValue,
@@ -862,7 +875,7 @@ module('select-box (selecting)', function(hooks) {
       </SelectBox>
     `);
 
-    await click('.select-box-option');
+    await click('.select-box__option');
 
     assert.verifySteps(
       ['selectedOption', 'selected'],

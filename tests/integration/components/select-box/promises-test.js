@@ -109,18 +109,25 @@ module('select-box (promises)', function(hooks) {
     `);
 
     assert.ok(
-      !findAll('.select-box-option')[0].classList.contains('is-selected'),
+      !findAll('.select-box__option')[0].classList.contains(
+        'select-box__option--selected'
+      ),
       'other promise, not selected'
     );
 
     assert.ok(
-      !findAll('.select-box-option')[1].classList.contains('is-selected'),
+      !findAll('.select-box__option')[1].classList.contains(
+        'select-box__option--selected'
+      ),
       'value is not selected, promise has not yet resolved'
     );
 
     assert
-      .dom(findAll('.select-box-option')[2])
-      .hasClass('is-selected', 'value is selected, promises match');
+      .dom(findAll('.select-box__option')[2])
+      .hasClass(
+        'select-box__option--selected',
+        'value is selected, promises match'
+      );
 
     deferred1.resolve('foo');
     deferred2.resolve('bar');
@@ -128,20 +135,22 @@ module('select-box (promises)', function(hooks) {
     await settled();
 
     assert.ok(
-      !findAll('.select-box-option')[0].classList.contains('is-selected'),
+      !findAll('.select-box__option')[0].classList.contains(
+        'select-box__option--selected'
+      ),
       'wrong promise, not selected'
     );
 
     assert
-      .dom(findAll('.select-box-option')[1])
+      .dom(findAll('.select-box__option')[1])
       .hasClass(
-        'is-selected',
+        'select-box__option--selected',
         'value is selected now that promise has resolved'
       );
 
     assert
-      .dom(findAll('.select-box-option')[2])
-      .hasClass('is-selected', 'resolved value is selected');
+      .dom(findAll('.select-box__option')[2])
+      .hasClass('select-box__option--selected', 'resolved value is selected');
   });
 
   test('promise value (multiple)', async function(assert) {
@@ -169,7 +178,7 @@ module('select-box (promises)', function(hooks) {
 
     await settled();
 
-    const labels = findAll('.select-box-option.is-selected').map(o =>
+    const labels = findAll('.select-box__option--selected').map(o =>
       o.textContent.trim()
     );
 
@@ -196,7 +205,7 @@ module('select-box (promises)', function(hooks) {
     await settled();
 
     assert
-      .dom('.select-box-option.is-selected')
+      .dom('.select-box__option--selected')
       .doesNotExist('does nothing with the value');
   });
 
@@ -229,7 +238,7 @@ module('select-box (promises)', function(hooks) {
     await settled();
 
     assert
-      .dom('.select-box-option.is-selected')
+      .dom('.select-box__option--selected')
       .hasText(
         'bar',
         'waits for promise to resolve before computing selected option'
@@ -240,7 +249,7 @@ module('select-box (promises)', function(hooks) {
     await settled();
 
     assert
-      .dom('.select-box-option.is-selected')
+      .dom('.select-box__option--selected')
       .hasText('baz', 're-computation works');
   });
 
@@ -267,7 +276,7 @@ module('select-box (promises)', function(hooks) {
     await settled();
 
     assert
-      .dom('.select-box-option.is-selected')
+      .dom('.select-box__option--selected')
       .hasText('Bar', 'earlier promises are ignored');
   });
 
@@ -294,7 +303,7 @@ module('select-box (promises)', function(hooks) {
     await settled();
 
     assert
-      .dom('.select-box-option.is-selected')
+      .dom('.select-box__option--selected')
       .hasText('bar', 'earlier promises are ignored');
   });
 
@@ -318,7 +327,7 @@ module('select-box (promises)', function(hooks) {
     await settled();
 
     assert
-      .dom('.select-box-option')
+      .dom('.select-box__option')
       .hasText('Soz', 'the value is the rejection reason');
   });
 
@@ -348,9 +357,9 @@ module('select-box (promises)', function(hooks) {
 
     await settled();
 
-    await click(findAll('.select-box-option')[2]);
+    await click(findAll('.select-box__option')[2]);
 
     assert.equal(this.selectedValue, 'baz');
-    assert.dom('.select-box-option.is-selected').hasText('Baz');
+    assert.dom('.select-box__option--selected').hasText('Baz');
   });
 });

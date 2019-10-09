@@ -28,7 +28,10 @@ module('select-box (toggling)', function(hooks) {
 
     assert
       .dom(selectBox)
-      .doesNotHaveClass('is-open', 'a select box is closed by default');
+      .doesNotHaveClass(
+        'select-box--open',
+        'a select box is closed by default'
+      );
 
     assert
       .dom(selectBox)
@@ -41,7 +44,7 @@ module('select-box (toggling)', function(hooks) {
 
     await settled();
 
-    assert.dom(selectBox).hasClass('is-open', 'can open via the api');
+    assert.dom(selectBox).hasClass('select-box--open', 'can open via the api');
 
     assert.equal(opened, 1, 'only fires open action if closed');
 
@@ -58,7 +61,9 @@ module('select-box (toggling)', function(hooks) {
 
     await settled();
 
-    assert.dom(selectBox).doesNotHaveClass('is-open', 'can close via the api');
+    assert
+      .dom(selectBox)
+      .doesNotHaveClass('select-box--open', 'can close via the api');
 
     assert.equal(closed, 1, 'only fires close action if open');
 
@@ -74,6 +79,8 @@ module('select-box (toggling)', function(hooks) {
 
     await settled();
 
-    assert.dom(selectBox).hasClass('is-open', 'can toggle via the api');
+    assert
+      .dom(selectBox)
+      .hasClass('select-box--open', 'can toggle via the api');
   });
 });

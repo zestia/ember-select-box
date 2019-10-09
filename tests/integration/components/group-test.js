@@ -12,7 +12,7 @@ module('select-box/group', function(hooks) {
     await render(hbs`<SelectBox::Group />`);
 
     assert
-      .dom('div.select-box-group')
+      .dom('div.select-box__group')
       .exists({ count: 1 }, 'renders with correct class name and tag');
   });
 
@@ -22,15 +22,15 @@ module('select-box/group', function(hooks) {
     await render(hbs`<SelectBox::Group @classNamePrefix="foo" />`);
 
     assert
-      .dom('.foo-group')
+      .dom('.foo__group')
       .exists({ count: 1 }, 'can override the class prefix');
 
     assert
-      .dom('.foo-group-label')
+      .dom('.foo__group-label')
       .exists({ count: 1 }, 'child group label of a group has the prefix too');
 
     assert
-      .dom('.foo-group-options')
+      .dom('.foo__group-options')
       .exists(
         { count: 1 },
         'child group options of a group have the prefix too'
@@ -43,7 +43,7 @@ module('select-box/group', function(hooks) {
     await render(hbs`<SelectBox::Group @label="Foo" />`);
 
     assert
-      .dom('.select-box-group-label')
+      .dom('.select-box__group-label')
       .hasText('Foo', 'displays the specified group label');
   });
 
@@ -57,7 +57,7 @@ module('select-box/group', function(hooks) {
     `);
 
     assert
-      .dom('.select-box-group-options .select-box-option')
+      .dom('.select-box__group-options .select-box__option')
       .exists({ count: 1 }, 'can display options inside the group');
   });
 });

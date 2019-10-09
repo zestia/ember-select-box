@@ -9,6 +9,7 @@ import {
 } from '../../utils/registration/element';
 import { input, keyDown } from '../../utils/select-box/input/keyboard';
 import layout from '../../templates/components/select-box/input';
+import { className } from '../../utils/shared/attributes';
 
 export default Component.extend({
   layout,
@@ -30,6 +31,10 @@ export default Component.extend({
   onDelete: null,
   onInput: null,
 
+  // Computed state
+
+  className: className(),
+
   init() {
     this._super(...arguments);
     _initComponent(this);
@@ -38,20 +43,20 @@ export default Component.extend({
   actions: {
     // Internal actions
 
-    didInsertElement(element) {
+    handleInsertElement(element) {
       registerElement(this, element);
     },
 
-    willDestroyElement(element) {
+    handleDestroyElement(element) {
       deregisterElement(this, element);
       _destroyComponent(this);
     },
 
-    onInput(e) {
+    handleInput(e) {
       input(this, e);
     },
 
-    onKeyDown(e) {
+    handleKeyDown(e) {
       keyDown(this, e);
     }
   }

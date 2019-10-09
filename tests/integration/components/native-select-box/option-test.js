@@ -13,7 +13,7 @@ module('native-select-box/option', function(hooks) {
     await render(hbs`<NativeSelectBox::Option />`);
 
     assert
-      .dom('option.select-box-option')
+      .dom('option.select-box__option')
       .exists({ count: 1 }, 'renders with correct class name and tag');
   });
 
@@ -23,7 +23,7 @@ module('native-select-box/option', function(hooks) {
     await render(hbs`<NativeSelectBox::Option @classNamePrefix="foo" />`);
 
     assert
-      .dom('.foo-option')
+      .dom('.foo__option')
       .exists({ count: 1 }, 'can override the class prefix');
   });
 
@@ -35,7 +35,7 @@ module('native-select-box/option', function(hooks) {
     await render(hbs`<NativeSelectBox::Option @value={{this.myValue}} />`);
 
     assert
-      .dom('.select-box-option')
+      .dom('.select-box__option')
       .hasAttribute(
         'value',
         '123',
@@ -45,7 +45,7 @@ module('native-select-box/option', function(hooks) {
     this.set('myValue', 456);
 
     assert
-      .dom('.select-box-option')
+      .dom('.select-box__option')
       .hasAttribute(
         'value',
         '456',
@@ -67,7 +67,7 @@ module('native-select-box/option', function(hooks) {
     `);
 
     assert
-      .dom('.select-box-option')
+      .dom('.select-box__option')
       .hasText(
         '[object Object]: [object Object]',
         'the value is as you would expect (yields unresolved value)'
@@ -78,7 +78,7 @@ module('native-select-box/option', function(hooks) {
     await settled();
 
     assert
-      .dom('.select-box-option')
+      .dom('.select-box__option')
       .hasText('[object Object]: 123', 'the value is resolved');
 
     assert.deepEqual(this.myValue, deferred.promise, 'does not mutate value');
@@ -92,7 +92,7 @@ module('native-select-box/option', function(hooks) {
     await render(hbs`<NativeSelectBox::Option>Foo</NativeSelectBox::Option>`);
 
     assert.strictEqual(
-      find('.select-box-option').textContent,
+      find('.select-box__option').textContent,
       'Foo',
       'renders the label inside the option element (correct whitespace)'
     );
@@ -114,8 +114,8 @@ module('native-select-box/option', function(hooks) {
     `);
 
     assert.ok(
-      findAll('.select-box-option')[0].textContent.trim() === '0=foo' &&
-        findAll('.select-box-option')[1].textContent.trim() === '1=bar',
+      findAll('.select-box__option')[0].textContent.trim() === '0=foo' &&
+        findAll('.select-box__option')[1].textContent.trim() === '1=bar',
       'native options can yield their index & value'
     );
   });

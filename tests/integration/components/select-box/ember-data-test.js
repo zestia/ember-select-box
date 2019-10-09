@@ -81,7 +81,9 @@ module('select-box (ember data)', function(hooks) {
       </SelectBox>
     `);
 
-    assert.dom('.select-box-option.is-selected').exists({ count: 5 });
-    assert.dom('.select-box-option:not(.is-selected)').exists({ count: 5 });
+    assert.dom('.select-box__option--selected').exists({ count: 5 });
+    assert
+      .dom('.select-box__option:not(.select-box__option--selected)')
+      .exists({ count: 5 });
   });
 });

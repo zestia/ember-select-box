@@ -1,6 +1,6 @@
 <div
-  class={{select-box-class @classNamePrefix "group"}}
+  class={{concat this.className "__group"}}
   ...attributes>
-  <div class={{select-box-class @classNamePrefix "group-label"}}>{{@label}}</div>
-  <div class={{select-box-class @classNamePrefix "group-options"}}>{{yield}}</div>
+  <div class={{concat this.className "__group-label"}}>{{@label}}</div>
+  <div class={{concat this.className "__group-options"}}>{{yield}}</div>
 </div>

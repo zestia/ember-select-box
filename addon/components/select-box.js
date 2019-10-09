@@ -44,11 +44,12 @@ import { destroyElement, insertElement } from '../utils/select-box/element';
 import { focusIn, focusOut } from '../utils/select-box/focus';
 import { keyDown, keyPress } from '../utils/select-box/keyboard';
 import { receiveArgs } from '../utils/select-box/args';
-import { receiveValue, selectValue, updateValue } from '../utils/shared/value';
 import { setInputValue } from '../utils/select-box/input/value';
 import api from '../utils/select-box/api';
 import layout from '../templates/components/select-box';
 import objectAtIndex from '../utils/general/object-at-index';
+import { receiveValue, selectValue, updateValue } from '../utils/shared/value';
+import { id, className } from '../utils/shared/attributes';
 
 export default Component.extend({
   layout,
@@ -95,7 +96,6 @@ export default Component.extend({
   activeSelectedOptionIndex: -1,
   documentClickHandler: null,
   domElement: null,
-  id: null,
   isFocused: false,
   isFulfilled: false,
   isOpen: false,
@@ -122,6 +122,8 @@ export default Component.extend({
 
   // Computed state
 
+  className: className(),
+  id: id(),
   isDisabled: bool('disabled'),
   isBusy: or('isPending', 'isSearching'),
   isMultiple: bool('multiple'),
@@ -148,90 +150,90 @@ export default Component.extend({
   actions: {
     // Internal actions
 
-    didInsertElement(element) {
+    handleInsertElement(element) {
       registerElement(this, element);
       insertElement(this);
     },
 
-    willDestroyElement(element) {
+    handleDestroyElement(element) {
       deregisterElement(this, element);
       destroyElement(this);
       destroyComponent(this);
     },
 
-    onInitOption(option) {
+    handleInitOption(option) {
       registerOption(this, option);
     },
 
-    onDestroyOption(option) {
+    handleDestroyOption(option) {
       deregisterOption(this, option);
     },
 
-    onInitSelectedOption(option) {
+    handleInitSelectedOption(option) {
       registerSelectedOption(this, option);
     },
 
-    onDestroySelectedOption(option) {
+    handleDestroySelectedOption(option) {
       deregisterSelectedOption(this, option);
     },
 
-    onInitOptionsContainer(optionsContainer) {
+    handleInitOptionsContainer(optionsContainer) {
       registerOptionsContainer(this, optionsContainer);
     },
 
-    onDestroyOptionsContainer(optionsContainer) {
+    handleDestroyOptionsContainer(optionsContainer) {
       deregisterOptionsContainer(this, optionsContainer);
     },
 
-    onInitSelectedOptionsContainer(selectedOptionsContainer) {
+    handleInitSelectedOptionsContainer(selectedOptionsContainer) {
       registerSelectedOptionsContainer(this, selectedOptionsContainer);
     },
 
-    onDestroySelectedOptionsContainer(selectedOptionsContainer) {
+    handleDestroySelectedOptionsContainer(selectedOptionsContainer) {
       deregisterSelectedOptionsContainer(this, selectedOptionsContainer);
     },
 
-    onInitInput(input) {
+    handleInitInput(input) {
       registerInput(this, input);
     },
 
-    onDestroyInput(input) {
+    handleDestroyInput(input) {
       deregisterInput(this, input);
     },
 
-    onInputText(text) {
+    handleInputText(text) {
       maybeSearch(this, text);
     },
 
-    onFocusIn(e) {
+    handleFocusIn(e) {
       focusIn(this, e);
     },
 
-    onFocusOut(e) {
+    handleFocusOut(e) {
       focusOut(this, e);
     },
 
-    onKeyPress(e) {
+    handleKeyPress(e) {
       keyPress(this, e);
     },
 
-    onKeyDown(e) {
+    handleKeyDown(e) {
       keyDown(this, e);
     },
 
-    onPressEnter() {
+    handlePressEnter() {
       _selectOption(this.activeOption);
     },
 
-    onSelectOption(option) {
+    handleSelectOption(option) {
       return selectOption(this, option);
     },
 
-    onActivateOption(option) {
+    handleActivateOption(option) {
       activateOption(this, option);
     },
 
-    onActivateSelectedOption(selectedOption) {
+    handleActivateSelectedOption(selectedOption) {
       activateSelectedOption(this, selectedOption);
     },
 

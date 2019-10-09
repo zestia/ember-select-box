@@ -7,11 +7,11 @@
   padding: 2px;
 }
 
-.tag-select.is-focused {
+.tag-select--focused {
   border-color: dimgrey;
 }
 
-.tag-select-input {
+.tag-select__input {
   font-family: serif;
   font-size: 100%;
   border: 0;
@@ -19,27 +19,27 @@
   box-sizing: border-box;
 }
 
-.tag-select-option,
-.tag-select-selected-option {
+.tag-select__option,
+.tag-select__selected-option {
   cursor: pointer;
   border: 2px solid silver;
   padding: 2px;
   margin: 2px;
 }
 
-.tag-select-remove {
+.tag-select__remove {
   cursor: pointer;
   display: inline-block;
 }
 
-.tag-select-selected-option {
+.tag-select__selected-option {
   display: inline-block;
 }
 
-.tag-select-selected-options {
+.tag-select__selected-options {
   display: inline-block;
 }
 
-.tag-select-option.is-active {
+.tag-select__option--active {
   border-color: green;
 }

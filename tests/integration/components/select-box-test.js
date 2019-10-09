@@ -36,14 +36,14 @@ module('select-box', function(hooks) {
     `);
 
     assert.dom('.foo').exists({ count: 1 });
-    assert.dom('.foo-input').exists({ count: 1 });
-    assert.dom('.foo-options').exists({ count: 1 });
-    assert.dom('.foo-selected-options').exists({ count: 1 });
-    assert.dom('.foo-group').exists({ count: 1 });
-    assert.dom('.foo-group-label').exists({ count: 1 });
-    assert.dom('.foo-group-options').exists({ count: 1 });
-    assert.dom('.foo-option').exists({ count: 1 });
-    assert.dom('.foo-selected-option').exists({ count: 1 });
+    assert.dom('.foo__input').exists({ count: 1 });
+    assert.dom('.foo__options').exists({ count: 1 });
+    assert.dom('.foo__selected-options').exists({ count: 1 });
+    assert.dom('.foo__group').exists({ count: 1 });
+    assert.dom('.foo__group-label').exists({ count: 1 });
+    assert.dom('.foo__group-options').exists({ count: 1 });
+    assert.dom('.foo__option').exists({ count: 1 });
+    assert.dom('.foo__selected-option').exists({ count: 1 });
   });
 
   test('role', async function(assert) {
@@ -62,13 +62,15 @@ module('select-box', function(hooks) {
     await render(hbs`<SelectBox />`);
 
     assert.ok(
-      !find('.select-box').classList.contains('is-multiple'),
+      !find('.select-box').classList.contains('select-box--multiple'),
       'no multiple class'
     );
 
     await render(hbs`<SelectBox @multiple={{true}} />`);
 
-    assert.dom('.select-box').hasClass('is-multiple', 'has multiple class');
+    assert
+      .dom('.select-box')
+      .hasClass('select-box--multiple', 'has multiple class');
   });
 
   test('insert element action', async function(assert) {
@@ -186,7 +188,7 @@ module('select-box', function(hooks) {
     await render(hbs`<SelectBox @onInit={{this.initialised}} />`);
 
     assert.ok(
-      !find('.select-box').classList.contains('is-open'),
+      !find('.select-box').classList.contains('select-box--open'),
       'precondition, not open'
     );
 
@@ -198,7 +200,7 @@ module('select-box', function(hooks) {
 
     assert
       .dom('.select-box')
-      .hasClass('is-open', 'action is called with the api');
+      .hasClass('select-box--open', 'action is called with the api');
   });
 
   test('api value', async function(assert) {
@@ -285,6 +287,6 @@ module('select-box', function(hooks) {
       {{/if}}
     `);
 
-    await click('.select-box-option');
+    await click('.select-box__option');
   });
 });
