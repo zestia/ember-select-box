@@ -1,5 +1,9 @@
 # Changelog
 
+## 12.1.0
+
+- Rename `@onInit` to `@onReady`
+
 ## 12.0.0
 
 - Switch to BEM syntax for markup

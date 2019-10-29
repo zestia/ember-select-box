@@ -730,7 +730,7 @@ module('select-box (selecting)', function(hooks) {
         @multiple={{true}}
         @value={{this.value}}
         @onBuildSelection={{this.buildSelection}}
-        @onInit={{this.register}} as |sb|>
+        @onReady={{this.register}} as |sb|>
         <sb.Option @value="foo">Foo</sb.Option>
         <sb.Option @value="bar">Bar</sb.Option>
         <sb.Option @value="baz">Baz</sb.Option>
@@ -798,7 +798,7 @@ module('select-box (selecting)', function(hooks) {
     this.set('registerApi', api => (sb = api));
 
     await render(hbs`
-      <SelectBox @onInit={{this.registerApi}} @onSelect={{this.select}} as |sb|>
+      <SelectBox @onReady={{this.registerApi}} @onSelect={{this.select}} as |sb|>
         <sb.Option @value="foo" />
         <sb.Option @value="bar" />
       </SelectBox>

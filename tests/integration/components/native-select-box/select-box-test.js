@@ -23,16 +23,14 @@ module('native-select-box', function(hooks) {
       .exists({ count: 1 }, 'renders with correct class name and tag');
   });
 
-  test('insert action', async function(assert) {
+  test('inserting', async function(assert) {
     assert.expect(1);
 
-    let api;
-
-    this.inserted = sb => (api = sb);
+    this.inserted = sb => {
+      assert.deepEqual(sb.element, find('.select-box'), 'exposes element');
+    };
 
     await render(hbs`<NativeSelectBox @onInsertElement={{this.inserted}} />`);
-
-    assert.ok(api.element, 'exposes element');
   });
 
   test('class prefix', async function(assert) {
@@ -472,14 +470,14 @@ module('native-select-box', function(hooks) {
 
     let api;
 
-    this.initialised = sb => (api = sb);
+    this.ready = sb => (api = sb);
 
     this.selected = (value, sb) => {
       assert.equal(value, 2, 'sends action with selected value');
     };
 
     await render(hbs`
-      <NativeSelectBox @onInit={{this.initialised}} @onSelect={{this.selected}} as |sb|>
+      <NativeSelectBox @onReady={{this.ready}} @onSelect={{this.selected}} as |sb|>
         <sb.Option @value="1">1</sb.Option>
         <sb.Option @value="2">2</sb.Option>
         <sb.Option @value="3">3</sb.Option>
@@ -503,14 +501,14 @@ module('native-select-box', function(hooks) {
 
     let api;
 
-    this.initialised = sb => (api = sb);
+    this.ready = sb => (api = sb);
 
     this.selected = (value, sb) => {
       assert.equal(value, this.two, 'sends action with selected value');
     };
 
     await render(hbs`
-      <NativeSelectBox @onInit={{this.initialised}} @onSelect={{this.selected}} as |sb|>
+      <NativeSelectBox @onReady={{this.ready}} @onSelect={{this.selected}} as |sb|>
         <sb.Option @value={{this.one}}>1</sb.Option>
         <sb.Option @value={{this.two}}>2</sb.Option>
         <sb.Option @value={{this.three}}>3</sb.Option>

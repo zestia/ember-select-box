@@ -126,8 +126,8 @@ ember install @zestia/ember-select-box
       <td>Fired when focus leaves the select box</td>
     </tr>
     <tr>
-      <td>@onInit</td>
-      <td>Fired when the select box initialises. Useful opportunity to get
+      <td>@onReady</td>
+      <td>Fired when the select box is ready. A useful opportunity to get
       access to the select box's API which is passed as a parameter.</td>
     </tr>
     <tr>

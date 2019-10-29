@@ -9,16 +9,13 @@ import {
   initOptions,
   registerOption
 } from '../utils/registration/option';
-import { destroyComponent, initComponent } from '../utils/component/lifecycle';
-import {
-  destroyElement,
-  insertElement
-} from '../utils/native-select-box/element';
 import { receiveValue, selectValue, updateValue } from '../utils/shared/value';
 import { selectValue as _selectValue } from '../utils/native-select-box/value';
 import api from '../utils/native-select-box/api';
 import layout from '../templates/components/native-select-box';
 import { className } from '../utils/shared/attributes';
+import { ready } from '../utils/shared/ready';
+import { insertElement } from '../utils/shared/element';
 
 export default Component.extend({
   layout,
@@ -34,6 +31,7 @@ export default Component.extend({
   // Actions
 
   onInsertElement: null,
+  onReady: null,
   onSelect: null,
   onUpdate: null,
 
@@ -59,7 +57,7 @@ export default Component.extend({
   init() {
     this._super(...arguments);
     initOptions(this);
-    initComponent(this);
+    ready(this);
   },
 
   didReceiveAttrs() {
@@ -77,8 +75,6 @@ export default Component.extend({
 
     handleDestroyElement(element) {
       deregisterElement(this, element);
-      destroyElement(this);
-      destroyComponent(this);
     },
 
     handleInitOption(option) {

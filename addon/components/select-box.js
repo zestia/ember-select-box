@@ -39,8 +39,10 @@ import {
   deregisterSelectedOptionsContainer,
   registerSelectedOptionsContainer
 } from '../utils/registration/selected-options';
-import { destroyComponent, initComponent } from '../utils/component/lifecycle';
-import { destroyElement, insertElement } from '../utils/select-box/element';
+import {
+  addDocumentClickListener,
+  removeDocumentClickListener
+} from '../utils/select-box/document';
 import { focusIn, focusOut } from '../utils/select-box/focus';
 import { keyDown, keyPress } from '../utils/select-box/keyboard';
 import { receiveArgs } from '../utils/select-box/args';
@@ -50,6 +52,8 @@ import layout from '../templates/components/select-box';
 import objectAtIndex from '../utils/general/object-at-index';
 import { receiveValue, selectValue, updateValue } from '../utils/shared/value';
 import { id, className } from '../utils/shared/attributes';
+import { ready } from '../utils/shared/ready';
+import { insertElement } from '../utils/shared/element';
 
 export default Component.extend({
   layout,
@@ -72,7 +76,6 @@ export default Component.extend({
   onClose: null,
   onFocusIn: null,
   onFocusOut: null,
-  onInit: null,
   onInsertElement: null,
   onOpen: null,
   onPressBackspace: null,
@@ -84,6 +87,7 @@ export default Component.extend({
   onPressRight: null,
   onPressTab: null,
   onPressUp: null,
+  onReady: null,
   onSearch: null,
   onSearched: null,
   onSearchError: null,
@@ -138,7 +142,7 @@ export default Component.extend({
     this._super(...arguments);
     initOptions(this);
     initSelectedOptions(this);
-    initComponent(this);
+    ready(this);
   },
 
   didReceiveAttrs() {
@@ -152,13 +156,13 @@ export default Component.extend({
 
     handleInsertElement(element) {
       registerElement(this, element);
+      addDocumentClickListener(this);
       insertElement(this);
     },
 
     handleDestroyElement(element) {
       deregisterElement(this, element);
-      destroyElement(this);
-      destroyComponent(this);
+      removeDocumentClickListener(this);
     },
 
     handleInitOption(option) {

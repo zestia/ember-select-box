@@ -73,22 +73,14 @@ module('select-box', function(hooks) {
       .hasClass('select-box--multiple', 'has multiple class');
   });
 
-  test('insert element action', async function(assert) {
+  test('inserting', async function(assert) {
     assert.expect(1);
 
-    let el;
-
-    this.set('inserted', sb => {
-      el = sb.element;
-    });
+    this.inserted = sb => {
+      assert.deepEqual(sb.element, find('.select-box'), 'exposes element');
+    };
 
     await render(hbs`<SelectBox @onInsertElement={{this.inserted}} />`);
-
-    assert.deepEqual(
-      el,
-      find('.select-box'),
-      'sends the element out when inserted into the dom'
-    );
   });
 
   test('initial update action', async function(assert) {
@@ -178,14 +170,14 @@ module('select-box', function(hooks) {
     );
   });
 
-  test('init action', async function(assert) {
+  test('ready action', async function(assert) {
     assert.expect(3);
 
     let api;
 
-    this.set('initialised', sb => (api = sb));
+    this.set('ready', sb => (api = sb));
 
-    await render(hbs`<SelectBox @onInit={{this.initialised}} />`);
+    await render(hbs`<SelectBox @onReady={{this.ready}} />`);
 
     assert.ok(
       !find('.select-box').classList.contains('select-box--open'),
@@ -228,7 +220,7 @@ module('select-box', function(hooks) {
       <SelectBox
         @value={{this.value}}
         @multiple={{true}}
-        @onInit={{this.checkAPI}}
+        @onReady={{this.checkAPI}}
         @onUpdate={{this.checkAPI}} />
     `);
 
