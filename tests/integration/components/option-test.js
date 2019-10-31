@@ -111,7 +111,9 @@ module('select-box/option', function(hooks) {
       );
   });
 
-  test('yield index', async function(assert) {
+  test('yield index failure', async function(assert) {
+    // https://ember-twiddle.com/ddae8f58d5175e64577e79d720013cf2
+
     assert.expect(2);
 
     const foo = { myValue: 'foo', myLabel: 'Foo' };
@@ -201,7 +203,8 @@ module('select-box/option', function(hooks) {
     assert.deepEqual(
       labels(),
       ['foo: 0', 'bar: 2', 'baz: 1'],
-      'indexes are wrong due to component re-use'
+      'indexes are wrong due to component re-use, BUT they are still unique ' +
+        'which is important'
     );
 
     await render(hbs`
