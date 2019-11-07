@@ -22,9 +22,6 @@
     "type": "git",
     "url": "https://github.com/zestia/ember-select-box.git"
   },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  },
   "engines": {
     "node": "8.* || >= 10.*"
   },
