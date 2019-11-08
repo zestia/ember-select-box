@@ -8,13 +8,13 @@
   },
   "scripts": {
     "build": "ember build",
-    "lint": "yarn lint:js && yarn lint:hbs && yarn lint:css",
+    "lint": "npm run lint:js && npm run lint:hbs && npm run lint:css",
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
     "lint:css": "stylelint --allow-empty-input '**/*.{css,scss}'",
     "prettier": "prettier '**/*.{js,json,css,scss,html,md}' --write",
     "start": "ember serve",
-    "test": "ember test && yarn lint",
+    "test": "ember test && npm run lint",
     "test:all": "ember try:each",
     "deploy": "ember build --environment production && ember github-pages:commit --message \"Deploy gh-pages from commit $(git rev-parse HEAD)\" && git push origin gh-pages:gh-pages"
   },

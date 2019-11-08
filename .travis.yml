@@ -37,9 +37,6 @@ jobs:
     - stage: 'Tests'
       name: 'Tests'
       script:
-        - npm run lint:hbs
-        - npm run lint:js
-        - npm run lint:css
         - npm test
 
     # we recommend new addons test the current and previous LTS
