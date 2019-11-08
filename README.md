@@ -535,14 +535,14 @@ This component has a similar API to a normal `<sb.Option />`, except that it can
 This addon exposes the select box's API to you as an argument to action handlers like so:
 
 ```handlebars
-<SelectBox @onSelect={{action "selectedAnOption"}} />
+<SelectBox @onSelect={{this.selectedSomething}} />
 ```
 
 ```javascript
-actions: {
-  selectedAnOption(value, api) {
-    api.close(); // for example.
-  }
+@action
+selectedSomething(value, api) {
+  this.selectedThing = value;
+  api.close();
 }
 ```
 
@@ -606,7 +606,7 @@ To create your own select box, make a new component that renders a select box:
 ...and then use it like this:
 
 ```handlebars
-<FooSelect @value={{foo}} @onSelect={{action "selectedFoo"}} as |sb|>
+<FooSelect @value={{foo}} @onSelect={{this.selectedFoo}} as |sb|>
   {{#each this.foos as |foo|}}
     <sb.Option @value={{foo}}>{{foo.name}}</sb.Option>
   {{/each}}
