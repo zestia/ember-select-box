@@ -8,12 +8,15 @@ They come with a myriad of options to configure every possible situation, and th
 
 This addon does less, and gives you the primitives to easily _compose your own_.
 
-## Info
+## Installation
 
-- [Customising](#customising)
-- <a href="https://zestia.github.io/ember-select-box" target="_blank">Demo</a>
-- [FAQ](#faq)
-- [Troubleshooting](#troubleshooting)
+```
+ember install @zestia/ember-select-box
+```
+
+## Demo
+
+https://zestia.github.io/ember-select-box
 
 ## Features
 
@@ -33,15 +36,9 @@ This addon does less, and gives you the primitives to easily _compose your own_.
 - 'Jump-to option' behaviour based on keyboard input ✔︎
 - Very few issues over many years of Ember! ✔︎
 
-## Installation
+## Examples
 
-```
-ember install @zestia/ember-select-box
-```
-
-<hr>
-
-#### Native select box example
+#### Native select box
 
 ```handlebars
 <NativeSelectBox as |sb|>
@@ -51,7 +48,7 @@ ember install @zestia/ember-select-box
 </NativeSelectBox>
 ```
 
-#### Faux Select box example
+#### Faux Select box
 
 ```handlebars
 <SelectBox as |sb|>
@@ -382,9 +379,7 @@ ember install @zestia/ember-select-box
   </table>
 </details>
 
-<hr>
-
-### Option
+## Option
 
 ```handlebars
 <sb.Option @value={{model}} as |o|>
@@ -474,9 +469,7 @@ ember install @zestia/ember-select-box
   </table>
 </details>
 
-<hr>
-
-### Group
+## Group
 
 Wraps the options in extra markup.<br>
 You can still navigate options using the arrow keys (or the API) even if they are inside groups.
@@ -487,9 +480,7 @@ You can still navigate options using the arrow keys (or the API) even if they ar
 </sb.Group>
 ```
 
-<hr>
-
-### Options
+## Options
 
 You only need to wrap the options up in with `sb.Options` if you require extra markup for styling.
 It's useful to use as the drop-down part of a select box, which can be opened or closed.
@@ -501,9 +492,7 @@ It's useful to use as the drop-down part of a select box, which can be opened or
 </sb.Options>
 ```
 
-<hr>
-
-### Input
+## Input
 
 Allows you to input text into the select box, usually for running searches/filtering
 
@@ -529,9 +518,7 @@ Allows you to input text into the select box, usually for running searches/filte
   </table>
 </details>
 
-<hr>
-
-### Selected option
+## Selected option
 
 Does _not_ render the user's selected option automatically, but rather just provides a way for you to render the option(s) that have been selected.
 
@@ -542,8 +529,6 @@ Does _not_ render the user's selected option automatically, but rather just prov
 ```
 
 This component has a similar API to a normal `<sb.Option />`, except that it can't be selected.
-
-<hr>
 
 ## API
 
@@ -561,9 +546,7 @@ actions: {
 }
 ```
 
-<hr>
-
-### Test helpers
+## Test helpers
 
 - For the native select box, this addon provides test helpers for selecting options
 - For the faux select box, no custom test helpers are needed - you can just use Ember's `click` or `triggerEvent` test helpers.
@@ -605,8 +588,6 @@ test('selecting things', async function(assert) {
 
 </details>
 
-<hr>
-
 ## Customising
 
 To create your own select box, make a new component that renders a select box:
@@ -645,9 +626,7 @@ To create your own select box, make a new component that renders a select box:
 </div>
 ```
 
-<hr>
-
-#### FAQ
+## FAQ
 
 - Question: Why aren't the native and faux select boxes two addons.<br>
 - Answer: Less effort maintaining 1 addon
@@ -655,7 +634,7 @@ To create your own select box, make a new component that renders a select box:
 - Question: Why would I not just use [Ember Power Select](https://github.com/cibernox/ember-power-select)?
 - Answer: `ember-power-select` is powerful in that it is feature-full, whereas `ember-select-box` is flexible in that it is minimal.
 
-#### Troubleshooting
+## Troubleshooting
 
 - Problem: When I navigate using the arrow keys, the wrong option becomes active
 - Solution: This may happen when you change the options that are displayed, because Ember will try to
