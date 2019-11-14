@@ -5,6 +5,7 @@ import hbs from 'htmlbars-inline-precompile';
 import Model from 'ember-data/model';
 import attr from 'ember-data/attr';
 import Adapter from 'ember-data/adapters/json-api';
+import Serializer from 'ember-data/serializers/json-api';
 import { Promise } from 'rsvp';
 import { later } from '@ember/runloop';
 
@@ -24,6 +25,8 @@ module('select-box (ember data)', function(hooks) {
         name: attr()
       })
     );
+
+    this.owner.register('serializer:foo', Serializer);
 
     this.owner.register(
       'adapter:foo',
