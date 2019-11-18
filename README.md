@@ -211,7 +211,6 @@ https://zestia.github.io/ember-select-box
       <td width="200">sb.activateNextOption</td>
       <td>
         Activates the next option<br>
-        <br>
         <code>({ scrollIntoView: true })</code><br>
         • Whether to scroll to the option
       </td>
@@ -220,7 +219,6 @@ https://zestia.github.io/ember-select-box
       <td>sb.activateNextSelectedOption</td>
       <td>
         Activates the next selected option<br>
-        <br>
         <code>({ scrollIntoView: true })</code><br>
         • Whether to scroll to the selected option
       </td>
@@ -229,8 +227,7 @@ https://zestia.github.io/ember-select-box
       <td>sb.activateOptionForValue</td>
       <td>
         Activates the first option (there may be more than one) that matches
-        the given value.
-        <br>
+        the given value.<br>
         <code>(value, { scrollIntoView: true })</code><br>
         • The value of the option to activate<br>
         • Whether to scroll to the option
@@ -240,7 +237,6 @@ https://zestia.github.io/ember-select-box
       <td>sb.activateOptionAtIndex</td>
       <td>
         Adds an <code>active</code> class to the option at the index<br>
-        <br>
         <code>(index, { scrollIntoView: false })</code><br>
         • The index of the option to activate<br>
         • Whether to scroll to the option
@@ -250,7 +246,6 @@ https://zestia.github.io/ember-select-box
       <td>sb.activateOptionForKeyCode</td>
       <td>
         Mimics native select box behaviour by jumping to an appopriate option based on the <code>textContent</code> of the options. <a href="https://zestia.github.io/ember-select-box/#/simple-select">Demo</a><br>
-        <br>
         <code>(keyCode, { scrollIntoView: true })</code><br>
         • Keycode of character to match in the option's text<br>
         • Whether to scroll to the option
@@ -260,7 +255,6 @@ https://zestia.github.io/ember-select-box
       <td>sb.activatePreviousOption</td>
       <td>
         Activates the previous option<br>
-        <br>
         <code>({ scrollIntoView: true })</code><br>
         • Whether to scroll to the option
       </td>
@@ -269,7 +263,6 @@ https://zestia.github.io/ember-select-box
       <td>sb.activatePreviousSelectedOption</td>
       <td>
         Activates the previous selected option<br>
-        <br>
         <code>({ scrollIntoView: true })</code><br>
         • Whether to scroll to the selected option
       </td>
@@ -278,7 +271,6 @@ https://zestia.github.io/ember-select-box
       <td>sb.activateSelectedOptionAtIndex</td>
       <td>
         Activates the selected option at the index<br>
-        <br>
         <code>(index, { scrollIntoView: false })</code><br>
         • The index of the selected option to activate<br>
         • Whether to scroll to the option
