@@ -101,7 +101,7 @@ module('select-box (activating options)', function(hooks) {
     await click('button');
   });
 
-  test('activating by value the api', async function(assert) {
+  test('activating by value via the api', async function(assert) {
     assert.expect(4);
 
     let activated = 0;
