@@ -2,8 +2,8 @@
 
 ## 12.2.0
 
-- Custom scroll-into-view code has been phased out in favour of the `scrollIntoView` browser API. All select box methods with a boolean scroll parameter have changed from: `(boolean)` to `({ scrollIntoView: options })` ...where `options` is an object passed to the `scrollIntoView` browser API.
-  Additionally, `scrollIntoView` is enabled by default. Set it to `false` to disable scrolling into view.
+- Adds `activateOptionForValue`
+-
 
 ## 12.1.0
 

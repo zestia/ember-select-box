@@ -1,8 +1,9 @@
 import { set } from '@ember/object';
+import { assign } from '@ember/polyfills';
 import invokeAction from '../../component/invoke-action';
 import { getAPI } from '../../component/api';
 import { filterComponentsByTextContent } from '../../component/filter';
-import { maybeScrollIntoView } from '../../general/scroll-into-view';
+import { maybeScrollIntoView } from '../../component/scroll-into-view';
 const { fromCharCode } = String;
 
 export function _activateOption(option) {
@@ -13,11 +14,13 @@ function activatedOption(option) {
   invokeAction(option, 'onActivate', option.resolvedValue, getAPI(option));
 }
 
-export function activateOption(selectBox, option) {
-  activateOptionAtIndex(selectBox, option.index);
+export function activateOption(selectBox, option, config) {
+  activateOptionAtIndex(selectBox, option.index, config);
 }
 
 export function activateOptionForValue(selectBox, value, config) {
+  config = assign({ scrollIntoView: true }, config);
+
   const option = selectBox.options.find(
     option => option.resolvedValue === value
   );
@@ -27,7 +30,7 @@ export function activateOptionForValue(selectBox, value, config) {
   }
 }
 
-export function activateOptionAtIndex(selectBox, index, config = {}) {
+export function activateOptionAtIndex(selectBox, index, config) {
   const under = index < 0;
   const over = index > selectBox.options.length - 1;
 
@@ -39,11 +42,25 @@ export function activateOptionAtIndex(selectBox, index, config = {}) {
 
   const option = selectBox.activeOption;
 
-  maybeScrollIntoView(option.domElement, config);
+  maybeScrollIntoView(option, config);
   activatedOption(option);
 }
 
+export function activateNextOption(selectBox, config) {
+  config = assign({ scrollIntoView: true }, config);
+
+  activateOptionAtIndex(selectBox, selectBox.activeOptionIndex + 1, config);
+}
+
+export function activatePreviousOption(selectBox, config) {
+  config = assign({ scrollIntoView: true }, config);
+
+  activateOptionAtIndex(selectBox, selectBox.activeOptionIndex - 1, config);
+}
+
 export function activateOptionForKeyCode(selectBox, keyCode, config) {
+  config = assign({ scrollIntoView: true }, config);
+
   const char = fromCharCode(keyCode);
 
   if (!char) {

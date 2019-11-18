@@ -1,10 +1,12 @@
 import Component from '@ember/component';
 import { _selectOption, selectOption } from '../utils/select-box/option/select';
 import {
-  activateOptionForValue,
+  activateNextOption,
   activateOption,
   activateOptionAtIndex,
-  activateOptionForKeyCode
+  activateOptionForKeyCode,
+  activateOptionForValue,
+  activatePreviousOption
 } from '../utils/select-box/option/activate';
 import {
   activateSelectedOption,
@@ -297,11 +299,11 @@ export default Component.extend({
     },
 
     activateNextOption(config) {
-      activateOptionAtIndex(this, this.activeOptionIndex + 1, config);
+      activateNextOption(this, config);
     },
 
     activatePreviousOption(config) {
-      activateOptionAtIndex(this, this.activeOptionIndex - 1, config);
+      activatePreviousOption(this, config);
     },
 
     activateOptionForKeyCode(keyCode, config) {
