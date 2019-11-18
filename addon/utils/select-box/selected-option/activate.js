@@ -1,4 +1,5 @@
 import { set } from '@ember/object';
+import { assign } from '@ember/polyfills';
 import invokeAction from '../../component/invoke-action';
 import { maybeScrollIntoView } from '../../component/scroll-into-view';
 import { getAPI } from '../../component/api';
@@ -34,6 +35,26 @@ export function activateSelectedOptionAtIndex(selectBox, index, config) {
 
   maybeScrollIntoView(selectedOption, config);
   activatedSelectedOption(selectedOption);
+}
+
+export function activateNextSelectedOption(selectBox, config) {
+  config = assign({ scrollIntoView: true }, config);
+
+  activateSelectedOptionAtIndex(
+    selectBox,
+    selectBox.activeSelectedOptionIndex + 1,
+    config
+  );
+}
+
+export function activatePreviousSelectedOption(selectBox, config) {
+  config = assign({ scrollIntoView: true }, config);
+
+  activateSelectedOptionAtIndex(
+    selectBox,
+    selectBox.activeSelectedOptionIndex - 1,
+    config
+  );
 }
 
 export function activateSelectedOptionForKeyCode() {

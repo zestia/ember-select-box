@@ -9,6 +9,8 @@ import {
   activatePreviousOption
 } from '../utils/select-box/option/activate';
 import {
+  activateNextSelectedOption,
+  activatePreviousSelectedOption,
   activateSelectedOption,
   activateSelectedOptionAtIndex,
   activateSelectedOptionForKeyCode
@@ -315,19 +317,11 @@ export default Component.extend({
     },
 
     activateNextSelectedOption(config) {
-      activateSelectedOptionAtIndex(
-        this,
-        this.activeSelectedOptionIndex + 1,
-        config
-      );
+      activateNextSelectedOption(this, config);
     },
 
     activatePreviousSelectedOption(config) {
-      activateSelectedOptionAtIndex(
-        this,
-        this.activeSelectedOptionIndex - 1,
-        config
-      );
+      activatePreviousSelectedOption(this, config);
     },
 
     activateSelectedOptionForKeyCode(keyCode, config) {

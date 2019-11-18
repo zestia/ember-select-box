@@ -212,7 +212,7 @@ https://zestia.github.io/ember-select-box
       <td>
         Activates the next option<br>
         <br>
-        <code>({ scroll: false })</code><br>
+        <code>({ scroll: true })</code><br>
         • Whether to scroll to the option
       </td>
     </tr>
@@ -221,7 +221,7 @@ https://zestia.github.io/ember-select-box
       <td>
         Activates the next selected option<br>
         <br>
-        <code>({ scroll: false })</code><br>
+        <code>({ scroll: true })</code><br>
         • Whether to scroll to the selected option
       </td>
     </tr>
@@ -231,7 +231,7 @@ https://zestia.github.io/ember-select-box
         Activates the first option (there may be more than one) that matches
         the given value.
         <br>
-        <code>(value, { scroll: false })</code><br>
+        <code>(value, { scroll: true })</code><br>
         • The value of the option to activate<br>
         • Whether to scroll to the option
       </td>
@@ -251,7 +251,7 @@ https://zestia.github.io/ember-select-box
       <td>
         Mimics native select box behaviour by jumping to an appopriate option based on the <code>textContent</code> of the options. <a href="https://zestia.github.io/ember-select-box/#/simple-select">Demo</a><br>
         <br>
-        <code>(keyCode, { scroll: false })</code><br>
+        <code>(keyCode, { scroll: true })</code><br>
         • Keycode of character to match in the option's text<br>
         • Whether to scroll to the option
       </td>
@@ -261,7 +261,7 @@ https://zestia.github.io/ember-select-box
       <td>
         Activates the previous option<br>
         <br>
-        <code>({ scroll: false })</code><br>
+        <code>({ scroll: true })</code><br>
         • Whether to scroll to the option
       </td>
     </tr>
@@ -270,7 +270,7 @@ https://zestia.github.io/ember-select-box
       <td>
         Activates the previous selected option<br>
         <br>
-        <code>({ scroll: false })</code><br>
+        <code>({ scroll: true })</code><br>
         • Whether to scroll to the selected option
       </td>
     </tr>
