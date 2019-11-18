@@ -219,7 +219,7 @@ https://zestia.github.io/ember-select-box
       <td>sb.activateNextSelectedOption</td>
       <td>
         Activates the next selected option<br>
-        <code>({ scrollIntoView: true })</code><br>
+        <code>({ scrollIntoView: false })</code><br>
         • Whether to scroll to the selected option
       </td>
     </tr>
@@ -263,7 +263,7 @@ https://zestia.github.io/ember-select-box
       <td>sb.activatePreviousSelectedOption</td>
       <td>
         Activates the previous selected option<br>
-        <code>({ scrollIntoView: true })</code><br>
+        <code>({ scrollIntoView: false })</code><br>
         • Whether to scroll to the selected option
       </td>
     </tr>
