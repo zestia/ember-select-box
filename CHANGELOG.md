@@ -3,6 +3,7 @@
 ## 12.2.0
 
 - Adds `activateOptionForValue`
+- API methods that accepted a boolean option, signifying whether to scroll to an option, now accept an object with a property `{ scrollIntoView: bool }` instead.
 
 ## 12.1.0
 
