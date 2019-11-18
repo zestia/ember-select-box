@@ -3,7 +3,6 @@
 ## 12.2.0
 
 - Adds `activateOptionForValue`
--
 
 ## 12.1.0
 

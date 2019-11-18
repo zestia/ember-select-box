@@ -38,7 +38,7 @@ export function activateSelectedOptionAtIndex(selectBox, index, config) {
 }
 
 export function activateNextSelectedOption(selectBox, config) {
-  config = assign({ scrollIntoView: true }, config);
+  config = assign({ scrollIntoView: false }, config);
 
   activateSelectedOptionAtIndex(
     selectBox,
@@ -48,7 +48,7 @@ export function activateNextSelectedOption(selectBox, config) {
 }
 
 export function activatePreviousSelectedOption(selectBox, config) {
-  config = assign({ scrollIntoView: true }, config);
+  config = assign({ scrollIntoView: false }, config);
 
   activateSelectedOptionAtIndex(
     selectBox,
