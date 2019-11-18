@@ -78,7 +78,7 @@ module('select-box (activating options)', function(hooks) {
     );
   });
 
-  test('activating via the api', async function(assert) {
+  test('activating by index via the api', async function(assert) {
     assert.expect(2);
 
     this.set('activated', (value, sb) => {
@@ -99,6 +99,46 @@ module('select-box (activating options)', function(hooks) {
     `);
 
     await click('button');
+  });
+
+  test('activating by value the api', async function(assert) {
+    assert.expect(4);
+
+    let activated = 0;
+
+    this.set('activated', (value, sb) => {
+      assert.equal(
+        value,
+        'bar',
+        'activating an option sends an action with the value'
+      );
+
+      assert.ok(typeof sb === 'object', 'sends the api');
+
+      activated++;
+    });
+
+    await render(hbs`
+      <SelectBox as |sb|>
+        <sb.Option @value="foo" @onActivate={{this.activated}} />
+        <sb.Option @value="bar" @onActivate={{this.activated}} />
+        <sb.Option @value="bar" @onActivate={{this.activated}} />
+        <sb.Option @value="baz" @onActivate={{this.activated}} />
+        <button onclick={{action sb.activateOptionForValue "bar"}}>Activate bar</button>
+      </SelectBox>
+    `);
+
+    await click('button');
+
+    assert.equal(
+      activated,
+      1,
+      'onActivate only fires once (for the first matching option)'
+    );
+
+    assert
+      .dom('.select-box__option--active')
+      .exists({ count: 1 }, 'only one matching option is activated');
   });
 
   test('activation boundaries', async function(assert) {

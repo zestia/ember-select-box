@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import { _selectOption, selectOption } from '../utils/select-box/option/select';
 import {
+  activateOptionForValue,
   activateOption,
   activateOptionAtIndex,
   activateOptionForKeyCode
@@ -287,44 +288,48 @@ export default Component.extend({
       setInputValue(this, value);
     },
 
-    activateOptionAtIndex(index, scroll = false) {
-      activateOptionAtIndex(this, index, scroll);
+    activateOptionForValue(value, config) {
+      activateOptionForValue(this, value, config);
     },
 
-    activateNextOption(scroll = true) {
-      activateOptionAtIndex(this, this.activeOptionIndex + 1, scroll);
+    activateOptionAtIndex(index, config) {
+      activateOptionAtIndex(this, index, config);
     },
 
-    activatePreviousOption(scroll = true) {
-      activateOptionAtIndex(this, this.activeOptionIndex - 1, scroll);
+    activateNextOption(config) {
+      activateOptionAtIndex(this, this.activeOptionIndex + 1, config);
     },
 
-    activateOptionForKeyCode(keyCode, scroll) {
-      activateOptionForKeyCode(this, keyCode, scroll);
+    activatePreviousOption(config) {
+      activateOptionAtIndex(this, this.activeOptionIndex - 1, config);
     },
 
-    activateSelectedOptionAtIndex(index, scroll = false) {
-      activateSelectedOptionAtIndex(this, index, scroll);
+    activateOptionForKeyCode(keyCode, config) {
+      activateOptionForKeyCode(this, keyCode, config);
     },
 
-    activateNextSelectedOption(scroll = true) {
+    activateSelectedOptionAtIndex(index, config) {
+      activateSelectedOptionAtIndex(this, index, config);
+    },
+
+    activateNextSelectedOption(config) {
       activateSelectedOptionAtIndex(
         this,
         this.activeSelectedOptionIndex + 1,
-        scroll
+        config
       );
     },
 
-    activatePreviousSelectedOption(scroll = true) {
+    activatePreviousSelectedOption(config) {
       activateSelectedOptionAtIndex(
         this,
         this.activeSelectedOptionIndex - 1,
-        scroll
+        config
       );
     },
 
-    activateSelectedOptionForKeyCode(keyCode, scroll) {
-      activateSelectedOptionForKeyCode(this, keyCode, scroll);
+    activateSelectedOptionForKeyCode(keyCode, config) {
+      activateSelectedOptionForKeyCode(this, keyCode, config);
     },
 
     deactivateOptions() {

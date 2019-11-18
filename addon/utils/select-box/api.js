@@ -19,6 +19,7 @@ const publicProperties = {
 const publicActions = {
   activateNextOption: true,
   activateNextSelectedOption: true,
+  activateOptionForValue: true,
   activateOptionAtIndex: true,
   activateOptionForKeyCode: true,
   activatePreviousOption: true,

@@ -67,11 +67,11 @@ https://zestia.github.io/ember-select-box
     </tr>
     <tr>
       <td>@disabled</td>
-      <td>If true adds an <code>is-disabled</code> class and makes it unfocusable with <code>tabindex="-1"</code></td>
+      <td>If true adds a disabled class and makes it unfocusable</td>
     </tr>
     <tr>
       <td>@multiple</td>
-      <td>If true, <code>@value</code> should be an array. Also adds an <code>is-multiple</code> class</td>
+      <td>If true, <code>@value</code> should be an array. Also adds an <code>multiple</code> class</td>
     </tr>
     <tr>
       <td>@searchDelayTime</td>
@@ -157,8 +157,7 @@ https://zestia.github.io/ember-select-box
     <tr>
       <td>@onPressKey</td>
       <td>A useful place to call <code>sb.activateOptionForKeyCode(e.keyCode)</code>, which
-      can be used to activate an option based on the characters recently typed. This mimics
-      the jump-to option behaviour found in native select boxes</td>
+      can be used to activate an option based on the characters recently typed. This mimics the jump-to option behaviour found in native select boxes</td>
     </tr>
     <tr>
       <td>@onPressLeft</td>
@@ -198,8 +197,7 @@ https://zestia.github.io/ember-select-box
     <tr>
       <td>@onUpdate</td>
       <td>
-        Fired whenever the value changes, either by a new <code>@value</code>
-        argument being passed in, or a selection is made that results in the value changing.
+        Fired whenever the value changes, either by a new <code>@value</code> argument being passed in, or a selection is made that results in the value changing.
       </td>
     </tr>
   </table>
@@ -213,52 +211,77 @@ https://zestia.github.io/ember-select-box
       <td width="200">sb.activateNextOption</td>
       <td>
         Activates the next option<br>
-        <code>scroll</code> Whether to scroll to the option (default <code>true</code>)
+        <br>
+        <code>({ scroll: false })</code><br>
+        • Whether to scroll to the option
       </td>
     </tr>
     <tr>
       <td>sb.activateNextSelectedOption</td>
       <td>
         Activates the next selected option<br>
-        <code>scroll</code> Whether to scroll to the selected option (default <code>true</code>)
+        <br>
+        <code>({ scroll: false })</code><br>
+        • Whether to scroll to the selected option
+      </td>
+    </tr>
+    <tr>
+      <td>sb.activateOptionForValue</td>
+      <td>
+        Activates the first option (there may be more than one) that matches
+        the given value.
+        <br>
+        <code>(value, { scroll: false })</code><br>
+        • The value of the option to activate<br>
+        • Whether to scroll to the option
       </td>
     </tr>
     <tr>
       <td>sb.activateOptionAtIndex</td>
       <td>
-        Adds an <code>is-active</code> class to the option at the index<br>
-        <code>index</code> Option to activate<br>
-        <code>scroll</code> Whether to scroll to the option (default <code>false</code>)
+        Adds an <code>active</code> class to the option at the index<br>
+        <br>
+        <code>(index, { scroll: false })</code><br>
+        • The index of the option to activate<br>
+        • Whether to scroll to the option
       </td>
     </tr>
     <tr>
       <td>sb.activateOptionForKeyCode</td>
       <td>
         Mimics native select box behaviour by jumping to an appopriate option based on the <code>textContent</code> of the options. <a href="https://zestia.github.io/ember-select-box/#/simple-select">Demo</a><br>
-        <code>keyCode</code> Character to match in the option's text<br>
-        <code>scroll</code> Whether to scroll to the option (default <code>true</code>)
+        <br>
+        <code>(keyCode, { scroll: false })</code><br>
+        • Keycode of character to match in the option's text<br>
+        • Whether to scroll to the option
       </td>
     </tr>
     <tr>
       <td>sb.activatePreviousOption</td>
       <td>
         Activates the previous option<br>
-        <code>scroll</code> Whether to scroll to the option (default <code>true</code>)
+        <br>
+        <code>({ scroll: false })</code><br>
+        • Whether to scroll to the option
       </td>
     </tr>
     <tr>
       <td>sb.activatePreviousSelectedOption</td>
       <td>
         Activates the previous selected option<br>
-        <code>scroll</code> Whether to scroll to the selected option (default <code>true</code>)
+        <br>
+        <code>({ scroll: false })</code><br>
+        • Whether to scroll to the selected option
       </td>
     </tr>
     <tr>
       <td>sb.activateSelectedOptionAtIndex</td>
       <td>
         Activates the selected option at the index<br>
-        <code>index</code> Selected option to activate<br>
-        <code>scroll</code> Whether to scroll to the option (default <code>false</code>)
+        <br>
+        <code>(index, { scroll: false })</code><br>
+        • The index of the selected option to activate<br>
+        • Whether to scroll to the option
       </td>
     </tr>
     <tr>

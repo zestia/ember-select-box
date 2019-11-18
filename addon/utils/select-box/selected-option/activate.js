@@ -1,7 +1,7 @@
 import { set } from '@ember/object';
 import invokeAction from '../../component/invoke-action';
+import { maybeScrollIntoView } from '../../general/scroll-into-view';
 import { getAPI } from '../../component/api';
-import scrollIntoView from '../../general/scroll-into-view';
 
 export function _activateSelectedOption(selectedOption) {
   invokeAction(selectedOption, '_onActivate', selectedOption);
@@ -20,7 +20,7 @@ export function activateSelectedOption(selectBox, selectedOption) {
   activateSelectedOptionAtIndex(selectBox, selectedOption.index);
 }
 
-export function activateSelectedOptionAtIndex(selectBox, index, scroll) {
+export function activateSelectedOptionAtIndex(selectBox, index, config = {}) {
   const under = index < 0;
   const over = index > selectBox.selectedOptions.length - 1;
 
@@ -32,10 +32,7 @@ export function activateSelectedOptionAtIndex(selectBox, index, scroll) {
 
   const selectedOption = selectBox.activeSelectedOption;
 
-  if (scroll) {
-    scrollIntoView(selectedOption.domElement);
-  }
-
+  maybeScrollIntoView(selectedOption.domElement, config);
   activatedSelectedOption(selectedOption);
 }
 

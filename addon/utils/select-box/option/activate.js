@@ -1,8 +1,8 @@
 import { set } from '@ember/object';
 import invokeAction from '../../component/invoke-action';
 import { getAPI } from '../../component/api';
-import scrollIntoView from '../../general/scroll-into-view';
 import { filterComponentsByTextContent } from '../../component/filter';
+import { maybeScrollIntoView } from '../../general/scroll-into-view';
 const { fromCharCode } = String;
 
 export function _activateOption(option) {
@@ -17,7 +17,17 @@ export function activateOption(selectBox, option) {
   activateOptionAtIndex(selectBox, option.index);
 }
 
-export function activateOptionAtIndex(selectBox, index, scroll) {
+export function activateOptionForValue(selectBox, value, config) {
+  const option = selectBox.options.find(
+    option => option.resolvedValue === value
+  );
+
+  if (option) {
+    activateOptionAtIndex(selectBox, option.index, config);
+  }
+}
+
+export function activateOptionAtIndex(selectBox, index, config = {}) {
   const under = index < 0;
   const over = index > selectBox.options.length - 1;
 
@@ -29,14 +39,11 @@ export function activateOptionAtIndex(selectBox, index, scroll) {
 
   const option = selectBox.activeOption;
 
-  if (scroll) {
-    scrollIntoView(option.domElement);
-  }
-
+  maybeScrollIntoView(option.domElement, config);
   activatedOption(option);
 }
 
-export function activateOptionForKeyCode(selectBox, keyCode, scroll = true) {
+export function activateOptionForKeyCode(selectBox, keyCode, config) {
   const char = fromCharCode(keyCode);
 
   if (!char) {
@@ -46,7 +53,7 @@ export function activateOptionForKeyCode(selectBox, keyCode, scroll = true) {
   const option = optionForChar(selectBox, char);
 
   if (option) {
-    activateOptionAtIndex(selectBox, option.index, scroll);
+    activateOptionAtIndex(selectBox, option.index, config);
   }
 }
 

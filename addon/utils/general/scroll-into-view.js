@@ -1,43 +1,17 @@
-export default function scrollIntoView(element) {
-  const scroller = getScrollParent(element);
+import { assign } from '@ember/polyfills';
 
-  if (!scroller) {
+export function maybeScrollIntoView(element, config = {}) {
+  if (config.scrollIntoView === false) {
     return;
   }
 
-  const scroll = scroller.scrollTop;
-  const elementTop = getOffset(element).top;
-  const scrollerTop = getOffset(scroller).top;
-  const elementBottom = elementTop + element.offsetHeight;
-  const scrollerBottom = scrollerTop + scroller.clientHeight;
-  const outOfBoundsTop = elementTop - scrollerTop < 0;
-  const outOfBoundsBottom = elementBottom > scrollerBottom;
+  const defaults = { block: 'nearest' };
 
-  if (outOfBoundsTop) {
-    scroller.scrollTop = scroll + (elementTop - scrollerTop);
-  } else if (outOfBoundsBottom) {
-    scroller.scrollTop = scroll + (elementBottom - scrollerBottom);
-  }
-}
+  const options = assign(defaults, config.scrollIntoView);
 
-function getOffset(element) {
-  const rect = element.getBoundingClientRect();
-  const win = element.ownerDocument.defaultView;
-
-  return {
-    top: rect.top + win.pageYOffset,
-    left: rect.left + win.pageXOffset
-  };
-}
-
-function getScrollParent(element) {
-  if (!element) {
-    return;
-  }
-
-  if (element.scrollHeight > element.clientHeight) {
-    return element;
-  } else {
-    return getScrollParent(element.parentNode);
+  try {
+    element.scrollIntoView(options);
+  } catch (error) {
+    // crap browser
   }
 }
