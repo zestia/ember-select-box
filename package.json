@@ -11,7 +11,7 @@
     "lint": "npm run lint:js && npm run lint:hbs && npm run lint:css",
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
-    "lint:css": "stylelint --allow-empty-input '**/*.{css,scss}'",
+    "lint:css": "stylelint '**/*.{css,scss}'",
     "prettier": "prettier '**/*.{js,json,css,scss,html,md}' --write",
     "start": "ember serve",
     "test": "ember test && npm run lint",
