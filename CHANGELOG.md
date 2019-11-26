@@ -1,5 +1,9 @@
 # Changelog
 
+## 12.2.1
+
+- Upgrade dependencies
+
 ## 12.2.0
 
 - Adds `activateOptionForValue`
