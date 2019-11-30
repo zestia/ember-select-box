@@ -335,7 +335,7 @@ https://zestia.github.io/ember-select-box
     <tr>
       <td>sb.update</td>
       <td>
-        Updates the selectbox with a new value(s).
+        Updates the selectbox with a new value(s). Useful for resetting the select box after a selection is made.
         <code>@onUpdate</code> will fire.
       </td>
     </tr>
