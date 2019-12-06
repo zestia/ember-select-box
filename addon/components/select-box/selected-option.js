@@ -37,9 +37,9 @@ export default class SelectBoxSelectedOption extends Component {
 
   // Computed state
 
-  @api api;
-  @className className;
-  @id id;
+  @api() api;
+  @className() className;
+  @id() id;
   @index('selectBox.selectedOptions') index;
   @isEqual('index', 'selectBox.activeSelectedOptionIndex') isActive;
 

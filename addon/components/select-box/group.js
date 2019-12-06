@@ -14,5 +14,5 @@ export default class SelectBoxGroup extends Component {
 
   // Computed state
 
-  @className className;
+  @className() className;
 }

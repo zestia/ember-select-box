@@ -39,10 +39,10 @@ export default class NativeSelectBoxOption extends Component {
 
   // Computed state
 
-  @api api;
-  @className className;
+  @api() api;
+  @className() className;
   @index('selectBox.options') index;
-  @isSelected isSelected;
+  @isSelected() isSelected;
 
   init() {
     super.init(...arguments);

@@ -807,7 +807,7 @@ module('select-box (selecting)', function(hooks) {
 
     await triggerEvent(findAll('.select-box__option')[1], 'mouseenter');
 
-    sb.selectActiveOption();
+    await sb.selectActiveOption();
 
     assert.equal(
       selectedValue,

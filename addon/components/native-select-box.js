@@ -51,8 +51,8 @@ export default class NativeSelectBox extends Component {
 
   // Computed state
 
-  @api api;
-  @className className;
+  @api() api;
+  @className() className;
   @bool('multiple') isMultiple;
 
   init() {

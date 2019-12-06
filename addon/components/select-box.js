@@ -132,12 +132,12 @@ export default class SelectBox extends Component {
 
   // Computed state
 
-  @className className;
-  @id id;
+  @className() className;
+  @id() id;
   @bool('disabled') isDisabled;
   @or('isPending', 'isSearching') isBusy;
   @bool('multiple') isMultiple;
-  @api api;
+  @api() api;
   @objectAtIndex('options', 'activeOptionIndex') activeOption;
   @objectAtIndex('selectedOptions', 'activeSelectedOptionIndex')
   activeSelectedOption;

@@ -34,7 +34,7 @@ export default class SelectBoxInput extends Component {
 
   // Computed state
 
-  @className className;
+  @className() className;
 
   init() {
     super.init(...arguments);

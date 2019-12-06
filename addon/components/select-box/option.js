@@ -50,13 +50,13 @@ export default class SelectBoxOption extends Component {
 
   // Computed state
 
-  @api api;
-  @className className;
-  @id id;
+  @api() api;
+  @className() className;
+  @id() id;
   @index('selectBox.options') index;
   @isEqual('index', 'selectBox.activeOptionIndex') isActive;
   @bool('disabled') isDisabled;
-  @isSelected isSelected;
+  @isSelected() isSelected;
 
   init() {
     super.init(...arguments);

@@ -13,5 +13,5 @@ export default class NativeSelectBoxGroup extends Component {
 
   // Computed state
 
-  @className className;
+  @className() className;
 }

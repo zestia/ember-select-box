@@ -15,10 +15,12 @@ export default class SingleSelectController extends Controller {
     set(this, 'selectedBread', bread);
   }
 
+  @action
   action1() {
     set(this, 'performedAction1', true);
   }
 
+  @action
   action2() {
     set(this, 'performedAction2', true);
   }

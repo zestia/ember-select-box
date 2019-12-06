@@ -17,7 +17,7 @@ export default class SelectBoxOptions extends Component {
 
   // Computed state
 
-  @className className;
+  @className() className;
 
   init() {
     super.init(...arguments);
