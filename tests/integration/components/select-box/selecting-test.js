@@ -378,7 +378,7 @@ module('select-box (selecting)', function(hooks) {
     await render(hbs`
       <SelectBox @onSelect={{this.selected}} @onUpdate={{this.updated}} as |sb|>
         <sb.Option @value="foo" @onSelect={{this.selectedFoo}} />
-        <button onclick={{action sb.select "foo"}}>Select foo</button>
+        <button type="button" {{on "click" (fn sb.select "foo")}}>Select foo</button>
       </SelectBox>
     `);
 
@@ -423,8 +423,8 @@ module('select-box (selecting)', function(hooks) {
       <SelectBox @onUpdate={{this.updated}} @onSelect={{this.selected}} as |sb|>
         <sb.Option @value="foo">Foo</sb.Option>
         <sb.Option @value="bar">Bar</sb.Option>
-        <button onclick={{action sb.update "foo"}}>Select foo</button>
-        <button onclick={{action sb.update "bar"}}>Select bar</button>
+        <button type="button" {{on "click" (fn sb.update "foo")}}>Select foo</button>
+        <button type="button" {{on "click" (fn sb.update "bar")}}>Select bar</button>
       </SelectBox>
     `);
 
@@ -481,10 +481,11 @@ module('select-box (selecting)', function(hooks) {
     assert.expect(2);
 
     this.set('external', null);
+    this.set('setExternal', value => this.set('external', value));
 
     await render(hbs`
       external: {{this.external}}
-      <SelectBox @onSelect={{action (mut this.external)}} as |sb|>
+      <SelectBox @onSelect={{this.setExternal}} as |sb|>
         internal: {{sb.value}}
         <sb.Option @value="foo">Foo</sb.Option>
         <sb.Option @value="bar">Bar</sb.Option>
@@ -685,7 +686,7 @@ module('select-box (selecting)', function(hooks) {
       <SelectBox @multiple={{true}} @value={{this.value}} as |sb|>
         <sb.Option @value="foo" />
         <sb.Option @value="bar" />
-        <button onclick={{action this.inspect sb.value}}>inspect</button>
+        <button type="button" {{on "click" (fn this.inspect sb.value)}}>inspect</button>
       </SelectBox>
     `);
 

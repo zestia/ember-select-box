@@ -481,7 +481,7 @@ module('select-box (searching)', function(hooks) {
 
     await render(hbs`
       <SelectBox @searchMinChars={{2}} @onSearch={{this.findItems}} as |sb|>
-        <button onclick={{action sb.search ""}}></button>
+        <button type="button" {{on "click" (fn sb.search "")}}></button>
       </SelectBox>
     `);
 
@@ -540,7 +540,7 @@ module('select-box (searching)', function(hooks) {
         {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
 
         <sb.Input @value="foo" @onInput={{this.inputted}} />
-        <button onclick={{action sb.setInputValue "bar"}}>Reset</button>
+        <button type="button" {{on "click" (fn sb.setInputValue "bar")}}>Reset</button>
       </SelectBox>
     `);
 
@@ -569,7 +569,7 @@ module('select-box (searching)', function(hooks) {
 
     await render(hbs`
       {{#if this.show}}
-        <SelectBox @onSelect={{action this.hide}} as |sb|>
+        <SelectBox @onSelect={{this.hide}} as |sb|>
           <sb.Input @value="foo" />
           <sb.Option @value="baz" />
         </SelectBox>

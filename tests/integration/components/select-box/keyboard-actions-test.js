@@ -17,14 +17,14 @@ module('select-box (keyboard actions)', function(hooks) {
 
     await render(hbs`<SelectBox
       @onPressKey={{this.pressedKey}}
-      @onPressBackspace={{action this.ranAction "backspace"}}
-      @onPressTab={{action this.ranAction "tab"}}
-      @onPressEnter={{action this.ranAction "enter"}}
-      @onPressEscape={{action this.ranAction "escape"}}
-      @onPressLeft={{action this.ranAction "left"}}
-      @onPressUp={{action this.ranAction "up"}}
-      @onPressRight={{action this.ranAction "right"}}
-      @onPressDown={{action this.ranAction "down"}}
+      @onPressBackspace={{fn this.ranAction "backspace"}}
+      @onPressTab={{fn this.ranAction "tab"}}
+      @onPressEnter={{fn this.ranAction "enter"}}
+      @onPressEscape={{fn this.ranAction "escape"}}
+      @onPressLeft={{fn this.ranAction "left"}}
+      @onPressUp={{fn this.ranAction "up"}}
+      @onPressRight={{fn this.ranAction "right"}}
+      @onPressDown={{fn this.ranAction "down"}}
     />`);
 
     await triggerKeyEvent('.select-box', 'keydown', 8);

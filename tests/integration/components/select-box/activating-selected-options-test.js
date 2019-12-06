@@ -14,10 +14,10 @@ module('select-box (activating selected options)', function(hooks) {
         <sb.SelectedOptions>
           {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
 
-          <sb.SelectedOption @onclick={{action sb.activateSelectedOptionAtIndex 0}}>
+          <sb.SelectedOption {{on "click" (fn sb.activateSelectedOptionAtIndex 0)}}>
             One
           </sb.SelectedOption>
-          <sb.SelectedOption @onclick={{action sb.activateSelectedOptionAtIndex 1}}>
+          <sb.SelectedOption {{on "click" (fn sb.activateSelectedOptionAtIndex 1)}}>
             Two
           </sb.SelectedOption>
         </sb.SelectedOptions>
@@ -66,7 +66,7 @@ module('select-box (activating selected options)', function(hooks) {
     await render(hbs`
       <SelectBox as |sb|>
         <sb.SelectedOption @value="foo" @onActivate={{this.activated}} />
-        <button onclick={{action sb.activateSelectedOptionAtIndex 0}}>Activate foo</button>
+        <button type="button" {{on "click" (fn sb.activateSelectedOptionAtIndex 0)}}>Activate foo</button>
       </SelectBox>
     `);
 

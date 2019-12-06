@@ -4,6 +4,7 @@ import { fillIn, find, findAll, render, settled } from '@ember/test-helpers';
 import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 import { resolve } from 'rsvp';
+import { action } from '@ember/object';
 import {
   getNativeMultipleSelectBoxValue,
   selectNativeOptionsByLabel,
@@ -143,10 +144,12 @@ module('native-select-box', function(hooks) {
 
     this.set('selectedValue', 'bar');
 
+    this.set('setValue', value => this.set('selectedValue', value));
+
     await render(hbs`
       <NativeSelectBox
         @value={{this.selectedValue}}
-        @onSelect={{action (mut this.selectedValue)}} as |sb|>
+        @onSelect={{this.setValue}} as |sb|>
         <sb.Option @value="foo" />
         <sb.Option @value="bar" />
         <sb.Option @value="baz" />
@@ -348,24 +351,24 @@ module('native-select-box', function(hooks) {
       </div>
       <NativeSelectBox
         @value={{@value}}
-        @onUpdate={{action "updateDisplayLabel"}} as |sb|>
+        @onUpdate={{this.updateDisplayLabel}} as |sb|>
         {{yield sb}}
       </NativeSelectBox>
     `;
 
-    const FooSelectBox = Component.extend({
-      tagName: '',
-      layout,
-      actions: {
-        updateDisplayLabel(sb) {
-          const label = sb.element
-            .querySelector('option:checked')
-            .textContent.trim();
+    class FooSelectBox extends Component {
+      tagName = '';
+      layout = layout;
 
-          this.set('displayLabel', label);
-        }
+      @action
+      updateDisplayLabel(sb) {
+        const label = sb.element
+          .querySelector('option:checked')
+          .textContent.trim();
+
+        this.set('displayLabel', label);
       }
-    });
+    }
 
     this.owner.register('component:foo-select-box', FooSelectBox);
 

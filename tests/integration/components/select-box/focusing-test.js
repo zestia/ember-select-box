@@ -47,7 +47,7 @@ module('select-box (focusing)', function(hooks) {
       <SelectBox
         @onFocusIn={{this.focused}}
         @onFocusOut={{this.blurred}}>
-        <button></button>
+        <button type="button"></button>
       </SelectBox>
     `);
 

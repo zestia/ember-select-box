@@ -340,15 +340,17 @@ module('select-box (promises)', function(hooks) {
       deferred.promise.then(() => this.set('showSelect', true));
     });
 
+    this.set('setValue', value => this.set('selectedValue', value));
+
     await render(hbs`
       {{#if this.showSelect}}
-        <SelectBox @onSelect={{action (mut this.selectedValue)}} as |sb|>
+        <SelectBox @onSelect={{this.setValue}} as |sb|>
           <sb.Option @value="foo">Foo</sb.Option>
           <sb.Option @value="bar">Bar</sb.Option>
           <sb.Option @value="baz">Baz</sb.Option>
         </SelectBox>
       {{/if}}
-      <button onclick={{action this.show}}></button>
+      <button type="button" {{on "click" this.show}}></button>
     `);
 
     await click('button');
