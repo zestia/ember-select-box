@@ -7,7 +7,7 @@
 
 <SimpleSelect
   @value={{this.selectedPudding}}
-  @onSelect={{action "selectedPudding"}} as |sb|>
+  @onSelect={{this.selectPudding}} as |sb|>
   <sb.SelectedOption>
     {{sb.value.name}}
   </sb.SelectedOption>

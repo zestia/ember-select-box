@@ -1,7 +1,7 @@
 <select
-  {{did-insert (action "handleInsertElement")}}
-  {{will-destroy (action "handleDestroyElement")}}
-  {{on "change" (action "handleChange")}}
+  {{did-insert this.handleInsertElement}}
+  {{will-destroy this.handleDestroyElement}}
+  {{on "change" this.handleChange}}
   class={{this.className}}
   multiple={{this.isMultiple}}
   ...attributes>
@@ -9,8 +9,8 @@
     Option=(component "native-select-box/option"
       selectBox=this
       classNamePrefix=@classNamePrefix
-      _onDestroy=(action "handleDestroyOption")
-      _onInit=(action "handleInitOption"))
+      _onDestroy=this.handleDestroyOption
+      _onInit=this.handleInitOption)
     Group=(component "native-select-box/group"
       classNamePrefix=@classNamePrefix)
   ) as |components|}}

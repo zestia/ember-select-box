@@ -5,14 +5,14 @@
 </p>
 
 <SearchSelect
-  @onSearch={{action "findBread"}}
-  @onSelect={{action "selectedBread"}} as |sb newBread|>
+  @onSearch={{this.findBread}}
+  @onSelect={{this.selectBread}} as |sb newBread|>
   {{#each this.selectableBreads as |bread|}}
     <sb.Option @value={{bread}}>
       {{bread.name}}
     </sb.Option>
   {{else}}
-    <sb.Option @onSelect={{action "addNewBread" newBread}}>
+    <sb.Option @onSelect={{fn this.addNewBread newBread}}>
       No bread found, add {{newBread}}...
     </sb.Option>
   {{/each}}

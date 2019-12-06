@@ -1,6 +1,6 @@
 <option
-  {{did-insert (action "handleInsertElement")}}
-  {{will-destroy (action "handleDestroyElement")}}
+  {{did-insert this.handleInsertElement}}
+  {{will-destroy this.handleDestroyElement}}
   class={{concat this.className "__option"}}
   selected={{this.isSelected}}
   value={{this.resolvedValue}}

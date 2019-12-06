@@ -4,9 +4,9 @@
   @searchMinChars={{0}}
   @searchDelayTime={{0}}
   @onSearch={{@onSearch}}
-  @onClickOutside={{action "close"}}
-  @onPressEscape={{action "close"}}
-  @onSelect={{action "selected" @onSelect}}
+  @onClickOutside={{this.close}}
+  @onPressEscape={{this.close}}
+  @onSelect={{fn this.selected @onSelect}}
   ...attributes as |sb|>
   <sb.Input onclick={{sb.open}} @onInput={{sb.open}} />
   {{#if sb.isOpen}}

@@ -4,8 +4,8 @@
   @classNamePrefix="colour-select"
   @value={{@value}}
   @onSelect={{@onSelect}}
-  @onClickOutside={{action "close"}}
-  @onPressEscape={{action "close"}}
+  @onClickOutside={{this.close}}
+  @onPressEscape={{this.close}}
   ...attributes as |sb|>
 
   <sb.SelectedOption

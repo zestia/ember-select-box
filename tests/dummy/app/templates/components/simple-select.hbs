@@ -1,12 +1,12 @@
 <SelectBox
   @classNamePrefix="simple-select"
   @value={{@value}}
-  @onPressKey={{action "pressedKey"}}
-  @onPressDown={{action "pressedDown"}}
-  @onPressUp={{action "pressedUp"}}
-  @onPressEscape={{action "close"}}
-  @onClickOutside={{action "close"}}
-  @onSelect={{action "selected" @onSelect}}
+  @onPressKey={{this.pressedKey}}
+  @onPressDown={{this.pressedDown}}
+  @onPressUp={{this.pressedUp}}
+  @onPressEscape={{this.close}}
+  @onClickOutside={{this.close}}
+  @onSelect={{fn this.selected @onSelect}}
   ...attributes as |sb|>
   {{yield (merge sb (hash
     SelectedOption=(component sb.SelectedOption onclick=sb.open))

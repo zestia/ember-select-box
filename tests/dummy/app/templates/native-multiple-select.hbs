@@ -7,7 +7,7 @@
   size="12"
   @multiple={{true}}
   @value={{this.selectedDesserts}}
-  @onSelect={{action "selectedDesserts"}} as |sb|>
+  @onSelect={{this.selectDesserts}} as |sb|>
   <sb.Group label="Pastries">
     {{#each this.selectablePastries as |pastry|}}
       <sb.Option @value={{pastry}}>

@@ -3,12 +3,12 @@
   @value={{@value}}
   @searchMinChars={{0}}
   @searchDelayTime={{0}}
-  @onPressEscape={{action "close"}}
-  @onPressDown={{action "pressedDown"}}
-  @onPressUp={{action "pressedUp"}}
-  @onClickOutside={{action "close"}}
-  @onSelect={{action "addTag"}}
-  @onSearch={{action "updateAvailableTags" @onSearch}}
+  @onPressEscape={{this.close}}
+  @onPressDown={{this.pressedDown}}
+  @onPressUp={{this.pressedUp}}
+  @onClickOutside={{this.close}}
+  @onSelect={{this.addTag}}
+  @onSearch={{fn this.updateAvailableTags @onSearch}}
   ...attributes as |sb|>
 
   <sb.SelectedOptions>
@@ -16,7 +16,8 @@
       <sb.SelectedOption>
         {{tag}}
         <button
-          onclick={{action "removeTag" tag}}
+          type="button"
+          onclick={{fn this.removeTag tag}}
           class="tag-select__remove">
           &times;
         </button>
@@ -25,10 +26,10 @@
   </sb.SelectedOptions>
 
   <sb.Input
-    onclick={{action "reveal" sb @onSearch}}
+    onclick={{fn this.reveal sb @onSearch}}
     autofocus={{true}}
     @onInput={{sb.open}}
-    @onDelete={{action "removeTag" @value.lastObject}} />
+    @onDelete={{fn this.removeTag @value.lastObject}} />
 
   {{#if sb.isOpen}}
     <sb.Options>

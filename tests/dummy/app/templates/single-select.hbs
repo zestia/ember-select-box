@@ -6,13 +6,13 @@
 <SelectBox
   @classNamePrefix="single-select"
   @value={{this.selectedBread}}
-  @onSelect={{action "selectedBread"}} as |sb|>
+  @onSelect={{this.selectBread}} as |sb|>
 
-  <sb.Option @value={{this.bloomer}} @onSelect={{action "action1"}}>
+  <sb.Option @value={{this.bloomer}} @onSelect={{this.performAction1}}>
     {{this.bloomer.name}} (Misc action 1)
   </sb.Option>
 
-  <sb.Option @value={{this.brioche}} @onSelect={{action "action2"}}>
+  <sb.Option @value={{this.brioche}} @onSelect={{this.performAction2}}>
     {{this.brioche.name}} (Misc action 2)
   </sb.Option>
 

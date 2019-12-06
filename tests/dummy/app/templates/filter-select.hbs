@@ -6,8 +6,8 @@
 
 <FilterSelect
   @labelKey="name"
-  @onSearch={{action "filterPies"}}
-  @onSelect={{action "selectedPie"}} as |sb|>
+  @onSearch={{this.filterPies}}
+  @onSelect={{this.selectPie}} as |sb|>
   {{#each this.selectablePies as |pie|}}
     <sb.Option @value={{pie}}>
       {{pie.name}}

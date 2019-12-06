@@ -1,8 +1,8 @@
 <input
-  {{did-insert (action "handleInsertElement")}}
-  {{will-destroy (action "handleDestroyElement")}}
-  {{on "input" (action "handleInput")}}
-  {{on "keydown" (action "handleKeyDown")}}
+  {{did-insert this.handleInsertElement}}
+  {{will-destroy this.handleDestroyElement}}
+  {{on "input" this.handleInput}}
+  {{on "keydown" this.handleKeyDown}}
   aria-multiline="false"
   autocomplete="off"
   class={{concat this.className "__input"}}

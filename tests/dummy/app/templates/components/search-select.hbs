@@ -4,9 +4,9 @@
   @searchSlowTime={{500}}
   @onSelect={{@onSelect}}
   @onSearch={{@onSearch}}
-  @onSearched={{action "searched"}}
-  @onPressEscape={{action "close"}}
-  @onClickOutside={{action "close"}}
+  @onSearched={{this.searched}}
+  @onPressEscape={{this.close}}
+  @onClickOutside={{this.close}}
   ...attributes as |sb|>
   <sb.Input />
   {{#if sb.isSearching}}
