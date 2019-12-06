@@ -5,29 +5,29 @@ import {
 } from '../../utils/component/lifecycle';
 import layout from '../../templates/components/select-box/options';
 import { className } from '../../utils/shared/attributes';
+import { action } from '@ember/object';
 
-export default Component.extend({
-  layout,
-  tagName: '',
+export default class SelectBoxOptions extends Component {
+  layout = layout;
+  tagName = '';
 
   // Arguments
 
-  classNamePrefix: '',
+  classNamePrefix = '';
 
   // Computed state
 
-  className: className(),
+  @className className;
 
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
     _initComponent(this);
-  },
-
-  actions: {
-    // Internal actions
-
-    handleDestroyElement() {
-      _destroyComponent(this);
-    }
   }
-});
+
+  // Internal actions
+
+  @action
+  handleDestroyElement() {
+    _destroyComponent(this);
+  }
+}

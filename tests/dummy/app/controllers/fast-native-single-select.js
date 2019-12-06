@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
 
 import Controller from '@ember/controller';
-import { computed, set } from '@ember/object';
+import { computed, set, action } from '@ember/object';
 
-export default Controller.extend({
+export default class FastNativeSingleSelectController extends Controller {
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
 
     set(this, 'models', []);
 
@@ -17,26 +17,27 @@ export default Controller.extend({
     }
 
     set(this, 'selectedModelId', '100');
-  },
+  }
 
-  options: computed('selectedModelId', function() {
+  @computed('selectedModelId')
+  get options() {
     return this.models.map(model => {
       return {
         model,
         selected: model.id === this.selectedModelId
       };
     });
-  }),
+  }
 
-  selectedModel: computed('selectedModelId', function() {
+  @computed('selectedModelId')
+  get selectedModel() {
     return this.models.find(model => {
       return model.id === this.selectedModelId;
     });
-  }),
-
-  actions: {
-    selectModelId(modelId) {
-      set(this, 'selectedModelId', modelId);
-    }
   }
-});
+
+  @action
+  selectModelId(modelId) {
+    set(this, 'selectedModelId', modelId);
+  }
+}

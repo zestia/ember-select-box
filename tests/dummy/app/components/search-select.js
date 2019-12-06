@@ -1,19 +1,19 @@
 import Component from '@ember/component';
-import { set } from '@ember/object';
 import layout from '../templates/components/search-select';
+import { set, action } from '@ember/object';
 
-export default Component.extend({
-  layout,
-  tagName: '',
+export default class SearchSelect extends Component {
+  layout = layout;
+  tagName = '';
 
-  actions: {
-    close(e, sb) {
-      sb.close();
-    },
-
-    searched(results, query, sb) {
-      set(this, 'lastQuery', query);
-      sb.open();
-    }
+  @action
+  close(e, sb) {
+    sb.close();
   }
-});
+
+  @action
+  searched(results, query, sb) {
+    set(this, 'lastQuery', query);
+    sb.open();
+  }
+}

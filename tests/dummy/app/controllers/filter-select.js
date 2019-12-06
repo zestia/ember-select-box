@@ -1,26 +1,26 @@
 import Controller from '@ember/controller';
 import { pies } from '../utils/dummy-data';
 import { resolve } from 'rsvp';
-import { set } from '@ember/object';
+import { set, action } from '@ember/object';
 
-export default Controller.extend({
+export default class FilterSelect extends Controller {
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
     set(this, 'selectablePies', pies);
-  },
+  }
 
-  actions: {
-    filterPies(query) {
-      return this._filterPies(query).then(pies => {
-        set(this, 'selectablePies', pies);
-        return pies;
-      });
-    },
+  @action
+  filterPies(query) {
+    return this._filterPies(query).then(pies => {
+      set(this, 'selectablePies', pies);
+      return pies;
+    });
+  }
 
-    selectedPie(pie) {
-      set(this, 'selectedPie', pie);
-    }
-  },
+  @action
+  selectPie(pie) {
+    set(this, 'selectedPie', pie);
+  }
 
   _filterPies(query) {
     return resolve(
@@ -29,4 +29,4 @@ export default Controller.extend({
       })
     );
   }
-});
+}

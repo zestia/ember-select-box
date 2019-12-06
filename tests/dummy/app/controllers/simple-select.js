@@ -1,16 +1,15 @@
 import Controller from '@ember/controller';
 import { puddings } from '../utils/dummy-data';
-import { set } from '@ember/object';
+import { set, action } from '@ember/object';
 
-export default Controller.extend({
+export default class SimpleSelectController extends Controller {
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
     set(this, 'selectablePuddings', puddings);
-  },
-
-  actions: {
-    selectedPudding(pudding) {
-      set(this, 'selectedPudding', pudding);
-    }
   }
-});
+
+  @action
+  selectPudding(pudding) {
+    set(this, 'selectedPudding', pudding);
+  }
+}

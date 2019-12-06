@@ -1,26 +1,25 @@
 import Controller from '@ember/controller';
 import { breads } from '../utils/dummy-data';
-import { set } from '@ember/object';
+import { set, action } from '@ember/object';
 
-export default Controller.extend({
+export default class SingleSelectController extends Controller {
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
     set(this, 'selectableBreads', breads);
     set(this, 'bloomer', { id: 13, name: 'Bloomer' });
     set(this, 'brioche', { id: 14, name: 'Brioche' });
-  },
-
-  actions: {
-    selectedBread(bread) {
-      set(this, 'selectedBread', bread);
-    },
-
-    action1() {
-      set(this, 'action1', true);
-    },
-
-    action2() {
-      set(this, 'action2', true);
-    }
   }
-});
+
+  @action
+  selectBread(bread) {
+    set(this, 'selectedBread', bread);
+  }
+
+  action1() {
+    set(this, 'performedAction1', true);
+  }
+
+  action2() {
+    set(this, 'performedAction2', true);
+  }
+}

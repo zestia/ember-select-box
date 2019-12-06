@@ -10,54 +10,57 @@ import {
 import { input, keyDown } from '../../utils/select-box/input/keyboard';
 import layout from '../../templates/components/select-box/input';
 import { className } from '../../utils/shared/attributes';
+import { action } from '@ember/object';
 
-export default Component.extend({
-  layout,
-  tagName: '',
+export default class SelectBoxInput extends Component {
+  layout = layout;
+  tagName = '';
 
   // Arguments
 
-  classNamePrefix: '',
-  selectBox: null,
+  classNamePrefix = '';
+  selectBox = null;
 
   // State
 
-  domElement: null,
-  id: null,
+  domElement = null;
+  id = null;
 
   // Actions
 
-  onClear: null,
-  onDelete: null,
-  onInput: null,
+  onClear = null;
+  onDelete = null;
+  onInput = null;
 
   // Computed state
 
-  className: className(),
+  @className className;
 
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
     _initComponent(this);
-  },
-
-  actions: {
-    // Internal actions
-
-    handleInsertElement(element) {
-      registerElement(this, element);
-    },
-
-    handleDestroyElement(element) {
-      deregisterElement(this, element);
-      _destroyComponent(this);
-    },
-
-    handleInput(e) {
-      input(this, e);
-    },
-
-    handleKeyDown(e) {
-      keyDown(this, e);
-    }
   }
-});
+
+  // Internal actions
+
+  @action
+  handleInsertElement(element) {
+    registerElement(this, element);
+  }
+
+  @action
+  handleDestroyElement(element) {
+    deregisterElement(this, element);
+    _destroyComponent(this);
+  }
+
+  @action
+  handleInput(e) {
+    input(this, e);
+  }
+
+  @action
+  handleKeyDown(e) {
+    keyDown(this, e);
+  }
+}

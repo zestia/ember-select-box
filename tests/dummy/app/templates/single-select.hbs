@@ -8,11 +8,11 @@
   @value={{this.selectedBread}}
   @onSelect={{this.selectBread}} as |sb|>
 
-  <sb.Option @value={{this.bloomer}} @onSelect={{this.performAction1}}>
+  <sb.Option @value={{this.bloomer}} @onSelect={{this.action1}}>
     {{this.bloomer.name}} (Misc action 1)
   </sb.Option>
 
-  <sb.Option @value={{this.brioche}} @onSelect={{this.performAction2}}>
+  <sb.Option @value={{this.brioche}} @onSelect={{this.action2}}>
     {{this.brioche.name}} (Misc action 2)
   </sb.Option>
 
@@ -29,9 +29,9 @@
 </p>
 
 <p>
-  Called misc action 1: {{this.action1}}
+  Called misc action 1: {{this.performedAction1}}
 </p>
 
 <p>
-  Called misc action 2: {{this.action2}}
+  Called misc action 2: {{this.performedAction2}}
 </p>

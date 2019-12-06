@@ -59,281 +59,321 @@ import { receiveValue, selectValue, updateValue } from '../utils/shared/value';
 import { id, className } from '../utils/shared/attributes';
 import { ready } from '../utils/shared/ready';
 import { insertElement } from '../utils/shared/element';
+import { action } from '@ember/object';
 
-export default Component.extend({
-  layout,
-  tagName: '',
+export default class SelectBox extends Component {
+  layout = layout;
+  tagName = '';
 
   // Arguments
 
-  classNamePrefix: '',
-  disabled: false,
-  multiple: false,
-  searchDelayTime: 100,
-  searchMinChars: 1,
-  searchSlowTime: 500,
-  value: undefined,
+  classNamePrefix = '';
+  disabled = false;
+  multiple = false;
+  searchDelayTime = 100;
+  searchMinChars = 1;
+  searchSlowTime = 500;
+  value = undefined;
 
   // Actions
 
-  onBuildSelection: null,
-  onClickOutside: null,
-  onClose: null,
-  onFocusIn: null,
-  onFocusOut: null,
-  onInsertElement: null,
-  onOpen: null,
-  onPressBackspace: null,
-  onPressDown: null,
-  onPressEnter: null,
-  onPressEscape: null,
-  onPressKey: null,
-  onPressLeft: null,
-  onPressRight: null,
-  onPressTab: null,
-  onPressUp: null,
-  onReady: null,
-  onSearch: null,
-  onSearched: null,
-  onSearchError: null,
-  onSelect: null,
-  onUpdate: null,
+  onBuildSelection = null;
+  onClickOutside = null;
+  onClose = null;
+  onFocusIn = null;
+  onFocusOut = null;
+  onInsertElement = null;
+  onOpen = null;
+  onPressBackspace = null;
+  onPressDown = null;
+  onPressEnter = null;
+  onPressEscape = null;
+  onPressKey = null;
+  onPressLeft = null;
+  onPressRight = null;
+  onPressTab = null;
+  onPressUp = null;
+  onReady = null;
+  onSearch = null;
+  onSearched = null;
+  onSearchError = null;
+  onSelect = null;
+  onUpdate = null;
 
   // State
 
-  activeOptionIndex: -1,
-  activeSelectedOptionIndex: -1,
-  documentClickHandler: null,
-  domElement: null,
-  isFocused: false,
-  isFulfilled: false,
-  isOpen: false,
-  isPending: true,
-  isRejected: false,
-  isSearching: false,
-  isSettled: false,
-  isSlowSearch: false,
-  memoisedAPI: null,
-  optionCharState: null,
-  previousResolvedValue: null,
-  resolvedValue: null,
-  searchID: 0,
-  tabIndex: '0',
-  valueID: 0,
+  activeOptionIndex = -1;
+  activeSelectedOptionIndex = -1;
+  documentClickHandler = null;
+  domElement = null;
+  isFocused = false;
+  isFulfilled = false;
+  isOpen = false;
+  isPending = true;
+  isRejected = false;
+  isSearching = false;
+  isSettled = false;
+  isSlowSearch = false;
+  memoisedAPI = null;
+  optionCharState = null;
+  previousResolvedValue = null;
+  resolvedValue = null;
+  searchID = 0;
+  tabIndex = '0';
+  valueID = 0;
 
   // Child components
 
-  input: null,
-  options: null,
-  optionsContainer: null,
-  selectedOptions: null,
-  selectedOptionsContainer: null,
+  input = null;
+  options = null;
+  optionsContainer = null;
+  selectedOptions = null;
+  selectedOptionsContainer = null;
 
   // Computed state
 
-  className: className(),
-  id: id(),
-  isDisabled: bool('disabled'),
-  isBusy: or('isPending', 'isSearching'),
-  isMultiple: bool('multiple'),
-  api: api(),
-  activeOption: objectAtIndex('options', 'activeOptionIndex'),
-  activeSelectedOption: objectAtIndex(
-    'selectedOptions',
-    'activeSelectedOptionIndex'
-  ),
+  @className className;
+  @id id;
+  @bool('disabled') isDisabled;
+  @or('isPending', 'isSearching') isBusy;
+  @bool('multiple') isMultiple;
+  @api api;
+  @objectAtIndex('options', 'activeOptionIndex') activeOption;
+  @objectAtIndex('selectedOptions', 'activeSelectedOptionIndex')
+  activeSelectedOption;
 
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
     initOptions(this);
     initSelectedOptions(this);
     ready(this);
-  },
+  }
 
   didReceiveAttrs() {
-    this._super(...arguments);
+    super.init(...arguments);
     receiveArgs(this);
     receiveValue(this);
-  },
-
-  actions: {
-    // Internal actions
-
-    handleInsertElement(element) {
-      registerElement(this, element);
-      addDocumentClickListener(this);
-      insertElement(this);
-    },
-
-    handleDestroyElement(element) {
-      deregisterElement(this, element);
-      removeDocumentClickListener(this);
-    },
-
-    handleInitOption(option) {
-      registerOption(this, option);
-    },
-
-    handleDestroyOption(option) {
-      deregisterOption(this, option);
-    },
-
-    handleInitSelectedOption(option) {
-      registerSelectedOption(this, option);
-    },
-
-    handleDestroySelectedOption(option) {
-      deregisterSelectedOption(this, option);
-    },
-
-    handleInitOptionsContainer(optionsContainer) {
-      registerOptionsContainer(this, optionsContainer);
-    },
-
-    handleDestroyOptionsContainer(optionsContainer) {
-      deregisterOptionsContainer(this, optionsContainer);
-    },
-
-    handleInitSelectedOptionsContainer(selectedOptionsContainer) {
-      registerSelectedOptionsContainer(this, selectedOptionsContainer);
-    },
-
-    handleDestroySelectedOptionsContainer(selectedOptionsContainer) {
-      deregisterSelectedOptionsContainer(this, selectedOptionsContainer);
-    },
-
-    handleInitInput(input) {
-      registerInput(this, input);
-    },
-
-    handleDestroyInput(input) {
-      deregisterInput(this, input);
-    },
-
-    handleInputText(text) {
-      maybeSearch(this, text);
-    },
-
-    handleFocusIn(e) {
-      focusIn(this, e);
-    },
-
-    handleFocusOut(e) {
-      focusOut(this, e);
-    },
-
-    handleKeyPress(e) {
-      keyPress(this, e);
-    },
-
-    handleKeyDown(e) {
-      keyDown(this, e);
-    },
-
-    handlePressEnter() {
-      _selectOption(this.activeOption);
-    },
-
-    handleSelectOption(option) {
-      return selectOption(this, option);
-    },
-
-    handleActivateOption(option) {
-      activateOption(this, option);
-    },
-
-    handleActivateSelectedOption(selectedOption) {
-      activateSelectedOption(this, selectedOption);
-    },
-
-    // Public API Actions
-
-    select(value) {
-      return selectValue(this, value);
-    },
-
-    update(value) {
-      return updateValue(this, value);
-    },
-
-    selectActiveOption() {
-      return _selectOption(this.activeOption);
-    },
-
-    open() {
-      open(this);
-    },
-
-    close() {
-      close(this);
-    },
-
-    toggle() {
-      toggle(this);
-    },
-
-    search(query) {
-      return search(this, query);
-    },
-
-    cancelSearch() {
-      cancelSearch(this);
-    },
-
-    focusInput() {
-      focusInput(this);
-    },
-
-    blurInput() {
-      blurInput(this);
-    },
-
-    setInputValue(value) {
-      setInputValue(this, value);
-    },
-
-    activateOptionForValue(value, config) {
-      activateOptionForValue(this, value, config);
-    },
-
-    activateOptionAtIndex(index, config) {
-      activateOptionAtIndex(this, index, config);
-    },
-
-    activateNextOption(config) {
-      activateNextOption(this, config);
-    },
-
-    activatePreviousOption(config) {
-      activatePreviousOption(this, config);
-    },
-
-    activateOptionForKeyCode(keyCode, config) {
-      activateOptionForKeyCode(this, keyCode, config);
-    },
-
-    activateSelectedOptionAtIndex(index, config) {
-      activateSelectedOptionAtIndex(this, index, config);
-    },
-
-    activateNextSelectedOption(config) {
-      activateNextSelectedOption(this, config);
-    },
-
-    activatePreviousSelectedOption(config) {
-      activatePreviousSelectedOption(this, config);
-    },
-
-    activateSelectedOptionForKeyCode(keyCode, config) {
-      activateSelectedOptionForKeyCode(this, keyCode, config);
-    },
-
-    deactivateOptions() {
-      deactivateOptions(this);
-    },
-
-    deactivateSelectedOptions() {
-      deactivateSelectedOptions(this);
-    }
   }
-});
+
+  // Internal actions
+
+  @action
+  handleInsertElement(element) {
+    registerElement(this, element);
+    addDocumentClickListener(this);
+    insertElement(this);
+  }
+
+  @action
+  handleDestroyElement(element) {
+    deregisterElement(this, element);
+    removeDocumentClickListener(this);
+  }
+
+  @action
+  handleInitOption(option) {
+    registerOption(this, option);
+  }
+
+  @action
+  handleDestroyOption(option) {
+    deregisterOption(this, option);
+  }
+
+  @action
+  handleInitSelectedOption(option) {
+    registerSelectedOption(this, option);
+  }
+
+  @action
+  handleDestroySelectedOption(option) {
+    deregisterSelectedOption(this, option);
+  }
+
+  @action
+  handleInitOptionsContainer(optionsContainer) {
+    registerOptionsContainer(this, optionsContainer);
+  }
+
+  @action
+  handleDestroyOptionsContainer(optionsContainer) {
+    deregisterOptionsContainer(this, optionsContainer);
+  }
+
+  @action
+  handleInitSelectedOptionsContainer(selectedOptionsContainer) {
+    registerSelectedOptionsContainer(this, selectedOptionsContainer);
+  }
+
+  @action
+  handleDestroySelectedOptionsContainer(selectedOptionsContainer) {
+    deregisterSelectedOptionsContainer(this, selectedOptionsContainer);
+  }
+
+  @action
+  handleInitInput(input) {
+    registerInput(this, input);
+  }
+
+  @action
+  handleDestroyInput(input) {
+    deregisterInput(this, input);
+  }
+
+  @action
+  handleInputText(text) {
+    maybeSearch(this, text);
+  }
+
+  @action
+  handleFocusIn(e) {
+    focusIn(this, e);
+  }
+
+  @action
+  handleFocusOut(e) {
+    focusOut(this, e);
+  }
+
+  @action
+  handleKeyPress(e) {
+    keyPress(this, e);
+  }
+
+  @action
+  handleKeyDown(e) {
+    keyDown(this, e);
+  }
+
+  @action
+  handlePressEnter() {
+    _selectOption(this.activeOption);
+  }
+
+  @action
+  handleSelectOption(option) {
+    return selectOption(this, option);
+  }
+
+  @action
+  handleActivateOption(option) {
+    activateOption(this, option);
+  }
+
+  @action
+  handleActivateSelectedOption(selectedOption) {
+    activateSelectedOption(this, selectedOption);
+  }
+
+  // Public API Actions
+
+  @action
+  select(value) {
+    return selectValue(this, value);
+  }
+
+  @action
+  update(value) {
+    return updateValue(this, value);
+  }
+
+  @action
+  selectActiveOption() {
+    return _selectOption(this.activeOption);
+  }
+
+  @action
+  open() {
+    open(this);
+  }
+
+  @action
+  close() {
+    close(this);
+  }
+
+  @action
+  toggle() {
+    toggle(this);
+  }
+
+  @action
+  search(query) {
+    return search(this, query);
+  }
+
+  @action
+  cancelSearch() {
+    cancelSearch(this);
+  }
+
+  @action
+  focusInput() {
+    focusInput(this);
+  }
+
+  @action
+  blurInput() {
+    blurInput(this);
+  }
+
+  @action
+  setInputValue(value) {
+    setInputValue(this, value);
+  }
+
+  @action
+  activateOptionForValue(value, config) {
+    activateOptionForValue(this, value, config);
+  }
+
+  @action
+  activateOptionAtIndex(index, config) {
+    activateOptionAtIndex(this, index, config);
+  }
+
+  @action
+  activateNextOption(config) {
+    activateNextOption(this, config);
+  }
+
+  @action
+  activatePreviousOption(config) {
+    activatePreviousOption(this, config);
+  }
+
+  @action
+  activateOptionForKeyCode(keyCode, config) {
+    activateOptionForKeyCode(this, keyCode, config);
+  }
+
+  @action
+  activateSelectedOptionAtIndex(index, config) {
+    activateSelectedOptionAtIndex(this, index, config);
+  }
+
+  @action
+  activateNextSelectedOption(config) {
+    activateNextSelectedOption(this, config);
+  }
+
+  @action
+  activatePreviousSelectedOption(config) {
+    activatePreviousSelectedOption(this, config);
+  }
+
+  @action
+  activateSelectedOptionForKeyCode(keyCode, config) {
+    activateSelectedOptionForKeyCode(this, keyCode, config);
+  }
+
+  @action
+  deactivateOptions() {
+    deactivateOptions(this);
+  }
+
+  @action
+  deactivateSelectedOptions() {
+    deactivateSelectedOptions(this);
+  }
+}

@@ -1,17 +1,16 @@
 import Controller from '@ember/controller';
 import { biscuits } from '../utils/dummy-data';
-import { set } from '@ember/object';
+import { set, action } from '@ember/object';
 
-export default Controller.extend({
+export default class NativeSimpleSelectController extends Controller {
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
     set(this, 'selectableBiscuits', biscuits);
     set(this, 'selectedBiscuit', biscuits[2]);
-  },
-
-  actions: {
-    selectedBiscuit(biscuit) {
-      set(this, 'selectedBiscuit', biscuit);
-    }
   }
-});
+
+  @action
+  selectBiscuit(biscuit) {
+    set(this, 'selectedBiscuit', biscuit);
+  }
+}

@@ -1,37 +1,41 @@
 import Component from '@ember/component';
 import layout from '../templates/components/simple-select';
+import { action } from '@ember/object';
 
-export default Component.extend({
-  layout,
-  tagName: '',
+export default class SimpleSelect extends Component {
+  layout = layout;
+  tagName = '';
 
-  actions: {
-    pressedKey(e, sb) {
-      sb.activateOptionForKeyCode(e.keyCode);
+  @action
+  handlePressKey(e, sb) {
+    sb.activateOptionForKeyCode(e.keyCode);
 
-      if (!sb.isOpen) {
-        sb.selectActiveOption();
-      }
-    },
-
-    pressedUp(e, sb) {
-      e.preventDefault();
-      sb.activatePreviousOption();
-    },
-
-    pressedDown(e, sb) {
-      e.preventDefault();
-      sb.activateNextOption();
-      sb.open();
-    },
-
-    close(e, sb) {
-      sb.close();
-    },
-
-    selected(select, value, sb) {
-      select(value);
-      sb.close();
+    if (!sb.isOpen) {
+      sb.selectActiveOption();
     }
   }
-});
+
+  @action
+  handlePressUp(e, sb) {
+    e.preventDefault();
+    sb.activatePreviousOption();
+  }
+
+  @action
+  handlePressDown(e, sb) {
+    e.preventDefault();
+    sb.activateNextOption();
+    sb.open();
+  }
+
+  @action
+  close(e, sb) {
+    sb.close();
+  }
+
+  @action
+  select(select, value, sb) {
+    select(value);
+    sb.close();
+  }
+}

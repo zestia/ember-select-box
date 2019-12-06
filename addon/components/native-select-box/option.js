@@ -13,56 +13,57 @@ import index from '../../utils/general/index';
 import isSelected from '../../utils/shared/is-selected';
 import layout from '../../templates/components/native-select-box/option';
 import { className } from '../../utils/shared/attributes';
+import { action } from '@ember/object';
 
-export default Component.extend({
-  layout,
-  tagName: '',
+export default class NativeSelectBoxOption extends Component {
+  layout = layout;
+  tagName = '';
 
   // Arguments
 
-  classNamePrefix: '',
-  selectBox: null,
-  value: undefined,
+  classNamePrefix = '';
+  selectBox = null;
+  value = undefined;
 
   // State
 
-  domElement: null,
-  id: null,
-  isFulfilled: false,
-  isPending: true,
-  isRejected: false,
-  isSettled: false,
-  memoisedAPI: null,
-  previousResolvedValue: null,
-  resolvedValue: null,
+  domElement = null;
+  id = null;
+  isFulfilled = false;
+  isPending = true;
+  isRejected = false;
+  isSettled = false;
+  memoisedAPI = null;
+  previousResolvedValue = null;
+  resolvedValue = null;
 
   // Computed state
 
-  api: api(),
-  className: className(),
-  index: index('selectBox.options'),
-  isSelected: isSelected(),
+  @api api;
+  @className className;
+  @index('selectBox.options') index;
+  @isSelected isSelected;
 
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
     _initComponent(this);
-  },
+  }
 
   didReceiveAttrs() {
-    this._super(...arguments);
+    super.didReceiveAttrs(...arguments);
     receiveValue(this);
-  },
-
-  actions: {
-    // Internal actions
-
-    handleInsertElement(element) {
-      registerElement(this, element);
-    },
-
-    handleDestroyElement(element) {
-      deregisterElement(this, element);
-      _destroyComponent(this);
-    }
   }
-});
+
+  // Internal actions
+
+  @action
+  handleInsertElement(element) {
+    registerElement(this, element);
+  }
+
+  @action
+  handleDestroyElement(element) {
+    deregisterElement(this, element);
+    _destroyComponent(this);
+  }
+}

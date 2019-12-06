@@ -1,47 +1,52 @@
 import Component from '@ember/component';
-import { set } from '@ember/object';
 import layout from '../templates/components/tag-select';
+import { set, action } from '@ember/object';
 
-export default Component.extend({
-  layout,
-  tagName: '',
+export default class TagSelect extends Component {
+  layout = layout;
+  tagName = '';
 
-  actions: {
-    pressedUp(e, sb) {
-      e.preventDefault();
-      sb.activatePreviousOption();
-    },
-
-    pressedDown(e, sb) {
-      e.preventDefault();
-      sb.activateNextOption();
-      sb.open();
-    },
-
-    close(e, sb) {
-      sb.close();
-    },
-
-    updateAvailableTags(search, query) {
-      return search(query).then(tags => {
-        set(this, 'availableTags', tags);
-        set(this, 'newTag', query);
-      });
-    },
-
-    reveal(sb, search) {
-      this.send('updateAvailableTags', search, '');
-      sb.open();
-    },
-
-    addTag(tag, sb) {
-      this.onTag(tag);
-      sb.setInputValue('');
-      sb.close();
-    },
-
-    removeTag(tag) {
-      this.onDeTag(tag);
-    }
+  @action
+  handlePressUp(e, sb) {
+    e.preventDefault();
+    sb.activatePreviousOption();
   }
-});
+
+  @action
+  handlePressDown(e, sb) {
+    e.preventDefault();
+    sb.activateNextOption();
+    sb.open();
+  }
+
+  @action
+  close(e, sb) {
+    sb.close();
+  }
+
+  @action
+  updateAvailableTags(search, query) {
+    return search(query).then(tags => {
+      set(this, 'availableTags', tags);
+      set(this, 'newTag', query);
+    });
+  }
+
+  @action
+  reveal(sb, search) {
+    this.send('updateAvailableTags', search, '');
+    sb.open();
+  }
+
+  @action
+  addTag(tag, sb) {
+    this.onTag(tag);
+    sb.setInputValue('');
+    sb.close();
+  }
+
+  @action
+  removeTag(tag) {
+    this.onDeTag(tag);
+  }
+}

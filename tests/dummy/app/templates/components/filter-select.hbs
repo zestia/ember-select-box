@@ -6,7 +6,7 @@
   @onSearch={{@onSearch}}
   @onClickOutside={{this.close}}
   @onPressEscape={{this.close}}
-  @onSelect={{fn this.selected @onSelect}}
+  @onSelect={{fn this.select @onSelect}}
   ...attributes as |sb|>
   <sb.Input onclick={{sb.open}} @onInput={{sb.open}} />
   {{#if sb.isOpen}}

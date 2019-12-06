@@ -17,74 +17,77 @@ import isEqual from '../../utils/general/is-equal';
 import isSelected from '../../utils/shared/is-selected';
 import layout from '../../templates/components/select-box/option';
 import { id, className } from '../../utils/shared/attributes';
+import { action } from '@ember/object';
 
-export default Component.extend({
-  layout,
-  tagName: '',
+export default class SelectBoxOption extends Component {
+  layout = layout;
+  tagName = '';
 
   // Arguments
 
-  classNamePrefix: '',
-  disabled: false,
-  selectBox: null,
-  selected: undefined,
-  value: undefined,
+  classNamePrefix = '';
+  disabled = false;
+  selectBox = null;
+  selected = undefined;
+  value = undefined;
 
   // Actions
 
-  onActivate: null,
-  onSelect: null,
+  onActivate = null;
+  onSelect = null;
 
   // State
 
-  domElement: null,
-  isFulfilled: false,
-  isPending: true,
-  isRejected: false,
-  isSettled: false,
-  memoisedAPI: null,
-  previousResolvedValue: null,
-  resolvedValue: null,
-  valueID: 0,
+  domElement = null;
+  isFulfilled = false;
+  isPending = true;
+  isRejected = false;
+  isSettled = false;
+  memoisedAPI = null;
+  previousResolvedValue = null;
+  resolvedValue = null;
+  valueID = 0;
 
   // Computed state
 
-  api: api(),
-  className: className(),
-  id: id(),
-  index: index('selectBox.options'),
-  isActive: isEqual('index', 'selectBox.activeOptionIndex'),
-  isDisabled: bool('disabled'),
-  isSelected: isSelected(),
+  @api api;
+  @className className;
+  @id id;
+  @index('selectBox.options') index;
+  @isEqual('index', 'selectBox.activeOptionIndex') isActive;
+  @bool('disabled') isDisabled;
+  @isSelected isSelected;
 
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
     _initComponent(this);
-  },
+  }
 
   didReceiveAttrs() {
-    this._super(...arguments);
+    super.didReceiveAttrs(...arguments);
     receiveValue(this);
-  },
-
-  actions: {
-    // Internal actions
-
-    handleInsertElement(element) {
-      registerElement(this, element);
-    },
-
-    handleDestroyElement(element) {
-      deregisterElement(this, element);
-      _destroyComponent(this);
-    },
-
-    handleMouseEnter() {
-      _activateOption(this);
-    },
-
-    handleClick() {
-      _selectOption(this);
-    }
   }
-});
+
+  // Internal actions
+
+  @action
+  handleInsertElement(element) {
+    registerElement(this, element);
+  }
+
+  @action
+  handleDestroyElement(element) {
+    deregisterElement(this, element);
+    _destroyComponent(this);
+  }
+
+  @action
+  handleMouseEnter() {
+    _activateOption(this);
+  }
+
+  @action
+  handleClick() {
+    _selectOption(this);
+  }
+}

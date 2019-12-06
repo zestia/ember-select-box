@@ -16,87 +16,93 @@ import layout from '../templates/components/native-select-box';
 import { className } from '../utils/shared/attributes';
 import { ready } from '../utils/shared/ready';
 import { insertElement } from '../utils/shared/element';
+import { action } from '@ember/object';
 
-export default Component.extend({
-  layout,
-  tagName: '',
+export default class NativeSelectBox extends Component {
+  layout = layout;
+  tagName = '';
 
   // Arguments
 
-  classNamePrefix: '',
-  disabled: false,
-  multiple: false,
-  value: undefined,
+  classNamePrefix = '';
+  disabled = false;
+  multiple = false;
+  value = undefined;
 
   // Actions
 
-  onInsertElement: null,
-  onReady: null,
-  onSelect: null,
-  onUpdate: null,
+  onInsertElement = null;
+  onReady = null;
+  onSelect = null;
+  onUpdate = null;
 
   // State
 
-  domElement: null,
-  id: null,
-  isFulfilled: false,
-  isPending: true,
-  isRejected: false,
-  isSettled: false,
-  memoisedAPI: null,
-  previousResolvedValue: null,
-  resolvedValue: null,
-  valueID: 0,
+  domElement = null;
+  id = null;
+  isFulfilled = false;
+  isPending = true;
+  isRejected = false;
+  isSettled = false;
+  memoisedAPI = null;
+  previousResolvedValue = null;
+  resolvedValue = null;
+  valueID = 0;
 
   // Computed state
 
-  api: api(),
-  className: className(),
-  isMultiple: bool('multiple'),
+  @api api;
+  @className className;
+  @bool('multiple') isMultiple;
 
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
     initOptions(this);
     ready(this);
-  },
+  }
 
   didReceiveAttrs() {
-    this._super(...arguments);
+    super.init(...arguments);
     receiveValue(this);
-  },
-
-  actions: {
-    // Internal actions
-
-    handleInsertElement(element) {
-      registerElement(this, element);
-      insertElement(this);
-    },
-
-    handleDestroyElement(element) {
-      deregisterElement(this, element);
-    },
-
-    handleInitOption(option) {
-      registerOption(this, option);
-    },
-
-    handleDestroyOption(option) {
-      deregisterOption(this, option);
-    },
-
-    handleChange() {
-      _selectValue(this);
-    },
-
-    // Public API Actions
-
-    select(value) {
-      return selectValue(this, value);
-    },
-
-    update(value) {
-      return updateValue(this, value);
-    }
   }
-});
+
+  // Internal actions
+
+  @action
+  handleInsertElement(element) {
+    registerElement(this, element);
+    insertElement(this);
+  }
+
+  @action
+  handleDestroyElement(element) {
+    deregisterElement(this, element);
+  }
+
+  @action
+  handleInitOption(option) {
+    registerOption(this, option);
+  }
+
+  @action
+  handleDestroyOption(option) {
+    deregisterOption(this, option);
+  }
+
+  @action
+  handleChange() {
+    _selectValue(this);
+  }
+
+  // Public API Actions
+
+  @action
+  select(value) {
+    return selectValue(this, value);
+  }
+
+  @action
+  update(value) {
+    return updateValue(this, value);
+  }
+}

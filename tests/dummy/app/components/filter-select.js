@@ -1,19 +1,20 @@
 import Component from '@ember/component';
 import layout from '../templates/components/filter-select';
+import { action } from '@ember/object';
 
-export default Component.extend({
-  layout,
-  tagName: '',
+export default class FilterSelect extends Component {
+  layout = layout;
+  tagName = '';
 
-  actions: {
-    close(e, sb) {
-      sb.close();
-    },
-
-    selected(select, value, sb) {
-      select(value);
-      sb.setInputValue(value[this.labelKey]);
-      sb.close();
-    }
+  @action
+  close(e, sb) {
+    sb.close();
   }
-});
+
+  @action
+  select(select, value, sb) {
+    select(value);
+    sb.setInputValue(value[this.labelKey]);
+    sb.close();
+  }
+}
