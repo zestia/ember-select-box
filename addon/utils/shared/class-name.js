@@ -1,15 +1,21 @@
 export function buildClassName(selectBox, element, state) {
-  const build = selectBox.onBuildClassName;
+  const build = selectBox && selectBox.onBuildClassName;
 
   if (typeof build === 'function') {
     return build(element, state);
   }
 
-  return buildClassNameDefault(selectBox.classNamePrefix, element, state);
+  let prefix = 'select-box';
+
+  if (selectBox && selectBox.classNamePrefix) {
+    prefix = selectBox.classNamePrefix;
+  }
+
+  return buildClassNameDefault(prefix, element, state);
 }
 
-function buildClassNameDefault(namespace, element, state) {
-  let className = namespace || 'select-box';
+function buildClassNameDefault(prefix, element, state) {
+  let className = prefix;
 
   if (element) {
     className = `${className}__${element}`;

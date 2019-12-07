@@ -15,14 +15,4 @@ module('select-box/selected-options', function(hooks) {
       .dom('div.select-box__selected-options')
       .exists({ count: 1 }, 'renders with correct class name and tag');
   });
-
-  test('class prefix', async function(assert) {
-    assert.expect(1);
-
-    await render(hbs`<SelectBox::SelectedOptions @classNamePrefix="foo" />`);
-
-    assert
-      .dom('.foo__selected-options')
-      .exists({ count: 1 }, 'can override the class prefix');
-  });
 });

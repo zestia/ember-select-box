@@ -18,16 +18,6 @@ module('select-box/option', function(hooks) {
       .exists({ count: 1 }, 'renders with correct class name and tag');
   });
 
-  test('class prefix', async function(assert) {
-    assert.expect(1);
-
-    await render(hbs`<SelectBox::Option @classNamePrefix="foo" />`);
-
-    assert
-      .dom('.foo__option')
-      .exists({ count: 1 }, 'can override the class prefix');
-  });
-
   test('aria role', async function(assert) {
     assert.expect(1);
 

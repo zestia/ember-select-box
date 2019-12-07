@@ -17,16 +17,6 @@ module('native-select-box/option', function(hooks) {
       .exists({ count: 1 }, 'renders with correct class name and tag');
   });
 
-  test('class prefix', async function(assert) {
-    assert.expect(1);
-
-    await render(hbs`<NativeSelectBox::Option @classNamePrefix="foo" />`);
-
-    assert
-      .dom('.foo__option')
-      .exists({ count: 1 }, 'can override the class prefix');
-  });
-
   test('value', async function(assert) {
     assert.expect(2);
 

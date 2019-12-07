@@ -34,28 +34,6 @@ module('native-select-box', function(hooks) {
     await render(hbs`<NativeSelectBox @onInsertElement={{this.inserted}} />`);
   });
 
-  test('class prefix', async function(assert) {
-    assert.expect(2);
-
-    await render(hbs`<NativeSelectBox @classNamePrefix="foo" />`);
-
-    assert.dom('.foo').exists({ count: 1 }, 'can override the class prefix');
-
-    await render(hbs`
-      <NativeSelectBox @classNamePrefix="foo" as |sb|>
-        <sb.Group>
-          <sb.Option />
-        </sb.Group>
-      </NativeSelectBox>
-    `);
-
-    assert.ok(
-      findAll('.foo__group').length === 1 &&
-        findAll('.foo__option').length === 1,
-      'class prefix trickles down to children'
-    );
-  });
-
   test('size', async function(assert) {
     assert.expect(1);
 

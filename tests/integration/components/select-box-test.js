@@ -18,34 +18,6 @@ module('select-box', function(hooks) {
       .exists({ count: 1 }, 'renders with correct class name and tag');
   });
 
-  test('class prefix attr', async function(assert) {
-    assert.expect(9);
-
-    await render(hbs`
-      <SelectBox @classNamePrefix="foo" as |sb|>
-        <sb.Input />
-        <sb.SelectedOptions>
-          <sb.SelectedOption />
-        </sb.SelectedOptions>
-        <sb.Options>
-          <sb.Group>
-            <sb.Option />
-          </sb.Group>
-        </sb.Options>
-      </SelectBox>
-    `);
-
-    assert.dom('.foo').exists({ count: 1 });
-    assert.dom('.foo__input').exists({ count: 1 });
-    assert.dom('.foo__options').exists({ count: 1 });
-    assert.dom('.foo__selected-options').exists({ count: 1 });
-    assert.dom('.foo__group').exists({ count: 1 });
-    assert.dom('.foo__group-label').exists({ count: 1 });
-    assert.dom('.foo__group-options').exists({ count: 1 });
-    assert.dom('.foo__option').exists({ count: 1 });
-    assert.dom('.foo__selected-option').exists({ count: 1 });
-  });
-
   test('role', async function(assert) {
     assert.expect(1);
 

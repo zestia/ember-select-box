@@ -16,27 +16,6 @@ module('select-box/group', function(hooks) {
       .exists({ count: 1 }, 'renders with correct class name and tag');
   });
 
-  test('class prefix', async function(assert) {
-    assert.expect(3);
-
-    await render(hbs`<SelectBox::Group @classNamePrefix="foo" />`);
-
-    assert
-      .dom('.foo__group')
-      .exists({ count: 1 }, 'can override the class prefix');
-
-    assert
-      .dom('.foo__group-label')
-      .exists({ count: 1 }, 'child group label of a group has the prefix too');
-
-    assert
-      .dom('.foo__group-options')
-      .exists(
-        { count: 1 },
-        'child group options of a group have the prefix too'
-      );
-  });
-
   test('label', async function(assert) {
     assert.expect(1);
 
