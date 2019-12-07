@@ -1,6 +1,10 @@
 import Component from '@ember/component';
 import layout from '../../templates/components/select-box/group';
-import { className } from '../../utils/shared/attributes';
+import {
+  className,
+  groupLabelClassName,
+  groupOptionsClassName
+} from '../../utils/select-box/group/class-name';
 
 export default class SelectBoxGroup extends Component {
   layout = layout;
@@ -15,4 +19,6 @@ export default class SelectBoxGroup extends Component {
   // Computed state
 
   @className() className;
+  @groupLabelClassName() groupLabelClassName;
+  @groupOptionsClassName() groupOptionsClassName;
 }

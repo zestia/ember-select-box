@@ -1,9 +1,6 @@
 <div
   aria-current={{if this.isActive "true" "false"}}
-  class={{concat
-    (concat this.className "__selected-option")
-    (if this.isActive (concat " " this.className "__selected-option--active"))
-  }}
+  class={{this.className}}
   id={{this.id}}
   role="option"
   {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}

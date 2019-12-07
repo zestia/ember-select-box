@@ -35,7 +35,7 @@
   <table>
     <tr width="200">
       <td>@classNamePrefix</td>
-      <td>Adds a prefix to the class name of the select box and its child components</td>
+      <td>Adds a prefix to the class name of the select box and its child components (defaults to [BEM](http://getbem.com), for custom class names see <code>@onBuildClassName</code>)</td>
     </tr>
     <tr>
       <td>@disabled</td>
@@ -67,6 +67,12 @@
 <details>
   <summary>Actions</summary>
   <table>
+    <tr>
+      <td width="200">@onBuildClassName</td>
+      <td>
+        Fired when the select box needs to build a class name. View this [example](class-names.md) for how to use this action for custom class names.
+      </td>
+    </tr>
     <tr>
       <td width="200">@onBuildSelection</td>
       <td>

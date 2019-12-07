@@ -12,7 +12,7 @@ import api from '../../utils/native-select-box/option/api';
 import index from '../../utils/general/index';
 import isSelected from '../../utils/shared/is-selected';
 import layout from '../../templates/components/native-select-box/option';
-import { className } from '../../utils/shared/attributes';
+import className from '../../utils/native-select-box/option/class-name';
 import { action } from '@ember/object';
 
 export default class NativeSelectBoxOption extends Component {
@@ -28,7 +28,6 @@ export default class NativeSelectBoxOption extends Component {
   // State
 
   domElement = null;
-  id = null;
   isFulfilled = false;
   isPending = true;
   isRejected = false;

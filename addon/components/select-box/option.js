@@ -16,7 +16,8 @@ import index from '../../utils/general/index';
 import isEqual from '../../utils/general/is-equal';
 import isSelected from '../../utils/shared/is-selected';
 import layout from '../../templates/components/select-box/option';
-import { id, className } from '../../utils/shared/attributes';
+import id from '../../utils/shared/id';
+import className from '../../utils/select-box/option/class-name';
 import { action } from '@ember/object';
 
 export default class SelectBoxOption extends Component {

@@ -3,12 +3,7 @@
   aria-current={{if this.isActive "true" "false"}}
   aria-disabled={{if this.isDisabled "true" "false"}}
   aria-selected={{if this.isSelected "true" "false"}}
-  class={{concat
-    (concat this.className "__option")
-    (if this.isActive (concat " " this.className "__option--active"))
-    (if this.isDisabled (concat " " this.className "__option--disabled"))
-    (if this.isSelected (concat " " this.className "__option--selected"))
-  }}
+  class={{this.className}}
   id={{this.id}}
   role="option"
   ...attributes

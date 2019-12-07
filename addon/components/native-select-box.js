@@ -13,7 +13,7 @@ import { receiveValue, selectValue, updateValue } from '../utils/shared/value';
 import { selectValue as _selectValue } from '../utils/native-select-box/value';
 import api from '../utils/native-select-box/api';
 import layout from '../templates/components/native-select-box';
-import { className } from '../utils/shared/attributes';
+import className from '../utils/native-select-box/class-name';
 import { ready } from '../utils/shared/ready';
 import { insertElement } from '../utils/shared/element';
 import { action } from '@ember/object';
@@ -39,7 +39,6 @@ export default class NativeSelectBox extends Component {
   // State
 
   domElement = null;
-  id = null;
   isFulfilled = false;
   isPending = true;
   isRejected = false;

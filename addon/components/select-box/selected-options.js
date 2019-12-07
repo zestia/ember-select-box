@@ -4,7 +4,7 @@ import {
   _initComponent
 } from '../../utils/component/lifecycle';
 import layout from '../../templates/components/select-box/selected-options';
-import { className } from '../../utils/shared/attributes';
+import className from '../../utils/select-box/selected-options/class-name';
 import { action } from '@ember/object';
 
 export default class SelectBoxSelectedOptions extends Component {

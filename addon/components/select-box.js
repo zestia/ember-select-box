@@ -56,7 +56,8 @@ import api from '../utils/select-box/api';
 import layout from '../templates/components/select-box';
 import objectAtIndex from '../utils/general/object-at-index';
 import { receiveValue, selectValue, updateValue } from '../utils/shared/value';
-import { id, className } from '../utils/shared/attributes';
+import id from '../utils/shared/id';
+import className from '../utils/select-box/class-name';
 import { ready } from '../utils/shared/ready';
 import { insertElement } from '../utils/shared/element';
 import { action } from '@ember/object';
@@ -78,6 +79,7 @@ export default class SelectBox extends Component {
   // Actions
 
   onBuildSelection = null;
+  onBuildClassName = null;
   onClickOutside = null;
   onClose = null;
   onFocusIn = null;

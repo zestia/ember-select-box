@@ -8,15 +8,7 @@
 
   {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
 
-  class={{concat
-    this.className
-    (if @class (concat " " @class))
-    (if this.isOpen (concat " " this.className "--open"))
-    (if this.isFocused (concat " " this.className "--focused"))
-    (if this.isDisabled (concat " " this.className "--disabled"))
-    (if this.isMultiple (concat " " this.className "--multiple"))
-    (if this.isBusy (concat " " this.className "--busy"))
-  }}
+  class={{this.className}}
   id={{this.id}}
   multiple={{this.isMultiple}}
   role={{this.role}}

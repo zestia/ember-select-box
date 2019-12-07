@@ -1,8 +1,8 @@
-<div class={{concat this.className "__group"}} ...attributes>
-  <div class={{concat this.className "__group-label"}}>
+<div class={{this.className}} ...attributes>
+  <div class={{this.groupLabelClassName}}>
     {{@label}}
   </div>
-  <div class={{concat this.className "__group-options"}}>
+  <div class={{this.groupOptionsClassName}}>
     {{yield}}
   </div>
 </div>
