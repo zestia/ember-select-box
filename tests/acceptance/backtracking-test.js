@@ -19,7 +19,7 @@ module('backtracking focus use-case', function(hooks) {
           open
         </sb.SelectedOption>
         <sb.Options>
-          <button type="button" onclick={{sb.close}} class="backtrack-select__close">close</button>
+          <button type="button" {{on "click" sb.close}} class="backtrack-select__close">close</button>
         </sb.Options>
       </BacktrackSelect>
     `

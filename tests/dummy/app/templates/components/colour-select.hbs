@@ -9,9 +9,9 @@
   ...attributes as |sb|
 >
   <sb.SelectedOption
-    onclick={{sb.toggle}}
     style={{style (concat "background:" sb.value)}}
     @value={{sb.value}}
+    {{on "click" sb.toggle}}
   />
 
   {{#if sb.isOpen}}

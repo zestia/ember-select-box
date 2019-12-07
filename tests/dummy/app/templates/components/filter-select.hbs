@@ -9,7 +9,7 @@
   @onSelect={{fn this.select @onSelect}}
   ...attributes as |sb|
 >
-  <sb.Input onclick={{sb.open}} @onInput={{sb.open}} />
+  <sb.Input {{on "click" sb.open}} @onInput={{sb.open}} />
   {{#if sb.isOpen}}
     <sb.Options>
       {{yield sb}}

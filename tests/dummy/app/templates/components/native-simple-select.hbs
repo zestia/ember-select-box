@@ -7,11 +7,11 @@
     {{this.displayLabel}}
   </div>
   <NativeSelectBox
-    onfocus={{this.handleFocus}}
-    onblur={{this.handleBlur}}
     @value={{@value}}
     @onSelect={{@onSelect}}
-    @onUpdate={{this.updateDisplay}} as |sb|
+    @onUpdate={{this.updateDisplay}}
+    {{on "focus" this.handleFocus}}
+    {{on "blur" this.handleBlur}} as |sb|
   >
     {{yield sb}}
   </NativeSelectBox>
