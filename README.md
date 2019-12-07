@@ -62,7 +62,7 @@ To create _your own_ select box, make a new component that renders a select box:
 {{! application.hbs }}
 <FooSelect
   @value={{foo}}
-  @onSelect={{this.selectedFoo}} as |sb|
+  @onSelect={{this.selectFoo}} as |sb|
 >
   {{#each this.foos as |foo|}}
     <sb.Option @value={{foo}}>{{foo.name}}</sb.Option>

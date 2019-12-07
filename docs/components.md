@@ -1,5 +1,20 @@
 # Components
 
+#### Native Select box
+
+<details>
+  <summary>Example</summary>
+
+```handlebars
+<NativeSelectBox as |sb|>
+  <sb.Option @value="1"> One </sb.Option>
+  <sb.Option @value="2"> Two </sb.Option>
+  <sb.Option @value="3"> Three </sb.Option>
+</NativeSelectBox>
+```
+
+</details>
+
 #### Select box
 
 <details>
@@ -357,7 +372,7 @@
   <summary>Example</summary>
 
 ```handlebars
-<sb.Option @value={{model}} as |o|>
+<sb.Option @value={{this.model}} as |o|>
   {{o.value.name}}
 </sb.Option>
 ```
@@ -508,7 +523,7 @@
   <summary>Example</summary>
 
 ```handlebars
-<sb.SelectedOption @value={{model}} as |so|>
+<sb.SelectedOption @value={{this.model}} as |so|>
   {{so.value.name}}
 </sb.SelectedOption>
 ```
