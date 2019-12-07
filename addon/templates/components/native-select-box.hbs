@@ -1,19 +1,25 @@
 <select
+  class={{this.className}}
+  multiple={{this.isMultiple}}
+  ...attributes
   {{did-insert this.handleInsertElement}}
   {{will-destroy this.handleDestroyElement}}
   {{on "change" this.handleChange}}
-  class={{this.className}}
-  multiple={{this.isMultiple}}
-  ...attributes>
-  {{#let (hash
-    Option=(component "native-select-box/option"
-      selectBox=this
-      classNamePrefix=@classNamePrefix
-      _onDestroy=this.handleDestroyOption
-      _onInit=this.handleInitOption)
-    Group=(component "native-select-box/group"
-      classNamePrefix=@classNamePrefix)
-  ) as |components|}}
+>
+  {{#let
+    (hash
+      Option=(component
+        "native-select-box/option"
+        selectBox=this
+        classNamePrefix=@classNamePrefix
+        _onDestroy=this.handleDestroyOption
+        _onInit=this.handleInitOption
+      )
+      Group=(component
+        "native-select-box/group" classNamePrefix=@classNamePrefix
+      )
+    ) as |components|
+  }}
     {{yield (merge components this.api)}}
   {{/let}}
 </select>

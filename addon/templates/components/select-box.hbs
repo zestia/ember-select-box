@@ -1,11 +1,5 @@
 {{! template-lint-disable no-positive-tabindex }}
 <div
-  {{did-insert this.handleInsertElement}}
-  {{will-destroy this.handleDestroyElement}}
-  {{on "focusin" this.handleFocusIn}}
-  {{on "focusout" this.handleFocusOut}}
-  {{on "keydown" this.handleKeyDown}}
-  {{on "keypress" this.handleKeyPress}}
   aria-expanded={{if this.isOpen "true" "false"}}
   aria-busy={{if this.isBusy "true" "false"}}
   aria-disabled={{if this.isDisabled "true" "false"}}
@@ -27,40 +21,58 @@
   multiple={{this.isMultiple}}
   role={{this.role}}
   tabindex={{this.tabIndex}}
-  ...attributes>
-  {{#let (hash
-    Options=(component "select-box/options"
-      classNamePrefix=@classNamePrefix
-      _onInit=this.handleInitOptionsContainer
-      _onDestroy=this.handleDestroyOptionsContainer)
-    Option=(component "select-box/option"
-      selectBox=this
-      classNamePrefix=@classNamePrefix
-      _onActivate=this.handleActivateOption
-      _onSelect=this.handleSelectOption
-      _onDestroy=this.handleDestroyOption
-      _onInit=this.handleInitOption)
-    SelectedOptions=(component "select-box/selected-options"
-      classNamePrefix=@classNamePrefix
-      _onInit=this.handleInitSelectedOptionsContainer
-      _onDestroy=this.handleDestroySelectedOptionsContainer)
-    SelectedOption=(component "select-box/selected-option"
-      selectBox=this
-      classNamePrefix=@classNamePrefix
-      _onActivate=this.handleActivateSelectedOption
-      _onInit=this.handleInitSelectedOption
-      _onDestroy=this.handleDestroySelectedOption)
-    Group=(component "select-box/group"
-      classNamePrefix=@classNamePrefix)
-    Input=(component "select-box/input"
-      selectBox=this
-      aria-controls=this.id
-      disabled=this.isDisabled
-      classNamePrefix=@classNamePrefix
-      _onInit=this.handleInitInput
-      _onDestroy=this.handleDestroyInput
-      _onInput=this.handleInputText)
-  ) as |components|}}
+  ...attributes
+  {{did-insert this.handleInsertElement}}
+  {{will-destroy this.handleDestroyElement}}
+  {{on "focusin" this.handleFocusIn}}
+  {{on "focusout" this.handleFocusOut}}
+  {{on "keydown" this.handleKeyDown}}
+  {{on "keypress" this.handleKeyPress}}
+>
+  {{#let
+    (hash
+      Options=(component
+        "select-box/options"
+        classNamePrefix=@classNamePrefix
+        _onInit=this.handleInitOptionsContainer
+        _onDestroy=this.handleDestroyOptionsContainer
+      )
+      Option=(component
+        "select-box/option"
+        selectBox=this
+        classNamePrefix=@classNamePrefix
+        _onActivate=this.handleActivateOption
+        _onSelect=this.handleSelectOption
+        _onDestroy=this.handleDestroyOption
+        _onInit=this.handleInitOption
+      )
+      SelectedOptions=(component
+        "select-box/selected-options"
+        classNamePrefix=@classNamePrefix
+        _onInit=this.handleInitSelectedOptionsContainer
+        _onDestroy=this.handleDestroySelectedOptionsContainer
+      )
+      SelectedOption=(component
+        "select-box/selected-option"
+        selectBox=this
+        classNamePrefix=@classNamePrefix
+        _onActivate=this.handleActivateSelectedOption
+        _onInit=this.handleInitSelectedOption
+        _onDestroy=this.handleDestroySelectedOption
+      )
+      Group=(component "select-box/group" classNamePrefix=@classNamePrefix)
+      Input=(component
+        "select-box/input"
+        selectBox=this
+        aria-controls=this.id
+        disabled=this.isDisabled
+        classNamePrefix=@classNamePrefix
+        _onInit=this.handleInitInput
+        _onDestroy=this.handleDestroyInput
+        _onInput=this.handleInputText
+      )
+    ) as |components|
+  }}
     {{yield (merge components this.api)}}
   {{/let}}
 </div>

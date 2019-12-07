@@ -1,8 +1,4 @@
 <div
-  {{did-insert this.handleInsertElement}}
-  {{will-destroy this.handleDestroyElement}}
-  {{on "mouseenter" this.handleMouseEnter}}
-  {{on "click" this.handleClick}}
   aria-busy={{if this.isPending "true" "false"}}
   aria-current={{if this.isActive "true" "false"}}
   aria-disabled={{if this.isDisabled "true" "false"}}
@@ -15,6 +11,11 @@
   }}
   id={{this.id}}
   role="option"
-  ...attributes>
+  ...attributes
+  {{did-insert this.handleInsertElement}}
+  {{will-destroy this.handleDestroyElement}}
+  {{on "mouseenter" this.handleMouseEnter}}
+  {{on "click" this.handleClick}}
+>
   {{~yield this.api~}}
 </div>

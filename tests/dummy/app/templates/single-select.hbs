@@ -1,13 +1,17 @@
 <p>
   Demonstration of a no-frills faux select box.
-  <a href="https://github.com/zestia/ember-select-box/blob/master/tests/dummy/app/templates/single-select.hbs">template.hbs</a>
+  <a
+    href="https://github.com/zestia/ember-select-box/blob/master/tests/dummy/app/templates/single-select.hbs"
+  >
+    template.hbs
+  </a>
 </p>
 
 <SelectBox
   @classNamePrefix="single-select"
   @value={{this.selectedBread}}
-  @onSelect={{this.selectBread}} as |sb|>
-
+  @onSelect={{this.selectBread}} as |sb|
+>
   <sb.Option @value={{this.bloomer}} @onSelect={{this.action1}}>
     {{this.bloomer.name}} (Misc action 1)
   </sb.Option>
@@ -22,7 +26,6 @@
     </sb.Option>
   {{/each}}
 </SelectBox>
-
 
 <p>
   Selected bread: {{this.selectedBread.name}}

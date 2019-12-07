@@ -1,12 +1,11 @@
 <div
-  {{will-destroy this.handleDestroyElement}}
   class={{concat this.className "__options"}}
-
+  aria-activedescendant={{@aria-activedescendant}}
   {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
   {{! template-lint-disable no-invalid-interactive }}
-  aria-activedescendant={{@aria-activedescendant}}
   onclick={{@onclick}}
-
-  ...attributes>
+  ...attributes
+  {{will-destroy this.handleDestroyElement}}
+>
   {{yield}}
 </div>

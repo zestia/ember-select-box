@@ -1,18 +1,17 @@
 <input
-  {{did-insert this.handleInsertElement}}
-  {{will-destroy this.handleDestroyElement}}
-  {{on "input" this.handleInput}}
-  {{on "keydown" this.handleKeyDown}}
   aria-multiline="false"
   autocomplete="off"
   class={{concat this.className "__input"}}
   role="searchbox"
   type="text"
-
   {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
   aria-controls={{@aria-controls}}
   disabled={{@disabled}}
   onclick={{@onclick}}
   value={{@value}}
-
-  ...attributes>
+  ...attributes
+  {{did-insert this.handleInsertElement}}
+  {{will-destroy this.handleDestroyElement}}
+  {{on "input" this.handleInput}}
+  {{on "keydown" this.handleKeyDown}}
+/>

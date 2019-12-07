@@ -1,6 +1,4 @@
 <div
-  {{did-insert this.handleInsertElement}}
-  {{will-destroy this.handleDestroyElement}}
   aria-current={{if this.isActive "true" "false"}}
   class={{concat
     (concat this.className "__selected-option")
@@ -8,11 +6,12 @@
   }}
   id={{this.id}}
   role="option"
-
   {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
   {{! template-lint-disable no-invalid-interactive }}
   onclick={{@onclick}}
-
-  ...attributes>
+  ...attributes
+  {{did-insert this.handleInsertElement}}
+  {{will-destroy this.handleDestroyElement}}
+>
   {{~yield this.api~}}
 </div>

@@ -1,7 +1,12 @@
 <p>
-  Demonstration of a select-box component, but using HTML &lt;option&gt; instead of \{{option}} components.<br>
+  Demonstration of a select-box component, but using HTML &lt;option&gt; instead of \{{option}} components.
+  <br />
   Which can be faster because constructing components is expensive.
-  <a href="https://github.com/zestia/ember-select-box/blob/master/tests/dummy/app/templates/fast-native-single-select.hbs">template.hbs</a>
+  <a
+    href="https://github.com/zestia/ember-select-box/blob/master/tests/dummy/app/templates/fast-native-single-select.hbs"
+  >
+    template.hbs
+  </a>
 </p>
 
 <NativeSelectBox @onSelect={{this.selectModelId}}>
@@ -12,7 +17,6 @@
     </option>
   {{/each}}
 </NativeSelectBox>
-
 
 <p>
   Selected model: {{this.selectedModel.name}}

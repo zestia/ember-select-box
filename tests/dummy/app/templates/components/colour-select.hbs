@@ -6,19 +6,22 @@
   @onSelect={{@onSelect}}
   @onClickOutside={{this.close}}
   @onPressEscape={{this.close}}
-  ...attributes as |sb|>
-
+  ...attributes as |sb|
+>
   <sb.SelectedOption
     onclick={{sb.toggle}}
     style={{style (concat "background:" sb.value)}}
-    @value={{sb.value}} />
+    @value={{sb.value}}
+  />
 
   {{#if sb.isOpen}}
     <sb.Options>
       {{~#each this.colours as |colour|~}}
-        <sb.Option @value={{colour}} style={{style (concat "background:" colour)}} />
+        <sb.Option
+          @value={{colour}}
+          style={{style (concat "background:" colour)}}
+        />
       {{~/each~}}
     </sb.Options>
   {{/if}}
-
 </SelectBox>

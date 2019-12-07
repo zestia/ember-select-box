@@ -1,13 +1,18 @@
 <p>
   Demonstration of a native multiple select box with groups.
-  <a href="https://github.com/zestia/ember-select-box/blob/master/tests/dummy/app/templates/native-multiple-select.hbs">template.hbs</a>
+  <a
+    href="https://github.com/zestia/ember-select-box/blob/master/tests/dummy/app/templates/native-multiple-select.hbs"
+  >
+    template.hbs
+  </a>
 </p>
 
 <NativeSelectBox
   size="12"
   @multiple={{true}}
   @value={{this.selectedDesserts}}
-  @onSelect={{this.selectDesserts}} as |sb|>
+  @onSelect={{this.selectDesserts}} as |sb|
+>
   <sb.Group label="Pastries">
     {{#each this.selectablePastries as |pastry|}}
       <sb.Option @value={{pastry}}>
@@ -30,6 +35,8 @@
 
 <ul>
   {{#each this.selectedDesserts as |dessert|}}
-    <li>{{dessert.name}}</li>
+    <li>
+      {{dessert.name}}
+    </li>
   {{/each}}
 </ul>

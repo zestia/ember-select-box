@@ -1,4 +1,8 @@
-<div class="native-simple-select {{if this.isFocused "native-simple-select--focused"}}" ...attributes>
+<div
+  class="native-simple-select
+    {{if this.isFocused "native-simple-select--focused"}}"
+  ...attributes
+>
   <div class="native-simple-select__display-label">
     {{this.displayLabel}}
   </div>
@@ -7,7 +11,8 @@
     onblur={{this.handleBlur}}
     @value={{@value}}
     @onSelect={{@onSelect}}
-    @onUpdate={{this.updateDisplay}} as |sb|>
+    @onUpdate={{this.updateDisplay}} as |sb|
+  >
     {{yield sb}}
   </NativeSelectBox>
 </div>

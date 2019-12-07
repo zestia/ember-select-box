@@ -7,7 +7,8 @@
   @onClickOutside={{this.close}}
   @onPressEscape={{this.close}}
   @onSelect={{fn this.select @onSelect}}
-  ...attributes as |sb|>
+  ...attributes as |sb|
+>
   <sb.Input onclick={{sb.open}} @onInput={{sb.open}} />
   {{#if sb.isOpen}}
     <sb.Options>
