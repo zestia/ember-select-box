@@ -32,7 +32,7 @@ https://zestia.github.io/ember-select-box
 - Does not use jQuery ✔︎
 - Easily create an autocompleter ✔︎
 - Easily create a dropdown menu ✔︎
-- Full control at all times with the [API](#api) ✔︎
+- Full control at all times with the API ✔︎
 - 'Jump-to option' behaviour based on keyboard input ✔︎
 - Very few issues over many years of Ember! ✔︎
 
