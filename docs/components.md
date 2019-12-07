@@ -1,6 +1,6 @@
 # Components
 
-#### Native Select box
+## Native Select box
 
 <details>
   <summary>Example</summary>
@@ -15,7 +15,7 @@
 
 </details>
 
-#### Select box
+## Select box
 
 <details>
   <summary>Example</summary>
