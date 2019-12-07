@@ -83,7 +83,7 @@ To create _your own_ select box, make a new component that renders a select box:
 </div>
 ```
 
-...as you can see, apart from being able to select a value - this addon does very little out of the box! It's up to _you_ to use the API to add the layer of behaviour that you require.
+...as you can see, apart from being able to select a value - this addon does very little out of the box! It's up to _you_ to add the layer of behaviour that you require using the API.
 
 ## Docs
 
