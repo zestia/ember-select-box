@@ -5,10 +5,12 @@ export default function className() {
   return computed('isActive', function() {
     const classNames = [];
 
-    classNames.push(buildClassName(this, 'selected-option'));
+    const { selectBox } = this;
+
+    classNames.push(buildClassName(selectBox, 'selected-option'));
 
     if (this.isActive) {
-      classNames.push(buildClassName(this, 'selected-option', 'active'));
+      classNames.push(buildClassName(selectBox, 'selected-option', 'active'));
     }
 
     return classNames.join(' ');

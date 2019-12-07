@@ -5,18 +5,20 @@ export default function className() {
   return computed('isActive', 'isDisabled', 'isSelected', function() {
     const classNames = [];
 
-    classNames.push(buildClassName(this, 'option'));
+    const { selectBox } = this;
+
+    classNames.push(buildClassName(selectBox, 'option'));
 
     if (this.isActive) {
-      classNames.push(buildClassName(this, 'option', 'active'));
+      classNames.push(buildClassName(selectBox, 'option', 'active'));
     }
 
     if (this.isDisabled) {
-      classNames.push(buildClassName(this, 'option', 'disabled'));
+      classNames.push(buildClassName(selectBox, 'option', 'disabled'));
     }
 
     if (this.isSelected) {
-      classNames.push(buildClassName(this, 'option', 'selected'));
+      classNames.push(buildClassName(selectBox, 'option', 'selected'));
     }
 
     return classNames.join(' ');

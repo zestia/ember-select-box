@@ -3,18 +3,21 @@ import { buildClassName } from '../../shared/class-name';
 
 export function className() {
   return computed(function() {
-    return buildClassName(this, 'group');
+    const { selectBox } = this;
+    return buildClassName(selectBox, 'group');
   });
 }
 
 export function groupLabelClassName() {
   return computed(function() {
-    return buildClassName(this, 'group-label');
+    const { selectBox } = this;
+    return buildClassName(selectBox, 'group-label');
   });
 }
 
 export function groupOptionsClassName() {
   return computed(function() {
-    return buildClassName(this, 'group-options');
+    const { selectBox } = this;
+    return buildClassName(selectBox, 'group-options');
   });
 }

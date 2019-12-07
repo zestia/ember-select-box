@@ -3,6 +3,7 @@ import { buildClassName } from '../../shared/class-name';
 
 export default function className() {
   return computed(function() {
-    return buildClassName(this, 'option');
+    const { selectBox } = this;
+    return buildClassName(selectBox, 'option');
   });
 }

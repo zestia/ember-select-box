@@ -25,14 +25,13 @@
     (hash
       Options=(component
         "select-box/options"
-        classNamePrefix=@classNamePrefix
+        selectBox=this
         _onInit=this.handleInitOptionsContainer
         _onDestroy=this.handleDestroyOptionsContainer
       )
       Option=(component
         "select-box/option"
         selectBox=this
-        classNamePrefix=@classNamePrefix
         _onActivate=this.handleActivateOption
         _onSelect=this.handleSelectOption
         _onDestroy=this.handleDestroyOption
@@ -40,25 +39,26 @@
       )
       SelectedOptions=(component
         "select-box/selected-options"
-        classNamePrefix=@classNamePrefix
+        selectBox=this
         _onInit=this.handleInitSelectedOptionsContainer
         _onDestroy=this.handleDestroySelectedOptionsContainer
       )
       SelectedOption=(component
         "select-box/selected-option"
         selectBox=this
-        classNamePrefix=@classNamePrefix
         _onActivate=this.handleActivateSelectedOption
         _onInit=this.handleInitSelectedOption
         _onDestroy=this.handleDestroySelectedOption
       )
-      Group=(component "select-box/group" classNamePrefix=@classNamePrefix)
+      Group=(component
+        "select-box/group"
+        selectBox=this
+      )
       Input=(component
         "select-box/input"
         selectBox=this
         aria-controls=this.id
         disabled=this.isDisabled
-        classNamePrefix=@classNamePrefix
         _onInit=this.handleInitInput
         _onDestroy=this.handleDestroyInput
         _onInput=this.handleInputText

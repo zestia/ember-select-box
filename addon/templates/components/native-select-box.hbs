@@ -11,12 +11,12 @@
       Option=(component
         "native-select-box/option"
         selectBox=this
-        classNamePrefix=@classNamePrefix
         _onDestroy=this.handleDestroyOption
         _onInit=this.handleInitOption
       )
       Group=(component
-        "native-select-box/group" classNamePrefix=@classNamePrefix
+        "native-select-box/group"
+        selectBox=this
       )
     ) as |components|
   }}
