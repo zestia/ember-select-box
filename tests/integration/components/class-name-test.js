@@ -70,11 +70,11 @@ module('select-box', function(hooks) {
   test('custom class names', async function(assert) {
     assert.expect(11);
 
-    this.buildClassName = (element, state) => {
+    this.buildClassName = (child, state) => {
       let className = 'sb';
 
-      if (element) {
-        className = `${className}${capitalize(camelize(element))}`;
+      if (child) {
+        className = `${className}${capitalize(camelize(child))}`;
       }
 
       if (state) {

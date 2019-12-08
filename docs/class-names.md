@@ -17,8 +17,8 @@ If you do not want to use BEM, implement the `@onBuildClassName` action, here is
 ```javascript
 export default class MyComponent extends Component {
   @action
-  buildClassName(element, state) {
-    switch (element) {
+  buildClassName(child, state) {
+    switch (child) {
       case 'option':
       // return ...;
       case 'options':
@@ -42,4 +42,4 @@ export default class MyComponent extends Component {
 }
 ```
 
-In the above example `buildClassName` will be called with an `element` parameter to so you can target an element. And a `state` parameter so you can target element states. For example: a disabled option would receive `("option", "disabled")`
+In the above example `buildClassName` will be called with a `child` parameter to so you can target the child element. And a `state` parameter so you can target the elemen's state. For example: a disabled option would receive `("option", "disabled")`
