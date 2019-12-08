@@ -8,7 +8,10 @@
 
   {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
 
-  class={{this.className}}
+  class={{concat
+    this.className
+    (if @class (concat " " @class))
+  }}
   id={{this.id}}
   multiple={{this.isMultiple}}
   role={{this.role}}
