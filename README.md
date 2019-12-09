@@ -1,6 +1,24 @@
 # @zestia/ember-select-box
 
-<a href="https://badge.fury.io/js/%40zestia%2Fember-select-box"><img src="https://badge.fury.io/js/%40zestia%2Fember-select-box.svg" alt="npm version" height="18"></a> &nbsp; <a href="http://travis-ci.org/zestia/ember-select-box"><img src="https://travis-ci.org/zestia/ember-select-box.svg?branch=master"></a> &nbsp;<a href="https://david-dm.org/zestia/ember-select-box#badge-embed"><img src="https://david-dm.org/zestia/ember-select-box.svg"></a> &nbsp; <a href="https://david-dm.org/zestia/ember-select-box#dev-badge-embed"><img src="https://david-dm.org/zestia/ember-select-box/dev-status.svg"></a> &nbsp; <a href="https://emberobserver.com/addons/@zestia/ember-select-box"><img src="https://emberobserver.com/badges/-zestia-ember-select-box.svg"></a>
+<p>
+  <a href="http://travis-ci.org/zestia/ember-select-box">
+    <img src="https://travis-ci.org/zestia/ember-select-box.svg?branch=master">
+  </a>
+
+  <a href="https://david-dm.org/zestia/ember-select-box#badge-embed">
+    <img src="https://david-dm.org/zestia/ember-select-box.svg">
+  </a>
+
+  <a href="https://david-dm.org/zestia/ember-select-box#dev-badge-embed">
+    <img src="https://david-dm.org/zestia/ember-select-box/dev-status.svg">
+  </a>
+
+  <a href="https://emberobserver.com/addons/@zestia/ember-select-box">
+    <img src="https://emberobserver.com/badges/-zestia-ember-select-box.svg">
+  </a>
+
+  <img src="https://img.shields.io/badge/Ember-%3E%3D%203.11-brightgreen">
+</p>
 
 Select box solutions are rarely perfect for what you want.
 
