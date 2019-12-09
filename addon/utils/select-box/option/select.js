@@ -3,7 +3,7 @@ import { selectValue } from '../value';
 import { getAPI } from '../../component/api';
 
 export function _selectOption(option) {
-  if (!option || option.isDisabled) {
+  if (option.isDisabled) {
     return;
   }
 

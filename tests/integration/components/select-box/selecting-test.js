@@ -3,6 +3,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import EmberArray, { A as emberA } from '@ember/array';
 import { defer } from 'rsvp';
+import { next } from '@ember/runloop';
 import {
   click,
   find,
@@ -339,7 +340,7 @@ module('select-box (selecting)', function(hooks) {
   });
 
   test('press enter to select active option', async function(assert) {
-    assert.expect(2);
+    assert.expect(3);
 
     this.set('selected', value => {
       assert.equal(value, 'bar', 'the select box acknowledges the selection');
@@ -353,14 +354,57 @@ module('select-box (selecting)', function(hooks) {
       );
     });
 
+    this.check = e => {
+      next(() => {
+        assert.strictEqual(
+          e.defaultPrevented,
+          true,
+          'pressing enter will not submit the form (if there is one)'
+        );
+      });
+    };
+
     await render(hbs`
-      <SelectBox @onSelect={{this.selected}} as |sb|>
+      <SelectBox @onSelect={{this.selected}} {{on "keydown" this.check}} as |sb|>
         <sb.Option @value="foo" />
         <sb.Option @value="bar" @onSelect={{this.selectedBar}} />
       </SelectBox>
     `);
 
     await triggerEvent(findAll('.select-box__option')[1], 'mouseenter');
+    await triggerKeyEvent('.select-box', 'keydown', 13);
+  });
+
+  test('press enter to select active option', async function(assert) {
+    assert.expect(1);
+
+    this.set('selected', value => {
+      assert.ok(true, 'should not get here');
+    });
+
+    this.set('selectedBar', value => {
+      assert.ok(true, 'should not get here');
+    });
+
+    this.check = e => {
+      next(() => {
+        assert.strictEqual(
+          e.defaultPrevented,
+          false,
+          'event is not default prevented. because, if there was an input ' +
+            'inside the select box, then the expected behaviour is for any ' +
+            'containing form to be submitted.'
+        );
+      });
+    };
+
+    await render(hbs`
+      <SelectBox @onSelect={{this.selected}} {{on "keydown" this.check}} as |sb|>
+        <sb.Option @value="foo" />
+        <sb.Option @value="bar" @onSelect={{this.selectedBar}} />
+      </SelectBox>
+    `);
+
     await triggerKeyEvent('.select-box', 'keydown', 13);
   });
 

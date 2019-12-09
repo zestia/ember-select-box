@@ -1,5 +1,9 @@
 # Changelog
 
+## 12.3.0
+
+- Key down event is now `defaultPrevented` if pressing Enter resulted in an option being selected.
+
 ## 12.2.1
 
 - Upgrade dependencies

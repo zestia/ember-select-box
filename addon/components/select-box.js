@@ -70,6 +70,7 @@ export default class SelectBox extends Component {
   classNamePrefix = '';
   disabled = false;
   multiple = false;
+  tabindex = '0';
   searchDelayTime = 100;
   searchMinChars = 1;
   searchSlowTime = 500;
@@ -246,7 +247,12 @@ export default class SelectBox extends Component {
   }
 
   @action
-  handlePressEnter() {
+  handlePressEnter(e) {
+    if (!this.activeOption) {
+      return;
+    }
+
+    e.preventDefault();
     _selectOption(this.activeOption);
   }
 
@@ -279,6 +285,10 @@ export default class SelectBox extends Component {
 
   @action
   selectActiveOption() {
+    if (!this.activeOption) {
+      return;
+    }
+
     return _selectOption(this.activeOption);
   }
 
