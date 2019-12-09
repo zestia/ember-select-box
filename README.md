@@ -27,6 +27,7 @@ https://zestia.github.io/ember-select-box
 - Supports promises ✔︎
 - Any HTML you want ✔︎
 - Fully themeable using namespaced classes ✔︎
+- Customisable class names ✔︎
 - Will never come with built-in styles ✔︎
 - Ember Data friendly ✔︎
 - Does not use jQuery ✔︎
