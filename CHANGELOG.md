@@ -1,8 +1,10 @@
 # Changelog
 
-## 12.3.0
+## 13.0.0
 
+- Drop support for < Ember 3.11
 - Key down event is now `defaultPrevented` if pressing Enter resulted in an option being selected.
+  (Forms can still be submitted by pressing Enter).
 
 ## 12.2.1
 
