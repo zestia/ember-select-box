@@ -1,5 +1,9 @@
 # Changelog
 
+## 13.0.1
+
+- Apply same fix for focus-in as focus-out.
+
 ## 13.0.0
 
 - Drop support for < Ember 3.11
