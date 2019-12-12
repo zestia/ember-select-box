@@ -1,5 +1,10 @@
 # Changelog
 
+## 13.0.2
+
+- Only prevent default if target of Enter key-down event was a select box component.
+  (This allows children, typically hyperlinks inside options to still work by pressing Enter)
+
 ## 13.0.1
 
 - Apply same fix for focus-in as focus-out.

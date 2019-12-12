@@ -252,7 +252,14 @@ export default class SelectBox extends Component {
       return;
     }
 
-    e.preventDefault();
+    if (
+      e.target === this.domElement ||
+      e.target === this.activeOption.domElement ||
+      (this.input && e.target === this.input.domElement)
+    ) {
+      e.preventDefault();
+    }
+
     _selectOption(this.activeOption);
   }
 

@@ -339,7 +339,7 @@ module('select-box (selecting)', function(hooks) {
       );
   });
 
-  test('press enter to select active option', async function(assert) {
+  test('press enter to select active option (on select box)', async function(assert) {
     assert.expect(3);
 
     this.set('selected', value => {
@@ -375,7 +375,123 @@ module('select-box (selecting)', function(hooks) {
     await triggerKeyEvent('.select-box', 'keydown', 13);
   });
 
-  test('press enter to select active option', async function(assert) {
+  test('press enter to select active option (on option)', async function(assert) {
+    assert.expect(3);
+
+    this.set('selected', value => {
+      assert.equal(value, 'bar', 'the select box acknowledges the selection');
+    });
+
+    this.set('selectedBar', value => {
+      assert.equal(
+        value,
+        'bar',
+        'the selected option acknowledges the selection'
+      );
+    });
+
+    this.check = e => {
+      next(() => {
+        assert.strictEqual(
+          e.defaultPrevented,
+          true,
+          'pressing enter will not submit the form (if there is one)'
+        );
+      });
+    };
+
+    await render(hbs`
+      <SelectBox @onSelect={{this.selected}} {{on "keydown" this.check}} as |sb|>
+        <sb.Option @value="foo" />
+        <sb.Option @value="bar" @onSelect={{this.selectedBar}} />
+      </SelectBox>
+    `);
+
+    const bar = findAll('.select-box__option')[1];
+
+    await triggerEvent(bar, 'mouseenter');
+
+    await triggerKeyEvent(bar, 'keydown', 13);
+  });
+
+  test('press enter to select active option (on input)', async function(assert) {
+    assert.expect(3);
+
+    this.set('selected', value => {
+      assert.equal(value, 'bar', 'the select box acknowledges the selection');
+    });
+
+    this.set('selectedBar', value => {
+      assert.equal(
+        value,
+        'bar',
+        'the selected option acknowledges the selection'
+      );
+    });
+
+    this.check = e => {
+      next(() => {
+        assert.strictEqual(
+          e.defaultPrevented,
+          true,
+          'pressing enter will not submit the form (if there is one)'
+        );
+      });
+    };
+
+    await render(hbs`
+      <SelectBox @onSelect={{this.selected}} {{on "keydown" this.check}} as |sb|>
+        <sb.Input />
+        <sb.Option @value="foo" />
+        <sb.Option @value="bar" @onSelect={{this.selectedBar}} />
+      </SelectBox>
+    `);
+
+    await triggerEvent(findAll('.select-box__option')[1], 'mouseenter');
+
+    await triggerKeyEvent('.select-box__input', 'keydown', 13);
+  });
+
+  test('press enter to select active option (on a child)', async function(assert) {
+    assert.expect(3);
+
+    this.set('selected', value => {
+      assert.equal(value, 'bar', 'the select box acknowledges the selection');
+    });
+
+    this.set('selectedBar', value => {
+      assert.equal(
+        value,
+        'bar',
+        'the selected option acknowledges the selection'
+      );
+    });
+
+    this.check = e => {
+      next(() => {
+        assert.strictEqual(
+          e.defaultPrevented,
+          false,
+          'pressing enter is no default prevented'
+        );
+      });
+    };
+
+    await render(hbs`
+      <SelectBox @onSelect={{this.selected}} {{on "keydown" this.check}} as |sb|>
+        <sb.Option @value="foo" />
+        <sb.Option @value="bar" @onSelect={{this.selectedBar}}>
+          <a href="#" class="my-link"></a>
+        </sb.Option>
+      </SelectBox>
+    `);
+
+    await triggerEvent(findAll('.select-box__option')[1], 'mouseenter');
+
+    await triggerKeyEvent('.my-link', 'keydown', 13);
+  });
+
+  test('press enter to select active option (no active option)', async function(assert) {
     assert.expect(1);
 
     this.set('selected', value => {
