@@ -43,3 +43,11 @@ function _keyedDown(selectBox, key, e) {
 function keyedDown(selectBox, key, e) {
   invokeAction(selectBox, `onPress${key}`, e, getAPI(selectBox));
 }
+
+export function shouldPreventDefault(selectBox, e) {
+  return (
+    e.target === selectBox.domElement ||
+    e.target === selectBox.activeOption.domElement ||
+    (selectBox.input && e.target === selectBox.input.domElement)
+  );
+}

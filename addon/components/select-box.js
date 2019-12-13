@@ -48,7 +48,11 @@ import {
   removeDocumentClickListener
 } from '../utils/select-box/document';
 import { focusIn, focusOut } from '../utils/select-box/focus';
-import { keyDown, keyPress } from '../utils/select-box/keyboard';
+import {
+  keyDown,
+  keyPress,
+  shouldPreventDefault
+} from '../utils/select-box/keyboard';
 import { receiveArgs } from '../utils/select-box/args';
 import { setInputValue } from '../utils/select-box/input/value';
 import api from '../utils/select-box/api';
@@ -251,11 +255,7 @@ export default class SelectBox extends Component {
       return;
     }
 
-    if (
-      e.target === this.domElement ||
-      e.target === this.activeOption.domElement ||
-      (this.input && e.target === this.input.domElement)
-    ) {
+    if (shouldPreventDefault(this, e)) {
       e.preventDefault();
     }
 
