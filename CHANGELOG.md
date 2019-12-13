@@ -1,5 +1,10 @@
 # Changelog
 
+## 13.0.3
+
+- Internal: Add data attribute to distinguish between types of child components registered with parent select box.
+- Internal: Register components on insert rather than init to ensure DOM node available
+
 ## 13.0.2
 
 - Only prevent default if target of Enter key-down event was a select box component.

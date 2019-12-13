@@ -172,7 +172,7 @@ export default class SelectBox extends Component {
   }
 
   @action
-  handleInitOption(option) {
+  handleInsertOption(option) {
     registerOption(this, option);
   }
 
@@ -182,7 +182,7 @@ export default class SelectBox extends Component {
   }
 
   @action
-  handleInitSelectedOption(option) {
+  handleInsertSelectedOption(option) {
     registerSelectedOption(this, option);
   }
 
@@ -192,7 +192,7 @@ export default class SelectBox extends Component {
   }
 
   @action
-  handleInitOptionsContainer(optionsContainer) {
+  handleInsertOptionsContainer(optionsContainer) {
     registerOptionsContainer(this, optionsContainer);
   }
 
@@ -202,7 +202,7 @@ export default class SelectBox extends Component {
   }
 
   @action
-  handleInitSelectedOptionsContainer(selectedOptionsContainer) {
+  handleInsertSelectedOptionsContainer(selectedOptionsContainer) {
     registerSelectedOptionsContainer(this, selectedOptionsContainer);
   }
 
@@ -212,7 +212,7 @@ export default class SelectBox extends Component {
   }
 
   @action
-  handleInitInput(input) {
+  handleInsertInput(input) {
     registerInput(this, input);
   }
 

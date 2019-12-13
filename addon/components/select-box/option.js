@@ -2,7 +2,7 @@ import Component from '@ember/component';
 import { _activateOption } from '../../utils/select-box/option/activate';
 import {
   _destroyComponent,
-  _initComponent
+  _insertComponent
 } from '../../utils/component/lifecycle';
 import { _selectOption } from '../../utils/select-box/option/select';
 import { bool } from '@ember/object/computed';
@@ -58,11 +58,6 @@ export default class SelectBoxOption extends Component {
   @bool('disabled') isDisabled;
   @isSelected() isSelected;
 
-  init() {
-    super.init(...arguments);
-    _initComponent(this);
-  }
-
   didReceiveAttrs() {
     super.didReceiveAttrs(...arguments);
     receiveValue(this);
@@ -73,6 +68,7 @@ export default class SelectBoxOption extends Component {
   @action
   handleInsertElement(element) {
     registerElement(this, element);
+    _insertComponent(this);
   }
 
   @action

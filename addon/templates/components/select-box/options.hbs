@@ -6,6 +6,7 @@
   {{! template-lint-disable no-invalid-interactive }}
   onclick={{@onclick}}
   ...attributes
+  {{did-insert this.handleInsertElement}}
   {{will-destroy this.handleDestroyElement}}
 >
   {{yield}}

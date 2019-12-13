@@ -1,7 +1,7 @@
 import invokeAction from './invoke-action';
 
-export function _initComponent(component) {
-  invokeAction(component, '_onInit', component);
+export function _insertComponent(component) {
+  invokeAction(component, '_onInsert', component);
 }
 
 export function _destroyComponent(component) {

@@ -80,7 +80,7 @@ export default class NativeSelectBox extends Component {
   }
 
   @action
-  handleInitOption(option) {
+  handleInsertOption(option) {
     registerOption(this, option);
   }
 

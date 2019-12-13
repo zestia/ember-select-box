@@ -35,7 +35,7 @@
       Options=(component
         "select-box/options"
         classNamePrefix=@classNamePrefix
-        _onInit=this.handleInitOptionsContainer
+        _onInsert=this.handleInsertOptionsContainer
         _onDestroy=this.handleDestroyOptionsContainer
       )
       Option=(component
@@ -45,12 +45,12 @@
         _onActivate=this.handleActivateOption
         _onSelect=this.handleSelectOption
         _onDestroy=this.handleDestroyOption
-        _onInit=this.handleInitOption
+        _onInsert=this.handleInsertOption
       )
       SelectedOptions=(component
         "select-box/selected-options"
         classNamePrefix=@classNamePrefix
-        _onInit=this.handleInitSelectedOptionsContainer
+        _onInsert=this.handleInsertSelectedOptionsContainer
         _onDestroy=this.handleDestroySelectedOptionsContainer
       )
       SelectedOption=(component
@@ -58,7 +58,7 @@
         selectBox=this
         classNamePrefix=@classNamePrefix
         _onActivate=this.handleActivateSelectedOption
-        _onInit=this.handleInitSelectedOption
+        _onInsert=this.handleInsertSelectedOption
         _onDestroy=this.handleDestroySelectedOption
       )
       Group=(component "select-box/group" classNamePrefix=@classNamePrefix)
@@ -68,7 +68,7 @@
         aria-controls=this.id
         disabled=this.isDisabled
         classNamePrefix=@classNamePrefix
-        _onInit=this.handleInitInput
+        _onInsert=this.handleInsertInput
         _onDestroy=this.handleDestroyInput
         _onInput=this.handleInputText
       )
