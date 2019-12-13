@@ -46,8 +46,8 @@ function keyedDown(selectBox, key, e) {
 
 export function shouldPreventDefault(selectBox, e) {
   return (
-    e.target === selectBox.domElement ||
-    e.target === selectBox.activeOption.domElement ||
-    (selectBox.input && e.target === selectBox.input.domElement)
+    selectBox.activeOption &&
+    selectBox.input &&
+    e.target === selectBox.input.domElement
   );
 }
