@@ -2,6 +2,7 @@
 
 ## 13.0.3
 
+- Improvement: Options's indexes are stable against the correct DOM order
 - Internal: Add data attribute to distinguish between types of child components registered with parent select box.
 - Internal: Register components on insert rather than init to ensure DOM node available
 

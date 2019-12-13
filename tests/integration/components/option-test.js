@@ -212,9 +212,8 @@ module('select-box/option', function(hooks) {
 
     assert.deepEqual(
       labels(),
-      ['foo: 0', 'bar: 2', 'baz: 1'],
-      'indexes are wrong due to component re-use, BUT they are still unique ' +
-        'which is important'
+      ['foo: 0', 'bar: 1', 'baz: 2'],
+      'indexes are correct after options change'
     );
 
     await render(hbs`
