@@ -490,39 +490,6 @@ module('select-box (searching)', function(hooks) {
     await click('button');
   });
 
-  test('destroying mid-search', async function(assert) {
-    assert.expect(1);
-
-    const deferred = defer();
-
-    this.set('display', true);
-
-    this.set('findItems', () => deferred.promise);
-
-    await render(hbs`
-      {{#if this.display}}
-        <SelectBox @onSearch={{this.findItems}} as |sb|>
-          <sb.Input />
-        </SelectBox>
-      {{/if}}
-    `);
-
-    fillIn('.select-box__input', 'foo');
-
-    later(() => {
-      this.set('display', false);
-    }, 100);
-
-    await settled();
-
-    assert.ok(
-      true,
-      'does not blow up when a search resolves, but the component is gone'
-    );
-
-    deferred.resolve();
-  });
-
   test('set input value', async function(assert) {
     assert.expect(2);
 

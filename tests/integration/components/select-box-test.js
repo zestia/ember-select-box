@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { click, find, render, settled } from '@ember/test-helpers';
+import { find, render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import EmberArray, { A as emberA } from '@ember/array';
 const { isFrozen, isSealed } = Object;
@@ -270,25 +270,5 @@ module('select-box', function(hooks) {
       ['bar'],
       "yielded api's are always up to date"
     );
-  });
-
-  test('does not blow up if destroyed', async function(assert) {
-    assert.expect(0);
-
-    this.set('show', true);
-
-    this.set('hide', () => {
-      this.set('show', false);
-    });
-
-    await render(hbs`
-      {{#if this.show}}
-        <SelectBox @onSelect={{this.hide}} as |sb|>
-          <sb.Option @value={{1}} />
-        </SelectBox>
-      {{/if}}
-    `);
-
-    await click('.select-box__option');
   });
 });

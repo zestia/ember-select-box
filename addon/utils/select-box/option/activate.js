@@ -18,18 +18,6 @@ export function activateOption(selectBox, option, config) {
   activateOptionAtIndex(selectBox, option.index, config);
 }
 
-export function activateOptionForValue(selectBox, value, config) {
-  config = assign({ scrollIntoView: true }, config);
-
-  const option = selectBox.options.find(
-    option => option.resolvedValue === value
-  );
-
-  if (option) {
-    activateOption(selectBox, option, config);
-  }
-}
-
 function setActiveOptionIndex(selectBox, index) {
   const under = index < 0;
   const over = index > selectBox.options.length - 1;
@@ -45,6 +33,10 @@ export function activateOptionAtIndex(selectBox, index, config) {
   setActiveOptionIndex(selectBox, index);
 
   const option = selectBox.activeOption;
+
+  if (!option) {
+    return;
+  }
 
   maybeScrollIntoView(option, config);
   activatedOption(option);
@@ -62,6 +54,20 @@ export function activatePreviousOption(selectBox, config) {
   activateOptionAtIndex(selectBox, selectBox.activeOptionIndex - 1, config);
 }
 
+export function activateOptionForValue(selectBox, value, config) {
+  config = assign({ scrollIntoView: true }, config);
+
+  const option = selectBox.options.find(
+    option => option.resolvedValue === value
+  );
+
+  if (!option) {
+    return;
+  }
+
+  activateOption(selectBox, option, config);
+}
+
 export function activateOptionForKeyCode(selectBox, keyCode, config) {
   config = assign({ scrollIntoView: true }, config);
 
@@ -73,9 +79,11 @@ export function activateOptionForKeyCode(selectBox, keyCode, config) {
 
   const option = optionForChar(selectBox, char);
 
-  if (option) {
-    activateOption(selectBox, option, config);
+  if (!option) {
+    return;
   }
+
+  activateOption(selectBox, option, config);
 }
 
 function optionForChar(selectBox, char) {

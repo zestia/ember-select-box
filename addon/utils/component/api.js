@@ -2,6 +2,10 @@ import { computed } from '@ember/object';
 const { seal, keys, assign } = Object;
 
 export function getAPI(component) {
+  if (component.isDestroyed) {
+    return;
+  }
+
   if (component.selectBox) {
     return component.selectBox.api;
   } else {

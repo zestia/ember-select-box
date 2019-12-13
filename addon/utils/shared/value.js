@@ -10,12 +10,20 @@ export function receiveValue(selectBox) {
 }
 
 export function updateValue(selectBox, unresolvedValue) {
+  if (selectBox.isDestroyed) {
+    return;
+  }
+
   return resolveValue(selectBox, unresolvedValue, processValue).then(() =>
     updatedValue(selectBox)
   );
 }
 
 export function selectValue(selectBox, value) {
+  if (selectBox.isDestroyed) {
+    return;
+  }
+
   return updateValue(selectBox, value).then(() => {
     selectedValue(selectBox);
   });

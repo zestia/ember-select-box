@@ -37,6 +37,10 @@ export function activateSelectedOptionAtIndex(selectBox, index, config) {
 
   const selectedOption = selectBox.activeSelectedOption;
 
+  if (!selectedOption) {
+    return;
+  }
+
   maybeScrollIntoView(selectedOption, config);
   activatedSelectedOption(selectedOption);
 }
