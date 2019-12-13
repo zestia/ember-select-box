@@ -58,7 +58,6 @@ export default class NativeSelectBox extends Component {
   init() {
     super.init(...arguments);
     initOptions(this);
-    ready(this);
   }
 
   didReceiveAttrs() {
@@ -72,6 +71,7 @@ export default class NativeSelectBox extends Component {
   handleInsertElement(element) {
     registerElement(this, element);
     insertElement(this);
+    ready(this);
   }
 
   @action

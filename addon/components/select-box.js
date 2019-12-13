@@ -150,7 +150,6 @@ export default class SelectBox extends Component {
     super.init(...arguments);
     initOptions(this);
     initSelectedOptions(this);
-    ready(this);
   }
 
   didReceiveAttrs() {
@@ -166,6 +165,7 @@ export default class SelectBox extends Component {
     registerElement(this, element);
     addDocumentClickListener(this);
     insertElement(this);
+    ready(this);
   }
 
   @action

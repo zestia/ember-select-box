@@ -218,11 +218,11 @@ module('select-box', function(hooks) {
       apis.push(sb);
 
       if (apis.length === 1) {
-        assert.strictEqual(sb.value, null, 'value still being resolved');
+        assert.deepEqual(sb.value, ['foo'], 'onReady');
       } else if (apis.length === 2) {
-        assert.deepEqual(sb.value, ['foo']);
+        assert.deepEqual(sb.value, ['foo'], 'initial onUpdate');
       } else if (apis.length === 3) {
-        assert.deepEqual(sb.value, ['bar']);
+        assert.deepEqual(sb.value, ['bar'], 'subsequent onUpdate');
       }
     });
 
