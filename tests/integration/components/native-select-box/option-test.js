@@ -27,6 +27,16 @@ module('native-select-box/option', function(hooks) {
       .exists({ count: 1 }, 'can override the class prefix');
   });
 
+  test('data component attribute', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`<NativeSelectBox::Option />`);
+
+    assert
+      .dom('[data-component="option"]')
+      .exists({ count: 1 }, 'has a data attribute signifying its type');
+  });
+
   test('value', async function(assert) {
     assert.expect(2);
 

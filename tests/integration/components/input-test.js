@@ -32,6 +32,16 @@ module('select-box/input', function(hooks) {
       .exists({ count: 1 }, 'can override the class prefix');
   });
 
+  test('data component attribute', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`<SelectBox::Input />`);
+
+    assert
+      .dom('[data-component="input"]')
+      .exists({ count: 1 }, 'has a data attribute signifying its type');
+  });
+
   test('aria role', async function(assert) {
     assert.expect(1);
 

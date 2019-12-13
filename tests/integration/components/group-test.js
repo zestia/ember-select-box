@@ -37,6 +37,16 @@ module('select-box/group', function(hooks) {
       );
   });
 
+  test('data component attribute', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`<SelectBox::Group />`);
+
+    assert
+      .dom('[data-component="group"]')
+      .exists({ count: 1 }, 'has a data attribute signifying its type');
+  });
+
   test('label', async function(assert) {
     assert.expect(1);
 

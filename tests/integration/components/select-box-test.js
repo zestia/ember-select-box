@@ -46,6 +46,16 @@ module('select-box', function(hooks) {
     assert.dom('.foo__selected-option').exists({ count: 1 });
   });
 
+  test('data component attribute', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`<SelectBox />`);
+
+    assert
+      .dom('[data-component="select-box"]')
+      .exists({ count: 1 }, 'has a data attribute signifying its type');
+  });
+
   test('role', async function(assert) {
     assert.expect(1);
 

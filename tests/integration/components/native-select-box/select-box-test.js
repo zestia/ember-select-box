@@ -56,6 +56,16 @@ module('native-select-box', function(hooks) {
     );
   });
 
+  test('data component attribute', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`<NativeSelectBox />`);
+
+    assert
+      .dom('[data-component="select-box"]')
+      .exists({ count: 1 }, 'has a data attribute signifying its type');
+  });
+
   test('size', async function(assert) {
     assert.expect(1);
 

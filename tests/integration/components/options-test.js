@@ -25,4 +25,14 @@ module('select-box/options', function(hooks) {
       .dom('.foo__options')
       .exists({ count: 1 }, 'can override the class prefix');
   });
+
+  test('data component attribute', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`<SelectBox::Options />`);
+
+    assert
+      .dom('[data-component="options"]')
+      .exists({ count: 1 }, 'has a data attribute signifying its type');
+  });
 });
