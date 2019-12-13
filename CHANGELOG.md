@@ -1,5 +1,9 @@
 # Changelog
 
+## 13.0.4
+
+- Prevent errors if API is used and select box is destroyed
+
 ## 13.0.3
 
 - Improvement: Options's indexes are stable against the correct DOM order
