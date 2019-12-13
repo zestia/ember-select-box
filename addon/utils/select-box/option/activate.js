@@ -26,11 +26,11 @@ export function activateOptionForValue(selectBox, value, config) {
   );
 
   if (option) {
-    activateOptionAtIndex(selectBox, option.index, config);
+    activateOption(selectBox, option, config);
   }
 }
 
-export function activateOptionAtIndex(selectBox, index, config) {
+function setActiveOptionIndex(selectBox, index) {
   const under = index < 0;
   const over = index > selectBox.options.length - 1;
 
@@ -39,6 +39,10 @@ export function activateOptionAtIndex(selectBox, index, config) {
   }
 
   set(selectBox, 'activeOptionIndex', index);
+}
+
+export function activateOptionAtIndex(selectBox, index, config) {
+  setActiveOptionIndex(selectBox, index);
 
   const option = selectBox.activeOption;
 
@@ -70,7 +74,7 @@ export function activateOptionForKeyCode(selectBox, keyCode, config) {
   const option = optionForChar(selectBox, char);
 
   if (option) {
-    activateOptionAtIndex(selectBox, option.index, config);
+    activateOption(selectBox, option, config);
   }
 }
 

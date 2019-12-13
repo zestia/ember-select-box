@@ -12,8 +12,7 @@ import {
   activateNextSelectedOption,
   activatePreviousSelectedOption,
   activateSelectedOption,
-  activateSelectedOptionAtIndex,
-  activateSelectedOptionForKeyCode
+  activateSelectedOptionAtIndex
 } from '../utils/select-box/selected-option/activate';
 import { blurInput, focusInput } from '../utils/select-box/input/focus';
 import { bool, or } from '@ember/object/computed';
@@ -377,11 +376,6 @@ export default class SelectBox extends Component {
   @action
   activatePreviousSelectedOption(config) {
     activatePreviousSelectedOption(this, config);
-  }
-
-  @action
-  activateSelectedOptionForKeyCode(keyCode, config) {
-    activateSelectedOptionForKeyCode(this, keyCode, config);
   }
 
   @action
