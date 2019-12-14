@@ -2,7 +2,7 @@
 
 ## 13.0.5
 
-- Add [`@oBuildClassName`](docs/class-names.md)
+- Add [`@onBuildClassName`](docs/class-names.md)
 
 ## 13.0.4
 
