@@ -23,6 +23,9 @@ module('native-select-box/group', function(hooks) {
 
     assert
       .dom('[data-component="group"]')
-      .exists({ count: 1 }, 'has a data attribute signifying its type');
+      .exists(
+        { count: 1 },
+        'does not have a data attribute signifying its type'
+      );
   });
 });

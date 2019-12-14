@@ -24,7 +24,10 @@ module('native-select-box/option', function(hooks) {
 
     assert
       .dom('[data-component="option"]')
-      .exists({ count: 1 }, 'has a data attribute signifying its type');
+      .exists(
+        { count: 1 },
+        'does not have a data attribute signifying its type'
+      );
   });
 
   test('value', async function(assert) {

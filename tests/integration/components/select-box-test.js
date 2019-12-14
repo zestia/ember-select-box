@@ -25,7 +25,10 @@ module('select-box', function(hooks) {
 
     assert
       .dom('[data-component="select-box"]')
-      .exists({ count: 1 }, 'has a data attribute signifying its type');
+      .exists(
+        { count: 1 },
+        'does not have a data attribute signifying its type'
+      );
   });
 
   test('role', async function(assert) {
