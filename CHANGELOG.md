@@ -1,5 +1,30 @@
 # Changelog
 
+## 13.0.4
+
+- Prevent errors if API is used and select box is destroyed
+
+## 13.0.3
+
+- Improvement: Options's indexes are stable against the correct DOM order
+- Internal: Add data attribute to distinguish between types of child components registered with parent select box.
+- Internal: Register components on insert rather than init to ensure DOM node available
+
+## 13.0.2
+
+- Only prevent default if target of Enter key-down event was a select box component.
+  (This allows children, typically hyperlinks inside options to still work by pressing Enter)
+
+## 13.0.1
+
+- Apply same fix for focus-in as focus-out.
+
+## 13.0.0
+
+- Drop support for < Ember 3.11
+- Key down event is now `defaultPrevented` if pressing Enter resulted in an option being selected.
+  (Forms can still be submitted by pressing Enter).
+
 ## 12.2.1
 
 - Upgrade dependencies

@@ -1,11 +1,8 @@
-import { VERSION } from '@ember/version';
-import { module, skip, test } from 'qunit';
+import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import { click, focus, visit } from '@ember/test-helpers';
 import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
-
-const runTest = parseFloat(VERSION) === 2.8 ? skip : test;
 
 module('backtracking focus use-case', function(hooks) {
   setupApplicationTest(hooks);
@@ -45,7 +42,7 @@ module('backtracking focus use-case', function(hooks) {
   // Try scenario in a Twiddle:
   // https://ember-twiddle.com/2f066b448da4242c29e241a5203d8840
 
-  runTest('backtracking focus error', async function(assert) {
+  test('backtracking focus error', async function(assert) {
     assert.expect(5);
 
     await visit('/backtrack-select');

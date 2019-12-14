@@ -21,7 +21,7 @@ export function activateSelectedOption(selectBox, selectedOption, config) {
   activateSelectedOptionAtIndex(selectBox, selectedOption.index, config);
 }
 
-export function activateSelectedOptionAtIndex(selectBox, index, config) {
+function setActiveSelectedOptionIndex(selectBox, index) {
   const under = index < 0;
   const over = index > selectBox.selectedOptions.length - 1;
 
@@ -30,8 +30,16 @@ export function activateSelectedOptionAtIndex(selectBox, index, config) {
   }
 
   set(selectBox, 'activeSelectedOptionIndex', index);
+}
+
+export function activateSelectedOptionAtIndex(selectBox, index, config) {
+  setActiveSelectedOptionIndex(selectBox, index);
 
   const selectedOption = selectBox.activeSelectedOption;
+
+  if (!selectedOption) {
+    return;
+  }
 
   maybeScrollIntoView(selectedOption, config);
   activatedSelectedOption(selectedOption);
@@ -55,8 +63,4 @@ export function activatePreviousSelectedOption(selectBox, config) {
     selectBox.activeSelectedOptionIndex - 1,
     config
   );
-}
-
-export function activateSelectedOptionForKeyCode() {
-  throw new Error('Not implemented');
 }

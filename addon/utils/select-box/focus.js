@@ -7,7 +7,13 @@ export function focusIn(selectBox, e) {
     return;
   }
 
-  set(selectBox, 'isFocused', true);
+  try {
+    set(selectBox, 'isFocused', true);
+
+    focusedIn(selectBox, e);
+  } catch (error) {
+    // https://github.com/emberjs/ember.js/issues/18043
+  }
 
   focusedIn(selectBox, e);
 }
@@ -19,11 +25,11 @@ export function focusOut(selectBox, e) {
 
   try {
     set(selectBox, 'isFocused', false);
+
+    focusedOut(selectBox, e);
   } catch (error) {
     // https://github.com/emberjs/ember.js/issues/18043
   }
-
-  focusedOut(selectBox, e);
 }
 
 function focusedIn(selectBox, e) {

@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import {
   _destroyComponent,
-  _initComponent
+  _insertComponent
 } from '../../utils/component/lifecycle';
 import {
   deregisterElement,
@@ -44,11 +44,6 @@ export default class SelectBoxSelectedOption extends Component {
   @index('selectBox.selectedOptions') index;
   @isEqual('index', 'selectBox.activeSelectedOptionIndex') isActive;
 
-  init() {
-    super.init(...arguments);
-    _initComponent(this);
-  }
-
   didReceiveAttrs() {
     super.init(...arguments);
     receiveValue(this);
@@ -59,6 +54,7 @@ export default class SelectBoxSelectedOption extends Component {
   @action
   handleInsertElement(element) {
     registerElement(this, element);
+    _insertComponent(this);
   }
 
   @action

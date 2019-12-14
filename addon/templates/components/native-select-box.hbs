@@ -1,4 +1,5 @@
 <select
+  data-component="select-box"
   class={{this.className}}
   multiple={{this.isMultiple}}
   ...attributes
@@ -11,8 +12,8 @@
       Option=(component
         "native-select-box/option"
         selectBox=this
+        _onInsert=this.handleInsertOption
         _onDestroy=this.handleDestroyOption
-        _onInit=this.handleInitOption
       )
       Group=(component
         "native-select-box/group"

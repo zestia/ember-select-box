@@ -1,5 +1,6 @@
 {{! template-lint-disable no-positive-tabindex }}
 <div
+  data-component="select-box"
   aria-expanded={{if this.isOpen "true" "false"}}
   aria-busy={{if this.isBusy "true" "false"}}
   aria-disabled={{if this.isDisabled "true" "false"}}
@@ -29,7 +30,7 @@
       Options=(component
         "select-box/options"
         selectBox=this
-        _onInit=this.handleInitOptionsContainer
+        _onInsert=this.handleInsertOptionsContainer
         _onDestroy=this.handleDestroyOptionsContainer
       )
       Option=(component
@@ -38,19 +39,19 @@
         _onActivate=this.handleActivateOption
         _onSelect=this.handleSelectOption
         _onDestroy=this.handleDestroyOption
-        _onInit=this.handleInitOption
+        _onInsert=this.handleInsertOption
       )
       SelectedOptions=(component
         "select-box/selected-options"
         selectBox=this
-        _onInit=this.handleInitSelectedOptionsContainer
+        _onInsert=this.handleInsertSelectedOptionsContainer
         _onDestroy=this.handleDestroySelectedOptionsContainer
       )
       SelectedOption=(component
         "select-box/selected-option"
         selectBox=this
         _onActivate=this.handleActivateSelectedOption
-        _onInit=this.handleInitSelectedOption
+        _onInsert=this.handleInsertSelectedOption
         _onDestroy=this.handleDestroySelectedOption
       )
       Group=(component
@@ -62,7 +63,7 @@
         selectBox=this
         aria-controls=this.id
         disabled=this.isDisabled
-        _onInit=this.handleInitInput
+        _onInsert=this.handleInsertInput
         _onDestroy=this.handleDestroyInput
         _onInput=this.handleInputText
       )

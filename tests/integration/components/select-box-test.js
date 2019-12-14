@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { click, find, render, settled } from '@ember/test-helpers';
+import { find, render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import EmberArray, { A as emberA } from '@ember/array';
 const { isFrozen, isSealed } = Object;
@@ -16,6 +16,16 @@ module('select-box', function(hooks) {
     assert
       .dom('div.select-box')
       .exists({ count: 1 }, 'renders with correct class name and tag');
+  });
+
+  test('data component attribute', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`<SelectBox />`);
+
+    assert
+      .dom('[data-component="select-box"]')
+      .exists({ count: 1 }, 'has a data attribute signifying its type');
   });
 
   test('role', async function(assert) {
@@ -180,11 +190,11 @@ module('select-box', function(hooks) {
       apis.push(sb);
 
       if (apis.length === 1) {
-        assert.strictEqual(sb.value, null, 'value still being resolved');
+        assert.deepEqual(sb.value, ['foo'], 'onReady');
       } else if (apis.length === 2) {
-        assert.deepEqual(sb.value, ['foo']);
+        assert.deepEqual(sb.value, ['foo'], 'initial onUpdate');
       } else if (apis.length === 3) {
-        assert.deepEqual(sb.value, ['bar']);
+        assert.deepEqual(sb.value, ['bar'], 'subsequent onUpdate');
       }
     });
 
@@ -232,25 +242,5 @@ module('select-box', function(hooks) {
       ['bar'],
       "yielded api's are always up to date"
     );
-  });
-
-  test('does not blow up if destroyed', async function(assert) {
-    assert.expect(0);
-
-    this.set('show', true);
-
-    this.set('hide', () => {
-      this.set('show', false);
-    });
-
-    await render(hbs`
-      {{#if this.show}}
-        <SelectBox @onSelect={{this.hide}} as |sb|>
-          <sb.Option @value={{1}} />
-        </SelectBox>
-      {{/if}}
-    `);
-
-    await click('.select-box__option');
   });
 });

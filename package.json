@@ -1,6 +1,6 @@
 {
   "name": "@zestia/ember-select-box",
-  "version": "12.2.1",
+  "version": "13.0.4",
   "description": "A faux select box for Ember apps",
   "directories": {
     "doc": "doc",
@@ -62,11 +62,9 @@
   },
   "dependencies": {
     "@ember/render-modifiers": "^1.0.2",
-    "ember-angle-bracket-invocation-polyfill": "^2.0.2",
     "ember-cli-babel": "^7.13.0",
     "ember-cli-htmlbars": "^4.0.9",
-    "ember-merge-helper": "^0.1.1",
-    "ember-named-arguments-polyfill": "^1.0.0"
+    "ember-merge-helper": "^0.1.1"
   },
   "keywords": [
     "ember-addon",

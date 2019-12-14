@@ -15,4 +15,14 @@ module('select-box/selected-options', function(hooks) {
       .dom('div.select-box__selected-options')
       .exists({ count: 1 }, 'renders with correct class name and tag');
   });
+
+  test('data component attribute', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`<SelectBox::SelectedOptions />`);
+
+    assert
+      .dom('[data-component="selected-options"]')
+      .exists({ count: 1 }, 'has a data attribute signifying its type');
+  });
 });

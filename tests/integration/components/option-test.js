@@ -18,6 +18,16 @@ module('select-box/option', function(hooks) {
       .exists({ count: 1 }, 'renders with correct class name and tag');
   });
 
+  test('data component attribute', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`<SelectBox::Option />`);
+
+    assert
+      .dom('[data-component="option"]')
+      .exists({ count: 1 }, 'has a data attribute signifying its type');
+  });
+
   test('aria role', async function(assert) {
     assert.expect(1);
 
@@ -192,9 +202,8 @@ module('select-box/option', function(hooks) {
 
     assert.deepEqual(
       labels(),
-      ['foo: 0', 'bar: 2', 'baz: 1'],
-      'indexes are wrong due to component re-use, BUT they are still unique ' +
-        'which is important'
+      ['foo: 0', 'bar: 1', 'baz: 2'],
+      'indexes are correct after options change'
     );
 
     await render(hbs`

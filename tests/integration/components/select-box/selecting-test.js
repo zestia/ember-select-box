@@ -1,8 +1,9 @@
-import { module, test } from 'qunit';
+import { module, test, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import EmberArray, { A as emberA } from '@ember/array';
 import { defer } from 'rsvp';
+import { next } from '@ember/runloop';
 import {
   click,
   find,
@@ -338,8 +339,27 @@ module('select-box (selecting)', function(hooks) {
       );
   });
 
-  test('press enter to select active option', async function(assert) {
-    assert.expect(2);
+  skip('pressing enter (on select box)', async function(assert) {
+    // Pressing Enter on a faux select box, with no active option
+    // should submit the form.
+
+    assert.expect(3);
+
+    await render(hbs`
+      <form>
+        <SelectBox |sb|>
+          <sb.Option @value="foo" />
+        </SelectBox>
+      </form>
+    `);
+
+    await triggerKeyEvent('.select-box', 'keydown', 13);
+  });
+
+  test('pressing enter on input', async function(assert) {
+    assert.expect(4);
+
+    let count = 0;
 
     this.set('selected', value => {
       assert.equal(value, 'bar', 'the select box acknowledges the selection');
@@ -353,15 +373,80 @@ module('select-box (selecting)', function(hooks) {
       );
     });
 
+    this.check = e => {
+      next(() => {
+        count++;
+
+        if (count === 1) {
+          assert.strictEqual(
+            e.defaultPrevented,
+            false,
+            'pressing enter will submit the form'
+          );
+        }
+
+        if (count === 2) {
+          assert.strictEqual(
+            e.defaultPrevented,
+            true,
+            'pressing enter will not submit the form'
+          );
+        }
+      });
+    };
+
     await render(hbs`
-      <SelectBox @onSelect={{this.selected}} as |sb|>
+      <SelectBox @onSelect={{this.selected}} {{on "keydown" this.check}} as |sb|>
+        <sb.Input />
         <sb.Option @value="foo" />
         <sb.Option @value="bar" @onSelect={{this.selectedBar}} />
       </SelectBox>
     `);
 
+    await triggerKeyEvent('.select-box__input', 'keydown', 13);
+
     await triggerEvent(findAll('.select-box__option')[1], 'mouseenter');
-    await triggerKeyEvent('.select-box', 'keydown', 13);
+
+    await triggerKeyEvent('.select-box__input', 'keydown', 13);
+  });
+
+  test('presssing enter on a child', async function(assert) {
+    assert.expect(3);
+
+    this.set('selected', value => {
+      assert.equal(value, 'bar', 'the select box acknowledges the selection');
+    });
+
+    this.set('selectedBar', value => {
+      assert.equal(
+        value,
+        'bar',
+        'the selected option acknowledges the selection'
+      );
+    });
+
+    this.check = e => {
+      next(() => {
+        assert.strictEqual(
+          e.defaultPrevented,
+          false,
+          'pressing enter is no default prevented, the link will be navigated to'
+        );
+      });
+    };
+
+    await render(hbs`
+      <SelectBox @onSelect={{this.selected}} {{on "keydown" this.check}} as |sb|>
+        <sb.Option @value="foo" />
+        <sb.Option @value="bar" @onSelect={{this.selectedBar}}>
+          <a href="#" class="my-link"></a>
+        </sb.Option>
+      </SelectBox>
+    `);
+
+    await triggerEvent(findAll('.select-box__option')[1], 'mouseenter');
+
+    await triggerKeyEvent('.my-link', 'keydown', 13);
   });
 
   test('selecting via the api', async function(assert) {

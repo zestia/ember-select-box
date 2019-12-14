@@ -12,8 +12,7 @@ import {
   activateNextSelectedOption,
   activatePreviousSelectedOption,
   activateSelectedOption,
-  activateSelectedOptionAtIndex,
-  activateSelectedOptionForKeyCode
+  activateSelectedOptionAtIndex
 } from '../utils/select-box/selected-option/activate';
 import { blurInput, focusInput } from '../utils/select-box/input/focus';
 import { bool, or } from '@ember/object/computed';
@@ -49,7 +48,11 @@ import {
   removeDocumentClickListener
 } from '../utils/select-box/document';
 import { focusIn, focusOut } from '../utils/select-box/focus';
-import { keyDown, keyPress } from '../utils/select-box/keyboard';
+import {
+  keyDown,
+  keyPress,
+  shouldPreventDefault
+} from '../utils/select-box/keyboard';
 import { receiveArgs } from '../utils/select-box/args';
 import { setInputValue } from '../utils/select-box/input/value';
 import api from '../utils/select-box/api';
@@ -71,6 +74,7 @@ export default class SelectBox extends Component {
   classNamePrefix = '';
   disabled = false;
   multiple = false;
+  tabindex = '0';
   searchDelayTime = 100;
   searchMinChars = 1;
   searchSlowTime = 500;
@@ -148,7 +152,6 @@ export default class SelectBox extends Component {
     super.init(...arguments);
     initOptions(this);
     initSelectedOptions(this);
-    ready(this);
   }
 
   didReceiveAttrs() {
@@ -164,6 +167,7 @@ export default class SelectBox extends Component {
     registerElement(this, element);
     addDocumentClickListener(this);
     insertElement(this);
+    ready(this);
   }
 
   @action
@@ -173,7 +177,7 @@ export default class SelectBox extends Component {
   }
 
   @action
-  handleInitOption(option) {
+  handleInsertOption(option) {
     registerOption(this, option);
   }
 
@@ -183,7 +187,7 @@ export default class SelectBox extends Component {
   }
 
   @action
-  handleInitSelectedOption(option) {
+  handleInsertSelectedOption(option) {
     registerSelectedOption(this, option);
   }
 
@@ -193,7 +197,7 @@ export default class SelectBox extends Component {
   }
 
   @action
-  handleInitOptionsContainer(optionsContainer) {
+  handleInsertOptionsContainer(optionsContainer) {
     registerOptionsContainer(this, optionsContainer);
   }
 
@@ -203,7 +207,7 @@ export default class SelectBox extends Component {
   }
 
   @action
-  handleInitSelectedOptionsContainer(selectedOptionsContainer) {
+  handleInsertSelectedOptionsContainer(selectedOptionsContainer) {
     registerSelectedOptionsContainer(this, selectedOptionsContainer);
   }
 
@@ -213,7 +217,7 @@ export default class SelectBox extends Component {
   }
 
   @action
-  handleInitInput(input) {
+  handleInsertInput(input) {
     registerInput(this, input);
   }
 
@@ -248,7 +252,15 @@ export default class SelectBox extends Component {
   }
 
   @action
-  handlePressEnter() {
+  handlePressEnter(e) {
+    if (!this.activeOption) {
+      return;
+    }
+
+    if (shouldPreventDefault(this, e)) {
+      e.preventDefault();
+    }
+
     _selectOption(this.activeOption);
   }
 
@@ -281,6 +293,10 @@ export default class SelectBox extends Component {
 
   @action
   selectActiveOption() {
+    if (!this.activeOption) {
+      return;
+    }
+
     return _selectOption(this.activeOption);
   }
 
@@ -362,11 +378,6 @@ export default class SelectBox extends Component {
   @action
   activatePreviousSelectedOption(config) {
     activatePreviousSelectedOption(this, config);
-  }
-
-  @action
-  activateSelectedOptionForKeyCode(keyCode, config) {
-    activateSelectedOptionForKeyCode(this, keyCode, config);
   }
 
   @action

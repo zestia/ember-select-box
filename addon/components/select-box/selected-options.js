@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import {
   _destroyComponent,
-  _initComponent
+  _insertComponent
 } from '../../utils/component/lifecycle';
 import layout from '../../templates/components/select-box/selected-options';
 import className from '../../utils/select-box/selected-options/class-name';
@@ -19,12 +19,12 @@ export default class SelectBoxSelectedOptions extends Component {
 
   @className() className;
 
-  init() {
-    super.init(...arguments);
-    _initComponent(this);
-  }
-
   // Internal actions
+
+  @action
+  handleInsertElement() {
+    _insertComponent(this);
+  }
 
   @action
   handleDestroyElement() {

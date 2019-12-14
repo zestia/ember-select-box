@@ -460,4 +460,16 @@ module('select-box (activating options)', function(hooks) {
 
     await triggerEvent('.select-box__option:nth-child(2)', 'mouseenter');
   });
+
+  test('activating - nothing to activate', async function(assert) {
+    assert.expect(0);
+
+    this.set('ready', sb => {
+      sb.activateNextOption();
+    });
+
+    await render(hbs`
+      <SelectBox @onReady={{this.ready}} />
+    `);
+  });
 });

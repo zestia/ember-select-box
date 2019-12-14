@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import {
   _destroyComponent,
-  _initComponent
+  _insertComponent
 } from '../../utils/component/lifecycle';
 import {
   deregisterElement,
@@ -35,16 +35,12 @@ export default class SelectBoxInput extends Component {
 
   @className() className;
 
-  init() {
-    super.init(...arguments);
-    _initComponent(this);
-  }
-
   // Internal actions
 
   @action
   handleInsertElement(element) {
     registerElement(this, element);
+    _insertComponent(this);
   }
 
   @action
