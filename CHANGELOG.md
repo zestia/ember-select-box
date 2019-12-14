@@ -1,5 +1,9 @@
 # Changelog
 
+## 13.0.5
+
+- Add [`@oBuildClassName`](docs/class-names.md)
+
 ## 13.0.4
 
 - Prevent errors if API is used and select box is destroyed
