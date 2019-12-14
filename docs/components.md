@@ -70,7 +70,7 @@
     <tr>
       <td width="200">@onBuildClassName</td>
       <td>
-        Fired when the select box needs to build a class name. View this [example](class-names.md) for how to use this action for custom class names.
+        Fired when the select box needs to build a class name. View this <a href="class-names.md">example</a> for how to use this action for custom class names.
       </td>
     </tr>
     <tr>
