@@ -14,7 +14,7 @@ This simple pattern means that the options themselves are the _components_ and _
 
 ## Selecting
 
-When Enter is pressed, or an option is clicked - it will be selected. All that this does, is set the value of that option _onto_ as a property of the select box. (See point 3 above)
+When Enter is pressed, or an option is clicked - it will be selected. All that this does, is set the value of that option as a property on the select box. (See point 3 above)
 
 ## Form behaviour
 
