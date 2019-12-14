@@ -107,6 +107,7 @@ To create _your own_ select box, make a new component that renders a select box:
 ## Docs
 
 - [List of components and their arguments](docs/components.md)
+- [Customisable classnames](docs/class-names.md)
 - [Frequently asked questions](docs/faq.md)
 - [High level overview of how it works](docs/how-it-works.md)
 - [Test helpers](docs/test-helpers.md)
