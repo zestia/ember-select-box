@@ -42,4 +42,4 @@ export default class MyComponent extends Component {
 }
 ```
 
-In the above example `buildClassName` will be called with a `child` parameter to so you can target the child element. And a `state` parameter so you can target the elemen's state. For example: a disabled option would receive `("option", "disabled")`
+In the above example `buildClassName` will be called with a `child` parameter to so you can target the child element. And a `state` parameter so you can target the element's state. For example: a disabled option would receive `("option", "disabled")`
