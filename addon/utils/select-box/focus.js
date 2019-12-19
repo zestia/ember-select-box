@@ -3,8 +3,6 @@ import { getAPI } from '../component/api';
 import { set } from '@ember/object';
 
 export function focusIn(selectBox, e) {
-  console.log('in');
-
   if (selectBox.isDestroyed) {
     return;
   }
