@@ -171,8 +171,8 @@ export default class SelectBox extends Component {
   }
 
   @action
-  handleDestroyElement(element) {
-    deregisterElement(this, element);
+  handleDestroyElement() {
+    deregisterElement(this);
     removeDocumentClickListener(this);
   }
 

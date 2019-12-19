@@ -44,8 +44,8 @@ export default class SelectBoxInput extends Component {
   }
 
   @action
-  handleDestroyElement(element) {
-    deregisterElement(this, element);
+  handleDestroyElement() {
+    deregisterElement(this);
     _destroyComponent(this);
   }
 

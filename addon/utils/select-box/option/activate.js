@@ -1,5 +1,4 @@
 import { set } from '@ember/object';
-import { assign } from '@ember/polyfills';
 import invokeAction from '../../component/invoke-action';
 import { getAPI } from '../../component/api';
 import { filterComponentsByTextContent } from '../../component/filter';
@@ -43,20 +42,20 @@ export function activateOptionAtIndex(selectBox, index, config) {
 }
 
 export function activateNextOption(selectBox, config) {
-  config = assign({ scrollIntoView: true }, config);
-
-  activateOptionAtIndex(selectBox, selectBox.activeOptionIndex + 1, config);
+  activateOptionAtIndex(selectBox, selectBox.activeOptionIndex + 1, {
+    scrollIntoView: true,
+    ...config
+  });
 }
 
 export function activatePreviousOption(selectBox, config) {
-  config = assign({ scrollIntoView: true }, config);
-
-  activateOptionAtIndex(selectBox, selectBox.activeOptionIndex - 1, config);
+  activateOptionAtIndex(selectBox, selectBox.activeOptionIndex - 1, {
+    scrollIntoView: true,
+    ...config
+  });
 }
 
 export function activateOptionForValue(selectBox, value, config) {
-  config = assign({ scrollIntoView: true }, config);
-
   const option = selectBox.options.find(
     option => option.resolvedValue === value
   );
@@ -65,12 +64,13 @@ export function activateOptionForValue(selectBox, value, config) {
     return;
   }
 
-  activateOption(selectBox, option, config);
+  activateOption(selectBox, option, {
+    scrollIntoView: true,
+    ...config
+  });
 }
 
 export function activateOptionForKeyCode(selectBox, keyCode, config) {
-  config = assign({ scrollIntoView: true }, config);
-
   const char = fromCharCode(keyCode);
 
   if (!char) {
@@ -83,7 +83,10 @@ export function activateOptionForKeyCode(selectBox, keyCode, config) {
     return;
   }
 
-  activateOption(selectBox, option, config);
+  activateOption(selectBox, option, {
+    scrollIntoView: true,
+    ...config
+  });
 }
 
 function optionForChar(selectBox, char) {

@@ -74,8 +74,8 @@ export default class NativeSelectBox extends Component {
   }
 
   @action
-  handleDestroyElement(element) {
-    deregisterElement(this, element);
+  handleDestroyElement() {
+    deregisterElement(this);
   }
 
   @action

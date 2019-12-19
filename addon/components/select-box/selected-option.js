@@ -58,8 +58,8 @@ export default class SelectBoxSelectedOption extends Component {
   }
 
   @action
-  handleDestroyElement(element) {
-    deregisterElement(this, element);
+  handleDestroyElement() {
+    deregisterElement(this);
     _destroyComponent(this);
   }
 }
