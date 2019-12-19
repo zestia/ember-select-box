@@ -46,16 +46,16 @@ module('select-box (focusing)', function(hooks) {
     await render(hbs`
       <SelectBox
         @onFocusIn={{this.focused}}
-        @onFocusOut={{this.blurred}}>
-        <button type="button"></button>
+        @onFocusOut={{this.blurred}} as |sb|>
+        <sb.Input />
       </SelectBox>
     `);
 
-    await focus('button');
+    await focus('.select-box__input');
 
     assert.ok(sentFocusIn, true, 'sends a focus in action');
 
-    await blur('button', 'blur');
+    await blur('.select-box__input', 'blur');
 
     assert.ok(sentFocusOut, true, 'sends a focus out action');
   });
