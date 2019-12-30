@@ -1,5 +1,9 @@
 # Changelog
 
+## 13.0.6
+
+- Upgrade dependencies
+
 ## 13.0.5
 
 - Add [`@onBuildClassName`](docs/class-names.md)
