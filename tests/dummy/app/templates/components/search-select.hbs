@@ -4,7 +4,7 @@
   @searchSlowTime={{500}}
   @onSelect={{@onSelect}}
   @onSearch={{@onSearch}}
-  @onSearched={{this.searched}}
+  @onSearched={{this.handleSearched}}
   @onPressEscape={{this.close}}
   @onClickOutside={{this.close}}
   ...attributes as |sb|
@@ -17,7 +17,7 @@
     </sb.Option>
   {{else if sb.isOpen}}
     <sb.Options>
-      {{yield sb this.lastQuery}}
+      {{yield sb this.results this.lastQuery}}
     </sb.Options>
   {{/if}}
 </SelectBox>

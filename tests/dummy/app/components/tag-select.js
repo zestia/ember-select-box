@@ -1,10 +1,10 @@
-import Component from '@ember/component';
-import layout from '../templates/components/tag-select';
-import { set, action } from '@ember/object';
+import Component from '@glimmer/component';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
 export default class TagSelect extends Component {
-  layout = layout;
-  tagName = '';
+  @tracked availableTags;
+  @tracked newTag;
 
   @action
   handlePressUp(e, sb) {
@@ -25,28 +25,28 @@ export default class TagSelect extends Component {
   }
 
   @action
-  updateAvailableTags(search, query) {
-    return search(query).then(tags => {
-      set(this, 'availableTags', tags);
-      set(this, 'newTag', query);
+  search(query) {
+    return this.args.onSearch(query).then(tags => {
+      this.availableTags = tags;
+      this.newTag = query;
     });
   }
 
   @action
-  reveal(sb, search) {
-    this.send('updateAvailableTags', search, '');
+  reveal(sb) {
+    this.search('');
     sb.open();
   }
 
   @action
-  addTag(tag, sb) {
-    this.onTag(tag);
+  select(tag, sb) {
+    this.args.onTag(tag);
     sb.setInputValue('');
     sb.close();
   }
 
   @action
-  removeTag(tag) {
-    this.onDeTag(tag);
+  deselect(tag) {
+    this.args.onDeTag(tag);
   }
 }

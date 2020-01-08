@@ -1,11 +1,7 @@
-import Component from '@ember/component';
-import layout from '../templates/components/simple-select';
+import Component from '@glimmer/component';
 import { action } from '@ember/object';
 
 export default class SimpleSelect extends Component {
-  layout = layout;
-  tagName = '';
-
   @action
   handlePressKey(e, sb) {
     sb.activateOptionForKeyCode(e.keyCode);
@@ -34,8 +30,8 @@ export default class SimpleSelect extends Component {
   }
 
   @action
-  select(select, value, sb) {
-    select(value);
+  select(value, sb) {
+    this.args.onSelect(value);
     sb.close();
   }
 }

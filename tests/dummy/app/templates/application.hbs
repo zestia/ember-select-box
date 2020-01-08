@@ -13,16 +13,25 @@
 </a>
 
 <p>
-  {{link-to "Native single select" "native-single-select"}} |
-  {{link-to "Native multiple select" "native-multiple-select"}} |
-  {{link-to "Fast native single select" "fast-native-single-select"}} |
-  {{link-to "Native simple select" "native-simple-select"}} |
-  {{link-to "Single select" "single-select"}} |
-  {{link-to "Simple select" "simple-select"}} |
-  {{link-to "Filter select" "filter-select"}} |
-  {{link-to "Search select" "search-select"}} |
-  {{link-to "Tag select" "tag-select"}} |
-  {{link-to "Colour select" "colour-select"}}
+  <LinkTo @route="native-single-select">Native single select</LinkTo>
+  |
+  <LinkTo @route="native-multiple-select">Native multiple select</LinkTo>
+  |
+  <LinkTo @route="fast-native-single-select">Fast native single select</LinkTo>
+  |
+  <LinkTo @route="native-simple-select">Native simple select</LinkTo>
+  |
+  <LinkTo @route="single-select">Single select</LinkTo>
+  |
+  <LinkTo @route="simple-select">Simple select</LinkTo>
+  |
+  <LinkTo @route="filter-select">Filter select</LinkTo>
+  |
+  <LinkTo @route="search-select">Search select</LinkTo>
+  |
+  <LinkTo @route="tag-select">Tag select</LinkTo>
+  |
+  <LinkTo @route="colour-select">Colour select</LinkTo>
 </p>
 
 {{outlet}}

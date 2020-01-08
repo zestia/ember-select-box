@@ -1,10 +1,10 @@
-import Component from '@ember/component';
-import layout from '../templates/components/search-select';
-import { set, action } from '@ember/object';
+import Component from '@glimmer/component';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
 export default class SearchSelect extends Component {
-  layout = layout;
-  tagName = '';
+  @tracked results;
+  @tracked lastQuery;
 
   @action
   close(e, sb) {
@@ -12,8 +12,9 @@ export default class SearchSelect extends Component {
   }
 
   @action
-  searched(results, query, sb) {
-    set(this, 'lastQuery', query);
+  handleSearched(results, query, sb) {
+    this.results = results;
+    this.lastQuery = query;
     sb.open();
   }
 }

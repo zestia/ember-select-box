@@ -7,10 +7,7 @@ import { set, action } from '@ember/object';
 export default class SearchSelectController extends Controller {
   @action
   findBread(query) {
-    return this._findBread(query).then(breads => {
-      set(this, 'selectableBreads', breads);
-      return breads;
-    });
+    return this._findBread(query);
   }
 
   @action

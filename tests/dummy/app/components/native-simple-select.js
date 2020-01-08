@@ -1,25 +1,25 @@
-import Component from '@ember/component';
-import layout from '../templates/components/native-simple-select';
-import { action, set } from '@ember/object';
+import Component from '@glimmer/component';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
 export default class NativeSimpleSelect extends Component {
-  layout = layout;
-  tagName = '';
+  @tracked isFocused;
+  @tracked displayLabel;
 
   @action
   handleFocus() {
-    set(this, 'isFocused', true);
+    this.isFocused = true;
   }
 
   @action
   handleBlur() {
-    set(this, 'isFocused', false);
+    this.isFocused = false;
   }
 
   @action
   updateDisplay(sb) {
     const label = sb.element.querySelector('option:checked').textContent.trim();
 
-    set(this, 'displayLabel', label);
+    this.displayLabel = label;
   }
 }

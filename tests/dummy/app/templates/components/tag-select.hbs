@@ -7,8 +7,8 @@
   @onPressDown={{this.handlePressDown}}
   @onPressUp={{this.handlePressUp}}
   @onClickOutside={{this.close}}
-  @onSelect={{this.addTag}}
-  @onSearch={{fn this.updateAvailableTags @onSearch}}
+  @onSelect={{this.select}}
+  @onSearch={{this.search}}
   ...attributes as |sb|
 >
   <sb.SelectedOptions>
@@ -18,7 +18,7 @@
         <button
           type="button"
           class="tag-select__remove"
-          {{on "click" (fn this.removeTag tag)}}
+          {{on "click" (fn this.deselect tag)}}
         >
           &times;
         </button>
@@ -29,8 +29,8 @@
   <sb.Input
     autofocus={{true}}
     @onInput={{sb.open}}
-    @onDelete={{fn this.removeTag @value.lastObject}}
-    {{on "click" (fn this.reveal sb @onSearch)}}
+    @onDelete={{fn this.deselect @value.lastObject}}
+    {{on "click" (fn this.reveal sb)}}
   />
 
   {{#if sb.isOpen}}

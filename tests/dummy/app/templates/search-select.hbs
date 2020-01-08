@@ -1,23 +1,15 @@
 <p>
   Demonstration of faux select box that runs before displaying available options.
-  <a
-    href="https://github.com/zestia/ember-select-box/blob/master/tests/dummy/app/components/search-select.js"
-  >
-    component.js
-  </a>
+  <a href="https://github.com/zestia/ember-select-box/blob/master/tests/dummy/app/components/search-select.js">component.js</a>
   |
-  <a
-    href="https://github.com/zestia/ember-select-box/blob/master/tests/dummy/app/templates/components/search-select.hbs"
-  >
-    template.hbs
-  </a>
+  <a href="https://github.com/zestia/ember-select-box/blob/master/tests/dummy/app/templates/components/search-select.hbs">template.hbs</a>
 </p>
 
 <SearchSelect
   @onSearch={{this.findBread}}
-  @onSelect={{this.selectBread}} as |sb newBread|
+  @onSelect={{this.selectBread}} as |sb results newBread|
 >
-  {{#each this.selectableBreads as |bread|}}
+  {{#each results as |bread|}}
     <sb.Option @value={{bread}}>
       {{bread.name}}
     </sb.Option>

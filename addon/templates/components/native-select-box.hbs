@@ -14,10 +14,7 @@
         _onInsert=this.handleInsertOption
         _onDestroy=this.handleDestroyOption
       )
-      Group=(component
-        "native-select-box/group"
-        selectBox=this
-      )
+      Group=(component "native-select-box/group" selectBox=this)
     ) as |components|
   }}
     {{yield (merge components this.api)}}
