@@ -11,10 +11,7 @@ export default class FilterSelect extends Controller {
 
   @action
   filterPies(query) {
-    return this._filterPies(query).then(pies => {
-      set(this, 'selectablePies', pies);
-      return pies;
-    });
+    return this._filterPies(query);
   }
 
   @action

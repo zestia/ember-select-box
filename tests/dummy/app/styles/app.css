@@ -1,7 +1,9 @@
-@use 'single-select.css';
-@use 'simple-select.css';
-@use 'native-simple-select.css';
-@use 'filter-select.css';
-@use 'search-select.css';
-@use 'tag-select.css';
-@use 'colour-select.css';
+/* stylelint-disable at-rule-blacklist */
+
+@import 'single-select.css';
+@import 'simple-select.css';
+@import 'native-simple-select.css';
+@import 'filter-select.css';
+@import 'search-select.css';
+@import 'tag-select.css';
+@import 'colour-select.css';

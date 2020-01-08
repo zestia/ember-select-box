@@ -8,9 +8,9 @@
 <FilterSelect
   @labelKey="name"
   @onSearch={{this.filterPies}}
-  @onSelect={{this.selectPie}} as |sb|
+  @onSelect={{this.selectPie}} as |sb results|
 >
-  {{#each this.selectablePies as |pie|}}
+  {{#each results as |pie|}}
     <sb.Option @value={{pie}}>
       {{pie.name}}
     </sb.Option>

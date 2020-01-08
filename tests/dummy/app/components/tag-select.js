@@ -34,7 +34,7 @@ export default class TagSelect extends Component {
 
   @action
   reveal(sb) {
-    this.search('');
+    sb.search('');
     sb.open();
   }
 
