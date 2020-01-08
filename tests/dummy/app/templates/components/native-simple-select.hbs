@@ -1,7 +1,8 @@
 <div
-  class="native-simple-select
-
-    {{if this.isFocused "native-simple-select--focused"}}"
+  class={{concat
+    "native-simple-select"
+    (if this.isFocused " native-simple-select--focused")
+  }}
   ...attributes
 >
   <div class="native-simple-select__display-label">
