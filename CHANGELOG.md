@@ -1,5 +1,10 @@
 # Changelog
 
+## 13.0.7
+
+- Use capture on document listener for detecting when something outside of a select box is clicked.
+  (This fixes an issue where it wasn't possible to close a select box onClickOutside, but also open it with a button outside of itself)
+
 ## 13.0.6
 
 - Upgrade dependencies
