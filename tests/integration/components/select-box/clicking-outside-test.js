@@ -122,7 +122,7 @@ module('select-box (clicking outside)', function(hooks) {
         @onClose={{this.handleClose}} />
     `);
 
-    await click('.external-open', 'touchstart');
+    await click('.external-open');
 
     assert.verifySteps(
       [
