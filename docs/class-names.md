@@ -46,11 +46,11 @@ In the above example `buildClassName` will be called with a `child` parameter to
 
 ## Class attribute
 
-Don't forget that `onBuildClassName` is made available so you can customise the markup that this component generates for you. This does not prevent you from simply using `class=`. For example
+Don't forget that `onBuildClassName` is made available so you can customise the markup that this component generates for you. This does not prevent you from simply using `class=`. For example:
 
-```
+```hbs
 <SelectBox
   @onBuildClassName={{this.buildClassName}}
   class={{if @error "my-select--has-error"}}
- />
+/>
 ```
