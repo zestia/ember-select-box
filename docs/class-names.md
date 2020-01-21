@@ -53,4 +53,8 @@ Don't forget that `onBuildClassName` is made available so you can customise the 
   @onBuildClassName={{this.buildClassName}}
   class={{if @error "my-select--has-error"}}
 />
+  {{#if @error}}
+    <div class="my-select__error">@error</div>
+  {{/if}}
+</SelectBox>
 ```
