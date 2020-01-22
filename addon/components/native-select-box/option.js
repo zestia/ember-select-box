@@ -25,6 +25,11 @@ export default class NativeSelectBoxOption extends Component {
   selectBox = null;
   value = undefined;
 
+  // Actions
+
+  _onInsert = null;
+  _onDestroy = null;
+
   // State
 
   domElement = null;

@@ -21,15 +21,18 @@ export default class SelectBoxInput extends Component {
   classNamePrefix = '';
   selectBox = null;
 
-  // State
-
-  domElement = null;
-
   // Actions
 
   onClear = null;
   onDelete = null;
   onInput = null;
+  _onInsert = null;
+  _onDestroy = null;
+  _onInput = null;
+
+  // State
+
+  domElement = null;
 
   // Computed state
 

@@ -15,6 +15,11 @@ export default class SelectBoxOptions extends Component {
 
   classNamePrefix = '';
 
+  // Actions
+
+  _onInsert = null;
+  _onDestroy = null;
+
   // Computed state
 
   @className() className;

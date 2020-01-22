@@ -36,6 +36,10 @@ export default class SelectBoxOption extends Component {
 
   onActivate = null;
   onSelect = null;
+  _onActivate = null;
+  _onSelect = null;
+  _onInsert = null;
+  _onDestroy = null;
 
   // State
 
