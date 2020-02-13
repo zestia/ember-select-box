@@ -1,5 +1,9 @@
 # Changelog
 
+## 13.0.8
+
+- Upgrade dependencies
+
 ## 13.0.7
 
 - Use capture on document listener for detecting when something outside of a select box is clicked.
