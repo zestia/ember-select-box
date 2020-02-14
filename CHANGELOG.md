@@ -1,5 +1,9 @@
 # Changelog
 
+## 13.0.9
+
+- Allow tabindex to be set on selected options with a temporary fix, due to: https://github.com/emberjs/rfcs/issues/497
+
 ## 13.0.8
 
 - Upgrade dependencies

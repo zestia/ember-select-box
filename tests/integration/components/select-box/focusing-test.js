@@ -60,7 +60,7 @@ module('select-box (focusing)', function(hooks) {
     assert.ok(sentFocusOut, true, 'sends a focus out action');
   });
 
-  test('tabindex', async function(assert) {
+  test('disabled tabindex', async function(assert) {
     assert.expect(3);
 
     await render(hbs`<SelectBox @disabled={{this.disabled}} />`);
@@ -80,5 +80,16 @@ module('select-box (focusing)', function(hooks) {
     assert
       .dom('.select-box')
       .hasAttribute('tabindex', '0', 're-enabling, re-enables focusability');
+  });
+
+  test('tabindex', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`
+      {{! template-lint-disable no-positive-tabindex }}
+      <SelectBox tabindex="2" />
+    `);
+
+    assert.dom('.select-box').hasAttribute('tabindex', '2', 'can set tabindex');
   });
 });

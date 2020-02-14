@@ -5,8 +5,9 @@
   id={{this.id}}
   role="option"
   {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
-  {{! template-lint-disable no-invalid-interactive }}
+  {{! template-lint-disable no-invalid-interactive no-positive-tabindex }}
   onclick={{@onclick}}
+  tabindex={{@tabindex}}
   ...attributes
   {{did-insert this.handleInsertElement}}
   {{will-destroy this.handleDestroyElement}}
