@@ -48,7 +48,6 @@ https://zestia.github.io/ember-select-box
 - Customisable class names ✔︎
 - Will never come with built-in styles ✔︎
 - Ember Data friendly ✔︎
-- Does not use jQuery ✔︎
 - Easily create an autocompleter ✔︎
 - Easily create a dropdown menu ✔︎
 - Full control at all times with the API ✔︎
