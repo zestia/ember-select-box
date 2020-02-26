@@ -1,7 +1,7 @@
 import { set } from '@ember/object';
 
 export function receiveArgs(selectBox) {
-  if (selectBox.disabled) {
+  if (selectBox.args.disabled) {
     disable(selectBox);
   } else {
     enable(selectBox);

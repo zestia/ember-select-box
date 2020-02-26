@@ -6,7 +6,7 @@ import { run } from '@ember/runloop';
 const { freeze } = Object;
 
 export function receiveValue(selectBox) {
-  updateValue(selectBox, selectBox.value);
+  updateValue(selectBox, selectBox.args.value);
 }
 
 export function updateValue(selectBox, unresolvedValue) {
