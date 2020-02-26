@@ -1,4 +1,4 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import {
   _selectOption,
   selectOption
@@ -60,7 +60,7 @@ import {
   keyPress,
   shouldPreventDefault
 } from '../../utils/select-box/keyboard';
-import { receiveArgs } from '../../utils/select-box/args';
+import { receiveDisabled } from '../../utils/select-box/disabled';
 import { setInputValue } from '../../utils/select-box/input/value';
 import api from '../../utils/select-box/api';
 import objectAtIndex from '../../utils/general/object-at-index';
@@ -76,46 +76,14 @@ import { insertElement } from '../../utils/shared/element';
 import { action } from '@ember/object';
 
 export default class SelectBox extends Component {
-  tagName = '';
-
-  // Arguments
-
-  classNamePrefix = '';
-  disabled = false;
-  multiple = false;
-  tabindex = '0';
-  searchDelayTime = 100;
-  searchMinChars = 1;
-  searchSlowTime = 500;
-  value = undefined;
-
-  // Actions
-
-  onBuildSelection = null;
-  onBuildClassName = null;
-  onClickOutside = null;
-  onClose = null;
-  onFocusIn = null;
-  onFocusOut = null;
-  onInsertElement = null;
-  onOpen = null;
-  onPressBackspace = null;
-  onPressDown = null;
-  onPressEnter = null;
-  onPressEscape = null;
-  onPressKey = null;
-  onPressLeft = null;
-  onPressRight = null;
-  onPressTab = null;
-  onPressUp = null;
-  onReady = null;
-  onSearch = null;
-  onSearched = null;
-  onSearchError = null;
-  onSelect = null;
-  onUpdate = null;
-
-  // State
+  // classNamePrefix = '';
+  // disabled = false;
+  // multiple = false;
+  // tabindex = '0';
+  // searchDelayTime = 100;
+  // searchMinChars = 1;
+  // searchSlowTime = 500;
+  // value = undefined;
 
   activeOptionIndex = -1;
   activeSelectedOptionIndex = -1;
@@ -136,16 +104,11 @@ export default class SelectBox extends Component {
   searchID = 0;
   tabIndex = '0';
   valueID = 0;
-
-  // Child components
-
   input = null;
   options = null;
   optionsContainer = null;
   selectedOptions = null;
   selectedOptionsContainer = null;
-
-  // Computed state
 
   @className() className;
   @id() id;
@@ -157,15 +120,11 @@ export default class SelectBox extends Component {
   @objectAtIndex('selectedOptions', 'activeSelectedOptionIndex')
   activeSelectedOption;
 
-  init() {
-    super.init(...arguments);
+  constructor() {
+    super(...arguments);
     initOptions(this);
     initSelectedOptions(this);
-  }
-
-  didReceiveAttrs() {
-    super.init(...arguments);
-    receiveArgs(this);
+    receiveDisabled(this);
     receiveValue(this);
   }
 
@@ -183,6 +142,16 @@ export default class SelectBox extends Component {
   handleDestroyElement() {
     deregisterElement(this);
     removeDocumentClickListener(this);
+  }
+
+  @action
+  handleUpdateValue() {
+    receiveValue(this);
+  }
+
+  @action
+  handleUpdateDisabled() {
+    receiveDisabled(this);
   }
 
   @action

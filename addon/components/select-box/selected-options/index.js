@@ -1,4 +1,4 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import {
   _destroyComponent,
   _insertComponent
@@ -7,19 +7,6 @@ import className from '../../../utils/select-box/selected-options/class-name';
 import { action } from '@ember/object';
 
 export default class SelectBoxSelectedOptions extends Component {
-  tagName = '';
-
-  // Arguments
-
-  classNamePrefix = '';
-
-  // Actions
-
-  _onInsert = null;
-  _onDestroy = null;
-
-  // Computed state
-
   @className() className;
 
   // Internal actions

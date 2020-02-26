@@ -1,4 +1,4 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import {
   _destroyComponent,
   _insertComponent
@@ -16,23 +16,6 @@ import className from '../../../utils/select-box/selected-option/class-name';
 import { action } from '@ember/object';
 
 export default class SelectBoxSelectedOption extends Component {
-  tagName = '';
-
-  // Arguments
-
-  classNamePrefix = '';
-  selectBox = null;
-  value = undefined;
-
-  // Actions
-
-  onActivate = null;
-  _onActivate = null;
-  _onInsert = null;
-  _onDestroy = null;
-
-  // State
-
   domElement = null;
   isFulfilled = false;
   isPending = true;
@@ -49,8 +32,8 @@ export default class SelectBoxSelectedOption extends Component {
   @index('selectBox.selectedOptions') index;
   @isEqual('index', 'selectBox.activeSelectedOptionIndex') isActive;
 
-  didReceiveAttrs() {
-    super.init(...arguments);
+  constructor() {
+    super(...arguments);
     receiveValue(this);
   }
 
@@ -66,5 +49,10 @@ export default class SelectBoxSelectedOption extends Component {
   handleDestroyElement() {
     deregisterElement(this);
     _destroyComponent(this);
+  }
+
+  @action
+  handleUpdateValue() {
+    receiveValue(this);
   }
 }

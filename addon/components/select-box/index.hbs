@@ -19,6 +19,8 @@
   tabindex={{this.tabIndex}}
   ...attributes
   {{did-insert this.handleInsertElement}}
+  {{did-update this.handleUpdateValue @value}}
+  {{did-update this.handleUpdateDisabled @disabled}}
   {{will-destroy this.handleDestroyElement}}
   {{on "focusin" this.handleFocusIn}}
   {{on "focusout" this.handleFocusOut}}

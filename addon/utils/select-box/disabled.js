@@ -1,6 +1,6 @@
 import { set } from '@ember/object';
 
-export function receiveArgs(selectBox) {
+export function receiveDisabled(selectBox) {
   if (selectBox.args.disabled) {
     disable(selectBox);
   } else {

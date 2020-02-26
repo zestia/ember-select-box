@@ -1,4 +1,4 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { _activateOption } from '../../../utils/select-box/option/activate';
 import {
   _destroyComponent,
@@ -12,35 +12,13 @@ import {
 } from '../../../utils/registration/element';
 import { receiveValue } from '../../../utils/component/value';
 import api from '../../../utils/select-box/option/api';
-import index from '../../../utils/general/index';
 import isEqual from '../../../utils/general/is-equal';
 import isSelected from '../../../utils/shared/is-selected';
 import id from '../../../utils/shared/id';
 import className from '../../../utils/select-box/option/class-name';
-import { action } from '@ember/object';
+import { computed, action } from '@ember/object';
 
 export default class SelectBoxOption extends Component {
-  tagName = '';
-
-  // Arguments
-
-  classNamePrefix = '';
-  disabled = false;
-  selectBox = null;
-  selected = undefined;
-  value = undefined;
-
-  // Actions
-
-  onActivate = null;
-  onSelect = null;
-  _onActivate = null;
-  _onSelect = null;
-  _onInsert = null;
-  _onDestroy = null;
-
-  // State
-
   domElement = null;
   isFulfilled = false;
   isPending = true;
@@ -51,18 +29,20 @@ export default class SelectBoxOption extends Component {
   resolvedValue = null;
   valueID = 0;
 
-  // Computed state
-
   @api() api;
   @className() className;
   @id() id;
-  @index('selectBox.options') index;
   @isEqual('index', 'selectBox.activeOptionIndex') isActive;
   @bool('disabled') isDisabled;
   @isSelected() isSelected;
 
-  didReceiveAttrs() {
-    super.didReceiveAttrs(...arguments);
+  @computed('args.selectBox.options')
+  get index() {
+    return this.args.selectBox ? this.args.selectBox.options.indexOf(this) : -1;
+  }
+
+  constructor() {
+    super(...arguments);
     receiveValue(this);
   }
 
@@ -78,6 +58,11 @@ export default class SelectBoxOption extends Component {
   handleDestroyElement() {
     deregisterElement(this);
     _destroyComponent(this);
+  }
+
+  @action
+  handleUpdateValue() {
+    receiveValue(this);
   }
 
   @action
