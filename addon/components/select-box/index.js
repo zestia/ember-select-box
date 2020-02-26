@@ -112,13 +112,22 @@ export default class SelectBox extends Component {
 
   @className() className;
   @id() id;
-  @bool('disabled') isDisabled;
-  @or('isPending', 'isSearching') isBusy;
-  @bool('multiple') isMultiple;
   @api() api;
   @objectAtIndex('options', 'activeOptionIndex') activeOption;
   @objectAtIndex('selectedOptions', 'activeSelectedOptionIndex')
   activeSelectedOption;
+
+  get isDisabled() {
+    return this.args.disabled;
+  }
+
+  get isMultiple() {
+    return this.args.isMultiple;
+  }
+
+  get isBusy() {
+    return this.isPending || this.isSearching;
+  }
 
   constructor() {
     super(...arguments);
