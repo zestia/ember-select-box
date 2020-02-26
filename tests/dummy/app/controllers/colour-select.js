@@ -1,9 +1,12 @@
 import Controller from '@ember/controller';
-import { action, set } from '@ember/object';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
 export default class ColourSelectController extends Controller {
+  @tracked selectedColour;
+
   @action
   selectColour(colour) {
-    set(this, 'selectedColour', colour);
+    this.selectedColour = colour;
   }
 }

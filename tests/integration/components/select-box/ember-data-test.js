@@ -2,7 +2,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import Model from 'ember-data/model';
+import Model from '@ember-data/model';
 import attr from 'ember-data/attr';
 import Adapter from 'ember-data/adapters/json-api';
 import Serializer from 'ember-data/serializers/json-api';
@@ -16,30 +16,26 @@ module('select-box (ember data)', function(hooks) {
   let payload;
   let delay = 0;
 
+  class FooModel extends Model {
+    @attr name;
+  }
+
+  class FooAdapter extends Adapter {
+    ajax() {
+      return new Promise(resolve => {
+        later(() => {
+          resolve(payload);
+        }, delay);
+      });
+    }
+  }
+
   hooks.beforeEach(function() {
     store = this.owner.lookup('service:store');
 
-    this.owner.register(
-      'model:foo',
-      Model.extend({
-        name: attr()
-      })
-    );
-
+    this.owner.register('model:foo', FooModel);
     this.owner.register('serializer:foo', Serializer);
-
-    this.owner.register(
-      'adapter:foo',
-      Adapter.extend({
-        ajax() {
-          return new Promise(resolve => {
-            later(() => {
-              resolve(payload);
-            }, delay);
-          });
-        }
-      })
-    );
+    this.owner.register('adapter:foo', FooAdapter);
   });
 
   test('multiple select with ED', async function(assert) {
@@ -60,15 +56,16 @@ module('select-box (ember data)', function(hooks) {
     payload = { data: foos };
     delay = 100;
 
-    this.set('foos', store.findAll('foo'));
-    this.set(
-      'value',
-      store.findAll('foo').then(foos => {
-        return foos.filter(foo => {
-          return foo.id >= 5;
-        });
-      })
-    );
+    const allFoos = store.findAll('foo');
+
+    const filteredFoos = store.findAll('foo').then(foos => {
+      return foos.filter(foo => {
+        return foo.id >= 5;
+      });
+    });
+
+    this.set('foos', allFoos);
+    this.set('value', filteredFoos);
 
     await render(hbs`
       <SelectBox @value={{this.value}} @multiple={{true}} as |sb|>
@@ -85,6 +82,7 @@ module('select-box (ember data)', function(hooks) {
     `);
 
     assert.dom('.select-box__option--selected').exists({ count: 5 });
+
     assert
       .dom('.select-box__option:not(.select-box__option--selected)')
       .exists({ count: 5 });

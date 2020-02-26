@@ -1,26 +1,23 @@
-import { computed } from '@ember/object';
-import { buildClassName } from '../../shared/class-name';
+import { buildClassName as className } from '../../shared/class-name';
 
-export default function className() {
-  return computed('isActive', 'isDisabled', 'isSelected', function() {
-    const classNames = [];
+export default function buildClassName(option) {
+  const classNames = [];
 
-    const { selectBox } = this;
+  const { selectBox } = option.args;
 
-    classNames.push(buildClassName(selectBox, 'option'));
+  classNames.push(className(selectBox, 'option'));
 
-    if (this.isActive) {
-      classNames.push(buildClassName(selectBox, 'option', 'active'));
-    }
+  if (option.isActive) {
+    classNames.push(className(selectBox, 'option', 'active'));
+  }
 
-    if (this.isDisabled) {
-      classNames.push(buildClassName(selectBox, 'option', 'disabled'));
-    }
+  if (option.isDisabled) {
+    classNames.push(className(selectBox, 'option', 'disabled'));
+  }
 
-    if (this.isSelected) {
-      classNames.push(buildClassName(selectBox, 'option', 'selected'));
-    }
+  if (option.isSelected) {
+    classNames.push(className(selectBox, 'option', 'selected'));
+  }
 
-    return classNames.join(' ');
-  });
+  return classNames.join(' ');
 }

@@ -1,18 +1,15 @@
-import { computed } from '@ember/object';
-import { buildClassName } from '../../shared/class-name';
+import { buildClassName as className } from '../../shared/class-name';
 
-export default function className() {
-  return computed('isActive', function() {
-    const classNames = [];
+export default function buildClassName(selectedOption) {
+  const classNames = [];
 
-    const { selectBox } = this;
+  const { selectBox } = selectedOption.args;
 
-    classNames.push(buildClassName(selectBox, 'selected-option'));
+  classNames.push(className(selectBox, 'selected-option'));
 
-    if (this.isActive) {
-      classNames.push(buildClassName(selectBox, 'selected-option', 'active'));
-    }
+  if (selectedOption.isActive) {
+    classNames.push(className(selectBox, 'selected-option', 'active'));
+  }
 
-    return classNames.join(' ');
-  });
+  return classNames.join(' ');
 }

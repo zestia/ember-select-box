@@ -1,6 +1,6 @@
 import invokeAction from '../component/invoke-action';
+import { _selectOption } from '../../utils/select-box/option/select';
 import { capitalize } from '@ember/string';
-import { getAPI } from '../component/api';
 
 export const keys = {
   8: 'backspace',
@@ -29,25 +29,38 @@ export function keyDown(selectBox, e) {
 }
 
 function pressedKey(selectBox, e) {
-  invokeAction(selectBox, 'onPressKey', e, getAPI(selectBox));
+  invokeAction(selectBox, 'onPressKey', e, selectBox.api);
 }
 
 function _keyedDown(selectBox, key, e) {
   const name = `handlePress${key}`;
+  const func = selectBox[name];
 
-  if (typeof selectBox.actions[name] === 'function') {
-    selectBox.send(name, e);
+  if (typeof func === 'function') {
+    func(e);
   }
 }
 
 function keyedDown(selectBox, key, e) {
-  invokeAction(selectBox, `onPress${key}`, e, getAPI(selectBox));
+  invokeAction(selectBox, `onPress${key}`, e, selectBox.api);
+}
+
+export function pressEnter(selectBox, e) {
+  if (!selectBox.activeOption) {
+    return;
+  }
+
+  if (shouldPreventDefault(selectBox, e)) {
+    e.preventDefault();
+  }
+
+  _selectOption(selectBox.activeOption);
 }
 
 export function shouldPreventDefault(selectBox, e) {
   return (
     selectBox.activeOption &&
     selectBox.input &&
-    e.target === selectBox.input.domElement
+    e.target === selectBox.input.element
   );
 }

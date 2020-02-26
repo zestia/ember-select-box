@@ -1,0 +1,11 @@
+<option
+  class={{this.className}}
+  selected={{this.isSelected}}
+  value={{this.value}}
+  ...attributes
+  {{did-insert this.handleInsertElement}}
+  {{did-update this.handleUpdateValue @value}}
+  {{will-destroy this.handleDestroyElement}}
+>
+  {{~yield this.api~}}
+</option>

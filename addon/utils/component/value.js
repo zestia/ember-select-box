@@ -1,31 +1,30 @@
-import { set } from '@ember/object';
 import { resolve } from 'rsvp';
 
 export function receiveValue(component) {
-  resolveValue(component, component.value);
+  resolveValue(component, component.args.value);
 }
 
-export function resolveValue(component, unresolvedValue, postProcess) {
-  const valueID = component.incrementProperty('valueID');
+export function resolveValue(component, value, postProcess) {
+  const valueID = ++component.valueID;
 
-  startedResolvingValue(component, unresolvedValue);
+  startedResolvingValue(component, value);
 
-  return resolve(unresolvedValue)
-    .then(result => {
-      finishedResolvingValue(component, valueID, false, result, postProcess);
-    })
-    .catch(error => {
-      finishedResolvingValue(component, valueID, true, error, postProcess);
-    });
+  return resolve(value)
+    .then(result =>
+      finishedResolvingValue(component, valueID, false, result, postProcess)
+    )
+    .catch(error =>
+      finishedResolvingValue(component, valueID, true, error, postProcess)
+    );
 }
 
-export function startedResolvingValue(component, unresolvedValue) {
-  set(component, 'previousResolvedValue', component.resolvedValue);
-  set(component, 'resolvedValue', unresolvedValue);
-  set(component, 'isPending', true);
-  set(component, 'isRejected', false);
-  set(component, 'isFulfilled', false);
-  set(component, 'isSettled', false);
+export function startedResolvingValue(component, value) {
+  component.previousValue = component.value;
+  component.value = value;
+  component.isPending = true;
+  component.isRejected = false;
+  component.isFulfilled = false;
+  component.isSettled = false;
 }
 
 export function finishedResolvingValue(
@@ -35,7 +34,7 @@ export function finishedResolvingValue(
   result,
   postProcess
 ) {
-  if (component.isDestroyed || valueID < component.valueID) {
+  if (valueID < component.valueID) {
     return;
   }
 
@@ -45,9 +44,9 @@ export function finishedResolvingValue(
     value = postProcess(component, value);
   }
 
-  set(component, 'resolvedValue', value);
-  set(component, 'isPending', false);
-  set(component, 'isRejected', failed);
-  set(component, 'isFulfilled', !failed);
-  set(component, 'isSettled', true);
+  component.value = value;
+  component.isPending = false;
+  component.isRejected = failed;
+  component.isFulfilled = !failed;
+  component.isSettled = true;
 }

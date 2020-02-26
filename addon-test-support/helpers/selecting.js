@@ -1,8 +1,7 @@
 import { find, triggerEvent } from '@ember/test-helpers';
-const { from } = Array;
 
 export function getNativeMultipleSelectBoxValue(selector) {
-  return from(find(selector).options).reduce((values, option) => {
+  return [...find(selector).options].reduce((values, option) => {
     if (option.selected) {
       values.push(option.value);
     }
@@ -12,7 +11,7 @@ export function getNativeMultipleSelectBoxValue(selector) {
 }
 
 export function selectNativeOptionsByValue(selector, values) {
-  from(find(selector).options).forEach(option => {
+  [...find(selector).options].forEach(option => {
     option.selected = values.includes(option.value);
   });
 
@@ -20,7 +19,7 @@ export function selectNativeOptionsByValue(selector, values) {
 }
 
 export function selectNativeOptionsByLabel(selector, labels) {
-  from(find(selector).options).forEach(option => {
+  [...find(selector).options].forEach(option => {
     option.selected = labels.includes(option.textContent.trim());
   });
 
