@@ -2,8 +2,8 @@ import { computed } from '@ember/object';
 import { makeArray } from '@ember/array';
 
 const isSelectedKeys = [
-  'selected',
   'resolvedValue',
+  'args.selected',
   'args.selectBox.isMultiple',
   'args.selectBox.resolvedValue'
 ];
