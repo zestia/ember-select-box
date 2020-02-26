@@ -6,8 +6,8 @@ export function getAPI(component) {
     return;
   }
 
-  if (component.selectBox) {
-    return component.selectBox.api;
+  if (component.args.selectBox) {
+    return component.args.selectBox.api;
   } else {
     return component.api;
   }

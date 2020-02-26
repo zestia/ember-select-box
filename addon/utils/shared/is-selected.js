@@ -10,14 +10,14 @@ const isSelectedKeys = [
 
 export default function isSelected() {
   return computed(...isSelectedKeys, function() {
-    if (this.selected !== undefined) {
-      return this.selected;
-    } else if (this.selectBox && this.selectBox.isMultiple) {
-      return makeArray(this.selectBox.resolvedValue).includes(
+    if (this.args.selected !== undefined) {
+      return this.args.selected;
+    } else if (this.args.selectBox && this.args.selectBox.isMultiple) {
+      return makeArray(this.args.selectBox.resolvedValue).includes(
         this.resolvedValue
       );
-    } else if (this.selectBox) {
-      return this.resolvedValue === this.selectBox.resolvedValue;
+    } else if (this.args.selectBox) {
+      return this.resolvedValue === this.args.selectBox.resolvedValue;
     } else {
       return false;
     }

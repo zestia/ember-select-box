@@ -1,4 +1,4 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { bool } from '@ember/object/computed';
 import {
   deregisterElement,
@@ -22,24 +22,6 @@ import { insertElement } from '../../utils/shared/element';
 import { action } from '@ember/object';
 
 export default class NativeSelectBox extends Component {
-  tagName = '';
-
-  // Arguments
-
-  classNamePrefix = '';
-  disabled = false;
-  multiple = false;
-  value = undefined;
-
-  // Actions
-
-  onInsertElement = null;
-  onReady = null;
-  onSelect = null;
-  onUpdate = null;
-
-  // State
-
   domElement = null;
   isFulfilled = false;
   isPending = true;
@@ -50,19 +32,13 @@ export default class NativeSelectBox extends Component {
   resolvedValue = null;
   valueID = 0;
 
-  // Computed state
-
   @api() api;
   @className() className;
   @bool('multiple') isMultiple;
 
-  init() {
-    super.init(...arguments);
+  constructor() {
+    super(...arguments);
     initOptions(this);
-  }
-
-  didReceiveAttrs() {
-    super.init(...arguments);
     receiveValue(this);
   }
 
@@ -78,6 +54,11 @@ export default class NativeSelectBox extends Component {
   @action
   handleDestroyElement() {
     deregisterElement(this);
+  }
+
+  @action
+  handleUpdateValue() {
+    receiveValue(this);
   }
 
   @action

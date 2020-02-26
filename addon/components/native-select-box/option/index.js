@@ -1,4 +1,4 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import {
   _destroyComponent,
   _insertComponent
@@ -9,27 +9,11 @@ import {
 } from '../../../utils/registration/element';
 import { receiveValue } from '../../../utils/component/value';
 import api from '../../../utils/native-select-box/option/api';
-import index from '../../../utils/general/index';
 import isSelected from '../../../utils/shared/is-selected';
 import className from '../../../utils/native-select-box/option/class-name';
-import { action } from '@ember/object';
+import { computed, action } from '@ember/object';
 
 export default class NativeSelectBoxOption extends Component {
-  tagName = '';
-
-  // Arguments
-
-  classNamePrefix = '';
-  selectBox = null;
-  value = undefined;
-
-  // Actions
-
-  _onInsert = null;
-  _onDestroy = null;
-
-  // State
-
   domElement = null;
   isFulfilled = false;
   isPending = true;
@@ -39,15 +23,17 @@ export default class NativeSelectBoxOption extends Component {
   previousResolvedValue = null;
   resolvedValue = null;
 
-  // Computed state
-
   @api() api;
   @className() className;
-  @index('selectBox.options') index;
   @isSelected() isSelected;
 
-  didReceiveAttrs() {
-    super.didReceiveAttrs(...arguments);
+  @computed('args.selectBox.options')
+  get index() {
+    return this.args.selectBox ? this.args.selectBox.options.indexOf(this) : -1;
+  }
+
+  constructor() {
+    super(...arguments);
     receiveValue(this);
   }
 
@@ -63,5 +49,10 @@ export default class NativeSelectBoxOption extends Component {
   handleDestroyElement() {
     deregisterElement(this);
     _destroyComponent(this);
+  }
+
+  @action
+  handleUpdateValue() {
+    receiveValue(this);
   }
 }

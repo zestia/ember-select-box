@@ -2,11 +2,11 @@ import { set } from '@ember/object';
 import { resolve } from 'rsvp';
 
 export function receiveValue(component) {
-  resolveValue(component, component.value);
+  resolveValue(component, component.args.value);
 }
 
 export function resolveValue(component, unresolvedValue, postProcess) {
-  const valueID = component.incrementProperty('valueID');
+  const valueID = component.valueID++;
 
   startedResolvingValue(component, unresolvedValue);
 

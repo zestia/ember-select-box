@@ -3,6 +3,7 @@
   multiple={{this.isMultiple}}
   ...attributes
   {{did-insert this.handleInsertElement}}
+  {{did-update this.handleUpdateValue @value}}
   {{will-destroy this.handleDestroyElement}}
   {{on "change" this.handleChange}}
 >

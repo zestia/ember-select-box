@@ -4,6 +4,7 @@
   value={{this.resolvedValue}}
   ...attributes
   {{did-insert this.handleInsertElement}}
+  {{did-update this.handleUpdateValue @value}}
   {{will-destroy this.handleDestroyElement}}
 >
   {{~yield this.api~}}
