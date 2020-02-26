@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+import { isPresent } from '@ember/utils';
 import {
   _selectOption,
   selectOption
@@ -126,6 +127,20 @@ export default class SelectBox extends Component {
 
   get isBusy() {
     return this.isPending || this.isSearching;
+  }
+
+  get searchDelayTime() {
+    return isPresent(this.args.searchDelayTime)
+      ? this.args.searchDelayTime
+      : 100;
+  }
+
+  get searchMinChars() {
+    return isPresent(this.args.searchMinChars) ? this.args.searchMinChars : 1;
+  }
+
+  get searchSlowTime() {
+    return isPresent(this.args.searchSlowTime) ? this.args.searchSlowTime : 500;
   }
 
   constructor() {
