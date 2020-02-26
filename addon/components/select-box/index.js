@@ -18,7 +18,6 @@ import {
   activateSelectedOptionAtIndex
 } from '../../utils/select-box/selected-option/activate';
 import { blurInput, focusInput } from '../../utils/select-box/input/focus';
-import { bool, or } from '@ember/object/computed';
 import {
   cancelSearch,
   maybeSearch,

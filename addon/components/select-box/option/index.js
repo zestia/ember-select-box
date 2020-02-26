@@ -5,7 +5,6 @@ import {
   _insertComponent
 } from '../../../utils/component/lifecycle';
 import { _selectOption } from '../../../utils/select-box/option/select';
-import { bool } from '@ember/object/computed';
 import {
   deregisterElement,
   registerElement
@@ -32,7 +31,7 @@ export default class SelectBoxOption extends Component {
   @api() api;
   @className() className;
   @id() id;
-  @isEqual('index', 'selectBox.activeOptionIndex') isActive;
+  @isEqual('index', 'args.selectBox.activeOptionIndex') isActive;
   @isSelected() isSelected;
 
   @computed('args.selectBox.options')
