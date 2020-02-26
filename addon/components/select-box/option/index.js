@@ -33,12 +33,15 @@ export default class SelectBoxOption extends Component {
   @className() className;
   @id() id;
   @isEqual('index', 'selectBox.activeOptionIndex') isActive;
-  @bool('disabled') isDisabled;
   @isSelected() isSelected;
 
   @computed('args.selectBox.options')
   get index() {
     return this.args.selectBox ? this.args.selectBox.options.indexOf(this) : -1;
+  }
+
+  get isDisabled() {
+    return this.args.disabled;
   }
 
   constructor() {
