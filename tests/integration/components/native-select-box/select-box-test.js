@@ -1,10 +1,11 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { fillIn, find, findAll, render, settled } from '@ember/test-helpers';
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import hbs from 'htmlbars-inline-precompile';
 import { resolve } from 'rsvp';
 import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 import {
   getNativeMultipleSelectBoxValue,
   selectNativeOptionsByLabel,
@@ -333,7 +334,7 @@ module('native-select-box', function(hooks) {
 
     this.set('barPromise', resolve('bar'));
 
-    const layout = hbs`
+    const template = hbs`
       <div class="foo-select__display-label">
         {{this.displayLabel}}
       </div>
@@ -345,8 +346,7 @@ module('native-select-box', function(hooks) {
     `;
 
     class FooSelectBox extends Component {
-      tagName = '';
-      layout = layout;
+      @tracked displayLabel;
 
       @action
       updateDisplayLabel(sb) {
@@ -354,11 +354,12 @@ module('native-select-box', function(hooks) {
           .querySelector('option:checked')
           .textContent.trim();
 
-        this.set('displayLabel', label);
+        this.displayLabel = label;
       }
     }
 
     this.owner.register('component:foo-select-box', FooSelectBox);
+    this.owner.register('template:components/foo-select-box', template);
 
     await render(hbs`
       <FooSelectBox @value={{this.barPromise}} as |sb|>

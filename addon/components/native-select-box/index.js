@@ -34,12 +34,15 @@ export default class NativeSelectBox extends Component {
 
   @api() api;
   @className() className;
-  @bool('multiple') isMultiple;
 
   constructor() {
     super(...arguments);
     initOptions(this);
     receiveValue(this);
+  }
+
+  get isMultiple() {
+    return this.args.multiple;
   }
 
   // Internal actions
