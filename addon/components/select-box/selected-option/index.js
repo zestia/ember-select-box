@@ -2,21 +2,20 @@ import Component from '@ember/component';
 import {
   _destroyComponent,
   _insertComponent
-} from '../../utils/component/lifecycle';
+} from '../../../utils/component/lifecycle';
 import {
   deregisterElement,
   registerElement
-} from '../../utils/registration/element';
-import { receiveValue } from '../../utils/component/value';
-import api from '../../utils/native-select-box/option/api';
-import index from '../../utils/general/index';
-import isSelected from '../../utils/shared/is-selected';
-import layout from '../../templates/components/native-select-box/option';
-import className from '../../utils/native-select-box/option/class-name';
+} from '../../../utils/registration/element';
+import { receiveValue } from '../../../utils/component/value';
+import api from '../../../utils/select-box/selected-option/api';
+import index from '../../../utils/general/index';
+import isEqual from '../../../utils/general/is-equal';
+import id from '../../../utils/shared/id';
+import className from '../../../utils/select-box/selected-option/class-name';
 import { action } from '@ember/object';
 
-export default class NativeSelectBoxOption extends Component {
-  layout = layout;
+export default class SelectBoxSelectedOption extends Component {
   tagName = '';
 
   // Arguments
@@ -27,6 +26,8 @@ export default class NativeSelectBoxOption extends Component {
 
   // Actions
 
+  onActivate = null;
+  _onActivate = null;
   _onInsert = null;
   _onDestroy = null;
 
@@ -38,18 +39,18 @@ export default class NativeSelectBoxOption extends Component {
   isRejected = false;
   isSettled = false;
   memoisedAPI = null;
-  previousResolvedValue = null;
-  resolvedValue = null;
+  valueID = 0;
 
   // Computed state
 
   @api() api;
   @className() className;
-  @index('selectBox.options') index;
-  @isSelected() isSelected;
+  @id() id;
+  @index('selectBox.selectedOptions') index;
+  @isEqual('index', 'selectBox.activeSelectedOptionIndex') isActive;
 
   didReceiveAttrs() {
-    super.didReceiveAttrs(...arguments);
+    super.init(...arguments);
     receiveValue(this);
   }
 

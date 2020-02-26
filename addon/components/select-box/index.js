@@ -1,5 +1,8 @@
 import Component from '@ember/component';
-import { _selectOption, selectOption } from '../utils/select-box/option/select';
+import {
+  _selectOption,
+  selectOption
+} from '../../utils/select-box/option/select';
 import {
   activateNextOption,
   activateOption,
@@ -7,66 +10,72 @@ import {
   activateOptionForKeyCode,
   activateOptionForValue,
   activatePreviousOption
-} from '../utils/select-box/option/activate';
+} from '../../utils/select-box/option/activate';
 import {
   activateNextSelectedOption,
   activatePreviousSelectedOption,
   activateSelectedOption,
   activateSelectedOptionAtIndex
-} from '../utils/select-box/selected-option/activate';
-import { blurInput, focusInput } from '../utils/select-box/input/focus';
+} from '../../utils/select-box/selected-option/activate';
+import { blurInput, focusInput } from '../../utils/select-box/input/focus';
 import { bool, or } from '@ember/object/computed';
-import { cancelSearch, maybeSearch, search } from '../utils/select-box/search';
-import { close, open, toggle } from '../utils/select-box/toggle';
-import { deactivateOptions } from '../utils/select-box/option/deactivate';
-import { deactivateSelectedOptions } from '../utils/select-box/selected-option/deactivate';
+import {
+  cancelSearch,
+  maybeSearch,
+  search
+} from '../../utils/select-box/search';
+import { close, open, toggle } from '../../utils/select-box/toggle';
+import { deactivateOptions } from '../../utils/select-box/option/deactivate';
+import { deactivateSelectedOptions } from '../../utils/select-box/selected-option/deactivate';
 import {
   deregisterElement,
   registerElement
-} from '../utils/registration/element';
-import { deregisterInput, registerInput } from '../utils/registration/input';
+} from '../../utils/registration/element';
+import { deregisterInput, registerInput } from '../../utils/registration/input';
 import {
   deregisterOption,
   initOptions,
   registerOption
-} from '../utils/registration/option';
+} from '../../utils/registration/option';
 import {
   deregisterOptionsContainer,
   registerOptionsContainer
-} from '../utils/registration/options';
+} from '../../utils/registration/options';
 import {
   deregisterSelectedOption,
   initSelectedOptions,
   registerSelectedOption
-} from '../utils/registration/selected-option';
+} from '../../utils/registration/selected-option';
 import {
   deregisterSelectedOptionsContainer,
   registerSelectedOptionsContainer
-} from '../utils/registration/selected-options';
+} from '../../utils/registration/selected-options';
 import {
   addDocumentClickListener,
   removeDocumentClickListener
-} from '../utils/select-box/document';
-import { focusIn, focusOut } from '../utils/select-box/focus';
+} from '../../utils/select-box/document';
+import { focusIn, focusOut } from '../../utils/select-box/focus';
 import {
   keyDown,
   keyPress,
   shouldPreventDefault
-} from '../utils/select-box/keyboard';
-import { receiveArgs } from '../utils/select-box/args';
-import { setInputValue } from '../utils/select-box/input/value';
-import api from '../utils/select-box/api';
-import layout from '../templates/components/select-box';
-import objectAtIndex from '../utils/general/object-at-index';
-import { receiveValue, selectValue, updateValue } from '../utils/shared/value';
-import id from '../utils/shared/id';
-import className from '../utils/select-box/class-name';
-import { ready } from '../utils/shared/ready';
-import { insertElement } from '../utils/shared/element';
+} from '../../utils/select-box/keyboard';
+import { receiveArgs } from '../../utils/select-box/args';
+import { setInputValue } from '../../utils/select-box/input/value';
+import api from '../../utils/select-box/api';
+import objectAtIndex from '../../utils/general/object-at-index';
+import {
+  receiveValue,
+  selectValue,
+  updateValue
+} from '../../utils/shared/value';
+import id from '../../utils/shared/id';
+import className from '../../utils/select-box/class-name';
+import { ready } from '../../utils/shared/ready';
+import { insertElement } from '../../utils/shared/element';
 import { action } from '@ember/object';
 
 export default class SelectBox extends Component {
-  layout = layout;
   tagName = '';
 
   // Arguments

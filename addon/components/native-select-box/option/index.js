@@ -2,22 +2,19 @@ import Component from '@ember/component';
 import {
   _destroyComponent,
   _insertComponent
-} from '../../utils/component/lifecycle';
+} from '../../../utils/component/lifecycle';
 import {
   deregisterElement,
   registerElement
-} from '../../utils/registration/element';
-import { receiveValue } from '../../utils/component/value';
-import api from '../../utils/select-box/selected-option/api';
-import index from '../../utils/general/index';
-import isEqual from '../../utils/general/is-equal';
-import layout from '../../templates/components/select-box/selected-option';
-import id from '../../utils/shared/id';
-import className from '../../utils/select-box/selected-option/class-name';
+} from '../../../utils/registration/element';
+import { receiveValue } from '../../../utils/component/value';
+import api from '../../../utils/native-select-box/option/api';
+import index from '../../../utils/general/index';
+import isSelected from '../../../utils/shared/is-selected';
+import className from '../../../utils/native-select-box/option/class-name';
 import { action } from '@ember/object';
 
-export default class SelectBoxSelectedOption extends Component {
-  layout = layout;
+export default class NativeSelectBoxOption extends Component {
   tagName = '';
 
   // Arguments
@@ -28,8 +25,6 @@ export default class SelectBoxSelectedOption extends Component {
 
   // Actions
 
-  onActivate = null;
-  _onActivate = null;
   _onInsert = null;
   _onDestroy = null;
 
@@ -41,18 +36,18 @@ export default class SelectBoxSelectedOption extends Component {
   isRejected = false;
   isSettled = false;
   memoisedAPI = null;
-  valueID = 0;
+  previousResolvedValue = null;
+  resolvedValue = null;
 
   // Computed state
 
   @api() api;
   @className() className;
-  @id() id;
-  @index('selectBox.selectedOptions') index;
-  @isEqual('index', 'selectBox.activeSelectedOptionIndex') isActive;
+  @index('selectBox.options') index;
+  @isSelected() isSelected;
 
   didReceiveAttrs() {
-    super.init(...arguments);
+    super.didReceiveAttrs(...arguments);
     receiveValue(this);
   }
 
