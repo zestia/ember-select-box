@@ -9,11 +9,10 @@ import {
 } from '../../../utils/registration/element';
 import { receiveValue } from '../../../utils/component/value';
 import api from '../../../utils/select-box/selected-option/api';
-import index from '../../../utils/general/index';
 import isEqual from '../../../utils/general/is-equal';
 import id from '../../../utils/shared/id';
 import className from '../../../utils/select-box/selected-option/class-name';
-import { action } from '@ember/object';
+import { computed, action } from '@ember/object';
 
 export default class SelectBoxSelectedOption extends Component {
   domElement = null;
@@ -29,8 +28,14 @@ export default class SelectBoxSelectedOption extends Component {
   @api() api;
   @className() className;
   @id() id;
-  @index('selectBox.selectedOptions') index;
   @isEqual('index', 'selectBox.activeSelectedOptionIndex') isActive;
+
+  @computed('args.selectBox.selectedOptions')
+  get index() {
+    return this.args.selectBox
+      ? this.args.selectBox.selectedOptions.indexOf(this)
+      : -1;
+  }
 
   constructor() {
     super(...arguments);
