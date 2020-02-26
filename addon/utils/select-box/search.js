@@ -16,11 +16,11 @@ export function cancelSearch(selectBox) {
 }
 
 export function search(selectBox, query) {
-  const delay = selectBox.searchSlowTime;
+  const delay = selectBox.args.searchSlowTime;
 
   set(selectBox, 'isSearching', true);
 
-  const searchID = selectBox.incrementProperty('searchID');
+  const searchID = ++selectBox.searchID;
 
   setTimeout(() => checkSlowSearch(selectBox), delay);
 
@@ -41,7 +41,7 @@ export function search(selectBox, query) {
 }
 
 function debouncedSearchAttempt(selectBox, query) {
-  const delay = selectBox.searchDelayTime;
+  const delay = selectBox.args.searchDelayTime;
   const immediate = !delay;
 
   debounce(attemptSearch, selectBox, query, delay, immediate);
@@ -58,11 +58,11 @@ function attemptSearch(selectBox, query) {
 }
 
 function isSearchable(selectBox) {
-  return typeof selectBox.onSearch === 'function';
+  return typeof selectBox.args.onSearch === 'function';
 }
 
 function queryOK(selectBox, query) {
-  return query.length >= selectBox.searchMinChars;
+  return query.length >= selectBox.args.searchMinChars;
 }
 
 function checkSlowSearch(selectBox) {
