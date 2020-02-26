@@ -11,7 +11,7 @@ export function maybeSearch(selectBox, query) {
 }
 
 export function cancelSearch(selectBox) {
-  selectBox.searchID++;
+  ++selectBox.searchID;
   searchFinished(selectBox);
 }
 

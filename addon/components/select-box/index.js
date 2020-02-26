@@ -121,7 +121,7 @@ export default class SelectBox extends Component {
   }
 
   get isMultiple() {
-    return this.args.isMultiple;
+    return this.args.multiple;
   }
 
   get isBusy() {

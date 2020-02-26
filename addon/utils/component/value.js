@@ -6,7 +6,7 @@ export function receiveValue(component) {
 }
 
 export function resolveValue(component, unresolvedValue, postProcess) {
-  const valueID = component.valueID++;
+  const valueID = ++component.valueID;
 
   startedResolvingValue(component, unresolvedValue);
 
