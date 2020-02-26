@@ -5,7 +5,7 @@ export default function className() {
   return computed('isActive', 'isDisabled', 'isSelected', function() {
     const classNames = [];
 
-    const { selectBox } = this;
+    const { selectBox } = this.args;
 
     classNames.push(buildClassName(selectBox, 'option'));
 
