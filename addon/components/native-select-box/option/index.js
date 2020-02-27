@@ -12,16 +12,18 @@ import api from '../../../utils/native-select-box/option/api';
 import isSelected from '../../../utils/shared/is-selected';
 import className from '../../../utils/native-select-box/option/class-name';
 import { computed, action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
 export default class NativeSelectBoxOption extends Component {
   domElement = null;
-  isFulfilled = false;
-  isPending = true;
-  isRejected = false;
-  isSettled = false;
   memoisedAPI = null;
   previousResolvedValue = null;
   resolvedValue = null;
+
+  @tracked isFulfilled = false;
+  @tracked isPending = true;
+  @tracked isRejected = false;
+  @tracked isSettled = false;
 
   @api() api;
   @className() className;

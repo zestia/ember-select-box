@@ -3,7 +3,7 @@ const { isArray, from } = Array;
 
 export function buildSelection(selectBox, value1) {
   const value2 = selectBox.resolvedValue;
-  const build = selectBox.onBuildSelection;
+  const build = selectBox.args.onBuildSelection;
 
   if (typeof build === 'function') {
     return build(value1, value2);

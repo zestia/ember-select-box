@@ -16,17 +16,20 @@ import isSelected from '../../../utils/shared/is-selected';
 import id from '../../../utils/shared/id';
 import className from '../../../utils/select-box/option/class-name';
 import { computed, action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
+import { dependentKeyCompat } from '@ember/object/compat';
 
 export default class SelectBoxOption extends Component {
   domElement = null;
-  isFulfilled = false;
-  isPending = true;
-  isRejected = false;
-  isSettled = false;
   memoisedAPI = null;
   previousResolvedValue = null;
   resolvedValue = null;
   valueID = 0;
+
+  @tracked isFulfilled = false;
+  @tracked isPending = true;
+  @tracked isRejected = false;
+  @tracked isSettled = false;
 
   @api() api;
   @className() className;
@@ -39,6 +42,7 @@ export default class SelectBoxOption extends Component {
     return this.args.selectBox ? this.args.selectBox.options.indexOf(this) : -1;
   }
 
+  @dependentKeyCompat
   get isDisabled() {
     return this.args.disabled;
   }

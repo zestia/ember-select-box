@@ -1,5 +1,4 @@
 import Component from '@glimmer/component';
-import { bool } from '@ember/object/computed';
 import {
   deregisterElement,
   registerElement
@@ -20,17 +19,20 @@ import className from '../../utils/native-select-box/class-name';
 import { ready } from '../../utils/shared/ready';
 import { insertElement } from '../../utils/shared/element';
 import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
+import { dependentKeyCompat } from '@ember/object/compat';
 
 export default class NativeSelectBox extends Component {
   domElement = null;
-  isFulfilled = false;
-  isPending = true;
-  isRejected = false;
-  isSettled = false;
   memoisedAPI = null;
   previousResolvedValue = null;
   resolvedValue = null;
   valueID = 0;
+
+  @tracked isFulfilled = false;
+  @tracked isPending = true;
+  @tracked isRejected = false;
+  @tracked isSettled = false;
 
   @api() api;
   @className() className;
@@ -41,6 +43,7 @@ export default class NativeSelectBox extends Component {
     receiveValue(this);
   }
 
+  @dependentKeyCompat
   get isMultiple() {
     return this.args.multiple;
   }

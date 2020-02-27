@@ -13,15 +13,17 @@ import isEqual from '../../../utils/general/is-equal';
 import id from '../../../utils/shared/id';
 import className from '../../../utils/select-box/selected-option/class-name';
 import { computed, action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
 export default class SelectBoxSelectedOption extends Component {
   domElement = null;
-  isFulfilled = false;
-  isPending = true;
-  isRejected = false;
-  isSettled = false;
   memoisedAPI = null;
   valueID = 0;
+
+  @tracked isFulfilled = false;
+  @tracked isPending = true;
+  @tracked isRejected = false;
+  @tracked isSettled = false;
 
   // Computed state
 

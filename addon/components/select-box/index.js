@@ -74,29 +74,14 @@ import className from '../../utils/select-box/class-name';
 import { ready } from '../../utils/shared/ready';
 import { insertElement } from '../../utils/shared/element';
 import { action } from '@ember/object';
+import { dependentKeyCompat } from '@ember/object/compat';
+import { tracked } from '@glimmer/tracking';
 
 export default class SelectBox extends Component {
-  // classNamePrefix = '';
-  // disabled = false;
-  // multiple = false;
-  // tabindex = '0';
-  // searchDelayTime = 100;
-  // searchMinChars = 1;
-  // searchSlowTime = 500;
-  // value = undefined;
-
   activeOptionIndex = -1;
   activeSelectedOptionIndex = -1;
   documentClickHandler = null;
   domElement = null;
-  isFocused = false;
-  isFulfilled = false;
-  isOpen = false;
-  isPending = true;
-  isRejected = false;
-  isSearching = false;
-  isSettled = false;
-  isSlowSearch = false;
   memoisedAPI = null;
   optionCharState = null;
   previousResolvedValue = null;
@@ -110,6 +95,15 @@ export default class SelectBox extends Component {
   selectedOptions = null;
   selectedOptionsContainer = null;
 
+  @tracked isFocused = false;
+  @tracked isFulfilled = false;
+  @tracked isOpen = false;
+  @tracked isPending = true;
+  @tracked isRejected = false;
+  @tracked isSearching = false;
+  @tracked isSettled = false;
+  @tracked isSlowSearch = false;
+
   @className() className;
   @id() id;
   @api() api;
@@ -117,14 +111,17 @@ export default class SelectBox extends Component {
   @objectAtIndex('selectedOptions', 'activeSelectedOptionIndex')
   activeSelectedOption;
 
+  @dependentKeyCompat
   get isDisabled() {
     return this.args.disabled;
   }
 
+  @dependentKeyCompat
   get isMultiple() {
     return this.args.multiple;
   }
 
+  @dependentKeyCompat
   get isBusy() {
     return this.isPending || this.isSearching;
   }
