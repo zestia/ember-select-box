@@ -8,7 +8,7 @@ import {
   registerElement
 } from '../../../utils/registration/element';
 import { receiveValue } from '../../../utils/component/value';
-import api from '../../../utils/select-box/selected-option/api';
+import { buildAPI } from '../../../utils/component/api';
 import buildID from '../../../utils/shared/id';
 import buildClassName from '../../../utils/select-box/selected-option/class-name';
 import { action } from '@ember/object';
@@ -25,7 +25,17 @@ export default class SelectBoxSelectedOption extends Component {
   @tracked isRejected = false;
   @tracked isSettled = false;
 
-  @api() api;
+  get api() {
+    return buildAPI(this, [
+      'element',
+      'index',
+      'isActive',
+      'isFulfilled',
+      'isPending',
+      'isSettled',
+      'value'
+    ]);
+  }
 
   get className() {
     return buildClassName(this);

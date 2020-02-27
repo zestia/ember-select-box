@@ -13,7 +13,7 @@ import {
   updateValue
 } from '../../utils/shared/value';
 import { selectValue as _selectValue } from '../../utils/native-select-box/value';
-import api from '../../utils/native-select-box/api';
+import { buildAPI } from '../../utils/component/api';
 import { buildClassName } from '../../utils/shared/class-name';
 import { ready } from '../../utils/shared/ready';
 import { insertElement } from '../../utils/shared/element';
@@ -34,11 +34,25 @@ export default class NativeSelectBox extends Component {
   @tracked options = [];
   @tracked value = null;
 
-  @api() api;
-
   constructor() {
     super(...arguments);
     receiveValue(this);
+  }
+
+  get api() {
+    return buildAPI(this, [
+      'element',
+      'isBusy',
+      'isDisabled',
+      'isFulfilled',
+      'isMultiple',
+      'isPending',
+      'isRejected',
+      'isSettled',
+      'value',
+      'select',
+      'update'
+    ]);
   }
 
   get className() {

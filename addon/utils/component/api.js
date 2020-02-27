@@ -1,4 +1,3 @@
-import { computed } from '@ember/object';
 const { seal } = Object;
 
 export function getAPI(component) {
@@ -13,18 +12,12 @@ export function getAPI(component) {
   }
 }
 
-export function apiMacro(properties, actions) {
-  return computed(...properties, function() {
-    const api = {};
+export function buildAPI(component, members) {
+  const api = {};
 
-    properties.forEach(p => {
-      api[p] = this[p];
-    });
-
-    actions.forEach(a => {
-      api[a] = this[a];
-    });
-
-    return seal(api);
+  members.forEach(member => {
+    api[member] = component[member];
   });
+
+  return seal(api);
 }

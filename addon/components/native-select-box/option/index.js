@@ -8,7 +8,7 @@ import {
   registerElement
 } from '../../../utils/registration/element';
 import { receiveValue } from '../../../utils/component/value';
-import api from '../../../utils/native-select-box/option/api';
+import { buildAPI } from '../../../utils/component/api';
 import isSelected from '../../../utils/shared/is-selected';
 import { buildClassName } from '../../../utils/shared/class-name';
 import { action } from '@ember/object';
@@ -25,7 +25,19 @@ export default class NativeSelectBoxOption extends Component {
   @tracked isRejected = false;
   @tracked isSettled = false;
 
-  @api() api;
+  get api() {
+    return buildAPI(this, [
+      'element',
+      'index',
+      'isDisabled',
+      'isFulfilled',
+      'isPending',
+      'isRejected',
+      'isSelected',
+      'isSettled',
+      'value'
+    ]);
+  }
 
   get className() {
     return buildClassName(this.args.selectBox, 'option');

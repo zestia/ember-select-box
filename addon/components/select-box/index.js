@@ -56,7 +56,7 @@ import { focusIn, focusOut } from '../../utils/select-box/focus';
 import { keyDown, keyPress, pressEnter } from '../../utils/select-box/keyboard';
 import { receiveDisabled } from '../../utils/select-box/disabled';
 import { setInputValue } from '../../utils/select-box/input/value';
-import api from '../../utils/select-box/api';
+import { buildAPI } from '../../utils/component/api';
 import {
   receiveValue,
   selectValue,
@@ -98,7 +98,44 @@ export default class SelectBox extends Component {
   @tracked selectedOptions = [];
   @tracked tabIndex = '0';
 
-  @api() api;
+  get api() {
+    return buildAPI(this, [
+      'element',
+      'isBusy',
+      'isDisabled',
+      'isFocused',
+      'isFulfilled',
+      'isMultiple',
+      'isOpen',
+      'isPending',
+      'isRejected',
+      'isSearching',
+      'isSettled',
+      'isSlowSearch',
+      'value',
+      'activateNextOption',
+      'activateNextSelectedOption',
+      'activateOptionForValue',
+      'activateOptionAtIndex',
+      'activateOptionForKeyCode',
+      'activatePreviousOption',
+      'activatePreviousSelectedOption',
+      'activateSelectedOptionAtIndex',
+      'blurInput',
+      'cancelSearch',
+      'close',
+      'deactivateOptions',
+      'deactivateSelectedOptions',
+      'focusInput',
+      'open',
+      'search',
+      'select',
+      'selectActiveOption',
+      'setInputValue',
+      'toggle',
+      'update'
+    ]);
+  }
 
   get className() {
     return buildClassName(this);
