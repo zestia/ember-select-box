@@ -98,6 +98,7 @@ export default class SelectBox extends Component {
   @tracked value = null;
   @tracked selectedOptions = [];
   @tracked tabIndex = '0';
+  @tracked role = 'listbox';
 
   get api() {
     return buildAPI(this, [

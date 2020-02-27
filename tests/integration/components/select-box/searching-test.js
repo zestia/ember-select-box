@@ -33,7 +33,7 @@ module('select-box (searching)', function(hooks) {
       </SelectBox>
     `);
 
-    assert.dom('.select-box').doesNotHaveAttribute('role', 'precondition');
+    assert.dom('.select-box').hasAttribute('role', 'listbox');
 
     assert
       .dom('.select-box')
