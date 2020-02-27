@@ -25,8 +25,6 @@ export default class SelectBoxSelectedOption extends Component {
   @tracked isRejected = false;
   @tracked isSettled = false;
 
-  // Computed state
-
   @api() api;
   @id() id;
   @isEqual('index', 'args.selectBox.activeSelectedOptionIndex') isActive;
@@ -35,7 +33,6 @@ export default class SelectBoxSelectedOption extends Component {
     return buildClassName(this);
   }
 
-  @computed('args.selectBox.selectedOptions')
   get index() {
     return this.args.selectBox
       ? this.args.selectBox.selectedOptions.indexOf(this)
