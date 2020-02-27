@@ -1,11 +1,9 @@
 const { seal } = Object;
 
 export default function buildAPI(component, members) {
-  const api = {};
-
   members.forEach(member => {
-    api[member] = component[member];
+    component._api[member] = component[member];
   });
 
-  return seal(api);
+  return seal(component._api);
 }

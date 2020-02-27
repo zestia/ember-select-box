@@ -25,6 +25,7 @@ export default class NativeSelectBox extends Component {
   pendingOptions = emberA();
   previousValue = null;
   valueID = 0;
+  _api = {};
 
   @tracked element = null;
   @tracked isFulfilled = false;

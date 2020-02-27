@@ -81,6 +81,7 @@ export default class SelectBox extends Component {
   searchID = 0;
   selectedOptionsContainer = null;
   valueID = 0;
+  _api = {};
 
   @tracked activeOptionIndex = -1;
   @tracked activeSelectedOptionIndex = -1;
