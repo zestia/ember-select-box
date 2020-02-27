@@ -15,11 +15,11 @@ import { computed, action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
 export default class NativeSelectBoxOption extends Component {
-  domElement = null;
   memoisedAPI = null;
   previousResolvedValue = null;
   resolvedValue = null;
 
+  @tracked domElement = null;
   @tracked isFulfilled = false;
   @tracked isPending = true;
   @tracked isRejected = false;

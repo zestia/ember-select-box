@@ -10,9 +10,10 @@ import {
 import { input, keyDown } from '../../../utils/select-box/input/keyboard';
 import { buildClassName } from '../../../utils/shared/class-name';
 import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
 export default class SelectBoxInput extends Component {
-  domElement = null;
+  @tracked domElement = null;
 
   get className() {
     return buildClassName(this.args.selectBox, 'input');

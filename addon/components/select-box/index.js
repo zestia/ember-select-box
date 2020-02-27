@@ -80,7 +80,6 @@ export default class SelectBox extends Component {
   activeOptionIndex = -1;
   activeSelectedOptionIndex = -1;
   documentClickHandler = null;
-  domElement = null;
   memoisedAPI = null;
   optionCharState = null;
   previousResolvedValue = null;
@@ -94,6 +93,7 @@ export default class SelectBox extends Component {
   selectedOptions = null;
   selectedOptionsContainer = null;
 
+  @tracked domElement = null;
   @tracked isFocused = false;
   @tracked isFulfilled = false;
   @tracked isOpen = false;
