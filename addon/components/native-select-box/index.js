@@ -5,7 +5,6 @@ import {
 } from '../../utils/registration/element';
 import {
   deregisterOption,
-  initOptions,
   registerOption
 } from '../../utils/registration/option';
 import {
@@ -20,14 +19,17 @@ import { ready } from '../../utils/shared/ready';
 import { insertElement } from '../../utils/shared/element';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
+import { A as emberA } from '@ember/array';
 
 export default class NativeSelectBox extends Component {
   memoisedAPI = null;
   previousResolvedValue = null;
   resolvedValue = null;
   valueID = 0;
+  pendingOptions = emberA();
 
   @tracked domElement = null;
+  @tracked options = [];
   @tracked isFulfilled = false;
   @tracked isPending = true;
   @tracked isRejected = false;
@@ -37,7 +39,6 @@ export default class NativeSelectBox extends Component {
 
   constructor() {
     super(...arguments);
-    initOptions(this);
     receiveValue(this);
   }
 

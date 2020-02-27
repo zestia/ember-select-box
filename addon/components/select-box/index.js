@@ -34,7 +34,6 @@ import {
 import { deregisterInput, registerInput } from '../../utils/registration/input';
 import {
   deregisterOption,
-  initOptions,
   registerOption
 } from '../../utils/registration/option';
 import {
@@ -75,6 +74,7 @@ import { ready } from '../../utils/shared/ready';
 import { insertElement } from '../../utils/shared/element';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
+import { A as emberA } from '@ember/array';
 
 export default class SelectBox extends Component {
   activeOptionIndex = -1;
@@ -88,12 +88,14 @@ export default class SelectBox extends Component {
   tabIndex = '0';
   valueID = 0;
   input = null;
-  options = null;
+  pendingOptions = emberA();
+
   optionsContainer = null;
   selectedOptions = null;
   selectedOptionsContainer = null;
 
   @tracked domElement = null;
+  @tracked options = [];
   @tracked isFocused = false;
   @tracked isFulfilled = false;
   @tracked isOpen = false;
@@ -141,7 +143,6 @@ export default class SelectBox extends Component {
 
   constructor() {
     super(...arguments);
-    initOptions(this);
     initSelectedOptions(this);
     receiveDisabled(this);
     receiveValue(this);
