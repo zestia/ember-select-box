@@ -76,8 +76,6 @@ import { tracked } from '@glimmer/tracking';
 import { A as emberA } from '@ember/array';
 
 export default class SelectBox extends Component {
-  activeOptionIndex = -1;
-  activeSelectedOptionIndex = -1;
   documentClickHandler = null;
   memoisedAPI = null;
   optionCharState = null;
@@ -93,6 +91,8 @@ export default class SelectBox extends Component {
   optionsContainer = null;
   selectedOptionsContainer = null;
 
+  @tracked activeOptionIndex = -1;
+  @tracked activeSelectedOptionIndex = -1;
   @tracked tabIndex = '0';
   @tracked resolvedValue = null;
   @tracked domElement = null;

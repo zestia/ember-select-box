@@ -25,7 +25,7 @@ function setActiveOptionIndex(selectBox, index) {
     return;
   }
 
-  set(selectBox, 'activeOptionIndex', index);
+  selectBox.activeOptionIndex = index;
 }
 
 export function activateOptionAtIndex(selectBox, index, config) {
