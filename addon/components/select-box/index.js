@@ -82,9 +82,9 @@ export default class SelectBox extends Component {
   memoisedAPI = null;
   optionCharState = null;
   previousResolvedValue = null;
-  resolvedValue = null;
+
   searchID = 0;
-  tabIndex = '0';
+
   valueID = 0;
   input = null;
   pendingOptions = emberA();
@@ -93,6 +93,8 @@ export default class SelectBox extends Component {
   optionsContainer = null;
   selectedOptionsContainer = null;
 
+  @tracked tabIndex = '0';
+  @tracked resolvedValue = null;
   @tracked domElement = null;
   @tracked options = [];
   @tracked selectedOptions = [];

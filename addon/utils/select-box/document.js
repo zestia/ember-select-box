@@ -1,11 +1,8 @@
 import invokeAction from '../component/invoke-action';
-import { set } from '@ember/object';
 import { getAPI } from '../component/api';
 
 export function addDocumentClickListener(selectBox) {
-  set(selectBox, 'documentClickHandler', e =>
-    documentClickHandler(selectBox, e)
-  );
+  selectBox.documentClickHandler = e => documentClickHandler(selectBox, e);
 
   document.addEventListener('click', selectBox.documentClickHandler, {
     capture: true
@@ -27,7 +24,7 @@ export function removeDocumentClickListener(selectBox) {
     passive: true
   });
 
-  set(selectBox, 'documentClickHandler', null);
+  selectBox.documentClickHandler = null;
 }
 
 function documentClickHandler(selectBox, e) {

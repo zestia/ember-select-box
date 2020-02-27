@@ -1,4 +1,3 @@
-import { set } from '@ember/object';
 import { resolve } from 'rsvp';
 
 export function receiveValue(component) {
@@ -11,21 +10,21 @@ export function resolveValue(component, unresolvedValue, postProcess) {
   startedResolvingValue(component, unresolvedValue);
 
   return resolve(unresolvedValue)
-    .then(result => {
-      finishedResolvingValue(component, valueID, false, result, postProcess);
-    })
-    .catch(error => {
-      finishedResolvingValue(component, valueID, true, error, postProcess);
-    });
+    .then(result =>
+      finishedResolvingValue(component, valueID, false, result, postProcess)
+    )
+    .catch(error =>
+      finishedResolvingValue(component, valueID, true, error, postProcess)
+    );
 }
 
 export function startedResolvingValue(component, unresolvedValue) {
-  set(component, 'previousResolvedValue', component.resolvedValue);
-  set(component, 'resolvedValue', unresolvedValue);
-  set(component, 'isPending', true);
-  set(component, 'isRejected', false);
-  set(component, 'isFulfilled', false);
-  set(component, 'isSettled', false);
+  component.previousResolvedValue = component.resolvedValue;
+  component.resolvedValue = unresolvedValue;
+  component.isPending = true;
+  component.isRejected = false;
+  component.isFulfilled = false;
+  component.isSettled = false;
 }
 
 export function finishedResolvingValue(
@@ -45,9 +44,9 @@ export function finishedResolvingValue(
     value = postProcess(component, value);
   }
 
-  set(component, 'resolvedValue', value);
-  set(component, 'isPending', false);
-  set(component, 'isRejected', failed);
-  set(component, 'isFulfilled', !failed);
-  set(component, 'isSettled', true);
+  component.resolvedValue = value;
+  component.isPending = false;
+  component.isRejected = failed;
+  component.isFulfilled = !failed;
+  component.isSettled = true;
 }
