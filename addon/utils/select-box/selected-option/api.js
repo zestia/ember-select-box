@@ -7,7 +7,7 @@ const publicProperties = {
   isFulfilled: true,
   isPending: true,
   isSettled: true,
-  resolvedValue: 'value'
+  value: true
 };
 
 const publicActions = {};

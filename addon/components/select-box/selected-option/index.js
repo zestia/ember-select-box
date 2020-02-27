@@ -16,10 +16,10 @@ import { tracked } from '@glimmer/tracking';
 
 export default class SelectBoxSelectedOption extends Component {
   memoisedAPI = null;
-  previousResolvedValue = null;
+  previousValue = null;
   valueID = 0;
 
-  @tracked resolvedValue = null;
+  @tracked value = null;
   @tracked domElement = null;
   @tracked isFulfilled = false;
   @tracked isPending = true;

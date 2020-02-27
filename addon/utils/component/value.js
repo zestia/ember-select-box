@@ -4,12 +4,12 @@ export function receiveValue(component) {
   resolveValue(component, component.args.value);
 }
 
-export function resolveValue(component, unresolvedValue, postProcess) {
+export function resolveValue(component, value, postProcess) {
   const valueID = ++component.valueID;
 
-  startedResolvingValue(component, unresolvedValue);
+  startedResolvingValue(component, value);
 
-  return resolve(unresolvedValue)
+  return resolve(value)
     .then(result =>
       finishedResolvingValue(component, valueID, false, result, postProcess)
     )
@@ -18,9 +18,9 @@ export function resolveValue(component, unresolvedValue, postProcess) {
     );
 }
 
-export function startedResolvingValue(component, unresolvedValue) {
-  component.previousResolvedValue = component.resolvedValue;
-  component.resolvedValue = unresolvedValue;
+export function startedResolvingValue(component, value) {
+  component.previousValue = component.value;
+  component.value = value;
   component.isPending = true;
   component.isRejected = false;
   component.isFulfilled = false;
@@ -44,7 +44,7 @@ export function finishedResolvingValue(
     value = postProcess(component, value);
   }
 
-  component.resolvedValue = value;
+  component.value = value;
   component.isPending = false;
   component.isRejected = failed;
   component.isFulfilled = !failed;

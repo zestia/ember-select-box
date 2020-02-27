@@ -10,7 +10,7 @@ const publicProperties = {
   isRejected: true,
   isSelected: true,
   isSettled: true,
-  resolvedValue: 'value'
+  value: true
 };
 
 const publicActions = {};

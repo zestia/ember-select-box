@@ -2,7 +2,7 @@ import { A as emberA } from '@ember/array';
 const { isArray, from } = Array;
 
 export function buildSelection(selectBox, value1) {
-  const value2 = selectBox.resolvedValue;
+  const value2 = selectBox.value;
   const build = selectBox.args.onBuildSelection;
 
   if (typeof build === 'function') {

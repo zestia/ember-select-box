@@ -24,7 +24,7 @@ import { A as emberA } from '@ember/array';
 export default class NativeSelectBox extends Component {
   memoisedAPI = null;
   pendingOptions = emberA();
-  previousResolvedValue = null;
+  previousValue = null;
   valueID = 0;
 
   @tracked domElement = null;
@@ -33,7 +33,7 @@ export default class NativeSelectBox extends Component {
   @tracked isRejected = false;
   @tracked isSettled = false;
   @tracked options = [];
-  @tracked resolvedValue = null;
+  @tracked value = null;
 
   @api() api;
 

@@ -13,9 +13,9 @@ export function _selectOption(option) {
 export function selectOption(selectBox, option) {
   selectedOption(option);
 
-  return selectValue(selectBox, option.resolvedValue);
+  return selectValue(selectBox, option.value);
 }
 
 export function selectedOption(option) {
-  invokeAction(option, 'onSelect', option.resolvedValue, getAPI(option));
+  invokeAction(option, 'onSelect', option.value, getAPI(option));
 }

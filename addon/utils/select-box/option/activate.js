@@ -9,7 +9,7 @@ export function _activateOption(option) {
 }
 
 function activatedOption(option) {
-  invokeAction(option, 'onActivate', option.resolvedValue, getAPI(option));
+  invokeAction(option, 'onActivate', option.value, getAPI(option));
 }
 
 export function activateOption(selectBox, option, config) {
@@ -56,7 +56,7 @@ export function activatePreviousOption(selectBox, config) {
 
 export function activateOptionForValue(selectBox, value, config) {
   const option = selectBox.options.find(
-    option => option.resolvedValue === value
+    option => option.value === value
   );
 
   if (!option) {

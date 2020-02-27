@@ -9,12 +9,12 @@ export function receiveValue(selectBox) {
   updateValue(selectBox, selectBox.args.value);
 }
 
-export function updateValue(selectBox, unresolvedValue) {
+export function updateValue(selectBox, value) {
   if (selectBox.isDestroyed) {
     return;
   }
 
-  return resolveValue(selectBox, unresolvedValue, processValue).then(() =>
+  return resolveValue(selectBox, value, processValue).then(() =>
     updatedValue(selectBox)
   );
 }
@@ -41,7 +41,7 @@ function updatedValue(selectBox) {
   if (
     selectBox.isDestroyed ||
     selectBox.isDestroying ||
-    selectBox.resolvedValue === selectBox.previousResolvedValue
+    selectBox.value === selectBox.previousValue
   ) {
     return;
   }
@@ -53,7 +53,7 @@ export function selectedValue(selectBox) {
   invokeAction(
     selectBox,
     'onSelect',
-    selectBox.resolvedValue,
+    selectBox.value,
     getAPI(selectBox)
   );
 }

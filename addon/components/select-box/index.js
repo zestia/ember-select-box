@@ -78,7 +78,7 @@ export default class SelectBox extends Component {
   optionsContainer = null;
   pendingOptions = emberA();
   pendingSelectedOptions = emberA();
-  previousResolvedValue = null;
+  previousValue = null;
   searchID = 0;
   selectedOptionsContainer = null;
   valueID = 0;
@@ -95,7 +95,7 @@ export default class SelectBox extends Component {
   @tracked isSettled = false;
   @tracked isSlowSearch = false;
   @tracked options = [];
-  @tracked resolvedValue = null;
+  @tracked value = null;
   @tracked selectedOptions = [];
   @tracked tabIndex = '0';
 

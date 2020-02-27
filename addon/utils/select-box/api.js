@@ -13,7 +13,7 @@ const publicProperties = {
   isSearching: true,
   isSettled: true,
   isSlowSearch: true,
-  resolvedValue: 'value'
+  value: true
 };
 
 const publicActions = {

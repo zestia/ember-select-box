@@ -11,7 +11,7 @@ function activatedSelectedOption(selectedOption) {
   invokeAction(
     selectedOption,
     'onActivate',
-    selectedOption.resolvedValue,
+    selectedOption.value,
     getAPI(selectedOption)
   );
 }
