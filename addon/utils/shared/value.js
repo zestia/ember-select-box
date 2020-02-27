@@ -1,7 +1,6 @@
 import invokeAction from '../component/invoke-action';
 import { resolveValue } from '../component/value';
 import { makeArray } from '@ember/array';
-import { run } from '@ember/runloop';
 const { freeze } = Object;
 
 export function receiveValue(selectBox) {

@@ -1,7 +1,7 @@
 import invokeAction from '../component/invoke-action';
 
 export function addDocumentClickListener(selectBox) {
-  selectBox.documentClickHandler = e => documentClickHandler(selectBox, e);
+  selectBox.documentClickHandler = e => clickDocument(selectBox, e);
 
   document.addEventListener('click', selectBox.documentClickHandler, {
     capture: true
@@ -24,10 +24,6 @@ export function removeDocumentClickListener(selectBox) {
   });
 
   selectBox.documentClickHandler = null;
-}
-
-function documentClickHandler(selectBox, e) {
-  clickDocument(selectBox, e);
 }
 
 function clickDocument(selectBox, e) {
