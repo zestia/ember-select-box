@@ -330,7 +330,7 @@ module('native-select-box', function(hooks) {
   });
 
   test('initial update action (promises)', async function(assert) {
-    assert.expect(1);
+    assert.expect(2);
 
     this.set('barPromise', resolve('bar'));
 
@@ -369,12 +369,18 @@ module('native-select-box', function(hooks) {
       </FooSelectBox>
     `);
 
+    assert.dom('.foo-select__display-label').hasText('Foo');
+
+    await settled();
+
     assert
       .dom('.foo-select__display-label')
       .hasText(
-        'Bar',
-        'the action is fired after all options have rendered ' +
-          '(and isSelected computed properties have recomputed)'
+        'Foo',
+        "(you might expect 'Bar')" +
+          'onUpdate has fired correctly, but it is up to the consumer of this ' +
+          'addon to wait until afterRender, in order to get the textContent ' +
+          'of the selected option'
       );
   });
 

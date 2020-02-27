@@ -35,7 +35,11 @@ module('select-box', function(hooks) {
 
     assert
       .dom('.select-box')
-      .doesNotHaveAttribute('role', 'select box has no aria role');
+      .hasAttribute(
+        'role',
+        'listbox',
+        'assumes a list box, until an input is present'
+      );
   });
 
   test('multiple class', async function(assert) {

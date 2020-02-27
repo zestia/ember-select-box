@@ -34,7 +34,7 @@ export function finishedResolvingValue(
   result,
   postProcess
 ) {
-  if (component.isDestroyed || valueID < component.valueID) {
+  if (valueID < component.valueID) {
     return;
   }
 

@@ -1,5 +1,5 @@
 export function focusInput(selectBox) {
-  if (selectBox.isDestroyed || !selectBox.input) {
+  if (!selectBox.input) {
     return;
   }
 
@@ -7,7 +7,7 @@ export function focusInput(selectBox) {
 }
 
 export function blurInput(selectBox) {
-  if (selectBox.isDestroyed || !selectBox.input) {
+  if (!selectBox.input) {
     return;
   }
 

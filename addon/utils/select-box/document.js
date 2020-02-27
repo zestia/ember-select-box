@@ -27,10 +27,6 @@ export function removeDocumentClickListener(selectBox) {
 }
 
 function documentClickHandler(selectBox, e) {
-  if (selectBox.isDestroyed) {
-    return;
-  }
-
   clickDocument(selectBox, e);
 }
 

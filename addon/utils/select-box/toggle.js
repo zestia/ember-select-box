@@ -1,7 +1,7 @@
 import invokeAction from '../component/invoke-action';
 
 export function open(selectBox) {
-  if (selectBox.isDestroyed || selectBox.isOpen) {
+  if (selectBox.isOpen) {
     return;
   }
 
@@ -11,7 +11,7 @@ export function open(selectBox) {
 }
 
 export function close(selectBox) {
-  if (selectBox.isDestroyed || !selectBox.isOpen) {
+  if (!selectBox.isOpen) {
     return;
   }
 

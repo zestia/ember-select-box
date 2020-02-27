@@ -15,7 +15,7 @@ function scheduleUpdateSelectedOptions(selectBox) {
 }
 
 function updateSelectedOptions(selectBox) {
-  if (selectBox.isDestroyed || !selectBox.element) {
+  if (!selectBox.element) {
     return;
   }
 

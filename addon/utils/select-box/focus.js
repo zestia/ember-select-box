@@ -1,10 +1,6 @@
 import invokeAction from '../component/invoke-action';
 
 export function focusIn(selectBox, e) {
-  if (selectBox.isDestroyed) {
-    return;
-  }
-
   try {
     selectBox.isFocused = true;
   } catch (error) {
@@ -15,10 +11,6 @@ export function focusIn(selectBox, e) {
 }
 
 export function focusOut(selectBox, e) {
-  if (selectBox.isDestroyed) {
-    return;
-  }
-
   try {
     selectBox.isFocused = false;
   } catch (error) {

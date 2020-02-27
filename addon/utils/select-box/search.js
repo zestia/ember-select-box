@@ -48,7 +48,7 @@ function debouncedSearchAttempt(selectBox, query) {
 function attemptSearch(selectBox, query) {
   query = `${query}`.trim();
 
-  if (selectBox.isDestroyed || !queryOK(selectBox, query)) {
+  if (!queryOK(selectBox, query)) {
     return;
   }
 
@@ -64,15 +64,11 @@ function queryOK(selectBox, query) {
 }
 
 function checkSlowSearch(selectBox) {
-  if (selectBox.isDestroyed) {
-    return;
-  }
-
   selectBox.isSlowSearch = selectBox.isSearching;
 }
 
 function searchCompleted(selectBox, searchID, query, result) {
-  if (selectBox.isDestroyed || searchID < selectBox.searchID) {
+  if (searchID < selectBox.searchID) {
     return;
   }
 
@@ -80,18 +76,10 @@ function searchCompleted(selectBox, searchID, query, result) {
 }
 
 function searchFailed(selectBox, query, error) {
-  if (selectBox.isDestroyed) {
-    return;
-  }
-
   invokeAction(selectBox, 'onSearchError', error, query, selectBox.api);
 }
 
 function searchFinished(selectBox) {
-  if (selectBox.isDestroyed) {
-    return;
-  }
-
   selectBox.isSearching = false;
   selectBox.isSlowSearch = false;
 }
