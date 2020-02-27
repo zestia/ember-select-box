@@ -23,18 +23,17 @@ import { A as emberA } from '@ember/array';
 
 export default class NativeSelectBox extends Component {
   memoisedAPI = null;
-  previousResolvedValue = null;
-
-  valueID = 0;
   pendingOptions = emberA();
+  previousResolvedValue = null;
+  valueID = 0;
 
-  @tracked resolvedValue = null;
   @tracked domElement = null;
-  @tracked options = [];
   @tracked isFulfilled = false;
   @tracked isPending = true;
   @tracked isRejected = false;
   @tracked isSettled = false;
+  @tracked options = [];
+  @tracked resolvedValue = null;
 
   @api() api;
 
@@ -50,8 +49,6 @@ export default class NativeSelectBox extends Component {
   get isMultiple() {
     return this.args.multiple;
   }
-
-  // Internal actions
 
   @action
   handleInsertElement(element) {
@@ -84,8 +81,6 @@ export default class NativeSelectBox extends Component {
   handleChange() {
     _selectValue(this);
   }
-
-  // Public API Actions
 
   @action
   select(value) {

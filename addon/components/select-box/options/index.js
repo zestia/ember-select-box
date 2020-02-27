@@ -11,8 +11,6 @@ export default class SelectBoxOptions extends Component {
     return buildClassName(this.args.selectBox, 'options');
   }
 
-  // Internal actions
-
   @action
   handleInsertElement() {
     _insertComponent(this);

@@ -42,8 +42,6 @@ export default class NativeSelectBoxOption extends Component {
     receiveValue(this);
   }
 
-  // Internal actions
-
   @action
   handleInsertElement(element) {
     registerElement(this, element);

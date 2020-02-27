@@ -9,10 +9,9 @@ import {
 } from '../../../utils/registration/element';
 import { receiveValue } from '../../../utils/component/value';
 import api from '../../../utils/select-box/selected-option/api';
-import isEqual from '../../../utils/general/is-equal';
 import id from '../../../utils/shared/id';
 import buildClassName from '../../../utils/select-box/selected-option/class-name';
-import { computed, action } from '@ember/object';
+import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
 export default class SelectBoxSelectedOption extends Component {
@@ -27,7 +26,6 @@ export default class SelectBoxSelectedOption extends Component {
 
   @api() api;
   @id() id;
-  @isEqual('index', 'args.selectBox.activeSelectedOptionIndex') isActive;
 
   get className() {
     return buildClassName(this);
@@ -39,12 +37,16 @@ export default class SelectBoxSelectedOption extends Component {
       : -1;
   }
 
+  get isActive() {
+    return this.args.selectBox
+      ? this.index === this.args.selectBox.activeSelectedOptionIndex
+      : false;
+  }
+
   constructor() {
     super(...arguments);
     receiveValue(this);
   }
-
-  // Internal actions
 
   @action
   handleInsertElement(element) {

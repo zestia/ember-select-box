@@ -1,9 +1,6 @@
 import Component from '@glimmer/component';
 import { isPresent } from '@ember/utils';
-import {
-  _selectOption,
-  selectOption
-} from '../../utils/select-box/option/select';
+import { selectOption } from '../../utils/select-box/option/select';
 import {
   activateNextOption,
   activateOption,
@@ -53,15 +50,10 @@ import {
   removeDocumentClickListener
 } from '../../utils/select-box/document';
 import { focusIn, focusOut } from '../../utils/select-box/focus';
-import {
-  keyDown,
-  keyPress,
-  shouldPreventDefault
-} from '../../utils/select-box/keyboard';
+import { keyDown, keyPress, pressEnter } from '../../utils/select-box/keyboard';
 import { receiveDisabled } from '../../utils/select-box/disabled';
 import { setInputValue } from '../../utils/select-box/input/value';
 import api from '../../utils/select-box/api';
-import objectAtIndex from '../../utils/general/object-at-index';
 import {
   receiveValue,
   selectValue,
@@ -77,27 +69,20 @@ import { A as emberA } from '@ember/array';
 
 export default class SelectBox extends Component {
   documentClickHandler = null;
+  input = null;
   memoisedAPI = null;
   optionCharState = null;
-  previousResolvedValue = null;
-
-  searchID = 0;
-
-  valueID = 0;
-  input = null;
+  optionsContainer = null;
   pendingOptions = emberA();
   pendingSelectedOptions = emberA();
-
-  optionsContainer = null;
+  previousResolvedValue = null;
+  searchID = 0;
   selectedOptionsContainer = null;
+  valueID = 0;
 
   @tracked activeOptionIndex = -1;
   @tracked activeSelectedOptionIndex = -1;
-  @tracked tabIndex = '0';
-  @tracked resolvedValue = null;
   @tracked domElement = null;
-  @tracked options = [];
-  @tracked selectedOptions = [];
   @tracked isFocused = false;
   @tracked isFulfilled = false;
   @tracked isOpen = false;
@@ -106,12 +91,13 @@ export default class SelectBox extends Component {
   @tracked isSearching = false;
   @tracked isSettled = false;
   @tracked isSlowSearch = false;
+  @tracked options = [];
+  @tracked resolvedValue = null;
+  @tracked selectedOptions = [];
+  @tracked tabIndex = '0';
 
   @id() id;
   @api() api;
-  @objectAtIndex('options', 'activeOptionIndex') activeOption;
-  @objectAtIndex('selectedOptions', 'activeSelectedOptionIndex')
-  activeSelectedOption;
 
   get className() {
     return buildClassName(this);
@@ -127,6 +113,14 @@ export default class SelectBox extends Component {
 
   get isBusy() {
     return this.isPending || this.isSearching;
+  }
+
+  get activeOption() {
+    return this.options[this.activeOptionIndex];
+  }
+
+  get activeSelectedOption() {
+    return this.selectedOptions[this.activeSelectedOptionIndex];
   }
 
   get searchDelayTime() {
@@ -148,8 +142,6 @@ export default class SelectBox extends Component {
     receiveDisabled(this);
     receiveValue(this);
   }
-
-  // Internal actions
 
   @action
   handleInsertElement(element) {
@@ -252,15 +244,7 @@ export default class SelectBox extends Component {
 
   @action
   handlePressEnter(e) {
-    if (!this.activeOption) {
-      return;
-    }
-
-    if (shouldPreventDefault(this, e)) {
-      e.preventDefault();
-    }
-
-    _selectOption(this.activeOption);
+    pressEnter(this, e);
   }
 
   @action
@@ -277,8 +261,6 @@ export default class SelectBox extends Component {
   handleActivateSelectedOption(selectedOption) {
     activateSelectedOption(this, selectedOption);
   }
-
-  // Public API Actions
 
   @action
   select(value) {

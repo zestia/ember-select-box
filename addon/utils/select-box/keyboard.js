@@ -1,4 +1,5 @@
 import invokeAction from '../component/invoke-action';
+import { _selectOption } from '../../utils/select-box/option/select';
 import { capitalize } from '@ember/string';
 import { getAPI } from '../component/api';
 
@@ -43,6 +44,18 @@ function _keyedDown(selectBox, key, e) {
 
 function keyedDown(selectBox, key, e) {
   invokeAction(selectBox, `onPress${key}`, e, getAPI(selectBox));
+}
+
+export function pressEnter(selectBox, e) {
+  if (!selectBox.activeOption) {
+    return;
+  }
+
+  if (shouldPreventDefault(selectBox, e)) {
+    e.preventDefault();
+  }
+
+  _selectOption(selectBox.activeOption);
 }
 
 export function shouldPreventDefault(selectBox, e) {

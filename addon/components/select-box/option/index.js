@@ -11,7 +11,6 @@ import {
 } from '../../../utils/registration/element';
 import { receiveValue } from '../../../utils/component/value';
 import api from '../../../utils/select-box/option/api';
-import isEqual from '../../../utils/general/is-equal';
 import isSelected from '../../../utils/shared/is-selected';
 import id from '../../../utils/shared/id';
 import buildClassName from '../../../utils/select-box/option/class-name';
@@ -32,7 +31,6 @@ export default class SelectBoxOption extends Component {
 
   @api() api;
   @id() id;
-  @isEqual('index', 'args.selectBox.activeOptionIndex') isActive;
   @isSelected() isSelected;
 
   get className() {
@@ -48,12 +46,16 @@ export default class SelectBoxOption extends Component {
     return this.args.disabled;
   }
 
+  get isActive() {
+    return this.args.selectBox
+      ? this.index === this.args.selectBox.activeOptionIndex
+      : false;
+  }
+
   constructor() {
     super(...arguments);
     receiveValue(this);
   }
-
-  // Internal actions
 
   @action
   handleInsertElement(element) {

@@ -19,8 +19,6 @@ export default class SelectBoxInput extends Component {
     return buildClassName(this.args.selectBox, 'input');
   }
 
-  // Internal actions
-
   @action
   handleInsertElement(element) {
     registerElement(this, element);
