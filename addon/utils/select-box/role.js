@@ -1,12 +1,10 @@
-import { set } from '@ember/object';
-
 export function configureAsCombobox(selectBox) {
   if (selectBox.isDestroyed) {
     return;
   }
 
-  set(selectBox, 'tabIndex', '-1');
-  set(selectBox, 'role', 'combobox');
+  selectBox.tabIndex = '-1';
+  selectBox.role = 'combobox';
 }
 
 export function configureAsListbox(selectBox) {
@@ -14,6 +12,6 @@ export function configureAsListbox(selectBox) {
     return;
   }
 
-  set(selectBox, 'tabIndex', '0');
-  set(selectBox, 'role', 'listbox');
+  selectBox.tabIndex = '0';
+  selectBox.role = 'listbox';
 }

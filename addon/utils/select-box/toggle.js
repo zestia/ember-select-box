@@ -1,5 +1,4 @@
 import invokeAction from '../component/invoke-action';
-import { set } from '@ember/object';
 import { getAPI } from '../component/api';
 
 export function open(selectBox) {
@@ -7,7 +6,7 @@ export function open(selectBox) {
     return;
   }
 
-  set(selectBox, 'isOpen', true);
+  selectBox.isOpen = true;
 
   opened(selectBox);
 }
@@ -17,7 +16,7 @@ export function close(selectBox) {
     return;
   }
 
-  set(selectBox, 'isOpen', false);
+  selectBox.isOpen = false;
 
   closed(selectBox);
 }

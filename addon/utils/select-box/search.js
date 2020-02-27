@@ -18,7 +18,7 @@ export function cancelSearch(selectBox) {
 export function search(selectBox, query) {
   const delay = selectBox.searchSlowTime;
 
-  set(selectBox, 'isSearching', true);
+  selectBox.isSearching = true;
 
   const searchID = ++selectBox.searchID;
 
@@ -70,7 +70,7 @@ function checkSlowSearch(selectBox) {
     return;
   }
 
-  set(selectBox, 'isSlowSearch', selectBox.isSearching);
+  selectBox.isSlowSearch = selectBox.isSearching;
 }
 
 function searchCompleted(selectBox, searchID, query, result) {
@@ -94,6 +94,6 @@ function searchFinished(selectBox) {
     return;
   }
 
-  set(selectBox, 'isSearching', false);
-  set(selectBox, 'isSlowSearch', false);
+  selectBox.isSearching = false;
+  selectBox.isSlowSearch = false;
 }

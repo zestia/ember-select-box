@@ -1,4 +1,3 @@
-import { set } from '@ember/object';
 import invokeAction from '../../component/invoke-action';
 import { getAPI } from '../../component/api';
 import { filterComponentsByTextContent } from '../../component/filter';
@@ -113,7 +112,7 @@ function optionForChar(selectBox, char) {
     option = options[index];
   }
 
-  set(selectBox, 'optionCharState', { chars, ms, index });
+  selectBox.optionCharState = { chars, ms, index };
 
   return option;
 }
