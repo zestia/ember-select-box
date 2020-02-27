@@ -1,25 +1,15 @@
-import { computed } from '@ember/object';
 import { makeArray } from '@ember/array';
 
-const isSelectedKeys = [
-  'resolvedValue',
-  'args.selected',
-  'args.selectBox.isMultiple',
-  'args.selectBox.resolvedValue'
-];
-
-export default function isSelected() {
-  return computed(...isSelectedKeys, function() {
-    if (this.args.selected !== undefined) {
-      return this.args.selected;
-    } else if (this.args.selectBox && this.args.selectBox.isMultiple) {
-      return makeArray(this.args.selectBox.resolvedValue).includes(
-        this.resolvedValue
-      );
-    } else if (this.args.selectBox) {
-      return this.resolvedValue === this.args.selectBox.resolvedValue;
-    } else {
-      return false;
-    }
-  });
+export default function isSelected(option) {
+  if (option.args.selected !== undefined) {
+    return option.args.selected;
+  } else if (option.args.selectBox && option.args.selectBox.isMultiple) {
+    return makeArray(option.args.selectBox.resolvedValue).includes(
+      option.resolvedValue
+    );
+  } else if (option.args.selectBox) {
+    return option.resolvedValue === option.args.selectBox.resolvedValue;
+  } else {
+    return false;
+  }
 }

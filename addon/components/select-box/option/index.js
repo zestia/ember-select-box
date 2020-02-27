@@ -30,7 +30,6 @@ export default class SelectBoxOption extends Component {
   @tracked isSettled = false;
 
   @api() api;
-  @isSelected() isSelected;
 
   get className() {
     return buildClassName(this);
@@ -46,6 +45,10 @@ export default class SelectBoxOption extends Component {
 
   get isDisabled() {
     return this.args.disabled;
+  }
+
+  get isSelected() {
+    return isSelected(this);
   }
 
   get isActive() {

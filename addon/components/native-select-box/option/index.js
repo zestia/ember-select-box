@@ -26,10 +26,13 @@ export default class NativeSelectBoxOption extends Component {
   @tracked isSettled = false;
 
   @api() api;
-  @isSelected() isSelected;
 
   get className() {
     return buildClassName(this.args.selectBox, 'option');
+  }
+
+  get isSelected() {
+    return isSelected(this);
   }
 
   get index() {
