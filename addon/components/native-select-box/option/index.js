@@ -11,7 +11,7 @@ import { receiveValue } from '../../../utils/component/value';
 import api from '../../../utils/native-select-box/option/api';
 import isSelected from '../../../utils/shared/is-selected';
 import { buildClassName } from '../../../utils/shared/class-name';
-import { computed, action } from '@ember/object';
+import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
 export default class NativeSelectBoxOption extends Component {
@@ -32,7 +32,6 @@ export default class NativeSelectBoxOption extends Component {
     return buildClassName(this.args.selectBox, 'option');
   }
 
-  @computed('args.selectBox.options')
   get index() {
     return this.args.selectBox ? this.args.selectBox.options.indexOf(this) : -1;
   }

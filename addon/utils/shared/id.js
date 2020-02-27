@@ -1,8 +1,5 @@
-import { computed } from '@ember/object';
 import { guidFor } from '@ember/object/internals';
 
-export default function id() {
-  return computed(function() {
-    return guidFor(this).replace('ember', 'select-box-el-');
-  });
+export default function id(selectBox) {
+  return guidFor(selectBox).replace('ember', 'select-box-el-');
 }

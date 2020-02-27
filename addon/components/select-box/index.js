@@ -1,6 +1,9 @@
 import Component from '@glimmer/component';
 import { isPresent } from '@ember/utils';
-import { selectOption } from '../../utils/select-box/option/select';
+import {
+  _selectOption,
+  selectOption
+} from '../../utils/select-box/option/select';
 import {
   activateNextOption,
   activateOption,
@@ -59,7 +62,7 @@ import {
   selectValue,
   updateValue
 } from '../../utils/shared/value';
-import id from '../../utils/shared/id';
+import buildID from '../../utils/shared/id';
 import buildClassName from '../../utils/select-box/class-name';
 import { ready } from '../../utils/shared/ready';
 import { insertElement } from '../../utils/shared/element';
@@ -96,11 +99,14 @@ export default class SelectBox extends Component {
   @tracked selectedOptions = [];
   @tracked tabIndex = '0';
 
-  @id() id;
   @api() api;
 
   get className() {
     return buildClassName(this);
+  }
+
+  get id() {
+    return buildID(this);
   }
 
   get isDisabled() {

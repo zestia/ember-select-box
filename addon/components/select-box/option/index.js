@@ -12,9 +12,9 @@ import {
 import { receiveValue } from '../../../utils/component/value';
 import api from '../../../utils/select-box/option/api';
 import isSelected from '../../../utils/shared/is-selected';
-import id from '../../../utils/shared/id';
+import buildID from '../../../utils/shared/id';
 import buildClassName from '../../../utils/select-box/option/class-name';
-import { computed, action } from '@ember/object';
+import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
 export default class SelectBoxOption extends Component {
@@ -30,14 +30,16 @@ export default class SelectBoxOption extends Component {
   @tracked isSettled = false;
 
   @api() api;
-  @id() id;
   @isSelected() isSelected;
 
   get className() {
     return buildClassName(this);
   }
 
-  @computed('args.selectBox.options')
+  get id() {
+    return buildID(this);
+  }
+
   get index() {
     return this.args.selectBox ? this.args.selectBox.options.indexOf(this) : -1;
   }

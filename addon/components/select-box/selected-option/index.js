@@ -9,7 +9,7 @@ import {
 } from '../../../utils/registration/element';
 import { receiveValue } from '../../../utils/component/value';
 import api from '../../../utils/select-box/selected-option/api';
-import id from '../../../utils/shared/id';
+import buildID from '../../../utils/shared/id';
 import buildClassName from '../../../utils/select-box/selected-option/class-name';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
@@ -25,10 +25,13 @@ export default class SelectBoxSelectedOption extends Component {
   @tracked isSettled = false;
 
   @api() api;
-  @id() id;
 
   get className() {
     return buildClassName(this);
+  }
+
+  get id() {
+    return buildID(this);
   }
 
   get index() {
