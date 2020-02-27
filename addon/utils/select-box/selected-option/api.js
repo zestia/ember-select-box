@@ -1,16 +1,16 @@
 import { apiMacro } from '../../component/api';
 
-const publicProperties = {
-  element: true,
-  index: true,
-  isActive: true,
-  isFulfilled: true,
-  isPending: true,
-  isSettled: true,
-  value: true
-};
+const publicProperties = [
+  'element',
+  'index',
+  'isActive',
+  'isFulfilled',
+  'isPending',
+  'isSettled',
+  'value'
+];
 
-const publicActions = {};
+const publicActions = [];
 
 export default function api() {
   return apiMacro(publicProperties, publicActions);

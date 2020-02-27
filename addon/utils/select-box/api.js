@@ -1,44 +1,44 @@
 import { apiMacro } from '../component/api';
 
-const publicProperties = {
-  element: true,
-  isBusy: true,
-  isDisabled: true,
-  isFocused: true,
-  isFulfilled: true,
-  isMultiple: true,
-  isOpen: true,
-  isPending: true,
-  isRejected: true,
-  isSearching: true,
-  isSettled: true,
-  isSlowSearch: true,
-  value: true
-};
+const publicProperties = [
+  'element',
+  'isBusy',
+  'isDisabled',
+  'isFocused',
+  'isFulfilled',
+  'isMultiple',
+  'isOpen',
+  'isPending',
+  'isRejected',
+  'isSearching',
+  'isSettled',
+  'isSlowSearch',
+  'value'
+];
 
-const publicActions = {
-  activateNextOption: true,
-  activateNextSelectedOption: true,
-  activateOptionForValue: true,
-  activateOptionAtIndex: true,
-  activateOptionForKeyCode: true,
-  activatePreviousOption: true,
-  activatePreviousSelectedOption: true,
-  activateSelectedOptionAtIndex: true,
-  blurInput: true,
-  cancelSearch: true,
-  close: true,
-  deactivateOptions: true,
-  deactivateSelectedOptions: true,
-  focusInput: true,
-  open: true,
-  search: true,
-  select: true,
-  selectActiveOption: true,
-  setInputValue: true,
-  toggle: true,
-  update: true
-};
+const publicActions = [
+  'activateNextOption',
+  'activateNextSelectedOption',
+  'activateOptionForValue',
+  'activateOptionAtIndex',
+  'activateOptionForKeyCode',
+  'activatePreviousOption',
+  'activatePreviousSelectedOption',
+  'activateSelectedOptionAtIndex',
+  'blurInput',
+  'cancelSearch',
+  'close',
+  'deactivateOptions',
+  'deactivateSelectedOptions',
+  'focusInput',
+  'open',
+  'search',
+  'select',
+  'selectActiveOption',
+  'setInputValue',
+  'toggle',
+  'update'
+];
 
 export default function api() {
   return apiMacro(publicProperties, publicActions);
