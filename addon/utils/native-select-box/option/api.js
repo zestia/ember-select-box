@@ -1,7 +1,7 @@
 import { apiMacro } from '../../component/api';
 
 const publicProperties = {
-  domElement: 'element',
+  element: true,
   index: true,
   isDisabled: true,
   isFulfilled: true,

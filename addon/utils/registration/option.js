@@ -15,7 +15,7 @@ function scheduleUpdateOptions(selectBox) {
 }
 
 function updateOptions(selectBox) {
-  if (selectBox.isDestroyed || !selectBox.domElement) {
+  if (selectBox.isDestroyed || !selectBox.element) {
     return;
   }
 
@@ -24,11 +24,11 @@ function updateOptions(selectBox) {
 
 function setOptions(selectBox, options) {
   const elements = [
-    ...selectBox.domElement.querySelectorAll('[data-component="option"]')
+    ...selectBox.element.querySelectorAll('[data-component="option"]')
   ];
 
   const sort = (a, b) =>
-    elements.indexOf(a.domElement) - elements.indexOf(b.domElement);
+    elements.indexOf(a.element) - elements.indexOf(b.element);
 
   selectBox.options = options.toArray().sort(sort);
 }

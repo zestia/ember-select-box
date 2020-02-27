@@ -40,7 +40,7 @@ function clickDocument(selectBox, e) {
 }
 
 function detectClickedOutside(selectBox, e) {
-  const el = selectBox.domElement;
+  const el = selectBox.element;
   const clickedSelf = el === e.target;
   const clickedInside = el.contains(e.target);
   const clickedOutside = !clickedSelf && !clickedInside;

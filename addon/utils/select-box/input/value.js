@@ -3,5 +3,5 @@ export function setInputValue(selectBox, value) {
     return;
   }
 
-  selectBox.input.domElement.value = value;
+  selectBox.input.element.value = value;
 }

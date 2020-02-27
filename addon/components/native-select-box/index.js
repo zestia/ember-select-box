@@ -22,12 +22,11 @@ import { tracked } from '@glimmer/tracking';
 import { A as emberA } from '@ember/array';
 
 export default class NativeSelectBox extends Component {
-  memoisedAPI = null;
   pendingOptions = emberA();
   previousValue = null;
   valueID = 0;
 
-  @tracked domElement = null;
+  @tracked element = null;
   @tracked isFulfilled = false;
   @tracked isPending = true;
   @tracked isRejected = false;

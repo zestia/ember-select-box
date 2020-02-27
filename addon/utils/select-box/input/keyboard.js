@@ -2,7 +2,7 @@ import invokeAction from '../../component/invoke-action';
 import { getAPI } from '../../component/api';
 
 export function input(input, e) {
-  const text = input.domElement.value;
+  const text = input.element.value;
 
   if (!text) {
     clearedInput(input);
@@ -30,7 +30,7 @@ function deletedText(input) {
 }
 
 export function keyDown(input, e) {
-  if (e.keyCode === 8 && !input.domElement.value) {
+  if (e.keyCode === 8 && !input.element.value) {
     deletedText(input);
   }
 }

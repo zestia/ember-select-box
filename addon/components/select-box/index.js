@@ -73,7 +73,6 @@ import { A as emberA } from '@ember/array';
 export default class SelectBox extends Component {
   documentClickHandler = null;
   input = null;
-  memoisedAPI = null;
   optionCharState = null;
   optionsContainer = null;
   pendingOptions = emberA();
@@ -85,7 +84,7 @@ export default class SelectBox extends Component {
 
   @tracked activeOptionIndex = -1;
   @tracked activeSelectedOptionIndex = -1;
-  @tracked domElement = null;
+  @tracked element = null;
   @tracked isFocused = false;
   @tracked isFulfilled = false;
   @tracked isOpen = false;

@@ -62,6 +62,6 @@ export function shouldPreventDefault(selectBox, e) {
   return (
     selectBox.activeOption &&
     selectBox.input &&
-    e.target === selectBox.input.domElement
+    e.target === selectBox.input.element
   );
 }

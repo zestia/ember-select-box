@@ -23,12 +23,12 @@ function getSelectedValues(selectBox) {
 
 function getRegisteredSelectedValues(selectBox) {
   return selectBox.options
-    .filter(option => option.domElement.selected)
+    .filter(option => option.element.selected)
     .map(option => option.value);
 }
 
 function getUnregisteredSelectedValues(selectBox) {
-  return from(selectBox.domElement.querySelectorAll('option:checked')).map(
+  return from(selectBox.element.querySelectorAll('option:checked')).map(
     element => element.value
   );
 }

@@ -13,7 +13,7 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
 export default class SelectBoxInput extends Component {
-  @tracked domElement = null;
+  @tracked element = null;
 
   get className() {
     return buildClassName(this.args.selectBox, 'input');

@@ -1,7 +1,7 @@
 export function registerElement(component, element) {
-  component.domElement = element;
+  component.element = element;
 }
 
 export function deregisterElement(component) {
-  component.domElement = null;
+  component.element = null;
 }

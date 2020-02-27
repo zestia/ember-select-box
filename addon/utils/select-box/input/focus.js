@@ -3,7 +3,7 @@ export function focusInput(selectBox) {
     return;
   }
 
-  selectBox.input.domElement.focus();
+  selectBox.input.element.focus();
 }
 
 export function blurInput(selectBox) {
@@ -11,5 +11,5 @@ export function blurInput(selectBox) {
     return;
   }
 
-  selectBox.input.domElement.blur();
+  selectBox.input.element.blur();
 }
