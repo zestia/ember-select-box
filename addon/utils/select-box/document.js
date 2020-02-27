@@ -1,5 +1,4 @@
 import invokeAction from '../component/invoke-action';
-import { getAPI } from '../component/api';
 
 export function addDocumentClickListener(selectBox) {
   selectBox.documentClickHandler = e => documentClickHandler(selectBox, e);
@@ -55,5 +54,5 @@ function clickOutside(selectBox, e) {
 }
 
 function clickedOutside(selectBox, e) {
-  invokeAction(selectBox, 'onClickOutside', e, getAPI(selectBox));
+  invokeAction(selectBox, 'onClickOutside', e, selectBox.api);
 }

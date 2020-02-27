@@ -1,5 +1,4 @@
 import invokeAction from '../component/invoke-action';
-import { getAPI } from '../component/api';
 
 export function open(selectBox) {
   if (selectBox.isDestroyed || selectBox.isOpen) {
@@ -22,11 +21,11 @@ export function close(selectBox) {
 }
 
 function opened(selectBox) {
-  invokeAction(selectBox, 'onOpen', getAPI(selectBox));
+  invokeAction(selectBox, 'onOpen', selectBox.api);
 }
 
 function closed(selectBox) {
-  invokeAction(selectBox, 'onClose', getAPI(selectBox));
+  invokeAction(selectBox, 'onClose', selectBox.api);
 }
 
 export function toggle(selectBox) {

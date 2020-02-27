@@ -1,6 +1,5 @@
 import invokeAction from '../component/invoke-action';
 import { resolveValue } from '../component/value';
-import { getAPI } from '../component/api';
 import { makeArray } from '@ember/array';
 import { run } from '@ember/runloop';
 const { freeze } = Object;
@@ -46,14 +45,13 @@ function updatedValue(selectBox) {
     return;
   }
 
-  invokeAction(selectBox, 'onUpdate', run(getAPI, selectBox));
+  invokeAction(
+    selectBox,
+    'onUpdate',
+    run(() => selectBox.api)
+  );
 }
 
 export function selectedValue(selectBox) {
-  invokeAction(
-    selectBox,
-    'onSelect',
-    selectBox.value,
-    getAPI(selectBox)
-  );
+  invokeAction(selectBox, 'onSelect', selectBox.value, selectBox.api);
 }

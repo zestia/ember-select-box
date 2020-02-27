@@ -13,7 +13,7 @@ import {
   updateValue
 } from '../../utils/shared/value';
 import { selectValue as _selectValue } from '../../utils/native-select-box/value';
-import { buildAPI } from '../../utils/component/api';
+import buildAPI from '../../utils/shared/api';
 import { buildClassName } from '../../utils/shared/class-name';
 import { ready } from '../../utils/shared/ready';
 import { insertElement } from '../../utils/shared/element';

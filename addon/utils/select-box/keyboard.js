@@ -1,7 +1,6 @@
 import invokeAction from '../component/invoke-action';
 import { _selectOption } from '../../utils/select-box/option/select';
 import { capitalize } from '@ember/string';
-import { getAPI } from '../component/api';
 
 export const keys = {
   8: 'backspace',
@@ -30,7 +29,7 @@ export function keyDown(selectBox, e) {
 }
 
 function pressedKey(selectBox, e) {
-  invokeAction(selectBox, 'onPressKey', e, getAPI(selectBox));
+  invokeAction(selectBox, 'onPressKey', e, selectBox.api);
 }
 
 function _keyedDown(selectBox, key, e) {
@@ -43,7 +42,7 @@ function _keyedDown(selectBox, key, e) {
 }
 
 function keyedDown(selectBox, key, e) {
-  invokeAction(selectBox, `onPress${key}`, e, getAPI(selectBox));
+  invokeAction(selectBox, `onPress${key}`, e, selectBox.api);
 }
 
 export function pressEnter(selectBox, e) {

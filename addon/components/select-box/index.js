@@ -56,7 +56,7 @@ import { focusIn, focusOut } from '../../utils/select-box/focus';
 import { keyDown, keyPress, pressEnter } from '../../utils/select-box/keyboard';
 import { receiveDisabled } from '../../utils/select-box/disabled';
 import { setInputValue } from '../../utils/select-box/input/value';
-import { buildAPI } from '../../utils/component/api';
+import buildAPI from '../../utils/shared/api';
 import {
   receiveValue,
   selectValue,

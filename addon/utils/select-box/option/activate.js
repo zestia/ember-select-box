@@ -1,5 +1,4 @@
 import invokeAction from '../../component/invoke-action';
-import { getAPI } from '../../component/api';
 import { filterComponentsByTextContent } from '../../component/filter';
 import { maybeScrollIntoView } from '../../component/scroll-into-view';
 const { fromCharCode } = String;
@@ -9,7 +8,7 @@ export function _activateOption(option) {
 }
 
 function activatedOption(option) {
-  invokeAction(option, 'onActivate', option.value, getAPI(option));
+  invokeAction(option, 'onActivate', option.value, option.args.selectBox.api);
 }
 
 export function activateOption(selectBox, option, config) {
@@ -55,9 +54,7 @@ export function activatePreviousOption(selectBox, config) {
 }
 
 export function activateOptionForValue(selectBox, value, config) {
-  const option = selectBox.options.find(
-    option => option.value === value
-  );
+  const option = selectBox.options.find(option => option.value === value);
 
   if (!option) {
     return;

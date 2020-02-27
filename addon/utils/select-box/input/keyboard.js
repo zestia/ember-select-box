@@ -1,5 +1,4 @@
 import invokeAction from '../../component/invoke-action';
-import { getAPI } from '../../component/api';
 
 export function input(input, e) {
   const text = input.element.value;
@@ -18,15 +17,15 @@ function _input(input, text) {
 }
 
 function clearedInput(input) {
-  invokeAction(input, 'onClear', getAPI(input));
+  invokeAction(input, 'onClear', input.args.selectBox.api);
 }
 
 function inputText(input, text) {
-  invokeAction(input, 'onInput', text, getAPI(input));
+  invokeAction(input, 'onInput', text, input.args.selectBox.api);
 }
 
 function deletedText(input) {
-  invokeAction(input, 'onDelete', getAPI(input));
+  invokeAction(input, 'onDelete', input.args.selectBox.api);
 }
 
 export function keyDown(input, e) {

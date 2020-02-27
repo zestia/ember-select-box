@@ -1,7 +1,5 @@
-import { set } from '@ember/object';
 import invokeAction from '../../component/invoke-action';
 import { maybeScrollIntoView } from '../../component/scroll-into-view';
-import { getAPI } from '../../component/api';
 
 export function _activateSelectedOption(selectedOption) {
   invokeAction(selectedOption, '_onActivate', selectedOption);
@@ -12,7 +10,7 @@ function activatedSelectedOption(selectedOption) {
     selectedOption,
     'onActivate',
     selectedOption.value,
-    getAPI(selectedOption)
+    selectedOption.args.selectBox.api
   );
 }
 

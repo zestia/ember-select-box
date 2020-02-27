@@ -10,8 +10,8 @@ import {
   registerElement
 } from '../../../utils/registration/element';
 import { receiveValue } from '../../../utils/component/value';
-import { buildAPI } from '../../../utils/component/api';
 import isSelected from '../../../utils/shared/is-selected';
+import buildAPI from '../../../utils/shared/api';
 import buildID from '../../../utils/shared/id';
 import buildClassName from '../../../utils/select-box/option/class-name';
 import { action } from '@ember/object';

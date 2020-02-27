@@ -1,8 +1,6 @@
 import invokeAction from '../component/invoke-action';
 import { debounce } from '@ember/runloop';
-import { set } from '@ember/object';
 import { resolve } from 'rsvp';
-import { getAPI } from '../component/api';
 
 export function maybeSearch(selectBox, query) {
   if (isSearchable(selectBox)) {
@@ -24,7 +22,7 @@ export function search(selectBox, query) {
 
   setTimeout(() => checkSlowSearch(selectBox), delay);
 
-  const action = invokeAction(selectBox, 'onSearch', query, getAPI(selectBox));
+  const action = invokeAction(selectBox, 'onSearch', query, selectBox.api);
 
   return resolve(action)
     .then(result => {
@@ -78,7 +76,7 @@ function searchCompleted(selectBox, searchID, query, result) {
     return;
   }
 
-  invokeAction(selectBox, 'onSearched', result, query, getAPI(selectBox));
+  invokeAction(selectBox, 'onSearched', result, query, selectBox.api);
 }
 
 function searchFailed(selectBox, query, error) {
@@ -86,7 +84,7 @@ function searchFailed(selectBox, query, error) {
     return;
   }
 
-  invokeAction(selectBox, 'onSearchError', error, query, getAPI(selectBox));
+  invokeAction(selectBox, 'onSearchError', error, query, selectBox.api);
 }
 
 function searchFinished(selectBox) {

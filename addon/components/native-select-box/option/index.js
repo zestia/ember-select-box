@@ -7,8 +7,8 @@ import {
   deregisterElement,
   registerElement
 } from '../../../utils/registration/element';
+import buildAPI from '../../../utils/shared/api';
 import { receiveValue } from '../../../utils/component/value';
-import { buildAPI } from '../../../utils/component/api';
 import isSelected from '../../../utils/shared/is-selected';
 import { buildClassName } from '../../../utils/shared/class-name';
 import { action } from '@ember/object';

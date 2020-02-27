@@ -1,6 +1,5 @@
 import invokeAction from '../../component/invoke-action';
 import { selectValue } from '../value';
-import { getAPI } from '../../component/api';
 
 export function _selectOption(option) {
   if (option.isDisabled) {
@@ -17,5 +16,5 @@ export function selectOption(selectBox, option) {
 }
 
 export function selectedOption(option) {
-  invokeAction(option, 'onSelect', option.value, getAPI(option));
+  invokeAction(option, 'onSelect', option.value, option.args.selectBox.api);
 }
