@@ -286,7 +286,6 @@ export default class SelectBox extends Component {
     keyDown(this, e);
   }
 
-  @action
   handlePressEnter(e) {
     pressEnter(this, e);
   }
