@@ -1,5 +1,4 @@
 import { assert } from '@ember/debug';
-import { set } from '@ember/object';
 
 export function registerOptionsContainer(selectBox, optionsContainer) {
   assert(
@@ -7,9 +6,9 @@ export function registerOptionsContainer(selectBox, optionsContainer) {
     !selectBox.optionsContainer
   );
 
-  set(selectBox, 'optionsContainer', optionsContainer);
+  selectBox.optionsContainer = optionsContainer;
 }
 
 export function deregisterOptionsContainer(selectBox, optionsContainer) {
-  set(selectBox, 'optionsContainer', null);
+  selectBox.optionsContainer = null;
 }

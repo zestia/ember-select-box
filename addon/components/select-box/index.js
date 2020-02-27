@@ -42,7 +42,6 @@ import {
 } from '../../utils/registration/options';
 import {
   deregisterSelectedOption,
-  initSelectedOptions,
   registerSelectedOption
 } from '../../utils/registration/selected-option';
 import {
@@ -89,13 +88,14 @@ export default class SelectBox extends Component {
   valueID = 0;
   input = null;
   pendingOptions = emberA();
+  pendingSelectedOptions = emberA();
 
   optionsContainer = null;
-  selectedOptions = null;
   selectedOptionsContainer = null;
 
   @tracked domElement = null;
   @tracked options = [];
+  @tracked selectedOptions = [];
   @tracked isFocused = false;
   @tracked isFulfilled = false;
   @tracked isOpen = false;
@@ -143,7 +143,6 @@ export default class SelectBox extends Component {
 
   constructor() {
     super(...arguments);
-    initSelectedOptions(this);
     receiveDisabled(this);
     receiveValue(this);
   }

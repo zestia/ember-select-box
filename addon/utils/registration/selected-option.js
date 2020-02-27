@@ -1,19 +1,12 @@
 import { scheduleOnce } from '@ember/runloop';
-import { A as emberA } from '@ember/array';
-import { set } from '@ember/object';
-
-export function initSelectedOptions(selectBox) {
-  set(selectBox, '_selectedOptions', emberA());
-  set(selectBox, 'selectedOptions', emberA());
-}
 
 export function registerSelectedOption(selectBox, selectedOption) {
-  selectBox._selectedOptions.addObject(selectedOption);
+  selectBox.pendingSelectedOptions.addObject(selectedOption);
   scheduleUpdateSelectedOptions(selectBox);
 }
 
 export function deregisterSelectedOption(selectBox, selectedOption) {
-  selectBox._selectedOptions.removeObject(selectedOption);
+  selectBox.pendingSelectedOptions.removeObject(selectedOption);
   scheduleUpdateSelectedOptions(selectBox);
 }
 
@@ -26,7 +19,7 @@ function updateSelectedOptions(selectBox) {
     return;
   }
 
-  setSelectedOptions(selectBox, selectBox._selectedOptions);
+  setSelectedOptions(selectBox, selectBox.pendingSelectedOptions);
 }
 
 function setSelectedOptions(selectBox, selectedOptions) {
@@ -36,13 +29,8 @@ function setSelectedOptions(selectBox, selectedOptions) {
     )
   ];
 
-  const sort = (a, b) => {
-    return elements.indexOf(a.domElement) - elements.indexOf(b.domElement);
-  };
+  const sort = (a, b) =>
+    elements.indexOf(a.domElement) - elements.indexOf(b.domElement);
 
-  set(
-    selectBox,
-    'selectedOptions',
-    emberA(selectedOptions.toArray().sort(sort))
-  );
+  selectBox.selectedOptions = selectedOptions.toArray().sort(sort);
 }
