@@ -73,6 +73,9 @@ export const breads = [
   { id: 12, name: 'Pretzel' }
 ];
 
+export const bloomer = { id: 13, name: 'Bloomer' };
+export const brioche = { id: 14, name: 'Brioche' };
+
 export const puddings = [
   { id: 1, name: 'Bread & butter pudding' },
   { id: 2, name: 'Crème caramel' },

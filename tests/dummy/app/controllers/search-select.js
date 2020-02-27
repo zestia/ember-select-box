@@ -2,28 +2,28 @@ import Controller from '@ember/controller';
 import { later } from '@ember/runloop';
 import { breads } from '../utils/dummy-data';
 import { Promise } from 'rsvp';
-import { set, action } from '@ember/object';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
 export default class SearchSelectController extends Controller {
-  @action
-  findBread(query) {
-    return this._findBread(query);
-  }
+  @tracked selectedBread;
+  @tracked newBread;
 
   @action
   selectBread(bread) {
-    set(this, 'selectedBread', bread);
+    this.selectedBread = bread;
   }
 
   @action
   addNewBread(name) {
-    set(this, 'newBread', name);
+    this.newBread = name;
   }
 
-  _findBread(query) {
-    const bread = breads.filter(bread => {
-      return bread.name.toLowerCase().indexOf(query.toLowerCase()) >= 0;
-    });
+  @action
+  findBread(query) {
+    const bread = breads.filter(
+      bread => bread.name.toLowerCase().indexOf(query.toLowerCase()) >= 0
+    );
 
     return new Promise(resolve => {
       later(() => {

@@ -1,13 +1,16 @@
 /* eslint-disable no-console */
 
 import Controller from '@ember/controller';
-import { computed, set, action } from '@ember/object';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
 export default class FastNativeSingleSelectController extends Controller {
+  @tracked selectedModelId;
+
   init() {
     super.init(...arguments);
 
-    set(this, 'models', []);
+    this.models = [];
 
     for (let i = 0; i < 500; i++) {
       this.models.push({
@@ -16,28 +19,22 @@ export default class FastNativeSingleSelectController extends Controller {
       });
     }
 
-    set(this, 'selectedModelId', '100');
+    this.selectedModelId = '100';
   }
 
-  @computed('selectedModelId')
   get options() {
-    return this.models.map(model => {
-      return {
-        model,
-        selected: model.id === this.selectedModelId
-      };
-    });
+    return this.models.map(model => ({
+      model,
+      selected: model.id === this.selectedModelId
+    }));
   }
 
-  @computed('selectedModelId')
   get selectedModel() {
-    return this.models.find(model => {
-      return model.id === this.selectedModelId;
-    });
+    return this.models.find(model => model.id === this.selectedModelId);
   }
 
   @action
   selectModelId(modelId) {
-    set(this, 'selectedModelId', modelId);
+    this.selectedModelId = modelId;
   }
 }

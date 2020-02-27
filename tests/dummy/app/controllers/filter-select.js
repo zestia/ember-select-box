@@ -1,29 +1,22 @@
 import Controller from '@ember/controller';
 import { pies } from '../utils/dummy-data';
-import { resolve } from 'rsvp';
-import { set, action } from '@ember/object';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
 export default class FilterSelect extends Controller {
-  init() {
-    super.init(...arguments);
-    set(this, 'selectablePies', pies);
-  }
+  @tracked selectedPie;
+
+  selectablePies = pies;
 
   @action
   filterPies(query) {
-    return this._filterPies(query);
+    return pies.filter(
+      pie => pie.name.toLowerCase().indexOf(query.toLowerCase()) >= 0
+    );
   }
 
   @action
   selectPie(pie) {
-    set(this, 'selectedPie', pie);
-  }
-
-  _filterPies(query) {
-    return resolve(
-      pies.filter(pie => {
-        return pie.name.toLowerCase().indexOf(query.toLowerCase()) >= 0;
-      })
-    );
+    this.selectedPie = pie;
   }
 }
