@@ -15,12 +15,11 @@ import {
 } from '../../utils/shared/value';
 import { selectValue as _selectValue } from '../../utils/native-select-box/value';
 import api from '../../utils/native-select-box/api';
-import className from '../../utils/native-select-box/class-name';
+import { buildClassName } from '../../utils/shared/class-name';
 import { ready } from '../../utils/shared/ready';
 import { insertElement } from '../../utils/shared/element';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
-import { dependentKeyCompat } from '@ember/object/compat';
 
 export default class NativeSelectBox extends Component {
   domElement = null;
@@ -35,7 +34,6 @@ export default class NativeSelectBox extends Component {
   @tracked isSettled = false;
 
   @api() api;
-  @className() className;
 
   constructor() {
     super(...arguments);
@@ -43,7 +41,10 @@ export default class NativeSelectBox extends Component {
     receiveValue(this);
   }
 
-  @dependentKeyCompat
+  get className() {
+    return buildClassName(this);
+  }
+
   get isMultiple() {
     return this.args.multiple;
   }

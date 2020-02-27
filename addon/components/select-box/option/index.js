@@ -14,10 +14,9 @@ import api from '../../../utils/select-box/option/api';
 import isEqual from '../../../utils/general/is-equal';
 import isSelected from '../../../utils/shared/is-selected';
 import id from '../../../utils/shared/id';
-import className from '../../../utils/select-box/option/class-name';
+import buildClassName from '../../../utils/select-box/option/class-name';
 import { computed, action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
-import { dependentKeyCompat } from '@ember/object/compat';
 
 export default class SelectBoxOption extends Component {
   domElement = null;
@@ -32,17 +31,19 @@ export default class SelectBoxOption extends Component {
   @tracked isSettled = false;
 
   @api() api;
-  @className() className;
   @id() id;
   @isEqual('index', 'args.selectBox.activeOptionIndex') isActive;
   @isSelected() isSelected;
+
+  get className() {
+    return buildClassName(this);
+  }
 
   @computed('args.selectBox.options')
   get index() {
     return this.args.selectBox ? this.args.selectBox.options.indexOf(this) : -1;
   }
 
-  @dependentKeyCompat
   get isDisabled() {
     return this.args.disabled;
   }

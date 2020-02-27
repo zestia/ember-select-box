@@ -3,11 +3,13 @@ import {
   _destroyComponent,
   _insertComponent
 } from '../../../utils/component/lifecycle';
-import className from '../../../utils/select-box/selected-options/class-name';
+import { buildClassName } from '../../../utils/shared/class-name';
 import { action } from '@ember/object';
 
 export default class SelectBoxSelectedOptions extends Component {
-  @className() className;
+  get className() {
+    return buildClassName(this.args.selectBox, 'selected-options');
+  }
 
   // Internal actions
 

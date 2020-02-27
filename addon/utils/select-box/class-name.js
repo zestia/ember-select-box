@@ -1,39 +1,29 @@
-import { computed } from '@ember/object';
-import { buildClassName } from '../shared/class-name';
+import { buildClassName as className } from '../shared/class-name';
 
-export default function className() {
-  return computed(
-    'isOpen',
-    'isFocused',
-    'isDisabled',
-    'isMultiple',
-    'isBusy',
-    function() {
-      const classNames = [];
+export default function buildClassName(selectBox) {
+  const classNames = [];
 
-      classNames.push(buildClassName(this));
+  classNames.push(className(selectBox));
 
-      if (this.isOpen) {
-        classNames.push(buildClassName(this, null, 'open'));
-      }
+  if (selectBox.isOpen) {
+    classNames.push(className(selectBox, null, 'open'));
+  }
 
-      if (this.isFocused) {
-        classNames.push(buildClassName(this, null, 'focused'));
-      }
+  if (selectBox.isFocused) {
+    classNames.push(className(selectBox, null, 'focused'));
+  }
 
-      if (this.isDisabled) {
-        classNames.push(buildClassName(this, null, 'disabled'));
-      }
+  if (selectBox.isDisabled) {
+    classNames.push(className(selectBox, null, 'disabled'));
+  }
 
-      if (this.isMultiple) {
-        classNames.push(buildClassName(this, null, 'multiple'));
-      }
+  if (selectBox.isMultiple) {
+    classNames.push(className(selectBox, null, 'multiple'));
+  }
 
-      if (this.isBusy) {
-        classNames.push(buildClassName(this, null, 'busy'));
-      }
+  if (selectBox.isBusy) {
+    classNames.push(className(selectBox, null, 'busy'));
+  }
 
-      return classNames.join(' ');
-    }
-  );
+  return classNames.join(' ');
 }

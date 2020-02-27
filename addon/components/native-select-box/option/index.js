@@ -10,7 +10,7 @@ import {
 import { receiveValue } from '../../../utils/component/value';
 import api from '../../../utils/native-select-box/option/api';
 import isSelected from '../../../utils/shared/is-selected';
-import className from '../../../utils/native-select-box/option/class-name';
+import { buildClassName } from '../../../utils/shared/class-name';
 import { computed, action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
@@ -26,8 +26,11 @@ export default class NativeSelectBoxOption extends Component {
   @tracked isSettled = false;
 
   @api() api;
-  @className() className;
   @isSelected() isSelected;
+
+  get className() {
+    return buildClassName(this.args.selectBox, 'option');
+  }
 
   @computed('args.selectBox.options')
   get index() {

@@ -1,12 +1,16 @@
 import Component from '@glimmer/component';
-import {
-  className,
-  groupLabelClassName,
-  groupOptionsClassName
-} from '../../../utils/select-box/group/class-name';
+import { buildClassName } from '../../../utils/shared/class-name';
 
 export default class SelectBoxGroup extends Component {
-  @className() className;
-  @groupLabelClassName() groupLabelClassName;
-  @groupOptionsClassName() groupOptionsClassName;
+  get className() {
+    return buildClassName(this.args.selectBox, 'group');
+  }
+
+  get groupLabelClassName() {
+    return buildClassName(this.args.selectBox, 'group-label');
+  }
+
+  get groupOptionsClassName() {
+    return buildClassName(this.args.selectBox, 'group-options');
+  }
 }

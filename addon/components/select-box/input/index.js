@@ -8,13 +8,15 @@ import {
   registerElement
 } from '../../../utils/registration/element';
 import { input, keyDown } from '../../../utils/select-box/input/keyboard';
-import className from '../../../utils/select-box/input/class-name';
+import { buildClassName } from '../../../utils/shared/class-name';
 import { action } from '@ember/object';
 
 export default class SelectBoxInput extends Component {
   domElement = null;
 
-  @className() className;
+  get className() {
+    return buildClassName(this.args.selectBox, 'input');
+  }
 
   // Internal actions
 

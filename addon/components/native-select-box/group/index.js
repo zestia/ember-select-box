@@ -1,6 +1,8 @@
 import Component from '@glimmer/component';
-import className from '../../../utils/native-select-box/group/class-name';
+import { buildClassName } from '../../../utils/shared/class-name';
 
 export default class NativeSelectBoxGroup extends Component {
-  @className() className;
+  get className() {
+    return buildClassName(this.args.selectBox, 'group');
+  }
 }

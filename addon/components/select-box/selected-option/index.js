@@ -11,7 +11,7 @@ import { receiveValue } from '../../../utils/component/value';
 import api from '../../../utils/select-box/selected-option/api';
 import isEqual from '../../../utils/general/is-equal';
 import id from '../../../utils/shared/id';
-import className from '../../../utils/select-box/selected-option/class-name';
+import buildClassName from '../../../utils/select-box/selected-option/class-name';
 import { computed, action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
@@ -28,9 +28,12 @@ export default class SelectBoxSelectedOption extends Component {
   // Computed state
 
   @api() api;
-  @className() className;
   @id() id;
   @isEqual('index', 'args.selectBox.activeSelectedOptionIndex') isActive;
+
+  get className() {
+    return buildClassName(this);
+  }
 
   @computed('args.selectBox.selectedOptions')
   get index() {
