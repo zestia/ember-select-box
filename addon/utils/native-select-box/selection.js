@@ -1,5 +1,3 @@
-const { from } = Array;
-
 export function getSelectedValue(selectBox) {
   const selectedValues = getSelectedValues(selectBox);
 
@@ -28,7 +26,7 @@ function getRegisteredSelectedValues(selectBox) {
 }
 
 function getUnregisteredSelectedValues(selectBox) {
-  return from(selectBox.element.querySelectorAll('option:checked')).map(
+  return [...selectBox.element.querySelectorAll('option:checked')].map(
     element => element.value
   );
 }

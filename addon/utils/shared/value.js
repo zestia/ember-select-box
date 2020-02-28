@@ -14,9 +14,7 @@ export function updateValue(selectBox, value) {
 }
 
 export function selectValue(selectBox, value) {
-  return updateValue(selectBox, value).then(() => {
-    selectedValue(selectBox);
-  });
+  return updateValue(selectBox, value).then(() => selectedValue(selectBox));
 }
 
 function processValue(selectBox, value) {

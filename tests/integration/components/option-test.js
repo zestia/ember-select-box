@@ -173,11 +173,8 @@ module('select-box/option', function(hooks) {
   test('yield index', async function(assert) {
     assert.expect(4);
 
-    const labels = () => {
-      return from(findAll('.select-box__option')).map(o =>
-        o.textContent.trim()
-      );
-    };
+    const labels = () =>
+      [...findAll('.select-box__option')].map(o => o.textContent.trim());
 
     this.set('values', ['foo', 'bar', 'baz']);
 
