@@ -9,7 +9,7 @@ import {
 } from '../../../utils/registration/element';
 import buildAPI from '../../../utils/shared/api';
 import { receiveValue } from '../../../utils/component/value';
-import isSelected from '../../../utils/shared/is-selected';
+import isSelected from '../../../utils/shared/selected';
 import { buildClassName } from '../../../utils/shared/class-name';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';

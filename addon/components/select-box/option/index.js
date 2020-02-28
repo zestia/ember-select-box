@@ -10,7 +10,7 @@ import {
   registerElement
 } from '../../../utils/registration/element';
 import { receiveValue } from '../../../utils/component/value';
-import isSelected from '../../../utils/shared/is-selected';
+import isSelected from '../../../utils/shared/selected';
 import buildAPI from '../../../utils/shared/api';
 import buildID from '../../../utils/shared/id';
 import buildClassName from '../../../utils/select-box/option/class-name';
