@@ -15,16 +15,16 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
 export default class NativeSelectBoxOption extends Component {
+  _api = {};
   previousValue = null;
   valueID = 0;
-  _api = {};
 
-  @tracked value = null;
   @tracked element = null;
   @tracked isFulfilled = false;
   @tracked isPending = true;
   @tracked isRejected = false;
   @tracked isSettled = false;
+  @tracked value = null;
 
   get api() {
     return buildAPI(this, [
@@ -44,12 +44,12 @@ export default class NativeSelectBoxOption extends Component {
     return buildClassName(this.args.selectBox, 'option');
   }
 
-  get isSelected() {
-    return isSelected(this);
-  }
-
   get index() {
     return this.args.selectBox ? this.args.selectBox.options.indexOf(this) : -1;
+  }
+
+  get isSelected() {
+    return isSelected(this);
   }
 
   constructor() {

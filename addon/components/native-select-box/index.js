@@ -22,10 +22,10 @@ import { tracked } from '@glimmer/tracking';
 import { A as emberA } from '@ember/array';
 
 export default class NativeSelectBox extends Component {
+  _api = {};
   pendingOptions = emberA();
   previousValue = null;
   valueID = 0;
-  _api = {};
 
   @tracked element = null;
   @tracked isFulfilled = false;
@@ -49,9 +49,9 @@ export default class NativeSelectBox extends Component {
       'isPending',
       'isRejected',
       'isSettled',
-      'value',
       'select',
-      'update'
+      'update',
+      'value'
     ]);
   }
 

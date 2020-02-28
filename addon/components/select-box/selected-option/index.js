@@ -15,16 +15,16 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
 export default class SelectBoxSelectedOption extends Component {
+  _api = {};
   previousValue = null;
   valueID = 0;
-  _api = {};
 
-  @tracked value = null;
   @tracked element = null;
   @tracked isFulfilled = false;
   @tracked isPending = true;
   @tracked isRejected = false;
   @tracked isSettled = false;
+  @tracked value = null;
 
   get api() {
     return buildAPI(this, [

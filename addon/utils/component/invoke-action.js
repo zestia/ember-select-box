@@ -1,7 +1,7 @@
-export default function invokeAction(object, name, ...args) {
-  const func = object.args[name];
+export default function invokeAction(component, name, ...args) {
+  const func = component.args[name];
 
   if (typeof func === 'function') {
-    return func.apply(object, args);
+    return func.apply(component, args);
   }
 }

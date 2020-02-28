@@ -71,6 +71,7 @@ import { tracked } from '@glimmer/tracking';
 import { A as emberA } from '@ember/array';
 
 export default class SelectBox extends Component {
+  _api = {};
   documentClickHandler = null;
   input = null;
   optionCharState = null;
@@ -81,7 +82,6 @@ export default class SelectBox extends Component {
   searchID = 0;
   selectedOptionsContainer = null;
   valueID = 0;
-  _api = {};
 
   @tracked activeOptionIndex = -1;
   @tracked activeSelectedOptionIndex = -1;
@@ -95,14 +95,28 @@ export default class SelectBox extends Component {
   @tracked isSettled = false;
   @tracked isSlowSearch = false;
   @tracked options = [];
-  @tracked value = null;
+  @tracked role = 'listbox';
   @tracked selectedOptions = [];
   @tracked tabIndex = '0';
-  @tracked role = 'listbox';
+  @tracked value = null;
 
   get api() {
     return buildAPI(this, [
+      'activateNextOption',
+      'activateNextSelectedOption',
+      'activateOptionAtIndex',
+      'activateOptionForKeyCode',
+      'activateOptionForValue',
+      'activatePreviousOption',
+      'activatePreviousSelectedOption',
+      'activateSelectedOptionAtIndex',
+      'blurInput',
+      'cancelSearch',
+      'close',
+      'deactivateOptions',
+      'deactivateSelectedOptions',
       'element',
+      'focusInput',
       'isBusy',
       'isDisabled',
       'isFocused',
@@ -114,29 +128,23 @@ export default class SelectBox extends Component {
       'isSearching',
       'isSettled',
       'isSlowSearch',
-      'value',
-      'activateNextOption',
-      'activateNextSelectedOption',
-      'activateOptionForValue',
-      'activateOptionAtIndex',
-      'activateOptionForKeyCode',
-      'activatePreviousOption',
-      'activatePreviousSelectedOption',
-      'activateSelectedOptionAtIndex',
-      'blurInput',
-      'cancelSearch',
-      'close',
-      'deactivateOptions',
-      'deactivateSelectedOptions',
-      'focusInput',
       'open',
       'search',
       'select',
       'selectActiveOption',
       'setInputValue',
       'toggle',
-      'update'
+      'update',
+      'value'
     ]);
+  }
+
+  get activeOption() {
+    return this.options[this.activeOptionIndex];
+  }
+
+  get activeSelectedOption() {
+    return this.selectedOptions[this.activeSelectedOptionIndex];
   }
 
   get className() {
@@ -147,24 +155,16 @@ export default class SelectBox extends Component {
     return buildID(this);
   }
 
+  get isBusy() {
+    return this.isPending || this.isSearching;
+  }
+
   get isDisabled() {
     return this.args.disabled;
   }
 
   get isMultiple() {
     return this.args.multiple;
-  }
-
-  get isBusy() {
-    return this.isPending || this.isSearching;
-  }
-
-  get activeOption() {
-    return this.options[this.activeOptionIndex];
-  }
-
-  get activeSelectedOption() {
-    return this.selectedOptions[this.activeSelectedOptionIndex];
   }
 
   get searchDelayTime() {
