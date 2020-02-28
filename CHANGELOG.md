@@ -1,5 +1,10 @@
 # Changelog
 
+## 14.0.0-beta.0
+
+- Glimmerise component
+- Drop support for Ember < 3.16
+
 ## 13.0.9
 
 - Allow tabindex to be set on selected options with a temporary fix, due to: https://github.com/emberjs/rfcs/issues/497
