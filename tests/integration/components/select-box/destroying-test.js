@@ -1,6 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import Component from '@glimmer/component';
 import {
   render,
   click,
@@ -113,5 +114,45 @@ module('select-box (destroying)', function(hooks) {
     );
 
     deferred.resolve();
+  });
+
+  test('double re render', async function(assert) {
+    assert.expect(1);
+
+    const template = hbs`
+      <SelectBox
+        @onSelect={{@onSelect}}
+        @disabled={{@disabled}}
+        ...attributes as |sb|
+      >
+        {{yield sb}}
+      </SelectBox>
+    `;
+
+    class FooSelectBox extends Component {}
+
+    this.owner.register('component:foo-select-box', FooSelectBox);
+    this.owner.register('template:components/foo-select-box', template);
+
+    this.select = () => {
+      this.set('disabled', true);
+
+      return new Promise(resolve => {
+        later(resolve, 100);
+      }).finally(() => {
+        this.set('disabled', false);
+      });
+    };
+
+    await render(hbs`
+      <FooSelectBox
+        @onSelect={{this.select}}
+        @disabled={{this.disabled}} as |sb|
+      >
+        <sb.Option />
+      </FooSelectBox>
+    `);
+
+    await click('.select-box__option');
   });
 });
