@@ -292,7 +292,7 @@
       <td>sb.select</td>
       <td>
         Selects arbitrary value(s).
-        <code>@onSelect</code> will fire.
+        <code>@onSelect</code> will fire, and <code>@onUpdate</code> will fire if the value is different.
       </td>
     </tr>
     <tr>
@@ -313,7 +313,7 @@
     <tr>
       <td>sb.update</td>
       <td>
-        Updates the selectbox with a new value(s). Useful for resetting the select box after a selection is made.
+        Updates the select box with a new value(s). This is subtly different from <code>sb.select</code>. Useful for resetting the select box after a selection is made.
         <code>@onUpdate</code> will fire.
       </td>
     </tr>
