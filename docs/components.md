@@ -286,7 +286,7 @@
     </tr>
     <tr>
       <td>sb.search</td>
-      <td>Runs an arbitrary search using the search function provided by <code>@onSearch</code></td>
+      <td>Runs an arbitrary search using the search function provided by <code>@onSearch</code>. Sets the select box into a searching state for the duration of the function call, and <code>@onSearched</code> will fire with the result.</td>
     </tr>
     <tr>
       <td>sb.select</td>
