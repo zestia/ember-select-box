@@ -169,7 +169,7 @@
       <td>@onSelect</td>
       <td>
         Fired when an option is clicked, or enter is pressed regardless as
-        to whether the value changed or not (because a selection was made).
+        to whether the value changed or not.
       </td>
     </tr>
     <tr>
