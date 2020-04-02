@@ -11,14 +11,14 @@ import {
   render,
   settled,
   triggerEvent,
-  triggerKeyEvent
+  triggerKeyEvent,
 } from '@ember/test-helpers';
 const { isFrozen } = Object;
 
-module('select-box (selecting)', function(hooks) {
+module('select-box (selecting)', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('changing the value argument', async function(assert) {
+  test('changing the value argument', async function (assert) {
     assert.expect(3);
 
     this.set('selectedValue', 'foo');
@@ -64,7 +64,7 @@ module('select-box (selecting)', function(hooks) {
     );
   });
 
-  test('changing the value argument to nothing (common misconception)', async function(assert) {
+  test('changing the value argument to nothing (common misconception)', async function (assert) {
     assert.expect(3);
 
     this.set('selectedValue', null);
@@ -97,14 +97,14 @@ module('select-box (selecting)', function(hooks) {
       );
   });
 
-  test('click to select option', async function(assert) {
+  test('click to select option', async function (assert) {
     assert.expect(4);
 
     let selectedValue;
 
     this.set('initialSelectedValue', null);
 
-    this.set('selected', value => {
+    this.set('selected', (value) => {
       selectedValue = value;
     });
 
@@ -148,7 +148,7 @@ module('select-box (selecting)', function(hooks) {
     );
   });
 
-  test('selecting the same option more than once', async function(assert) {
+  test('selecting the same option more than once', async function (assert) {
     assert.expect(2);
 
     let selected = 0;
@@ -181,7 +181,7 @@ module('select-box (selecting)', function(hooks) {
     );
   });
 
-  test('selecting more than 1 of the same value', async function(assert) {
+  test('selecting more than 1 of the same value', async function (assert) {
     assert.expect(1);
 
     await render(hbs`
@@ -206,7 +206,7 @@ module('select-box (selecting)', function(hooks) {
     );
   });
 
-  test('selecting multiple options', async function(assert) {
+  test('selecting multiple options', async function (assert) {
     assert.expect(5);
 
     const values = ['foo', 'baz'];
@@ -214,7 +214,7 @@ module('select-box (selecting)', function(hooks) {
     let selectedValues;
 
     this.set('values', values);
-    this.set('selected', values => (selectedValues = values));
+    this.set('selected', (values) => (selectedValues = values));
 
     await render(hbs`
       <SelectBox @onSelect={{this.selected}} @multiple={{true}} @value={{this.values}} as |sb|>
@@ -261,7 +261,7 @@ module('select-box (selecting)', function(hooks) {
     );
   });
 
-  test('multiple but with a single value', async function(assert) {
+  test('multiple but with a single value', async function (assert) {
     assert.expect(2);
 
     await render(hbs`
@@ -286,7 +286,7 @@ module('select-box (selecting)', function(hooks) {
       );
   });
 
-  test('selected option but missing value', async function(assert) {
+  test('selected option but missing value', async function (assert) {
     assert.expect(4);
 
     const one = { name: 'One' };
@@ -339,7 +339,7 @@ module('select-box (selecting)', function(hooks) {
       );
   });
 
-  skip('pressing enter (on select box)', async function(assert) {
+  skip('pressing enter (on select box)', async function (assert) {
     // Pressing Enter on a faux select box, with no active option
     // should submit the form.
 
@@ -356,16 +356,16 @@ module('select-box (selecting)', function(hooks) {
     await triggerKeyEvent('.select-box', 'keydown', 13);
   });
 
-  test('pressing enter on input', async function(assert) {
+  test('pressing enter on input', async function (assert) {
     assert.expect(4);
 
     let count = 0;
 
-    this.set('selected', value => {
+    this.set('selected', (value) => {
       assert.equal(value, 'bar', 'the select box acknowledges the selection');
     });
 
-    this.set('selectedBar', value => {
+    this.set('selectedBar', (value) => {
       assert.equal(
         value,
         'bar',
@@ -373,7 +373,7 @@ module('select-box (selecting)', function(hooks) {
       );
     });
 
-    this.check = e => {
+    this.check = (e) => {
       next(() => {
         count++;
 
@@ -410,14 +410,14 @@ module('select-box (selecting)', function(hooks) {
     await triggerKeyEvent('.select-box__input', 'keydown', 13);
   });
 
-  test('presssing enter on a child', async function(assert) {
+  test('presssing enter on a child', async function (assert) {
     assert.expect(3);
 
-    this.set('selected', value => {
+    this.set('selected', (value) => {
       assert.equal(value, 'bar', 'the select box acknowledges the selection');
     });
 
-    this.set('selectedBar', value => {
+    this.set('selectedBar', (value) => {
       assert.equal(
         value,
         'bar',
@@ -425,7 +425,7 @@ module('select-box (selecting)', function(hooks) {
       );
     });
 
-    this.check = e => {
+    this.check = (e) => {
       next(() => {
         assert.strictEqual(
           e.defaultPrevented,
@@ -449,16 +449,16 @@ module('select-box (selecting)', function(hooks) {
     await triggerKeyEvent('.my-link', 'keydown', 13);
   });
 
-  test('selecting via the api', async function(assert) {
+  test('selecting via the api', async function (assert) {
     assert.expect(3);
 
     let selected;
     let selectedFoo;
     let updated;
 
-    this.set('selected', value => (selected = value));
-    this.set('selectedFoo', value => (selectedFoo = value));
-    this.set('updated', sb => (updated = sb.value));
+    this.set('selected', (value) => (selected = value));
+    this.set('selectedFoo', (value) => (selectedFoo = value));
+    this.set('updated', (sb) => (updated = sb.value));
 
     await render(hbs`
       <SelectBox @onSelect={{this.selected}} @onUpdate={{this.updated}} as |sb|>
@@ -488,19 +488,19 @@ module('select-box (selecting)', function(hooks) {
     );
   });
 
-  test('updating via the api', async function(assert) {
+  test('updating via the api', async function (assert) {
     assert.expect(5);
 
     let updated = 0;
     let updatedValue;
     let selected = 0;
 
-    this.set('updated', sb => {
+    this.set('updated', (sb) => {
       updated++;
       updatedValue = sb.value;
     });
 
-    this.set('selected', value => {
+    this.set('selected', (value) => {
       selected++;
     });
 
@@ -526,7 +526,7 @@ module('select-box (selecting)', function(hooks) {
       .hasText('Bar', "select box's internal value is updated with the value");
   });
 
-  test('manual selection', async function(assert) {
+  test('manual selection', async function (assert) {
     assert.expect(3);
 
     this.set('barSelected', true);
@@ -534,8 +534,8 @@ module('select-box (selecting)', function(hooks) {
     await render(hbs`
       <SelectBox @value="baz" as |sb|>
         <sb.Option @value="foo">Foo</sb.Option>
-        {{#sb.Option value="bar" selected=this.barSelected}}Bar{{/sb.Option}}
-        {{#sb.Option value="baz" selected=false}}Baz{{/sb.Option}}
+        <sb.Option @value="bar" @selected={{this.barSelected}}>Bar</sb.Option>
+        <sb.Option @value="baz" @selected={{false}}>Baz</sb.Option>
       </SelectBox>
     `);
 
@@ -562,11 +562,11 @@ module('select-box (selecting)', function(hooks) {
     );
   });
 
-  test('usage with mut helper', async function(assert) {
+  test('usage with mut helper', async function (assert) {
     assert.expect(2);
 
     this.set('external', null);
-    this.set('setExternal', value => this.set('external', value));
+    this.set('setExternal', (value) => this.set('external', value));
 
     await render(hbs`
       external: {{this.external}}
@@ -590,7 +590,7 @@ module('select-box (selecting)', function(hooks) {
     );
   });
 
-  test('with disabled options', async function(assert) {
+  test('with disabled options', async function (assert) {
     assert.expect(5);
 
     /**
@@ -611,7 +611,7 @@ module('select-box (selecting)', function(hooks) {
     let selected = 0;
     let lastSelectedValue;
 
-    this.set('selected', value => {
+    this.set('selected', (value) => {
       selected++;
       lastSelectedValue = value;
     });
@@ -667,7 +667,7 @@ module('select-box (selecting)', function(hooks) {
       );
   });
 
-  test('changing arguments other than value', async function(assert) {
+  test('changing attributes', async function (assert) {
     assert.expect(1);
 
     let updated = 0;
@@ -677,11 +677,10 @@ module('select-box (selecting)', function(hooks) {
     });
 
     await render(hbs`
-      {{! Intentionally not angle brackets }}
-      {{#select-box value="foo" aria-label=this.ariaLabel onUpdate=this.updated as |sb|}}
-        {{sb.Option value="foo"}}
-        {{sb.Option value="bar"}}
-      {{/select-box}}
+      <SelectBox @value="foo" aria-label={{this.ariaLabel}} @onUpdate={{this.updated}} as |sb|>
+        <sb.Option @value="foo" />
+        <sb.Option @value="bar" />
+      </SelectBox>
     `);
 
     this.set('ariaLabel', 'Choice');
@@ -693,7 +692,7 @@ module('select-box (selecting)', function(hooks) {
     );
   });
 
-  test('a single value with a multiple choice select box', async function(assert) {
+  test('a single value with a multiple choice select box', async function (assert) {
     assert.expect(2);
 
     this.set('value', 'bar');
@@ -716,7 +715,7 @@ module('select-box (selecting)', function(hooks) {
       .hasText('Foo', 'updating the value works');
   });
 
-  test('multiple values with a single choice select box', async function(assert) {
+  test('multiple values with a single choice select box', async function (assert) {
     assert.expect(1);
 
     this.set('values', ['bar', 'baz']);
@@ -734,7 +733,7 @@ module('select-box (selecting)', function(hooks) {
       .doesNotExist('works as expected');
   });
 
-  test('adding and removing items to a multiple select box', async function(assert) {
+  test('adding and removing items to a multiple select box', async function (assert) {
     assert.expect(1);
 
     this.set('values', emberA(['bar']));
@@ -758,14 +757,14 @@ module('select-box (selecting)', function(hooks) {
       );
   });
 
-  test('yielded selected value', async function(assert) {
+  test('yielded selected value', async function (assert) {
     assert.expect(3);
 
     let yieldedValue;
 
     this.set('value', emberA(['foo', 'bar']));
 
-    this.set('inspect', value => (yieldedValue = value));
+    this.set('inspect', (value) => (yieldedValue = value));
 
     await render(hbs`
       <SelectBox @multiple={{true}} @value={{this.value}} as |sb|>
@@ -788,7 +787,7 @@ module('select-box (selecting)', function(hooks) {
     );
   });
 
-  test('customising selection', async function(assert) {
+  test('customising selection', async function (assert) {
     assert.expect(9);
 
     let sb;
@@ -807,7 +806,7 @@ module('select-box (selecting)', function(hooks) {
       return ['baz'];
     });
 
-    this.set('register', api => {
+    this.set('register', (api) => {
       sb = api;
     });
 
@@ -874,14 +873,14 @@ module('select-box (selecting)', function(hooks) {
     assert.deepEqual(sb.value, ['qux'], 'value is correct');
   });
 
-  test('selecting active via api', async function(assert) {
+  test('selecting active via api', async function (assert) {
     assert.expect(1);
 
     let sb;
     let selectedValue;
 
-    this.set('select', value => (selectedValue = value));
-    this.set('registerApi', api => (sb = api));
+    this.set('select', (value) => (selectedValue = value));
+    this.set('registerApi', (api) => (sb = api));
 
     await render(hbs`
       <SelectBox @onReady={{this.registerApi}} @onSelect={{this.select}} as |sb|>
@@ -901,7 +900,7 @@ module('select-box (selecting)', function(hooks) {
     );
   });
 
-  test('default values', async function(assert) {
+  test('default values', async function (assert) {
     assert.expect(1);
 
     await render(hbs`
@@ -919,14 +918,14 @@ module('select-box (selecting)', function(hooks) {
       );
   });
 
-  test('selecting a failed value', async function(assert) {
+  test('selecting a failed value', async function (assert) {
     assert.expect(1);
 
     let selectedValue;
 
     const deferred = defer();
 
-    this.set('selected', value => (selectedValue = value));
+    this.set('selected', (value) => (selectedValue = value));
 
     this.set('promise', deferred.promise);
 
@@ -949,7 +948,7 @@ module('select-box (selecting)', function(hooks) {
     );
   });
 
-  test('selecting action order', async function(assert) {
+  test('selecting action order', async function (assert) {
     assert.expect(3);
 
     this.set('selected', () => assert.step('selected'));

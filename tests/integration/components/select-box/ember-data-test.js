@@ -2,14 +2,13 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import Model from '@ember-data/model';
-import attr from 'ember-data/attr';
-import Adapter from 'ember-data/adapters/json-api';
-import Serializer from 'ember-data/serializers/json-api';
+import Model, { attr } from '@ember-data/model';
+import Adapter from '@ember-data/adapter/json-api';
+import Serializer from '@ember-data/serializer/json-api';
 import { Promise } from 'rsvp';
 import { later } from '@ember/runloop';
 
-module('select-box (ember data)', function(hooks) {
+module('select-box (ember data)', function (hooks) {
   setupRenderingTest(hooks);
 
   let store;
@@ -22,7 +21,7 @@ module('select-box (ember data)', function(hooks) {
 
   class FooAdapter extends Adapter {
     ajax() {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         later(() => {
           resolve(payload);
         }, delay);
@@ -30,7 +29,7 @@ module('select-box (ember data)', function(hooks) {
     }
   }
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     store = this.owner.lookup('service:store');
 
     this.owner.register('model:foo', FooModel);
@@ -38,7 +37,7 @@ module('select-box (ember data)', function(hooks) {
     this.owner.register('adapter:foo', FooAdapter);
   });
 
-  test('multiple select with ED', async function(assert) {
+  test('multiple select with ED', async function (assert) {
     assert.expect(2);
 
     const foos = [];
@@ -48,8 +47,8 @@ module('select-box (ember data)', function(hooks) {
         id: i,
         type: 'foo',
         attributes: {
-          name: `Foo ${i}`
-        }
+          name: `Foo ${i}`,
+        },
       });
     }
 
@@ -58,8 +57,8 @@ module('select-box (ember data)', function(hooks) {
 
     const allFoos = store.findAll('foo');
 
-    const filteredFoos = store.findAll('foo').then(foos => {
-      return foos.filter(foo => {
+    const filteredFoos = store.findAll('foo').then((foos) => {
+      return foos.filter((foo) => {
         return foo.id >= 5;
       });
     });

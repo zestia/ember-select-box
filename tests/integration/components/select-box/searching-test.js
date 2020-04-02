@@ -5,10 +5,10 @@ import hbs from 'htmlbars-inline-precompile';
 import { later, next } from '@ember/runloop';
 import { defer, reject } from 'rsvp';
 
-module('select-box (searching)', function(hooks) {
+module('select-box (searching)', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('autocomplete', async function(assert) {
+  test('autocomplete', async function (assert) {
     assert.expect(1);
 
     await render(hbs`
@@ -22,7 +22,7 @@ module('select-box (searching)', function(hooks) {
       .hasAttribute('autocomplete', 'off', 'autocompletion off by default');
   });
 
-  test('aria', async function(assert) {
+  test('aria', async function (assert) {
     assert.expect(7);
 
     await render(hbs`
@@ -75,7 +75,7 @@ module('select-box (searching)', function(hooks) {
       .hasAttribute('tabindex', '0', 'postcondition: select box is focusable');
   });
 
-  test('searching (promise)', async function(assert) {
+  test('searching (promise)', async function (assert) {
     assert.expect(1);
 
     this.set('findItems', () => {
@@ -103,14 +103,14 @@ module('select-box (searching)', function(hooks) {
       );
   });
 
-  test('searching (success)', async function(assert) {
+  test('searching (success)', async function (assert) {
     assert.expect(2);
 
     const deferred1 = defer();
     const deferred2 = defer();
     const deferred3 = defer();
 
-    this.set('findItems', query => {
+    this.set('findItems', (query) => {
       if (query === 'first') {
         return deferred1.promise;
       } else if (query === 'second') {
@@ -158,7 +158,7 @@ module('select-box (searching)', function(hooks) {
       .hasText('third', 'can render options using the search results');
   });
 
-  test('searching (failure)', async function(assert) {
+  test('searching (failure)', async function (assert) {
     assert.expect(5);
 
     this.set('findItems', () => reject('no results'));
@@ -201,7 +201,7 @@ module('select-box (searching)', function(hooks) {
     );
   });
 
-  test('searching progress', async function(assert) {
+  test('searching progress', async function (assert) {
     assert.expect(3);
 
     const deferred = defer();
@@ -246,14 +246,14 @@ module('select-box (searching)', function(hooks) {
     deferred.resolve();
   });
 
-  test('default search delay', async function(assert) {
+  test('default search delay', async function (assert) {
     assert.expect(3);
 
     const deferred = defer();
 
     this.set('findItems', () => deferred.promise);
 
-    this.set('foundItems', items => {
+    this.set('foundItems', (items) => {
       this.set('items', items);
     });
 
@@ -290,14 +290,14 @@ module('select-box (searching)', function(hooks) {
     );
   });
 
-  test('custom search delay', async function(assert) {
+  test('custom search delay', async function (assert) {
     assert.expect(2);
 
     const deferred = defer();
 
     this.set('findItems', () => deferred.promise);
 
-    this.set('foundItems', items => {
+    this.set('foundItems', (items) => {
       this.set('items', items);
     });
 
@@ -330,7 +330,7 @@ module('select-box (searching)', function(hooks) {
     );
   });
 
-  test('search slow time', async function(assert) {
+  test('search slow time', async function (assert) {
     assert.expect(3);
 
     const deferred = defer();
@@ -375,12 +375,12 @@ module('select-box (searching)', function(hooks) {
     }, 200);
   });
 
-  test('query is trimmed', async function(assert) {
+  test('query is trimmed', async function (assert) {
     assert.expect(1);
 
     const deferred = defer();
 
-    this.set('findItems', query => {
+    this.set('findItems', (query) => {
       assert.equal(query, 'foo', 'whitespace is trimmed from the query');
 
       return deferred.promise;
@@ -399,7 +399,7 @@ module('select-box (searching)', function(hooks) {
     await fillIn('.select-box__input', ' foo ');
   });
 
-  test('default min chars', async function(assert) {
+  test('default min chars', async function (assert) {
     assert.expect(2);
 
     const deferred = defer();
@@ -436,7 +436,7 @@ module('select-box (searching)', function(hooks) {
     );
   });
 
-  test('custom min chars', async function(assert) {
+  test('custom min chars', async function (assert) {
     assert.expect(1);
 
     const deferred = defer();
@@ -464,12 +464,12 @@ module('select-box (searching)', function(hooks) {
     await fillIn('.select-box__input', '');
   });
 
-  test('manually running a search', async function(assert) {
+  test('manually running a search', async function (assert) {
     assert.expect(1);
 
     const deferred = defer();
 
-    this.set('findItems', value => {
+    this.set('findItems', (value) => {
       assert.strictEqual(
         value,
         '',
@@ -490,10 +490,10 @@ module('select-box (searching)', function(hooks) {
     await click('button');
   });
 
-  test('set input value', async function(assert) {
+  test('set input value', async function (assert) {
     assert.expect(2);
 
-    this.set('inputted', value => {
+    this.set('inputted', (value) => {
       assert.ok(
         value,
         true,
@@ -524,7 +524,7 @@ module('select-box (searching)', function(hooks) {
     );
   });
 
-  test('set input value if destroyed', async function(assert) {
+  test('set input value if destroyed', async function (assert) {
     assert.expect(2);
 
     this.set('show', true);
@@ -554,7 +554,7 @@ module('select-box (searching)', function(hooks) {
       );
   });
 
-  test('searching attributes', async function(assert) {
+  test('searching attributes', async function (assert) {
     assert.expect(4);
 
     const deferred = defer();
@@ -572,7 +572,7 @@ module('select-box (searching)', function(hooks) {
         @searchDelayTime={{0}}
         @onSearch={{this.findItems}}
         @onSearched={{this.foundItems}} as |sb|>
-        {{sb.Input value=this.myValue onClear=sb.cancelSearch}}
+        <sb.Input @value={{this.myValue}} @onClear={{sb.cancelSearch}} />
       </SelectBox>
     `);
 
