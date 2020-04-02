@@ -14,7 +14,7 @@
     "lint:css": "stylelint '**/*.{css,scss}'",
     "prettier": "prettier '**/*.{js,json,css,scss,html,hbs,md}' --write",
     "start": "ember serve",
-    "test": "npm-run-all lint:* test:*",
+    "test": "npm-run-all lint:* test:ember",
     "test:ember": "ember test",
     "test:ember-compatibility": "ember try:each",
     "release": "release-it",
