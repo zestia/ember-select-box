@@ -1,6 +1,4 @@
-import { set } from '@ember/object';
 import invokeAction from '../../component/invoke-action';
-import { getAPI } from '../../component/api';
 import { filterComponentsByTextContent } from '../../component/filter';
 import { maybeScrollIntoView } from '../../component/scroll-into-view';
 const { fromCharCode } = String;
@@ -10,7 +8,7 @@ export function _activateOption(option) {
 }
 
 function activatedOption(option) {
-  invokeAction(option, 'onActivate', option.resolvedValue, getAPI(option));
+  invokeAction(option, 'onActivate', option.value, option.args.selectBox.api);
 }
 
 export function activateOption(selectBox, option, config) {
@@ -25,7 +23,7 @@ function setActiveOptionIndex(selectBox, index) {
     return;
   }
 
-  set(selectBox, 'activeOptionIndex', index);
+  selectBox.activeOptionIndex = index;
 }
 
 export function activateOptionAtIndex(selectBox, index, config) {
@@ -56,9 +54,7 @@ export function activatePreviousOption(selectBox, config) {
 }
 
 export function activateOptionForValue(selectBox, value, config) {
-  const option = selectBox.options.find(
-    option => option.resolvedValue === value
-  );
+  const option = selectBox.options.find(option => option.value === value);
 
   if (!option) {
     return;
@@ -113,7 +109,7 @@ function optionForChar(selectBox, char) {
     option = options[index];
   }
 
-  set(selectBox, 'optionCharState', { chars, ms, index });
+  selectBox.optionCharState = { chars, ms, index };
 
   return option;
 }

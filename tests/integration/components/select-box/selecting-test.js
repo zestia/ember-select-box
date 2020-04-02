@@ -93,7 +93,7 @@ module('select-box (selecting)', function(hooks) {
       .hasText(
         'Bar',
         'selecting null does not clear the selected option, because as far as the ' +
-          'select box is concerned, nothing has changed (i.e. `didReceiveAttrs` has not fired)'
+          'select box is concerned, nothing has changed'
       );
   });
 

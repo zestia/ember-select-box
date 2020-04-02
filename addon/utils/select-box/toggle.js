@@ -1,33 +1,31 @@
 import invokeAction from '../component/invoke-action';
-import { set } from '@ember/object';
-import { getAPI } from '../component/api';
 
 export function open(selectBox) {
-  if (selectBox.isDestroyed || selectBox.isOpen) {
+  if (selectBox.isOpen) {
     return;
   }
 
-  set(selectBox, 'isOpen', true);
+  selectBox.isOpen = true;
 
   opened(selectBox);
 }
 
 export function close(selectBox) {
-  if (selectBox.isDestroyed || !selectBox.isOpen) {
+  if (!selectBox.isOpen) {
     return;
   }
 
-  set(selectBox, 'isOpen', false);
+  selectBox.isOpen = false;
 
   closed(selectBox);
 }
 
 function opened(selectBox) {
-  invokeAction(selectBox, 'onOpen', getAPI(selectBox));
+  invokeAction(selectBox, 'onOpen', selectBox.api);
 }
 
 function closed(selectBox) {
-  invokeAction(selectBox, 'onClose', getAPI(selectBox));
+  invokeAction(selectBox, 'onClose', selectBox.api);
 }
 
 export function toggle(selectBox) {

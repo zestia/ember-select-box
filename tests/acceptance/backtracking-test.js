@@ -1,42 +1,35 @@
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import { click, focus, visit } from '@ember/test-helpers';
-import Component from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
+
+const routeTemplate = hbs`
+  <BacktrackSelect as |sb|>
+    <sb.SelectedOption>
+      open
+    </sb.SelectedOption>
+    <sb.Options>
+      <button type="button" {{on "click" sb.close}} class="backtrack-select__close">close</button>
+    </sb.Options>
+  </BacktrackSelect>
+`;
+
+const template = hbs`
+  <SelectBox @classNamePrefix="backtrack-select" as |sb|>
+    {{yield (hash
+      SelectedOption=(component sb.SelectedOption onclick=sb.open)
+      Options=(if sb.isOpen sb.Options)
+      close=sb.close
+    )}}
+  </SelectBox>
+`;
 
 module('backtracking focus use-case', function(hooks) {
   setupApplicationTest(hooks);
 
   hooks.beforeEach(function() {
-    this.owner.register(
-      'template:backtrack-select',
-      hbs`
-      <BacktrackSelect as |sb|>
-        <sb.SelectedOption>
-          open
-        </sb.SelectedOption>
-        <sb.Options>
-          <button type="button" {{on "click" sb.close}} class="backtrack-select__close">close</button>
-        </sb.Options>
-      </BacktrackSelect>
-    `
-    );
-
-    this.owner.register(
-      'component:backtrack-select',
-      Component.extend({
-        tagName: '',
-        layout: hbs`
-        <SelectBox @classNamePrefix="backtrack-select" as |sb|>
-          {{yield (hash
-            SelectedOption=(component sb.SelectedOption onclick=sb.open)
-            Options=(if sb.isOpen sb.Options)
-            close=sb.close
-          )}}
-        </SelectBox>
-      `
-      })
-    );
+    this.owner.register('template:components/backtrack-select', template);
+    this.owner.register('template:backtrack-select', routeTemplate);
   });
 
   // Try scenario in a Twiddle:

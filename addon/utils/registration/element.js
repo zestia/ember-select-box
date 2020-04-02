@@ -1,9 +1,7 @@
-import { set } from '@ember/object';
-
 export function registerElement(component, element) {
-  set(component, 'domElement', element);
+  component.element = element;
 }
 
 export function deregisterElement(component) {
-  set(component, 'domElement', null);
+  component.element = null;
 }

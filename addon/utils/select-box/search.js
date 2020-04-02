@@ -1,8 +1,6 @@
 import invokeAction from '../component/invoke-action';
 import { debounce } from '@ember/runloop';
-import { set } from '@ember/object';
 import { resolve } from 'rsvp';
-import { getAPI } from '../component/api';
 
 export function maybeSearch(selectBox, query) {
   if (isSearchable(selectBox)) {
@@ -11,20 +9,20 @@ export function maybeSearch(selectBox, query) {
 }
 
 export function cancelSearch(selectBox) {
-  selectBox.incrementProperty('searchID');
+  ++selectBox.searchID;
   searchFinished(selectBox);
 }
 
 export function search(selectBox, query) {
   const delay = selectBox.searchSlowTime;
 
-  set(selectBox, 'isSearching', true);
+  selectBox.isSearching = true;
 
-  const searchID = selectBox.incrementProperty('searchID');
+  const searchID = ++selectBox.searchID;
 
   setTimeout(() => checkSlowSearch(selectBox), delay);
 
-  const action = invokeAction(selectBox, 'onSearch', query, getAPI(selectBox));
+  const action = invokeAction(selectBox, 'onSearch', query, selectBox.api);
 
   return resolve(action)
     .then(result => {
@@ -50,7 +48,7 @@ function debouncedSearchAttempt(selectBox, query) {
 function attemptSearch(selectBox, query) {
   query = `${query}`.trim();
 
-  if (selectBox.isDestroyed || !queryOK(selectBox, query)) {
+  if (!queryOK(selectBox, query)) {
     return;
   }
 
@@ -58,7 +56,7 @@ function attemptSearch(selectBox, query) {
 }
 
 function isSearchable(selectBox) {
-  return typeof selectBox.onSearch === 'function';
+  return typeof selectBox.args.onSearch === 'function';
 }
 
 function queryOK(selectBox, query) {
@@ -66,34 +64,22 @@ function queryOK(selectBox, query) {
 }
 
 function checkSlowSearch(selectBox) {
-  if (selectBox.isDestroyed) {
-    return;
-  }
-
-  set(selectBox, 'isSlowSearch', selectBox.isSearching);
+  selectBox.isSlowSearch = selectBox.isSearching;
 }
 
 function searchCompleted(selectBox, searchID, query, result) {
-  if (selectBox.isDestroyed || searchID < selectBox.searchID) {
+  if (searchID < selectBox.searchID) {
     return;
   }
 
-  invokeAction(selectBox, 'onSearched', result, query, getAPI(selectBox));
+  invokeAction(selectBox, 'onSearched', result, query, selectBox.api);
 }
 
 function searchFailed(selectBox, query, error) {
-  if (selectBox.isDestroyed) {
-    return;
-  }
-
-  invokeAction(selectBox, 'onSearchError', error, query, getAPI(selectBox));
+  invokeAction(selectBox, 'onSearchError', error, query, selectBox.api);
 }
 
 function searchFinished(selectBox) {
-  if (selectBox.isDestroyed) {
-    return;
-  }
-
-  set(selectBox, 'isSearching', false);
-  set(selectBox, 'isSlowSearch', false);
+  selectBox.isSearching = false;
+  selectBox.isSlowSearch = false;
 }

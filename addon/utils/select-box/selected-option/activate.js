@@ -1,7 +1,5 @@
-import { set } from '@ember/object';
 import invokeAction from '../../component/invoke-action';
 import { maybeScrollIntoView } from '../../component/scroll-into-view';
-import { getAPI } from '../../component/api';
 
 export function _activateSelectedOption(selectedOption) {
   invokeAction(selectedOption, '_onActivate', selectedOption);
@@ -11,8 +9,8 @@ function activatedSelectedOption(selectedOption) {
   invokeAction(
     selectedOption,
     'onActivate',
-    selectedOption.resolvedValue,
-    getAPI(selectedOption)
+    selectedOption.value,
+    selectedOption.args.selectBox.api
   );
 }
 
@@ -28,7 +26,7 @@ function setActiveSelectedOptionIndex(selectBox, index) {
     return;
   }
 
-  set(selectBox, 'activeSelectedOptionIndex', index);
+  selectBox.activeSelectedOptionIndex = index;
 }
 
 export function activateSelectedOptionAtIndex(selectBox, index, config) {

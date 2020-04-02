@@ -1,15 +1,15 @@
 import Controller from '@ember/controller';
 import { puddings } from '../utils/dummy-data';
-import { set, action } from '@ember/object';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
 export default class SimpleSelectController extends Controller {
-  init() {
-    super.init(...arguments);
-    set(this, 'selectablePuddings', puddings);
-  }
+  @tracked selectedPudding;
+
+  selectablePuddings = puddings;
 
   @action
   selectPudding(pudding) {
-    set(this, 'selectedPudding', pudding);
+    this.selectedPudding = pudding;
   }
 }

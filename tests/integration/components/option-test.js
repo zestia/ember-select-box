@@ -3,7 +3,6 @@ import { setupRenderingTest } from 'ember-qunit';
 import { find, findAll, render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { defer } from 'rsvp';
-const { from } = Array;
 
 module('select-box/option', function(hooks) {
   setupRenderingTest(hooks);
@@ -173,11 +172,8 @@ module('select-box/option', function(hooks) {
   test('yield index', async function(assert) {
     assert.expect(4);
 
-    const labels = () => {
-      return from(findAll('.select-box__option')).map(o =>
-        o.textContent.trim()
-      );
-    };
+    const labels = () =>
+      [...findAll('.select-box__option')].map(o => o.textContent.trim());
 
     this.set('values', ['foo', 'bar', 'baz']);
 

@@ -1,15 +1,15 @@
 export function focusInput(selectBox) {
-  if (selectBox.isDestroyed || !selectBox.input) {
+  if (!selectBox.input) {
     return;
   }
 
-  selectBox.input.domElement.focus();
+  selectBox.input.element.focus();
 }
 
 export function blurInput(selectBox) {
-  if (selectBox.isDestroyed || !selectBox.input) {
+  if (!selectBox.input) {
     return;
   }
 
-  selectBox.input.domElement.blur();
+  selectBox.input.element.blur();
 }

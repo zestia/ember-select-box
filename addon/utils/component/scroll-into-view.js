@@ -13,6 +13,6 @@ export function maybeScrollIntoView(component, config) {
 
 function _maybeScrollIntoView(component, config = {}) {
   if (config.scrollIntoView) {
-    scrollIntoView(component.domElement);
+    scrollIntoView(component.element);
   }
 }

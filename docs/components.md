@@ -169,7 +169,7 @@
       <td>@onSelect</td>
       <td>
         Fired when an option is clicked, or enter is pressed regardless as
-        to whether the value changed or not (because a selection was made).
+        to whether the value changed or not.
       </td>
     </tr>
     <tr>
@@ -286,13 +286,13 @@
     </tr>
     <tr>
       <td>sb.search</td>
-      <td>Runs an arbitrary search using the search function provided by <code>@onSearch</code></td>
+      <td>Runs an arbitrary search using the search function provided by <code>@onSearch</code>. Sets the select box into a searching state for the duration of the function call, and <code>@onSearched</code> will fire with the result.</td>
     </tr>
     <tr>
       <td>sb.select</td>
       <td>
         Selects arbitrary value(s).
-        <code>@onSelect</code> will fire.
+        <code>@onSelect</code> will fire, and <code>@onUpdate</code> will fire if the value is different.
       </td>
     </tr>
     <tr>
@@ -313,7 +313,7 @@
     <tr>
       <td>sb.update</td>
       <td>
-        Updates the selectbox with a new value(s). Useful for resetting the select box after a selection is made.
+        Updates the select box with a new value(s). This is subtly different from <code>sb.select</code>. Useful for resetting the select box after a selection is made.
         <code>@onUpdate</code> will fire.
       </td>
     </tr>
