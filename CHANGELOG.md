@@ -1,5 +1,9 @@
 # Changelog
 
+## 14.0.0
+
+- Release changes from 14.0.0-beta
+
 ## 14.0.0-beta.1
 
 - Fix API be re-computed during teardown causing rendering issue
