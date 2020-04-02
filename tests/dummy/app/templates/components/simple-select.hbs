@@ -9,7 +9,8 @@
   @onSelect={{this.select}}
   ...attributes as |sb|
 >
-  {{yield
+  {{
+    yield
     (merge
       sb (hash SelectedOption=(component sb.SelectedOption onclick=sb.toggle))
     )

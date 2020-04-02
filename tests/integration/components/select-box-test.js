@@ -5,10 +5,10 @@ import hbs from 'htmlbars-inline-precompile';
 import EmberArray, { A as emberA } from '@ember/array';
 const { isFrozen, isSealed } = Object;
 
-module('select-box', function(hooks) {
+module('select-box', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
+  test('it renders', async function (assert) {
     assert.expect(1);
 
     await render(hbs`<SelectBox />`);
@@ -18,7 +18,7 @@ module('select-box', function(hooks) {
       .exists({ count: 1 }, 'renders with correct class name and tag');
   });
 
-  test('data component attribute', async function(assert) {
+  test('data component attribute', async function (assert) {
     assert.expect(1);
 
     await render(hbs`<SelectBox />`);
@@ -28,7 +28,7 @@ module('select-box', function(hooks) {
       .exists({ count: 1 }, 'has a data attribute signifying its type');
   });
 
-  test('role', async function(assert) {
+  test('role', async function (assert) {
     assert.expect(1);
 
     await render(hbs`<SelectBox />`);
@@ -42,7 +42,7 @@ module('select-box', function(hooks) {
       );
   });
 
-  test('multiple class', async function(assert) {
+  test('multiple class', async function (assert) {
     assert.expect(2);
 
     await render(hbs`<SelectBox />`);
@@ -59,22 +59,22 @@ module('select-box', function(hooks) {
       .hasClass('select-box--multiple', 'has multiple class');
   });
 
-  test('inserting', async function(assert) {
+  test('inserting', async function (assert) {
     assert.expect(1);
 
-    this.inserted = sb => {
+    this.inserted = (sb) => {
       assert.deepEqual(sb.element, find('.select-box'), 'exposes element');
     };
 
     await render(hbs`<SelectBox @onInsertElement={{this.inserted}} />`);
   });
 
-  test('initial update action', async function(assert) {
+  test('initial update action', async function (assert) {
     assert.expect(2);
 
     let called = 0;
 
-    this.set('updated', sb => {
+    this.set('updated', (sb) => {
       called++;
 
       assert.strictEqual(
@@ -89,14 +89,14 @@ module('select-box', function(hooks) {
     assert.equal(called, 1, 'only fires once');
   });
 
-  test('subsequent update actions', async function(assert) {
+  test('subsequent update actions', async function (assert) {
     assert.expect(1);
 
     let count = 0;
 
     this.set('selectedValue', 'foo');
 
-    this.set('updated', sb => {
+    this.set('updated', (sb) => {
       count++;
 
       if (count === 2) {
@@ -117,7 +117,7 @@ module('select-box', function(hooks) {
     this.set('selectedValue', 'bar');
   });
 
-  test('update action', async function(assert) {
+  test('update action', async function (assert) {
     assert.expect(1);
 
     let count = 0;
@@ -141,7 +141,7 @@ module('select-box', function(hooks) {
     );
   });
 
-  test('no update action', async function(assert) {
+  test('no update action', async function (assert) {
     assert.expect(1);
 
     await render(
@@ -156,12 +156,12 @@ module('select-box', function(hooks) {
     );
   });
 
-  test('ready action', async function(assert) {
+  test('ready action', async function (assert) {
     assert.expect(3);
 
     let api;
 
-    this.set('ready', sb => (api = sb));
+    this.set('ready', (sb) => (api = sb));
 
     await render(hbs`<SelectBox @onReady={{this.ready}} />`);
 
@@ -181,7 +181,7 @@ module('select-box', function(hooks) {
       .hasClass('select-box--open', 'action is called with the api');
   });
 
-  test('api value', async function(assert) {
+  test('api value', async function (assert) {
     assert.expect(10);
 
     const value1 = emberA(['foo']);
@@ -190,7 +190,7 @@ module('select-box', function(hooks) {
 
     this.set('value', value1);
 
-    this.set('checkAPI', sb => {
+    this.set('checkAPI', (sb) => {
       apis.push(sb);
 
       if (apis.length === 1) {

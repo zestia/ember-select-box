@@ -7,20 +7,20 @@ import {
   fillIn,
   settled,
   triggerEvent,
-  triggerKeyEvent
+  triggerKeyEvent,
 } from '@ember/test-helpers';
 import { defer } from 'rsvp';
 import { later } from '@ember/runloop';
 
-module('select-box (destroying)', function(hooks) {
+module('select-box (destroying)', function (hooks) {
   setupRenderingTest(hooks);
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     this.set('show', true);
     this.set('hide', () => this.set('show', false));
   });
 
-  test('showing', async function(assert) {
+  test('showing', async function (assert) {
     assert.expect(0);
 
     await render(hbs`
@@ -34,7 +34,7 @@ module('select-box (destroying)', function(hooks) {
     await click('.select-box__option');
   });
 
-  test('enter', async function(assert) {
+  test('enter', async function (assert) {
     assert.expect(0);
 
     await render(hbs`
@@ -50,10 +50,10 @@ module('select-box (destroying)', function(hooks) {
     await triggerKeyEvent('.select-box', 'keydown', 13);
   });
 
-  test('update', async function(assert) {
+  test('update', async function (assert) {
     assert.expect(0);
 
-    this.set('ready', async sb => {
+    this.set('ready', async (sb) => {
       this.hide();
 
       await settled();
@@ -68,10 +68,10 @@ module('select-box (destroying)', function(hooks) {
     `);
   });
 
-  test('select', async function(assert) {
+  test('select', async function (assert) {
     assert.expect(0);
 
-    this.set('ready', async sb => {
+    this.set('ready', async (sb) => {
       this.hide();
 
       await settled();
@@ -86,7 +86,7 @@ module('select-box (destroying)', function(hooks) {
     `);
   });
 
-  test('mid-search', async function(assert) {
+  test('mid-search', async function (assert) {
     assert.expect(1);
 
     const deferred = defer();

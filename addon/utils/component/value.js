@@ -10,10 +10,10 @@ export function resolveValue(component, value, postProcess) {
   startedResolvingValue(component, value);
 
   return resolve(value)
-    .then(result =>
+    .then((result) =>
       finishedResolvingValue(component, valueID, false, result, postProcess)
     )
-    .catch(error =>
+    .catch((error) =>
       finishedResolvingValue(component, valueID, true, error, postProcess)
     );
 }

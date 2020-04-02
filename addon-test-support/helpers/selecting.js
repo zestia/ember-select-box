@@ -11,7 +11,7 @@ export function getNativeMultipleSelectBoxValue(selector) {
 }
 
 export function selectNativeOptionsByValue(selector, values) {
-  [...find(selector).options].forEach(option => {
+  [...find(selector).options].forEach((option) => {
     option.selected = values.includes(option.value);
   });
 
@@ -19,7 +19,7 @@ export function selectNativeOptionsByValue(selector, values) {
 }
 
 export function selectNativeOptionsByLabel(selector, labels) {
-  [...find(selector).options].forEach(option => {
+  [...find(selector).options].forEach((option) => {
     option.selected = labels.includes(option.textContent.trim());
   });
 

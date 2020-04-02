@@ -4,10 +4,10 @@ import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { capitalize, camelize } from '@ember/string';
 
-module('select-box', function(hooks) {
+module('select-box', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('defaults', async function(assert) {
+  test('defaults', async function (assert) {
     assert.expect(11);
 
     await render(hbs`
@@ -37,7 +37,7 @@ module('select-box', function(hooks) {
     assert.dom('.select-box__option--selected').exists();
   });
 
-  test('class prefix', async function(assert) {
+  test('class prefix', async function (assert) {
     assert.expect(11);
 
     await render(hbs`
@@ -67,7 +67,7 @@ module('select-box', function(hooks) {
     assert.dom('.foo__option--selected').exists();
   });
 
-  test('custom class names', async function(assert) {
+  test('custom class names', async function (assert) {
     assert.expect(11);
 
     this.buildClassName = (child, state) => {

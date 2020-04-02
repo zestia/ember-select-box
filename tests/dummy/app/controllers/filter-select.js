@@ -11,7 +11,7 @@ export default class FilterSelect extends Controller {
   @action
   filterPies(query) {
     return pies.filter(
-      pie => pie.name.toLowerCase().indexOf(query.toLowerCase()) >= 0
+      (pie) => pie.name.toLowerCase().indexOf(query.toLowerCase()) >= 0
     );
   }
 

@@ -1,16 +1,16 @@
 import Component from '@glimmer/component';
 import {
   deregisterElement,
-  registerElement
+  registerElement,
 } from '../../utils/registration/element';
 import {
   deregisterOption,
-  registerOption
+  registerOption,
 } from '../../utils/registration/option';
 import {
   receiveValue,
   selectValue,
-  updateValue
+  updateValue,
 } from '../../utils/shared/value';
 import { selectValue as _selectValue } from '../../utils/native-select-box/value';
 import buildAPI from '../../utils/shared/api';
@@ -51,7 +51,7 @@ export default class NativeSelectBox extends Component {
       'isSettled',
       'select',
       'update',
-      'value'
+      'value',
     ]);
   }
 

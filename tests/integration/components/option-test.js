@@ -4,10 +4,10 @@ import { find, findAll, render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { defer } from 'rsvp';
 
-module('select-box/option', function(hooks) {
+module('select-box/option', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
+  test('it renders', async function (assert) {
     assert.expect(1);
 
     await render(hbs`<SelectBox::Option />`);
@@ -17,7 +17,7 @@ module('select-box/option', function(hooks) {
       .exists({ count: 1 }, 'renders with correct class name and tag');
   });
 
-  test('data component attribute', async function(assert) {
+  test('data component attribute', async function (assert) {
     assert.expect(1);
 
     await render(hbs`<SelectBox::Option />`);
@@ -27,7 +27,7 @@ module('select-box/option', function(hooks) {
       .exists({ count: 1 }, 'has a data attribute signifying its type');
   });
 
-  test('aria role', async function(assert) {
+  test('aria role', async function (assert) {
     assert.expect(1);
 
     await render(hbs`<SelectBox::Option />`);
@@ -37,7 +37,7 @@ module('select-box/option', function(hooks) {
       .hasAttribute('role', 'option', 'defined as an option');
   });
 
-  test('id', async function(assert) {
+  test('id', async function (assert) {
     assert.expect(1);
 
     await render(hbs`<SelectBox::Option />`);
@@ -50,7 +50,7 @@ module('select-box/option', function(hooks) {
     );
   });
 
-  test('disabled', async function(assert) {
+  test('disabled', async function (assert) {
     assert.expect(2);
 
     await render(hbs`<SelectBox::Option @disabled={{true}} />`);
@@ -65,7 +65,7 @@ module('select-box/option', function(hooks) {
     assert.dom('.select-box__option').hasAttribute('aria-disabled', 'true');
   });
 
-  test('aria selected', async function(assert) {
+  test('aria selected', async function (assert) {
     assert.expect(4);
 
     this.set('value', 1);
@@ -110,7 +110,7 @@ module('select-box/option', function(hooks) {
       );
   });
 
-  test('yield index failure', async function(assert) {
+  test('yield index failure', async function (assert) {
     // https://ember-twiddle.com/ddae8f58d5175e64577e79d720013cf2
 
     assert.expect(2);
@@ -169,11 +169,11 @@ module('select-box/option', function(hooks) {
     );
   });
 
-  test('yield index', async function(assert) {
+  test('yield index', async function (assert) {
     assert.expect(4);
 
     const labels = () =>
-      [...findAll('.select-box__option')].map(o => o.textContent.trim());
+      [...findAll('.select-box__option')].map((o) => o.textContent.trim());
 
     this.set('values', ['foo', 'bar', 'baz']);
 
@@ -228,7 +228,7 @@ module('select-box/option', function(hooks) {
     );
   });
 
-  test('yield disabled', async function(assert) {
+  test('yield disabled', async function (assert) {
     assert.expect(2);
 
     this.set('fooDisabled', true);
@@ -250,7 +250,7 @@ module('select-box/option', function(hooks) {
       .hasText('foo', 'disabled state is updated');
   });
 
-  test('yielded promise state', async function(assert) {
+  test('yielded promise state', async function (assert) {
     assert.expect(4);
 
     const deferred1 = defer();
@@ -304,7 +304,7 @@ module('select-box/option', function(hooks) {
     `);
   });
 
-  test('promise value (aria busy)', async function(assert) {
+  test('promise value (aria busy)', async function (assert) {
     assert.expect(2);
 
     const deferred = defer();

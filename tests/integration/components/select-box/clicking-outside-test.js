@@ -3,10 +3,10 @@ import { setupRenderingTest } from 'ember-qunit';
 import { blur, click, triggerEvent, render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('select-box (clicking outside)', function(hooks) {
+module('select-box (clicking outside)', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('clicking outside', async function(assert) {
+  test('clicking outside', async function (assert) {
     assert.expect(4);
 
     let count = 0;
@@ -49,7 +49,7 @@ module('select-box (clicking outside)', function(hooks) {
     );
   });
 
-  test('touchstart outside', async function(assert) {
+  test('touchstart outside', async function (assert) {
     assert.expect(2);
 
     this.set('handleClickOutside', () => {
@@ -79,7 +79,7 @@ module('select-box (clicking outside)', function(hooks) {
     );
   });
 
-  test('clicking outside to close but programatically opening', async function(assert) {
+  test('clicking outside to close but programatically opening', async function (assert) {
     assert.expect(7);
 
     let sb;
@@ -89,7 +89,7 @@ module('select-box (clicking outside)', function(hooks) {
       assert.step('handle click outside');
     });
 
-    this.set('handleReady', api => {
+    this.set('handleReady', (api) => {
       sb = api;
       assert.step('handle ready');
       sb.open();
@@ -131,7 +131,7 @@ module('select-box (clicking outside)', function(hooks) {
         'handle close',
         'handle click outside',
         'handle external click',
-        'handle open'
+        'handle open',
       ],
       'select box will be closed, because something outside of it was ' +
         'clicked. then, it will be opened. This ordering is important!'

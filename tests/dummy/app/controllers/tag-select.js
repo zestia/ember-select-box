@@ -13,14 +13,14 @@ export default class TagSelectController extends Controller {
   }
 
   get selectedTagNames() {
-    return this.selectedTags.map(tag => tag.name);
+    return this.selectedTags.map((tag) => tag.name);
   }
 
   @action
   filterTagNames(query) {
     const names = this.selectedTags
-      .filter(tag => tag.name.toLowerCase().indexOf(query.toLowerCase()) >= 0)
-      .map(tag => tag.name);
+      .filter((tag) => tag.name.toLowerCase().indexOf(query.toLowerCase()) >= 0)
+      .map((tag) => tag.name);
 
     return resolve(names);
   }
@@ -29,12 +29,12 @@ export default class TagSelectController extends Controller {
   tag(name) {
     const { selectedTags } = this;
 
-    let tag = selectedTags.find(tag => tag.name === name);
+    let tag = selectedTags.find((tag) => tag.name === name);
 
     if (!tag) {
       tag = {
         id: this.selectedTags.length + 1,
-        name
+        name,
       };
     }
 
@@ -48,7 +48,7 @@ export default class TagSelectController extends Controller {
   @action
   detag(name) {
     const selectedTags = this.selectedTags;
-    const tag = selectedTags.find(tag => tag.name === name);
+    const tag = selectedTags.find((tag) => tag.name === name);
 
     if (tag) {
       const index = selectedTags.indexOf(tag);

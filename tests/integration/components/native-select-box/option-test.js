@@ -4,10 +4,10 @@ import { find, findAll, render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { defer } from 'rsvp';
 
-module('native-select-box/option', function(hooks) {
+module('native-select-box/option', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
+  test('it renders', async function (assert) {
     assert.expect(1);
 
     await render(hbs`<NativeSelectBox::Option />`);
@@ -17,7 +17,7 @@ module('native-select-box/option', function(hooks) {
       .exists({ count: 1 }, 'renders with correct class name and tag');
   });
 
-  test('data component attribute', async function(assert) {
+  test('data component attribute', async function (assert) {
     assert.expect(1);
 
     await render(hbs`<NativeSelectBox::Option />`);
@@ -27,7 +27,7 @@ module('native-select-box/option', function(hooks) {
       .doesNotExist('does not have a data attribute signifying its type');
   });
 
-  test('value', async function(assert) {
+  test('value', async function (assert) {
     assert.expect(2);
 
     this.set('myValue', 123);
@@ -53,7 +53,7 @@ module('native-select-box/option', function(hooks) {
       );
   });
 
-  test('promise value', async function(assert) {
+  test('promise value', async function (assert) {
     assert.expect(4);
 
     const deferred = defer();
@@ -86,7 +86,7 @@ module('native-select-box/option', function(hooks) {
     assert.notEqual(this.myValue, '123', 'sanity check');
   });
 
-  test('block label', async function(assert) {
+  test('block label', async function (assert) {
     assert.expect(1);
 
     await render(hbs`<NativeSelectBox::Option>Foo</NativeSelectBox::Option>`);
@@ -98,7 +98,7 @@ module('native-select-box/option', function(hooks) {
     );
   });
 
-  test('yield', async function(assert) {
+  test('yield', async function (assert) {
     assert.expect(1);
 
     this.set('items', ['foo', 'bar']);

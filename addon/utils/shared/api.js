@@ -5,7 +5,7 @@ export default function buildAPI(component, members) {
     return;
   }
 
-  members.forEach(member => {
+  members.forEach((member) => {
     component._api[member] = component[member];
   });
 

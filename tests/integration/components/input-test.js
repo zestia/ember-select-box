@@ -5,14 +5,14 @@ import {
   fillIn,
   find,
   render,
-  triggerKeyEvent
+  triggerKeyEvent,
 } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('select-box/input', function(hooks) {
+module('select-box/input', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
+  test('it renders', async function (assert) {
     assert.expect(1);
 
     await render(hbs`<SelectBox::Input />`);
@@ -22,7 +22,7 @@ module('select-box/input', function(hooks) {
       .exists({ count: 1 }, 'renders with correct class name and tag');
   });
 
-  test('data component attribute', async function(assert) {
+  test('data component attribute', async function (assert) {
     assert.expect(1);
 
     await render(hbs`<SelectBox::Input />`);
@@ -32,7 +32,7 @@ module('select-box/input', function(hooks) {
       .exists({ count: 1 }, 'has a data attribute signifying its type');
   });
 
-  test('aria role', async function(assert) {
+  test('aria role', async function (assert) {
     assert.expect(1);
 
     await render(hbs`<SelectBox::Input />`);
@@ -46,7 +46,7 @@ module('select-box/input', function(hooks) {
       );
   });
 
-  test('aria multiline', async function(assert) {
+  test('aria multiline', async function (assert) {
     assert.expect(1);
 
     await render(hbs`<SelectBox::Input />`);
@@ -56,7 +56,7 @@ module('select-box/input', function(hooks) {
       .hasAttribute('aria-multiline', 'false', 'single line text input');
   });
 
-  test('type', async function(assert) {
+  test('type', async function (assert) {
     assert.expect(1);
 
     await render(hbs`<SelectBox::Input />`);
@@ -71,7 +71,7 @@ module('select-box/input', function(hooks) {
       );
   });
 
-  test('inputting', async function(assert) {
+  test('inputting', async function (assert) {
     assert.expect(2);
 
     this.set('inputText', (value, sb) => {
@@ -93,10 +93,10 @@ module('select-box/input', function(hooks) {
     await fillIn('.select-box__input', 'foo');
   });
 
-  test('onClear action', async function(assert) {
+  test('onClear action', async function (assert) {
     assert.expect(1);
 
-    this.set('cleared', sb => {
+    this.set('cleared', (sb) => {
       assert.ok(
         typeof sb === 'object',
         'clearing the input value sends an action with the select box api'
@@ -112,12 +112,12 @@ module('select-box/input', function(hooks) {
     await fillIn('.select-box__input', '');
   });
 
-  test('onDelete action', async function(assert) {
+  test('onDelete action', async function (assert) {
     assert.expect(2);
 
     let count = 0;
 
-    this.set('deleted', sb => {
+    this.set('deleted', (sb) => {
       count++;
 
       assert.ok(
@@ -149,7 +149,7 @@ module('select-box/input', function(hooks) {
     );
   });
 
-  test('input actions when no input', async function(assert) {
+  test('input actions when no input', async function (assert) {
     assert.expect(0);
 
     this.set('select', (value, sb) => {

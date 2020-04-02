@@ -24,10 +24,10 @@ const template = hbs`
   </SelectBox>
 `;
 
-module('backtracking focus use-case', function(hooks) {
+module('backtracking focus use-case', function (hooks) {
   setupApplicationTest(hooks);
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     this.owner.register('template:components/backtrack-select', template);
     this.owner.register('template:backtrack-select', routeTemplate);
   });
@@ -35,7 +35,7 @@ module('backtracking focus use-case', function(hooks) {
   // Try scenario in a Twiddle:
   // https://ember-twiddle.com/2f066b448da4242c29e241a5203d8840
 
-  test('backtracking focus error', async function(assert) {
+  test('backtracking focus error', async function (assert) {
     assert.expect(5);
 
     await visit('/backtrack-select');

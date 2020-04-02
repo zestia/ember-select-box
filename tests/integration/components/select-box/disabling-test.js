@@ -3,10 +3,10 @@ import { setupRenderingTest } from 'ember-qunit';
 import { find, render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('select-box (disabling)', function(hooks) {
+module('select-box (disabling)', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('disabling and enabling', async function(assert) {
+  test('disabling and enabling', async function (assert) {
     assert.expect(4);
 
     await render(hbs`<SelectBox />`);
@@ -47,7 +47,7 @@ module('select-box (disabling)', function(hooks) {
     );
   });
 
-  test('aria disabled', async function(assert) {
+  test('aria disabled', async function (assert) {
     assert.expect(2);
 
     this.set('disabled', true);
@@ -73,7 +73,7 @@ module('select-box (disabling)', function(hooks) {
       );
   });
 
-  test('disabled class name', async function(assert) {
+  test('disabled class name', async function (assert) {
     assert.expect(1);
 
     await render(hbs`<SelectBox @disabled="foo" />`);

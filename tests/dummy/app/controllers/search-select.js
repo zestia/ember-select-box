@@ -22,10 +22,10 @@ export default class SearchSelectController extends Controller {
   @action
   findBread(query) {
     const bread = breads.filter(
-      bread => bread.name.toLowerCase().indexOf(query.toLowerCase()) >= 0
+      (bread) => bread.name.toLowerCase().indexOf(query.toLowerCase()) >= 0
     );
 
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       later(() => {
         resolve(bread);
       }, 1000);

@@ -6,7 +6,7 @@ export function filterComponentsByTextContent(components, query) {
 
   const pattern = new RegExp(`^${query}`, 'i');
 
-  return components.filter(option =>
+  return components.filter((option) =>
     pattern.test(collapseWhitespace(option.element.textContent))
   );
 }

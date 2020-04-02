@@ -26,7 +26,7 @@ export default class TagSelect extends Component {
 
   @action
   search(query) {
-    return this.args.onSearch(query).then(tags => {
+    return this.args.onSearch(query).then((tags) => {
       this.availableTags = tags;
       this.newTag = query;
     });

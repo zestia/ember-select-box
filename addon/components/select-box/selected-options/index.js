@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import {
   _destroyComponent,
-  _insertComponent
+  _insertComponent,
 } from '../../../utils/component/lifecycle';
 import { buildClassName } from '../../../utils/shared/class-name';
 import { action } from '@ember/object';

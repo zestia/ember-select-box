@@ -3,16 +3,16 @@ import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { render, triggerKeyEvent } from '@ember/test-helpers';
 
-module('select-box (keyboard actions)', function(hooks) {
+module('select-box (keyboard actions)', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('keyboard actions', async function(assert) {
+  test('keyboard actions', async function (assert) {
     assert.expect(3);
 
     const called = [];
     let pressedKey = 0;
 
-    this.set('ranAction', name => called.push(name));
+    this.set('ranAction', (name) => called.push(name));
     this.set('pressedKey', () => pressedKey++);
 
     await render(hbs`<SelectBox

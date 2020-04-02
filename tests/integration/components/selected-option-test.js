@@ -3,10 +3,10 @@ import { setupRenderingTest } from 'ember-qunit';
 import { find, findAll, render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('select-box/selected-option', function(hooks) {
+module('select-box/selected-option', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
+  test('it renders', async function (assert) {
     assert.expect(1);
 
     await render(hbs`<SelectBox::SelectedOption />`);
@@ -16,7 +16,7 @@ module('select-box/selected-option', function(hooks) {
       .exists({ count: 1 }, 'renders with correct class name and tag');
   });
 
-  test('data component attribute', async function(assert) {
+  test('data component attribute', async function (assert) {
     assert.expect(1);
 
     await render(hbs`<SelectBox::SelectedOption />`);
@@ -26,7 +26,7 @@ module('select-box/selected-option', function(hooks) {
       .exists({ count: 1 }, 'has a data attribute signifying its type');
   });
 
-  test('aria role', async function(assert) {
+  test('aria role', async function (assert) {
     assert.expect(1);
 
     await render(hbs`<SelectBox::SelectedOption />`);
@@ -36,7 +36,7 @@ module('select-box/selected-option', function(hooks) {
       .hasAttribute('role', 'option', 'defined as an option');
   });
 
-  test('id', async function(assert) {
+  test('id', async function (assert) {
     assert.expect(1);
 
     await render(hbs`<SelectBox::SelectedOption />`);
@@ -49,12 +49,12 @@ module('select-box/selected-option', function(hooks) {
     );
   });
 
-  test('yield', async function(assert) {
+  test('yield', async function (assert) {
     assert.expect(1);
 
     this.set('selectedItems', [
       { myValue: 'foo', myLabel: 'Foo' },
-      { myValue: 'bar', myLabel: 'Bar' }
+      { myValue: 'bar', myLabel: 'Bar' },
     ]);
 
     await render(hbs`

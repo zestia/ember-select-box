@@ -10,7 +10,7 @@ export const pies = [
   { id: 9, name: 'Pork pie' },
   { id: 10, name: 'Rabbit pie' },
   { id: 11, name: "Shepherd's pie" },
-  { id: 12, name: 'Steak & ale pie' }
+  { id: 12, name: 'Steak & ale pie' },
 ];
 
 export const pastries = [
@@ -25,7 +25,7 @@ export const pastries = [
   { id: 9, name: 'Eccles cake' },
   { id: 10, name: 'Mille-feuille' },
   { id: 11, name: 'Pain au chocolat' },
-  { id: 12, name: 'Pain aux raisins' }
+  { id: 12, name: 'Pain aux raisins' },
 ];
 
 export const biscuits = [
@@ -40,7 +40,7 @@ export const biscuits = [
   { id: 9, name: 'Malted milk (biscuit)' },
   { id: 10, name: 'Nice biscuit' },
   { id: 11, name: 'Rich tea' },
-  { id: 12, name: 'Shortbread' }
+  { id: 12, name: 'Shortbread' },
 ];
 
 export const cakes = [
@@ -55,7 +55,7 @@ export const cakes = [
   { id: 9, name: 'Madeira cake' },
   { id: 10, name: 'Marble cake' },
   { id: 11, name: 'Lemon cake' },
-  { id: 11, name: 'Upside-down cake' }
+  { id: 11, name: 'Upside-down cake' },
 ];
 
 export const breads = [
@@ -70,7 +70,7 @@ export const breads = [
   { id: 9, name: 'Naan' },
   { id: 10, name: 'Pancake' },
   { id: 11, name: 'Panettone' },
-  { id: 12, name: 'Pretzel' }
+  { id: 12, name: 'Pretzel' },
 ];
 
 export const bloomer = { id: 13, name: 'Bloomer' };
@@ -88,13 +88,13 @@ export const puddings = [
   { id: 9, name: 'Spotted dick' },
   { id: 10, name: 'Sticky toffee pudding' },
   { id: 11, name: 'Treacle sponge pudding' },
-  { id: 12, name: 'Trifle' }
+  { id: 12, name: 'Trifle' },
 ];
 
 export const tags = [
   { id: 1, name: 'foo' },
   { id: 2, name: 'bar' },
-  { id: 3, name: 'baz' }
+  { id: 3, name: 'baz' },
 ];
 
 export const colours = [
@@ -113,5 +113,5 @@ export const colours = [
   'blue',
   'navy',
   'fuchsia',
-  'purple'
+  'purple',
 ];

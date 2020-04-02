@@ -15,7 +15,7 @@ export default class FastNativeSingleSelectController extends Controller {
     for (let i = 0; i < 500; i++) {
       this.models.push({
         id: `${i}`,
-        name: `Model ${i}`
+        name: `Model ${i}`,
       });
     }
 
@@ -23,14 +23,14 @@ export default class FastNativeSingleSelectController extends Controller {
   }
 
   get options() {
-    return this.models.map(model => ({
+    return this.models.map((model) => ({
       model,
-      selected: model.id === this.selectedModelId
+      selected: model.id === this.selectedModelId,
     }));
   }
 
   get selectedModel() {
-    return this.models.find(model => model.id === this.selectedModelId);
+    return this.models.find((model) => model.id === this.selectedModelId);
   }
 
   @action

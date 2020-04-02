@@ -3,17 +3,17 @@ import { setupRenderingTest } from 'ember-qunit';
 import { find, render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('select-box (toggling)', function(hooks) {
+module('select-box (toggling)', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('toggling', async function(assert) {
+  test('toggling', async function (assert) {
     assert.expect(13);
 
     let api;
     let opened = 0;
     let closed = 0;
 
-    this.ready = sb => (api = sb);
+    this.ready = (sb) => (api = sb);
     this.opened = () => opened++;
     this.closed = () => closed++;
 

@@ -1,11 +1,11 @@
 import Component from '@glimmer/component';
 import {
   _destroyComponent,
-  _insertComponent
+  _insertComponent,
 } from '../../../utils/component/lifecycle';
 import {
   deregisterElement,
-  registerElement
+  registerElement,
 } from '../../../utils/registration/element';
 import { receiveValue } from '../../../utils/component/value';
 import buildAPI from '../../../utils/shared/api';
@@ -34,7 +34,7 @@ export default class SelectBoxSelectedOption extends Component {
       'isFulfilled',
       'isPending',
       'isSettled',
-      'value'
+      'value',
     ]);
   }
 

@@ -3,10 +3,10 @@ import { setupRenderingTest } from 'ember-qunit';
 import { blur, focus, render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('select-box (focusing)', function(hooks) {
+module('select-box (focusing)', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('focus class name', async function(assert) {
+  test('focus class name', async function (assert) {
     assert.expect(3);
 
     await render(hbs`<SelectBox />`);
@@ -34,7 +34,7 @@ module('select-box (focusing)', function(hooks) {
       );
   });
 
-  test('focus actions', async function(assert) {
+  test('focus actions', async function (assert) {
     assert.expect(2);
 
     let sentFocusIn;
@@ -60,7 +60,7 @@ module('select-box (focusing)', function(hooks) {
     assert.ok(sentFocusOut, true, 'sends a focus out action');
   });
 
-  test('disabled tabindex', async function(assert) {
+  test('disabled tabindex', async function (assert) {
     assert.expect(3);
 
     await render(hbs`<SelectBox @disabled={{this.disabled}} />`);
@@ -82,7 +82,7 @@ module('select-box (focusing)', function(hooks) {
       .hasAttribute('tabindex', '0', 're-enabling, re-enables focusability');
   });
 
-  test('tabindex', async function(assert) {
+  test('tabindex', async function (assert) {
     assert.expect(1);
 
     await render(hbs`

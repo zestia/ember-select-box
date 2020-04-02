@@ -11,17 +11,17 @@ import {
   render,
   triggerEvent,
   triggerKeyEvent,
-  waitUntil
+  waitUntil,
 } from '@ember/test-helpers';
 
-module('select-box (activating options)', function(hooks) {
+module('select-box (activating options)', function (hooks) {
   setupRenderingTest(hooks);
 
   function waitForReset() {
-    return waitUntil(() => new Promise(resolve => later(resolve, 1000)));
+    return waitUntil(() => new Promise((resolve) => later(resolve, 1000)));
   }
 
-  test('mouseenter activates options', async function(assert) {
+  test('mouseenter activates options', async function (assert) {
     assert.expect(6);
 
     await render(hbs`
@@ -78,7 +78,7 @@ module('select-box (activating options)', function(hooks) {
     );
   });
 
-  test('activating by index via the api', async function(assert) {
+  test('activating by index via the api', async function (assert) {
     assert.expect(2);
 
     this.set('activated', (value, sb) => {
@@ -101,7 +101,7 @@ module('select-box (activating options)', function(hooks) {
     await click('button');
   });
 
-  test('activating by value via the api', async function(assert) {
+  test('activating by value via the api', async function (assert) {
     assert.expect(4);
 
     let activated = 0;
@@ -141,7 +141,7 @@ module('select-box (activating options)', function(hooks) {
       .exists({ count: 1 }, 'only one matching option is activated');
   });
 
-  test('activation boundaries', async function(assert) {
+  test('activation boundaries', async function (assert) {
     assert.expect(8);
 
     this.set('navigateDown', (e, sb) => {
@@ -206,7 +206,7 @@ module('select-box (activating options)', function(hooks) {
       );
   });
 
-  test('cycling through options', async function(assert) {
+  test('cycling through options', async function (assert) {
     assert.expect(9);
 
     this.set('autoActivate', (e, sb) => {
@@ -260,7 +260,7 @@ module('select-box (activating options)', function(hooks) {
     assert.dom('.select-box__option--active').hasText('A 3');
   });
 
-  test('cycling through options (duplicate chars)', async function(assert) {
+  test('cycling through options (duplicate chars)', async function (assert) {
     assert.expect(3);
 
     this.set('autoActivate', (e, sb) => {
@@ -288,7 +288,7 @@ module('select-box (activating options)', function(hooks) {
     assert.dom('.select-box__option--active').hasText('A 3');
   });
 
-  test('jumping to an option (reset timer)', async function(assert) {
+  test('jumping to an option (reset timer)', async function (assert) {
     assert.expect(4);
 
     this.set('autoActivate', (e, sb) => {
@@ -322,7 +322,7 @@ module('select-box (activating options)', function(hooks) {
     assert.dom('.select-box__option--active').hasText('Foo');
   });
 
-  test('jumping to an option (numeric)', async function(assert) {
+  test('jumping to an option (numeric)', async function (assert) {
     assert.expect(1);
 
     this.set('autoActivate', (e, sb) => {
@@ -348,7 +348,7 @@ module('select-box (activating options)', function(hooks) {
     assert.dom('.select-box__option--active').hasText('1983');
   });
 
-  test('jumping to an option (dodgy chars)', async function(assert) {
+  test('jumping to an option (dodgy chars)', async function (assert) {
     assert.expect(1);
 
     this.set('autoActivate', (e, sb) => {
@@ -378,7 +378,7 @@ module('select-box (activating options)', function(hooks) {
       );
   });
 
-  test('jumping to an option (same-char regression)', async function(assert) {
+  test('jumping to an option (same-char regression)', async function (assert) {
     assert.expect(1);
 
     this.set('autoActivate', (e, sb) => {
@@ -408,7 +408,7 @@ module('select-box (activating options)', function(hooks) {
       );
   });
 
-  test('jumping to an option (collapsing whitespace)', async function(assert) {
+  test('jumping to an option (collapsing whitespace)', async function (assert) {
     assert.expect(1);
 
     this.set('autoActivate', (e, sb) => {
@@ -434,7 +434,7 @@ module('select-box (activating options)', function(hooks) {
       .hasText('bar baz', 'jumps to the matching option');
   });
 
-  test('active option element id infinite rendering', async function(assert) {
+  test('active option element id infinite rendering', async function (assert) {
     assert.expect(0);
 
     const item1 = { name: 'item 1' };
@@ -444,7 +444,7 @@ module('select-box (activating options)', function(hooks) {
     this.set('items', emberA([item1, item2, item3]));
     // this.set('value', item2);
 
-    this.remove = item => this.items.removeObject(item);
+    this.remove = (item) => this.items.removeObject(item);
 
     await render(hbs`
       <SelectBox as |sb|>
@@ -461,10 +461,10 @@ module('select-box (activating options)', function(hooks) {
     await triggerEvent('.select-box__option:nth-child(2)', 'mouseenter');
   });
 
-  test('activating - nothing to activate', async function(assert) {
+  test('activating - nothing to activate', async function (assert) {
     assert.expect(0);
 
-    this.set('ready', sb => {
+    this.set('ready', (sb) => {
       sb.activateNextOption();
     });
 

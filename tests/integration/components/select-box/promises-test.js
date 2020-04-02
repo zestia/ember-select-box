@@ -4,10 +4,10 @@ import { click, findAll, render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { defer } from 'rsvp';
 
-module('select-box (promises)', function(hooks) {
+module('select-box (promises)', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('promise value (states)', async function(assert) {
+  test('promise value (states)', async function (assert) {
     assert.expect(4);
 
     const deferred1 = defer();
@@ -61,7 +61,7 @@ module('select-box (promises)', function(hooks) {
     `);
   });
 
-  test('promise value (aria busy)', async function(assert) {
+  test('promise value (aria busy)', async function (assert) {
     assert.expect(2);
 
     const deferred = defer();
@@ -91,7 +91,7 @@ module('select-box (promises)', function(hooks) {
       );
   });
 
-  test('promise value (single)', async function(assert) {
+  test('promise value (single)', async function (assert) {
     assert.expect(6);
 
     const deferred1 = defer();
@@ -153,7 +153,7 @@ module('select-box (promises)', function(hooks) {
       .hasClass('select-box__option--selected', 'resolved value is selected');
   });
 
-  test('promise value (multiple)', async function(assert) {
+  test('promise value (multiple)', async function (assert) {
     assert.expect(1);
 
     const deferred1 = defer();
@@ -178,14 +178,14 @@ module('select-box (promises)', function(hooks) {
 
     await settled();
 
-    const labels = findAll('.select-box__option--selected').map(o =>
+    const labels = findAll('.select-box__option--selected').map((o) =>
       o.textContent.trim()
     );
 
     assert.deepEqual(labels, [], 'does not resolve the promises');
   });
 
-  test('promise value (failure)', async function(assert) {
+  test('promise value (failure)', async function (assert) {
     assert.expect(1);
 
     const deferred = defer();
@@ -209,7 +209,7 @@ module('select-box (promises)', function(hooks) {
       .doesNotExist('does nothing with the value');
   });
 
-  test('promise option value', async function(assert) {
+  test('promise option value', async function (assert) {
     assert.expect(2);
 
     const deferred1 = defer();
@@ -253,7 +253,7 @@ module('select-box (promises)', function(hooks) {
       .hasText('baz', 're-computation works');
   });
 
-  test('promise value order', async function(assert) {
+  test('promise value order', async function (assert) {
     assert.expect(1);
 
     await render(hbs`
@@ -280,7 +280,7 @@ module('select-box (promises)', function(hooks) {
       .hasText('Bar', 'earlier promises are ignored');
   });
 
-  test('promise option value order', async function(assert) {
+  test('promise option value order', async function (assert) {
     assert.expect(1);
 
     await render(hbs`
@@ -307,7 +307,7 @@ module('select-box (promises)', function(hooks) {
       .hasText('bar', 'earlier promises are ignored');
   });
 
-  test('promise option value (failure)', async function(assert) {
+  test('promise option value (failure)', async function (assert) {
     assert.expect(1);
 
     const deferred = defer();
@@ -331,7 +331,7 @@ module('select-box (promises)', function(hooks) {
       .hasText('Soz', 'the value is the rejection reason');
   });
 
-  test('weird failure', async function(assert) {
+  test('weird failure', async function (assert) {
     assert.expect(2);
 
     const deferred = defer();
@@ -340,7 +340,7 @@ module('select-box (promises)', function(hooks) {
       deferred.promise.then(() => this.set('showSelect', true));
     });
 
-    this.set('setValue', value => this.set('selectedValue', value));
+    this.set('setValue', (value) => this.set('selectedValue', value));
 
     await render(hbs`
       {{#if this.showSelect}}

@@ -1,11 +1,11 @@
 import Component from '@glimmer/component';
 import {
   _destroyComponent,
-  _insertComponent
+  _insertComponent,
 } from '../../../utils/component/lifecycle';
 import {
   deregisterElement,
-  registerElement
+  registerElement,
 } from '../../../utils/registration/element';
 import buildAPI from '../../../utils/shared/api';
 import { receiveValue } from '../../../utils/component/value';
@@ -36,7 +36,7 @@ export default class NativeSelectBoxOption extends Component {
       'isRejected',
       'isSelected',
       'isSettled',
-      'value'
+      'value',
     ]);
   }
 

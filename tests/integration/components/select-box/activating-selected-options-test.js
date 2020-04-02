@@ -3,10 +3,10 @@ import { setupRenderingTest } from 'ember-qunit';
 import { click, find, findAll, render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('select-box (activating selected options)', function(hooks) {
+module('select-box (activating selected options)', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('activating selected options', async function(assert) {
+  test('activating selected options', async function (assert) {
     assert.expect(3);
 
     await render(hbs`
@@ -50,7 +50,7 @@ module('select-box (activating selected options)', function(hooks) {
       );
   });
 
-  test('activating selected option via the api', async function(assert) {
+  test('activating selected option via the api', async function (assert) {
     assert.expect(2);
 
     this.set('activated', (value, sb) => {

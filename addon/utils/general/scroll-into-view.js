@@ -26,7 +26,7 @@ function getOffset(element) {
 
   return {
     top: rect.top + win.pageYOffset,
-    left: rect.left + win.pageXOffset
+    left: rect.left + win.pageXOffset,
   };
 }
 

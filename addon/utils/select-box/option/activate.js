@@ -42,19 +42,19 @@ export function activateOptionAtIndex(selectBox, index, config) {
 export function activateNextOption(selectBox, config) {
   activateOptionAtIndex(selectBox, selectBox.activeOptionIndex + 1, {
     scrollIntoView: true,
-    ...config
+    ...config,
   });
 }
 
 export function activatePreviousOption(selectBox, config) {
   activateOptionAtIndex(selectBox, selectBox.activeOptionIndex - 1, {
     scrollIntoView: true,
-    ...config
+    ...config,
   });
 }
 
 export function activateOptionForValue(selectBox, value, config) {
-  const option = selectBox.options.find(option => option.value === value);
+  const option = selectBox.options.find((option) => option.value === value);
 
   if (!option) {
     return;
@@ -62,7 +62,7 @@ export function activateOptionForValue(selectBox, value, config) {
 
   activateOption(selectBox, option, {
     scrollIntoView: true,
-    ...config
+    ...config,
   });
 }
 
@@ -81,7 +81,7 @@ export function activateOptionForKeyCode(selectBox, keyCode, config) {
 
   activateOption(selectBox, option, {
     scrollIntoView: true,
-    ...config
+    ...config,
   });
 }
 
