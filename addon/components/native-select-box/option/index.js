@@ -30,7 +30,6 @@ export default class NativeSelectBoxOption extends Component {
     return buildAPI(this, [
       'element',
       'index',
-      'isDisabled',
       'isFulfilled',
       'isPending',
       'isRejected',

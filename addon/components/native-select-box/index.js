@@ -43,7 +43,6 @@ export default class NativeSelectBox extends Component {
   get api() {
     return buildAPI(this, [
       'element',
-      'isDisabled',
       'isFulfilled',
       'isMultiple',
       'isPending',
