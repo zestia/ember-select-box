@@ -6,15 +6,19 @@
 
 2. After render, the array of options is sorted to match the order of the elements in the DOM. This sorting is important, because as an addon, we [cannot know](https://ember-twiddle.com/ddae8f58d5175e64577e79d720013cf2) what order the options are in until rendering has finished.
 
-3. Each option component computes whether or not it is **selected** by comparing its value to the value of its select box.
+3. The value given to the select box component is resolved.
 
-4. Each option component computes whether or not it is **active** by comparing its index, to the active index of the select box.
+4. The values given to the option components are resolved.
 
-This simple pattern means that the options themselves are the _components_ and _not_ the _values_. This is because it is perfectly valid to have more than one option with the same value.
+5. Each option component computes whether or not it is **selected** by comparing its value to the value of its select box.
+
+6. Each option component computes whether or not it is **active** by comparing its index, to the active index of the select box.
+
+This simple pattern means that the options themselves are the _components_ and _not_ the _values_. This is a crucial difference between this addon and others like it (e.g. Ember Power Select).
 
 ## Selecting
 
-When Enter is pressed, or an option is clicked - it will be selected. All that this does, is set the value of that option as a property on the select box. (See point 3 above)
+When Enter is pressed, or an option is clicked - it will be selected. All that this does, is set the value of that option component as a property on the select box. (See point 3 above) Thereby causing re-computation of what is selected.
 
 ## Form behaviour
 
