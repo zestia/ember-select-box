@@ -347,7 +347,7 @@ module('select-box (selecting)', function (hooks) {
 
     await render(hbs`
       <form>
-        <SelectBox |sb|>
+        <SelectBox as |sb|>
           <sb.Option @value="foo" />
         </SelectBox>
       </form>
@@ -430,7 +430,7 @@ module('select-box (selecting)', function (hooks) {
         assert.strictEqual(
           e.defaultPrevented,
           false,
-          'pressing enter is no default prevented, the link will be navigated to'
+          'pressing enter is not default prevented, the link will be navigated to'
         );
       });
     };
