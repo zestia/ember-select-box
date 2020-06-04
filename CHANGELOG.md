@@ -1,5 +1,10 @@
 # Changelog
 
+## 14.0.1
+
+- Remove custom scroll into view code, in favour of browsers' own version
+- Run prettier
+
 ## 14.0.0
 
 - Release changes from 14.0.0-beta

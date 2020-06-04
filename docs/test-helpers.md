@@ -16,7 +16,7 @@ Here is an example of selecting some options, and asserting that they have been 
 import {
   getNativeMultipleSelectBoxValue,
   selectNativeOptionsByValue,
-  selectNativeOptionsByLabel,
+  selectNativeOptionsByLabel
 } from '@zestia/ember-select-box/test-support/helpers/selecting';
 
 test('selecting things', async function (assert) {
@@ -35,7 +35,7 @@ test('selecting things', async function (assert) {
 
   assert.deepEqual(getNativeMultipleSelectBoxValue('.select-box'), [
     'One',
-    'Two',
+    'Two'
   ]);
 });
 ```

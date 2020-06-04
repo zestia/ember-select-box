@@ -21,6 +21,6 @@ export default function (name, options = {}) {
       return Promise.resolve(afterEach).then(() =>
         destroyApp(this.application)
       );
-    },
+    }
   });
 }

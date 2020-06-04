@@ -34,7 +34,7 @@ export default class TagSelectController extends Controller {
     if (!tag) {
       tag = {
         id: this.selectedTags.length + 1,
-        name,
+        name
       };
     }
 

@@ -48,7 +48,7 @@ export function activateNextSelectedOption(selectBox, config) {
     selectBox.activeSelectedOptionIndex + 1,
     {
       scrollIntoView: false,
-      ...config,
+      ...config
     }
   );
 }
@@ -59,7 +59,7 @@ export function activatePreviousSelectedOption(selectBox, config) {
     selectBox.activeSelectedOptionIndex - 1,
     {
       scrollIntoView: false,
-      ...config,
+      ...config
     }
   );
 }

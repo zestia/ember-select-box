@@ -131,7 +131,7 @@ module('select-box (clicking outside)', function (hooks) {
         'handle close',
         'handle click outside',
         'handle external click',
-        'handle open',
+        'handle open'
       ],
       'select box will be closed, because something outside of it was ' +
         'clicked. then, it will be opened. This ordering is important!'

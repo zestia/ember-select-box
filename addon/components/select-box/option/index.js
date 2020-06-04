@@ -2,12 +2,12 @@ import Component from '@glimmer/component';
 import { _activateOption } from '../../../utils/select-box/option/activate';
 import {
   _destroyComponent,
-  _insertComponent,
+  _insertComponent
 } from '../../../utils/component/lifecycle';
 import { _selectOption } from '../../../utils/select-box/option/select';
 import {
   deregisterElement,
-  registerElement,
+  registerElement
 } from '../../../utils/registration/element';
 import { receiveValue } from '../../../utils/component/value';
 import isSelected from '../../../utils/shared/selected';
@@ -40,7 +40,7 @@ export default class SelectBoxOption extends Component {
       'isRejected',
       'isSelected',
       'isSettled',
-      'value',
+      'value'
     ]);
   }
 

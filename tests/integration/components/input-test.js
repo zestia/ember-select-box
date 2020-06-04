@@ -5,7 +5,7 @@ import {
   fillIn,
   find,
   render,
-  triggerKeyEvent,
+  triggerKeyEvent
 } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 

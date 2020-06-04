@@ -47,8 +47,8 @@ module('select-box (ember data)', function (hooks) {
         id: i,
         type: 'foo',
         attributes: {
-          name: `Foo ${i}`,
-        },
+          name: `Foo ${i}`
+        }
       });
     }
 

@@ -7,7 +7,7 @@ import {
   fillIn,
   settled,
   triggerEvent,
-  triggerKeyEvent,
+  triggerKeyEvent
 } from '@ember/test-helpers';
 import { defer } from 'rsvp';
 import { later } from '@ember/runloop';

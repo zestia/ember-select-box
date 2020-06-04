@@ -1,11 +1,11 @@
 import Component from '@glimmer/component';
 import {
   _destroyComponent,
-  _insertComponent,
+  _insertComponent
 } from '../../../utils/component/lifecycle';
 import {
   deregisterElement,
-  registerElement,
+  registerElement
 } from '../../../utils/registration/element';
 import { input, keyDown } from '../../../utils/select-box/input/keyboard';
 import { buildClassName } from '../../../utils/shared/class-name';

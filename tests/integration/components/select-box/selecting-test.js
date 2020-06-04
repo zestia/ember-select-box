@@ -11,7 +11,7 @@ import {
   render,
   settled,
   triggerEvent,
-  triggerKeyEvent,
+  triggerKeyEvent
 } from '@ember/test-helpers';
 const { isFrozen } = Object;
 

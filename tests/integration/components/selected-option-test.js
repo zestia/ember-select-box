@@ -54,7 +54,7 @@ module('select-box/selected-option', function (hooks) {
 
     this.set('selectedItems', [
       { myValue: 'foo', myLabel: 'Foo' },
-      { myValue: 'bar', myLabel: 'Bar' },
+      { myValue: 'bar', myLabel: 'Bar' }
     ]);
 
     await render(hbs`

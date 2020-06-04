@@ -11,7 +11,7 @@ import {
   render,
   triggerEvent,
   triggerKeyEvent,
-  waitUntil,
+  waitUntil
 } from '@ember/test-helpers';
 
 module('select-box (activating options)', function (hooks) {

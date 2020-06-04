@@ -1,5 +1,4 @@
 import { scheduleOnce } from '@ember/runloop';
-import scrollIntoView from '../general/scroll-into-view';
 
 export function maybeScrollIntoView(component, config) {
   scheduleOnce(
@@ -12,7 +11,11 @@ export function maybeScrollIntoView(component, config) {
 }
 
 function _maybeScrollIntoView(component, config = {}) {
-  if (config.scrollIntoView) {
-    scrollIntoView(component.element);
+  if (!config.scrollIntoView) {
+    return;
   }
+
+  component.element.scrollIntoView({
+    block: 'nearest'
+  });
 }

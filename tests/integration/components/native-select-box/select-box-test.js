@@ -9,7 +9,7 @@ import { tracked } from '@glimmer/tracking';
 import {
   getNativeMultipleSelectBoxValue,
   selectNativeOptionsByLabel,
-  selectNativeOptionsByValue,
+  selectNativeOptionsByValue
 } from '@zestia/ember-select-box/test-support/helpers/selecting';
 
 module('native-select-box', function (hooks) {

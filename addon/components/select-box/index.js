@@ -2,7 +2,7 @@ import Component from '@glimmer/component';
 import { isPresent } from '@ember/utils';
 import {
   _selectOption,
-  selectOption,
+  selectOption
 } from '../../utils/select-box/option/select';
 import {
   activateNextOption,
@@ -10,47 +10,47 @@ import {
   activateOptionAtIndex,
   activateOptionForKeyCode,
   activateOptionForValue,
-  activatePreviousOption,
+  activatePreviousOption
 } from '../../utils/select-box/option/activate';
 import {
   activateNextSelectedOption,
   activatePreviousSelectedOption,
   activateSelectedOption,
-  activateSelectedOptionAtIndex,
+  activateSelectedOptionAtIndex
 } from '../../utils/select-box/selected-option/activate';
 import { blurInput, focusInput } from '../../utils/select-box/input/focus';
 import {
   cancelSearch,
   maybeSearch,
-  search,
+  search
 } from '../../utils/select-box/search';
 import { close, open, toggle } from '../../utils/select-box/toggle';
 import { deactivateOptions } from '../../utils/select-box/option/deactivate';
 import { deactivateSelectedOptions } from '../../utils/select-box/selected-option/deactivate';
 import {
   deregisterElement,
-  registerElement,
+  registerElement
 } from '../../utils/registration/element';
 import { deregisterInput, registerInput } from '../../utils/registration/input';
 import {
   deregisterOption,
-  registerOption,
+  registerOption
 } from '../../utils/registration/option';
 import {
   deregisterOptionsContainer,
-  registerOptionsContainer,
+  registerOptionsContainer
 } from '../../utils/registration/options';
 import {
   deregisterSelectedOption,
-  registerSelectedOption,
+  registerSelectedOption
 } from '../../utils/registration/selected-option';
 import {
   deregisterSelectedOptionsContainer,
-  registerSelectedOptionsContainer,
+  registerSelectedOptionsContainer
 } from '../../utils/registration/selected-options';
 import {
   addDocumentClickListener,
-  removeDocumentClickListener,
+  removeDocumentClickListener
 } from '../../utils/select-box/document';
 import { focusIn, focusOut } from '../../utils/select-box/focus';
 import { keyDown, keyPress, pressEnter } from '../../utils/select-box/keyboard';
@@ -60,7 +60,7 @@ import buildAPI from '../../utils/shared/api';
 import {
   receiveValue,
   selectValue,
-  updateValue,
+  updateValue
 } from '../../utils/shared/value';
 import buildID from '../../utils/shared/id';
 import buildClassName from '../../utils/select-box/class-name';
@@ -135,7 +135,7 @@ export default class SelectBox extends Component {
       'setInputValue',
       'toggle',
       'update',
-      'value',
+      'value'
     ]);
   }
 
