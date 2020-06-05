@@ -4,6 +4,7 @@
 
 - Remove custom scroll into view code, in favour of browsers' own version
 - Run prettier
+- Upgrade dependencies
 
 ## 14.0.0
 
