@@ -12,7 +12,7 @@
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
     "lint:css": "stylelint '**/*.{css,scss}'",
-    "prettier": "prettier '**/*.{js,json,css,scss,html,hbs,md}' --write",
+    "prettier": "prettier . --write",
     "start": "ember serve",
     "test": "npm-run-all lint:* test:ember",
     "test:ember": "ember test",
