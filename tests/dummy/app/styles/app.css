@@ -1,5 +1,6 @@
 /* stylelint-disable at-rule-blacklist */
 
+@import 'elements.css';
 @import 'single-select.css';
 @import 'simple-select.css';
 @import 'native-simple-select.css';
