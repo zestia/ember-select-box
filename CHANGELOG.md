@@ -1,5 +1,9 @@
 # Changelog
 
+## 14.0.3
+
+- Activating options no longer waits for render before attempting to scroll into view
+
 ## 14.0.2
 
 - Support setting type of input when used with component helper
