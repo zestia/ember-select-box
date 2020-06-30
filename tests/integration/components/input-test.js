@@ -32,7 +32,7 @@ module('select-box/input', function (hooks) {
       .exists({ count: 1 }, 'has a data attribute signifying its type');
   });
 
-  test('aria role', async function (assert) {
+  test('role', async function (assert) {
     assert.expect(1);
 
     await render(hbs`<SelectBox::Input />`);
@@ -42,7 +42,7 @@ module('select-box/input', function (hooks) {
       .hasAttribute(
         'role',
         'searchbox',
-        'a select box input has an appropriate aria role'
+        'a select box input has an appropriate role'
       );
   });
 
@@ -68,6 +68,23 @@ module('select-box/input', function (hooks) {
         'text',
         'select box inputs are not search boxes by default due to unwanted ' +
           'behaviour when you press escape'
+      );
+  });
+
+  test('type', async function (assert) {
+    assert.expect(1);
+
+    await render(hbs`
+      {{! template-lint-disable no-unnecessary-component-helper }}
+      {{component "select-box/input" type="search"}}
+    `);
+
+    assert
+      .dom('.select-box__input')
+      .hasAttribute(
+        'type',
+        'search',
+        'can set the type attribute (via an argument)'
       );
   });
 

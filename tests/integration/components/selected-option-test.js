@@ -26,7 +26,7 @@ module('select-box/selected-option', function (hooks) {
       .exists({ count: 1 }, 'has a data attribute signifying its type');
   });
 
-  test('aria role', async function (assert) {
+  test('role', async function (assert) {
     assert.expect(1);
 
     await render(hbs`<SelectBox::SelectedOption />`);
@@ -34,6 +34,23 @@ module('select-box/selected-option', function (hooks) {
     assert
       .dom('.select-box__selected-option')
       .hasAttribute('role', 'option', 'defined as an option');
+  });
+
+  test('role', async function (assert) {
+    assert.expect(1);
+
+    await render(hbs`
+      {{! template-lint-disable no-unnecessary-component-helper }}
+      {{component "select-box/selected-option" role="button"}}
+    `);
+
+    assert
+      .dom('.select-box__selected-option')
+      .hasAttribute(
+        'role',
+        'button',
+        'can set the role attribute (via an argument)'
+      );
   });
 
   test('id', async function (assert) {

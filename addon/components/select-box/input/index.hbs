@@ -4,8 +4,8 @@
   autocomplete="off"
   class={{this.className}}
   role="searchbox"
-  type="text"
   {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
+  type={{if @type @type "text"}}
   aria-controls={{@aria-controls}}
   disabled={{@disabled}}
   onclick={{@onclick}}

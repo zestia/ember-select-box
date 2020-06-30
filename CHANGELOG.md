@@ -1,5 +1,10 @@
 # Changelog
 
+## 14.0.2
+
+- Support setting type of input when used with component helper
+- Support setting role of selected option when used with component helper
+
 ## 14.0.1
 
 - Remove custom scroll into view code, in favour of browsers' own version

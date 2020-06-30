@@ -46,7 +46,7 @@ module('select-box (searching)', function (hooks) {
       .hasAttribute(
         'role',
         'combobox',
-        'a select box with an input has an appropriate aria role'
+        'a select box with an input has an appropriate role'
       );
 
     assert
