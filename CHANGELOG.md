@@ -3,6 +3,7 @@
 ## 14.0.3
 
 - Activating options no longer waits for render before attempting to scroll into view
+  (this responsibility is shifted to the user of the addon)
 
 ## 14.0.2
 
