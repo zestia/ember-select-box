@@ -1,5 +1,9 @@
 # Changelog
 
+## 14.0.4
+
+- Upgrade dependencies
+
 ## 14.0.3
 
 - Activating options no longer waits for render before attempting to scroll into view
