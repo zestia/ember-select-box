@@ -1,11 +1,8 @@
 # Changelog
 
-## 14.0.4
-
-- Upgrade dependencies
-
 ## 14.0.3
 
+- Upgrade dependencies
 - Activating options no longer waits for render before attempting to scroll into view
   (this responsibility is shifted to the user of the addon)
 
