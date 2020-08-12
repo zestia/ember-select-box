@@ -1,5 +1,9 @@
 # Changelog
 
+## 14.0.4
+
+- Upgrade dependencies
+
 ## 14.0.3
 
 - Upgrade dependencies
