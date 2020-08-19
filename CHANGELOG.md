@@ -1,6 +1,6 @@
 # Changelog
 
-## 15.0.0
+## 15.0.0-beta.0
 
 - Remove `onFocusIn` and `onFocusOut` events, these don't provide anything different that what can be acheived by using `{{on "focusin"}}` and `{{on "focusout"}}`.
 - Add `onFocusLeave` which fires when focus leaves the select box. This is useful for closing the select box when tabbing away.
