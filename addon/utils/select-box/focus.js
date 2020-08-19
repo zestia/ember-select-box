@@ -10,8 +10,6 @@ export function focusIn(selectBox, e) {
 
 export function focusOut(selectBox, e) {
   try {
-    selectBox.isFocused = false;
-
     focusedOut(selectBox, e);
   } catch (error) {
     // https://github.com/emberjs/ember.js/issues/18043
@@ -23,7 +21,11 @@ function focusedOut(selectBox, e) {
     selectBox.element.contains(e.relatedTarget) ||
     selectBox.element.contains(document.activeElement);
 
-  if (!focusInside) {
-    invokeAction(selectBox, 'onFocusLeave', e, selectBox.api);
+  if (focusInside) {
+    return;
   }
+
+  selectBox.isFocused = false;
+
+  invokeAction(selectBox, 'onFocusLeave', e, selectBox.api);
 }
