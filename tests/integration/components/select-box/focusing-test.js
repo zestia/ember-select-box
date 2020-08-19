@@ -38,8 +38,8 @@ module('select-box (focusing)', function (hooks) {
       );
   });
 
-  test('on focus leave action', async function (assert) {
-    assert.expect(3);
+  test('onFocusLeave fires when focus has actually left the select box', async function (assert) {
+    assert.expect(5);
 
     this.handleFocusLeave = () => {
       assert.step('focus leave');
@@ -62,10 +62,15 @@ module('select-box (focusing)', function (hooks) {
 
     await triggerEvent('.select-box', 'focusout', { relatedTarget: elOut });
 
-    assert.verifySteps(
-      ['focus leave'],
-      'only fires focus leave action when focus has actually left the select box'
-    );
+    assert.verifySteps(['focus leave']);
+
+    assert.verifySteps([]);
+
+    await focus('.in');
+
+    await triggerEvent('.select-box', 'focusout');
+
+    assert.verifySteps([]);
   });
 
   test('disabled tabindex', async function (assert) {

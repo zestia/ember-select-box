@@ -19,9 +19,11 @@ export function focusOut(selectBox, e) {
 }
 
 function focusedOut(selectBox, e) {
-  const focusLeave = !selectBox.element.contains(e.relatedTarget);
+  const focusInside =
+    selectBox.element.contains(e.relatedTarget) ||
+    selectBox.element.contains(document.activeElement);
 
-  if (focusLeave) {
+  if (!focusInside) {
     invokeAction(selectBox, 'onFocusLeave', e, selectBox.api);
   }
 }
