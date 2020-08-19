@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { blur, focus, render } from '@ember/test-helpers';
+import { find, triggerEvent, blur, focus, render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('select-box (focusing)', function (hooks) {
@@ -9,13 +9,17 @@ module('select-box (focusing)', function (hooks) {
   test('focus class name', async function (assert) {
     assert.expect(3);
 
-    await render(hbs`<SelectBox />`);
+    await render(hbs`
+      <SelectBox>
+        <button type="button" class="in"></button>
+      </SelectBox>
+    `);
 
     assert
       .dom('.select-box')
       .doesNotHaveClass('select-box--focused', 'precondition, not focused');
 
-    await focus('.select-box');
+    await focus('.in');
 
     assert
       .dom('.select-box')
@@ -24,7 +28,7 @@ module('select-box (focusing)', function (hooks) {
         'a focused select box has an appropriate class name'
       );
 
-    await blur('.select-box');
+    await blur('.in');
 
     assert
       .dom('.select-box')
@@ -34,30 +38,34 @@ module('select-box (focusing)', function (hooks) {
       );
   });
 
-  test('focus actions', async function (assert) {
-    assert.expect(2);
+  test('on focus leave action', async function (assert) {
+    assert.expect(3);
 
-    let sentFocusIn;
-    let sentFocusOut;
-
-    this.set('focused', () => (sentFocusIn = true));
-    this.set('blurred', () => (sentFocusOut = true));
+    this.handleFocusLeave = () => {
+      assert.step('focus leave');
+    };
 
     await render(hbs`
       <SelectBox
-        @onFocusIn={{this.focused}}
-        @onFocusOut={{this.blurred}} as |sb|>
-        <sb.Input />
+        @onFocusLeave={{this.handleFocusLeave}}>
+        <button type="button" class="in"></button>
       </SelectBox>
+      <button type="button" class="out"></button>
     `);
 
-    await focus('.select-box__input');
+    const elIn = find('.in');
+    const elOut = find('.out');
 
-    assert.ok(sentFocusIn, true, 'sends a focus in action');
+    await triggerEvent('.select-box', 'focusout', { relatedTarget: elIn });
 
-    await blur('.select-box__input', 'blur');
+    assert.verifySteps([]);
 
-    assert.ok(sentFocusOut, true, 'sends a focus out action');
+    await triggerEvent('.select-box', 'focusout', { relatedTarget: elOut });
+
+    assert.verifySteps(
+      ['focus leave'],
+      'only fires focus leave action when focus has actually left the select box'
+    );
   });
 
   test('disabled tabindex', async function (assert) {

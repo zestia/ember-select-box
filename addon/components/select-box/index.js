@@ -48,10 +48,6 @@ import {
   deregisterSelectedOptionsContainer,
   registerSelectedOptionsContainer
 } from '../../utils/registration/selected-options';
-import {
-  addDocumentClickListener,
-  removeDocumentClickListener
-} from '../../utils/select-box/document';
 import { focusIn, focusOut } from '../../utils/select-box/focus';
 import { keyDown, keyPress, pressEnter } from '../../utils/select-box/keyboard';
 import { receiveDisabled } from '../../utils/select-box/disabled';
@@ -72,7 +68,6 @@ import { A as emberA } from '@ember/array';
 
 export default class SelectBox extends Component {
   _api = {};
-  documentClickHandler = null;
   input = null;
   optionCharState = null;
   optionsContainer = null;
@@ -190,7 +185,6 @@ export default class SelectBox extends Component {
   @action
   handleInsertElement(element) {
     registerElement(this, element);
-    addDocumentClickListener(this);
     insertElement(this);
     ready(this);
   }
@@ -198,7 +192,6 @@ export default class SelectBox extends Component {
   @action
   handleDestroyElement() {
     deregisterElement(this);
-    removeDocumentClickListener(this);
   }
 
   @action

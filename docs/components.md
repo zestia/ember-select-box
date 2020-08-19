@@ -93,11 +93,7 @@
       </td>
     </tr>
     <tr>
-      <td>@onFocusIn</td>
-      <td>Fired when focus enters the select box</td>
-    </tr>
-    <tr>
-      <td>@onFocusOut</td>
+      <td>@onFocusLeave</td>
       <td>Fired when focus leaves the select box</td>
     </tr>
     <tr>
