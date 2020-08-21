@@ -510,11 +510,7 @@
     </tr>
     <tr>
       <td>@onDelete</td>
-      <td>Fired when there is no text present, but backspace is pressed</td>
-    </tr>
-    <tr>
-      <td>@onInput</td>
-      <td>Fired when text is input</td>
+      <td>Fired when there is no text present, but backspace is pressed.</td>
     </tr>
   </table>
 </details>

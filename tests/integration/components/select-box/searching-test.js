@@ -506,7 +506,7 @@ module('select-box (searching)', function (hooks) {
       <SelectBox as |sb|>
         {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
 
-        <sb.Input @value="foo" @onInput={{this.inputted}} />
+        <sb.Input @value="foo" {{on "input" this.inputted}} />
         <button type="button" {{on "click" (fn sb.setInputValue "bar")}}>Reset</button>
       </SelectBox>
     `);

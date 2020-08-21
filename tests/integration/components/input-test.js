@@ -88,28 +88,6 @@ module('select-box/input', function (hooks) {
       );
   });
 
-  test('inputting', async function (assert) {
-    assert.expect(2);
-
-    this.set('inputText', (value, sb) => {
-      assert.equal(
-        value,
-        'foo',
-        'inputting text sends an action with the value'
-      );
-
-      assert.ok(typeof sb === 'object', 'sends the api');
-    });
-
-    await render(hbs`
-      <SelectBox as |sb|>
-        <sb.Input @onInput={{this.inputText}} />
-      </SelectBox>
-    `);
-
-    await fillIn('.select-box__input', 'foo');
-  });
-
   test('onClear action', async function (assert) {
     assert.expect(1);
 
