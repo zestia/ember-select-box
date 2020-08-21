@@ -1,8 +1,12 @@
 # Changelog
 
-## 15.0.0-beta.1
+## 15.0.0-beta.2
 
 - Fix debounced searched attempts if `@searchDelayTime` is 0
+
+## 15.0.0-beta.1
+
+- Small internal refactor around focusing
 
 ## 15.0.0-beta.0
 
