@@ -1,5 +1,9 @@
 # Changelog
 
+## 15.0.0-beta.1
+
+- Fix debounced searched attempts if `@searchDelayTime` is 0
+
 ## 15.0.0-beta.0
 
 - Remove `onFocusIn` and `onFocusOut` actions, these don't provide anything different that what can be acheived by using `{{on "focusin"}}` and `{{on "focusout"}}`.

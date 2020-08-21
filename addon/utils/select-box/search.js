@@ -3,7 +3,13 @@ import { debounce } from '@ember/runloop';
 import { resolve } from 'rsvp';
 
 export function maybeSearch(selectBox, query) {
-  if (isSearchable(selectBox)) {
+  if (!isSearchable(selectBox)) {
+    return;
+  }
+
+  if (selectBox.searchDelayTime === 0) {
+    attemptSearch(selectBox, query);
+  } else {
     debouncedSearchAttempt(selectBox, query);
   }
 }
@@ -39,10 +45,7 @@ export function search(selectBox, query) {
 }
 
 function debouncedSearchAttempt(selectBox, query) {
-  const delay = selectBox.searchDelayTime;
-  const immediate = !delay;
-
-  debounce(attemptSearch, selectBox, query, delay, immediate);
+  debounce(attemptSearch, selectBox, query, selectBox.searchDelayTime);
 }
 
 function attemptSearch(selectBox, query) {
