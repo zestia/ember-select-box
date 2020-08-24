@@ -36,15 +36,16 @@ module('select-box (activating options)', function (hooks) {
     const two = findAll('.select-box__option')[1];
 
     assert
-      .dom('.select-box__option--active')
+      .dom('.select-box__option[aria-current="true"]')
       .doesNotExist('precondition, there are no active options');
 
     await triggerEvent(one, 'mouseenter');
 
     assert
       .dom(one)
-      .hasClass(
-        'select-box__option--active',
+      .hasAttribute(
+        'aria-current',
+        'true',
         'mousing over an option gives it an active class name'
       );
 

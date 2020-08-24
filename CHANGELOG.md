@@ -1,5 +1,10 @@
 # Changelog
 
+## 15.0.0-beta.3
+
+- Remove `data-` attributes, `@classNamePrefix` and `@onBuildClassName` in a bid to reduce API surface
+- Remove stateful BEM class names, like `select-box__option--selected` in favour of aria attributes
+
 ## 15.0.0-beta.2
 
 - Fix debounced searched attempts if `@searchDelayTime` is 0

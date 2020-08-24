@@ -18,16 +18,6 @@ module('select-box', function (hooks) {
       .exists({ count: 1 }, 'renders with correct class name and tag');
   });
 
-  test('data component attribute', async function (assert) {
-    assert.expect(1);
-
-    await render(hbs`<SelectBox />`);
-
-    assert
-      .dom('[data-component="select-box"]')
-      .exists({ count: 1 }, 'has a data attribute signifying its type');
-  });
-
   test('role', async function (assert) {
     assert.expect(1);
 
@@ -47,16 +37,11 @@ module('select-box', function (hooks) {
 
     await render(hbs`<SelectBox />`);
 
-    assert.ok(
-      !find('.select-box').classList.contains('select-box--multiple'),
-      'no multiple class'
-    );
+    assert.dom('.select-box').hasAttribute('aria-multiselectable', 'false');
 
     await render(hbs`<SelectBox @multiple={{true}} />`);
 
-    assert
-      .dom('.select-box')
-      .hasClass('select-box--multiple', 'has multiple class');
+    assert.dom('.select-box').hasAttribute('aria-multiselectable', 'true');
   });
 
   test('inserting', async function (assert) {
@@ -165,10 +150,9 @@ module('select-box', function (hooks) {
 
     await render(hbs`<SelectBox @onReady={{this.ready}} />`);
 
-    assert.ok(
-      !find('.select-box').classList.contains('select-box--open'),
-      'precondition, not open'
-    );
+    assert
+      .dom('.select-box')
+      .hasAttribute('aria-expanded', 'false', 'precondition, not open');
 
     api.open();
 
@@ -178,7 +162,7 @@ module('select-box', function (hooks) {
 
     assert
       .dom('.select-box')
-      .hasClass('select-box--open', 'action is called with the api');
+      .hasAttribute('aria-expanded', 'true', 'action is called with the api');
   });
 
   test('api value', async function (assert) {

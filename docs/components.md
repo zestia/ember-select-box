@@ -33,10 +33,6 @@
 <details>
   <summary>Arguments</summary>
   <table>
-    <tr width="200">
-      <td>@classNamePrefix</td>
-      <td>Adds a prefix to the class name of the select box and its child components (defaults to <a href="http://getbem.com">BEM</a>, for custom class names see <code>@onBuildClassName</code>)</td>
-    </tr>
     <tr>
       <td>@disabled</td>
       <td>If true adds a disabled class and makes it unfocusable</td>
@@ -67,12 +63,6 @@
 <details>
   <summary>Actions</summary>
   <table>
-    <tr>
-      <td width="200">@onBuildClassName</td>
-      <td>
-        Fired when the select box needs to build a class name. View this <a href="class-names.md">example</a> for how to use this action for custom class names.
-      </td>
-    </tr>
     <tr>
       <td width="200">@onBuildSelection</td>
       <td>

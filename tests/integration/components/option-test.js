@@ -17,16 +17,6 @@ module('select-box/option', function (hooks) {
       .exists({ count: 1 }, 'renders with correct class name and tag');
   });
 
-  test('data component attribute', async function (assert) {
-    assert.expect(1);
-
-    await render(hbs`<SelectBox::Option />`);
-
-    assert
-      .dom('[data-component="option"]')
-      .exists({ count: 1 }, 'has a data attribute signifying its type');
-  });
-
   test('role', async function (assert) {
     assert.expect(1);
 
@@ -57,8 +47,9 @@ module('select-box/option', function (hooks) {
 
     assert
       .dom('.select-box__option')
-      .hasClass(
-        'select-box__option--disabled',
+      .hasAttribute(
+        'aria-disabled',
+        'true',
         'an option can be flagged as disabled'
       );
 

@@ -1,18 +1,15 @@
 {{! template-lint-disable no-positive-tabindex }}
 <div
-  data-component="select-box"
   aria-expanded={{if this.isOpen "true" "false"}}
   aria-busy={{if this.isBusy "true" "false"}}
   aria-disabled={{if this.isDisabled "true" "false"}}
   aria-multiselectable={{if this.isMultiple "true" "false"}}
   aria-activedescendant={{this.activeOption.id}}
+  data-focus-within={{if this.isFocused "true" "false"}}
 
   {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
 
-  class={{concat
-    this.className
-    (if @class (concat " " @class))
-  }}
+  class="select-box"
   id={{this.id}}
   multiple={{this.isMultiple}}
   role={{this.role}}

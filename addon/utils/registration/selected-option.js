@@ -24,7 +24,7 @@ function updateSelectedOptions(selectBox) {
 
 function setSelectedOptions(selectBox, selectedOptions) {
   const elements = [
-    ...selectBox.element.querySelectorAll('[data-component="selected-option"]')
+    ...selectBox.element.querySelectorAll('.select-box__selected-option')
   ];
 
   const sort = (a, b) =>

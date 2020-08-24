@@ -10,7 +10,6 @@ import {
 import { receiveValue } from '../../../utils/component/value';
 import buildAPI from '../../../utils/shared/api';
 import buildID from '../../../utils/shared/id';
-import buildClassName from '../../../utils/select-box/selected-option/class-name';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
@@ -36,10 +35,6 @@ export default class SelectBoxSelectedOption extends Component {
       'isSettled',
       'value'
     ]);
-  }
-
-  get className() {
-    return buildClassName(this);
   }
 
   get id() {

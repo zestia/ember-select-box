@@ -14,7 +14,6 @@ import {
 } from '../../utils/shared/value';
 import { selectValue as _selectValue } from '../../utils/native-select-box/value';
 import buildAPI from '../../utils/shared/api';
-import { buildClassName } from '../../utils/shared/class-name';
 import { ready } from '../../utils/shared/ready';
 import { insertElement } from '../../utils/shared/element';
 import { action } from '@ember/object';
@@ -52,10 +51,6 @@ export default class NativeSelectBox extends Component {
       'update',
       'value'
     ]);
-  }
-
-  get className() {
-    return buildClassName(this);
   }
 
   get isMultiple() {

@@ -80,10 +80,12 @@ module('select-box (ember data)', function (hooks) {
       </SelectBox>
     `);
 
-    assert.dom('.select-box__option--selected').exists({ count: 5 });
+    assert
+      .dom('.select-box__option[aria-selected="true"]')
+      .exists({ count: 5 });
 
     assert
-      .dom('.select-box__option:not(.select-box__option--selected)')
+      .dom('.select-box__option[aria-selected="false"]')
       .exists({ count: 5 });
   });
 });

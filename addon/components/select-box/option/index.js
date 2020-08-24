@@ -13,7 +13,6 @@ import { receiveValue } from '../../../utils/component/value';
 import isSelected from '../../../utils/shared/selected';
 import buildAPI from '../../../utils/shared/api';
 import buildID from '../../../utils/shared/id';
-import buildClassName from '../../../utils/select-box/option/class-name';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
@@ -42,10 +41,6 @@ export default class SelectBoxOption extends Component {
       'isSettled',
       'value'
     ]);
-  }
-
-  get className() {
-    return buildClassName(this);
   }
 
   get id() {

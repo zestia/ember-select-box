@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { click, findAll, render, settled } from '@ember/test-helpers';
+import { click, find, findAll, render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { defer } from 'rsvp';
 
@@ -108,24 +108,23 @@ module('select-box (promises)', function (hooks) {
       </SelectBox>
     `);
 
-    assert.ok(
-      !findAll('.select-box__option')[0].classList.contains(
-        'select-box__option--selected'
-      ),
-      'other promise, not selected'
-    );
-
-    assert.ok(
-      !findAll('.select-box__option')[1].classList.contains(
-        'select-box__option--selected'
-      ),
-      'value is not selected, promise has not yet resolved'
-    );
+    assert
+      .dom('.select-box__option:nth-child(1)')
+      .hasAttribute('aria-selected', 'false', 'other promise, not selected');
 
     assert
-      .dom(findAll('.select-box__option')[2])
-      .hasClass(
-        'select-box__option--selected',
+      .dom('.select-box__option:nth-child(2)')
+      .hasAttribute(
+        'aria-selected',
+        'false',
+        'value is not selected, promise has not yet resolved'
+      );
+
+    assert
+      .dom('.select-box__option:nth-child(3)')
+      .hasAttribute(
+        'aria-selected',
+        'true',
         'value is selected, promises match'
       );
 
@@ -134,23 +133,21 @@ module('select-box (promises)', function (hooks) {
 
     await settled();
 
-    assert.ok(
-      !findAll('.select-box__option')[0].classList.contains(
-        'select-box__option--selected'
-      ),
-      'wrong promise, not selected'
-    );
+    assert
+      .dom('.select-box__option:nth-child(1)')
+      .hasAttribute('aria-selected', 'false', 'wrong promise, not selected');
 
     assert
-      .dom(findAll('.select-box__option')[1])
-      .hasClass(
-        'select-box__option--selected',
+      .dom('.select-box__option:nth-child(2)')
+      .hasAttribute(
+        'aria-selected',
+        'true',
         'value is selected now that promise has resolved'
       );
 
     assert
-      .dom(findAll('.select-box__option')[2])
-      .hasClass('select-box__option--selected', 'resolved value is selected');
+      .dom('.select-box__option:nth-child(3)')
+      .hasAttribute('aria-selected', 'true', 'resolved value is selected');
   });
 
   test('promise value (multiple)', async function (assert) {
@@ -178,9 +175,9 @@ module('select-box (promises)', function (hooks) {
 
     await settled();
 
-    const labels = findAll('.select-box__option--selected').map((o) =>
-      o.textContent.trim()
-    );
+    const labels = findAll(
+      '.select-box__option[aria-selected="true"]'
+    ).map((o) => o.textContent.trim());
 
     assert.deepEqual(labels, [], 'does not resolve the promises');
   });
@@ -205,7 +202,7 @@ module('select-box (promises)', function (hooks) {
     await settled();
 
     assert
-      .dom('.select-box__option--selected')
+      .dom('.select-box__option[aria-selected="true"]')
       .doesNotExist('does nothing with the value');
   });
 
@@ -238,7 +235,7 @@ module('select-box (promises)', function (hooks) {
     await settled();
 
     assert
-      .dom('.select-box__option--selected')
+      .dom('.select-box__option[aria-selected="true"]')
       .hasText(
         'bar',
         'waits for promise to resolve before computing selected option'
@@ -249,7 +246,7 @@ module('select-box (promises)', function (hooks) {
     await settled();
 
     assert
-      .dom('.select-box__option--selected')
+      .dom('.select-box__option[aria-selected="true"]')
       .hasText('baz', 're-computation works');
   });
 
@@ -276,7 +273,7 @@ module('select-box (promises)', function (hooks) {
     await settled();
 
     assert
-      .dom('.select-box__option--selected')
+      .dom('.select-box__option[aria-selected="true"]')
       .hasText('Bar', 'earlier promises are ignored');
   });
 
@@ -303,7 +300,7 @@ module('select-box (promises)', function (hooks) {
     await settled();
 
     assert
-      .dom('.select-box__option--selected')
+      .dom('.select-box__option[aria-selected="true"]')
       .hasText('bar', 'earlier promises are ignored');
   });
 
@@ -362,6 +359,6 @@ module('select-box (promises)', function (hooks) {
     await click(findAll('.select-box__option')[2]);
 
     assert.equal(this.selectedValue, 'baz');
-    assert.dom('.select-box__option--selected').hasText('Baz');
+    assert.dom('.select-box__option[aria-selected="true"]').hasText('Baz');
   });
 });

@@ -59,7 +59,6 @@ import {
   updateValue
 } from '../../utils/shared/value';
 import buildID from '../../utils/shared/id';
-import buildClassName from '../../utils/select-box/class-name';
 import { ready } from '../../utils/shared/ready';
 import { insertElement } from '../../utils/shared/element';
 import { action } from '@ember/object';
@@ -81,7 +80,6 @@ export default class SelectBox extends Component {
   @tracked activeOptionIndex = -1;
   @tracked activeSelectedOptionIndex = -1;
   @tracked element = null;
-  @tracked isFocused = false;
   @tracked isFulfilled = false;
   @tracked isOpen = false;
   @tracked isPending = true;
@@ -114,7 +112,6 @@ export default class SelectBox extends Component {
       'focusInput',
       'isBusy',
       'isDisabled',
-      'isFocused',
       'isFulfilled',
       'isMultiple',
       'isOpen',
@@ -140,10 +137,6 @@ export default class SelectBox extends Component {
 
   get activeSelectedOption() {
     return this.selectedOptions[this.activeSelectedOptionIndex];
-  }
-
-  get className() {
-    return buildClassName(this);
   }
 
   get id() {
@@ -257,11 +250,6 @@ export default class SelectBox extends Component {
   @action
   handleInputText(text) {
     maybeSearch(this, text);
-  }
-
-  @action
-  handleFocusIn(e) {
-    focusIn(this, e);
   }
 
   @action
