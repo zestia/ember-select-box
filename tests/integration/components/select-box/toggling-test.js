@@ -10,8 +10,6 @@ module('select-box (toggling)', function (hooks) {
     assert.expect(14);
 
     let api;
-    let opened = 0;
-    let closed = 0;
 
     this.handleReady = (sb) => (api = sb);
     this.handleOpen = () => assert.step('opened');

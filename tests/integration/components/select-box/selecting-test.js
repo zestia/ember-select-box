@@ -6,7 +6,6 @@ import { defer } from 'rsvp';
 import { next } from '@ember/runloop';
 import {
   click,
-  find,
   findAll,
   render,
   settled,

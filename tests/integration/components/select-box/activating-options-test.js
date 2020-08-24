@@ -321,7 +321,7 @@ module('select-box (activating options)', function (hooks) {
   test('jumping to an option (numeric)', async function (assert) {
     assert.expect(1);
 
-    this.handlePressKey = sb.activateOptionForKeyCode(e.keyCode);
+    this.handlePressKey = (e, sb) => sb.activateOptionForKeyCode(e.keyCode);
 
     await render(hbs`
       <SelectBox @onPressKey={{this.handlePressKey}} as |sb|>
@@ -345,7 +345,7 @@ module('select-box (activating options)', function (hooks) {
   test('jumping to an option (dodgy chars)', async function (assert) {
     assert.expect(1);
 
-    this.handlePressKey = sb.activateOptionForKeyCode(e.keyCode);
+    this.handlePressKey = (e, sb) => sb.activateOptionForKeyCode(e.keyCode);
 
     await render(hbs`
       <SelectBox @onPressKey={{this.handlePressKey}} as |sb|>
@@ -373,7 +373,7 @@ module('select-box (activating options)', function (hooks) {
   test('jumping to an option (same-char regression)', async function (assert) {
     assert.expect(1);
 
-    this.handlePressKey = sb.activateOptionForKeyCode(e.keyCode);
+    this.handlePressKey = (e, sb) => sb.activateOptionForKeyCode(e.keyCode);
 
     await render(hbs`
       <SelectBox @onPressKey={{this.handlePressKey}} as |sb|>
@@ -401,7 +401,7 @@ module('select-box (activating options)', function (hooks) {
   test('jumping to an option (collapsing whitespace)', async function (assert) {
     assert.expect(1);
 
-    this.handlePressKey = b.activateOptionForKeyCode(e.keyCode);
+    this.handlePressKey = (e, sb) => sb.activateOptionForKeyCode(e.keyCode);
 
     await render(hbs`
       <SelectBox @onPressKey={{this.handlePressKey}} as |sb|>

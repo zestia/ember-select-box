@@ -46,7 +46,7 @@ module('native-select-box', function (hooks) {
   test('changing the selected value', async function (assert) {
     assert.expect(3);
 
-    this.myValue = foo;
+    this.myValue = 'foo';
 
     await render(hbs`
       <NativeSelectBox @value={{this.myValue}} as |sb|>

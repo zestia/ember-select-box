@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { find, triggerEvent, blur, focus, render } from '@ember/test-helpers';
+import { find, triggerEvent, focus, render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('select-box (focusing)', function (hooks) {
