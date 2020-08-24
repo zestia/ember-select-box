@@ -6,50 +6,18 @@ import hbs from 'htmlbars-inline-precompile';
 module('select-box (focusing)', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('focus class name', async function (assert) {
-    assert.expect(3);
-
-    await render(hbs`
-      <SelectBox>
-        <button type="button" class="in"></button>
-      </SelectBox>
-    `);
-
-    assert
-      .dom('.select-box')
-      .doesNotHaveClass('select-box--focused', 'precondition, not focused');
-
-    await focus('.in');
-
-    assert
-      .dom('.select-box')
-      .hasClass(
-        'select-box--focused',
-        'a focused select box has an appropriate class name'
-      );
-
-    await blur('.in');
-
-    assert
-      .dom('.select-box')
-      .doesNotHaveClass(
-        'select-box--focused',
-        'the focused class name is removed when the select box is blurred'
-      );
-  });
-
   test('onFocusLeave fires when focus has actually left the select box', async function (assert) {
     assert.expect(5);
 
-    this.handleFocusLeave = () => {
-      assert.step('focus leave');
-    };
+    this.handleFocusLeave = () => assert.step('focus leave');
 
     await render(hbs`
       <SelectBox
-        @onFocusLeave={{this.handleFocusLeave}}>
+        @onFocusLeave={{this.handleFocusLeave}}
+      >
         <button type="button" class="in"></button>
       </SelectBox>
+
       <button type="button" class="out"></button>
     `);
 
@@ -103,6 +71,8 @@ module('select-box (focusing)', function (hooks) {
       <SelectBox tabindex="2" />
     `);
 
-    assert.dom('.select-box').hasAttribute('tabindex', '2', 'can set tabindex');
+    assert
+      .dom('.select-box')
+      .hasAttribute('tabindex', '2', 'can still set tabindex');
   });
 });

@@ -48,7 +48,7 @@ import {
   deregisterSelectedOptionsContainer,
   registerSelectedOptionsContainer
 } from '../../utils/registration/selected-options';
-import { focusIn, focusOut } from '../../utils/select-box/focus';
+import { focusOut } from '../../utils/select-box/focus';
 import { keyDown, keyPress, pressEnter } from '../../utils/select-box/keyboard';
 import { receiveDisabled } from '../../utils/select-box/disabled';
 import { setInputValue } from '../../utils/select-box/input/value';

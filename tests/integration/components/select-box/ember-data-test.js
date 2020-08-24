@@ -63,11 +63,11 @@ module('select-box (ember data)', function (hooks) {
       });
     });
 
-    this.set('foos', allFoos);
-    this.set('value', filteredFoos);
+    this.foos = allFoos;
+    this.myValue = filteredFoos;
 
     await render(hbs`
-      <SelectBox @value={{this.value}} @multiple={{true}} as |sb|>
+      <SelectBox @value={{this.myValue}} @multiple={{true}} as |sb|>
         {{#if sb.isPending}}
           ...
         {{else}}
