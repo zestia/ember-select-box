@@ -6,9 +6,6 @@
   aria-multiselectable={{if this.isMultiple "true" "false"}}
   aria-activedescendant={{this.activeOption.id}}
   data-focus-within={{if this.isFocused "true" "false"}}
-
-  {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
-
   class="select-box"
   id={{this.id}}
   multiple={{this.isMultiple}}
@@ -22,6 +19,7 @@
   {{on "focusout" this.handleFocusOut}}
   {{on "keydown" this.handleKeyDown}}
   {{on "keypress" this.handleKeyPress}}
+  {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
 >
   {{#let
     (hash
@@ -39,19 +37,8 @@
         _onDestroy=this.handleDestroyOption
         _onInsert=this.handleInsertOption
       )
-      SelectedOptions=(component
-        "select-box/selected-options"
-        selectBox=this
-        _onInsert=this.handleInsertSelectedOptionsContainer
-        _onDestroy=this.handleDestroySelectedOptionsContainer
-      )
-      SelectedOption=(component
-        "select-box/selected-option"
-        selectBox=this
-        _onActivate=this.handleActivateSelectedOption
-        _onInsert=this.handleInsertSelectedOption
-        _onDestroy=this.handleDestroySelectedOption
-      )
+      SelectedOptions=(component "select-box/selected-options")
+      SelectedOption=(component "select-box/selected-option")
       Group=(component "select-box/group" selectBox=this)
       Input=(component
         "select-box/input"

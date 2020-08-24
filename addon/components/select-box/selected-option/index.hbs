@@ -1,16 +1,11 @@
 <div
-  aria-current={{if this.isActive "true" "false"}}
   class="select-box__selected-option"
-  id={{this.id}}
   {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
   {{! template-lint-disable no-invalid-interactive no-positive-tabindex }}
   role={{if @role @role "option"}}
   onclick={{@onclick}}
   tabindex={{@tabindex}}
   ...attributes
-  {{did-insert this.handleInsertElement}}
-  {{did-update this.handleUpdateValue @value}}
-  {{will-destroy this.handleDestroyElement}}
 >
-  {{~yield this.api~}}
+  {{yield}}
 </div>

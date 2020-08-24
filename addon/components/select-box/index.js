@@ -12,12 +12,6 @@ import {
   activateOptionForValue,
   activatePreviousOption
 } from '../../utils/select-box/option/activate';
-import {
-  activateNextSelectedOption,
-  activatePreviousSelectedOption,
-  activateSelectedOption,
-  activateSelectedOptionAtIndex
-} from '../../utils/select-box/selected-option/activate';
 import { blurInput, focusInput } from '../../utils/select-box/input/focus';
 import {
   cancelSearch,
@@ -26,7 +20,6 @@ import {
 } from '../../utils/select-box/search';
 import { close, open, toggle } from '../../utils/select-box/toggle';
 import { deactivateOptions } from '../../utils/select-box/option/deactivate';
-import { deactivateSelectedOptions } from '../../utils/select-box/selected-option/deactivate';
 import {
   deregisterElement,
   registerElement
@@ -36,18 +29,6 @@ import {
   deregisterOption,
   registerOption
 } from '../../utils/registration/option';
-import {
-  deregisterOptionsContainer,
-  registerOptionsContainer
-} from '../../utils/registration/options';
-import {
-  deregisterSelectedOption,
-  registerSelectedOption
-} from '../../utils/registration/selected-option';
-import {
-  deregisterSelectedOptionsContainer,
-  registerSelectedOptionsContainer
-} from '../../utils/registration/selected-options';
 import { focusOut } from '../../utils/select-box/focus';
 import { keyDown, keyPress, pressEnter } from '../../utils/select-box/keyboard';
 import { receiveDisabled } from '../../utils/select-box/disabled';
@@ -68,16 +49,12 @@ export default class SelectBox extends Component {
   _api = {};
   input = null;
   optionCharState = null;
-  optionsContainer = null;
   pendingOptions = emberA();
-  pendingSelectedOptions = emberA();
   previousValue = null;
   searchID = 0;
-  selectedOptionsContainer = null;
   valueID = 0;
 
   @tracked activeOptionIndex = -1;
-  @tracked activeSelectedOptionIndex = -1;
   @tracked element = null;
   @tracked isFulfilled = false;
   @tracked isOpen = false;
@@ -88,25 +65,20 @@ export default class SelectBox extends Component {
   @tracked isSlowSearch = false;
   @tracked options = [];
   @tracked role = 'listbox';
-  @tracked selectedOptions = [];
   @tracked tabIndex = '0';
   @tracked value = null;
 
   get api() {
     return buildAPI(this, [
       'activateNextOption',
-      'activateNextSelectedOption',
       'activateOptionAtIndex',
       'activateOptionForKeyCode',
       'activateOptionForValue',
       'activatePreviousOption',
-      'activatePreviousSelectedOption',
-      'activateSelectedOptionAtIndex',
       'blurInput',
       'cancelSearch',
       'close',
       'deactivateOptions',
-      'deactivateSelectedOptions',
       'element',
       'focusInput',
       'isBusy',
@@ -132,10 +104,6 @@ export default class SelectBox extends Component {
 
   get activeOption() {
     return this.options[this.activeOptionIndex];
-  }
-
-  get activeSelectedOption() {
-    return this.selectedOptions[this.activeSelectedOptionIndex];
   }
 
   get id() {
@@ -206,36 +174,6 @@ export default class SelectBox extends Component {
   }
 
   @action
-  handleInsertSelectedOption(option) {
-    registerSelectedOption(this, option);
-  }
-
-  @action
-  handleDestroySelectedOption(option) {
-    deregisterSelectedOption(this, option);
-  }
-
-  @action
-  handleInsertOptionsContainer(optionsContainer) {
-    registerOptionsContainer(this, optionsContainer);
-  }
-
-  @action
-  handleDestroyOptionsContainer(optionsContainer) {
-    deregisterOptionsContainer(this, optionsContainer);
-  }
-
-  @action
-  handleInsertSelectedOptionsContainer(selectedOptionsContainer) {
-    registerSelectedOptionsContainer(this, selectedOptionsContainer);
-  }
-
-  @action
-  handleDestroySelectedOptionsContainer(selectedOptionsContainer) {
-    deregisterSelectedOptionsContainer(this, selectedOptionsContainer);
-  }
-
-  @action
   handleInsertInput(input) {
     registerInput(this, input);
   }
@@ -278,11 +216,6 @@ export default class SelectBox extends Component {
   @action
   handleActivateOption(option) {
     activateOption(this, option);
-  }
-
-  @action
-  handleActivateSelectedOption(selectedOption) {
-    activateSelectedOption(this, selectedOption);
   }
 
   @action
@@ -370,27 +303,7 @@ export default class SelectBox extends Component {
   }
 
   @action
-  activateSelectedOptionAtIndex(index, config) {
-    activateSelectedOptionAtIndex(this, index, config);
-  }
-
-  @action
-  activateNextSelectedOption(config) {
-    activateNextSelectedOption(this, config);
-  }
-
-  @action
-  activatePreviousSelectedOption(config) {
-    activatePreviousSelectedOption(this, config);
-  }
-
-  @action
   deactivateOptions() {
     deactivateOptions(this);
-  }
-
-  @action
-  deactivateSelectedOptions() {
-    deactivateSelectedOptions(this);
   }
 }
