@@ -53,7 +53,7 @@ module('select-box (activating selected options)', function (hooks) {
   test('activating selected option via the api', async function (assert) {
     assert.expect(2);
 
-    this.set('activated', (value, sb) => {
+    this.handleActivateSelectedOption = (value, sb) => {
       assert.equal(
         value,
         'foo',
@@ -61,12 +61,18 @@ module('select-box (activating selected options)', function (hooks) {
       );
 
       assert.ok(typeof sb === 'object', 'sends the api');
-    });
+    };
 
     await render(hbs`
       <SelectBox as |sb|>
-        <sb.SelectedOption @value="foo" @onActivate={{this.activated}} />
-        <button type="button" {{on "click" (fn sb.activateSelectedOptionAtIndex 0)}}>Activate foo</button>
+        <sb.SelectedOption @value="foo" @onActivate={{this.handleActivateSelectedOption}} />
+
+        <button
+          type="button"
+          {{on "click" (fn sb.activateSelectedOptionAtIndex 0)}}
+        >
+          Activate foo
+        </button>
       </SelectBox>
     `);
 
