@@ -18,8 +18,8 @@ module('select-box/input', function (hooks) {
     await render(hbs`<SelectBox::Input />`);
 
     assert
-      .dom('input.select-box__input')
-      .exists({ count: 1 }, 'renders with correct class name and tag');
+      .dom('.select-box__input')
+      .hasTagName('input', 'renders with correct class name and tag');
   });
 
   test('role', async function (assert) {
@@ -82,6 +82,7 @@ module('select-box/input', function (hooks) {
     assert.expect(2);
 
     this.set('inputText', (value, sb) => {
+      console.log('here');
       assert.equal(
         value,
         'foo',

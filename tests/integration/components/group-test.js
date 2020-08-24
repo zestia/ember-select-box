@@ -12,8 +12,8 @@ module('select-box/group', function (hooks) {
     await render(hbs`<SelectBox::Group />`);
 
     assert
-      .dom('div.select-box__group')
-      .exists({ count: 1 }, 'renders with correct class name and tag');
+      .dom('.select-box__group')
+      .hasTagName('div', 'renders with correct class name and tag');
   });
 
   test('label', async function (assert) {
@@ -37,6 +37,6 @@ module('select-box/group', function (hooks) {
 
     assert
       .dom('.select-box__group-options .select-box__option')
-      .exists({ count: 1 }, 'can display options inside the group');
+      .exists('can display options inside the group');
   });
 });
