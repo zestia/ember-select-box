@@ -912,18 +912,18 @@ module('select-box (selecting)', function (hooks) {
     assert.expect(3);
 
     this.handleSelect = () => assert.step('selected');
-    this.handleSeletcOption, () => assert.step('selectedOption');
+    this.handleSelectOption = () => assert.step('selected option');
 
     await render(hbs`
       <SelectBox @onSelect={{this.handleSelect}} as |sb|>
-        <sb.Option @onSelect={{this.handleSeletcOption}} />
+        <sb.Option @onSelect={{this.handleSelectOption}} />
       </SelectBox>
     `);
 
     await click('.select-box__option');
 
     assert.verifySteps(
-      ['selectedOption', 'selected'],
+      ['selected option', 'selected'],
       'actions fire in correct order'
     );
   });
