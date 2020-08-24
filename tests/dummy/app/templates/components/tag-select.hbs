@@ -29,7 +29,7 @@
   <sb.Input
     autofocus={{true}}
     @onInput={{sb.open}}
-    @onDelete={{fn this.deselect @value.lastObject}}
+    @onDelete={{this.deselectLast}}
     {{on "click" (fn this.reveal sb)}}
   />
 

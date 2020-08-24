@@ -60,7 +60,6 @@ import {
 } from '../../utils/shared/value';
 import buildID from '../../utils/shared/id';
 import { ready } from '../../utils/shared/ready';
-import { insertElement } from '../../utils/shared/element';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { A as emberA } from '@ember/array';
@@ -178,7 +177,6 @@ export default class SelectBox extends Component {
   @action
   handleInsertElement(element) {
     registerElement(this, element);
-    insertElement(this);
     ready(this);
   }
 

@@ -12,7 +12,7 @@ module('select-box/options', function (hooks) {
     await render(hbs`<SelectBox::Options />`);
 
     assert
-      .dom('div.select-box__options')
-      .exists({ count: 1 }, 'renders with correct class name and tag');
+      .dom('.select-box__options')
+      .hasTagName('div', 'renders with correct class name and tag');
   });
 });

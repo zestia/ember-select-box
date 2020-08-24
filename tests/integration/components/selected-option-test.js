@@ -13,7 +13,7 @@ module('select-box/selected-option', function (hooks) {
 
     assert
       .dom('div.select-box__selected-option')
-      .exists({ count: 1 }, 'renders with correct class name and tag');
+      .hasTagName('div', 'renders with correct class name and tag');
   });
 
   test('role', async function (assert) {
@@ -59,10 +59,10 @@ module('select-box/selected-option', function (hooks) {
   test('yield', async function (assert) {
     assert.expect(1);
 
-    this.set('selectedItems', [
+    this.selectedItems = [
       { myValue: 'foo', myLabel: 'Foo' },
       { myValue: 'bar', myLabel: 'Bar' }
-    ]);
+    ];
 
     await render(hbs`
       <SelectBox as |sb|>

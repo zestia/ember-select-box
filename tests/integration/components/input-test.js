@@ -78,29 +78,6 @@ module('select-box/input', function (hooks) {
       );
   });
 
-  test('inputting', async function (assert) {
-    assert.expect(2);
-
-    this.set('inputText', (value, sb) => {
-      console.log('here');
-      assert.equal(
-        value,
-        'foo',
-        'inputting text sends an action with the value'
-      );
-
-      assert.ok(typeof sb === 'object', 'sends the api');
-    });
-
-    await render(hbs`
-      <SelectBox as |sb|>
-        <sb.Input @onInput={{this.inputText}} />
-      </SelectBox>
-    `);
-
-    await fillIn('.select-box__input', 'foo');
-  });
-
   test('onClear action', async function (assert) {
     assert.expect(1);
 
@@ -160,15 +137,15 @@ module('select-box/input', function (hooks) {
   test('input actions when no input', async function (assert) {
     assert.expect(0);
 
-    this.set('select', (value, sb) => {
+    this.handleSelect = (value, sb) => {
       this.set('showInput', false);
       sb.setInputValue('');
       sb.focusInput();
       sb.blurInput();
-    });
+    };
 
     await render(hbs`
-      <SelectBox @onSelect={{this.select}} as |sb|>
+      <SelectBox @onSelect={{this.handleSelect}} as |sb|>
         {{#if this.showInput}}
           <sb.Input />
         {{/if}}

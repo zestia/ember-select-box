@@ -49,4 +49,13 @@ export default class TagSelect extends Component {
   deselect(tag) {
     this.args.onDeTag(tag);
   }
+
+  @action
+  deselectLast(sb) {
+    const lastTag = sb.value[sb.value.length - 1];
+
+    if (lastTag) {
+      this.deselect(lastTag);
+    }
+  }
 }
