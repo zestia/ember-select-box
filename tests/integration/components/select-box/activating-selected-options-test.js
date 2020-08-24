@@ -28,7 +28,7 @@ module('select-box (activating selected options)', function (hooks) {
     const one = findAll('.select-box__selected-option')[0];
 
     assert
-      .dom('.select-box__selected-option--active')
+      .dom('.select-box__selected-option[aria-current="true"]')
       .doesNotExist('precondition, there are no active selected options');
 
     await click(one);
@@ -42,7 +42,7 @@ module('select-box (activating selected options)', function (hooks) {
       );
 
     assert
-      .dom('.select-box__selected-option--active')
+      .dom('.select-box__selected-option:nth-child(1)')
       .hasAttribute(
         'aria-current',
         'true',

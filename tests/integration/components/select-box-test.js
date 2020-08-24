@@ -93,7 +93,7 @@ module('select-box', function (hooks) {
   });
 
   test('update action', async function (assert) {
-    assert.expect(1);
+    assert.expect(2);
 
     this.handleUpdate = () => assert.step('update');
 
@@ -182,7 +182,7 @@ module('select-box', function (hooks) {
     assert.ok(isSealed(apis[0]), 'api is sealed');
 
     assert.ok(
-      !isFrozen(this.value),
+      !isFrozen(this.myValue),
       'api does not accidentally freeze original value'
     );
 
@@ -202,7 +202,7 @@ module('select-box', function (hooks) {
       apis[0].foo = 'bar';
     }, 'cannot alter the api');
 
-    this.set('value', value2);
+    this.set('myValue', value2);
 
     assert.deepEqual(
       apis[1].value,

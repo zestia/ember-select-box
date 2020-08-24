@@ -397,7 +397,7 @@ module('select-box (searching)', function (hooks) {
   });
 
   test('default min chars', async function (assert) {
-    assert.expect(2);
+    assert.expect(3);
 
     const deferred = defer();
 
@@ -409,7 +409,7 @@ module('select-box (searching)', function (hooks) {
     await render(hbs`
       <SelectBox
         @searchDelayTime={{0}}
-        @onSearch={{this.findItems}} as |sb|
+        @onSearch={{this.handleSearch}} as |sb|
       >
         <sb.Input />
       </SelectBox>
@@ -449,7 +449,7 @@ module('select-box (searching)', function (hooks) {
       <SelectBox
         @searchMinChars={{0}}
         @searchDelayTime={{0}}
-        @onSearch={{this.findItems}} as |sb|
+        @onSearch={{this.handleSearch}} as |sb|
       >
         <sb.Input />
       </SelectBox>
@@ -557,7 +557,7 @@ module('select-box (searching)', function (hooks) {
   });
 
   test('searching attributes', async function (assert) {
-    assert.expect(4);
+    assert.expect(2);
 
     const deferred = defer();
 
@@ -583,23 +583,9 @@ module('select-box (searching)', function (hooks) {
 
     assert
       .dom(selectBox)
-      .hasClass(
-        'select-box--busy',
-        'precondition, select box is in the middle of searching'
-      );
-
-    assert
-      .dom(selectBox)
       .hasAttribute('aria-busy', 'true', 'is busy whilst searching');
 
     await fillIn(input, '');
-
-    assert
-      .dom(selectBox)
-      .doesNotHaveClass(
-        'select-box--busy',
-        'select box is no longer busy searching'
-      );
 
     assert
       .dom(selectBox)

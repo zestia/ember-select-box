@@ -25,16 +25,6 @@ module('native-select-box', function (hooks) {
       .hasTagName('select', 'renders with correct class name and tag');
   });
 
-  test('inserting', async function (assert) {
-    assert.expect(1);
-
-    this.inserted = (sb) => {
-      assert.deepEqual(sb.element, find('.select-box'), 'exposes element');
-    };
-
-    await render(hbs`<NativeSelectBox @onInsertElement={{this.inserted}} />`);
-  });
-
   test('size', async function (assert) {
     assert.expect(1);
 
@@ -81,8 +71,10 @@ module('native-select-box', function (hooks) {
   test('change event selects an option', async function (assert) {
     assert.expect(3);
 
+    let selectedValue;
+
     this.myValue = null;
-    this.handleSelect = (value) => this.set('mySelectedValue', value);
+    this.handleSelect = (value) => (selectedValue = value);
 
     await render(hbs`
       <NativeSelectBox
@@ -104,14 +96,16 @@ module('native-select-box', function (hooks) {
     );
 
     assert.equal(
-      this.mySelectedValue,
+      selectedValue,
       'bar',
       'sends an action with the selected value'
     );
 
-    assert
-      .dom('.select-box__option:nth-child(1)')
-      .hasAttribute('selected', 'renders the correct selected option');
+    assert.strictEqual(
+      find('.select-box__option:nth-child(2)').selected,
+      true,
+      'renders the correct selected option'
+    );
   });
 
   test('selecting non primitives', async function (assert) {
@@ -194,10 +188,8 @@ module('native-select-box', function (hooks) {
     this.nonPrimitive = { id: 456 };
     this.primitive = 123;
 
-    this.handleSelect = (value) => {
+    this.handleSelect = (value) =>
       assert.strictEqual(value, '123', 'can select primitive values');
-    };
-
     await render(hbs`
       <NativeSelectBox @onSelect={{this.handleSelect}}>
         <option value={{this.nonPrimitive}}>Primitive</option>
@@ -206,7 +198,7 @@ module('native-select-box', function (hooks) {
     `);
 
     assert
-      .dom('.select-box__option:nth-child(1)')
+      .dom('option:nth-child(1)')
       .hasAttribute(
         'value',
         '[object Object]',
