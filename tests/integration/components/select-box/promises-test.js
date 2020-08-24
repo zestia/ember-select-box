@@ -13,7 +13,7 @@ module('select-box (promises)', function (hooks) {
     const deferred1 = defer();
     const deferred2 = defer();
 
-    this.set('promise', deferred1.promise);
+    this.promise = deferred1.promise;
 
     await render(hbs`
       <SelectBox @value={{this.promise}} as |sb|>
@@ -24,7 +24,7 @@ module('select-box (promises)', function (hooks) {
       </SelectBox>
     `);
 
-    assert.dom(this.element).hasText(`
+    assert.dom('.select-box').hasText(`
         isPending: true
         isRejected: false
         isFulfilled: false
@@ -32,9 +32,10 @@ module('select-box (promises)', function (hooks) {
     `);
 
     deferred1.resolve('foo');
+
     await settled();
 
-    assert.dom(this.element).hasText(`
+    assert.dom('.select-box').hasText(`
         isPending: false
         isRejected: false
         isFulfilled: true
@@ -43,7 +44,7 @@ module('select-box (promises)', function (hooks) {
 
     this.set('promise', deferred2.promise);
 
-    assert.dom(this.element).hasText(`
+    assert.dom('.select-box').hasText(`
         isPending: true
         isRejected: false
         isFulfilled: false
@@ -51,9 +52,10 @@ module('select-box (promises)', function (hooks) {
     `);
 
     deferred2.reject('bar');
+
     await settled();
 
-    assert.dom(this.element).hasText(`
+    assert.dom('.select-box').hasText(`
         isPending: false
         isRejected: true
         isFulfilled: false
@@ -66,7 +68,7 @@ module('select-box (promises)', function (hooks) {
 
     const deferred = defer();
 
-    this.set('promise', deferred.promise);
+    this.promise = deferred.promise;
 
     await render(hbs`<SelectBox @value={{this.promise}} />`);
 
@@ -97,8 +99,8 @@ module('select-box (promises)', function (hooks) {
     const deferred1 = defer();
     const deferred2 = defer();
 
-    this.set('promise1', deferred1.promise);
-    this.set('promise2', deferred2.promise);
+    this.promise1 = deferred1.promise;
+    this.promise2 = deferred2.promise;
 
     await render(hbs`
       <SelectBox @value={{this.promise2}} as |sb|>
@@ -156,9 +158,9 @@ module('select-box (promises)', function (hooks) {
     const deferred1 = defer();
     const deferred2 = defer();
 
-    this.set('promises', [deferred1.promise, deferred2.promise]);
+    this.promises = [deferred1.promise, deferred2.promise];
 
-    this.set('values', ['foo', 'bar', 'baz']);
+    this.values = ['foo', 'bar', 'baz'];
 
     await render(hbs`
       <SelectBox @value={{this.promises}} @multiple={{true}} as |sb|>
@@ -187,7 +189,7 @@ module('select-box (promises)', function (hooks) {
 
     const deferred = defer();
 
-    this.set('promise', deferred.promise);
+    this.promise = deferred.promise;
 
     await render(hbs`
       <SelectBox @value={{this.promise}} as |sb|>
@@ -214,10 +216,10 @@ module('select-box (promises)', function (hooks) {
     const deferred3 = defer();
     const deferred4 = defer();
 
-    this.set('promise1', deferred1.promise);
-    this.set('promise2', deferred2.promise);
-    this.set('promise3', deferred3.promise);
-    this.set('promise4', deferred4.promise);
+    this.promise1 = deferred1.promise;
+    this.promise2 = deferred2.promise;
+    this.promise3 = deferred3.promise;
+    this.promise4 = deferred4.promise;
 
     await render(hbs`
       <SelectBox @value={{this.promise1}} as |sb|>
@@ -309,7 +311,7 @@ module('select-box (promises)', function (hooks) {
 
     const deferred = defer();
 
-    this.set('promise', deferred.promise);
+    this.promise = deferred.promise;
 
     await render(hbs`
       <SelectBox as |sb|>
@@ -333,15 +335,13 @@ module('select-box (promises)', function (hooks) {
 
     const deferred = defer();
 
-    this.set('show', () => {
-      deferred.promise.then(() => this.set('showSelect', true));
-    });
+    this.show = () => deferred.promise.then(() => this.set('showSelect', true));
 
-    this.set('setValue', (value) => this.set('selectedValue', value));
+    this.handleSelect = (value) => this.set('myValue', value);
 
     await render(hbs`
       {{#if this.showSelect}}
-        <SelectBox @onSelect={{this.setValue}} as |sb|>
+        <SelectBox @onSelect={{this.handleSelect}} as |sb|>
           <sb.Option @value="foo">Foo</sb.Option>
           <sb.Option @value="bar">Bar</sb.Option>
           <sb.Option @value="baz">Baz</sb.Option>
@@ -358,7 +358,8 @@ module('select-box (promises)', function (hooks) {
 
     await click(findAll('.select-box__option')[2]);
 
-    assert.equal(this.selectedValue, 'baz');
+    assert.equal(this.myValue, 'baz');
+
     assert.dom('.select-box__option[aria-selected="true"]').hasText('Baz');
   });
 });

@@ -21,17 +21,17 @@ module('select-box (selecting)', function (hooks) {
   test('changing the value argument', async function (assert) {
     assert.expect(3);
 
-    this.set('selectedValue', 'foo');
+    this.myValue = 'foo';
 
-    this.set('selected', () => {
+    this.handleSelect = () => {
       assert.ok(
         true,
         'changing the selected value does not trigger a selection'
       );
-    });
+    };
 
     await render(hbs`
-      <SelectBox @onSelect={{this.selected}} @value={{this.selectedValue}} as |sb|>
+      <SelectBox @onSelect={{this.handleSelect}} @value={{this.myValue}} as |sb|>
         <sb.Option @value="foo">Foo</sb.Option>
         <sb.Option @value="bar">Bar</sb.Option>
       </SelectBox>
@@ -46,7 +46,7 @@ module('select-box (selecting)', function (hooks) {
       'the option with the matching value is marked selected'
     );
 
-    this.set('selectedValue', 'bar');
+    this.set('myValue', 'bar');
 
     assert.ok(
       foo.getAttribute('aria-selected') === 'false' &&
@@ -54,7 +54,7 @@ module('select-box (selecting)', function (hooks) {
       'changing the value causes the options to re-compute which is selected'
     );
 
-    this.set('selectedValue', null);
+    this.set('myValue', null);
 
     assert.ok(
       foo.getAttribute('aria-selected') === 'false' &&
@@ -67,10 +67,10 @@ module('select-box (selecting)', function (hooks) {
   test('changing the value argument to nothing (common misconception)', async function (assert) {
     assert.expect(3);
 
-    this.set('selectedValue', null);
+    this.myValue = null;
 
     await render(hbs`
-      <SelectBox @value={{this.selectedValue}} as |sb|>
+      <SelectBox @value={{this.myValue}} as |sb|>
         <sb.Option @value="foo">Foo</sb.Option>
         <sb.Option @value="bar">Bar</sb.Option>
       </SelectBox>
@@ -86,7 +86,7 @@ module('select-box (selecting)', function (hooks) {
       .dom('.select-box__option[aria-selected="true"]')
       .hasText('Bar', 'precondition: user has selected an option');
 
-    this.set('selectedValue', null);
+    this.set('myValue', null);
 
     assert
       .dom('.select-box__option[aria-selected="true"]')
@@ -102,14 +102,12 @@ module('select-box (selecting)', function (hooks) {
 
     let selectedValue;
 
-    this.set('initialSelectedValue', null);
+    this.myValue = null;
 
-    this.set('selected', (value) => {
-      selectedValue = value;
-    });
+    this.handleSelect = (value) => (selectedValue = value);
 
     await render(hbs`
-      <SelectBox @value={{this.initialSelectedValue}} @onSelect={{this.selected}} as |sb|>
+      <SelectBox @value={{this.myValue}} @onSelect={{this.handleSelect}} as |sb|>
         <sb.Option @value="foo">Foo</sb.Option>
         <sb.Option @value="bar">Bar</sb.Option>
       </SelectBox>
@@ -121,7 +119,7 @@ module('select-box (selecting)', function (hooks) {
     await click(foo);
 
     assert.strictEqual(
-      this.initialSelectedValue,
+      this.myValue,
       null,
       'does not mutate the initial selected value'
     );
@@ -150,15 +148,13 @@ module('select-box (selecting)', function (hooks) {
   });
 
   test('selecting the same option more than once', async function (assert) {
-    assert.expect(2);
+    assert.expect(7);
 
-    let selected = 0;
-    let updated = 0;
-    this.set('selected', () => selected++);
-    this.set('updated', () => updated++);
+    this.handleSelect = () => assert.step('selected');
+    this.handleUpdate = () => assert.step('updated');
 
     await render(hbs`
-      <SelectBox @onSelect={{this.selected}} @onUpdate={{this.updated}} as |sb|>
+      <SelectBox @onSelect={{this.handleSelect}} @onUpdate={{this.handleUpdate}} as |sb|>
         <sb.Option @value="foo" />
       </SelectBox>
     `);
@@ -168,16 +164,10 @@ module('select-box (selecting)', function (hooks) {
     await click('.select-box__option');
     await click('.select-box__option');
 
-    assert.equal(
-      selected,
-      4,
-      "sends select action even if selected value hasn't changed"
-    );
-
-    assert.equal(
-      updated,
-      2,
-      'sends update action only when value has changed, ' +
+    assert.verifySteps(
+      ['updated', 'updated', 'selected', 'selected', 'selected', 'selected'],
+      "sends select action even if selected value hasn't changed. " +
+        'and sends update action only when value has changed, ' +
         '(the initial update action, and then any subsequent update to the value)'
     );
   });
@@ -210,15 +200,13 @@ module('select-box (selecting)', function (hooks) {
   test('selecting multiple options', async function (assert) {
     assert.expect(5);
 
-    const values = ['foo', 'baz'];
-
     let selectedValues;
 
-    this.set('values', values);
-    this.set('selected', (values) => (selectedValues = values));
+    this.myValues = ['foo', 'baz'];
+    this.handleSelect = (values) => (selectedValues = values);
 
     await render(hbs`
-      <SelectBox @onSelect={{this.selected}} @multiple={{true}} @value={{this.values}} as |sb|>
+      <SelectBox @onSelect={{this.handleSelect}} @multiple={{true}} @value={{this.myValues}} as |sb|>
         <sb.Option @value="foo" />
         <sb.Option @value="bar" />
         <sb.Option @value="baz" />
@@ -251,7 +239,7 @@ module('select-box (selecting)', function (hooks) {
     );
 
     assert.deepEqual(
-      this.values,
+      this.myValues,
       ['foo', 'baz'],
       'does not mutate the original array'
     );
@@ -293,11 +281,11 @@ module('select-box (selecting)', function (hooks) {
     const three = { name: 'Three' };
     const four = { name: 'Four' };
 
-    this.set('items', [one, two, three]);
-    this.set('value', two);
+    this.items = [one, two, three];
+    this.myValue = two;
 
     await render(hbs`
-      <SelectBox @value={{this.value}} as |sb|>
+      <SelectBox @value={{this.myValue}} as |sb|>
         <sb.SelectedOption>
           {{sb.value.name}}
         </sb.SelectedOption>
@@ -313,7 +301,7 @@ module('select-box (selecting)', function (hooks) {
       .dom('.select-box__selected-option')
       .hasText('Two', 'correct selected option is yielded');
 
-    this.set('value', four);
+    this.set('myValue', four);
 
     assert
       .dom('.select-box__selected-option')
@@ -360,17 +348,16 @@ module('select-box (selecting)', function (hooks) {
 
     let count = 0;
 
-    this.set('selected', (value) => {
+    this.handleSelect = (value) =>
       assert.equal(value, 'bar', 'the select box acknowledges the selection');
-    });
 
-    this.set('selectedBar', (value) => {
+    this.handleSelectBar = (value) => {
       assert.equal(
         value,
         'bar',
         'the selected option acknowledges the selection'
       );
-    });
+    };
 
     this.check = (e) => {
       next(() => {
@@ -395,10 +382,10 @@ module('select-box (selecting)', function (hooks) {
     };
 
     await render(hbs`
-      <SelectBox @onSelect={{this.selected}} {{on "keydown" this.check}} as |sb|>
+      <SelectBox @onSelect={{this.handleSelect}} {{on "keydown" this.check}} as |sb|>
         <sb.Input />
         <sb.Option @value="foo" />
-        <sb.Option @value="bar" @onSelect={{this.selectedBar}} />
+        <sb.Option @value="bar" @onSelect={{this.handleSelectBar}} />
       </SelectBox>
     `);
 
@@ -412,17 +399,16 @@ module('select-box (selecting)', function (hooks) {
   test('presssing enter on a child', async function (assert) {
     assert.expect(3);
 
-    this.set('selected', (value) => {
+    this.handleSelect = (value) =>
       assert.equal(value, 'bar', 'the select box acknowledges the selection');
-    });
 
-    this.set('selectedBar', (value) => {
+    this.handleSelectBar = (value) => {
       assert.equal(
         value,
         'bar',
         'the selected option acknowledges the selection'
       );
-    });
+    };
 
     this.check = (e) => {
       next(() => {
@@ -435,9 +421,9 @@ module('select-box (selecting)', function (hooks) {
     };
 
     await render(hbs`
-      <SelectBox @onSelect={{this.selected}} {{on "keydown" this.check}} as |sb|>
+      <SelectBox @onSelect={{this.handleSelect}} {{on "keydown" this.check}} as |sb|>
         <sb.Option @value="foo" />
-        <sb.Option @value="bar" @onSelect={{this.selectedBar}}>
+        <sb.Option @value="bar" @onSelect={{this.handleSelectBar}}>
           <a href="#" class="my-link"></a>
         </sb.Option>
       </SelectBox>
@@ -455,13 +441,13 @@ module('select-box (selecting)', function (hooks) {
     let selectedFoo;
     let updated;
 
-    this.set('selected', (value) => (selected = value));
-    this.set('selectedFoo', (value) => (selectedFoo = value));
-    this.set('updated', (sb) => (updated = sb.value));
+    this.handleSelect = (value) => (selected = value);
+    this.handleUpdate = (sb) => (updated = sb.value);
+    this.handleSelectFoo = (value) => (selectedFoo = value);
 
     await render(hbs`
-      <SelectBox @onSelect={{this.selected}} @onUpdate={{this.updated}} as |sb|>
-        <sb.Option @value="foo" @onSelect={{this.selectedFoo}} />
+      <SelectBox @onSelect={{this.handleSelect}} @onUpdate={{this.handleUpdate}} as |sb|>
+        <sb.Option @value="foo" @onSelect={{this.handleSelectFoo}} />
         <button type="button" {{on "click" (fn sb.select "foo")}}>Select foo</button>
       </SelectBox>
     `);
@@ -494,17 +480,17 @@ module('select-box (selecting)', function (hooks) {
     let updatedValue;
     let selected = 0;
 
-    this.set('updated', (sb) => {
+    this.handleUpdate = (sb) => {
       updated++;
       updatedValue = sb.value;
-    });
+    };
 
-    this.set('selected', (value) => {
+    this.handleSelect = (value) => {
       selected++;
-    });
+    };
 
     await render(hbs`
-      <SelectBox @onUpdate={{this.updated}} @onSelect={{this.selected}} as |sb|>
+      <SelectBox @onUpdate={{this.handleUpdate}} @onSelect={{this.handleSelect}} as |sb|>
         <sb.Option @value="foo">Foo</sb.Option>
         <sb.Option @value="bar">Bar</sb.Option>
         <button type="button" {{on "click" (fn sb.update "foo")}}>Select foo</button>
@@ -528,7 +514,7 @@ module('select-box (selecting)', function (hooks) {
   test('manual selection', async function (assert) {
     assert.expect(3);
 
-    this.set('barSelected', true);
+    this.barSelected = true;
 
     await render(hbs`
       <SelectBox @value="baz" as |sb|>
@@ -568,34 +554,6 @@ module('select-box (selecting)', function (hooks) {
       );
   });
 
-  test('usage with mut helper', async function (assert) {
-    assert.expect(2);
-
-    this.set('external', null);
-    this.set('setExternal', (value) => this.set('external', value));
-
-    await render(hbs`
-      external: {{this.external}}
-      <SelectBox @onSelect={{this.setExternal}} as |sb|>
-        internal: {{sb.value}}
-        <sb.Option @value="foo">Foo</sb.Option>
-        <sb.Option @value="bar">Bar</sb.Option>
-      </SelectBox>
-    `);
-
-    await click(findAll('.select-box__option')[1]);
-
-    assert.ok(
-      this.element.textContent.match('external: bar'),
-      'mut helper updates the external value'
-    );
-
-    assert.ok(
-      find('.select-box').textContent.match('internal: bar'),
-      'internal value is updated'
-    );
-  });
-
   test('with disabled options', async function (assert) {
     assert.expect(5);
 
@@ -617,15 +575,15 @@ module('select-box (selecting)', function (hooks) {
     let selected = 0;
     let lastSelectedValue;
 
-    this.set('selected', (value) => {
+    this.handleSelect = (value) => {
       selected++;
       lastSelectedValue = value;
-    });
+    };
 
-    this.set('value', ['foo']);
+    this.myValue = ['foo'];
 
     await render(hbs`
-      <SelectBox @value={{this.value}} @multiple={{true}} @onSelect={{this.selected}} as |sb|>
+      <SelectBox @value={{this.myValue}} @multiple={{true}} @onSelect={{this.handleSelect}} as |sb|>
         <sb.Option @value="foo" @disabled={{true}} />
         <sb.Option @value="bar" />
         <sb.Option @value="baz" />
@@ -649,12 +607,13 @@ module('select-box (selecting)', function (hooks) {
       'does not fire select action if option is disabled'
     );
 
-    assert.dom(
-      findAll('.select-box__option')[3].classList.contains(
-        'select-box__option--selected'
-      ),
-      'option is not selected, due to being disabled'
-    );
+    assert
+      .dom(findAll('.select-box__option')[3])
+      .hasAttribute(
+        'aria-selected',
+        'false',
+        'option is not selected, due to being disabled'
+      );
 
     await click(findAll('.select-box__option')[1]);
 
@@ -668,10 +627,7 @@ module('select-box (selecting)', function (hooks) {
 
     assert
       .dom(findAll('.select-box__option')[2])
-      .hasClass(
-        'select-box__option--selected',
-        'option is selected (by value)'
-      );
+      .hasAttribute('aria-selected', 'true', 'option is selected (by value)');
   });
 
   test('changing attributes', async function (assert) {
@@ -679,12 +635,10 @@ module('select-box (selecting)', function (hooks) {
 
     let updated = 0;
 
-    this.set('updated', () => {
-      updated++;
-    });
+    this.handleUpdate = () => updated++;
 
     await render(hbs`
-      <SelectBox @value="foo" aria-label={{this.ariaLabel}} @onUpdate={{this.updated}} as |sb|>
+      <SelectBox @value="foo" aria-label={{this.ariaLabel}} @onUpdate={{this.handleUpdate}} as |sb|>
         <sb.Option @value="foo" />
         <sb.Option @value="bar" />
       </SelectBox>
@@ -702,33 +656,33 @@ module('select-box (selecting)', function (hooks) {
   test('a single value with a multiple choice select box', async function (assert) {
     assert.expect(2);
 
-    this.set('value', 'bar');
+    this.myValue = 'bar';
 
     await render(hbs`
-      <SelectBox @value={{this.value}} @multiple={{true}} as |sb|>
+      <SelectBox @value={{this.myValue}} @multiple={{true}} as |sb|>
         <sb.Option @value="foo">Foo</sb.Option>
         <sb.Option @value="bar">Bar</sb.Option>
       </SelectBox>
     `);
 
     assert
-      .dom('.select-box__option--selected')
+      .dom('.select-box__option[aria-selected="true"]')
       .hasText('Bar', 'works as expected');
 
-    this.set('value', 'foo');
+    this.set('myValue', 'foo');
 
     assert
-      .dom('.select-box__option--selected')
+      .dom('.select-box__option[aria-selected="true"]')
       .hasText('Foo', 'updating the value works');
   });
 
   test('multiple values with a single choice select box', async function (assert) {
     assert.expect(1);
 
-    this.set('values', ['bar', 'baz']);
+    this.myValues = ['bar', 'baz'];
 
     await render(hbs`
-      <SelectBox @value={{this.values}} as |sb|>
+      <SelectBox @value={{this.myValues}} as |sb|>
         <sb.Option @value="foo" />
         <sb.Option @value="bar" />
         <sb.Option @value="baz" />
@@ -736,27 +690,27 @@ module('select-box (selecting)', function (hooks) {
     `);
 
     assert
-      .dom('.select-box__option--selected')
+      .dom('.select-box__option[aria-selected="true"]')
       .doesNotExist('works as expected');
   });
 
   test('adding and removing items to a multiple select box', async function (assert) {
     assert.expect(1);
 
-    this.set('values', emberA(['bar']));
+    this.myValues = emberA(['bar']);
 
     await render(hbs`
-      <SelectBox @value={{this.values}} @multiple={{true}} as |sb|>
+      <SelectBox @value={{this.myValues}} @multiple={{true}} as |sb|>
         <sb.Option @value="foo" />
         <sb.Option @value="bar" />
         <sb.Option @value="baz" />
       </SelectBox>
     `);
 
-    this.values.addObject('baz');
+    this.myValues.addObject('baz');
 
     assert
-      .dom('.select-box__option--selected')
+      .dom('.select-box__option[aria-selected="true"]')
       .exists(
         { count: 1 },
         'changes to the multiple choice values does not update the select box ' +
@@ -769,12 +723,12 @@ module('select-box (selecting)', function (hooks) {
 
     let yieldedValue;
 
-    this.set('value', emberA(['foo', 'bar']));
+    this.myValue = emberA(['foo', 'bar']);
 
-    this.set('inspect', (value) => (yieldedValue = value));
+    this.inspect = (value) => (yieldedValue = value);
 
     await render(hbs`
-      <SelectBox @multiple={{true}} @value={{this.value}} as |sb|>
+      <SelectBox @multiple={{true}} @value={{this.myValue}} as |sb|>
         <sb.Option @value="foo" />
         <sb.Option @value="bar" />
         <button type="button" {{on "click" (fn this.inspect sb.value)}}>inspect</button>
@@ -802,27 +756,26 @@ module('select-box (selecting)', function (hooks) {
     let arg2;
     let calledBuild = 0;
 
-    this.set('value', ['foo', 'bar']);
+    this.myValue = ['foo', 'bar'];
 
-    this.set('buildSelection', (value1, value2) => {
+    this.handleReady = (api) => (sb = api);
+
+    this.handleBuildSelection = (value1, value2) => {
       calledBuild++;
 
       arg1 = value1;
       arg2 = value2;
 
       return ['baz'];
-    });
-
-    this.set('register', (api) => {
-      sb = api;
-    });
+    };
 
     await render(hbs`
       <SelectBox
         @multiple={{true}}
-        @value={{this.value}}
-        @onBuildSelection={{this.buildSelection}}
-        @onReady={{this.register}} as |sb|>
+        @value={{this.myValue}}
+        @onBuildSelection={{this.handleBuildSelection}}
+        @onReady={{this.handleReady}} as |sb|
+      >
         <sb.Option @value="foo">Foo</sb.Option>
         <sb.Option @value="bar">Bar</sb.Option>
         <sb.Option @value="baz">Baz</sb.Option>
@@ -833,7 +786,7 @@ module('select-box (selecting)', function (hooks) {
     await click(findAll('.select-box__option')[0]);
 
     assert
-      .dom('.select-box__option--selected')
+      .dom('.select-box__option[aria-selected="true"]')
       .hasText(
         'Baz',
         'selection used is the selection returned from onBuildSelection'
@@ -860,7 +813,7 @@ module('select-box (selecting)', function (hooks) {
     );
 
     assert
-      .dom('.select-box__option--selected')
+      .dom('.select-box__option[aria-selected="true"]')
       .hasText('Bar', 'update still works');
 
     sb.select(['qux']);
@@ -874,7 +827,7 @@ module('select-box (selecting)', function (hooks) {
     );
 
     assert
-      .dom('.select-box__option--selected')
+      .dom('.select-box__option[aria-selected="true"]')
       .hasText('Qux', 'select still works');
 
     assert.deepEqual(sb.value, ['qux'], 'value is correct');
@@ -886,11 +839,11 @@ module('select-box (selecting)', function (hooks) {
     let sb;
     let selectedValue;
 
-    this.set('select', (value) => (selectedValue = value));
-    this.set('registerApi', (api) => (sb = api));
+    this.handleSelect = (value) => (selectedValue = value);
+    this.handleReady = (api) => (sb = api);
 
     await render(hbs`
-      <SelectBox @onReady={{this.registerApi}} @onSelect={{this.select}} as |sb|>
+      <SelectBox @onReady={{this.handleReady}} @onSelect={{this.handleSelect}} as |sb|>
         <sb.Option @value="foo" />
         <sb.Option @value="bar" />
       </SelectBox>
@@ -918,7 +871,7 @@ module('select-box (selecting)', function (hooks) {
     `);
 
     assert
-      .dom('.select-box__option--selected')
+      .dom('.select-box__option[aria-selected="true"]')
       .exists(
         { count: 2 },
         "select box's default value and options' default value is undefined"
@@ -932,12 +885,12 @@ module('select-box (selecting)', function (hooks) {
 
     const deferred = defer();
 
-    this.set('selected', (value) => (selectedValue = value));
+    this.handleSelect = (value) => (selectedValue = value);
 
-    this.set('promise', deferred.promise);
+    this.promise = deferred.promise;
 
     await render(hbs`
-      <SelectBox @onSelect={{this.selected}} as |sb|>
+      <SelectBox @onSelect={{this.handleSelect}} as |sb|>
         <sb.Option @value={{this.promise}} />
       </SelectBox>
     `);
@@ -958,12 +911,12 @@ module('select-box (selecting)', function (hooks) {
   test('selecting action order', async function (assert) {
     assert.expect(3);
 
-    this.set('selected', () => assert.step('selected'));
-    this.set('selectedOption', () => assert.step('selectedOption'));
+    this.handleSelect = () => assert.step('selected');
+    this.handleSeletcOption, () => assert.step('selectedOption');
 
     await render(hbs`
-      <SelectBox @onSelect={{this.selected}} as |sb|>
-        <sb.Option @onSelect={{this.selectedOption}} />
+      <SelectBox @onSelect={{this.handleSelect}} as |sb|>
+        <sb.Option @onSelect={{this.handleSeletcOption}} />
       </SelectBox>
     `);
 

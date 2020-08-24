@@ -7,24 +7,21 @@ module('select-box (keyboard actions)', function (hooks) {
   setupRenderingTest(hooks);
 
   test('keyboard actions', async function (assert) {
-    assert.expect(3);
+    assert.expect(11);
 
-    const called = [];
-    let pressedKey = 0;
-
-    this.set('ranAction', (name) => called.push(name));
-    this.set('pressedKey', () => pressedKey++);
+    this.handleAction = (name) => assert.step(name);
+    this.handlePressKey = () => assert.step('pressed key');
 
     await render(hbs`<SelectBox
-      @onPressKey={{this.pressedKey}}
-      @onPressBackspace={{fn this.ranAction "backspace"}}
-      @onPressTab={{fn this.ranAction "tab"}}
-      @onPressEnter={{fn this.ranAction "enter"}}
-      @onPressEscape={{fn this.ranAction "escape"}}
-      @onPressLeft={{fn this.ranAction "left"}}
-      @onPressUp={{fn this.ranAction "up"}}
-      @onPressRight={{fn this.ranAction "right"}}
-      @onPressDown={{fn this.ranAction "down"}}
+      @onPressKey={{this.handlePressKey}}
+      @onPressBackspace={{fn this.handleAction "backspace"}}
+      @onPressTab={{fn this.handleAction "tab"}}
+      @onPressEnter={{fn this.handleAction "enter"}}
+      @onPressEscape={{fn this.handleAction "escape"}}
+      @onPressLeft={{fn this.handleAction "left"}}
+      @onPressUp={{fn this.handleAction "up"}}
+      @onPressRight={{fn this.handleAction "right"}}
+      @onPressDown={{fn this.handleAction "down"}}
     />`);
 
     await triggerKeyEvent('.select-box', 'keydown', 8);
@@ -36,19 +33,15 @@ module('select-box (keyboard actions)', function (hooks) {
     await triggerKeyEvent('.select-box', 'keydown', 39);
     await triggerKeyEvent('.select-box', 'keydown', 40);
 
-    assert.deepEqual(
-      called,
+    assert.verifySteps(
       ['backspace', 'tab', 'enter', 'escape', 'left', 'up', 'right', 'down'],
       'calls actions named that of the key that was pressed'
     );
 
-    assert.equal(pressedKey, 0, 'no characters input yet');
-
     await triggerKeyEvent('.select-box', 'keypress', 65); // a
 
-    assert.equal(
-      pressedKey,
-      1,
+    assert.verifySteps(
+      ['pressed key'],
       'sends key press action when characters are input'
     );
   });
