@@ -5,6 +5,7 @@ import {
   selectOption
 } from '../../utils/select-box/option/select';
 import {
+  deactivateOptions,
   activateNextOption,
   activateOption,
   activateOptionAtIndex,
@@ -19,7 +20,6 @@ import {
   search
 } from '../../utils/select-box/search';
 import { close, open, toggle } from '../../utils/select-box/toggle';
-import { deactivateOptions } from '../../utils/select-box/option/deactivate';
 import {
   deregisterElement,
   registerElement

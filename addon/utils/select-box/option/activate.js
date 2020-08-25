@@ -15,6 +15,14 @@ export function activateOption(selectBox, option, config) {
   activateOptionAtIndex(selectBox, option.index, config);
 }
 
+export function deactivateOptions(selectBox) {
+  _setActiveOptionIndex(selectBox, -1);
+}
+
+function _setActiveOptionIndex(selectBox, index) {
+  selectBox.activeOptionIndex = index;
+}
+
 function setActiveOptionIndex(selectBox, index) {
   const under = index < 0;
   const over = index > selectBox.options.length - 1;
@@ -23,7 +31,7 @@ function setActiveOptionIndex(selectBox, index) {
     return;
   }
 
-  selectBox.activeOptionIndex = index;
+  _setActiveOptionIndex(selectBox, index);
 }
 
 export function activateOptionAtIndex(selectBox, index, config) {
