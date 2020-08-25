@@ -455,7 +455,7 @@
 
 ```handlebars
 <sb.SelectedOption>
-  {{-- Render the select box's value here --}}
+  {{!-- Render the select box's value here --}}
 </sb.SelectedOption>
 ```
 
