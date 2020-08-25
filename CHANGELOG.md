@@ -4,7 +4,7 @@
 
 - Remove `data-` attributes, `@classNamePrefix` and `@onBuildClassName` in a bid to reduce API surface
 - Remove stateful BEM class names, like `select-box__option--selected` in favour of aria attributes
-- Remove `handleInsertElement`
+- Remove `onInsertElement`
 - Remove `sb.Group` for native select box. `optgroup` can be used instead
 
 ## 15.0.0-beta.3
