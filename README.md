@@ -95,7 +95,7 @@ To create _your own_ select box, make a new component that renders a select box:
   <div class="select-box__selected-option">Foo</div>
   <div class="select-box__options">
     <div class="select-box__option">Foo</div>
-    <div class="select-box__option select-box__option--selected">Bar</div>
+    <div class="select-box__option" aria-selected="true">Bar</div>
     <div class="select-box__option">Baz</div>
   </div>
 </div>
