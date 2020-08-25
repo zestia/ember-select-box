@@ -64,9 +64,6 @@
   <summary>Actions</summary>
   <table width="100%">
     <tr>
-      <td colspan="2"><center>Selecting options</center></td>
-    </tr>
-    <tr>
       <td><code>@onSelect</code></td>
       <td>
         Fired when an option is clicked, or enter is pressed regardless as
@@ -88,9 +85,6 @@
       </td>
     </tr>
     <tr>
-      <td colspan="2"><center>Searching</center></td>
-    </tr>
-    <tr>
       <td><code>@onSearch</code></td>
       <td>Fired when the select box decides to run a search</td>
     </tr>
@@ -103,18 +97,12 @@
       <td>Fired if a search attempt failed</td>
     </tr>
     <tr>
-      <td colspan="2"><center>Miscellaneous</center></td>
-    </tr>
-    <tr>
       <td><code>@onReady</code></td>
       <td>Fired when the select box is ready. A useful opportunity to get access to the select box's API which is passed as a parameter.</td>
     </tr>
     <tr>
       <td><code>@onFocusLeave</code></td>
       <td>This is fired when the select box is no longer being interacte with. For example, the user clicks outside it, or tabs away. </td>
-    </tr>
-    <tr>
-      <td colspan="2"><center>Opening and Closing</center></td>
     </tr>
     <tr>
       <td><code>@onOpen</code></td>
@@ -127,9 +115,6 @@
       <td>
         Fired when the select box is closed
       </td>
-    </tr>
-    <tr>
-      <td colspan="2"><center>Keyboard interaction</center></td>
     </tr>
     <tr>
       <td><code>@onPressBackspace</code></td>
@@ -175,9 +160,6 @@
   <table width="100%">
     <caption>Actions</caption>
     <tr>
-      <td colspan="2"><center>Selecting options</center></td>
-    </tr>
-    <tr>
       <td><code>sb.select</code></td>
       <td>
         Selects arbitrary value(s). This mimics the making a selection, and so <code>@onSelect</code> will fire.  <code>@onUpdate</code> will also fire if the value is different.
@@ -193,9 +175,6 @@
     <tr>
       <td><code>sb.selectActiveOption</code></td>
       <td>Selects the value of whichever option is currently active</td>
-    </tr>
-    <tr>
-      <td colspan="2"><center>Activating options</center></td>
     </tr>
     <tr>
       <td><code>sb.activateNextOption</code></td>
@@ -237,9 +216,6 @@
       <td>Makes no option be active</td>
     </tr>
     <tr>
-      <td colspan="2"><center>Inputting text</center></td>
-    </tr>
-    <tr>
       <td><code>sb.search</code></td>
       <td>Runs an arbitrary search using the search function provided by <code>@onSearch</code></td>
     </tr>
@@ -264,9 +240,6 @@
       <td>Unfocuses the input associated with the select box</td>
     </tr>
     <tr>
-      <td colspan="2"><center>Opening and closing</center></td>
-    </tr>
-    <tr>
       <td><code>sb.open</code></td>
       <td>Opens the select box</td>
     </tr>
@@ -283,14 +256,8 @@
   <table width="100%">
     <caption>Properties</caption>
     <tr>
-      <td colspan="2"><center>DOM</center></td>
-    </tr>
-    <tr>
       <td><code>sb.element</code></td>
       <td>The element of the select box</td>
-    </tr>
-    <tr>
-      <td colspan="2"><center>Value</center></td>
     </tr>
     <tr>
       <td><code>sb.value</code></td>
@@ -311,9 +278,6 @@
     <tr>
       <td><code>sb.isSettled</code></td>
       <td>True once <code>@value</code> has resolved or rejected</td>
-    </tr>
-    <tr>
-      <td colspan="2"><center>Miscellaneous state</center></td>
     </tr>
     <tr>
       <td><code>sb.isBusy</code></td>
@@ -391,14 +355,8 @@
   <table width="100%">
     <caption>Template only properties</caption>
     <tr>
-      <td colspan="2"><center>DOM</center></td>
-    </tr>
-    <tr>
       <td><code>o.element</code></td>
       <td>The DOM element of the option component</td>
-    </tr>
-    <tr>
-      <td colspan="2"><center>Value</center></td>
     </tr>
     <tr>
       <td><code>o.value</code></td>
@@ -419,9 +377,6 @@
     <tr>
       <td><code>o.isSettled</code></td>
       <td>True once <code>@value</code> has resolved or rejected</td>
-    </tr>
-    <tr>
-      <td colspan="2"><center>Miscellaneous state</center></td>
     </tr>
     <tr>
       <td><code>o.index</code></td>
