@@ -16,20 +16,20 @@
   @value={{this.selectedDesserts}}
   @onSelect={{this.selectDesserts}} as |sb|
 >
-  <sb.Group label="Pastries">
+  <optgroup label="Pastries">
     {{#each this.selectablePastries as |pastry|}}
       <sb.Option @value={{pastry}}>
         {{pastry.name}}
       </sb.Option>
     {{/each}}
-  </sb.Group>
-  <sb.Group label="Biscuits">
+  </optgroup>
+  <optgroup label="Biscuits">
     {{#each this.selectableBiscuits as |biscuit|}}
       <sb.Option @value={{biscuit}}>
         {{biscuit.name}}
       </sb.Option>
     {{/each}}
-  </sb.Group>
+  </optgroup>
 </NativeSelectBox>
 
 <p>
