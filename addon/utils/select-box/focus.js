@@ -2,14 +2,14 @@ import invokeAction from '../component/invoke-action';
 import { scheduleOnce } from '@ember/runloop';
 
 export function focusOut(selectBox, e) {
-  scheduleOnce('afterRender', selectBox, focusOutSettled, selectBox, e);
-  // focusOutSettled(selectBox, e);
+  // scheduleOnce('afterRender', selectBox, focusOutSettled, selectBox, e);
+  focusOutSettled(selectBox, e);
 }
 
 function focusOutSettled(selectBox, e) {
-  if (selectBox.isDestroying) {
-    return;
-  }
+  // if (selectBox.isDestroying) {
+  //   return;
+  // }
 
   const focusInside =
     selectBox.element.contains(e.relatedTarget) ||
