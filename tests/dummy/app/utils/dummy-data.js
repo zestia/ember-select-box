@@ -94,7 +94,8 @@ export const puddings = [
 export const tags = [
   { id: 1, name: 'foo' },
   { id: 2, name: 'bar' },
-  { id: 3, name: 'baz' }
+  { id: 3, name: 'baz' },
+  { id: 4, name: 'qux' }
 ];
 
 export const colours = [

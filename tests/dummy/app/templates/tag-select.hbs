@@ -18,19 +18,6 @@
 
 <TagSelect
   @value={{this.selectedTagNames}}
-  @onTag={{this.tag}}
-  @onDeTag={{this.detag}}
+  @onSelect={{this.handleSelectTags}}
   @onSearch={{this.filterTagNames}}
 />
-
-<p>
-  Selected tags:
-</p>
-
-<ul>
-  {{#each this.selectedTags as |tag|}}
-    <li>
-      id = {{tag.id}}, name= {{tag.name}}
-    </li>
-  {{/each}}
-</ul>

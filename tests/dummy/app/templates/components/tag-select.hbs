@@ -1,14 +1,15 @@
 <SelectBox
   class="tag-select"
   @value={{@value}}
+  @multiple={{true}}
   @searchMinChars={{0}}
   @searchDelayTime={{0}}
   @onPressEscape={{this.close}}
-  @onPressDown={{this.handlePressDown}}
-  @onPressUp={{this.handlePressUp}}
   @onFocusLeave={{this.close}}
   @onSelect={{this.select}}
-  @onSearch={{this.search}}
+  @onBuildSelection={{this.addValue}}
+  @onSearch={{@onSearch}}
+  @onSearched={{this.handleSearched}}
   ...attributes as |sb|
 >
   <sb.SelectedOptions>
@@ -18,7 +19,7 @@
         <button
           type="button"
           class="tag-select__remove"
-          {{on "click" (fn this.deselect tag)}}
+          {{on "click" (fn this.deselect tag sb)}}
         >
           &times;
         </button>
@@ -41,9 +42,9 @@
             {{tag}}
           </sb.Option>
         {{/each}}
-      {{else if this.newTag}}
-        <sb.Option @value={{this.newTag}}>
-          No tag found, add {{this.newTag}}...
+      {{else if this.lastQuery}}
+        <sb.Option @value={{this.lastQuery}}>
+          No tag found, add {{this.lastQuery}}...
         </sb.Option>
       {{/if}}
     </sb.Options>
