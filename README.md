@@ -44,15 +44,13 @@ https://zestia.github.io/ember-select-box
 - ARIA Attributes ✔︎
 - Supports promises ✔︎
 - Any HTML you want ✔︎
-- Fully themeable using namespaced classes ✔︎
-- Customisable class names ✔︎
 - Will never come with built-in styles ✔︎
 - Ember Data friendly ✔︎
-- Easily create an autocompleter ✔︎
-- Easily create a dropdown menu ✔︎
 - Full control at all times with the API ✔︎
 - Native-like typeahead behaviour ✔︎
 - Very few issues over many years of Ember! ✔︎
+- Easily create an autocompleter ✔︎
+- Easily create a dropdown menu ✔︎
 
 ## Example
 
@@ -95,7 +93,7 @@ To create _your own_ select box, make a new component that renders a select box:
   <div class="select-box__selected-option">Foo</div>
   <div class="select-box__options">
     <div class="select-box__option">Foo</div>
-    <div class="select-box__option" aria-selected="true">Bar</div>
+    <div class="select-box__option">Bar</div>
     <div class="select-box__option">Baz</div>
   </div>
 </div>
