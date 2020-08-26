@@ -1,15 +1,14 @@
 # Changelog
 
-## 15.0.0-beta.4
-
-- Remove `data-` attributes, `@classNamePrefix` and `@onBuildClassName` in a bid to reduce API surface
-- Remove stateful BEM class names, like `select-box__option--selected` in favour of aria attributes
-- Remove `onInsertElement`
-- Remove `sb.Group` for native select box. `optgroup` can be used instead
-
 ## 15.0.0-beta.3
 
-- Remove `@onInput` from `sb.Input` component. This action wasn't providing anything different than what can be acheived by using `{{on "input"}}`
+- Removed `data-` attributes, `@classNamePrefix` and `@onBuildClassName` in a bid to reduce API surface
+- Removed stateful BEM class names, like `select-box__option--selected` in favour of aria attributes
+- Removed `onInsertElement`
+- Removed `sb.Group` for native select box. `optgroup` can be used instead
+- Removed `@onInput` from `sb.Input` component. This action wasn't providing anything different than what can be acheived by using `{{on "input"}}`
+- Removed ability to set a `@value` on a selected option, and activate that selected option.
+- `SelectedOption`, `SelectedOptions`, `Group` and `Options` are now just dumb template only components. They weren't removed altogether, because they still prove useful for higher order components with the component helper.
 
 ## 15.0.0-beta.2
 

@@ -1,11 +1,32 @@
-<div tabindex="0" {{on "focusout" this.handleFocusOut}}>
+{{!-- Minimal reproduction --}}
+
+<div class="repro" tabindex="0" {{on "focusout" this.reproHandleFocusOut}}>
   {{#if this.value}}
     {{this.value}}
   {{else}}
     <input>
   {{/if}}
 
-  <div role="button" {{on "click" this.handleClick}}>
+  <div role="button" {{on "click" this.reproHandleClick}}>
     Click me to set a value
   </div>
 </div>
+
+
+<br><br>
+
+
+{{!-- Reproduction with the select box component --}}
+
+<SelectBox
+  @onSelect={{this.handleSelect}}
+  @onFocusLeave={{this.handleFocusLeave}} as |sb|
+>
+  {{#if sb.value}}
+    {{sb.value}}
+  {{else}}
+    <sb.Input />
+  {{/if}}
+
+  <sb.Option @value="1">One</sb.Option>
+</SelectBox>

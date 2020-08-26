@@ -6,12 +6,22 @@ export default class BacktrackSelectController extends Controller {
   @tracked value = null;
 
   @action
-  handleFocusOut() {
+  reproHandleFocusOut() {
     this.value = 2;
   }
 
   @action
-  handleClick() {
+  reproHandleClick() {
     this.value = 1;
+  }
+
+  @action
+  handleFocusLeave(e, sb) {
+    sb.deactivateOptions();
+  }
+
+  @action
+  handleSelect(value, sb) {
+    sb.deactivateOptions();
   }
 }
