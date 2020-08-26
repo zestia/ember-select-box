@@ -31,5 +31,4 @@ function setOptions(selectBox, options) {
     elements.indexOf(a.element) - elements.indexOf(b.element);
 
   selectBox.options = options.toArray().sort(sort);
-  // selectBox.pendingOptions.clear();
 }
