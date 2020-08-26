@@ -1,16 +1,11 @@
-<SelectBox
-  class="backtrack-select"
-  @onFocusLeave={{this.handleFocusLeave}}
-  @onSelect={{this.handleSelect}}
-  ...attributes as |sb|
->
-  {{#if sb.value}}
-    {{sb.value}}
+<div tabindex="0" {{on "focusout" this.handleFocusOut}}>
+  {{#if this.value}}
+    {{this.value}}
   {{else}}
-    <sb.Input />
+    <input>
   {{/if}}
 
-  <sb.Option @value="1">One</sb.Option>
-  <sb.Option @value="2">Two</sb.Option>
-  <sb.Option @value="3">Three</sb.Option>
-</SelectBox>
+  <div role="button" {{on "click" this.handleClick}}>
+    Click me to set a value
+  </div>
+</div>

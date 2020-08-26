@@ -10,6 +10,6 @@ module('Acceptance', function (hooks) {
 
     await visit('/backtrack-select');
     await focus('input');
-    await click('.select-box__option');
+    await click('div[role="button"]');
   });
 });
