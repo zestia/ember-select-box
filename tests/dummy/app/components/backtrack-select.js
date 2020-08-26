@@ -2,7 +2,7 @@ import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
-export default class SearchSelectComponent extends Component {
+export default class BacktrackSelectComponent extends Component {
   @tracked lastQuery;
   @tracked results = [];
 
