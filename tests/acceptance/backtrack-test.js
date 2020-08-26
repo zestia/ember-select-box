@@ -6,10 +6,10 @@ module('Acceptance', function (hooks) {
   setupApplicationTest(hooks);
 
   test('backtrack rendering error', async function (assert) {
-    await visit('/backtrack-select');
-    await fillIn('input', 'o');
-    await click('.select-box__option');
-
-    return new Promise(() => {});
+    // await visit('/backtrack-select');
+    // await fillIn('input', 'o');
+    // await click('.select-box__option');
+    //
+    // return new Promise(() => {});
   });
 });

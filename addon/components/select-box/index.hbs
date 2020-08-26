@@ -23,12 +23,6 @@
 >
   {{#let
     (hash
-      Options=(component
-        "select-box/options"
-        selectBox=this
-        _onInsert=this.handleInsertOptionsContainer
-        _onDestroy=this.handleDestroyOptionsContainer
-      )
       Option=(component
         "select-box/option"
         selectBox=this
@@ -37,9 +31,6 @@
         _onDestroy=this.handleDestroyOption
         _onInsert=this.handleInsertOption
       )
-      SelectedOptions=(component "select-box/selected-options")
-      SelectedOption=(component "select-box/selected-option")
-      Group=(component "select-box/group" selectBox=this)
       Input=(component
         "select-box/input"
         selectBox=this
@@ -49,6 +40,10 @@
         _onDestroy=this.handleDestroyInput
         _onInput=this.handleInputText
       )
+      SelectedOptions=(component "select-box/selected-options")
+      SelectedOption=(component "select-box/selected-option")
+      Options=(component "select-box/options")
+      Group=(component "select-box/group")
     ) as |components|
   }}
     {{yield (merge components this.api)}}

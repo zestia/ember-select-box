@@ -161,7 +161,7 @@ module('select-box/option', function (hooks) {
   });
 
   test('yield index', async function (assert) {
-    assert.expect(4);
+    assert.expect(2);
 
     const labels = () =>
       [...findAll('.select-box__option')].map((o) => o.textContent.trim());
@@ -191,31 +191,6 @@ module('select-box/option', function (hooks) {
       labels(),
       ['foo: 0', 'bar: 1', 'baz: 2'],
       'indexes are correct after options change'
-    );
-
-    await render(hbs`
-      <SelectBox @value="baz" as |sb|>
-        {{#each this.values key="@index" as |value|}}
-          <sb.Option @value={{value}} as |o|>
-            {{o.value}}: {{o.index}}
-          </sb.Option>
-        {{/each}}
-      </SelectBox>
-    `);
-
-    assert.deepEqual(
-      labels(),
-      ['foo: 0', 'bar: 1', 'baz: 2'],
-      'precondition, indexes are correct'
-    );
-
-    this.set('values', ['foo', 'baz']);
-    this.set('values', ['foo', 'bar', 'baz']);
-
-    assert.deepEqual(
-      labels(),
-      ['foo: 0', 'bar: 1', 'baz: 2'],
-      'indexes are correct due to key on each'
     );
   });
 
