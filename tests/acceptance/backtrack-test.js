@@ -7,8 +7,8 @@ module('Acceptance', function (hooks) {
 
   test('backtrack rendering error', async function (assert) {
     await visit('/backtrack-select');
-    await fillIn('input', 'a');
-    await click('.select-box__option:nth-child(1)');
+    await fillIn('input', 'o');
+    await click('.select-box__option');
 
     return new Promise(() => {});
   });

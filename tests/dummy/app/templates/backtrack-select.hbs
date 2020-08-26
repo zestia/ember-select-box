@@ -1,16 +1,16 @@
-<-BacktrackSelect
-  @onSearch={{this.findBread}}
-  @onSelect={{this.selectBread}}
-  ...attributes as |sb results|>
-  <sb.Options>
-    {{#each results as |bread|}}
-      <sb.Option @value={{bread}}>
-        {{bread.name}}
-      </sb.Option>
-    {{/each}}
-  </sb.Options>
-</-BacktrackSelect>
+<SelectBox
+  class="backtrack-select"
+  @onFocusLeave={{this.handleFocusLeave}}
+  @onSelect={{this.handleSelect}}
+  ...attributes as |sb|
+>
+  {{#if sb.value}}
+    {{sb.value}}
+  {{else}}
+    <sb.Input />
+  {{/if}}
 
-<p>
-  Selected bread: {{this.selectedBread.name}}
-</p>
+  <sb.Option @value="1">One</sb.Option>
+  <sb.Option @value="2">Two</sb.Option>
+  <sb.Option @value="3">Three</sb.Option>
+</SelectBox>
