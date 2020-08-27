@@ -9,4 +9,16 @@ export default class ColourSelect extends Component {
   close(e, sb) {
     sb.close();
   }
+
+  @action
+  handlePressLeft(e, sb) {
+    e.preventDefault();
+    sb.activatePreviousOption();
+  }
+
+  @action
+  handlePressRight(e, sb) {
+    e.preventDefault();
+    sb.activateNextOption();
+  }
 }

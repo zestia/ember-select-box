@@ -6,6 +6,8 @@
   @onSelect={{@onSelect}}
   @onFocusLeave={{this.close}}
   @onPressEscape={{this.close}}
+  @onPressLeft={{this.handlePressLeft}}
+  @onPressRight={{this.handlePressRight}}
   ...attributes as |sb|
 >
   <sb.SelectedOption
