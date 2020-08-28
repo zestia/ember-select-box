@@ -19,16 +19,6 @@ module('select-box/selected-option', function (hooks) {
   test('role', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`<SelectBox::SelectedOption />`);
-
-    assert
-      .dom('.select-box__selected-option')
-      .hasAttribute('role', 'option', 'defined as an option');
-  });
-
-  test('role', async function (assert) {
-    assert.expect(1);
-
     await render(hbs`
       {{! template-lint-disable no-unnecessary-component-helper }}
       {{component "select-box/selected-option" role="button"}}
