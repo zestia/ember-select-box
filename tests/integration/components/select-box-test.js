@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { find, render, settled } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import EmberArray, { A as emberA } from '@ember/array';
 const { isFrozen, isSealed } = Object;
@@ -15,17 +15,7 @@ module('select-box', function (hooks) {
 
     assert
       .dom('div.select-box')
-      .exists({ count: 1 }, 'renders with correct class name and tag');
-  });
-
-  test('data component attribute', async function (assert) {
-    assert.expect(1);
-
-    await render(hbs`<SelectBox />`);
-
-    assert
-      .dom('[data-component="select-box"]')
-      .exists({ count: 1 }, 'has a data attribute signifying its type');
+      .hasTagName('div', 'renders with correct class name and tag');
   });
 
   test('role', async function (assert) {
@@ -47,26 +37,11 @@ module('select-box', function (hooks) {
 
     await render(hbs`<SelectBox />`);
 
-    assert.ok(
-      !find('.select-box').classList.contains('select-box--multiple'),
-      'no multiple class'
-    );
+    assert.dom('.select-box').hasAttribute('aria-multiselectable', 'false');
 
     await render(hbs`<SelectBox @multiple={{true}} />`);
 
-    assert
-      .dom('.select-box')
-      .hasClass('select-box--multiple', 'has multiple class');
-  });
-
-  test('inserting', async function (assert) {
-    assert.expect(1);
-
-    this.inserted = (sb) => {
-      assert.deepEqual(sb.element, find('.select-box'), 'exposes element');
-    };
-
-    await render(hbs`<SelectBox @onInsertElement={{this.inserted}} />`);
+    assert.dom('.select-box').hasAttribute('aria-multiselectable', 'true');
   });
 
   test('initial update action', async function (assert) {
@@ -74,7 +49,7 @@ module('select-box', function (hooks) {
 
     let called = 0;
 
-    this.set('updated', (sb) => {
+    this.handleUpdate = (sb) => {
       called++;
 
       assert.strictEqual(
@@ -82,9 +57,9 @@ module('select-box', function (hooks) {
         undefined,
         'fires an initial update action with the selected value'
       );
-    });
+    };
 
-    await render(hbs`<SelectBox @onUpdate={{this.updated}} />`);
+    await render(hbs`<SelectBox @onUpdate={{this.handleUpdate}} />`);
 
     assert.equal(called, 1, 'only fires once');
   });
@@ -94,9 +69,9 @@ module('select-box', function (hooks) {
 
     let count = 0;
 
-    this.set('selectedValue', 'foo');
+    this.myValue = 'foo';
 
-    this.set('updated', (sb) => {
+    this.handleUpdate = (sb) => {
       count++;
 
       if (count === 2) {
@@ -106,37 +81,32 @@ module('select-box', function (hooks) {
           'fires an update action when the value changes'
         );
       }
-    });
+    };
 
     await render(hbs`
       <SelectBox
-        @value={{this.selectedValue}}
-        @onUpdate={{this.updated}} />
+        @value={{this.myValue}}
+        @onUpdate={{this.handleUpdate}} />
     `);
 
-    this.set('selectedValue', 'bar');
+    this.set('myValue', 'bar');
   });
 
   test('update action', async function (assert) {
-    assert.expect(1);
+    assert.expect(2);
 
-    let count = 0;
-
-    this.set('updated', () => {
-      count++;
-    });
+    this.handleUpdate = () => assert.step('update');
 
     await render(hbs`
       <SelectBox
         @disabled={{this.isDisabled}}
-        @onUpdate={{this.updated}} />
+        @onUpdate={{this.handleUpdate}} />
     `);
 
     this.set('isDisabled', true);
 
-    assert.equal(
-      count,
-      1,
+    assert.verifySteps(
+      ['update'],
       'updating arguments other than the `value` should not fire update action'
     );
   });
@@ -145,10 +115,10 @@ module('select-box', function (hooks) {
     assert.expect(1);
 
     await render(
-      hbs`<SelectBox @onUpdate={{@onUpdate}} @value={{this.value}} />`
+      hbs`<SelectBox @onUpdate={{@onUpdate}} @value={{this.myValue}} />`
     );
 
-    this.set('value', 'foo');
+    this.set('myValue', 'foo');
 
     assert.ok(
       true,
@@ -161,14 +131,13 @@ module('select-box', function (hooks) {
 
     let api;
 
-    this.set('ready', (sb) => (api = sb));
+    this.handleReady = (sb) => (api = sb);
 
-    await render(hbs`<SelectBox @onReady={{this.ready}} />`);
+    await render(hbs`<SelectBox @onReady={{this.handleReady}} />`);
 
-    assert.ok(
-      !find('.select-box').classList.contains('select-box--open'),
-      'precondition, not open'
-    );
+    assert
+      .dom('.select-box')
+      .hasAttribute('aria-expanded', 'false', 'precondition, not open');
 
     api.open();
 
@@ -178,7 +147,7 @@ module('select-box', function (hooks) {
 
     assert
       .dom('.select-box')
-      .hasClass('select-box--open', 'action is called with the api');
+      .hasAttribute('aria-expanded', 'true', 'action is called with the api');
   });
 
   test('api value', async function (assert) {
@@ -188,9 +157,9 @@ module('select-box', function (hooks) {
     const value2 = emberA(['bar']);
     const apis = [];
 
-    this.set('value', value1);
+    this.myValue = value1;
 
-    this.set('checkAPI', (sb) => {
+    this.checkAPI = (sb) => {
       apis.push(sb);
 
       if (apis.length === 1) {
@@ -200,11 +169,11 @@ module('select-box', function (hooks) {
       } else if (apis.length === 3) {
         assert.deepEqual(sb.value, ['bar'], 'subsequent onUpdate');
       }
-    });
+    };
 
     await render(hbs`
       <SelectBox
-        @value={{this.value}}
+        @value={{this.myValue}}
         @multiple={{true}}
         @onReady={{this.checkAPI}}
         @onUpdate={{this.checkAPI}} />
@@ -213,7 +182,7 @@ module('select-box', function (hooks) {
     assert.ok(isSealed(apis[0]), 'api is sealed');
 
     assert.ok(
-      !isFrozen(this.value),
+      !isFrozen(this.myValue),
       'api does not accidentally freeze original value'
     );
 
@@ -233,7 +202,7 @@ module('select-box', function (hooks) {
       apis[0].foo = 'bar';
     }, 'cannot alter the api');
 
-    this.set('value', value2);
+    this.set('myValue', value2);
 
     assert.deepEqual(
       apis[1].value,

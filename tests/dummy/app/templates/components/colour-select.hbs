@@ -1,16 +1,17 @@
 {{! template-lint-disable no-inline-styles }}
 
 <SelectBox
-  @classNamePrefix="colour-select"
+  class="colour-select"
   @value={{@value}}
   @onSelect={{@onSelect}}
-  @onClickOutside={{this.close}}
+  @onFocusLeave={{this.close}}
   @onPressEscape={{this.close}}
+  @onPressLeft={{this.handlePressLeft}}
+  @onPressRight={{this.handlePressRight}}
   ...attributes as |sb|
 >
   <sb.SelectedOption
     style={{style (concat "background:" sb.value)}}
-    @value={{sb.value}}
     {{on "click" sb.toggle}}
   />
 

@@ -1,16 +1,16 @@
 <SelectBox
-  @classNamePrefix="filter-select"
+  class="filter-select"
   @value={{@value}}
   @searchMinChars={{0}}
   @searchDelayTime={{0}}
   @onSearch={{@onSearch}}
   @onSearched={{this.handleSearched}}
-  @onClickOutside={{this.close}}
+  @onFocusLeave={{this.close}}
   @onPressEscape={{this.close}}
   @onSelect={{this.select}}
   ...attributes as |sb|
 >
-  <sb.Input @onInput={{sb.open}} {{on "click" (fn this.reveal sb)}} />
+  <sb.Input {{on "input" sb.open}} {{on "click" (fn this.reveal sb)}} />
   {{#if sb.isOpen}}
     <sb.Options>
       {{yield sb this.results}}

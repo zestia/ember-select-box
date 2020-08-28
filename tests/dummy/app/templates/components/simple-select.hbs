@@ -1,11 +1,11 @@
 <SelectBox
-  @classNamePrefix="simple-select"
+  class="simple-select"
   @value={{@value}}
   @onPressKey={{this.handlePressKey}}
   @onPressDown={{this.handlePressDown}}
   @onPressUp={{this.handlePressUp}}
   @onPressEscape={{this.close}}
-  @onClickOutside={{this.close}}
+  @onFocusLeave={{this.close}}
   @onSelect={{this.select}}
   ...attributes as |sb|
 >

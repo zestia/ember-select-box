@@ -1,63 +1,44 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { blur, focus, render } from '@ember/test-helpers';
+import { find, triggerEvent, focus, render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('select-box (focusing)', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('focus class name', async function (assert) {
-    assert.expect(3);
+  test('onFocusLeave fires when focus has actually left the select box', async function (assert) {
+    assert.expect(5);
 
-    await render(hbs`<SelectBox />`);
-
-    assert
-      .dom('.select-box')
-      .doesNotHaveClass('select-box--focused', 'precondition, not focused');
-
-    await focus('.select-box');
-
-    assert
-      .dom('.select-box')
-      .hasClass(
-        'select-box--focused',
-        'a focused select box has an appropriate class name'
-      );
-
-    await blur('.select-box');
-
-    assert
-      .dom('.select-box')
-      .doesNotHaveClass(
-        'select-box--focused',
-        'the focused class name is removed when the select box is blurred'
-      );
-  });
-
-  test('focus actions', async function (assert) {
-    assert.expect(2);
-
-    let sentFocusIn;
-    let sentFocusOut;
-
-    this.set('focused', () => (sentFocusIn = true));
-    this.set('blurred', () => (sentFocusOut = true));
+    this.handleFocusLeave = () => assert.step('focus leave');
 
     await render(hbs`
       <SelectBox
-        @onFocusIn={{this.focused}}
-        @onFocusOut={{this.blurred}} as |sb|>
-        <sb.Input />
+        @onFocusLeave={{this.handleFocusLeave}}
+      >
+        <button type="button" class="in"></button>
       </SelectBox>
+
+      <button type="button" class="out"></button>
     `);
 
-    await focus('.select-box__input');
+    const elIn = find('.in');
+    const elOut = find('.out');
 
-    assert.ok(sentFocusIn, true, 'sends a focus in action');
+    await triggerEvent('.select-box', 'focusout', { relatedTarget: elIn });
 
-    await blur('.select-box__input', 'blur');
+    assert.verifySteps([]);
 
-    assert.ok(sentFocusOut, true, 'sends a focus out action');
+    await triggerEvent('.select-box', 'focusout', { relatedTarget: elOut });
+
+    assert.verifySteps(['focus leave']);
+
+    assert.verifySteps([]);
+
+    await focus('.in');
+
+    await triggerEvent('.select-box', 'focusout');
+
+    assert.verifySteps([]);
   });
 
   test('disabled tabindex', async function (assert) {
@@ -90,6 +71,8 @@ module('select-box (focusing)', function (hooks) {
       <SelectBox tabindex="2" />
     `);
 
-    assert.dom('.select-box').hasAttribute('tabindex', '2', 'can set tabindex');
+    assert
+      .dom('.select-box')
+      .hasAttribute('tabindex', '2', 'can still set tabindex');
   });
 });

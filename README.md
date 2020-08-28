@@ -44,15 +44,13 @@ https://zestia.github.io/ember-select-box
 - ARIA Attributes ✔︎
 - Supports promises ✔︎
 - Any HTML you want ✔︎
-- Fully themeable using namespaced classes ✔︎
-- Customisable class names ✔︎
 - Will never come with built-in styles ✔︎
 - Ember Data friendly ✔︎
-- Easily create an autocompleter ✔︎
-- Easily create a dropdown menu ✔︎
 - Full control at all times with the API ✔︎
 - Native-like typeahead behaviour ✔︎
 - Very few issues over many years of Ember! ✔︎
+- Easily create an autocompleter ✔︎
+- Easily create a dropdown menu ✔︎
 
 ## Example
 
@@ -61,9 +59,9 @@ To create _your own_ select box, make a new component that renders a select box:
 ```handlebars
 {{! foo-select.hbs }}
 <SelectBox
+  class="foo"
   @value={{@value}}
-  @onSelect={{@onSelect}}
-  @classNamePrefix="foo-select" as |sb|
+  @onSelect={{@onSelect}} as |sb|
 >
   <sb.SelectedOption {{on "click" sb.toggle}}>
     {{sb.value.name}}
@@ -91,12 +89,12 @@ To create _your own_ select box, make a new component that renders a select box:
 ...which will render...
 
 ```html
-<div class="foo-select">
-  <div class="foo-select__selected-option">Foo</div>
-  <div class="foo-select__options">
-    <div class="foo-select__option">Foo</div>
-    <div class="foo-select__option foo-select__option--selected">Bar</div>
-    <div class="foo-select__option">Baz</div>
+<div class="select-box foo">
+  <div class="select-box__selected-option">Foo</div>
+  <div class="select-box__options">
+    <div class="select-box__option">Foo</div>
+    <div class="select-box__option">Bar</div>
+    <div class="select-box__option">Baz</div>
   </div>
 </div>
 ```
@@ -106,7 +104,6 @@ To create _your own_ select box, make a new component that renders a select box:
 ## Docs
 
 - [List of components and their arguments](docs/components.md)
-- [Customisable classnames](docs/class-names.md)
 - [High level overview of how it works](docs/how-it-works.md)
 - [Test helpers](docs/test-helpers.md)
 - [Troubleshooting](docs/troubleshooting.md)

@@ -8,8 +8,6 @@ export function input(input, e) {
   }
 
   _input(input, text);
-
-  inputText(input, text);
 }
 
 function _input(input, text) {
@@ -18,10 +16,6 @@ function _input(input, text) {
 
 function clearedInput(input) {
   invokeAction(input, 'onClear', input.args.selectBox.api);
-}
-
-function inputText(input, text) {
-  invokeAction(input, 'onInput', text, input.args.selectBox.api);
 }
 
 function deletedText(input) {

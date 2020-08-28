@@ -1,29 +1,26 @@
 import invokeAction from '../component/invoke-action';
-
-export function focusIn(selectBox, e) {
-  try {
-    selectBox.isFocused = true;
-  } catch (error) {
-    // https://github.com/emberjs/ember.js/issues/18043
-  } finally {
-    focusedIn(selectBox, e);
-  }
-}
+import { scheduleOnce } from '@ember/runloop';
 
 export function focusOut(selectBox, e) {
-  try {
-    selectBox.isFocused = false;
-  } catch (error) {
-    // https://github.com/emberjs/ember.js/issues/18043
-  } finally {
-    focusedOut(selectBox, e);
-  }
+  scheduleOnce('afterRender', selectBox, focusOutSettled, selectBox, e);
 }
 
-function focusedIn(selectBox, e) {
-  invokeAction(selectBox, 'onFocusIn', e, selectBox.api);
+function focusOutSettled(selectBox, e) {
+  if (selectBox.isDestroying) {
+    return;
+  }
+
+  const focusInside =
+    selectBox.element.contains(e.relatedTarget) ||
+    selectBox.element.contains(document.activeElement);
+
+  if (focusInside) {
+    return;
+  }
+
+  focusedOut(selectBox, e);
 }
 
 function focusedOut(selectBox, e) {
-  invokeAction(selectBox, 'onFocusOut', e, selectBox.api);
+  invokeAction(selectBox, 'onFocusLeave', e, selectBox.api);
 }

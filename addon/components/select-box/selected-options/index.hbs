@@ -1,13 +1,10 @@
 <div
-  data-component="selected-options"
-  class={{this.className}}
-  aria-activedescendant={{@aria-activedescendant}}
-  {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
+  class="select-box__selected-options"
+  {{!-- begin issue: https://github.com/emberjs/rfcs/issues/497 --}}
   {{! template-lint-disable no-invalid-interactive }}
   onclick={{@onclick}}
+  {{!-- end issue --}}
   ...attributes
-  {{did-insert this.handleInsertElement}}
-  {{will-destroy this.handleDestroyElement}}
 >
   {{yield}}
 </div>

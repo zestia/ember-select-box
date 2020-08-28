@@ -16,8 +16,8 @@ module('select-box (destroying)', function (hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function () {
-    this.set('show', true);
-    this.set('hide', () => this.set('show', false));
+    this.show = true;
+    this.hide = () => this.set('show', false);
   });
 
   test('showing', async function (assert) {
@@ -53,17 +53,17 @@ module('select-box (destroying)', function (hooks) {
   test('update', async function (assert) {
     assert.expect(0);
 
-    this.set('ready', async (sb) => {
+    this.handleReady = async (sb) => {
       this.hide();
 
       await settled();
 
       sb.update('foo');
-    });
+    };
 
     await render(hbs`
       {{#if this.show}}
-        <SelectBox @onReady={{this.ready}} />
+        <SelectBox @onReady={{this.handleReady}} />
       {{/if}}
     `);
   });
@@ -71,17 +71,17 @@ module('select-box (destroying)', function (hooks) {
   test('select', async function (assert) {
     assert.expect(0);
 
-    this.set('ready', async (sb) => {
+    this.handleReady = async (sb) => {
       this.hide();
 
       await settled();
 
       sb.select('foo');
-    });
+    };
 
     await render(hbs`
       {{#if this.show}}
-        <SelectBox @onReady={{this.ready}} />
+        <SelectBox @onReady={{this.handleReady}} />
       {{/if}}
     `);
   });
@@ -91,11 +91,11 @@ module('select-box (destroying)', function (hooks) {
 
     const deferred = defer();
 
-    this.set('findItems', () => deferred.promise);
+    this.handleSearch = () => deferred.promise;
 
     await render(hbs`
       {{#if this.show}}
-        <SelectBox @onSearch={{this.findItems}} as |sb|>
+        <SelectBox @onSearch={{this.handleSearch}} as |sb|>
           <sb.Input />
         </SelectBox>
       {{/if}}

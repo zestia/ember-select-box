@@ -63,11 +63,11 @@ module('select-box (ember data)', function (hooks) {
       });
     });
 
-    this.set('foos', allFoos);
-    this.set('value', filteredFoos);
+    this.foos = allFoos;
+    this.myValue = filteredFoos;
 
     await render(hbs`
-      <SelectBox @value={{this.value}} @multiple={{true}} as |sb|>
+      <SelectBox @value={{this.myValue}} @multiple={{true}} as |sb|>
         {{#if sb.isPending}}
           ...
         {{else}}
@@ -80,10 +80,12 @@ module('select-box (ember data)', function (hooks) {
       </SelectBox>
     `);
 
-    assert.dom('.select-box__option--selected').exists({ count: 5 });
+    assert
+      .dom('.select-box__option[aria-selected="true"]')
+      .exists({ count: 5 });
 
     assert
-      .dom('.select-box__option:not(.select-box__option--selected)')
+      .dom('.select-box__option[aria-selected="false"]')
       .exists({ count: 5 });
   });
 });

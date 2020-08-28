@@ -1,12 +1,12 @@
 <SelectBox
-  @classNamePrefix="search-select"
+  class="search-select"
   @value={{@value}}
   @searchSlowTime={{500}}
   @onSelect={{@onSelect}}
   @onSearch={{@onSearch}}
   @onSearched={{this.handleSearched}}
   @onPressEscape={{this.close}}
-  @onClickOutside={{this.close}}
+  @onFocusLeave={{this.close}}
   ...attributes as |sb|
 >
   <sb.Input />

@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { find, findAll, render, settled } from '@ember/test-helpers';
+import { findAll, render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { defer } from 'rsvp';
 
@@ -14,23 +14,13 @@ module('native-select-box/option', function (hooks) {
 
     assert
       .dom('option.select-box__option')
-      .exists({ count: 1 }, 'renders with correct class name and tag');
-  });
-
-  test('data component attribute', async function (assert) {
-    assert.expect(1);
-
-    await render(hbs`<NativeSelectBox::Option />`);
-
-    assert
-      .dom('[data-component="option"]')
-      .doesNotExist('does not have a data attribute signifying its type');
+      .exists('renders with correct class name and tag');
   });
 
   test('value', async function (assert) {
     assert.expect(2);
 
-    this.set('myValue', 123);
+    this.myValue = 123;
 
     await render(hbs`<NativeSelectBox::Option @value={{this.myValue}} />`);
 
@@ -58,7 +48,7 @@ module('native-select-box/option', function (hooks) {
 
     const deferred = defer();
 
-    this.set('myValue', deferred.promise);
+    this.myValue = deferred.promise;
 
     await render(hbs`
       <NativeSelectBox::Option @value={{this.myValue}} as |o|>
@@ -91,17 +81,18 @@ module('native-select-box/option', function (hooks) {
 
     await render(hbs`<NativeSelectBox::Option>Foo</NativeSelectBox::Option>`);
 
-    assert.strictEqual(
-      find('.select-box__option').textContent,
-      'Foo',
-      'renders the label inside the option element (correct whitespace)'
-    );
+    assert
+      .dom('.select-box__option')
+      .hasText(
+        'Foo',
+        'renders the label inside the option element (correct whitespace)'
+      );
   });
 
   test('yield', async function (assert) {
     assert.expect(1);
 
-    this.set('items', ['foo', 'bar']);
+    this.items = ['foo', 'bar'];
 
     await render(hbs`
       <NativeSelectBox @value="foo" as |sb|>

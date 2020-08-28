@@ -14,9 +14,7 @@ import {
 } from '../../utils/shared/value';
 import { selectValue as _selectValue } from '../../utils/native-select-box/value';
 import buildAPI from '../../utils/shared/api';
-import { buildClassName } from '../../utils/shared/class-name';
 import { ready } from '../../utils/shared/ready';
-import { insertElement } from '../../utils/shared/element';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { A as emberA } from '@ember/array';
@@ -54,10 +52,6 @@ export default class NativeSelectBox extends Component {
     ]);
   }
 
-  get className() {
-    return buildClassName(this);
-  }
-
   get isMultiple() {
     return this.args.multiple;
   }
@@ -65,7 +59,6 @@ export default class NativeSelectBox extends Component {
   @action
   handleInsertElement(element) {
     registerElement(this, element);
-    insertElement(this);
     ready(this);
   }
 

@@ -1,23 +1,11 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
+import { A as emberA } from '@ember/array';
 
 export default class TagSelect extends Component {
   @tracked availableTags;
-  @tracked newTag;
-
-  @action
-  handlePressUp(e, sb) {
-    e.preventDefault();
-    sb.activatePreviousOption();
-  }
-
-  @action
-  handlePressDown(e, sb) {
-    e.preventDefault();
-    sb.activateNextOption();
-    sb.open();
-  }
+  @tracked lastQuery;
 
   @action
   close(e, sb) {
@@ -25,11 +13,9 @@ export default class TagSelect extends Component {
   }
 
   @action
-  search(query) {
-    return this.args.onSearch(query).then((tags) => {
-      this.availableTags = tags;
-      this.newTag = query;
-    });
+  handleSearched(tags, query) {
+    this.availableTags = tags;
+    this.lastQuery = query;
   }
 
   @action
@@ -39,14 +25,34 @@ export default class TagSelect extends Component {
   }
 
   @action
-  select(tag, sb) {
-    this.args.onTag(tag);
+  select(value, sb) {
+    this.args.onSelect(value);
     sb.setInputValue('');
     sb.close();
   }
 
   @action
-  deselect(tag) {
-    this.args.onDeTag(tag);
+  deselect(tag, sb) {
+    const value = this.removeValue(tag, sb.value);
+    this.args.onSelect(value);
+  }
+
+  @action
+  addValue(value, current) {
+    return emberA([...current]).addObject(value);
+  }
+
+  @action
+  removeValue(value, current) {
+    return emberA([...current]).removeObject(value);
+  }
+
+  @action
+  deselectLast(sb) {
+    const lastTag = sb.value[sb.value.length - 1];
+
+    if (lastTag) {
+      this.deselect(lastTag, sb);
+    }
   }
 }

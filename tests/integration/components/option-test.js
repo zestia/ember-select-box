@@ -14,17 +14,7 @@ module('select-box/option', function (hooks) {
 
     assert
       .dom('div.select-box__option')
-      .exists({ count: 1 }, 'renders with correct class name and tag');
-  });
-
-  test('data component attribute', async function (assert) {
-    assert.expect(1);
-
-    await render(hbs`<SelectBox::Option />`);
-
-    assert
-      .dom('[data-component="option"]')
-      .exists({ count: 1 }, 'has a data attribute signifying its type');
+      .hasTagName('div', 'renders with correct class name and tag');
   });
 
   test('role', async function (assert) {
@@ -57,8 +47,9 @@ module('select-box/option', function (hooks) {
 
     assert
       .dom('.select-box__option')
-      .hasClass(
-        'select-box__option--disabled',
+      .hasAttribute(
+        'aria-disabled',
+        'true',
         'an option can be flagged as disabled'
       );
 
@@ -68,10 +59,10 @@ module('select-box/option', function (hooks) {
   test('aria selected', async function (assert) {
     assert.expect(4);
 
-    this.set('value', 1);
+    this.myValue = 1;
 
     await render(hbs`
-      <SelectBox @value={{this.value}} as |sb|>
+      <SelectBox @value={{this.myValue}} as |sb|>
         <sb.Option @value={{1}}>One</sb.Option>
         <sb.Option @value={{2}}>Two</sb.Option>
       </SelectBox>
@@ -92,7 +83,7 @@ module('select-box/option', function (hooks) {
         'has correct string value when selected'
       );
 
-    this.set('value', 2);
+    this.set('myValue', 2);
 
     assert
       .dom('.select-box__option:nth-child(2)[aria-selected]')
@@ -120,12 +111,12 @@ module('select-box/option', function (hooks) {
     const baz = { myValue: 'baz', myLabel: 'Baz' };
     const qux = { myValue: 'qux', myLabel: 'Qux' };
 
-    this.set('group1', [foo, bar]);
-    this.set('group2', [baz, qux]);
-    this.set('selectedValue', baz);
+    this.group1 = [foo, bar];
+    this.group2 = [baz, qux];
+    this.myValue = baz;
 
     await render(hbs`
-      <SelectBox @value={{this.selectedValue}} as |sb|>
+      <SelectBox @value={{this.myValue}} as |sb|>
         <sb.Group @label="Group 1">
           {{#each this.group1 as |item i|}}
             <sb.Option @value={{item}} as |o|>
@@ -170,12 +161,12 @@ module('select-box/option', function (hooks) {
   });
 
   test('yield index', async function (assert) {
-    assert.expect(4);
+    assert.expect(2);
 
     const labels = () =>
       [...findAll('.select-box__option')].map((o) => o.textContent.trim());
 
-    this.set('values', ['foo', 'bar', 'baz']);
+    this.values = ['foo', 'bar', 'baz'];
 
     await render(hbs`
       <SelectBox @value="baz" as |sb|>
@@ -201,37 +192,12 @@ module('select-box/option', function (hooks) {
       ['foo: 0', 'bar: 1', 'baz: 2'],
       'indexes are correct after options change'
     );
-
-    await render(hbs`
-      <SelectBox @value="baz" as |sb|>
-        {{#each this.values key="@index" as |value|}}
-          <sb.Option @value={{value}} as |o|>
-            {{o.value}}: {{o.index}}
-          </sb.Option>
-        {{/each}}
-      </SelectBox>
-    `);
-
-    assert.deepEqual(
-      labels(),
-      ['foo: 0', 'bar: 1', 'baz: 2'],
-      'precondition, indexes are correct'
-    );
-
-    this.set('values', ['foo', 'baz']);
-    this.set('values', ['foo', 'bar', 'baz']);
-
-    assert.deepEqual(
-      labels(),
-      ['foo: 0', 'bar: 1', 'baz: 2'],
-      'indexes are correct due to key on each'
-    );
   });
 
   test('yield disabled', async function (assert) {
     assert.expect(2);
 
-    this.set('fooDisabled', true);
+    this.fooDisabled = true;
 
     await render(hbs`
       <SelectBox::Option @disabled={{this.fooDisabled}} as |o|>
@@ -256,7 +222,7 @@ module('select-box/option', function (hooks) {
     const deferred1 = defer();
     const deferred2 = defer();
 
-    this.set('promise', deferred1.promise);
+    this.promise = deferred1.promise;
 
     await render(hbs`
       <SelectBox::Option @value={{this.promise}} as |o|>
@@ -267,7 +233,7 @@ module('select-box/option', function (hooks) {
       </SelectBox::Option>
     `);
 
-    assert.dom(this.element).hasText(`
+    assert.dom('.select-box__option').hasText(`
         isPending: true
         isRejected: false
         isFulfilled: false
@@ -275,9 +241,10 @@ module('select-box/option', function (hooks) {
     `);
 
     deferred1.resolve('foo');
+
     await settled();
 
-    assert.dom(this.element).hasText(`
+    assert.dom('.select-box__option').hasText(`
         isPending: false
         isRejected: false
         isFulfilled: true
@@ -286,7 +253,7 @@ module('select-box/option', function (hooks) {
 
     this.set('promise', deferred2.promise);
 
-    assert.dom(this.element).hasText(`
+    assert.dom('.select-box__option').hasText(`
         isPending: true
         isRejected: false
         isFulfilled: false
@@ -294,9 +261,10 @@ module('select-box/option', function (hooks) {
     `);
 
     deferred2.reject('bar');
+
     await settled();
 
-    assert.dom(this.element).hasText(`
+    assert.dom('.select-box__option').hasText(`
         isPending: false
         isRejected: true
         isFulfilled: false
@@ -309,7 +277,7 @@ module('select-box/option', function (hooks) {
 
     const deferred = defer();
 
-    this.set('promise', deferred.promise);
+    this.promise = deferred.promise;
 
     await render(hbs`<SelectBox::Option @value={{this.promise}} />`);
 

@@ -1,5 +1,29 @@
 # Changelog
 
+## 15.0.0-beta.3
+
+- Removed `data-` attributes, `@classNamePrefix` and `@onBuildClassName` in a bid to reduce API surface
+- Removed stateful BEM class names, like `select-box__option--selected` in favour of aria attributes
+- Removed `onInsertElement`
+- Removed `sb.Group` for native select box. `optgroup` can be used instead
+- Removed `@onInput` from `sb.Input` component. This action wasn't providing anything different than what can be acheived by using `{{on "input"}}`
+- Removed ability to set a `@value` on a selected option, and activate that selected option.
+- `SelectedOption`, `SelectedOptions`, `Group` and `Options` are now just dumb template only components. They weren't removed altogether, because they still prove useful for higher order components with the component helper.
+
+## 15.0.0-beta.2
+
+- Fix debounced searched attempts if `@searchDelayTime` is 0
+
+## 15.0.0-beta.1
+
+- Small internal refactor around focusing
+
+## 15.0.0-beta.0
+
+- Remove `onFocusIn` and `onFocusOut` actions, these don't provide anything different than what can be acheived by using `{{on "focusin"}}` and `{{on "focusout"}}`.
+- Add `onFocusLeave` which fires when focus leaves the select box. This is useful for closing the select box when tabbing away.
+- Remove `onClickOutside` in favour of `onFocusLeave`. (This removed the need for event listeners on the document).
+
 ## 14.0.4
 
 - Upgrade dependencies
