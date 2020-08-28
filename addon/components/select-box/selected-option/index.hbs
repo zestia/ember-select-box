@@ -1,10 +1,11 @@
 <div
   class="select-box__selected-option"
-  {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
+  {{!-- begin issue: https://github.com/emberjs/rfcs/issues/497 --}}
   {{! template-lint-disable no-invalid-interactive no-positive-tabindex }}
-  role={{if @role @role "option"}}
+  role={{@role}}
   onclick={{@onclick}}
   tabindex={{@tabindex}}
+  {{!-- end issue --}}
   ...attributes
 >
   {{yield}}

@@ -3,12 +3,13 @@
   autocomplete="off"
   class="select-box__input"
   role="searchbox"
-  {{! Issue: https://github.com/emberjs/rfcs/issues/497 }}
+  {{!-- begin issue: https://github.com/emberjs/rfcs/issues/497 --}}
   type={{if @type @type "text"}}
   aria-controls={{@aria-controls}}
   disabled={{@disabled}}
   onclick={{@onclick}}
   value={{@value}}
+  {{!-- end issue --}}
   ...attributes
   {{did-insert this.handleInsertElement}}
   {{will-destroy this.handleDestroyElement}}
