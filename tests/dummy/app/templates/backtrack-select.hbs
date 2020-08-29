@@ -1,10 +1,10 @@
-{{!-- Minimal reproduction --}}
+{{! Minimal reproduction }}
 
 <div class="repro" tabindex="0" {{on "focusout" this.reproHandleFocusOut}}>
   {{#if this.value}}
     {{this.value}}
   {{else}}
-    <input>
+    <input />
   {{/if}}
 
   <div role="button" {{on "click" this.reproHandleClick}}>
@@ -12,11 +12,10 @@
   </div>
 </div>
 
+<br />
+<br />
 
-<br><br>
-
-
-{{!-- Reproduction with the select box component --}}
+{{! Reproduction with the select box component }}
 
 <SelectBox
   @onSelect={{this.handleSelect}}
@@ -28,5 +27,7 @@
     <sb.Input />
   {{/if}}
 
-  <sb.Option @value="1">One</sb.Option>
+  <sb.Option @value="1">
+    One
+  </sb.Option>
 </SelectBox>
