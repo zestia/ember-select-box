@@ -50,8 +50,8 @@ export default class SelectBox extends Component {
   input = null;
   optionCharState = null;
   pendingOptions = emberA();
-  previousValue = null;
   previousTabIndex = null;
+  previousValue = null;
   searchID = 0;
   valueID = 0;
 

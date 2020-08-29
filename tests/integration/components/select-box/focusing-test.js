@@ -58,8 +58,6 @@ module('select-box (focusing)', function (hooks) {
       .dom('.select-box')
       .hasAttribute('tabindex', '-1', 'disabling, disables focusability');
 
-    console.log('check');
-
     this.set('disabled', false);
 
     assert
@@ -89,7 +87,17 @@ module('select-box (focusing)', function (hooks) {
       .hasAttribute('tabindex', '-1', 're-enabling has correct tab index');
   });
 
-  test('tabindex', async function (assert) {
+  test('initially disabled', async function (assert) {
+    assert.expect(1);
+
+    await render(hbs`<SelectBox @disabled={{true}} />`);
+
+    assert
+      .dom('.select-box')
+      .hasAttribute('tabindex', '-1', 'has correct tab index');
+  });
+
+  test('manual tabindex', async function (assert) {
     assert.expect(1);
 
     await render(hbs`

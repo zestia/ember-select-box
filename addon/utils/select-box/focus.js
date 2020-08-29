@@ -24,3 +24,11 @@ function focusOutSettled(selectBox, e) {
 function focusedOut(selectBox, e) {
   invokeAction(selectBox, 'onFocusLeave', e, selectBox.api);
 }
+
+export function setTabIndex(selectBox, tabIndex) {
+  if (selectBox.previousTabIndex !== null) {
+    selectBox.previousTabIndex = selectBox.tabIndex;
+  }
+
+  selectBox.tabIndex = tabIndex;
+}

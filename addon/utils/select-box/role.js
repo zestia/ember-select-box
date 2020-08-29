@@ -1,9 +1,11 @@
+import { setTabIndex } from './focus';
+
 export function configureAsCombobox(selectBox) {
-  selectBox.tabIndex = '-1';
+  setTabIndex(selectBox, '-1');
   selectBox.role = 'combobox';
 }
 
 export function configureAsListbox(selectBox) {
-  selectBox.tabIndex = '0';
+  setTabIndex(selectBox, '0');
   selectBox.role = 'listbox';
 }

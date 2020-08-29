@@ -1,15 +1,17 @@
+import { setTabIndex } from './focus';
+
 export function receiveDisabled(selectBox) {
   if (selectBox.args.disabled) {
     disable(selectBox);
-  } else {
+  } else if (selectBox.previousTabIndex !== null) {
     enable(selectBox);
   }
 }
 
 function disable(selectBox) {
-  selectBox.tabIndex = '-1';
+  setTabIndex(selectBox, '-1');
 }
 
 function enable(selectBox) {
-  selectBox.tabIndex = selectBox.previousTabIndex;
+  setTabIndex(selectBox, selectBox.previousTabIndex);
 }
