@@ -60,6 +60,7 @@ export default class SelectBox extends Component {
   @tracked isFulfilled = false;
   @tracked isOpen = false;
   @tracked isPending = true;
+  @tracked isReady = false;
   @tracked isRejected = false;
   @tracked isSearching = false;
   @tracked isSettled = false;

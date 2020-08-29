@@ -3,7 +3,7 @@ import { setTabIndex } from './focus';
 export function receiveDisabled(selectBox) {
   if (selectBox.args.disabled) {
     disable(selectBox);
-  } else if (selectBox.previousTabIndex !== null) {
+  } else if (selectBox.isReady) {
     enable(selectBox);
   }
 }

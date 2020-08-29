@@ -26,7 +26,7 @@ function focusedOut(selectBox, e) {
 }
 
 export function setTabIndex(selectBox, tabIndex) {
-  if (selectBox.previousTabIndex !== null) {
+  if (selectBox.isReady) {
     selectBox.previousTabIndex = selectBox.tabIndex;
   }
 
