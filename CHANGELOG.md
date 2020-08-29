@@ -1,5 +1,9 @@
 # Changelog
 
+## 15.0.0-beta.5
+
+- Correct ember-source dependancy
+
 ## 15.0.0-beta.4
 
 - Fixed backtracking issues with beta versions of Ember
