@@ -41,10 +41,12 @@ module('select-box (focusing)', function (hooks) {
     assert.verifySteps([]);
   });
 
-  test('disabled tabindex', async function (assert) {
+  test('disabled tabindex (without input)', async function (assert) {
     assert.expect(3);
 
-    await render(hbs`<SelectBox @disabled={{this.disabled}} />`);
+    await render(hbs`
+      <SelectBox @disabled={{this.disabled}} />
+    `);
 
     assert
       .dom('.select-box')
@@ -56,11 +58,35 @@ module('select-box (focusing)', function (hooks) {
       .dom('.select-box')
       .hasAttribute('tabindex', '-1', 'disabling, disables focusability');
 
+    console.log('check');
+
     this.set('disabled', false);
 
     assert
       .dom('.select-box')
       .hasAttribute('tabindex', '0', 're-enabling, re-enables focusability');
+  });
+
+  test('disabled tabindex (with input)', async function (assert) {
+    assert.expect(2);
+
+    this.set('disabled', true);
+
+    await render(hbs`
+      <SelectBox @disabled={{this.disabled}} as |sb|>
+        <sb.Input />
+      </SelectBox>
+    `);
+
+    assert
+      .dom('.select-box')
+      .hasAttribute('tabindex', '-1', 'not focusable when disabled');
+
+    this.set('disabled', false);
+
+    assert
+      .dom('.select-box')
+      .hasAttribute('tabindex', '-1', 're-enabling has correct tab index');
   });
 
   test('tabindex', async function (assert) {

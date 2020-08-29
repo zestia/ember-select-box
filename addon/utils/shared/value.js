@@ -30,6 +30,8 @@ function updatedValue(selectBox) {
     return;
   }
 
+  selectBox.previousValue = selectBox.value;
+
   invokeAction(selectBox, 'onUpdate', selectBox.api);
 }
 

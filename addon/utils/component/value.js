@@ -19,7 +19,6 @@ export function resolveValue(component, value, postProcess) {
 }
 
 export function startedResolvingValue(component, value) {
-  component.previousValue = component.value;
   component.value = value;
   component.isPending = true;
   component.isRejected = false;

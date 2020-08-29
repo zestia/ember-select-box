@@ -7,13 +7,9 @@ export function receiveDisabled(selectBox) {
 }
 
 function disable(selectBox) {
-  selectBox.previousTabIndex = selectBox.tabIndex;
   selectBox.tabIndex = '-1';
 }
 
 function enable(selectBox) {
-  selectBox.tabIndex =
-    selectBox.previousTabIndex === undefined
-      ? selectBox.tabIndex
-      : selectBox.previousTabIndex;
+  selectBox.tabIndex = selectBox.previousTabIndex;
 }

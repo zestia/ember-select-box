@@ -6,14 +6,18 @@ import hbs from 'htmlbars-inline-precompile';
 module('select-box (disabling)', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('disabling and enabling', async function (assert) {
-    assert.expect(4);
+  test('default', async function (assert) {
+    assert.expect(1);
 
     await render(hbs`<SelectBox />`);
 
     assert
       .dom('.select-box')
       .hasAttribute('aria-disabled', 'false', 'enabled by default');
+  });
+
+  test('disabling and enabling', async function (assert) {
+    assert.expect(2);
 
     this.set('isDisabled', true);
 
@@ -21,21 +25,17 @@ module('select-box (disabling)', function (hooks) {
 
     assert
       .dom('.select-box')
-      .hasAttribute(
-        'aria-disabled',
-        'true',
-        'can set the disabled state, adding a class name'
-      );
+      .hasAttribute('aria-disabled', 'true', 'can set the disabled state');
 
     this.set('isDisabled', false);
 
     assert
       .dom('.select-box')
-      .hasAttribute(
-        'aria-disabled',
-        'false',
-        'can change the disabled state, removing the class name'
-      );
+      .hasAttribute('aria-disabled', 'false', 'can change the disabled state');
+  });
+
+  test('presence of an input', async function (assert) {
+    assert.expect(1);
 
     await render(hbs`
       <SelectBox @disabled={{true}} as |sb|>
