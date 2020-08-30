@@ -46,7 +46,7 @@ module('select-box (activating options)', function (hooks) {
       .hasAttribute(
         'aria-current',
         'true',
-        'mousing over an option gives it an active class name'
+        'mousing over an option gives it an active attribute'
       );
 
     assert.ok(
@@ -75,7 +75,7 @@ module('select-box (activating options)', function (hooks) {
     assert.ok(
       one.getAttribute('aria-current') === 'false' &&
         two.getAttribute('aria-current') === 'true',
-      'mousing over another option moves the active class'
+      'mousing over another option moves the active attribute'
     );
   });
 

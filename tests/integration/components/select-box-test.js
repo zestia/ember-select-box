@@ -32,7 +32,7 @@ module('select-box', function (hooks) {
       );
   });
 
-  test('multiple class', async function (assert) {
+  test('multiple arg', async function (assert) {
     assert.expect(2);
 
     await render(hbs`<SelectBox />`);
