@@ -55,7 +55,7 @@ module('select-box', function (hooks) {
       assert.strictEqual(
         sb.value,
         undefined,
-        'fires an initial update action with the selected value'
+        'fires an initial update action with the current value'
       );
     };
 
