@@ -341,11 +341,11 @@
   <table width="100%">
     <tr>
       <td><code>@onActivate</code></td>
-      <td>Fired when an individual option is activated by mousing over, or via keyboard control</td>
+      <td>Fired when an individual option is activated (by mousing over, or via keyboard control, or the api)</td>
     </tr>
     <tr>
       <td><code>@onSelect</code></td>
-      <td>Fired when an individual option is selected by clicking or pressing Enter</td>
+      <td>Fired when an individual option is selected (by clicking, or pressing Enter, or the api)</td>
     </tr>
   </table>
 </details>
