@@ -162,7 +162,7 @@
     <tr>
       <td><code>sb.select</code></td>
       <td>
-        Selects arbitrary value(s). This mimics the making a selection, and so <code>@onSelect</code> will fire.  <code>@onUpdate</code> will also fire if the value is different.
+        Selects arbitrary value(s). This mimics making a selection, and so <code>@onSelect</code> will fire.  <code>@onUpdate</code> will also fire if the value is different.
       </td>
     </tr>
     <tr>
