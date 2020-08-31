@@ -2,7 +2,7 @@
 
 ## 15.0.0-beta.6
 
-- Switch to async/await
+- Add some missing tests
 
 ## 15.0.0-beta.5
 

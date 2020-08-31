@@ -877,6 +877,30 @@ module('select-box (selecting)', function (hooks) {
       );
   });
 
+  test('failed value (multiple)', async function (assert) {
+    assert.expect(1);
+
+    const error = new Error('Fail');
+
+    this.promise = new Promise((resolve, reject) => reject(error));
+
+    this.handleUpdate = (sb) => {
+      assert.deepEqual(
+        sb.value,
+        error,
+        'value is not coerced into an array, despite being set to multiple'
+      );
+    };
+
+    await render(hbs`
+      <SelectBox
+        @value={{this.promise}}
+        @multiple={{true}}
+        @onUpdate={{this.handleUpdate}}
+      />
+    `);
+  });
+
   test('selecting a failed value', async function (assert) {
     assert.expect(1);
 

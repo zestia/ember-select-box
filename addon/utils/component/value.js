@@ -1,17 +1,21 @@
+import { resolve } from 'rsvp';
+
 export function receiveValue(component) {
   resolveValue(component, component.args.value);
 }
 
-export async function resolveValue(component, _value, postProcess) {
-  const valueID = startResolvingValue(component, _value);
+export function resolveValue(component, value, postProcess) {
+  const valueID = startResolvingValue(component, value);
 
-  try {
-    const value = processValue(component, postProcess, await _value);
+  return resolve(value)
+    .then((value) => {
+      value = processValue(component, postProcess, value);
 
-    handleValue(component, valueID, value, false);
-  } catch (error) {
-    handleValue(component, valueID, error, true);
-  }
+      handleValue(component, valueID, value, false);
+    })
+    .catch((error) => {
+      handleValue(component, valueID, error, true);
+    });
 }
 
 function startResolvingValue(component, value) {

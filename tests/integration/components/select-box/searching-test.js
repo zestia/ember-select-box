@@ -3,7 +3,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { click, fillIn, find, render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { later } from '@ember/runloop';
-import { defer, reject } from 'rsvp';
+import { defer } from 'rsvp';
 
 module('select-box (searching)', function (hooks) {
   setupRenderingTest(hooks);

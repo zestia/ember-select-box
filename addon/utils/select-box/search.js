@@ -13,19 +13,21 @@ export function maybeSearch(selectBox, query) {
   }
 }
 
-export async function search(selectBox, query) {
+export function search(selectBox, query) {
   const searchID = startSearch(selectBox);
 
   setTimeout(() => checkSlowSearch(selectBox), selectBox.searchSlowTime);
 
-  try {
-    const result = await runSearch(selectBox, query);
-    handleSearch(selectBox, searchID, query, result, false);
-  } catch (error) {
-    handleSearch(selectBox, searchID, query, error, true);
-  }
-
-  finishSearch(selectBox);
+  return runSearch(selectBox, query)
+    .then((result) => {
+      handleSearch(selectBox, searchID, query, result, false);
+    })
+    .catch((error) => {
+      handleSearch(selectBox, searchID, query, error, true);
+    })
+    .finally(() => {
+      finishSearch(selectBox);
+    });
 }
 
 export function cancelSearch(selectBox) {
