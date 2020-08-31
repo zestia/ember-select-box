@@ -1,6 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { click, findAll, render, settled } from '@ember/test-helpers';
+import { later } from '@ember/runloop';
 import hbs from 'htmlbars-inline-precompile';
 import { defer } from 'rsvp';
 
@@ -250,6 +251,39 @@ module('select-box (promises)', function (hooks) {
     assert
       .dom('.select-box__option[aria-selected="true"]')
       .hasText('baz', 're-computation works');
+  });
+
+  test('promise value order (api)', async function (assert) {
+    assert.expect(1);
+
+    let sb;
+
+    this.handleReady = (_sb) => (sb = _sb);
+
+    await render(hbs`
+      <SelectBox @onReady={{this.handleReady}} as |sb|>
+        <sb.Option @value="foo">Foo</sb.Option>
+        <sb.Option @value="bar">Bar</sb.Option>
+        <sb.Option @value="baz">Baz</sb.Option>
+      </SelectBox>
+    `);
+
+    const second = new Promise((resolve) => {
+      later(() => resolve('bar'), 100);
+    });
+
+    const first = new Promise((resolve) => {
+      later(() => resolve('baz'), 200);
+    });
+
+    sb.update(first);
+    sb.update(second);
+
+    await settled();
+
+    assert
+      .dom('.select-box__option[aria-selected="true"]')
+      .hasText('Bar', 'earlier promises are ignored');
   });
 
   test('promise value order', async function (assert) {

@@ -1,6 +1,5 @@
 import invokeAction from '../component/invoke-action';
 import { debounce } from '@ember/runloop';
-import { resolve } from 'rsvp';
 
 export function maybeSearch(selectBox, query) {
   if (!isSearchable(selectBox)) {
@@ -14,34 +13,24 @@ export function maybeSearch(selectBox, query) {
   }
 }
 
-export function cancelSearch(selectBox) {
-  ++selectBox.searchID;
-  searchFinished(selectBox);
+export async function search(selectBox, query) {
+  const searchID = startSearch(selectBox);
+
+  setTimeout(() => checkSlowSearch(selectBox), selectBox.searchSlowTime);
+
+  try {
+    const result = await runSearch(selectBox, query);
+    handleSearch(selectBox, searchID, query, result, false);
+  } catch (error) {
+    handleSearch(selectBox, searchID, query, error, true);
+  }
+
+  finishSearch(selectBox);
 }
 
-export function search(selectBox, query) {
-  const delay = selectBox.searchSlowTime;
-
-  selectBox.isSearching = true;
-
-  const searchID = ++selectBox.searchID;
-
-  setTimeout(() => checkSlowSearch(selectBox), delay);
-
-  const action = invokeAction(selectBox, 'onSearch', query, selectBox.api);
-
-  return resolve(action)
-    .then((result) => {
-      searchCompleted(selectBox, searchID, query, result);
-      return result;
-    })
-    .catch((error) => {
-      searchFailed(selectBox, query, error);
-      return error;
-    })
-    .finally(() => {
-      searchFinished(selectBox);
-    });
+export function cancelSearch(selectBox) {
+  incrementSearch(selectBox);
+  finishSearch(selectBox);
 }
 
 function debouncedSearchAttempt(selectBox, query) {
@@ -58,6 +47,32 @@ function attemptSearch(selectBox, query) {
   search(selectBox, query);
 }
 
+function handleSearch(selectBox, searchID, query, result, erred) {
+  if (searchID < selectBox.searchID) {
+    return;
+  }
+
+  if (erred) {
+    searchFailed(selectBox, query, result);
+  } else {
+    searchSucceeded(selectBox, query, result);
+  }
+}
+
+function startSearch(selectBox) {
+  selectBox.isSearching = true;
+  return incrementSearch(selectBox);
+}
+
+function finishSearch(selectBox) {
+  selectBox.isSearching = false;
+  selectBox.isSlowSearch = false;
+}
+
+function incrementSearch(selectBox) {
+  return ++selectBox.searchID;
+}
+
 function isSearchable(selectBox) {
   return typeof selectBox.args.onSearch === 'function';
 }
@@ -70,19 +85,14 @@ function checkSlowSearch(selectBox) {
   selectBox.isSlowSearch = selectBox.isSearching;
 }
 
-function searchCompleted(selectBox, searchID, query, result) {
-  if (searchID < selectBox.searchID) {
-    return;
-  }
+function runSearch(selectBox, query) {
+  return invokeAction(selectBox, 'onSearch', query, selectBox.api);
+}
 
+function searchSucceeded(selectBox, query, result) {
   invokeAction(selectBox, 'onSearched', result, query, selectBox.api);
 }
 
 function searchFailed(selectBox, query, error) {
   invokeAction(selectBox, 'onSearchError', error, query, selectBox.api);
-}
-
-function searchFinished(selectBox) {
-  selectBox.isSearching = false;
-  selectBox.isSlowSearch = false;
 }

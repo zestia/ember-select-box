@@ -1,51 +1,49 @@
-import { resolve } from 'rsvp';
-
 export function receiveValue(component) {
   resolveValue(component, component.args.value);
 }
 
-export function resolveValue(component, value, postProcess) {
-  const valueID = ++component.valueID;
+export async function resolveValue(component, _value, postProcess) {
+  const valueID = startResolvingValue(component, _value);
 
-  startedResolvingValue(component, value);
+  try {
+    const value = processValue(component, postProcess, await _value);
 
-  return resolve(value)
-    .then((result) =>
-      finishedResolvingValue(component, valueID, false, result, postProcess)
-    )
-    .catch((error) =>
-      finishedResolvingValue(component, valueID, true, error, postProcess)
-    );
+    handleValue(component, valueID, value, false);
+  } catch (error) {
+    handleValue(component, valueID, error, true);
+  }
 }
 
-export function startedResolvingValue(component, value) {
+function startResolvingValue(component, value) {
   component.value = value;
   component.isPending = true;
   component.isRejected = false;
   component.isFulfilled = false;
   component.isSettled = false;
+
+  return ++component.valueID;
 }
 
-export function finishedResolvingValue(
-  component,
-  valueID,
-  failed,
-  result,
-  postProcess
-) {
+function handleValue(component, valueID, value, erred) {
   if (valueID < component.valueID) {
     return;
   }
 
-  let value = result;
+  finishResolvingValue(component, value, erred);
+}
 
-  if (typeof postProcess === 'function') {
-    value = postProcess(component, value);
-  }
-
+function finishResolvingValue(component, value, erred) {
   component.value = value;
   component.isPending = false;
-  component.isRejected = failed;
-  component.isFulfilled = !failed;
+  component.isRejected = erred;
+  component.isFulfilled = !erred;
   component.isSettled = true;
+}
+
+function processValue(component, fn, value) {
+  if (typeof fn === 'function') {
+    return fn(component, value);
+  }
+
+  return value;
 }

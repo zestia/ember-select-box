@@ -1,5 +1,9 @@
 # Changelog
 
+## 15.0.0-beta.6
+
+- Switch to async/await
+
 ## 15.0.0-beta.5
 
 - Correct ember-source dependancy

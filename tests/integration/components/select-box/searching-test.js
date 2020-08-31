@@ -162,7 +162,11 @@ module('select-box (searching)', function (hooks) {
   test('searching (failure)', async function (assert) {
     assert.expect(5);
 
-    this.handleSearch = () => reject('no results');
+    this.handleSearch = () => {
+      return new Promise((resolve, reject) => {
+        reject(new Error('no results'));
+      });
+    };
 
     this.handleSearchFailure = (error, query, sb) => {
       this.setProperties({ error, query });
@@ -592,5 +596,49 @@ module('select-box (searching)', function (hooks) {
       .hasAttribute('aria-busy', 'false', 'is no longer busy');
 
     deferred.resolve();
+  });
+
+  test('searching promise order', async function (assert) {
+    assert.expect(1);
+
+    let count = 0;
+
+    this.handleSearch = () => {
+      count++;
+
+      if (count === 1) {
+        return new Promise((resolve) => {
+          later(() => resolve('first'), 200);
+        });
+      } else if (count === 2) {
+        return new Promise((resolve) => {
+          later(() => resolve('second'), 100);
+        });
+      }
+    };
+
+    this.handleSearched = (result) => {
+      this.set('result', result);
+    };
+
+    await render(hbs`
+      <SelectBox
+        @searchDelayTime={{0}}
+        @onSearch={{this.handleSearch}}
+        @onSearched={{this.handleSearched}} as |sb|
+      >
+        <sb.Input @value={{this.myValue}}  />
+
+        {{this.result}}
+      </SelectBox>
+    `);
+
+    // Intentionally no await
+    fillIn('.select-box__input', 'foo');
+    fillIn('.select-box__input', 'bar');
+
+    await settled();
+
+    assert.dom('.select-box').containsText('second');
   });
 });
