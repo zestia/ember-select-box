@@ -16,7 +16,7 @@
 
 - Removed `data-` attributes, `@classNamePrefix` and `@onBuildClassName` in a bid to reduce API surface
 - Removed stateful BEM class names, like `select-box__option--selected` in favour of aria attributes
-- Removed `onInsertElement`
+- Removed `onInsertElement` (`@onReady` suffices)
 - Removed `sb.Group` for native select box. `optgroup` can be used instead
 - Removed `@onInput` from `sb.Input` component. This action wasn't providing anything different than what can be acheived by using `{{on "input"}}`
 - Removed ability to set a `@value` on a selected option, and activate that selected option.
