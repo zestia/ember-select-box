@@ -2,7 +2,7 @@ import { module, test, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import EmberArray, { A as emberA } from '@ember/array';
-import { defer } from 'rsvp';
+import { defer, resolve } from 'rsvp';
 import { next } from '@ember/runloop';
 import {
   click,
@@ -508,6 +508,30 @@ module('select-box (selecting)', function (hooks) {
     assert
       .dom('.select-box__option[aria-selected="true"]')
       .hasText('Bar', "select box's internal value is updated with the value");
+  });
+
+  test('update api', async function (assert) {
+    assert.expect(1);
+
+    let sb;
+
+    this.handleReady = (_sb) => (sb = _sb);
+
+    await render(hbs`
+      <SelectBox @onReady={{this.handleReady}} as |sb|>
+        <sb.Option @value={{1}}>One</sb.Option>
+        <sb.Option @value={{2}}>Two</sb.Option>
+      </SelectBox>
+    `);
+
+    sb.update(resolve(2)).then((value) => {
+      assert.strictEqual(
+        value,
+        undefined,
+        'does not resolve the value' +
+          '(this is not how the api is intended to be used)'
+      );
+    });
   });
 
   test('manual selection', async function (assert) {

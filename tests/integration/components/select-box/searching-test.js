@@ -3,7 +3,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { click, fillIn, find, render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { later } from '@ember/runloop';
-import { defer } from 'rsvp';
+import { defer, resolve } from 'rsvp';
 
 module('select-box (searching)', function (hooks) {
   setupRenderingTest(hooks);
@@ -640,5 +640,30 @@ module('select-box (searching)', function (hooks) {
     await settled();
 
     assert.dom('.select-box').containsText('second');
+  });
+
+  test('search api', async function (assert) {
+    assert.expect(1);
+
+    let sb;
+
+    this.handleReady = (_sb) => (sb = _sb);
+    this.handleSearch = () => resolve(['foo', 'bar']);
+
+    await render(hbs`
+        <SelectBox
+          @onReady={{this.handleReady}}
+          @onSearch={{this.handleSearch}}
+        />
+      `);
+
+    sb.search('foo').then((results) => {
+      assert.strictEqual(
+        results,
+        undefined,
+        'does not resolve the search results. ' +
+          '(this is not how the api is intended to be used)'
+      );
+    });
   });
 });
