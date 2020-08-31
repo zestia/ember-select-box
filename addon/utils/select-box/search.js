@@ -1,5 +1,6 @@
 import invokeAction from '../component/invoke-action';
 import { debounce } from '@ember/runloop';
+import { resolve } from 'rsvp';
 
 export function maybeSearch(selectBox, query) {
   if (!isSearchable(selectBox)) {
@@ -18,7 +19,7 @@ export function search(selectBox, query) {
 
   setTimeout(() => checkSlowSearch(selectBox), selectBox.searchSlowTime);
 
-  return runSearch(selectBox, query)
+  return resolve(runSearch(selectBox, query))
     .then((result) => {
       handleSearch(selectBox, searchID, query, result, false);
     })
