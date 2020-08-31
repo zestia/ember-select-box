@@ -204,6 +204,8 @@ module('select-box', function (hooks) {
 
     this.set('myValue', value2);
 
+    await settled();
+
     assert.deepEqual(
       apis[1].value,
       ['bar'],
