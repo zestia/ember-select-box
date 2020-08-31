@@ -395,7 +395,7 @@ module('select-box (selecting)', function (hooks) {
     await triggerKeyEvent('.select-box__input', 'keydown', 13);
   });
 
-  test('presssing enter on a child', async function (assert) {
+  test('pressing enter on a child', async function (assert) {
     assert.expect(3);
 
     this.handleSelect = (value) =>
