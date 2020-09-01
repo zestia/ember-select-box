@@ -1,5 +1,10 @@
 # Changelog
 
+## 15.0.0-beta-7
+
+- Simplify typeahead checks
+- Upgrade dependencies
+
 ## 15.0.0-beta.6
 
 - Add some missing tests
