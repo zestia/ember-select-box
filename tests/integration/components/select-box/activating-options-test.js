@@ -217,6 +217,7 @@ module('select-box (activating options)', function (hooks) {
       <SelectBox @onPressKey={{this.handlePressKey}} as |sb|>
         <sb.Option @value="A1">A 1</sb.Option>
         <sb.Option @value="A2">A 2</sb.Option>
+        <sb.Option @value="BA1">BA 1</sb.Option>
         <sb.Option @value="A3">A 3</sb.Option>
       </SelectBox>
     `);

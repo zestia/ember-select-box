@@ -1,11 +1,12 @@
+import escapeRegExp from '../general/escape-regexp';
 import collapseWhitespace from '../general/collapse-whitespace';
 
 export function filterComponentsByTextContent(components, query) {
-  return components.filter((component) => {
-    return (
-      collapseWhitespace(component.element.textContent.toLowerCase()).indexOf(
-        query.toLowerCase()
-      ) !== -1
-    );
-  });
+  query = escapeRegExp(query);
+
+  const pattern = new RegExp(`^${query}`, 'i');
+
+  return components.filter((component) =>
+    pattern.test(collapseWhitespace(component.element.textContent))
+  );
 }

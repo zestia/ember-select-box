@@ -1,5 +1,9 @@
 # Changelog
 
+## 15.0.0-beta-8
+
+- Add regression test for typeahead with repeating character
+
 ## 15.0.0-beta-7
 
 - Simplify typeahead checks
