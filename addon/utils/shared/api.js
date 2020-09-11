@@ -1,13 +1,17 @@
-const { seal } = Object;
+const { isSealed, seal } = Object;
 
-export default function buildAPI(component, members) {
+export default function buildAPI(component, keys) {
   if (component.isDestroying) {
     return;
   }
 
-  members.forEach((member) => {
-    component._api[member] = component[member];
+  keys.forEach((key) => {
+    component._api[key] = component[key];
   });
 
-  return seal(component._api);
+  if (!isSealed(component._api)) {
+    seal(component._api);
+  }
+
+  return component._api;
 }

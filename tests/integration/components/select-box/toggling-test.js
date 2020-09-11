@@ -7,7 +7,7 @@ module('select-box (toggling)', function (hooks) {
   setupRenderingTest(hooks);
 
   test('toggling', async function (assert) {
-    assert.expect(16);
+    assert.expect(15);
 
     this.handleReady = (sb) => this.set('api', sb);
     this.handleOpen = () => assert.step('opened');
@@ -39,11 +39,17 @@ module('select-box (toggling)', function (hooks) {
     this.api.open();
     this.api.open();
 
-    await settled();
-
     assert.strictEqual(this.api.isOpen, true);
 
-    assert.dom(this.element).containsText('open', 'open state is tracked');
+    await settled();
+
+    assert
+      .dom(this.element)
+      .doesNotContainText(
+        'open',
+        'unfortunately open state is not tracked ' +
+          'this is because only `api` is tracked'
+      );
 
     assert
       .dom(selectBox)
@@ -57,8 +63,6 @@ module('select-box (toggling)', function (hooks) {
     await settled();
 
     assert.strictEqual(this.api.isOpen, false);
-
-    assert.dom(this.element).containsText('closed', 'closed state is tracked');
 
     assert
       .dom(selectBox)

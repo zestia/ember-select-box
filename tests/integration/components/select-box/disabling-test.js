@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('select-box (disabling)', function (hooks) {
@@ -69,8 +69,14 @@ module('select-box (disabling)', function (hooks) {
 
     this.set('disabled', true);
 
+    await settled();
+
     assert
       .dom(this.element)
-      .containsText('disabled', 'disabled state is tracked');
+      .doesNotContainText(
+        'disabled',
+        'unfortunately, the disabled state is not tracked ' +
+          'this is because only `api` is tracked'
+      );
   });
 });
