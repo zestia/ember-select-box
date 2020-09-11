@@ -274,12 +274,12 @@ module('select-box', function (hooks) {
       keys(api),
       [
         // Components
-        'Option',
-        'Input',
-        'SelectedOptions',
-        'SelectedOption',
-        'Options',
         'Group',
+        'Input',
+        'Option',
+        'Options',
+        'SelectedOption',
+        'SelectedOptions',
         // Properties
         'element',
         'isBusy',

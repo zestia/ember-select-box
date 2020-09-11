@@ -48,6 +48,7 @@ import { A as emberA } from '@ember/array';
 export default class SelectBox extends Component {
   _api = {};
   input = null;
+  element = null;
   optionCharState = null;
   pendingOptions = emberA();
   previousTabIndex = null;
@@ -55,8 +56,15 @@ export default class SelectBox extends Component {
   searchID = 0;
   valueID = 0;
 
+  Group = null;
+  Input = null;
+  Option = null;
+  Options = null;
+  SelectedOption = null;
+  SelectedOptions = null;
+
   @tracked activeOptionIndex = -1;
-  @tracked element = null;
+
   @tracked isFulfilled = false;
   @tracked isOpen = false;
   @tracked isPending = true;
@@ -72,6 +80,13 @@ export default class SelectBox extends Component {
 
   get api() {
     return buildAPI(this, [
+      // Components
+      'Group',
+      'Input',
+      'Option',
+      'Options',
+      'SelectedOption',
+      'SelectedOptions',
       // Properties
       'element',
       'isBusy',

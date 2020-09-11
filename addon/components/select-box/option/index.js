@@ -18,10 +18,10 @@ import { tracked } from '@glimmer/tracking';
 
 export default class SelectBoxOption extends Component {
   _api = {};
+  element = null;
   previousValue = null;
   valueID = 0;
 
-  @tracked element = null;
   @tracked isFulfilled = false;
   @tracked isPending = true;
   @tracked isRejected = false;

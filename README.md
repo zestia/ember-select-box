@@ -17,7 +17,7 @@
     <img src="https://emberobserver.com/badges/-zestia-ember-select-box.svg">
   </a>
 
-  <img src="https://img.shields.io/badge/Ember-%3E%3D%203.16-brightgreen">
+  <img src="https://img.shields.io/badge/Ember-%3E%3D%203.20.5-brightgreen">
 </p>
 
 Select box solutions are rarely perfect for what you want.

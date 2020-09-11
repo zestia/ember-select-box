@@ -9,10 +9,9 @@ import {
 } from '../../../utils/registration/element';
 import { input, keyDown } from '../../../utils/select-box/input/keyboard';
 import { action } from '@ember/object';
-import { tracked } from '@glimmer/tracking';
 
 export default class SelectBoxInput extends Component {
-  @tracked element = null;
+  element = null;
 
   @action
   handleInsertElement(element) {

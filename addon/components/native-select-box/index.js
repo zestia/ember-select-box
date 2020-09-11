@@ -21,11 +21,13 @@ import { A as emberA } from '@ember/array';
 
 export default class NativeSelectBox extends Component {
   _api = {};
+  element = null;
   pendingOptions = emberA();
   previousValue = null;
   valueID = 0;
 
-  @tracked element = null;
+  Option = null;
+
   @tracked isFulfilled = false;
   @tracked isPending = true;
   @tracked isRejected = false;
@@ -35,6 +37,8 @@ export default class NativeSelectBox extends Component {
 
   get api() {
     return buildAPI(this, [
+      // Components
+      'Option',
       // Properties
       'element',
       'isFulfilled',
