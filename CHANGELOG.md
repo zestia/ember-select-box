@@ -5,6 +5,7 @@
 - Make sure yielded-template-API is the same instance as the callback-based-API.
 - Drop support for Ember 3.16
 - Fix failing tests in beta versions of Ember
+- Upgrade dependencies
 
 ## 15.0.0-beta-8
 
