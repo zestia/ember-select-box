@@ -72,17 +72,8 @@ export default class SelectBox extends Component {
 
   get api() {
     return buildAPI(this, [
-      'activateNextOption',
-      'activateOptionAtIndex',
-      'activateOptionForKeyCode',
-      'activateOptionForValue',
-      'activatePreviousOption',
-      'blurInput',
-      'cancelSearch',
-      'close',
-      'deactivateOptions',
+      // Properties
       'element',
-      'focusInput',
       'isBusy',
       'isDisabled',
       'isFulfilled',
@@ -93,14 +84,25 @@ export default class SelectBox extends Component {
       'isSearching',
       'isSettled',
       'isSlowSearch',
+      'value',
+      // Actions
+      'activateNextOption',
+      'activateOptionAtIndex',
+      'activateOptionForKeyCode',
+      'activateOptionForValue',
+      'activatePreviousOption',
+      'blurInput',
+      'cancelSearch',
+      'close',
+      'deactivateOptions',
+      'focusInput',
       'open',
       'search',
       'select',
       'selectActiveOption',
       'setInputValue',
       'toggle',
-      'update',
-      'value'
+      'update'
     ]);
   }
 

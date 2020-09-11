@@ -33,27 +33,29 @@ export default class NativeSelectBox extends Component {
   @tracked options = [];
   @tracked value = null;
 
-  constructor() {
-    super(...arguments);
-    receiveValue(this);
-  }
-
   get api() {
     return buildAPI(this, [
+      // Properties
       'element',
       'isFulfilled',
       'isMultiple',
       'isPending',
       'isRejected',
       'isSettled',
+      'value',
+      // Actions
       'select',
-      'update',
-      'value'
+      'update'
     ]);
   }
 
   get isMultiple() {
     return this.args.multiple;
+  }
+
+  constructor() {
+    super(...arguments);
+    receiveValue(this);
   }
 
   @action

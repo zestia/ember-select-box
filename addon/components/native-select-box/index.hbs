@@ -1,22 +1,22 @@
-<select
-  class="select-box"
-  multiple={{this.isMultiple}}
-  ...attributes
-  {{did-insert this.handleInsertElement}}
-  {{did-update this.handleUpdateValue @value}}
-  {{will-destroy this.handleDestroyElement}}
-  {{on "change" this.handleChange}}
->
-  {{#let
-    (hash
-      Option=(component
-        "native-select-box/option"
-        selectBox=this
-        _onInsert=this.handleInsertOption
-        _onDestroy=this.handleDestroyOption
-      )
-    ) as |components|
-  }}
-    {{yield (merge components this.api)}}
-  {{/let}}
-</select>
+{{#let
+  (hash
+    Option=(component
+      "native-select-box/option"
+      selectBox=this
+      _onInsert=this.handleInsertOption
+      _onDestroy=this.handleDestroyOption
+    )
+  ) as |components|
+}}
+  <select
+    class="select-box"
+    multiple={{this.isMultiple}}
+    ...attributes
+    {{did-insert this.handleInsertElement}}
+    {{did-update this.handleUpdateValue @value}}
+    {{will-destroy this.handleDestroyElement}}
+    {{on "change" this.handleChange}}
+  >
+    {{yield (-sb-api this components)}}
+  </select>
+{{/let}}

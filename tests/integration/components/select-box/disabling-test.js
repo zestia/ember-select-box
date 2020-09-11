@@ -49,4 +49,28 @@ module('select-box (disabling)', function (hooks) {
         "a select box's input element is disabled if the select box is disabled"
       );
   });
+
+  test('disabling (api)', async function (assert) {
+    assert.expect(2);
+
+    this.disabled = false;
+
+    this.handleReady = (sb) => this.set('api', sb);
+
+    await render(hbs`
+      {{if this.api.isDisabled "disabled" "enabled"}}
+
+      <SelectBox
+        @disabled={{this.disabled}}
+        @onReady={{this.handleReady}} />
+    `);
+
+    assert.dom(this.element).containsText('enabled');
+
+    this.set('disabled', true);
+
+    assert
+      .dom(this.element)
+      .containsText('disabled', 'disabled state is tracked');
+  });
 });

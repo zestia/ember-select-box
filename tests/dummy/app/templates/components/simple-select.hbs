@@ -10,8 +10,11 @@
   ...attributes as |sb|
 >
   {{yield
-    (merge
-      sb (hash SelectedOption=(component sb.SelectedOption onclick=sb.toggle))
+    (hash
+      value=sb.value
+      SelectedOption=(component sb.SelectedOption onclick=sb.toggle)
+      Options=sb.Options
+      Option=sb.Option
     )
   }}
 </SelectBox>

@@ -1,9 +1,9 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled } from '@ember/test-helpers';
+import { render, settled, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import EmberArray, { A as emberA } from '@ember/array';
-const { isFrozen, isSealed } = Object;
+const { isFrozen, isSealed, keys } = Object;
 
 module('select-box', function (hooks) {
   setupRenderingTest(hooks);
@@ -139,19 +139,19 @@ module('select-box', function (hooks) {
       .dom('.select-box')
       .hasAttribute('aria-expanded', 'false', 'precondition, not open');
 
-    api.open();
-
     await settled();
 
     assert.strictEqual(api.value, undefined, 'has expected value');
 
-    assert
-      .dom('.select-box')
-      .hasAttribute('aria-expanded', 'true', 'action is called with the api');
+    assert.deepEqual(
+      api.element,
+      find('.select-box'),
+      'action is called with the api'
+    );
   });
 
   test('api value', async function (assert) {
-    assert.expect(10);
+    assert.expect(9);
 
     const value1 = emberA(['foo']);
     const value2 = emberA(['bar']);
@@ -198,10 +198,6 @@ module('select-box', function (hooks) {
       'the yielded api value is not the original array (or an ember array)'
     );
 
-    assert.throws(() => {
-      apis[0].foo = 'bar';
-    }, 'cannot alter the api');
-
     this.set('myValue', value2);
 
     assert.deepEqual(
@@ -214,6 +210,109 @@ module('select-box', function (hooks) {
       apis[0].value,
       ['bar'],
       "yielded api's are always up to date"
+    );
+  });
+
+  test('api writing', async function (assert) {
+    assert.expect(1);
+
+    let api;
+
+    this.handleReady = (sb) => (api = sb);
+
+    await render(hbs`
+      <SelectBox @onReady={{this.handleReady}} />
+    `);
+
+    assert.throws(
+      () => {
+        api.foo = 'bar';
+      },
+      /Cannot add property foo/,
+      'cannot alter the api'
+    );
+  });
+
+  test('api deleting', async function (assert) {
+    assert.expect(1);
+
+    let api;
+
+    this.handleReady = (sb) => (api = sb);
+
+    await render(hbs`
+      <SelectBox @value="foo" @onReady={{this.handleReady}} />
+    `);
+
+    assert.throws(
+      () => {
+        delete api.value;
+      },
+      /Cannot delete property 'value'/,
+      'cannot alter the api'
+    );
+  });
+
+  test('api reading', async function (assert) {
+    assert.expect(2);
+
+    let api;
+
+    this.handleReady = (sb) => (api = sb);
+
+    await render(hbs`
+      <SelectBox @onReady={{this.handleReady}} />
+    `);
+
+    assert.strictEqual(
+      api.options,
+      undefined,
+      'cannot access private properties'
+    );
+
+    assert.deepEqual(
+      keys(api),
+      [
+        // Components
+        'Option',
+        'Input',
+        'SelectedOptions',
+        'SelectedOption',
+        'Options',
+        'Group',
+        // Properties
+        'element',
+        'isBusy',
+        'isDisabled',
+        'isFulfilled',
+        'isMultiple',
+        'isOpen',
+        'isPending',
+        'isRejected',
+        'isSearching',
+        'isSettled',
+        'isSlowSearch',
+        'value',
+        // Actions
+        'activateNextOption',
+        'activateOptionAtIndex',
+        'activateOptionForKeyCode',
+        'activateOptionForValue',
+        'activatePreviousOption',
+        'blurInput',
+        'cancelSearch',
+        'close',
+        'deactivateOptions',
+        'focusInput',
+        'open',
+        'search',
+        'select',
+        'selectActiveOption',
+        'setInputValue',
+        'toggle',
+        'update'
+      ],
+      'only these keys are publicly available'
     );
   });
 });

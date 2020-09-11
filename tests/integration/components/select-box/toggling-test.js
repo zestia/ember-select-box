@@ -7,15 +7,15 @@ module('select-box (toggling)', function (hooks) {
   setupRenderingTest(hooks);
 
   test('toggling', async function (assert) {
-    assert.expect(14);
+    assert.expect(16);
 
-    let api;
-
-    this.handleReady = (sb) => (api = sb);
+    this.handleReady = (sb) => this.set('api', sb);
     this.handleOpen = () => assert.step('opened');
     this.handleClose = () => assert.step('closed');
 
     await render(hbs`
+      {{if this.api.isOpen "open" "closed"}}
+
       <SelectBox
         @onReady={{this.handleReady}}
         @onOpen={{this.handleOpen}}
@@ -24,7 +24,7 @@ module('select-box (toggling)', function (hooks) {
 
     let selectBox = find('.select-box');
 
-    assert.strictEqual(api.isOpen, false);
+    assert.strictEqual(this.api.isOpen, false);
 
     assert
       .dom(selectBox)
@@ -36,10 +36,14 @@ module('select-box (toggling)', function (hooks) {
 
     selectBox = find('.select-box');
 
-    api.open();
-    api.open();
+    this.api.open();
+    this.api.open();
 
     await settled();
+
+    assert.strictEqual(this.api.isOpen, true);
+
+    assert.dom(this.element).containsText('open', 'open state is tracked');
 
     assert
       .dom(selectBox)
@@ -47,12 +51,14 @@ module('select-box (toggling)', function (hooks) {
 
     assert.verifySteps(['opened'], 'only fires open action if closed');
 
-    assert.strictEqual(api.isOpen, true);
-
-    api.close();
-    api.close();
+    this.api.close();
+    this.api.close();
 
     await settled();
+
+    assert.strictEqual(this.api.isOpen, false);
+
+    assert.dom(this.element).containsText('closed', 'closed state is tracked');
 
     assert
       .dom(selectBox)
@@ -60,9 +66,7 @@ module('select-box (toggling)', function (hooks) {
 
     assert.verifySteps(['closed'], 'only fires close action if open');
 
-    assert.strictEqual(api.isOpen, false);
-
-    api.toggle();
+    this.api.toggle();
 
     await settled();
 
@@ -70,7 +74,7 @@ module('select-box (toggling)', function (hooks) {
       .dom(selectBox)
       .hasAttribute('aria-expanded', 'true', 'can toggle via the api');
 
-    assert.strictEqual(api.isOpen, true);
+    assert.strictEqual(this.api.isOpen, true);
 
     assert.verifySteps(['opened']);
   });
