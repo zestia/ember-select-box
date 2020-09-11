@@ -64,7 +64,6 @@ export default class SelectBox extends Component {
   SelectedOptions = null;
 
   @tracked activeOptionIndex = -1;
-
   @tracked isFulfilled = false;
   @tracked isOpen = false;
   @tracked isPending = true;
