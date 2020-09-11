@@ -1,5 +1,9 @@
 # Changelog
 
+## 15.0.0-beta-9
+
+- Make sure yielded-template-API is the same instance as the callback-based-API.
+
 ## 15.0.0-beta-8
 
 - Add regression test for typeahead with repeating character
