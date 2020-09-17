@@ -228,7 +228,7 @@ export default class SelectBox extends Component {
 
   @action
   handleSelectOption(option) {
-    return selectOption(this, option);
+    selectOption(this, option);
   }
 
   @action
