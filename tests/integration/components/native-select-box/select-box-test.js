@@ -255,7 +255,7 @@ module('native-select-box', function (hooks) {
 
     this.handleUpdate = () => assert.step('updated');
 
-    await this.render(hbs`
+    await render(hbs`
       <NativeSelectBox @onUpdate={{this.handleUpdate}} @value={{null}} as |sb|>
         <sb.Option @value={{null}}>One</sb.Option>
       </NativeSelectBox>
