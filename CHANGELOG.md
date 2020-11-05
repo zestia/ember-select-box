@@ -3,6 +3,7 @@
 ## 15.0.0
 
 - Release changes from 15.0.0-beta
+- Run ember-cli-update
 
 ## 15.0.0-beta-9
 
