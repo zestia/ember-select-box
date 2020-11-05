@@ -1,5 +1,9 @@
 # Changelog
 
+## 15.0.0
+
+- Release changes from 15.0.0-beta
+
 ## 15.0.0-beta-9
 
 - Make sure yielded-template-API is the same instance as the callback-based-API.
