@@ -109,4 +109,40 @@ module('select-box (focusing)', function (hooks) {
       .dom('.select-box')
       .hasAttribute('tabindex', '2', 'can still set tabindex');
   });
+
+  test('focusing options', async function (assert) {
+    assert.expect(5);
+
+    await render(hbs`
+      <SelectBox as |sb|>
+        <sb.Option @value={{1}}>One</sb.Option>
+        <sb.Option @value={{2}} @tag="button">Two</sb.Option>
+      </SelectBox>
+    `);
+
+    const one = find('.select-box__option:nth-child(1)');
+    const two = find('.select-box__option:nth-child(2)');
+
+    assert.dom(one).hasTagName('div');
+
+    assert.dom(two).hasTagName('button');
+
+    try {
+      await focus(one);
+    } catch (error) {
+      assert.dom(one).isNotFocused('cannot focus a div option by default');
+    }
+
+    await focus(two);
+
+    assert.dom(two).isFocused('can focus an option');
+
+    assert
+      .dom(two)
+      .hasAttribute(
+        'aria-current',
+        'true',
+        'focusing an option sets it as active'
+      );
+  });
 });

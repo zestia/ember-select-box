@@ -13,7 +13,7 @@ module('select-box/option', function (hooks) {
     await render(hbs`<SelectBox::Option />`);
 
     assert
-      .dom('div.select-box__option')
+      .dom('.select-box__option')
       .hasTagName('div', 'renders with correct class name and tag');
   });
 
@@ -300,5 +300,15 @@ module('select-box/option', function (hooks) {
         'false',
         'select box option no longer has busy attribute when promise has resolved'
       );
+  });
+
+  test('custom tag', async function (assert) {
+    assert.expect(1);
+
+    await render(hbs`<SelectBox::Option @tag="li" />`);
+
+    assert
+      .dom('.select-box__option')
+      .hasTagName('li', 'can customise the tag used for each option');
   });
 });

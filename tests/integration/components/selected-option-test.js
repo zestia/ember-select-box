@@ -12,7 +12,7 @@ module('select-box/selected-option', function (hooks) {
     await render(hbs`<SelectBox::SelectedOption />`);
 
     assert
-      .dom('div.select-box__selected-option')
+      .dom('.select-box__selected-option')
       .hasTagName('div', 'renders with correct class name and tag');
   });
 
@@ -31,5 +31,15 @@ module('select-box/selected-option', function (hooks) {
         'button',
         'can set the role attribute (via an argument)'
       );
+  });
+
+  test('custom tag', async function (assert) {
+    assert.expect(1);
+
+    await render(hbs`<SelectBox::SelectedOption @tag="li" />`);
+
+    assert
+      .dom('.select-box__selected-option')
+      .hasTagName('li', 'can customise the tag used for a selected option');
   });
 });

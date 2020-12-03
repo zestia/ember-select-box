@@ -18,9 +18,12 @@
     box-sizing: border-box;
   }
 
+  .select-box__option {
+    cursor: pointer;
+  }
+
   .select-box__option,
   .select-box__selected-option {
-    cursor: pointer;
     border: 2px solid silver;
     padding: 2px;
     margin: 2px;

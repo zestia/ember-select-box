@@ -65,6 +65,10 @@ export default class SelectBoxOption extends Component {
     return isSelected(this);
   }
 
+  get tag() {
+    return this.args.tag ? this.args.tag : 'div';
+  }
+
   constructor() {
     super(...arguments);
     receiveValue(this);
@@ -89,6 +93,11 @@ export default class SelectBoxOption extends Component {
 
   @action
   handleMouseEnter() {
+    _activateOption(this);
+  }
+
+  @action
+  handleFocus() {
     _activateOption(this);
   }
 

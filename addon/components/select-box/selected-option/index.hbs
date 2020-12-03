@@ -1,12 +1,14 @@
-<div
-  class="select-box__selected-option"
-  {{!-- begin issue: https://github.com/emberjs/rfcs/issues/497 --}}
-  {{! template-lint-disable no-invalid-interactive no-positive-tabindex }}
-  role={{@role}}
-  onclick={{@onclick}}
-  tabindex={{@tabindex}}
-  {{!-- end issue --}}
-  ...attributes
->
-  {{yield}}
-</div>
+{{#let (element (if @tag @tag "div")) as |Tag|}}
+  <Tag
+    class="select-box__selected-option"
+    {{!-- begin issue: https://github.com/emberjs/rfcs/issues/497 --}}
+    {{! template-lint-disable no-invalid-interactive no-positive-tabindex }}
+    role={{@role}}
+    onclick={{@onclick}}
+    tabindex={{@tabindex}}
+    {{!-- end issue --}}
+    ...attributes
+  >
+    {{yield}}
+  </Tag>
+{{/let}}

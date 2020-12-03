@@ -20,11 +20,11 @@
     display: inline-block;
   }
 
-  .select-box__option[aria-selected='true'] {
-    border-color: red;
-  }
-
   .select-box__option[aria-current='true'] {
     border-color: green;
+  }
+
+  .select-box__option[aria-selected='true'] {
+    border-color: red;
   }
 }

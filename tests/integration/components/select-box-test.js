@@ -14,7 +14,7 @@ module('select-box', function (hooks) {
     await render(hbs`<SelectBox />`);
 
     assert
-      .dom('div.select-box')
+      .dom('.select-box')
       .hasTagName('div', 'renders with correct class name and tag');
   });
 
