@@ -1,6 +1,6 @@
 # Changelog
 
-## 15.0.1
+## 15.1.0
 
 - Add ability to change element used to render each option, with `@tag="..."`
 
