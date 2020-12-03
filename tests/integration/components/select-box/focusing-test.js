@@ -139,10 +139,6 @@ module('select-box (focusing)', function (hooks) {
 
     assert
       .dom(two)
-      .hasAttribute(
-        'aria-current',
-        'true',
-        'focusing an option sets it as active'
-      );
+      .hasAttribute('aria-current', 'true', 'focusing an option activates it');
   });
 });

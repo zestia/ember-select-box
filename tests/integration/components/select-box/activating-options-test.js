@@ -457,4 +457,36 @@ module('select-box (activating options)', function (hooks) {
 
     await render(hbs`<SelectBox @onReady={{this.handleReady}} />`);
   });
+
+  test('activating focusable options', async function (assert) {
+    assert.expect(2);
+
+    let sb;
+
+    this.handleReady = (api) => (sb = api);
+
+    await render(hbs`
+      <SelectBox @onReady={{this.handleReady}} as |sb|>
+        <sb.Option @value={{1}}>One</sb.Option>
+        <sb.Option @value={{2}} @tag="button">Two</sb.Option>
+      </SelectBox>
+    `);
+
+    const one = find('.select-box__option:nth-child(1)');
+    const two = find('.select-box__option:nth-child(2)');
+
+    sb.activateOptionForValue(1);
+
+    assert
+      .dom(one)
+      .isNotFocused(
+        'activating an option does not focus it by default (becaause they are divs)'
+      );
+
+    sb.activateOptionForValue(2);
+
+    assert
+      .dom(two)
+      .isFocused('activating an option that is focusable focuses it');
+  });
 });

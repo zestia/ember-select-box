@@ -4,6 +4,10 @@ import { maybeScrollIntoView } from '../../component/scroll-into-view';
 const { fromCharCode } = String;
 
 export function _activateOption(option) {
+  if (option.args.selectBox.activeOption === option) {
+    return;
+  }
+
   invokeAction(option, '_onActivate', option);
 }
 
@@ -17,6 +21,10 @@ export function activateOption(selectBox, option, config) {
 
 export function deactivateOptions(selectBox) {
   _setActiveOptionIndex(selectBox, -1);
+}
+
+function focusOption(option) {
+  option.element.focus();
 }
 
 function _setActiveOptionIndex(selectBox, index) {
@@ -44,6 +52,7 @@ export function activateOptionAtIndex(selectBox, index, config) {
   }
 
   maybeScrollIntoView(option, config);
+  focusOption(option);
   activatedOption(option);
 }
 
