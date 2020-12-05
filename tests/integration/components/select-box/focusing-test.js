@@ -68,7 +68,7 @@ module('select-box (focusing)', function (hooks) {
   test('disabled tabindex (with input)', async function (assert) {
     assert.expect(2);
 
-    this.set('disabled', true);
+    this.disabled = true;
 
     await render(hbs`
       <SelectBox @disabled={{this.disabled}} as |sb|>

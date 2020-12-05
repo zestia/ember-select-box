@@ -86,7 +86,8 @@ module('select-box', function (hooks) {
     await render(hbs`
       <SelectBox
         @value={{this.myValue}}
-        @onUpdate={{this.handleUpdate}} />
+        @onUpdate={{this.handleUpdate}}
+      />
     `);
 
     this.set('myValue', 'bar');
@@ -100,7 +101,8 @@ module('select-box', function (hooks) {
     await render(hbs`
       <SelectBox
         @disabled={{this.isDisabled}}
-        @onUpdate={{this.handleUpdate}} />
+        @onUpdate={{this.handleUpdate}}
+      />
     `);
 
     this.set('isDisabled', true);
