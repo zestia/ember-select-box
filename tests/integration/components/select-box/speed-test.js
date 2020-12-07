@@ -7,10 +7,10 @@ import config from 'dummy/config/environment';
 module('select-box (speed)', function (hooks) {
   setupRenderingTest(hooks);
 
-  const testInProd = config.environment === 'production' ? test : skip;
+  const testInProd = config.APP.buildTarget === 'production' ? test : skip;
 
   hooks.beforeEach(function () {
-    this.set('items', []);
+    this.items = [];
 
     for (let i = 0; i <= 1000; i++) {
       this.items.push(`Item ${i}`);

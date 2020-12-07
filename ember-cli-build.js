@@ -2,6 +2,8 @@
 
 const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 
+process.env.buildTarget = EmberAddon.env();
+
 module.exports = function (defaults) {
   const app = new EmberAddon(defaults, {
     minifyCSS: {
