@@ -32,7 +32,7 @@ module('select-box (speed)', function (hooks) {
 
     const end = Date.now() - start;
 
-    assert.ok(end < 2000, `${end}ms too slow`);
+    assert.ok(end < 800, `${end}ms too slow`);
   });
 
   testInProd('non-component options', async function (assert) {
