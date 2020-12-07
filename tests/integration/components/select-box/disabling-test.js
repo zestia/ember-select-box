@@ -19,7 +19,7 @@ module('select-box (disabling)', function (hooks) {
   test('disabling and enabling', async function (assert) {
     assert.expect(2);
 
-    this.set('isDisabled', true);
+    this.isDisabled = true;
 
     await render(hbs`<SelectBox @disabled={{this.isDisabled}} />`);
 

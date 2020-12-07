@@ -81,12 +81,12 @@ module('select-box/input', function (hooks) {
   test('onClear action', async function (assert) {
     assert.expect(1);
 
-    this.set('cleared', (sb) => {
+    this.cleared = (sb) => {
       assert.ok(
         typeof sb === 'object',
         'clearing the input value sends an action with the select box api'
       );
-    });
+    };
 
     await render(hbs`
       <SelectBox as |sb|>
@@ -102,14 +102,14 @@ module('select-box/input', function (hooks) {
 
     let count = 0;
 
-    this.set('deleted', (sb) => {
+    this.deleted = (sb) => {
       count++;
 
       assert.ok(
         typeof sb === 'object',
         'the onDelete action receives select box api'
       );
-    });
+    };
 
     await render(hbs`
       <SelectBox as |sb|>

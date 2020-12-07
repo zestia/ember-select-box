@@ -328,6 +328,7 @@ module('select-box (selecting)', function (hooks) {
   skip('pressing enter (on select box)', async function (assert) {
     // Pressing Enter on a faux select box, with no active option
     // should submit the form.
+    // https://github.com/emberjs/ember-test-helpers/issues/639
 
     assert.expect(3);
 
