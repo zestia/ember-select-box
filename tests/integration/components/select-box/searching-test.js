@@ -645,9 +645,9 @@ module('select-box (searching)', function (hooks) {
   test('search api', async function (assert) {
     assert.expect(1);
 
-    let sb;
+    let api;
 
-    this.handleReady = (_sb) => (sb = _sb);
+    this.handleReady = (sb) => (api = sb);
     this.handleSearch = () => resolve(['foo', 'bar']);
 
     await render(hbs`
@@ -657,7 +657,7 @@ module('select-box (searching)', function (hooks) {
         />
       `);
 
-    sb.search('foo').then((results) => {
+    api.search('foo').then((results) => {
       assert.strictEqual(
         results,
         undefined,

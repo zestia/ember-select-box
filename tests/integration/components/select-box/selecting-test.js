@@ -514,9 +514,9 @@ module('select-box (selecting)', function (hooks) {
   test('update api', async function (assert) {
     assert.expect(1);
 
-    let sb;
+    let api;
 
-    this.handleReady = (_sb) => (sb = _sb);
+    this.handleReady = (sb) => (api = sb);
 
     await render(hbs`
       <SelectBox @onReady={{this.handleReady}} as |sb|>
@@ -525,7 +525,7 @@ module('select-box (selecting)', function (hooks) {
       </SelectBox>
     `);
 
-    sb.update(resolve(2)).then((value) => {
+    api.update(resolve(2)).then((value) => {
       assert.strictEqual(
         value,
         undefined,
@@ -775,14 +775,14 @@ module('select-box (selecting)', function (hooks) {
   test('customising selection', async function (assert) {
     assert.expect(9);
 
-    let sb;
+    let api;
     let arg1;
     let arg2;
     let calledBuild = 0;
 
     this.myValue = ['foo', 'bar'];
 
-    this.handleReady = (api) => (sb = api);
+    this.handleReady = (sb) => (api = sb);
 
     this.handleBuildSelection = (value1, value2) => {
       calledBuild++;
@@ -816,7 +816,7 @@ module('select-box (selecting)', function (hooks) {
         'selection used is the selection returned from onBuildSelection'
       );
 
-    assert.deepEqual(sb.value, ['baz'], 'value is correct');
+    assert.deepEqual(api.value, ['baz'], 'value is correct');
 
     assert.strictEqual(arg1, 'foo', 'first argument is the value selected');
 
@@ -826,7 +826,7 @@ module('select-box (selecting)', function (hooks) {
       'second argument is the currently selected value'
     );
 
-    sb.update(['bar']);
+    api.update(['bar']);
 
     await settled();
 
@@ -840,7 +840,7 @@ module('select-box (selecting)', function (hooks) {
       .dom('.select-box__option[aria-selected="true"]')
       .hasText('Bar', 'update still works');
 
-    sb.select(['qux']);
+    api.select(['qux']);
 
     await settled();
 
@@ -854,17 +854,17 @@ module('select-box (selecting)', function (hooks) {
       .dom('.select-box__option[aria-selected="true"]')
       .hasText('Qux', 'select still works');
 
-    assert.deepEqual(sb.value, ['qux'], 'value is correct');
+    assert.deepEqual(api.value, ['qux'], 'value is correct');
   });
 
   test('selecting active via api', async function (assert) {
     assert.expect(1);
 
-    let sb;
+    let api;
     let selectedValue;
 
     this.handleSelect = (value) => (selectedValue = value);
-    this.handleReady = (api) => (sb = api);
+    this.handleReady = (sb) => (api = sb);
 
     await render(hbs`
       <SelectBox @onReady={{this.handleReady}} @onSelect={{this.handleSelect}} as |sb|>
@@ -875,7 +875,7 @@ module('select-box (selecting)', function (hooks) {
 
     await triggerEvent(findAll('.select-box__option')[1], 'mouseenter');
 
-    await sb.selectActiveOption();
+    await api.selectActiveOption();
 
     assert.equal(
       selectedValue,
