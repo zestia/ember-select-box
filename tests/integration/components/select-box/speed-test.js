@@ -1,10 +1,13 @@
-import { module, test } from 'qunit';
+import { module, test, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import config from 'dummy/config/environment';
 
 module('select-box (speed)', function (hooks) {
   setupRenderingTest(hooks);
+
+  const testInProd = config.environment === 'production' ? test : skip;
 
   hooks.beforeEach(function () {
     this.set('items', []);
@@ -14,7 +17,7 @@ module('select-box (speed)', function (hooks) {
     }
   });
 
-  test('component options', async function (assert) {
+  testInProd('component options', async function (assert) {
     assert.expect(1);
 
     const start = Date.now();
@@ -32,7 +35,7 @@ module('select-box (speed)', function (hooks) {
     assert.ok(end < 2000, `${end}ms too slow`);
   });
 
-  test('non-component options', async function (assert) {
+  testInProd('non-component options', async function (assert) {
     assert.expect(1);
 
     const start1 = Date.now();
