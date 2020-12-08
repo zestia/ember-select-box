@@ -20,15 +20,21 @@
   )
   SelectedOptions=(component "select-box/selected-options")
   SelectedOption=(component "select-box/selected-option")
-  Options=(component "select-box/options")
+  Options=(component
+    "select-box/options"
+    selectBox=this
+    _onInsert=this.handleInsertOptionsContainer
+    _onDestroy=this.handleDestroyOptionsContainer
+  )
   Group=(component "select-box/group")
 }}
 <div
-  aria-expanded={{if this.isOpen "true" "false"}}
+  aria-activedescendant={{this.activeOption.id}}
   aria-busy={{if this.isBusy "true" "false"}}
   aria-disabled={{if this.isDisabled "true" "false"}}
+  aria-expanded={{if this.isOpen "true" "false"}}
   aria-multiselectable={{if this.isMultiple "true" "false"}}
-  aria-activedescendant={{this.activeOption.id}}
+  aria-owns={{if this.isCombobox this.optionsContainer.id}}
   class="select-box"
   id={{this.id}}
   multiple={{this.isMultiple}}
@@ -45,3 +51,6 @@
 >
   {{yield this.api}}
 </div>
+xxx
+{{this.optionsContainer.id}}
+yyy

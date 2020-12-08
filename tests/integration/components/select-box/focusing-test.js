@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import { module, test, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { find, triggerEvent, focus, render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
@@ -110,7 +110,7 @@ module('select-box (focusing)', function (hooks) {
       .hasAttribute('tabindex', '2', 'can still set tabindex');
   });
 
-  test('focusing options', async function (assert) {
+  skip('focusing options', async function (assert) {
     assert.expect(5);
 
     await render(hbs`

@@ -23,21 +23,28 @@ module('select-box (searching)', function (hooks) {
   });
 
   test('aria', async function (assert) {
-    assert.expect(7);
+    assert.expect(11);
 
     await render(hbs`
       <SelectBox as |sb|>
         {{#if this.showInput}}
           <sb.Input />
         {{/if}}
+        <sb.Options />
       </SelectBox>
     `);
 
     assert.dom('.select-box').hasAttribute('role', 'listbox');
 
+    assert.dom('.select-box').doesNotHaveAttribute('aria-owns');
+
     assert
       .dom('.select-box')
       .hasAttribute('tabindex', '0', 'precondition: select box is focusable');
+
+    assert
+      .dom('.select-box__options')
+      .doesNotHaveAttribute('role', 'options container is dumb');
 
     this.set('showInput', true);
 
@@ -47,6 +54,15 @@ module('select-box (searching)', function (hooks) {
         'role',
         'combobox',
         'a select box with an input has an appropriate role'
+      );
+
+    assert
+      .dom('.select-box__options')
+      .hasAttribute(
+        'role',
+        'listbox',
+        'now that an input element is present the parent combobox is a _combination_ ' +
+          'of a text box and a list box of options'
       );
 
     assert
@@ -64,6 +80,14 @@ module('select-box (searching)', function (hooks) {
         'aria-controls',
         find('.select-box').getAttribute('id'),
         'text box knows it controls the combo box'
+      );
+
+    assert
+      .dom('.select-box')
+      .hasAttribute(
+        'aria-owns',
+        find('.select-box__options').getAttribute('id'),
+        'the combo box knows it owns the list box'
       );
 
     this.set('showInput', false);

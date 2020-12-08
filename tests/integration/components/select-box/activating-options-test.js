@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import { module, test, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { later } from '@ember/runloop';
@@ -458,7 +458,7 @@ module('select-box (activating options)', function (hooks) {
     await render(hbs`<SelectBox @onReady={{this.handleReady}} />`);
   });
 
-  test('activating focusable options', async function (assert) {
+  skip('activating focusable options', async function (assert) {
     assert.expect(2);
 
     let sb;

@@ -1,20 +1,18 @@
-{{#let (element this.tag) as |Tag|}}
-  <Tag
-    aria-busy={{if this.isPending "true" "false"}}
-    aria-current={{if this.isActive "true" "false"}}
-    aria-disabled={{if this.isDisabled "true" "false"}}
-    aria-selected={{if this.isSelected "true" "false"}}
-    class="select-box__option"
-    id={{this.id}}
-    role="option"
-    ...attributes
-    {{did-insert this.handleInsertElement}}
-    {{did-update this.handleUpdateValue @value}}
-    {{will-destroy this.handleDestroyElement}}
-    {{on "mouseenter" this.handleMouseEnter}}
-    {{on "focus" this.handleFocus}}
-    {{on "click" this.handleClick}}
-  >
-    {{~yield this.api~}}
-  </Tag>
-{{/let}}
+<div
+  aria-busy={{if this.isPending "true" "false"}}
+  aria-current={{if this.isActive "true" "false"}}
+  aria-disabled={{if this.isDisabled "true" "false"}}
+  aria-selected={{if this.isSelected "true" "false"}}
+  class="select-box__option"
+  id={{this.id}}
+  role="option"
+  ...attributes
+  {{did-insert this.handleInsertElement}}
+  {{did-update this.handleUpdateValue @value}}
+  {{will-destroy this.handleDestroyElement}}
+  {{on "mouseenter" this.handleMouseEnter}}
+  {{on "focus" this.handleFocus}}
+  {{on "click" this.handleClick}}
+>
+  {{~yield this.api~}}
+</div>

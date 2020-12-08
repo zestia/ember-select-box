@@ -4,6 +4,10 @@
 
 - Add ability to change element used to render each option, with `@tag="..."`
 
+## 15.0.1
+
+- Make sure combobox and listbox roles are present and correct
+
 ## 15.0.0
 
 - Release changes from 15.0.0-beta

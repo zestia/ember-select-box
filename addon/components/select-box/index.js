@@ -29,6 +29,10 @@ import {
   deregisterOption,
   registerOption
 } from '../../utils/registration/option';
+import {
+  deregisterOptionsContainer,
+  registerOptionsContainer
+} from '../../utils/registration/options-container';
 import { focusOut } from '../../utils/select-box/focus';
 import { keyDown, keyPress, pressEnter } from '../../utils/select-box/keyboard';
 import { receiveDisabled } from '../../utils/select-box/disabled';
@@ -47,8 +51,8 @@ import { A as emberA } from '@ember/array';
 
 export default class SelectBox extends Component {
   _api = {};
-  input = null;
   element = null;
+  input = null;
   optionCharState = null;
   pendingOptions = emberA();
   previousTabIndex = null;
@@ -73,6 +77,7 @@ export default class SelectBox extends Component {
   @tracked isSettled = false;
   @tracked isSlowSearch = false;
   @tracked options = [];
+  @tracked optionsContainer = null;
   @tracked role = 'listbox';
   @tracked tabIndex = '0';
   @tracked value = null;
@@ -140,6 +145,14 @@ export default class SelectBox extends Component {
     return this.args.multiple;
   }
 
+  get isListbox() {
+    return this.role === 'listbox';
+  }
+
+  get isCombobox() {
+    return this.role === 'combobox';
+  }
+
   get searchDelayTime() {
     return isPresent(this.args.searchDelayTime)
       ? this.args.searchDelayTime
@@ -204,6 +217,16 @@ export default class SelectBox extends Component {
   @action
   handleInputText(text) {
     maybeSearch(this, text);
+  }
+
+  @action
+  handleInsertOptionsContainer(optionsContainer) {
+    registerOptionsContainer(this, optionsContainer);
+  }
+
+  @action
+  handleDestroyOptionsContainer(optionsContainer) {
+    deregisterOptionsContainer(this, optionsContainer);
   }
 
   @action
