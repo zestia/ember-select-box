@@ -35,7 +35,6 @@ import {
 } from '../../utils/registration/options-container';
 import { focusOut } from '../../utils/select-box/focus';
 import { keyDown, keyPress, pressEnter } from '../../utils/select-box/keyboard';
-import { receiveDisabled } from '../../utils/select-box/disabled';
 import { setInputValue } from '../../utils/select-box/input/value';
 import buildAPI from '../../utils/shared/api';
 import {
@@ -52,10 +51,8 @@ import { A as emberA } from '@ember/array';
 export default class SelectBox extends Component {
   _api = {};
   element = null;
-  input = null;
   optionCharState = null;
   pendingOptions = emberA();
-  previousTabIndex = null;
   previousValue = null;
   searchID = 0;
   valueID = 0;
@@ -68,6 +65,7 @@ export default class SelectBox extends Component {
   SelectedOptions = null;
 
   @tracked activeOptionIndex = -1;
+  @tracked input = null;
   @tracked isFulfilled = false;
   @tracked isOpen = false;
   @tracked isPending = true;
@@ -78,8 +76,6 @@ export default class SelectBox extends Component {
   @tracked isSlowSearch = false;
   @tracked options = [];
   @tracked optionsContainer = null;
-  @tracked role = 'listbox';
-  @tracked tabIndex = '0';
   @tracked value = null;
 
   get api() {
@@ -133,6 +129,22 @@ export default class SelectBox extends Component {
     return buildID(this);
   }
 
+  get role() {
+    return this.input ? 'combobox' : 'listbox';
+  }
+
+  get isListbox() {
+    return this.role === 'listbox';
+  }
+
+  get isCombobox() {
+    return this.role === 'combobox';
+  }
+
+  get tabIndex() {
+    return this.isDisabled || this.isCombobox ? null : '0';
+  }
+
   get isBusy() {
     return this.isPending || this.isSearching;
   }
@@ -143,14 +155,6 @@ export default class SelectBox extends Component {
 
   get isMultiple() {
     return this.args.multiple;
-  }
-
-  get isListbox() {
-    return this.role === 'listbox';
-  }
-
-  get isCombobox() {
-    return this.role === 'combobox';
   }
 
   get searchDelayTime() {
@@ -169,7 +173,6 @@ export default class SelectBox extends Component {
 
   constructor() {
     super(...arguments);
-    receiveDisabled(this);
     receiveValue(this);
   }
 
@@ -187,11 +190,6 @@ export default class SelectBox extends Component {
   @action
   handleUpdateValue() {
     receiveValue(this);
-  }
-
-  @action
-  handleUpdateDisabled() {
-    receiveDisabled(this);
   }
 
   @action
