@@ -77,7 +77,7 @@ module('select-box (searching)', function (hooks) {
       .dom('.select-box__input')
       .hasAttribute(
         'aria-controls',
-        find('.select-box').getAttribute('id'),
+        find('.select-box__options').getAttribute('id'),
         'text box knows it controls the list box'
       );
 
