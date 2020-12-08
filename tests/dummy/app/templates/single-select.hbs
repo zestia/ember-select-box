@@ -1,7 +1,6 @@
 <p>
   Demonstration of a no-frills faux select box.
 </p>
-
 <p>
   <a
     href="https://github.com/zestia/ember-select-box/blob/master/tests/dummy/app/templates/single-select.hbs#L13-L23"
@@ -9,19 +8,27 @@
     hbs
   </a>
 </p>
-
 <SelectBox
   class="single-select"
   @value={{this.selectedBread}}
   @onSelect={{this.selectBread}} as |sb|
 >
-  {{#each this.selectableBreads as |bread|}}
-    <sb.Option @tag="button" @value={{bread}}>
-      {{bread.name}}
-    </sb.Option>
-  {{/each}}
+  <sb.Group @label="Test">
+    {{#each this.selectableBreads as |bread|}}
+      <sb.Option @tag="button" @value={{bread}}>
+        {{bread.name}}
+      </sb.Option>
+    {{/each}}
+  </sb.Group>
+  <sb.Group @label="Test2">
+    {{#each this.selectableBreads as |bread|}}
+      <sb.Option @tag="button" @value={{bread}}>
+        {{bread.name}}
+      </sb.Option>
+    {{/each}}
+  </sb.Group>
 </SelectBox>
-
 <p>
-  Selected bread: {{this.selectedBread.name}}
+  Selected bread:
+  {{this.selectedBread.name}}
 </p>

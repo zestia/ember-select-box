@@ -67,11 +67,10 @@ module('select-box (searching)', function (hooks) {
 
     assert
       .dom('.select-box')
-      .hasAttribute(
+      .doesNotHaveAttribute(
         'tabindex',
-        '-1',
         'a select box should not be focusable if it contains an input ' +
-          'instead, pressing tab should jump directly to the input'
+          'instead, pressing tab should jump directly to the input within'
       );
 
     assert
@@ -79,7 +78,7 @@ module('select-box (searching)', function (hooks) {
       .hasAttribute(
         'aria-controls',
         find('.select-box').getAttribute('id'),
-        'text box knows it controls the combo box'
+        'text box knows it controls the list box'
       );
 
     assert

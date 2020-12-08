@@ -1,5 +1,5 @@
 import { guidFor } from '@ember/object/internals';
 
-export default function id(selectBox) {
-  return guidFor(selectBox).replace('ember', 'select-box-el-');
+export default function id(object) {
+  return guidFor(object).replace('ember', 'select-box-el-');
 }
