@@ -15,7 +15,7 @@
   @onSelect={{this.selectBread}} as |sb|
 >
   {{#each this.selectableBreads as |bread|}}
-    <sb.Option @tag="button" @value={{bread}}>
+    <sb.Option @value={{bread}}>
       {{bread.name}}
     </sb.Option>
   {{/each}}

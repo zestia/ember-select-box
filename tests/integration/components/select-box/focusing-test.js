@@ -114,22 +114,18 @@ module('select-box (focusing)', function (hooks) {
       .hasAttribute('tabindex', '2', 'can still set tabindex');
   });
 
-  skip('focusing options', async function (assert) {
-    assert.expect(5);
+  test('focusing options', async function (assert) {
+    assert.expect(3);
 
     await render(hbs`
       <SelectBox as |sb|>
         <sb.Option @value={{1}}>One</sb.Option>
-        <sb.Option @value={{2}} @tag="button">Two</sb.Option>
+        <sb.Option @value={{2}} tabindex="0">Two</sb.Option>
       </SelectBox>
     `);
 
     const one = find('.select-box__option:nth-child(1)');
     const two = find('.select-box__option:nth-child(2)');
-
-    assert.dom(one).hasTagName('div');
-
-    assert.dom(two).hasTagName('button');
 
     try {
       await focus(one);
@@ -139,7 +135,9 @@ module('select-box (focusing)', function (hooks) {
 
     await focus(two);
 
-    assert.dom(two).isFocused('can focus an option');
+    assert
+      .dom(two)
+      .isFocused('can focus an option that specifically has a tabindex');
 
     assert
       .dom(two)

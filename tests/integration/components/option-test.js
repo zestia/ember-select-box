@@ -1,4 +1,4 @@
-import { module, test, skip } from 'qunit';
+import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { find, findAll, render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
@@ -300,15 +300,5 @@ module('select-box/option', function (hooks) {
         'false',
         'select box option no longer has busy attribute when promise has resolved'
       );
-  });
-
-  skip('custom tag', async function (assert) {
-    assert.expect(1);
-
-    await render(hbs`<SelectBox::Option @tag="li" />`);
-
-    assert
-      .dom('.select-box__option')
-      .hasTagName('li', 'can customise the tag used for each option');
   });
 });

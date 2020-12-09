@@ -1,4 +1,4 @@
-import { module, test, skip } from 'qunit';
+import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
@@ -31,15 +31,5 @@ module('select-box/selected-option', function (hooks) {
         'button',
         'can set the role attribute (via an argument)'
       );
-  });
-
-  skip('custom tag', async function (assert) {
-    assert.expect(1);
-
-    await render(hbs`<SelectBox::SelectedOption @tag="li" />`);
-
-    assert
-      .dom('.select-box__selected-option')
-      .hasTagName('li', 'can customise the tag used for a selected option');
   });
 });

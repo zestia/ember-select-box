@@ -458,7 +458,7 @@ module('select-box (activating options)', function (hooks) {
     await render(hbs`<SelectBox @onReady={{this.handleReady}} />`);
   });
 
-  skip('activating focusable options', async function (assert) {
+  test('activating focusable options', async function (assert) {
     assert.expect(2);
 
     let sb;
@@ -468,7 +468,7 @@ module('select-box (activating options)', function (hooks) {
     await render(hbs`
       <SelectBox @onReady={{this.handleReady}} as |sb|>
         <sb.Option @value={{1}}>One</sb.Option>
-        <sb.Option @value={{2}} @tag="button">Two</sb.Option>
+        <sb.Option @value={{2}} tabindex="0">Two</sb.Option>
       </SelectBox>
     `);
 
@@ -480,7 +480,8 @@ module('select-box (activating options)', function (hooks) {
     assert
       .dom(one)
       .isNotFocused(
-        'activating an option does not focus it by default (becaause they are divs)'
+        'activating an option does not focus it by default (because they are just divs) ' +
+          'and focus is managed by aria activedescenant'
       );
 
     sb.activateOptionForValue(2);
