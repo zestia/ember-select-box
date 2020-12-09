@@ -32,6 +32,8 @@ module('select-box (speed)', function (hooks) {
 
     const end = Date.now() - start;
 
+    // Note this figure is based on Travis builds
+
     assert.ok(end < 1500, `${end}ms too slow`);
   });
 

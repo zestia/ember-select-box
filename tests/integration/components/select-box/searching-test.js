@@ -128,6 +128,7 @@ module('select-box (searching)', function (hooks) {
       .dom('.select-box__options')
       .hasAttribute(
         'aria-multiselectable',
+        'true',
         'the child listbox is multiselectable'
       );
   });
