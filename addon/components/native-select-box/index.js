@@ -17,12 +17,11 @@ import buildAPI from '../../utils/shared/api';
 import { ready } from '../../utils/shared/ready';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
-import { A as emberA } from '@ember/array';
 
 export default class NativeSelectBox extends Component {
   _api = {};
   element = null;
-  pendingOptions = emberA();
+  pendingOptions = [];
   previousValue = null;
   valueID = 0;
 

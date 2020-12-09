@@ -16,8 +16,16 @@
     _onDestroy=this.handleDestroyInput
     _onInput=this.handleInputText
   )
-  SelectedOptions=(component "select-box/selected-options")
-  SelectedOption=(component "select-box/selected-option")
+  SelectedOptions=(component
+    "select-box/selected-options"
+    _onInsert=this.handleInsertSelectedOption
+    _onDestroy=this.handleDestroyelectedOption
+  )
+  SelectedOption=(component
+    "select-box/selected-option"
+    _onInsert=this.handleInsertSelectedOption
+    _onDestroy=this.handleDestroyelectedOption
+  )
   Options=(component
     "select-box/options"
     selectBox=this
@@ -31,6 +39,7 @@
   aria-busy={{if this.isBusy "true" "false"}}
   aria-disabled={{if this.isDisabled "true" "false"}}
   aria-expanded={{if this.isOpen "true" "false"}}
+  aria-labelledby={{this.labelledBy}}
   aria-multiselectable={{if this.isMultiSelectable "true"}}
   aria-owns={{if this.isCombobox this.optionsContainer.id}}
   class="select-box"

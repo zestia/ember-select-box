@@ -26,6 +26,10 @@ import {
 } from '../../utils/registration/element';
 import { deregisterInput, registerInput } from '../../utils/registration/input';
 import {
+  deregisterSelectedOption,
+  registerSelectedOption
+} from '../../utils/registration/selected-option';
+import {
   deregisterOption,
   registerOption
 } from '../../utils/registration/option';
@@ -46,13 +50,12 @@ import buildID from '../../utils/shared/id';
 import { ready } from '../../utils/shared/ready';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
-import { A as emberA } from '@ember/array';
 
 export default class SelectBox extends Component {
   _api = {};
   element = null;
   optionCharState = null;
-  pendingOptions = emberA();
+  pendingOptions = [];
   previousValue = null;
   searchID = 0;
   valueID = 0;
@@ -76,6 +79,7 @@ export default class SelectBox extends Component {
   @tracked isSlowSearch = false;
   @tracked options = [];
   @tracked optionsContainer = null;
+  @tracked selectedOptions = [];
   @tracked value = null;
 
   get api() {
@@ -142,7 +146,7 @@ export default class SelectBox extends Component {
   }
 
   get tabIndex() {
-    return this.isDisabled || this.isCombobox ? null : '0';
+    return this.isDisabled || this.isCombobox ? '-1' : '0';
   }
 
   get isBusy() {
@@ -159,6 +163,20 @@ export default class SelectBox extends Component {
 
   get isMultiSelectable() {
     return this.isMultiple && this.isListbox;
+  }
+
+  get labelledBy() {
+    let id;
+
+    if (this.selectedOptionsContainer) {
+      id = this.selectedOptionsContainer.id;
+    } else if (this.selectedOptions.length > 0) {
+      id = this.selectedOptions[0].id;
+    } else if (this.input) {
+      id = this.input.id;
+    }
+
+    return id;
   }
 
   get searchDelayTime() {
@@ -219,6 +237,16 @@ export default class SelectBox extends Component {
   @action
   handleInputText(text) {
     maybeSearch(this, text);
+  }
+
+  @action
+  handleInsertSelectedOption(selectedOption) {
+    registerSelectedOption(this, selectedOption);
+  }
+
+  @action
+  handleDestroySelectedOption(selectedOption) {
+    deregisterSelectedOption(this, selectedOption);
   }
 
   @action

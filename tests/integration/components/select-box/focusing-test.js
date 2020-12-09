@@ -56,7 +56,7 @@ module('select-box (focusing)', function (hooks) {
 
     assert
       .dom('.select-box')
-      .doesNotHaveAttribute('tabindex', 'disabling, disables focusability');
+      .hasAttribute('tabindex', '-1', 'disabling, disables focusability');
 
     this.set('disabled', false);
 
@@ -78,14 +78,15 @@ module('select-box (focusing)', function (hooks) {
 
     assert
       .dom('.select-box')
-      .doesNotHaveAttribute('tabindex', 'not focusable when disabled');
+      .hasAttribute('tabindex', '-1', 'not focusable when disabled');
 
     this.set('disabled', false);
 
     assert
       .dom('.select-box')
-      .doesNotHaveAttribute(
+      .hasAttribute(
         'tabindex',
+        '-1',
         're-enabling has correct tab index ' +
           'still not focusable because it is a combobox (has an input)'
       );
@@ -98,7 +99,7 @@ module('select-box (focusing)', function (hooks) {
 
     assert
       .dom('.select-box')
-      .doesNotHaveAttribute('tabindex', 'will not be focusable');
+      .hasAttribute('tabindex', '-1', 'will not be focusable');
   });
 
   test('manual tabindex', async function (assert) {

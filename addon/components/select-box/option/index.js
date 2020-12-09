@@ -65,10 +65,6 @@ export default class SelectBoxOption extends Component {
     return isSelected(this);
   }
 
-  get tag() {
-    return this.args.tag ? this.args.tag : 'div';
-  }
-
   constructor() {
     super(...arguments);
     receiveValue(this);

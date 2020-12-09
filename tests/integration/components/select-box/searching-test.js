@@ -67,8 +67,9 @@ module('select-box (searching)', function (hooks) {
 
     assert
       .dom('.select-box')
-      .doesNotHaveAttribute(
+      .hasAttribute(
         'tabindex',
+        '-1',
         'a select box should not be focusable if it contains an input ' +
           'instead, pressing tab should jump directly to the input within'
       );
