@@ -12,7 +12,9 @@
   {{yield
     (hash
       value=sb.value
-      SelectedOption=(component sb.SelectedOption onclick=sb.toggle)
+      SelectedOption=(component
+        sb.SelectedOption onclick=sb.toggle role="button"
+      )
       Options=sb.Options
       Option=sb.Option
     )
