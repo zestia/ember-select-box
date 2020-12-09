@@ -44,7 +44,11 @@ module('select-box (searching)', function (hooks) {
 
     assert
       .dom('.select-box__options')
-      .doesNotHaveAttribute('role', 'options container is dumb');
+      .hasAttribute(
+        'role',
+        'presentation',
+        'options container is just for presenting options'
+      );
 
     this.set('showInput', true);
 

@@ -2,7 +2,7 @@
   aria-multiselectable={{if this.isMultiSelectable "true"}}
   class="select-box__options"
   id={{this.id}}
-  role={{if @selectBox.isCombobox "listbox"}}
+  role={{if @selectBox.isCombobox "listbox" "presentation"}}
   {{!-- begin issue: https://github.com/emberjs/rfcs/issues/497 --}}
   {{! template-lint-disable no-invalid-interactive }}
   onclick={{@onclick}}

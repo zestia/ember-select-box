@@ -15,4 +15,18 @@ module('select-box/options', function (hooks) {
       .dom('.select-box__options')
       .hasTagName('div', 'renders with correct class name and tag');
   });
+
+  test('role', async function (assert) {
+    assert.expect(1);
+
+    await render(hbs`<SelectBox::Options />`);
+
+    assert
+      .dom('.select-box__options')
+      .hasAttribute(
+        'role',
+        'presentation',
+        'the options area is a place to present options'
+      );
+  });
 });

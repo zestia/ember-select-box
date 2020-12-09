@@ -19,6 +19,21 @@ module('select-box/selected-option', function (hooks) {
   test('role', async function (assert) {
     assert.expect(1);
 
+    await render(hbs`<SelectBox::SelectedOption />`);
+
+    assert
+      .dom('.select-box__selected-option')
+      .hasAttribute(
+        'role',
+        'presentation',
+        'a selected option presents the option that was selected ' +
+          '(is not announced as a group)'
+      );
+  });
+
+  test('role (classic)', async function (assert) {
+    assert.expect(1);
+
     await render(hbs`
       {{! template-lint-disable no-unnecessary-component-helper }}
       {{component "select-box/selected-option" role="button"}}

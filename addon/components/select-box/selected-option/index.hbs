@@ -3,7 +3,7 @@
   id={{this.id}}
   {{!-- begin issue: https://github.com/emberjs/rfcs/issues/497 --}}
   {{! template-lint-disable no-invalid-interactive no-positive-tabindex }}
-  role={{@role}}
+  role={{if @role @role "presentation"}}
   onclick={{@onclick}}
   tabindex={{@tabindex}}
   {{!-- end issue --}}
