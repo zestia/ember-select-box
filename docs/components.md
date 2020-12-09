@@ -330,12 +330,6 @@
       </td>
     </tr>
     <tr>
-      <td><code>@tag</code></td>
-      <td>
-        Change what tag is rendered for each option (default is <code>div</code>).
-      </td>
-    </tr>
-    <tr>
       <td><code>@value</code></td>
       <td>Can be anything, including a promise</td>
     </tr>
