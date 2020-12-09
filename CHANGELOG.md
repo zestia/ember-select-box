@@ -1,8 +1,12 @@
 # Changelog
 
-## 15.0.1
+## 15.1.0
 
-- Make sure combobox and listbox roles are present and correct
+- Add `group` role to groups
+- Add `aria-labelledby` to groups
+- Add `aria-labelledby` to select boxes
+- Add `aria-owns` to select boxes
+- Run speed tests as production build
 
 ## 15.0.0
 

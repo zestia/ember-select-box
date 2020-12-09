@@ -109,12 +109,27 @@ module('select-box (searching)', function (hooks) {
       </SelectBox>
     `);
 
-    assert.dom('[aria-multiselectable="false"]').doesNotExist();
+    assert
+      .dom('[aria-multiselectable="false"]')
+      .doesNotExist(
+        'the parent select box is not multiselectable, nor is the child listbox'
+      );
 
     this.set('multiple', true);
 
-    assert.dom('.select-box').doesNotHaveAttribute('aria-multiselectable');
-    assert.dom('.select-box__options').hasAttribute('aria-multiselectable');
+    assert
+      .dom('.select-box')
+      .doesNotHaveAttribute(
+        'aria-multiselectable',
+        'the parent select box is not multiselectable'
+      );
+
+    assert
+      .dom('.select-box__options')
+      .hasAttribute(
+        'aria-multiselectable',
+        'the child listbox is multiselectable'
+      );
   });
 
   test('searching (promise)', async function (assert) {

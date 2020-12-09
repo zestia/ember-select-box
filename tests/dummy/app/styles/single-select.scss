@@ -5,6 +5,10 @@
   margin: 2px;
   padding: 2px;
 
+  &:focus-within {
+    border-color: dimgrey;
+  }
+
   .select-box__option {
     cursor: pointer;
     border: 2px solid silver;
