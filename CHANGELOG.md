@@ -1,9 +1,5 @@
 # Changelog
 
-## 5.1.1
-
-- Make sure presentation elements are defined as such, with aria `role` attribute. This prevents them from being announced as a group.
-
 ## 15.1.0
 
 - Add `group` role to groups
