@@ -19,6 +19,7 @@
         <button
           type="button"
           class="tag-select__remove"
+          aria-label="Deselect {{tag}}"
           {{on "click" (fn this.deselect tag sb)}}
         >
           &times;
@@ -29,16 +30,16 @@
 
   <sb.Input
     autofocus={{true}}
-    @onInput={{sb.open}}
     @onDelete={{this.deselectLast}}
     {{on "click" (fn this.reveal sb)}}
+    {{on "input" sb.open}}
   />
 
   {{#if sb.isOpen}}
     <sb.Options>
       {{#if this.availableTags.length}}
         {{#each this.availableTags as |tag|}}
-          <sb.Option @value={{tag}}>
+          <sb.Option @value={{tag}} aria-label="Select {{tag}}">
             {{tag}}
           </sb.Option>
         {{/each}}
