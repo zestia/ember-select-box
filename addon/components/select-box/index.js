@@ -254,7 +254,7 @@ export default class SelectBox extends Component {
   }
 
   @action
-  handleDestroySelectedOptionContainer(selectedOptionsContainer) {
+  handleDestroySelectedOptionsContainer(selectedOptionsContainer) {
     deregisterSelectedOptionsContainer(this, selectedOptionsContainer);
   }
 

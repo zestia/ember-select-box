@@ -3,10 +3,9 @@ export function registerSelectedOption(selectBox, selectedOption) {
 }
 
 export function deregisterSelectedOption(selectBox, selectedOption) {
-  selectBox.selectedOptions = [
-    ...selectBox.selectedOptions.splice(
-      selectBox.selectedOptions.indexOf(selectedOption),
-      1
-    )
-  ];
+  selectBox.selectedOptions.splice(
+    selectBox.selectedOptions.indexOf(selectedOption),
+    1
+  );
+  selectBox.selectedOptions = [...selectBox.selectedOptions];
 }
