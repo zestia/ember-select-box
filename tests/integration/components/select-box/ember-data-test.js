@@ -2,90 +2,90 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import Model, { attr } from '@ember-data/model';
-import Adapter from '@ember-data/adapter/json-api';
-import Serializer from '@ember-data/serializer/json-api';
+import Model, { attr, belongsTo } from '@ember-data/model';
+import RESTAdapter from '@ember-data/adapter/rest';
 import { Promise } from 'rsvp';
 import { later } from '@ember/runloop';
 
 module('select-box (ember data)', function (hooks) {
   setupRenderingTest(hooks);
 
-  let store;
-  let payload;
-  let delay = 0;
-
   class FooModel extends Model {
+    @attr name;
+    @belongsTo('bar') bar;
+  }
+
+  class BarModel extends Model {
     @attr name;
   }
 
-  class FooAdapter extends Adapter {
-    ajax() {
-      return new Promise((resolve) => {
-        later(() => {
-          resolve(payload);
-        }, delay);
-      });
+  class FooAdapter extends RESTAdapter {
+    findAll() {
+      return {
+        foos: [
+          {
+            id: 1,
+            name: 'Foo 1',
+            bar: 1
+          },
+          {
+            id: 2,
+            name: 'Foo 2',
+            bar: 2
+          },
+          {
+            id: 3,
+            name: 'Foo 3',
+            bar: 3
+          }
+        ]
+      };
+    }
+  }
+
+  class BarAdapter extends RESTAdapter {
+    findRecord(store, type, id) {
+      return {
+        bar: {
+          id,
+          name: `Bar ${id}`
+        }
+      };
     }
   }
 
   hooks.beforeEach(function () {
-    store = this.owner.lookup('service:store');
+    this.store = this.owner.lookup('service:store');
 
     this.owner.register('model:foo', FooModel);
-    this.owner.register('serializer:foo', Serializer);
+    this.owner.register('model:bar', BarModel);
     this.owner.register('adapter:foo', FooAdapter);
+    this.owner.register('adapter:bar', BarAdapter);
   });
 
-  test('multiple select with ED', async function (assert) {
+  test('Promise Proxy is resolved', async function (assert) {
     assert.expect(2);
 
-    const foos = [];
-
-    for (let i = 0; i < 10; i++) {
-      foos.push({
-        id: i,
-        type: 'foo',
-        attributes: {
-          name: `Foo ${i}`
-        }
-      });
-    }
-
-    payload = { data: foos };
-    delay = 100;
-
-    const allFoos = store.findAll('foo');
-
-    const filteredFoos = store.findAll('foo').then((foos) => {
-      return foos.filter((foo) => {
-        return foo.id >= 5;
-      });
-    });
-
-    this.foos = allFoos;
-    this.myValue = filteredFoos;
+    this.foos = await this.store.findAll('foo');
 
     await render(hbs`
-      <SelectBox @value={{this.myValue}} @multiple={{true}} as |sb|>
-        {{#if sb.isPending}}
-          ...
-        {{else}}
-          {{#each this.foos as |foo|}}
-            <sb.Option @value={{foo}}>
-              {{foo.name}}
-            </sb.Option>
-          {{/each}}
-        {{/if}}
+      <SelectBox @value={{this.bar2}} as |sb|>
+        {{#each this.foos as |foo|}}
+          <sb.Option @value={{foo.bar}} as |o|>
+            {{o.value.name}} {{o.isSelected}}
+          </sb.Option>
+        {{/each}}
       </SelectBox>
     `);
 
     assert
       .dom('.select-box__option[aria-selected="true"]')
-      .exists({ count: 5 });
+      .doesNotExist('awaiting promise proxy');
+
+    this.set('bar2', this.store.peekRecord('bar', 2));
 
     assert
-      .dom('.select-box__option[aria-selected="false"]')
-      .exists({ count: 5 });
+      .dom('.select-box__option:nth-child(2)')
+      .hasAttribute('aria-selected', 'true');
   });
 });
