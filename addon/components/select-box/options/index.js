@@ -17,6 +17,14 @@ export default class SelectBoxOptions extends Component {
     return buildID(this);
   }
 
+  get isMultiSelectable() {
+    return (
+      this.args.selectBox &&
+      this.args.selectBox.isMultiple &&
+      this.args.selectBox.isCombobox
+    );
+  }
+
   @action
   handleInsertElement(element) {
     registerElement(this, element);

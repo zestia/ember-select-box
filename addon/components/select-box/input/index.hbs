@@ -1,12 +1,12 @@
 <input
   aria-multiline="false"
+  aria-controls={{@selectBox.optionsContainer.id}}
   autocomplete="off"
   class="select-box__input"
+  disabled={{@selectBox.isDisabled}}
   role="searchbox"
   {{!-- begin issue: https://github.com/emberjs/rfcs/issues/497 --}}
   type={{if @type @type "text"}}
-  aria-controls={{@aria-controls}}
-  disabled={{@disabled}}
   onclick={{@onclick}}
   value={{@value}}
   {{!-- end issue --}}

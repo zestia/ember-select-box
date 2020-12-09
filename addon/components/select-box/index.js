@@ -157,6 +157,10 @@ export default class SelectBox extends Component {
     return this.args.multiple;
   }
 
+  get isMultiSelectable() {
+    return this.isMultiple && this.isListbox;
+  }
+
   get searchDelayTime() {
     return isPresent(this.args.searchDelayTime)
       ? this.args.searchDelayTime

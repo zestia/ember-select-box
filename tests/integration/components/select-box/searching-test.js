@@ -98,6 +98,24 @@ module('select-box (searching)', function (hooks) {
       .hasAttribute('tabindex', '0', 'postcondition: select box is focusable');
   });
 
+  test('multiselectable combobox', async function (assert) {
+    assert.expect(3);
+
+    await render(hbs`
+      <SelectBox @multiple={{this.multiple}} as |sb|>
+        <sb.Input />
+        <sb.Options />
+      </SelectBox>
+    `);
+
+    assert.dom('[aria-multiselectable="false"]').doesNotExist();
+
+    this.set('multiple', true);
+
+    assert.dom('.select-box').doesNotHaveAttribute('aria-multiselectable');
+    assert.dom('.select-box__options').hasAttribute('aria-multiselectable');
+  });
+
   test('searching (promise)', async function (assert) {
     assert.expect(1);
 

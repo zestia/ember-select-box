@@ -37,7 +37,9 @@ module('select-box', function (hooks) {
 
     await render(hbs`<SelectBox />`);
 
-    assert.dom('.select-box').hasAttribute('aria-multiselectable', 'false');
+    assert
+      .dom('.select-box')
+      .doesNotHaveAttribute('aria-multiselectable', 'specifically not false!');
 
     await render(hbs`<SelectBox @multiple={{true}} />`);
 
