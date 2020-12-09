@@ -6,6 +6,7 @@ import { defer, resolve } from 'rsvp';
 import { next } from '@ember/runloop';
 import {
   click,
+  find,
   findAll,
   render,
   settled,
@@ -974,5 +975,84 @@ module('select-box (selecting)', function (hooks) {
       ['selected option', 'selected'],
       'actions fire in correct order'
     );
+  });
+
+  test('labelled by (multiple selected options)', async function (assert) {
+    assert.expect(1);
+
+    await render(hbs`
+      <SelectBox as |sb|>
+        <sb.SelectedOptions>
+          <sb.SelectedOption>You chose this</sb.SelectedOption>
+          <sb.SelectedOption>And this</sb.SelectedOption>
+        </sb.SelectedOptions>
+      </SelectBox>
+    `);
+
+    assert
+      .dom('.select-box')
+      .hasAttribute(
+        'aria-labelledby',
+        find('.select-box__selected-options').getAttribute('id'),
+        'the selected options will be announced'
+      );
+  });
+
+  test('labelled by (single selected option inside selected options container)', async function (assert) {
+    assert.expect(1);
+
+    await render(hbs`
+      <SelectBox as |sb|>
+        <sb.SelectedOptions>
+          <sb.SelectedOption>You chose this</sb.SelectedOption>
+        </sb.SelectedOptions>
+        <sb.Input />
+      </SelectBox>
+    `);
+
+    assert
+      .dom('.select-box')
+      .hasAttribute(
+        'aria-labelledby',
+        find('.select-box__selected-options').getAttribute('id'),
+        'the selected option(s) will be announced'
+      );
+  });
+
+  test('labelled by (single selected option)', async function (assert) {
+    assert.expect(1);
+
+    await render(hbs`
+      <SelectBox as |sb|>
+        <sb.SelectedOption>You chose this</sb.SelectedOption>
+        <sb.Input />
+      </SelectBox>
+    `);
+
+    assert
+      .dom('.select-box')
+      .hasAttribute(
+        'aria-labelledby',
+        find('.select-box__selected-option:nth-child(1)').getAttribute('id'),
+        'the selected option will be announced'
+      );
+  });
+
+  test('labelled by (no selected option/s)', async function (assert) {
+    assert.expect(1);
+
+    await render(hbs`
+      <SelectBox as |sb|>
+        <sb.Input />
+      </SelectBox>
+    `);
+
+    assert
+      .dom('.select-box')
+      .hasAttribute(
+        'aria-labelledby',
+        find('.select-box__input').getAttribute('id'),
+        'the chosen text will be announced as if it were the selected option'
+      );
   });
 });

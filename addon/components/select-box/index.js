@@ -30,6 +30,10 @@ import {
   registerSelectedOption
 } from '../../utils/registration/selected-option';
 import {
+  deregisterSelectedOptionsContainer,
+  registerSelectedOptionsContainer
+} from '../../utils/registration/selected-options';
+import {
   deregisterOption,
   registerOption
 } from '../../utils/registration/option';
@@ -225,18 +229,13 @@ export default class SelectBox extends Component {
   }
 
   @action
-  handleInsertInput(input) {
-    registerInput(this, input);
+  handleInsertOptionsContainer(optionsContainer) {
+    registerOptionsContainer(this, optionsContainer);
   }
 
   @action
-  handleDestroyInput(input) {
-    deregisterInput(this, input);
-  }
-
-  @action
-  handleInputText(text) {
-    maybeSearch(this, text);
+  handleDestroyOptionsContainer(optionsContainer) {
+    deregisterOptionsContainer(this, optionsContainer);
   }
 
   @action
@@ -250,13 +249,28 @@ export default class SelectBox extends Component {
   }
 
   @action
-  handleInsertOptionsContainer(optionsContainer) {
-    registerOptionsContainer(this, optionsContainer);
+  handleInsertSelectedOptionsContainer(selectedOptionsContainer) {
+    registerSelectedOptionsContainer(this, selectedOptionsContainer);
   }
 
   @action
-  handleDestroyOptionsContainer(optionsContainer) {
-    deregisterOptionsContainer(this, optionsContainer);
+  handleDestroySelectedOptionContainer(selectedOptionsContainer) {
+    deregisterSelectedOptionsContainer(this, selectedOptionsContainer);
+  }
+
+  @action
+  handleInsertInput(input) {
+    registerInput(this, input);
+  }
+
+  @action
+  handleDestroyInput(input) {
+    deregisterInput(this, input);
+  }
+
+  @action
+  handleInputText(text) {
+    maybeSearch(this, text);
   }
 
   @action
