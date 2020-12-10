@@ -1,14 +1,17 @@
 # Test helpers
 
-#### Native select box
-
-This addon provides test helpers for selecting options
-
-#### Faux select box
+## Faux select box
 
 No custom test helpers are needed - you can just use Ember's `click` or `triggerEvent` test helpers.
 
-<hr>
+## Native select box
+
+- `getNativeMultipleSelectBoxValue`
+- `selectNativeOptionsByValue`
+- `selectNativeOptionsByLabel`
+
+<details>
+  <summary>Examples</summary>
 
 Here is an example of selecting some options, and asserting that they have been selected:
 
@@ -30,8 +33,9 @@ test('selecting things', async function (assert) {
     </NativeSelectBox>
   `);
 
+  // These do the same
   await selectNativeOptionsByValue('.select-box', [1, 2]);
-  // or: await selectNativeOptionsByLabel('.select-box', ['One', 'Two']);
+  await selectNativeOptionsByLabel('.select-box', ['One', 'Two']);
 
   assert.deepEqual(getNativeMultipleSelectBoxValue('.select-box'), [
     'One',
@@ -39,3 +43,5 @@ test('selecting things', async function (assert) {
   ]);
 });
 ```
+
+</details>
