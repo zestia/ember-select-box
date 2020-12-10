@@ -4,8 +4,6 @@ import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import Model, { attr, belongsTo } from '@ember-data/model';
 import RESTAdapter from '@ember-data/adapter/rest';
-import { Promise } from 'rsvp';
-import { later } from '@ember/runloop';
 
 module('select-box (ember data)', function (hooks) {
   setupRenderingTest(hooks);
