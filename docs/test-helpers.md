@@ -13,8 +13,6 @@ No custom test helpers are needed - you can just use Ember's `click` or `trigger
 <details>
   <summary>Examples</summary>
 
-Here is an example of selecting some options, and asserting that they have been selected:
-
 ```javascript
 import {
   getNativeMultipleSelectBoxValue,
