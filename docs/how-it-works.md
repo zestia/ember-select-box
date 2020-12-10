@@ -22,7 +22,7 @@ Using _components_ to represent a value is much more flexible than other select 
 
 ### Selecting
 
-When an option is selected it sets the value of that option component as a property on the select box. Thereby causing re-computation of what is selected. (See point 3 above).
+When an option is selected it sets the value of that option component as a property on the select box. Thereby causing re-computation of what is selected. (See point 4 above).
 
 ### Form behaviour
 
