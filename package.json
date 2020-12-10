@@ -75,7 +75,9 @@
     "ember-addon",
     "select",
     "select-box",
-    "dropdown"
+    "autocomplete",
+    "dropdown",
+    "menu"
   ],
   "ember": {
     "edition": "octane"
