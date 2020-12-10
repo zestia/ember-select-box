@@ -36,4 +36,4 @@ The select box addon defines itself as a `listbox` by default. But, if your sele
 
 Other aria attributes are provided automatically to make sure Screen Readers correctly announce each option and the selected option(s).
 
-But, as this addon only provides an ultra basic select box it is still up to you the developer to flesh out the behaviour.
+But, as this addon only provides an ultra basic select box, it is still up to you the developer to flesh out the behaviour.
