@@ -22,13 +22,13 @@ Using _components_ to represent a value is much more flexible than other select 
 
 ### Selecting
 
-When an option is selected it sets the value of that option component as a property on the select box. Thereby causing re-computation of what is selected. (See point 3 above).
+When an option is selected it sets the value of that option component as a property on the select box. Thereby causing re-computation of what is selected. (See point 4 above).
 
 ### Form behaviour
 
 Browser forms are submitted when Enter is pressed inside a text field. So if your select box has an associated text field, and Enter is pressed - it too will submit the form. This is just how browsers work.
 
-This addon makes sure that if there is an **active** option, then this addon will call `preventDefault` on the keydown event - because in this case, we want the _option to be selected_ and _not_ the form to be submitted. Focus will remain in the text field, so a subsequent press of the Enter key will indeed submit the form as normal.
+If there is an **active** option and Enter is pressed, then this addon will call `preventDefault` on the keydown event - because in this case, we want the _option to be selected_ and _not_ the form to be submitted! Focus will remain in the text field, so a subsequent press of the Enter key will indeed submit the form as normal.
 
 ### Accessibility
 
