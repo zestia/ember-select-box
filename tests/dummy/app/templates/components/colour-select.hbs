@@ -21,6 +21,7 @@
       {{~#each this.colours as |colour|~}}
         <sb.Option
           @value={{colour}}
+          aria-label={{colour}}
           style={{style (concat "background:" colour)}}
         />
       {{~/each~}}
