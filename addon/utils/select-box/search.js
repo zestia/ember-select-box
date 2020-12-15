@@ -15,16 +15,16 @@ export function maybeSearch(selectBox, query) {
 }
 
 export function search(selectBox, query) {
-  const searchID = startSearch(selectBox);
+  const searchId = startSearch(selectBox);
 
   setTimeout(() => checkSlowSearch(selectBox), selectBox.searchSlowTime);
 
   return resolve(runSearch(selectBox, query))
     .then((result) => {
-      handleSearch(selectBox, searchID, query, result, false);
+      handleSearch(selectBox, searchId, query, result, false);
     })
     .catch((error) => {
-      handleSearch(selectBox, searchID, query, error, true);
+      handleSearch(selectBox, searchId, query, error, true);
     })
     .finally(() => {
       finishSearch(selectBox);
@@ -50,8 +50,8 @@ function attemptSearch(selectBox, query) {
   search(selectBox, query);
 }
 
-function handleSearch(selectBox, searchID, query, result, erred) {
-  if (searchID < selectBox.searchID) {
+function handleSearch(selectBox, searchId, query, result, erred) {
+  if (searchId < selectBox.searchId) {
     return;
   }
 
@@ -73,7 +73,7 @@ function finishSearch(selectBox) {
 }
 
 function incrementSearch(selectBox) {
-  return ++selectBox.searchID;
+  return ++selectBox.searchId;
 }
 
 function isSearchable(selectBox) {

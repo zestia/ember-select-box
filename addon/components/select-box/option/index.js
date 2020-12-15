@@ -12,7 +12,7 @@ import {
 import { receiveValue } from '../../../utils/component/value';
 import isSelected from '../../../utils/shared/selected';
 import buildAPI from '../../../utils/shared/api';
-import buildID from '../../../utils/shared/id';
+import buildId from '../../../utils/shared/id';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
@@ -20,7 +20,7 @@ export default class SelectBoxOption extends Component {
   _api = {};
   element = null;
   previousValue = null;
-  valueID = 0;
+  valueId = 0;
 
   @tracked isFulfilled = false;
   @tracked isPending = true;
@@ -44,7 +44,7 @@ export default class SelectBoxOption extends Component {
   }
 
   get id() {
-    return buildID(this);
+    return buildId(this);
   }
 
   get index() {

@@ -50,7 +50,7 @@ import {
   selectValue,
   updateValue
 } from '../../utils/shared/value';
-import buildID from '../../utils/shared/id';
+import buildId from '../../utils/shared/id';
 import { ready } from '../../utils/shared/ready';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
@@ -61,8 +61,8 @@ export default class SelectBox extends Component {
   optionCharState = null;
   pendingOptions = [];
   previousValue = null;
-  searchID = 0;
-  valueID = 0;
+  searchId = 0;
+  valueId = 0;
 
   Group = null;
   Input = null;
@@ -134,7 +134,7 @@ export default class SelectBox extends Component {
   }
 
   get id() {
-    return buildID(this);
+    return buildId(this);
   }
 
   get role() {

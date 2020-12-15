@@ -5,16 +5,16 @@ export function receiveValue(component) {
 }
 
 export function resolveValue(component, value, postProcess) {
-  const valueID = startResolvingValue(component, value);
+  const valueId = startResolvingValue(component, value);
 
   return resolve(value)
     .then((value) => {
       value = processValue(component, postProcess, value);
 
-      handleValue(component, valueID, value, false);
+      handleValue(component, valueId, value, false);
     })
     .catch((error) => {
-      handleValue(component, valueID, error, true);
+      handleValue(component, valueId, error, true);
     });
 }
 
@@ -25,11 +25,11 @@ function startResolvingValue(component, value) {
   component.isFulfilled = false;
   component.isSettled = false;
 
-  return ++component.valueID;
+  return ++component.valueId;
 }
 
-function handleValue(component, valueID, value, erred) {
-  if (valueID < component.valueID) {
+function handleValue(component, valueId, value, erred) {
+  if (valueId < component.valueId) {
     return;
   }
 

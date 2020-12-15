@@ -9,13 +9,13 @@ import {
 } from '../../../utils/registration/element';
 import { input, keyDown } from '../../../utils/select-box/input/keyboard';
 import { action } from '@ember/object';
-import buildID from '../../../utils/shared/id';
+import buildId from '../../../utils/shared/id';
 
 export default class SelectBoxInput extends Component {
   element = null;
 
   get id() {
-    return buildID(this);
+    return buildId(this);
   }
 
   @action

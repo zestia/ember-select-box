@@ -4,11 +4,11 @@ import {
   _insertComponent
 } from '../../../utils/component/lifecycle';
 import { action } from '@ember/object';
-import buildID from '../../../utils/shared/id';
+import buildId from '../../../utils/shared/id';
 
 export default class SelectBoxOptions extends Component {
   get id() {
-    return buildID(this);
+    return buildId(this);
   }
 
   get isMultiSelectable() {

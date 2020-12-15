@@ -23,7 +23,7 @@ export default class NativeSelectBox extends Component {
   element = null;
   pendingOptions = [];
   previousValue = null;
-  valueID = 0;
+  valueId = 0;
 
   Option = null;
 

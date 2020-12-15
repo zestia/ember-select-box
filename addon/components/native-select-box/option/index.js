@@ -17,7 +17,7 @@ export default class NativeSelectBoxOption extends Component {
   _api = {};
   element = null;
   previousValue = null;
-  valueID = 0;
+  valueId = 0;
 
   @tracked isFulfilled = false;
   @tracked isPending = true;
