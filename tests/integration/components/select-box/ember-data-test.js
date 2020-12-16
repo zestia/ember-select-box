@@ -4,6 +4,7 @@ import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import Model, { attr, belongsTo } from '@ember-data/model';
 import RESTAdapter from '@ember-data/adapter/rest';
+import RESTSerializer from '@ember-data/serializer/rest';
 
 module('select-box (ember data)', function (hooks) {
   setupRenderingTest(hooks);
@@ -16,6 +17,10 @@ module('select-box (ember data)', function (hooks) {
   class BarModel extends Model {
     @attr name;
   }
+
+  class FooSerializer extends RESTSerializer {}
+
+  class BarSerializer extends RESTSerializer {}
 
   class FooAdapter extends RESTAdapter {
     findAll() {
@@ -59,6 +64,8 @@ module('select-box (ember data)', function (hooks) {
     this.owner.register('model:bar', BarModel);
     this.owner.register('adapter:foo', FooAdapter);
     this.owner.register('adapter:bar', BarAdapter);
+    this.owner.register('serializer:foo', FooSerializer);
+    this.owner.register('serializer:bar', BarSerializer);
   });
 
   test('Promise Proxy is resolved', async function (assert) {
