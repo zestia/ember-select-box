@@ -1,5 +1,9 @@
 # Changelog
 
+## 15.1.1
+
+- Upgrade dependencies
+
 ## 15.1.0
 
 - Add `group` role to groups

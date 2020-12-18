@@ -7,8 +7,8 @@ import { tracked } from '@glimmer/tracking';
 export default class FastNativeSingleSelectController extends Controller {
   @tracked selectedModelId;
 
-  init() {
-    super.init(...arguments);
+  constructor() {
+    super(...arguments);
 
     this.models = [];
 

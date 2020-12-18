@@ -7,8 +7,8 @@ import { tracked } from '@glimmer/tracking';
 export default class TagSelectController extends Controller {
   @tracked selectedTagNames;
 
-  init() {
-    super.init(...arguments);
+  constructor() {
+    super(...arguments);
     this.selectedTagNames = ['foo', 'bar'];
   }
 
