@@ -49,7 +49,6 @@ import {
   selectValue,
   updateValue
 } from '../../utils/shared/value';
-import buildId from '../../utils/shared/id';
 import { ready } from '../../utils/shared/ready';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
@@ -130,10 +129,6 @@ export default class SelectBox extends Component {
 
   get activeOption() {
     return this.options[this.activeOptionIndex];
-  }
-
-  get id() {
-    return buildId(this);
   }
 
   get role() {

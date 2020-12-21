@@ -33,6 +33,21 @@ module('native-select-box', function (hooks) {
     assert.dom('.select-box').doesNotHaveAttribute('size');
   });
 
+  test('id', async function (assert) {
+    assert.expect(1);
+
+    await render(hbs`<NativeSelectBox id="foo" />`);
+
+    assert
+      .dom('.select-box')
+      .hasAttribute(
+        'id',
+        'foo',
+        'can manually set an ID. ' +
+          '(this is required so that the select box can be hooked up to a label with for=)'
+      );
+  });
+
   test('changing the selected value', async function (assert) {
     assert.expect(3);
 

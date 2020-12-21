@@ -1,5 +1,9 @@
 # Changelog
 
+## 15.1.2
+
+- Make sure `id` can be set
+
 ## 15.1.1
 
 - Upgrade dependencies

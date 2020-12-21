@@ -32,6 +32,21 @@ module('select-box', function (hooks) {
       );
   });
 
+  test('id', async function (assert) {
+    assert.expect(1);
+
+    await render(hbs`<SelectBox id="foo" />`);
+
+    assert
+      .dom('.select-box')
+      .hasAttribute(
+        'id',
+        'foo',
+        'can manually set an ID. ' +
+          '(this is required so that the select box can be hooked up to a label with for=)'
+      );
+  });
+
   test('multiple arg', async function (assert) {
     assert.expect(2);
 
