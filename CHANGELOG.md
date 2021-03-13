@@ -1,5 +1,9 @@
 # Changelog
 
+## 15.1.4
+
+- Upgrade dependencies
+
 ## 15.1.3
 
 - Upgrade dependencies
