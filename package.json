@@ -32,6 +32,7 @@
   "devDependencies": {
     "@ember/optional-features": "^2.0.0",
     "@ember/test-helpers": "^2.2.3",
+    "@embroider/test-setup": "^0.37.0",
     "@zestia/ember-template-lint-plugin": "^3.0.11",
     "@zestia/eslint-config": "^3.0.6",
     "@zestia/prettier-config": "^1.0.4",
