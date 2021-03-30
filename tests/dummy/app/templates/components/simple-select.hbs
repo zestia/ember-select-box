@@ -13,7 +13,7 @@
     (hash
       value=sb.value
       SelectedOption=(component
-        sb.SelectedOption onclick=sb.toggle role="button"
+        (ensure-safe-component sb.SelectedOption) onclick=sb.toggle role="button"
       )
       Options=sb.Options
       Option=sb.Option
