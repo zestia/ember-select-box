@@ -10,7 +10,11 @@
   @onSelect={{this.select}}
   ...attributes as |sb|
 >
-  <sb.Input {{on "input" sb.open}} {{on "click" (fn this.reveal sb)}} />
+  <sb.Input
+    aria-autocomplete="list"
+    {{on "input" sb.open}}
+    {{on "click" (fn this.reveal sb)}}
+  />
   {{#if sb.isOpen}}
     <sb.Options>
       {{yield sb this.results}}
