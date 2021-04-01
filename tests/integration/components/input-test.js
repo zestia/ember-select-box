@@ -61,7 +61,7 @@ module('select-box/input', function (hooks) {
       );
   });
 
-  test('type', async function (assert) {
+  test('type (closure component)', async function (assert) {
     assert.expect(1);
 
     await render(hbs`
@@ -82,8 +82,9 @@ module('select-box/input', function (hooks) {
     assert.expect(1);
 
     this.cleared = (sb) => {
-      assert.ok(
-        typeof sb === 'object',
+      assert.equal(
+        typeof sb,
+        'object',
         'clearing the input value sends an action with the select box api'
       );
     };
@@ -105,8 +106,9 @@ module('select-box/input', function (hooks) {
     this.deleted = (sb) => {
       count++;
 
-      assert.ok(
-        typeof sb === 'object',
+      assert.equal(
+        typeof sb,
+        'object',
         'the onDelete action receives select box api'
       );
     };

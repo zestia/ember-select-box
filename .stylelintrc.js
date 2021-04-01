@@ -1,7 +1,3 @@
-module.exports = {
-  extends: '@zestia/stylelint-config',
+'use strict';
 
-  rules: {
-    'sh-waqar/declaration-use-variable': null
-  }
-};
+module.exports = require('@zestia/stylelint-config');

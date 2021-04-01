@@ -64,40 +64,25 @@ module('select-box', function (hooks) {
   test('initial update action', async function (assert) {
     assert.expect(2);
 
-    let called = 0;
-
     this.handleUpdate = (sb) => {
-      called++;
-
-      assert.strictEqual(
-        sb.value,
-        undefined,
-        'fires an initial update action with the current value'
-      );
+      assert.step(`updated with ${sb.value}`);
     };
 
     await render(hbs`<SelectBox @onUpdate={{this.handleUpdate}} />`);
 
-    assert.equal(called, 1, 'only fires once');
+    assert.verifySteps(
+      ['updated with undefined'],
+      'fires an initial update action with the current value'
+    );
   });
 
   test('subsequent update actions', async function (assert) {
-    assert.expect(1);
-
-    let count = 0;
+    assert.expect(3);
 
     this.myValue = 'foo';
 
     this.handleUpdate = (sb) => {
-      count++;
-
-      if (count === 2) {
-        assert.strictEqual(
-          sb.value,
-          'bar',
-          'fires an update action when the value changes'
-        );
-      }
+      assert.step(`updated with ${sb.value}`);
     };
 
     await render(hbs`
@@ -108,6 +93,11 @@ module('select-box', function (hooks) {
     `);
 
     this.set('myValue', 'bar');
+
+    assert.verifySteps(
+      ['updated with foo', 'updated with bar'],
+      'fires an update action when the value changes'
+    );
   });
 
   test('update action', async function (assert) {
@@ -170,7 +160,7 @@ module('select-box', function (hooks) {
   });
 
   test('api value', async function (assert) {
-    assert.expect(9);
+    assert.expect(6);
 
     const value1 = emberA(['foo']);
     const value2 = emberA(['bar']);
@@ -178,30 +168,21 @@ module('select-box', function (hooks) {
 
     this.myValue = value1;
 
-    this.checkAPI = (sb) => {
-      apis.push(sb);
-
-      if (apis.length === 1) {
-        assert.deepEqual(sb.value, ['foo'], 'onReady');
-      } else if (apis.length === 2) {
-        assert.deepEqual(sb.value, ['foo'], 'initial onUpdate');
-      } else if (apis.length === 3) {
-        assert.deepEqual(sb.value, ['bar'], 'subsequent onUpdate');
-      }
-    };
+    this.checkAPI = (sb) => apis.push(sb);
 
     await render(hbs`
       <SelectBox
         @value={{this.myValue}}
         @multiple={{true}}
         @onReady={{this.checkAPI}}
-        @onUpdate={{this.checkAPI}} />
+        @onUpdate={{this.checkAPI}}
+      />
     `);
 
     assert.ok(isSealed(apis[0]), 'api is sealed');
 
-    assert.ok(
-      !isFrozen(this.myValue),
+    assert.false(
+      isFrozen(this.myValue),
       'api does not accidentally freeze original value'
     );
 
@@ -211,9 +192,8 @@ module('select-box', function (hooks) {
       "yielded api's are always up to date"
     );
 
-    assert.strictEqual(
+    assert.false(
       EmberArray.detect(apis[0].value),
-      false,
       'the yielded api value is not the original array (or an ember array)'
     );
 

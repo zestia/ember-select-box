@@ -24,7 +24,7 @@ module('select-box (toggling)', function (hooks) {
 
     let selectBox = find('.select-box');
 
-    assert.strictEqual(this.api.isOpen, false);
+    assert.false(this.api.isOpen);
 
     assert
       .dom(selectBox)
@@ -39,7 +39,7 @@ module('select-box (toggling)', function (hooks) {
     this.api.open();
     this.api.open();
 
-    assert.strictEqual(this.api.isOpen, true);
+    assert.true(this.api.isOpen);
 
     await settled();
 
@@ -62,7 +62,7 @@ module('select-box (toggling)', function (hooks) {
 
     await settled();
 
-    assert.strictEqual(this.api.isOpen, false);
+    assert.false(this.api.isOpen);
 
     assert
       .dom(selectBox)
@@ -78,7 +78,7 @@ module('select-box (toggling)', function (hooks) {
       .dom(selectBox)
       .hasAttribute('aria-expanded', 'true', 'can toggle via the api');
 
-    assert.strictEqual(this.api.isOpen, true);
+    assert.true(this.api.isOpen);
 
     assert.verifySteps(['opened']);
   });

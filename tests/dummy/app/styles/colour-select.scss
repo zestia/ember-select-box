@@ -3,7 +3,7 @@
   outline: none;
 
   &:focus-within .select-box__selected-option {
-    border-color: dimgrey;
+    border-color: var(--focus-within-border-colour);
   }
 
   .select-box__option,
@@ -11,7 +11,7 @@
     cursor: pointer;
     width: 20px;
     height: 20px;
-    border: 2px solid silver;
+    border: 2px solid var(--border-colour);
     padding: 2px;
     margin: 2px;
   }
@@ -21,10 +21,10 @@
   }
 
   .select-box__option[aria-current='true'] {
-    border-color: green;
+    border-color: var(--aria-current);
   }
 
   .select-box__option[aria-selected='true'] {
-    border-color: red;
+    border-color: var(--aria-selected);
   }
 }

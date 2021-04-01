@@ -1,12 +1,12 @@
 .native-simple-select {
   display: inline-block;
   position: relative;
-  border: 2px solid silver;
+  border: 2px solid var(--border-colour);
   padding: 2px;
   cursor: pointer;
 
   &:focus-within {
-    border-color: dimgrey;
+    border-color: var(--focus-within-border-colour);
   }
 
   .select-box {

@@ -49,7 +49,7 @@ module('native-select-box', function (hooks) {
   });
 
   test('changing the selected value', async function (assert) {
-    assert.expect(3);
+    assert.expect(6);
 
     this.myValue = 'foo';
 
@@ -63,24 +63,21 @@ module('native-select-box', function (hooks) {
     const foo = find('.select-box__option[value="foo"]');
     const bar = find('.select-box__option[value="bar"]');
 
-    assert.ok(
-      foo.selected && !bar.selected,
-      'the option with the matching value is selected initially'
-    );
+    // the option with the matching value is selected initially
+    assert.true(foo.selected);
+    assert.false(bar.selected);
 
     this.set('myValue', 'bar');
 
-    assert.ok(
-      !foo.selected && bar.selected,
-      'changing the value causes the options to re-compute which is selected'
-    );
+    // changing the value causes the options to re-compute which is selected
+    assert.false(foo.selected);
+    assert.true(bar.selected);
 
     this.set('myValue', null);
 
-    assert.ok(
-      foo.selected && !bar.selected,
-      'setting no value results in the first option being selected'
-    );
+    // setting no value results in the first option being selected
+    assert.true(foo.selected);
+    assert.false(bar.selected);
   });
 
   test('change event selects an option', async function (assert) {
@@ -116,9 +113,8 @@ module('native-select-box', function (hooks) {
       'sends an action with the selected value'
     );
 
-    assert.strictEqual(
+    assert.true(
       find('.select-box__option:nth-child(2)').selected,
-      true,
       'renders the correct selected option'
     );
   });
@@ -397,7 +393,7 @@ module('native-select-box', function (hooks) {
   });
 
   test('default values', async function (assert) {
-    assert.expect(1);
+    assert.expect(3);
 
     await render(hbs`
       <NativeSelectBox as |sb|>
@@ -407,12 +403,10 @@ module('native-select-box', function (hooks) {
       </NativeSelectBox>
     `);
 
-    assert.ok(
-      !findAll('.select-box__option')[0].selected &&
-        !findAll('.select-box__option')[1].selected &&
-        findAll('.select-box__option')[2].selected,
-      'single value native select considers the last option as the selected one'
-    );
+    // single value native select considers the last option as the selected one
+    assert.false(findAll('.select-box__option')[0].selected);
+    assert.false(findAll('.select-box__option')[1].selected);
+    assert.true(findAll('.select-box__option')[2].selected);
   });
 
   test('select api', async function (assert) {

@@ -22,7 +22,7 @@ module('select-box (activating options)', function (hooks) {
   }
 
   test('mouseenter activates options', async function (assert) {
-    assert.expect(6);
+    assert.expect(7);
 
     await render(hbs`
       <SelectBox as |sb|>
@@ -72,11 +72,9 @@ module('select-box (activating options)', function (hooks) {
         'the select box active descendant id is updated'
       );
 
-    assert.ok(
-      one.getAttribute('aria-current') === 'false' &&
-        two.getAttribute('aria-current') === 'true',
-      'mousing over another option moves the active attribute'
-    );
+    // mousing over another option moves the active attribute
+    assert.dom(one).hasAttribute('aria-current', 'false');
+    assert.dom(two).hasAttribute('aria-current', 'true');
   });
 
   test('activating by index via the api', async function (assert) {
@@ -89,7 +87,7 @@ module('select-box (activating options)', function (hooks) {
         'activating an option sends an action with the value'
       );
 
-      assert.ok(typeof sb === 'object', 'sends the api');
+      assert.equal(typeof sb, 'object', 'sends the api');
     };
 
     await render(hbs`
@@ -120,7 +118,7 @@ module('select-box (activating options)', function (hooks) {
         'activating an option sends an action with the value'
       );
 
-      assert.ok(typeof sb === 'object', 'sends the api');
+      assert.equal(typeof sb, 'object', 'sends the api');
 
       activated++;
     };

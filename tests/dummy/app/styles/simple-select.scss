@@ -2,12 +2,12 @@
   display: inline-block;
   min-width: 200px;
   outline: none;
-  border: 2px solid silver;
+  border: 2px solid var(--border-colour);
   margin: 2px;
   padding: 2px;
 
   &:focus-within {
-    border-color: dimgrey;
+    border-color: var(--focus-within-border-colour);
   }
 
   &[aria-expanded='true'] .select-box__options {
@@ -17,7 +17,7 @@
   .select-box__option,
   .select-box__selected-option {
     cursor: pointer;
-    border: 2px solid silver;
+    border: 2px solid var(--border-colour);
     margin: 2px;
     padding: 2px;
   }
@@ -29,11 +29,11 @@
   }
 
   .select-box__option[aria-selected='true'] {
-    border-color: red;
+    border-color: var(--aria-selected);
   }
 
   .select-box__option[aria-current='true'] {
-    border-color: green;
+    border-color: var(--aria-current);
   }
 
   .select-box__selected-option {

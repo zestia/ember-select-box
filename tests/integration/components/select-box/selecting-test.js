@@ -19,7 +19,7 @@ module('select-box (selecting)', function (hooks) {
   setupRenderingTest(hooks);
 
   test('changing the value argument', async function (assert) {
-    assert.expect(3);
+    assert.expect(6);
 
     this.myValue = 'foo';
 
@@ -40,28 +40,22 @@ module('select-box (selecting)', function (hooks) {
     const foo = findAll('.select-box__option')[0];
     const bar = findAll('.select-box__option')[1];
 
-    assert.ok(
-      foo.getAttribute('aria-selected') === 'true' &&
-        bar.getAttribute('aria-selected') === 'false',
-      'the option with the matching value is marked selected'
-    );
+    // the option with the matching value is marked selected
+    assert.dom(foo).hasAttribute('aria-selected', 'true');
+    assert.dom(bar).hasAttribute('aria-selected', 'false');
 
     this.set('myValue', 'bar');
 
-    assert.ok(
-      foo.getAttribute('aria-selected') === 'false' &&
-        bar.getAttribute('aria-selected') === 'true',
-      'changing the value causes the options to re-compute which is selected'
-    );
+    // changing the value causes the options to re-compute which is selected
+    assert.dom(foo).hasAttribute('aria-selected', 'false');
+    assert.dom(bar).hasAttribute('aria-selected', 'true');
 
     this.set('myValue', null);
 
-    assert.ok(
-      foo.getAttribute('aria-selected') === 'false' &&
-        bar.getAttribute('aria-selected') === 'false',
-      'clearing selected value results in no selected options, ' +
-        '(and does not result in the first "default" option being selected)'
-    );
+    // clearing selected value results in no selected options
+    // (and does not result in the first "default" option being selected)
+    assert.dom(foo).hasAttribute('aria-selected', 'false');
+    assert.dom(bar).hasAttribute('aria-selected', 'false');
   });
 
   test('changing the value argument to nothing (common misconception)', async function (assert) {
@@ -98,7 +92,7 @@ module('select-box (selecting)', function (hooks) {
   });
 
   test('click to select option', async function (assert) {
-    assert.expect(4);
+    assert.expect(5);
 
     let selectedValue;
 
@@ -140,11 +134,9 @@ module('select-box (selecting)', function (hooks) {
 
     await click(bar);
 
-    assert.ok(
-      foo.getAttribute('aria-selected') === 'false' &&
-        bar.getAttribute('aria-selected') === 'true',
-      'clicking another option selects it instead'
-    );
+    // clicking another option selects it instead
+    assert.dom(foo).hasAttribute('aria-selected', 'false');
+    assert.dom(bar).hasAttribute('aria-selected', 'true');
   });
 
   test('selecting the same option more than once', async function (assert) {
@@ -173,7 +165,7 @@ module('select-box (selecting)', function (hooks) {
   });
 
   test('selecting more than 1 of the same value', async function (assert) {
-    assert.expect(1);
+    assert.expect(3);
 
     await render(hbs`
       <SelectBox as |sb|>
@@ -189,12 +181,10 @@ module('select-box (selecting)', function (hooks) {
 
     await click(two);
 
-    assert.ok(
-      one.getAttribute('aria-selected') === 'false' &&
-        two.getAttribute('aria-selected') === 'true' &&
-        three.getAttribute('aria-selected') === 'true',
-      'all options with matching values are selected, even on a non-multiple select'
-    );
+    // all options with matching values are selected, even on a non-multiple select
+    assert.dom(one).hasAttribute('aria-selected', 'false');
+    assert.dom(two).hasAttribute('aria-selected', 'true');
+    assert.dom(three).hasAttribute('aria-selected', 'true');
   });
 
   test('selecting multiple options', async function (assert) {
@@ -224,9 +214,8 @@ module('select-box (selecting)', function (hooks) {
       'selecting a single option adds it to the existing selection'
     );
 
-    assert.strictEqual(
+    assert.false(
       EmberArray.detect(selectedValues),
-      false,
       'the values sent out of the component are not an ember array'
     );
 
@@ -347,7 +336,7 @@ module('select-box (selecting)', function (hooks) {
   test('pressing enter on input', async function (assert) {
     assert.expect(4);
 
-    let count = 0;
+    let lastEvent;
 
     this.handleSelect = (value) =>
       assert.equal(value, 'bar', 'the select box acknowledges the selection');
@@ -360,30 +349,13 @@ module('select-box (selecting)', function (hooks) {
       );
     };
 
-    this.check = (e) => {
-      next(() => {
-        count++;
-
-        if (count === 1) {
-          assert.strictEqual(
-            e.defaultPrevented,
-            false,
-            'pressing enter will submit the form'
-          );
-        }
-
-        if (count === 2) {
-          assert.strictEqual(
-            e.defaultPrevented,
-            true,
-            'pressing enter will not submit the form'
-          );
-        }
-      });
-    };
+    this.handleKeydown = (e) => (lastEvent = e);
 
     await render(hbs`
-      <SelectBox @onSelect={{this.handleSelect}} {{on "keydown" this.check}} as |sb|>
+      <SelectBox
+        @onSelect={{this.handleSelect}}
+        {{on "keydown" this.handleKeydown}} as |sb|
+      >
         <sb.Input />
         <sb.Option @value="foo" />
         <sb.Option @value="bar" @onSelect={{this.handleSelectBar}} />
@@ -392,7 +364,22 @@ module('select-box (selecting)', function (hooks) {
 
     await triggerKeyEvent('.select-box__input', 'keydown', 13);
 
+    next(() => {
+      assert.false(
+        lastEvent.defaultPrevented,
+        'pressing enter will submit the form because no options are active'
+      );
+    });
+
     await triggerEvent(findAll('.select-box__option')[1], 'mouseenter');
+
+    next(() => {
+      assert.true(
+        lastEvent.defaultPrevented,
+        'pressing enter will not submit the form because an option is active, ' +
+          'so pressing enter should select that option instead, first.'
+      );
+    });
 
     await triggerKeyEvent('.select-box__input', 'keydown', 13);
   });
@@ -413,9 +400,8 @@ module('select-box (selecting)', function (hooks) {
 
     this.check = (e) => {
       next(() => {
-        assert.strictEqual(
+        assert.false(
           e.defaultPrevented,
-          false,
           'pressing enter is not default prevented, the link will be navigated to'
         );
       });
@@ -766,9 +752,8 @@ module('select-box (selecting)', function (hooks) {
 
     assert.ok(isFrozen(yieldedValue), 'yields frozen value in template');
 
-    assert.strictEqual(
+    assert.false(
       EmberArray.detect(yieldedValue),
-      false,
       'the yielded api value is not the original array (or an ember array)'
     );
   });

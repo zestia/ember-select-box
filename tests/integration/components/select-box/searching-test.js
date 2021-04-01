@@ -237,7 +237,7 @@ module('select-box (searching)', function (hooks) {
         'sends the error that was the result of the failure'
       );
 
-      assert.ok(typeof sb === 'object', 'sends the api');
+      assert.equal(typeof sb, 'object', 'sends the api');
     };
 
     await render(hbs`
@@ -552,9 +552,8 @@ module('select-box (searching)', function (hooks) {
     assert.expect(2);
 
     this.handleInput = (value) => {
-      assert.ok(
+      assert.true(
         value,
-        true,
         'using the api to update the input does not trigger an input event' +
           '(that is likely to cause recursive searches in most scenarios)'
       );

@@ -2,16 +2,16 @@
   display: inline-block;
   min-width: 200px;
   outline: none;
-  border: 2px solid silver;
+  border: 2px solid var(--border-colour);
   margin: 2px;
   padding: 2px;
 
   &:focus-within {
-    border-color: dimgrey;
+    border-color: var(--focus-within-border-colour);
   }
 
   .select-box__input {
-    font-family: serif;
+    font-family: var(--font-family);
     font-size: 100%;
     border: 0;
     outline: none;
@@ -24,7 +24,7 @@
 
   .select-box__option,
   .select-box__selected-option {
-    border: 2px solid silver;
+    border: 2px solid var(--border-colour);
     padding: 2px;
     margin: 2px;
   }
@@ -38,6 +38,6 @@
   }
 
   .select-box__option[aria-current='true'] {
-    border-color: green;
+    border-color: var(--aria-current);
   }
 }

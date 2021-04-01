@@ -104,7 +104,7 @@ module('select-box/option', function (hooks) {
   test('yield index failure', async function (assert) {
     // https://ember-twiddle.com/ddae8f58d5175e64577e79d720013cf2
 
-    assert.expect(2);
+    assert.expect(8);
 
     const foo = { myValue: 'foo', myLabel: 'Foo' };
     const bar = { myValue: 'bar', myLabel: 'Bar' };
@@ -134,30 +134,20 @@ module('select-box/option', function (hooks) {
       </SelectBox>
     `);
 
-    assert.ok(
-      findAll('.select-box__option')[0].textContent.trim() ===
-        'Foo 0 0 false' &&
-        findAll('.select-box__option')[1].textContent.trim() ===
-          'Bar 1 1 false' &&
-        findAll('.select-box__option')[2].textContent.trim() ===
-          'Baz 0 2 true' &&
-        findAll('.select-box__option')[3].textContent.trim() ===
-          'Qux 1 3 false',
-      'select box options can yield their label, value, index and selected state'
-    );
+    // select box options can yield their label, value, index and selected state
+    assert.dom(findAll('.select-box__option')[0]).hasText('Foo 0 0 false');
+    assert.dom(findAll('.select-box__option')[1]).hasText('Bar 1 1 false');
+    assert.dom(findAll('.select-box__option')[2]).hasText('Baz 0 2 true');
+    assert.dom(findAll('.select-box__option')[3]).hasText('Qux 1 3 false');
 
     this.set('group2', [qux, baz]);
 
-    assert.ok(
-      findAll('.select-box__option')[0].textContent.trim() ===
-        'Foo 0 0 false' &&
-        findAll('.select-box__option')[1].textContent.trim() ===
-          'Bar 1 1 false' &&
-        findAll('.select-box__option')[2].textContent.trim() ===
-          'Qux 0 3 false' &&
-        findAll('.select-box__option')[3].textContent.trim() === 'Baz 1 2 true',
-      'index gets out of sync due to lack of key="@index"'
-    );
+    // index gets out of sync due to lack of key="@index"'
+    // this is not the responsibility of the addon to fix
+    assert.dom(findAll('.select-box__option')[0]).hasText('Foo 0 0 false');
+    assert.dom(findAll('.select-box__option')[1]).hasText('Bar 1 1 false');
+    assert.dom(findAll('.select-box__option')[2]).hasText('Qux 0 3 false');
+    assert.dom(findAll('.select-box__option')[3]).hasText('Baz 1 2 true');
   });
 
   test('yield index', async function (assert) {

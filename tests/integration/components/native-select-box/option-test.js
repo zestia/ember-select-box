@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { findAll, render, settled } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { defer } from 'rsvp';
 
@@ -90,7 +90,7 @@ module('native-select-box/option', function (hooks) {
   });
 
   test('yield', async function (assert) {
-    assert.expect(1);
+    assert.expect(2);
 
     this.items = ['foo', 'bar'];
 
@@ -104,10 +104,8 @@ module('native-select-box/option', function (hooks) {
       </NativeSelectBox>
     `);
 
-    assert.ok(
-      findAll('.select-box__option')[0].textContent.trim() === '0=foo' &&
-        findAll('.select-box__option')[1].textContent.trim() === '1=bar',
-      'native options can yield their index & value'
-    );
+    // native options can yield their index & value
+    assert.dom('.select-box__option:nth-child(1)').hasText('0=foo');
+    assert.dom('.select-box__option:nth-child(2)').hasText('1=bar');
   });
 });
