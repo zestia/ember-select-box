@@ -41,7 +41,7 @@ import {
   registerOptionsContainer
 } from '../../utils/registration/options-container';
 import { focusOut } from '../../utils/select-box/focus';
-import { keyUp, keyPress, pressEnter } from '../../utils/select-box/keyboard';
+import { keyDown, keyUp, keyPress } from '../../utils/select-box/keyboard';
 import { setInputValue } from '../../utils/select-box/input/value';
 import buildAPI from '../../utils/shared/api';
 import {
@@ -276,13 +276,13 @@ export default class SelectBox extends Component {
   }
 
   @action
-  handleKeyUp(e) {
-    keyUp(this, e);
+  handleKeyDown(e) {
+    keyDown(this, e);
   }
 
   @action
-  handlePressEnter(e) {
-    pressEnter(this, e);
+  handleKeyUp(e) {
+    keyUp(this, e);
   }
 
   @action

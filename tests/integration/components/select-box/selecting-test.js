@@ -330,39 +330,30 @@ module('select-box (selecting)', function (hooks) {
       </form>
     `);
 
-    await triggerKeyEvent('.select-box', 'keyup', 13);
+    await triggerKeyEvent('.select-box', 'keydown', 13); // Enter
   });
 
   test('pressing enter on input', async function (assert) {
-    assert.expect(4);
+    assert.expect(2);
+
+    // It specifically must be a keydown that we call prevent default on,
+    // because in a <form>, when Enter is pressed, the event order will be:
+    // down → submit → up. If we were to prevent on up, we would be too late
+    // to stop the form submission.
 
     let lastEvent;
 
-    this.handleSelect = (value) =>
-      assert.equal(value, 'bar', 'the select box acknowledges the selection');
-
-    this.handleSelectBar = (value) => {
-      assert.equal(
-        value,
-        'bar',
-        'the selected option acknowledges the selection'
-      );
-    };
-
-    this.handleKeyUp = (e) => (lastEvent = e);
+    this.handleKeyDown = (e) => (lastEvent = e);
 
     await render(hbs`
-      <SelectBox
-        @onSelect={{this.handleSelect}}
-        {{on "keyup" this.handleKeyUp}} as |sb|
-      >
+      <SelectBox {{on "keydown" this.handleKeyDown}} as |sb|>
         <sb.Input />
         <sb.Option @value="foo" />
-        <sb.Option @value="bar" @onSelect={{this.handleSelectBar}} />
+        <sb.Option @value="bar" />
       </SelectBox>
     `);
 
-    await triggerKeyEvent('.select-box__input', 'keyup', 13);
+    await triggerKeyEvent('.select-box__input', 'keydown', 13); // Enter
 
     next(() => {
       assert.false(
@@ -381,36 +372,20 @@ module('select-box (selecting)', function (hooks) {
       );
     });
 
-    await triggerKeyEvent('.select-box__input', 'keyup', 13);
+    await triggerKeyEvent('.select-box__input', 'keydown', 13); // Enter
   });
 
   test('pressing enter on a child', async function (assert) {
-    assert.expect(3);
+    assert.expect(1);
 
-    this.handleSelect = (value) =>
-      assert.equal(value, 'bar', 'the select box acknowledges the selection');
+    let lastEvent;
 
-    this.handleSelectBar = (value) => {
-      assert.equal(
-        value,
-        'bar',
-        'the selected option acknowledges the selection'
-      );
-    };
-
-    this.check = (e) => {
-      next(() => {
-        assert.false(
-          e.defaultPrevented,
-          'pressing enter is not default prevented, the link will be navigated to'
-        );
-      });
-    };
+    this.handleKeyDown = (e) => (lastEvent = e);
 
     await render(hbs`
-      <SelectBox @onSelect={{this.handleSelect}} {{on "keyup" this.check}} as |sb|>
+      <SelectBox {{on "keydown" this.handleKeyDown}} as |sb|>
         <sb.Option @value="foo" />
-        <sb.Option @value="bar" @onSelect={{this.handleSelectBar}}>
+        <sb.Option @value="bar" >
           <a href="#" class="my-link"></a>
         </sb.Option>
       </SelectBox>
@@ -418,7 +393,14 @@ module('select-box (selecting)', function (hooks) {
 
     await triggerEvent(findAll('.select-box__option')[1], 'mouseenter');
 
-    await triggerKeyEvent('.my-link', 'keyup', 13);
+    await triggerKeyEvent('.my-link', 'keydown', 13); // Enter
+
+    next(() => {
+      assert.false(
+        lastEvent.defaultPrevented,
+        'pressing enter is not default prevented, the link will be navigated to'
+      );
+    });
   });
 
   test('selecting via the api', async function (assert) {

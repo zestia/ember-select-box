@@ -1,30 +1,29 @@
 import invokeAction from '../component/invoke-action';
 import { _selectOption } from '../../utils/select-box/option/select';
 import { capitalize } from '@ember/string';
-
-export const keys = {
-  8: 'backspace',
-  9: 'tab',
-  13: 'enter',
-  27: 'escape',
-  37: 'left',
-  38: 'up',
-  39: 'right',
-  40: 'down'
-};
+import { getKeyName } from '../../utils/general/keyboard';
 
 export function keyPress(selectBox, e) {
   pressedKey(selectBox, e);
 }
 
 export function keyUp(selectBox, e) {
-  let key = keys[e.keyCode];
+  const keyName = getKeyName(e);
 
-  if (key) {
-    key = capitalize(key);
+  if (keyName === 'enter') {
+    keyedUpEnter(selectBox, e);
+  }
+}
 
-    _keyedUp(selectBox, key, e);
-    keyedUp(selectBox, key, e);
+export function keyDown(selectBox, e) {
+  const keyName = getKeyName(e);
+
+  if (keyName) {
+    keyedDown(selectBox, capitalize(keyName), e);
+  }
+
+  if (keyName === 'enter') {
+    keyedDownEnter(selectBox, e);
   }
 }
 
@@ -32,29 +31,20 @@ function pressedKey(selectBox, e) {
   invokeAction(selectBox, 'onPressKey', e, selectBox.api);
 }
 
-function _keyedUp(selectBox, key, e) {
-  const name = `handlePress${key}`;
-  const func = selectBox[name];
-
-  if (typeof func === 'function') {
-    func(e);
-  }
-}
-
-function keyedUp(selectBox, key, e) {
+function keyedDown(selectBox, key, e) {
   invokeAction(selectBox, `onPress${key}`, e, selectBox.api);
 }
 
-export function pressEnter(selectBox, e) {
-  if (!selectBox.activeOption) {
-    return;
-  }
-
+function keyedDownEnter(selectBox, e) {
   if (shouldPreventDefault(selectBox, e)) {
     e.preventDefault();
   }
+}
 
-  _selectOption(selectBox.activeOption);
+function keyedUpEnter(selectBox, e) {
+  if (selectBox.activeOption) {
+    _selectOption(selectBox.activeOption);
+  }
 }
 
 export function shouldPreventDefault(selectBox, e) {

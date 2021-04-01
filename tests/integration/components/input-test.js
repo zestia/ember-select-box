@@ -123,11 +123,11 @@ module('select-box/input', function (hooks) {
 
     input.value = 'x';
 
-    await triggerKeyEvent(input, 'keyup', 8);
+    await triggerKeyEvent(input, 'keyup', 8); // Backspace
 
     input.value = '';
 
-    await triggerKeyEvent(input, 'keyup', 8);
+    await triggerKeyEvent(input, 'keyup', 8); // Backspace
 
     assert.equal(
       count,

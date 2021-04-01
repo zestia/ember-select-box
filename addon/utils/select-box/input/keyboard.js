@@ -1,4 +1,5 @@
 import invokeAction from '../../component/invoke-action';
+import { getKeyName } from '../../../utils/general/keyboard';
 
 export function input(input, e) {
   const text = input.element.value;
@@ -23,7 +24,9 @@ function deletedText(input) {
 }
 
 export function keyUp(input, e) {
-  if (e.keyCode === 8 && !input.element.value) {
+  const keyName = getKeyName(e);
+
+  if (keyName === 'backspace' && !input.element.value) {
     deletedText(input);
   }
 }
