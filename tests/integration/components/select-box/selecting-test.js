@@ -315,6 +315,34 @@ module('select-box (selecting)', function (hooks) {
       );
   });
 
+  test('pressing enter with an active option', async function (assert) {
+    assert.expect(3);
+
+    this.handleSelect = (value) => assert.step(`selected ${value}`);
+
+    await render(hbs`
+      <SelectBox @onSelect={{this.handleSelect}} as |sb|>
+        <sb.Option @value="foo" />
+      </SelectBox>
+    `);
+
+    await triggerKeyEvent('.select-box', 'keyup', 13); // Enter
+
+    assert.verifySteps(
+      [],
+      'select action does not fire, because no option was active'
+    );
+
+    await triggerEvent('.select-box__option', 'mouseenter');
+
+    await triggerKeyEvent('.select-box', 'keyup', 13); // Enter
+
+    assert.verifySteps(
+      ['selected foo'],
+      'select action fires, because an option was active'
+    );
+  });
+
   skip('pressing enter (on select box)', async function (assert) {
     // Pressing Enter on a faux select box, with no active option
     // should submit the form.
