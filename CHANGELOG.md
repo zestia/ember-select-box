@@ -1,6 +1,6 @@
 # Changelog
 
-## 15.1.4
+## 15.2.0
 
 - Upgrade dependencies
 - Add Embroider support
