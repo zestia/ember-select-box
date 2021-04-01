@@ -3,6 +3,7 @@
 ## 15.1.4
 
 - Upgrade dependencies
+- Add Embroider support
 
 ## 15.1.3
 
