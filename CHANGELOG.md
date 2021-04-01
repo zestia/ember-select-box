@@ -4,6 +4,7 @@
 
 - Upgrade dependencies
 - Add Embroider support
+- Internal keydown event handling [swapped for keyup](https://github.com/ember-template-lint/ember-template-lint/blob/master/docs/rule/no-down-event-binding.md)
 
 ## 15.1.3
 

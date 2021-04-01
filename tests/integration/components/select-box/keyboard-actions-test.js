@@ -24,14 +24,14 @@ module('select-box (keyboard actions)', function (hooks) {
       @onPressDown={{fn this.handleAction "down"}}
     />`);
 
-    await triggerKeyEvent('.select-box', 'keydown', 8);
-    await triggerKeyEvent('.select-box', 'keydown', 9);
-    await triggerKeyEvent('.select-box', 'keydown', 13);
-    await triggerKeyEvent('.select-box', 'keydown', 27);
-    await triggerKeyEvent('.select-box', 'keydown', 37);
-    await triggerKeyEvent('.select-box', 'keydown', 38);
-    await triggerKeyEvent('.select-box', 'keydown', 39);
-    await triggerKeyEvent('.select-box', 'keydown', 40);
+    await triggerKeyEvent('.select-box', 'keyup', 8);
+    await triggerKeyEvent('.select-box', 'keyup', 9);
+    await triggerKeyEvent('.select-box', 'keyup', 13);
+    await triggerKeyEvent('.select-box', 'keyup', 27);
+    await triggerKeyEvent('.select-box', 'keyup', 37);
+    await triggerKeyEvent('.select-box', 'keyup', 38);
+    await triggerKeyEvent('.select-box', 'keyup', 39);
+    await triggerKeyEvent('.select-box', 'keyup', 40);
 
     assert.verifySteps(
       ['backspace', 'tab', 'enter', 'escape', 'left', 'up', 'right', 'down'],
@@ -42,7 +42,7 @@ module('select-box (keyboard actions)', function (hooks) {
 
     assert.verifySteps(
       ['pressed key'],
-      'sends key press action when characters are input'
+      'sends key press action when *characters* are input'
     );
   });
 });

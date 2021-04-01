@@ -123,11 +123,11 @@ module('select-box/input', function (hooks) {
 
     input.value = 'x';
 
-    await triggerKeyEvent(input, 'keydown', 8);
+    await triggerKeyEvent(input, 'keyup', 8);
 
     input.value = '';
 
-    await triggerKeyEvent(input, 'keydown', 8);
+    await triggerKeyEvent(input, 'keyup', 8);
 
     assert.equal(
       count,

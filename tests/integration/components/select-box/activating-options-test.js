@@ -167,19 +167,19 @@ module('select-box (activating options)', function (hooks) {
       .dom('.select-box__option[aria-current="true"]')
       .doesNotExist('precondition: nothing active');
 
-    await triggerKeyEvent('.select-box', 'keydown', 40);
+    await triggerKeyEvent('.select-box', 'keyup', 40); // Down
 
     assert.dom('.select-box__option[aria-current="true"]').hasText('One');
 
-    await triggerKeyEvent('.select-box', 'keydown', 40);
+    await triggerKeyEvent('.select-box', 'keyup', 40); // Down
 
     assert.dom('.select-box__option[aria-current="true"]').hasText('Two');
 
-    await triggerKeyEvent('.select-box', 'keydown', 40);
+    await triggerKeyEvent('.select-box', 'keyup', 40); // Down
 
     assert.dom('.select-box__option[aria-current="true"]').hasText('Three');
 
-    await triggerKeyEvent('.select-box', 'keydown', 40);
+    await triggerKeyEvent('.select-box', 'keyup', 40); // Down
 
     assert
       .dom('.select-box__option[aria-current="true"]')
@@ -188,15 +188,15 @@ module('select-box (activating options)', function (hooks) {
         'does not cycle back to the beginning when reaching the end'
       );
 
-    await triggerKeyEvent('.select-box', 'keydown', 38);
+    await triggerKeyEvent('.select-box', 'keyup', 38); // Up
 
     assert.dom('.select-box__option[aria-current="true"]').hasText('Two');
 
-    await triggerKeyEvent('.select-box', 'keydown', 38);
+    await triggerKeyEvent('.select-box', 'keyup', 38); // Up
 
     assert.dom('.select-box__option[aria-current="true"]').hasText('One');
 
-    await triggerKeyEvent('.select-box', 'keydown', 38);
+    await triggerKeyEvent('.select-box', 'keyup', 38); // Up
 
     assert
       .dom('.select-box__option[aria-current="true"]')

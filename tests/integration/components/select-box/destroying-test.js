@@ -47,7 +47,7 @@ module('select-box (destroying)', function (hooks) {
 
     await triggerEvent('.select-box__option', 'mouseenter');
 
-    await triggerKeyEvent('.select-box', 'keydown', 13);
+    await triggerKeyEvent('.select-box', 'keyup', 13);
   });
 
   test('update', async function (assert) {

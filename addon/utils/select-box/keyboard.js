@@ -17,14 +17,14 @@ export function keyPress(selectBox, e) {
   pressedKey(selectBox, e);
 }
 
-export function keyDown(selectBox, e) {
+export function keyUp(selectBox, e) {
   let key = keys[e.keyCode];
 
   if (key) {
     key = capitalize(key);
 
-    _keyedDown(selectBox, key, e);
-    keyedDown(selectBox, key, e);
+    _keyedUp(selectBox, key, e);
+    keyedUp(selectBox, key, e);
   }
 }
 
@@ -32,7 +32,7 @@ function pressedKey(selectBox, e) {
   invokeAction(selectBox, 'onPressKey', e, selectBox.api);
 }
 
-function _keyedDown(selectBox, key, e) {
+function _keyedUp(selectBox, key, e) {
   const name = `handlePress${key}`;
   const func = selectBox[name];
 
@@ -41,7 +41,7 @@ function _keyedDown(selectBox, key, e) {
   }
 }
 
-function keyedDown(selectBox, key, e) {
+function keyedUp(selectBox, key, e) {
   invokeAction(selectBox, `onPress${key}`, e, selectBox.api);
 }
 

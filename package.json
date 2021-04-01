@@ -34,7 +34,7 @@
     "@ember/test-helpers": "^2.2.5",
     "@embroider/test-setup": "^0.39.1",
     "@embroider/util": "^0.39.1",
-    "@zestia/eslint-config": "^4.0.2",
+    "@zestia/eslint-config": "^4.0.3",
     "@zestia/prettier-config": "^1.0.4",
     "@zestia/stylelint-config": "^2.0.47",
     "@zestia/template-lint-config": "^4.0.0",

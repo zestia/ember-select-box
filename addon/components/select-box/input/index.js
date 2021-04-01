@@ -7,7 +7,7 @@ import {
   deregisterElement,
   registerElement
 } from '../../../utils/registration/element';
-import { input, keyDown } from '../../../utils/select-box/input/keyboard';
+import { input, keyUp } from '../../../utils/select-box/input/keyboard';
 import { action } from '@ember/object';
 import buildId from '../../../utils/shared/id';
 
@@ -36,7 +36,7 @@ export default class SelectBoxInput extends Component {
   }
 
   @action
-  handleKeyDown(e) {
-    keyDown(this, e);
+  handleKeyUp(e) {
+    keyUp(this, e);
   }
 }

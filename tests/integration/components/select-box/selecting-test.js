@@ -330,7 +330,7 @@ module('select-box (selecting)', function (hooks) {
       </form>
     `);
 
-    await triggerKeyEvent('.select-box', 'keydown', 13);
+    await triggerKeyEvent('.select-box', 'keyup', 13);
   });
 
   test('pressing enter on input', async function (assert) {
@@ -349,12 +349,12 @@ module('select-box (selecting)', function (hooks) {
       );
     };
 
-    this.handleKeydown = (e) => (lastEvent = e);
+    this.handleKeyUp = (e) => (lastEvent = e);
 
     await render(hbs`
       <SelectBox
         @onSelect={{this.handleSelect}}
-        {{on "keydown" this.handleKeydown}} as |sb|
+        {{on "keyup" this.handleKeyUp}} as |sb|
       >
         <sb.Input />
         <sb.Option @value="foo" />
@@ -362,7 +362,7 @@ module('select-box (selecting)', function (hooks) {
       </SelectBox>
     `);
 
-    await triggerKeyEvent('.select-box__input', 'keydown', 13);
+    await triggerKeyEvent('.select-box__input', 'keyup', 13);
 
     next(() => {
       assert.false(
@@ -381,7 +381,7 @@ module('select-box (selecting)', function (hooks) {
       );
     });
 
-    await triggerKeyEvent('.select-box__input', 'keydown', 13);
+    await triggerKeyEvent('.select-box__input', 'keyup', 13);
   });
 
   test('pressing enter on a child', async function (assert) {
@@ -408,7 +408,7 @@ module('select-box (selecting)', function (hooks) {
     };
 
     await render(hbs`
-      <SelectBox @onSelect={{this.handleSelect}} {{on "keydown" this.check}} as |sb|>
+      <SelectBox @onSelect={{this.handleSelect}} {{on "keyup" this.check}} as |sb|>
         <sb.Option @value="foo" />
         <sb.Option @value="bar" @onSelect={{this.handleSelectBar}}>
           <a href="#" class="my-link"></a>
@@ -418,7 +418,7 @@ module('select-box (selecting)', function (hooks) {
 
     await triggerEvent(findAll('.select-box__option')[1], 'mouseenter');
 
-    await triggerKeyEvent('.my-link', 'keydown', 13);
+    await triggerKeyEvent('.my-link', 'keyup', 13);
   });
 
   test('selecting via the api', async function (assert) {

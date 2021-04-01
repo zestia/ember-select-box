@@ -50,7 +50,7 @@
   {{did-update this.handleUpdateValue @value}}
   {{will-destroy this.handleDestroyElement}}
   {{on "focusout" this.handleFocusOut}}
-  {{on "keydown" this.handleKeyDown}}
+  {{on "keyup" this.handleKeyUp}}
   {{on "keypress" this.handleKeyPress}}
 >
   {{yield this.api}}

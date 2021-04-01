@@ -22,7 +22,7 @@ function deletedText(input) {
   invokeAction(input, 'onDelete', input.args.selectBox.api);
 }
 
-export function keyDown(input, e) {
+export function keyUp(input, e) {
   if (e.keyCode === 8 && !input.element.value) {
     deletedText(input);
   }
