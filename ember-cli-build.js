@@ -21,8 +21,8 @@ module.exports = function (defaults) {
     // Needed for IE11 https://github.com/embroider-build/embroider/issues/731
     skipBabel: [
       {
-        package: 'qunit',
-      },
+        package: 'qunit'
+      }
     ],
     packageRules: [
       {
