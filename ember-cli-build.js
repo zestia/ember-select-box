@@ -23,16 +23,6 @@ module.exports = function (defaults) {
       {
         package: 'qunit'
       }
-    ],
-    packageRules: [
-      {
-        package: 'dummy',
-        components: {
-          '{{foo-select-box}}': {
-            safeToIgnore: true
-          }
-        }
-      }
     ]
   });
 };

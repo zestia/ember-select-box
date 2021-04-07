@@ -2,6 +2,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { fillIn, find, findAll, render, settled } from '@ember/test-helpers';
 import Component from '@glimmer/component';
+import { setComponentTemplate } from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 import { resolve } from 'rsvp';
 import { action } from '@ember/object';
@@ -283,7 +284,7 @@ module('native-select-box', function (hooks) {
 
     this.barPromise = resolve('bar');
 
-    const template = hbs`
+    const fooSelectBox = hbs`
       <div class="display-label">
         {{this.displayLabel}}
       </div>
@@ -309,15 +310,14 @@ module('native-select-box', function (hooks) {
       }
     }
 
-    this.owner.register('component:foo-select-box', FooSelectBox);
-    this.owner.register('template:components/foo-select-box', template);
+    this.FooSelectBox = setComponentTemplate(fooSelectBox, FooSelectBox);
 
     await render(hbs`
-      <FooSelectBox @value={{this.barPromise}} as |sb|>
+      <this.FooSelectBox @value={{this.barPromise}} as |sb|>
         <sb.Option @value="foo">Foo</sb.Option>
         <sb.Option @value="bar">Bar</sb.Option>
         <sb.Option @value="baz">Baz</sb.Option>
-      </FooSelectBox>
+      </this.FooSelectBox>
     `);
 
     assert.dom('.display-label').hasText('Foo');
