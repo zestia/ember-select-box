@@ -102,7 +102,7 @@
     </tr>
     <tr>
       <td><code>@onFocusLeave</code></td>
-      <td>This is fired when the select box is no longer being interacte with. For example, the user clicks outside it, or tabs away. </td>
+      <td>This is fired when the select box is no longer being interacted with. For example, the user clicks outside it, or tabs away. </td>
     </tr>
     <tr>
       <td><code>@onOpen</code></td>
@@ -207,7 +207,7 @@
     <tr>
       <td><code>sb.activateOptionForKeyCode</code></td>
       <td>
-        Mimics native select box behaviour by jumping to an appopriate option based on the <code>textContent</code> of the options. <a href="https://zestia.github.io/ember-select-box/#/simple-select">Demo</a>.
+        Mimics native select box behaviour by jumping to an appropriate option based on the <code>textContent</code> of the options. <a href="https://zestia.github.io/ember-select-box/#/simple-select">Demo</a>.
         If <code>scrollIntoView</code> is false, the option won't be scrolled to.
       </td>
     </tr>
@@ -269,7 +269,7 @@
     </tr>
     <tr>
       <td><code>sb.isPending</code></td>
-      <td>True whilst <code>@value</code> is being resovled</td>
+      <td>True whilst <code>@value</code> is being resolved</td>
     </tr>
     <tr>
       <td><code>sb.isRejected</code></td>
@@ -368,7 +368,7 @@
     </tr>
     <tr>
       <td><code>o.isPending</code></td>
-      <td>True whilst <code>@value</code> is being resovled</td>
+      <td>True whilst <code>@value</code> is being resolved</td>
     </tr>
     <tr>
       <td><code>o.isRejected</code></td>
