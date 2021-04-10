@@ -111,7 +111,8 @@ module('select-box (searching)', function (hooks) {
 
     assert
       .dom('[aria-multiselectable="false"]')
-      .doesNotExist(
+      .exists(
+        { count: 2 },
         'the parent select box is not multiselectable, nor is the child listbox'
       );
 
@@ -119,8 +120,9 @@ module('select-box (searching)', function (hooks) {
 
     assert
       .dom('.select-box')
-      .doesNotHaveAttribute(
+      .hasAttribute(
         'aria-multiselectable',
+        'false',
         'the parent select box is not multiselectable'
       );
 

@@ -1,8 +1,8 @@
 <div
-  aria-busy={{if this.isPending "true" "false"}}
-  aria-current={{if this.isActive "true" "false"}}
-  aria-disabled={{if this.isDisabled "true" "false"}}
-  aria-selected={{if this.isSelected "true" "false"}}
+  aria-busy="{{this.isPending}}"
+  aria-current="{{this.isActive}}"
+  aria-disabled="{{this.isDisabled}}"
+  aria-selected="{{this.isSelected}}"
   class="select-box__option"
   id={{this.id}}
   role="option"

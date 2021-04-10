@@ -152,11 +152,11 @@ export default class SelectBox extends Component {
   }
 
   get isDisabled() {
-    return this.args.disabled;
+    return !!this.args.disabled;
   }
 
   get isMultiple() {
-    return this.args.multiple;
+    return !!this.args.multiple;
   }
 
   get isMultiSelectable() {

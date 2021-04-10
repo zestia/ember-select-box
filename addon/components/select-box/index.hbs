@@ -36,11 +36,11 @@
 }}
 <div
   aria-activedescendant={{this.activeOption.id}}
-  aria-busy={{if this.isBusy "true" "false"}}
-  aria-disabled={{if this.isDisabled "true" "false"}}
-  aria-expanded={{if this.isOpen "true" "false"}}
+  aria-busy="{{this.isBusy}}"
+  aria-disabled="{{this.isDisabled}}"
+  aria-expanded="{{this.isOpen}}"
   aria-labelledby={{this.labelledBy}}
-  aria-multiselectable={{if this.isMultiSelectable "true"}}
+  aria-multiselectable="{{this.isMultiSelectable}}"
   aria-owns={{if this.isCombobox this.optionsContainer.id}}
   class="select-box"
   role={{this.role}}
