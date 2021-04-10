@@ -8,13 +8,15 @@ module('select-box/option', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function (assert) {
-    assert.expect(1);
+    assert.expect(2);
 
     await render(hbs`<SelectBox::Option />`);
 
     assert
       .dom('.select-box__option')
       .hasTagName('div', 'renders with correct class name and tag');
+
+    assert.dom('.select-box__option').hasAttribute('aria-disabled', 'false');
   });
 
   test('role', async function (assert) {
