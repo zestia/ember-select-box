@@ -69,23 +69,7 @@ export default class SelectBox extends Component {
   searchId = 0;
   valueId = 0;
 
-  // Component classes
-
-  SelectBoxGroup = SelectBoxGroup;
-  SelectBoxInput = SelectBoxInput;
-  SelectBoxOption = SelectBoxOption;
-  SelectBoxOptions = SelectBoxOptions;
-  SelectBoxSelectedOption = SelectBoxSelectedOption;
-  SelectBoxSelectedOptions = SelectBoxSelectedOptions;
-
-  // Registered Component declarations
-  Group = null;
-  Input = null;
-  Option = null;
-  Options = null;
-  SelectedOption = null;
-  SelectedOptions = null;
-
+  // Tracked state
   @tracked activeOptionIndex = -1;
   @tracked input = null;
   @tracked isFulfilled = false;
@@ -101,6 +85,22 @@ export default class SelectBox extends Component {
   @tracked selectedOption = [];
   @tracked selectedOptions = null;
   @tracked value = null;
+
+  // Component classes
+  SelectBoxGroup = SelectBoxGroup;
+  SelectBoxInput = SelectBoxInput;
+  SelectBoxOption = SelectBoxOption;
+  SelectBoxOptions = SelectBoxOptions;
+  SelectBoxSelectedOption = SelectBoxSelectedOption;
+  SelectBoxSelectedOptions = SelectBoxSelectedOptions;
+
+  // Registered Component declarations
+  Group = null;
+  Input = null;
+  Option = null;
+  Options = null;
+  SelectedOption = null;
+  SelectedOptions = null;
 
   get api() {
     return buildAPI(this, [
