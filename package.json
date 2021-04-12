@@ -68,8 +68,8 @@
     "stylelint": "^13.12.0"
   },
   "dependencies": {
-    "@embroider/util": "^0.39.1",
     "@ember/render-modifiers": "^1.0.2",
+    "@embroider/util": "^0.39.1",
     "@glimmer/component": "^1.0.4",
     "@glimmer/tracking": "^1.0.4",
     "ember-cli-babel": "^7.26.3",
