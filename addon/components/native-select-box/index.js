@@ -21,10 +21,10 @@ import { tracked } from '@glimmer/tracking';
 
 export default class NativeSelectBox extends Component {
   // Misc state
-  sealedAPI = {};
   element = null;
   pendingOption = [];
   previousValue = null;
+  sealedAPI = {};
   valueId = 0;
 
   // Tracked state
