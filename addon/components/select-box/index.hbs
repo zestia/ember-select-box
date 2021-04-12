@@ -18,8 +18,8 @@
   )
   SelectedOptions=(component
     "select-box/selected-options"
-    _onInsert=this.handleInsertSelectedOptionsContainer
-    _onDestroy=this.handleDestroySelectedOptionsContainer
+    _onInsert=this.handleInsertSelectedOptions
+    _onDestroy=this.handleDestroySelectedOptions
   )
   SelectedOption=(component
     "select-box/selected-option"
@@ -29,8 +29,8 @@
   Options=(component
     "select-box/options"
     selectBox=this
-    _onInsert=this.handleInsertOptionsContainer
-    _onDestroy=this.handleDestroyOptionsContainer
+    _onInsert=this.handleInsertOptions
+    _onDestroy=this.handleDestroyOptions
   )
   Group=(component "select-box/group")
 }}
@@ -41,7 +41,7 @@
   aria-expanded="{{this.isOpen}}"
   aria-labelledby={{this.labelledBy}}
   aria-multiselectable="{{this.isMultiSelectable}}"
-  aria-owns={{if this.isCombobox this.optionsContainer.id}}
+  aria-owns={{if this.isCombobox this.options.id}}
   class="select-box"
   role={{this.role}}
   tabindex={{this.tabIndex}}

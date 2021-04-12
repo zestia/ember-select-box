@@ -33,7 +33,7 @@ function _setActiveOptionIndex(selectBox, index) {
 
 function setActiveOptionIndex(selectBox, index) {
   const under = index < 0;
-  const over = index > selectBox.options.length - 1;
+  const over = index > selectBox.option.length - 1;
 
   if (under || over) {
     return;
@@ -71,7 +71,7 @@ export function activatePreviousOption(selectBox, config) {
 }
 
 export function activateOptionForValue(selectBox, value, config) {
-  const option = selectBox.options.find((option) => option.value === value);
+  const option = selectBox.option.find((option) => option.value === value);
 
   if (!option) {
     return;
@@ -110,14 +110,15 @@ function optionForChar(selectBox, char) {
   const repeatedChar = char === prevChar;
   const reset = duration > 1000;
   const chars = reset ? char : `${prev.chars}${char}`;
+  const registeredOptions = selectBox.option;
 
-  let options = filterComponentsByTextContent(selectBox.options, chars);
+  let options = filterComponentsByTextContent(registeredOptions, chars);
   let index = 0;
   let option = null;
 
   if (repeatedChar) {
     index = prev.index + 1;
-    options = filterComponentsByTextContent(selectBox.options, prevChar);
+    options = filterComponentsByTextContent(registeredOptions, prevChar);
     option = options[index];
   }
 

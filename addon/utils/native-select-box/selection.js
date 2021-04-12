@@ -20,7 +20,7 @@ function getSelectedValues(selectBox) {
 }
 
 function getRegisteredSelectedValues(selectBox) {
-  return selectBox.options
+  return selectBox.option
     .filter((option) => option.element.selected)
     .map((option) => option.value);
 }

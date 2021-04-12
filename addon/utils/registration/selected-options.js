@@ -1,17 +1,14 @@
 import { assert } from '@ember/debug';
 
-export function registerSelectedOptionsContainer(
-  selectBox,
-  selectedOptionsContainer
-) {
+export function registerSelectedOptions(selectBox, selectedOptions) {
   assert(
     'select-box can only have 1 selected options container',
-    !selectBox.selectedOptionsContainer
+    !selectBox.selectedOptions
   );
 
-  selectBox.selectedOptionsContainer = selectedOptionsContainer;
+  selectBox.selectedOptions = selectedOptions;
 }
 
-export function deregisterSelectedOptionsContainer(selectBox) {
-  selectBox.selectedOptionsContainer = null;
+export function deregisterSelectedOptions(selectBox) {
+  selectBox.selectedOptions = null;
 }

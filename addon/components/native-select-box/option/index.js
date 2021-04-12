@@ -39,7 +39,7 @@ export default class NativeSelectBoxOption extends Component {
   }
 
   get index() {
-    return this.args.selectBox ? this.args.selectBox.options.indexOf(this) : -1;
+    return this.args.selectBox ? this.args.selectBox.option.indexOf(this) : -1;
   }
 
   get isSelected() {

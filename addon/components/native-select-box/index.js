@@ -21,7 +21,7 @@ import { tracked } from '@glimmer/tracking';
 export default class NativeSelectBox extends Component {
   _api = {};
   element = null;
-  pendingOptions = [];
+  pendingOption = [];
   previousValue = null;
   valueId = 0;
 
@@ -31,7 +31,7 @@ export default class NativeSelectBox extends Component {
   @tracked isPending = true;
   @tracked isRejected = false;
   @tracked isSettled = false;
-  @tracked options = [];
+  @tracked option = [];
   @tracked value = null;
 
   get api() {

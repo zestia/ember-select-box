@@ -29,17 +29,17 @@ import {
   registerSelectedOption
 } from '../../utils/registration/selected-option';
 import {
-  deregisterSelectedOptionsContainer,
-  registerSelectedOptionsContainer
+  deregisterSelectedOptions,
+  registerSelectedOptions
 } from '../../utils/registration/selected-options';
 import {
   deregisterOption,
   registerOption
 } from '../../utils/registration/option';
 import {
-  deregisterOptionsContainer,
-  registerOptionsContainer
-} from '../../utils/registration/options-container';
+  deregisterOptions,
+  registerOptions
+} from '../../utils/registration/options';
 import { focusOut } from '../../utils/select-box/focus';
 import { keyDown, keyUp, keyPress } from '../../utils/select-box/keyboard';
 import { setInputValue } from '../../utils/select-box/input/value';
@@ -57,7 +57,7 @@ export default class SelectBox extends Component {
   _api = {};
   element = null;
   optionCharState = null;
-  pendingOptions = [];
+  pendingOption = [];
   previousValue = null;
   searchId = 0;
   valueId = 0;
@@ -79,9 +79,10 @@ export default class SelectBox extends Component {
   @tracked isSearching = false;
   @tracked isSettled = false;
   @tracked isSlowSearch = false;
-  @tracked options = [];
-  @tracked optionsContainer = null;
-  @tracked selectedOptions = [];
+  @tracked option = [];
+  @tracked options = null;
+  @tracked selectedOption = [];
+  @tracked selectedOptions = null;
   @tracked value = null;
 
   get api() {
@@ -128,7 +129,7 @@ export default class SelectBox extends Component {
   }
 
   get activeOption() {
-    return this.options[this.activeOptionIndex];
+    return this.option[this.activeOptionIndex];
   }
 
   get role() {
@@ -166,10 +167,10 @@ export default class SelectBox extends Component {
   get labelledBy() {
     let id;
 
-    if (this.selectedOptionsContainer) {
-      id = this.selectedOptionsContainer.id;
-    } else if (this.selectedOptions.length > 0) {
-      id = this.selectedOptions[0].id;
+    if (this.selectedOptions) {
+      id = this.selectedOptions.id;
+    } else if (this.selectedOption.length > 0) {
+      id = this.selectedOption[0].id;
     } else if (this.input) {
       id = this.input.id;
     }
@@ -221,13 +222,13 @@ export default class SelectBox extends Component {
   }
 
   @action
-  handleInsertOptionsContainer(optionsContainer) {
-    registerOptionsContainer(this, optionsContainer);
+  handleInsertOptions(options) {
+    registerOptions(this, options);
   }
 
   @action
-  handleDestroyOptionsContainer(optionsContainer) {
-    deregisterOptionsContainer(this, optionsContainer);
+  handleDestroyOptions(options) {
+    deregisterOptions(this, options);
   }
 
   @action
@@ -241,13 +242,13 @@ export default class SelectBox extends Component {
   }
 
   @action
-  handleInsertSelectedOptionsContainer(selectedOptionsContainer) {
-    registerSelectedOptionsContainer(this, selectedOptionsContainer);
+  handleInsertSelectedOptions(selectedOptions) {
+    registerSelectedOptions(this, selectedOptions);
   }
 
   @action
-  handleDestroySelectedOptionsContainer(selectedOptionsContainer) {
-    deregisterSelectedOptionsContainer(this, selectedOptionsContainer);
+  handleDestroySelectedOptions(selectedOptions) {
+    deregisterSelectedOptions(this, selectedOptions);
   }
 
   @action

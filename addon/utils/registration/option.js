@@ -1,12 +1,12 @@
 import { scheduleOnce } from '@ember/runloop';
 
 export function registerOption(selectBox, option) {
-  selectBox.pendingOptions.push(option);
+  selectBox.pendingOption.push(option);
   scheduleUpdateOptions(selectBox);
 }
 
 export function deregisterOption(selectBox, option) {
-  selectBox.pendingOptions.splice(selectBox.pendingOptions.indexOf(option), 1);
+  selectBox.pendingOption.splice(selectBox.pendingOption.indexOf(option), 1);
   scheduleUpdateOptions(selectBox);
 }
 
@@ -19,7 +19,7 @@ function updateOptions(selectBox) {
     return;
   }
 
-  setOptions(selectBox, selectBox.pendingOptions);
+  setOptions(selectBox, selectBox.pendingOption);
 }
 
 function setOptions(selectBox, options) {
@@ -30,5 +30,5 @@ function setOptions(selectBox, options) {
   const sort = (a, b) =>
     elements.indexOf(a.element) - elements.indexOf(b.element);
 
-  selectBox.options = [...options].sort(sort);
+  selectBox.option = [...options].sort(sort);
 }
