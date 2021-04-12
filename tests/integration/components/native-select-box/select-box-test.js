@@ -3,6 +3,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { fillIn, find, findAll, render, settled } from '@ember/test-helpers';
 import Component from '@glimmer/component';
 import { setComponentTemplate } from '@ember/component';
+import { ensureSafeComponent } from '@embroider/util';
 import hbs from 'htmlbars-inline-precompile';
 import { resolve } from 'rsvp';
 import { action } from '@ember/object';
@@ -313,11 +314,13 @@ module('native-select-box', function (hooks) {
     this.FooSelectBox = setComponentTemplate(fooSelectBox, FooSelectBox);
 
     await render(hbs`
-      <this.FooSelectBox @value={{this.barPromise}} as |sb|>
-        <sb.Option @value="foo">Foo</sb.Option>
-        <sb.Option @value="bar">Bar</sb.Option>
-        <sb.Option @value="baz">Baz</sb.Option>
-      </this.FooSelectBox>
+      {{#let (ensure-safe-component this.FooSelectBox) as |FooSelectBox|}}
+        <FooSelectBox @value={{this.barPromise}} as |sb|>
+          <sb.Option @value="foo">Foo</sb.Option>
+          <sb.Option @value="bar">Bar</sb.Option>
+          <sb.Option @value="baz">Baz</sb.Option>
+        </FooSelectBox>
+      {{/let}}
     `);
 
     assert.dom('.display-label').hasText('Foo');
