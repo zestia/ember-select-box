@@ -1,5 +1,6 @@
 import Component from '@glimmer/component';
 import NativeSelectBoxOption from './option/index';
+import { ensureSafeComponent } from '@embroider/util';
 import {
   deregisterElement,
   registerElement

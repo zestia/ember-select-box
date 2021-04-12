@@ -1,7 +1,7 @@
 {{-register-components
   this
   Option=(component
-    this.NativeSelectBoxOption
+    (ensure-safe-component this.NativeSelectBoxOption)
     selectBox=this
     _onInsert=this.handleInsertOption
     _onDestroy=this.handleDestroyOption
