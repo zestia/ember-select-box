@@ -32,7 +32,7 @@
     _onInsert=this.handleInsertOptions
     _onDestroy=this.handleDestroyOptions
   )
-  Group=this.SelectBoxGroup
+  Group=(ensure-safe-component this.SelectBoxGroup)
 }}
 <div
   aria-activedescendant={{this.activeOption.id}}

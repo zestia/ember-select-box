@@ -94,7 +94,7 @@ export default class SelectBox extends Component {
   SelectBoxSelectedOption = SelectBoxSelectedOption;
   SelectBoxSelectedOptions = SelectBoxSelectedOptions;
 
-  // Registered Component declarations
+  // Registered component declarations
   Group = null;
   Input = null;
   Option = null;
