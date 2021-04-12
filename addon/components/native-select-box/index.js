@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+import NativeSelectBoxOption from './option/index';
 import {
   deregisterElement,
   registerElement
@@ -19,20 +20,26 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
 export default class NativeSelectBox extends Component {
+  // Misc state
   _api = {};
   element = null;
   pendingOption = [];
   previousValue = null;
   valueId = 0;
 
-  Option = null;
-
+  // Tracked state
   @tracked isFulfilled = false;
   @tracked isPending = true;
   @tracked isRejected = false;
   @tracked isSettled = false;
   @tracked option = [];
   @tracked value = null;
+
+  // Component classes
+  NativeSelectBoxOption = NativeSelectBoxOption;
+
+  // Registered component declarations
+  Option = null;
 
   get api() {
     return buildAPI(this, [

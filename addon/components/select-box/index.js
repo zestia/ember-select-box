@@ -1,4 +1,10 @@
 import Component from '@glimmer/component';
+import SelectBoxGroup from './group/index';
+import SelectBoxInput from './input/index';
+import SelectBoxOption from './option/index';
+import SelectBoxOptions from './options/index';
+import SelectBoxSelectedOption from './selected-option/index';
+import SelectBoxSelectedOptions from './selected-options/index';
 import {
   _selectOption,
   selectOption
@@ -54,6 +60,7 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
 export default class SelectBox extends Component {
+  // Misc state
   _api = {};
   element = null;
   optionCharState = null;
@@ -62,6 +69,16 @@ export default class SelectBox extends Component {
   searchId = 0;
   valueId = 0;
 
+  // Component classes
+
+  SelectBoxGroup = SelectBoxGroup;
+  SelectBoxInput = SelectBoxInput;
+  SelectBoxOption = SelectBoxOption;
+  SelectBoxOptions = SelectBoxOptions;
+  SelectBoxSelectedOption = SelectBoxSelectedOption;
+  SelectBoxSelectedOptions = SelectBoxSelectedOptions;
+
+  // Registered Component declarations
   Group = null;
   Input = null;
   Option = null;

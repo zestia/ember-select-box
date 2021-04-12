@@ -33,7 +33,6 @@
     "@ember/optional-features": "^2.0.0",
     "@ember/test-helpers": "^2.2.5",
     "@embroider/test-setup": "^0.39.1",
-    "@embroider/util": "^0.39.1",
     "@zestia/eslint-config": "^4.0.3",
     "@zestia/prettier-config": "^1.0.4",
     "@zestia/stylelint-config": "^2.0.47",
@@ -69,6 +68,7 @@
     "stylelint": "^13.12.0"
   },
   "dependencies": {
+    "@embroider/util": "^0.39.1",
     "@ember/render-modifiers": "^1.0.2",
     "@glimmer/component": "^1.0.4",
     "@glimmer/tracking": "^1.0.4",
