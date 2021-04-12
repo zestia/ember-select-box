@@ -14,9 +14,9 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
 export default class NativeSelectBoxOption extends Component {
-  _api = {};
   element = null;
   previousValue = null;
+  sealedAPI = {};
   valueId = 0;
 
   @tracked isFulfilled = false;

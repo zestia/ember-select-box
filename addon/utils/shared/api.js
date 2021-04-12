@@ -6,12 +6,12 @@ export default function buildAPI(component, keys) {
   }
 
   keys.forEach((key) => {
-    component._api[key] = component[key];
+    component.sealedAPI[key] = component[key];
   });
 
-  if (!isSealed(component._api)) {
-    seal(component._api);
+  if (!isSealed(component.sealedAPI)) {
+    seal(component.sealedAPI);
   }
 
-  return component._api;
+  return component.sealedAPI;
 }

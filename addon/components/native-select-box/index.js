@@ -1,6 +1,5 @@
 import Component from '@glimmer/component';
 import NativeSelectBoxOption from './option/index';
-import { ensureSafeComponent } from '@embroider/util';
 import {
   deregisterElement,
   registerElement
@@ -22,7 +21,7 @@ import { tracked } from '@glimmer/tracking';
 
 export default class NativeSelectBox extends Component {
   // Misc state
-  _api = {};
+  sealedAPI = {};
   element = null;
   pendingOption = [];
   previousValue = null;

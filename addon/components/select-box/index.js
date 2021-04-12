@@ -61,11 +61,11 @@ import { tracked } from '@glimmer/tracking';
 
 export default class SelectBox extends Component {
   // Misc state
-  _api = {};
   element = null;
   optionCharState = null;
   pendingOption = [];
   previousValue = null;
+  sealedAPI = {};
   searchId = 0;
   valueId = 0;
 
