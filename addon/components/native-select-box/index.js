@@ -1,6 +1,7 @@
 import Component from '@glimmer/component';
 import NativeSelectBoxOption from './option/index';
 import registerElement from '../../utils/registration/element';
+import registerComponents from '../../utils/registration/components';
 import {
   deregisterOption,
   registerOption
@@ -66,6 +67,7 @@ export default class NativeSelectBox extends Component {
     super(...arguments);
 
     this.registerElement = registerElement(this);
+    this.registerComponents = registerComponents(this);
     this.ready = ready(this);
 
     receiveValue(this);

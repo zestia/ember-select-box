@@ -26,6 +26,7 @@ import {
 } from '../../utils/select-box/search';
 import { close, open, toggle } from '../../utils/select-box/toggle';
 import registerElement from '../../utils/registration/element';
+import registerComponents from '../../utils/registration/components';
 import { deregisterInput, registerInput } from '../../utils/registration/input';
 import {
   deregisterSelectedOption,
@@ -208,6 +209,7 @@ export default class SelectBox extends Component {
     super(...arguments);
 
     this.registerElement = registerElement(this);
+    this.registerComponents = registerComponents(this);
     this.ready = ready(this);
 
     receiveValue(this);

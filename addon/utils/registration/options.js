@@ -1,8 +1,4 @@
-import { assert } from '@ember/debug';
-
 export function registerOptions(selectBox, options) {
-  assert('select-box can only have 1 options container', !selectBox.options);
-
   selectBox.options = options;
 }
 
