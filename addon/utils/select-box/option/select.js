@@ -5,7 +5,7 @@ export function _selectOption(option) {
     return;
   }
 
-  return option.args._onSelect(option);
+  return option.args._onSelect?.(option);
 }
 
 export function selectOption(selectBox, option) {

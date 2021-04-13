@@ -7,7 +7,7 @@ export function _activateOption(option) {
     return;
   }
 
-  option.args._onActivate(option);
+  option.args._onActivate?.(option);
 }
 
 function activatedOption(option) {
