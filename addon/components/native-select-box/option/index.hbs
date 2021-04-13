@@ -4,9 +4,8 @@
   value={{this.value}}
   ...attributes
   {{this.registerElement}}
-  {{did-insert this.handleInsertElement}}
+  {{this.lifecycleActions}}
   {{did-update this.handleUpdateValue @value}}
-  {{will-destroy this.handleDestroyElement}}
 >
   {{~yield this.api~}}
 </option>

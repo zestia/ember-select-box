@@ -1,9 +1,9 @@
-import invokeAction from './invoke-action';
+import { modifier } from 'ember-modifier';
 
-export function _insertComponent(component) {
-  invokeAction(component, '_onInsert', component);
-}
+export default function lifecycleActions(component) {
+  return modifier(() => {
+    component.args._onInsert?.(component);
 
-export function _destroyComponent(component) {
-  invokeAction(component, '_onDestroy', component);
+    return () => component.args._onDestroy?.(component);
+  });
 }

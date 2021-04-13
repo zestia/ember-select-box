@@ -60,7 +60,6 @@ export default class SelectBox extends Component {
   // Misc state
   element = null;
   optionCharState = null;
-  pendingOption = [];
   previousValue = null;
   sealedAPI = {};
   searchId = 0;
@@ -68,7 +67,6 @@ export default class SelectBox extends Component {
 
   // Tracked state
   @tracked activeOptionIndex = -1;
-  @tracked input = null;
   @tracked isFulfilled = false;
   @tracked isOpen = false;
   @tracked isPending = true;
@@ -77,10 +75,6 @@ export default class SelectBox extends Component {
   @tracked isSearching = false;
   @tracked isSettled = false;
   @tracked isSlowSearch = false;
-  @tracked option = [];
-  @tracked options = null;
-  @tracked selectedOption = [];
-  @tracked selectedOptions = null;
   @tracked value = null;
 
   // Component classes
@@ -98,6 +92,14 @@ export default class SelectBox extends Component {
   Options = null;
   SelectedOption = null;
   SelectedOptions = null;
+
+  // Component instances
+  @tracked input = null;
+  @tracked option = [];
+  @tracked options = null;
+  @tracked selectedOption = [];
+  @tracked selectedOptions = null;
+  pendingOption = [];
 
   get api() {
     return buildAPI(this, [
@@ -179,17 +181,15 @@ export default class SelectBox extends Component {
   }
 
   get labelledBy() {
-    let id;
-
     if (this.selectedOptions) {
-      id = this.selectedOptions.id;
+      return this.selectedOptions.id;
     } else if (this.selectedOption.length > 0) {
-      id = this.selectedOption[0].id;
+      return this.selectedOption[0].id;
     } else if (this.input) {
-      id = this.input.id;
+      return this.input.id;
+    } else {
+      return null;
     }
-
-    return id;
   }
 
   get searchDelayTime() {

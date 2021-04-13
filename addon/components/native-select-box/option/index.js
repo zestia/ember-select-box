@@ -1,8 +1,5 @@
 import Component from '@glimmer/component';
-import {
-  _destroyComponent,
-  _insertComponent
-} from '../../../utils/component/lifecycle';
+import lifecycleActions from '../../../utils/component/lifecycle';
 import registerElement from '../../../utils/registration/element';
 import buildAPI from '../../../utils/shared/api';
 import { receiveValue } from '../../../utils/component/value';
@@ -47,18 +44,9 @@ export default class NativeSelectBoxOption extends Component {
     super(...arguments);
 
     this.registerElement = registerElement(this);
+    this.lifecycleActions = lifecycleActions(this);
 
     receiveValue(this);
-  }
-
-  @action
-  handleInsertElement(element) {
-    _insertComponent(this);
-  }
-
-  @action
-  handleDestroyElement() {
-    _destroyComponent(this);
   }
 
   @action
