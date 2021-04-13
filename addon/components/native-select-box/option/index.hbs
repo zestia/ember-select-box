@@ -3,6 +3,7 @@
   selected={{this.isSelected}}
   value={{this.value}}
   ...attributes
+  {{this.registerElement}}
   {{did-insert this.handleInsertElement}}
   {{did-update this.handleUpdateValue @value}}
   {{will-destroy this.handleDestroyElement}}

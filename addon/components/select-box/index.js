@@ -25,10 +25,7 @@ import {
   search
 } from '../../utils/select-box/search';
 import { close, open, toggle } from '../../utils/select-box/toggle';
-import {
-  deregisterElement,
-  registerElement
-} from '../../utils/registration/element';
+import registerElement from '../../utils/registration/element';
 import { deregisterInput, registerInput } from '../../utils/registration/input';
 import {
   deregisterSelectedOption,
@@ -55,7 +52,7 @@ import {
   selectValue,
   updateValue
 } from '../../utils/shared/value';
-import { ready } from '../../utils/shared/ready';
+import ready from '../../utils/shared/ready';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
@@ -209,18 +206,11 @@ export default class SelectBox extends Component {
 
   constructor() {
     super(...arguments);
+
+    this.registerElement = registerElement(this);
+    this.ready = ready(this);
+
     receiveValue(this);
-  }
-
-  @action
-  handleInsertElement(element) {
-    registerElement(this, element);
-    ready(this);
-  }
-
-  @action
-  handleDestroyElement() {
-    deregisterElement(this);
   }
 
   @action

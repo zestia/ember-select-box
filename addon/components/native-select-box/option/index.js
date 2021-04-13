@@ -3,10 +3,7 @@ import {
   _destroyComponent,
   _insertComponent
 } from '../../../utils/component/lifecycle';
-import {
-  deregisterElement,
-  registerElement
-} from '../../../utils/registration/element';
+import registerElement from '../../../utils/registration/element';
 import buildAPI from '../../../utils/shared/api';
 import { receiveValue } from '../../../utils/component/value';
 import isSelected from '../../../utils/shared/selected';
@@ -48,18 +45,19 @@ export default class NativeSelectBoxOption extends Component {
 
   constructor() {
     super(...arguments);
+
+    this.registerElement = registerElement(this);
+
     receiveValue(this);
   }
 
   @action
   handleInsertElement(element) {
-    registerElement(this, element);
     _insertComponent(this);
   }
 
   @action
   handleDestroyElement() {
-    deregisterElement(this);
     _destroyComponent(this);
   }
 
