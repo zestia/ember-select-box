@@ -1,4 +1,3 @@
-import invokeAction from '../component/invoke-action';
 import { scheduleOnce } from '@ember/runloop';
 
 export function focusOut(selectBox, e) {
@@ -22,5 +21,5 @@ function focusOutSettled(selectBox, e) {
 }
 
 function focusedOut(selectBox, e) {
-  invokeAction(selectBox, 'onFocusLeave', e, selectBox.api);
+  selectBox.args.onFocusLeave?.(e, selectBox.api);
 }

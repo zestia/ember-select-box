@@ -1,4 +1,3 @@
-import invokeAction from '../component/invoke-action';
 import { debounce } from '@ember/runloop';
 import { resolve } from 'rsvp';
 
@@ -89,13 +88,13 @@ function checkSlowSearch(selectBox) {
 }
 
 function runSearch(selectBox, query) {
-  return invokeAction(selectBox, 'onSearch', query, selectBox.api);
+  return selectBox.args.onSearch?.(query, selectBox.api);
 }
 
 function searchSucceeded(selectBox, query, result) {
-  invokeAction(selectBox, 'onSearched', result, query, selectBox.api);
+  selectBox.args.onSearched?.(result, query, selectBox.api);
 }
 
 function searchFailed(selectBox, query, error) {
-  invokeAction(selectBox, 'onSearchError', error, query, selectBox.api);
+  selectBox.args.onSearchError?.(error, query, selectBox.api);
 }

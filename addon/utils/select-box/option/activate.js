@@ -1,4 +1,3 @@
-import invokeAction from '../../component/invoke-action';
 import { filterComponentsByTextContent } from '../../component/filter';
 import { maybeScrollIntoView } from '../../component/scroll-into-view';
 const { fromCharCode } = String;
@@ -8,11 +7,11 @@ export function _activateOption(option) {
     return;
   }
 
-  invokeAction(option, '_onActivate', option);
+  option.args._onActivate(option);
 }
 
 function activatedOption(option) {
-  invokeAction(option, 'onActivate', option.value, option.args.selectBox.api);
+  option.args.onActivate?.(option.value, option.args.selectBox.api);
 }
 
 export function activateOption(selectBox, option, config) {
