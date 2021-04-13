@@ -1,4 +1,3 @@
-import invokeAction from '../component/invoke-action';
 import { resolveValue } from '../component/value';
 import { makeArray } from '@ember/array';
 const { freeze } = Object;
@@ -32,9 +31,9 @@ function updatedValue(selectBox) {
 
   selectBox.previousValue = selectBox.value;
 
-  invokeAction(selectBox, 'onUpdate', selectBox.api);
+  selectBox.args.onUpdate?.(selectBox.api);
 }
 
 export function selectedValue(selectBox) {
-  invokeAction(selectBox, 'onSelect', selectBox.value, selectBox.api);
+  selectBox.args.onSelect?.(selectBox.value, selectBox.api);
 }

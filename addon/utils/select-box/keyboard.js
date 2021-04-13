@@ -1,4 +1,3 @@
-import invokeAction from '../component/invoke-action';
 import { _selectOption } from '../../utils/select-box/option/select';
 import { capitalize } from '@ember/string';
 import { getKeyName } from '../../utils/general/keyboard';
@@ -28,11 +27,11 @@ export function keyDown(selectBox, e) {
 }
 
 function pressedKey(selectBox, e) {
-  invokeAction(selectBox, 'onPressKey', e, selectBox.api);
+  selectBox.args.onPressKey?.(e, selectBox.api);
 }
 
 function keyedDown(selectBox, key, e) {
-  invokeAction(selectBox, `onPress${key}`, e, selectBox.api);
+  selectBox.args[`onPress${key}`]?.(e, selectBox.api);
 }
 
 function keyedDownEnter(selectBox, e) {

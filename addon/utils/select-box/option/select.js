@@ -1,4 +1,3 @@
-import invokeAction from '../../component/invoke-action';
 import { selectValue } from '../value';
 
 export function _selectOption(option) {
@@ -6,7 +5,7 @@ export function _selectOption(option) {
     return;
   }
 
-  return invokeAction(option, '_onSelect', option);
+  return option.args._onSelect?.(option);
 }
 
 export function selectOption(selectBox, option) {
@@ -16,5 +15,5 @@ export function selectOption(selectBox, option) {
 }
 
 export function selectedOption(option) {
-  invokeAction(option, 'onSelect', option.value, option.args.selectBox.api);
+  option.args.onSelect?.(option.value, option.args.selectBox.api);
 }

@@ -1,5 +1,3 @@
-import invokeAction from '../component/invoke-action';
-
 export function open(selectBox) {
   if (selectBox.isOpen) {
     return;
@@ -21,11 +19,11 @@ export function close(selectBox) {
 }
 
 function opened(selectBox) {
-  invokeAction(selectBox, 'onOpen', selectBox.api);
+  selectBox.args.onOpen?.(selectBox.api);
 }
 
 function closed(selectBox) {
-  invokeAction(selectBox, 'onClose', selectBox.api);
+  selectBox.args.onClose?.(selectBox.api);
 }
 
 export function toggle(selectBox) {

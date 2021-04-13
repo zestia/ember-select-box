@@ -1,4 +1,3 @@
-import invokeAction from '../../component/invoke-action';
 import { getKeyName } from '../../../utils/general/keyboard';
 
 export function input(input, e) {
@@ -12,15 +11,15 @@ export function input(input, e) {
 }
 
 function _input(input, text) {
-  invokeAction(input, '_onInput', text);
+  input.args._onInput(text);
 }
 
 function clearedInput(input) {
-  invokeAction(input, 'onClear', input.args.selectBox.api);
+  input.args.onClear?.(input.args.selectBox.api);
 }
 
 function deletedText(input) {
-  invokeAction(input, 'onDelete', input.args.selectBox.api);
+  input.args.onDelete?.(input.args.selectBox.api);
 }
 
 export function keyUp(input, e) {
