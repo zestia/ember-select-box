@@ -34,7 +34,7 @@ export default class NativeSelectBox extends Component {
   // Component classes
   NativeSelectBoxOption = NativeSelectBoxOption;
 
-  // Registered component declarations
+  // Component declarations
   Option = null;
 
   // Component instances
