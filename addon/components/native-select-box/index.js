@@ -18,13 +18,11 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
 export default class NativeSelectBox extends Component {
-  // Misc state
   element = null;
   previousValue = null;
   sealedAPI = {};
   valueId = 0;
 
-  // Tracked state
   @tracked isFulfilled = false;
   @tracked isPending = true;
   @tracked isRejected = false;
