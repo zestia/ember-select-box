@@ -883,6 +883,10 @@ module('select-box (selecting)', function (hooks) {
   test('default values', async function (assert) {
     assert.expect(1);
 
+    // Unlike <select>, which defaults to selecting the first option,
+    // All options are considered selected, because both the select box's
+    // value (null), and the option's value (null) are a match.
+
     await render(hbs`
       <SelectBox as |sb|>
         <sb.Option />
