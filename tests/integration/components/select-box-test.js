@@ -267,10 +267,9 @@ module('select-box', function (hooks) {
       <SelectBox @onReady={{this.handleReady}} />
     `);
 
-    assert.strictEqual(
-      api.options,
-      undefined,
-      'cannot access private properties'
+    assert.ok(
+      api.element instanceof HTMLElement,
+      'ready fires after the dom element is available'
     );
 
     assert.deepEqual(
