@@ -4,7 +4,6 @@ import registerElement from '../../../utils/registration/element';
 import buildAPI from '../../../utils/shared/api';
 import { receiveValue } from '../../../utils/component/value';
 import isSelected from '../../../utils/shared/selected';
-import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
 export default class NativeSelectBoxOption extends Component {
@@ -43,14 +42,8 @@ export default class NativeSelectBoxOption extends Component {
   constructor() {
     super(...arguments);
 
-    this.registerElement = registerElement(this);
     this.lifecycleActions = lifecycleActions(this);
-
-    receiveValue(this);
-  }
-
-  @action
-  handleUpdateValue() {
-    receiveValue(this);
+    this.receiveValue = receiveValue(this);
+    this.registerElement = registerElement(this);
   }
 }

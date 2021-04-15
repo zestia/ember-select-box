@@ -64,16 +64,10 @@ export default class NativeSelectBox extends Component {
   constructor() {
     super(...arguments);
 
-    this.registerElement = registerElement(this);
-    this.registerComponents = registerComponents(this);
     this.ready = ready(this);
-
-    receiveValue(this);
-  }
-
-  @action
-  handleUpdateValue() {
-    receiveValue(this);
+    this.receiveValue = receiveValue(this);
+    this.registerComponents = registerComponents(this);
+    this.registerElement = registerElement(this);
   }
 
   @action

@@ -59,15 +59,9 @@ export default class SelectBoxOption extends Component {
     super(...arguments);
 
     this.id = buildId(this);
-    this.registerElement = registerElement(this);
     this.lifecycleActions = lifecycleActions(this);
-
-    receiveValue(this);
-  }
-
-  @action
-  handleUpdateValue() {
-    receiveValue(this);
+    this.receiveValue = receiveValue(this);
+    this.registerElement = registerElement(this);
   }
 
   @action
