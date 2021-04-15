@@ -211,7 +211,7 @@ module('select-box (activating options)', function (hooks) {
       );
   });
 
-  test('cycling through options', async function (assert) {
+  test('cycling through options by repeating characters', async function (assert) {
     assert.expect(9);
 
     this.handlePressKey = (e, sb) => sb.activateOptionForKeyCode(e.keyCode);
@@ -264,7 +264,7 @@ module('select-box (activating options)', function (hooks) {
     assert.dom('.select-box__option[aria-current="true"]').hasText('A 3');
   });
 
-  test('cycling through options (duplicate chars)', async function (assert) {
+  test('cycling through options containing repeating chars', async function (assert) {
     assert.expect(3);
 
     this.handlePressKey = (e, sb) => sb.activateOptionForKeyCode(e.keyCode);
@@ -484,7 +484,7 @@ module('select-box (activating options)', function (hooks) {
       .dom(one)
       .isNotFocused(
         'activating an option does not focus it by default (because they are just divs) ' +
-          'and focus is managed by aria activedescenant'
+          'and focus is managed by aria activedescendant'
       );
 
     sb.activateOptionForValue(2);
