@@ -883,6 +883,10 @@ module('select-box (selecting)', function (hooks) {
   test('default values', async function (assert) {
     assert.expect(1);
 
+    // Unlike <select>, which defaults to selecting the first option,
+    // All options are considered selected, because both the select box's
+    // value (null), and the option's value (null) are a match.
+
     await render(hbs`
       <SelectBox as |sb|>
         <sb.Option />
@@ -894,7 +898,7 @@ module('select-box (selecting)', function (hooks) {
       .dom('.select-box__option[aria-selected="true"]')
       .exists(
         { count: 2 },
-        "select box's default value and options' default value is undefined"
+        "select box's default value and options' default value is null"
       );
   });
 
