@@ -898,7 +898,7 @@ module('select-box (selecting)', function (hooks) {
       .dom('.select-box__option[aria-selected="true"]')
       .exists(
         { count: 2 },
-        "select box's default value and options' default value is undefined"
+        "select box's default value and options' default value is null"
       );
   });
 
