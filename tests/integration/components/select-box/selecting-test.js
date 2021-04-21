@@ -352,7 +352,8 @@ module('select-box (selecting)', function (hooks) {
 
     assert.verifySteps(
       ['selected foo'],
-      'select action fires (even with an input present), because an option was active'
+      'select action fires (even with an input present), because an option was active.' +
+        'this is because the input is specifically not multiline.'
     );
   });
 
