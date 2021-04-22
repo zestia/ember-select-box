@@ -154,6 +154,10 @@ module('select-box (activating options)', function (hooks) {
     // the event. Thereby stopping the page from scrolling when trying
     // to navigate.
 
+    // Also note that we don't cycle through the options when reaching
+    // the beginning or end boundaries, because we want to mimic as closely
+    // as possible native select boxes.
+
     this.handlePressDown = (e, sb) => sb.activateNextOption();
     this.handlePressUp = (e, sb) => sb.activatePreviousOption();
 
