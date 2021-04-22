@@ -360,6 +360,10 @@ module('select-box (selecting)', function (hooks) {
   test('pressing space with an active option', async function (assert) {
     assert.expect(4);
 
+    // Even though space on a button will only click the button on keyup,
+    // Here, we want to use keydown, because we are mimicking a native select box
+    // which would select the option on keydown too.
+
     this.handleSelect = (value) => assert.step(`selected ${value}`);
 
     await render(hbs`
