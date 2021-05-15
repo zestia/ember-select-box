@@ -178,9 +178,9 @@ module('select-box (promises)', function (hooks) {
 
     await settled();
 
-    const labels = findAll(
-      '.select-box__option[aria-selected="true"]'
-    ).map((o) => o.textContent.trim());
+    const labels = findAll('.select-box__option[aria-selected="true"]').map(
+      (o) => o.textContent.trim()
+    );
 
     assert.deepEqual(labels, [], 'does not resolve the promises');
   });

@@ -3,14 +3,13 @@
 ## Installation
 
 - `git clone <repository-url>`
-- `cd my-addon`
+- `cd @zestia/ember-select-box`
 - `npm install`
 
 ## Linting
 
-- `npm run lint:hbs`
-- `npm run lint:js`
-- `npm run lint:js -- --fix`
+- `npm run lint`
+- `npm run lint:fix`
 
 ## Running tests
 

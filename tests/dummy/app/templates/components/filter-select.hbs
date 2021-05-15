@@ -8,7 +8,8 @@
   @onFocusLeave={{this.close}}
   @onPressEscape={{this.close}}
   @onSelect={{this.select}}
-  ...attributes as |sb|
+  ...attributes
+  as |sb|
 >
   <sb.Input
     aria-autocomplete="list"

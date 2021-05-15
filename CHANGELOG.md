@@ -1,5 +1,9 @@
 # Changelog
 
+## 15.3.1 (not yet published)
+
+- Upgrade dependencies
+
 ## 15.3.0
 
 - REVERT change in 15.2.0. `keydown` should indeed select options. This is how a native select box works.

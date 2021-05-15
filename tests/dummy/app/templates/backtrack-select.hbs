@@ -19,7 +19,8 @@
 
 <SelectBox
   @onSelect={{this.handleSelect}}
-  @onFocusLeave={{this.handleFocusLeave}} as |sb|
+  @onFocusLeave={{this.handleFocusLeave}}
+  as |sb|
 >
   {{#if sb.value}}
     {{sb.value}}
