@@ -1,3 +1,8 @@
+{{! template-lint-disable no-down-event-binding }}
+{{!
+Issue affects attributes `type`, `onclick` and `value`
+https://github.com/emberjs/rfcs/issues/497
+}}
 <input
   aria-multiline="false"
   aria-controls={{@selectBox.options.id}}
@@ -6,11 +11,9 @@
   disabled={{@selectBox.isDisabled}}
   id={{this.id}}
   role="searchbox"
-  {{!-- begin issue: https://github.com/emberjs/rfcs/issues/497 --}}
   type={{if @type @type "text"}}
   onclick={{@onclick}}
   value={{@value}}
-  {{!-- end issue --}}
   ...attributes
   {{did-insert this.handleInsertElement}}
   {{will-destroy this.handleDestroyElement}}
