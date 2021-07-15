@@ -16,6 +16,15 @@ module('select-box/group', function (hooks) {
       .hasTagName('div', 'renders with correct class name and tag');
   });
 
+  test('whitespace', async function (assert) {
+    assert.expect(2);
+
+    await render(hbs`<SelectBox::Group />`);
+
+    assert.equal(find('.select-box__group-label').innerHTML, '', ':empty');
+    assert.equal(find('.select-box__group-options').innerHTML, '', ':empty');
+  });
+
   test('label', async function (assert) {
     assert.expect(1);
 

@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled } from '@ember/test-helpers';
+import { find, render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { defer } from 'rsvp';
 
@@ -13,8 +13,16 @@ module('native-select-box/option', function (hooks) {
     await render(hbs`<NativeSelectBox::Option />`);
 
     assert
-      .dom('option.select-box__option')
-      .exists('renders with correct class name and tag');
+      .dom('.select-box__option')
+      .hasTagName('option', 'renders with correct class name and tag');
+  });
+
+  test('whitespace', async function (assert) {
+    assert.expect(1);
+
+    await render(hbs`<NativeSelectBox::Option />`);
+
+    assert.equal(find('.select-box__option').innerHTML, '', ':empty');
   });
 
   test('value', async function (assert) {
