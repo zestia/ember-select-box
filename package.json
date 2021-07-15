@@ -69,8 +69,7 @@
     "qunit-dom": "^1.6.0",
     "release-it": "^14.10.0",
     "sass": "^1.35.2",
-    "stylelint": "^13.13.1",
-    "webpack": "^5.44.0"
+    "stylelint": "^13.13.1"
   },
   "dependencies": {
     "@ember/render-modifiers": "^1.0.2",
