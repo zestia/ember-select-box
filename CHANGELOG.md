@@ -4,6 +4,7 @@
 
 ## 15.3.1
 
+- Upgrade dependencies
 - Strip whitespace from inside empty elements, to allow CSS `:empty`
 
 ## 15.3.0
