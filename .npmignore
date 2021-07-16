@@ -18,6 +18,7 @@
 /.prettierignore
 /.prettierrc.js
 /.template-lintrc.js
+/.stylelintrc.js
 /.travis.yml
 /.watchmanconfig
 /bower.json
@@ -26,6 +27,7 @@
 /ember-cli-build.js
 /testem.js
 /tests/
+/yarn-error.log
 /yarn.lock
 .gitkeep
 
