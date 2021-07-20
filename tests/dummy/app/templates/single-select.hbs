@@ -12,7 +12,8 @@
 <SelectBox
   class="single-select"
   @value={{this.selectedBread}}
-  @onSelect={{this.selectBread}} as |sb|
+  @onSelect={{this.selectBread}}
+  as |sb|
 >
   {{#each this.selectableBreads as |bread|}}
     <sb.Option @value={{bread}} tabindex="0">

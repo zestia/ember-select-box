@@ -7,7 +7,8 @@
   @onPressEscape={{this.close}}
   @onFocusLeave={{this.close}}
   @onSelect={{this.select}}
-  ...attributes as |sb|
+  ...attributes
+  as |sb|
 >
   {{yield
     (hash

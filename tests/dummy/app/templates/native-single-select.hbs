@@ -1,5 +1,6 @@
 <p>
-  Demonstration of a native select box, that can have non-primitive values. Useful for assigning Ember Data models to each option.
+  Demonstration of a native select box, that can have non-primitive values.
+  Useful for assigning Ember Data models to each option.
 </p>
 
 <p>
@@ -12,7 +13,8 @@
 
 <NativeSelectBox
   @value={{this.selectedDessert}}
-  @onSelect={{this.selectDessert}} as |sb|
+  @onSelect={{this.selectDessert}}
+  as |sb|
 >
   <optgroup label="Cakes">
     {{#each this.selectableCakes as |cake|}}
@@ -31,5 +33,6 @@
 </NativeSelectBox>
 
 <p>
-  Selected dessert: {{this.selectedDessert.name}}
+  Selected dessert:
+  {{this.selectedDessert.name}}
 </p>

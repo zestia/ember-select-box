@@ -1,5 +1,6 @@
 <p>
-  Demonstration of faux select box that runs before displaying available options.
+  Demonstration of faux select box that runs before displaying available
+  options.
 </p>
 
 <p>
@@ -18,7 +19,8 @@
 
 <SearchSelect
   @onSearch={{this.findBread}}
-  @onSelect={{this.selectBread}} as |sb results newBread|
+  @onSelect={{this.selectBread}}
+  as |sb results newBread|
 >
   {{#each results as |bread|}}
     <sb.Option @value={{bread}}>
@@ -26,15 +28,18 @@
     </sb.Option>
   {{else}}
     <sb.Option @onSelect={{fn this.addNewBread newBread}}>
-      No bread found, add {{newBread}}...
+      No bread found, add
+      {{newBread}}...
     </sb.Option>
   {{/each}}
 </SearchSelect>
 
 <p>
-  Selected bread: {{this.selectedBread.name}}
+  Selected bread:
+  {{this.selectedBread.name}}
 </p>
 
 <p>
-  New bread: {{this.newBread}}
+  New bread:
+  {{this.newBread}}
 </p>

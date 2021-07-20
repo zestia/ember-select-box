@@ -1,4 +1,4 @@
-{{! template-lint-disable no-positive-tabindex }}
+{{! template-lint-disable no-positive-tabindex no-down-event-binding }}
 {{-register-components
   this
   Option=(component
@@ -50,9 +50,8 @@
   {{this.ready}}
   {{this.receiveValue @value}}
   {{on "focusout" this.handleFocusOut}}
-  {{on "keyup" this.handleKeyUp}}
   {{on "keydown" this.handleKeyDown}}
   {{on "keypress" this.handleKeyPress}}
 >
-  {{yield this.api}}
+  {{~yield this.api~}}
 </div>

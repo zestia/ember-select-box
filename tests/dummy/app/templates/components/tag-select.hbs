@@ -10,7 +10,8 @@
   @onBuildSelection={{this.addValue}}
   @onSearch={{@onSearch}}
   @onSearched={{this.handleSearched}}
-  ...attributes as |sb|
+  ...attributes
+  as |sb|
 >
   <sb.SelectedOptions>
     {{#each @value as |tag|}}
@@ -45,7 +46,8 @@
         {{/each}}
       {{else if this.lastQuery}}
         <sb.Option @value={{this.lastQuery}}>
-          No tag found, add {{this.lastQuery}}...
+          No tag found, add
+          {{this.lastQuery}}...
         </sb.Option>
       {{/if}}
     </sb.Options>

@@ -1,5 +1,6 @@
 <p>
-  Demonstration of a native select box with a custom display-label, which is useful for styling.
+  Demonstration of a native select box with a custom display-label, which is
+  useful for styling.
 </p>
 
 <p>
@@ -18,7 +19,8 @@
 
 <NativeSimpleSelect
   @value={{this.selectedBiscuit}}
-  @onSelect={{this.selectBiscuit}} as |sb|
+  @onSelect={{this.selectBiscuit}}
+  as |sb|
 >
   {{#each this.selectableBiscuits as |biscuit|}}
     <sb.Option @value={{biscuit}}>
@@ -28,5 +30,6 @@
 </NativeSimpleSelect>
 
 <p>
-  Selected biscuit: {{this.selectedBiscuit.name}}
+  Selected biscuit:
+  {{this.selectedBiscuit.name}}
 </p>

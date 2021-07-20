@@ -6,14 +6,6 @@ export function keyPress(selectBox, e) {
   pressedKey(selectBox, e);
 }
 
-export function keyUp(selectBox, e) {
-  const keyName = getKeyName(e);
-
-  if (keyName === 'enter') {
-    keyedUpEnter(selectBox, e);
-  }
-}
-
 export function keyDown(selectBox, e) {
   const keyName = getKeyName(e);
 
@@ -23,6 +15,10 @@ export function keyDown(selectBox, e) {
 
   if (keyName === 'enter') {
     keyedDownEnter(selectBox, e);
+  }
+
+  if (keyName === 'space') {
+    keyedDownSpace(selectBox, e);
   }
 }
 
@@ -34,22 +30,26 @@ function keyedDown(selectBox, key, e) {
   selectBox.args[`onPress${key}`]?.(e, selectBox.api);
 }
 
+function keyedDownSpace(selectBox, e) {
+  if (!selectBox.activeOption) {
+    return;
+  }
+
+  if (selectBox.input) {
+    return;
+  }
+
+  _selectOption(selectBox.activeOption);
+}
+
 function keyedDownEnter(selectBox, e) {
-  if (shouldPreventDefault(selectBox, e)) {
+  if (!selectBox.activeOption) {
+    return;
+  }
+
+  if (selectBox.input) {
     e.preventDefault();
   }
-}
 
-function keyedUpEnter(selectBox, e) {
-  if (selectBox.activeOption) {
-    _selectOption(selectBox.activeOption);
-  }
-}
-
-export function shouldPreventDefault(selectBox, e) {
-  return (
-    selectBox.activeOption &&
-    selectBox.input &&
-    e.target === selectBox.input.element
-  );
+  _selectOption(selectBox.activeOption);
 }

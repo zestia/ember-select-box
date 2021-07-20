@@ -26,6 +26,14 @@ module('native-select-box', function (hooks) {
       .hasTagName('select', 'renders with correct class name and tag');
   });
 
+  test('whitespace', async function (assert) {
+    assert.expect(1);
+
+    await render(hbs`<NativeSelectBox />`);
+
+    assert.equal(find('.select-box').innerHTML, '', ':empty');
+  });
+
   test('size', async function (assert) {
     assert.expect(1);
 

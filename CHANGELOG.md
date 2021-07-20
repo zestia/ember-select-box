@@ -1,5 +1,17 @@
 # Changelog
 
+## 15.3.2 (not yet published)
+
+## 15.3.1
+
+- Upgrade dependencies
+- Strip whitespace from inside empty elements, to allow CSS `:empty`
+
+## 15.3.0
+
+- REVERT change in 15.2.0. `keydown` should indeed select options. This is how a native select box works.
+- Allow `Space` to select an option similar to `Enter`
+
 ## 15.2.0
 
 - Upgrade dependencies

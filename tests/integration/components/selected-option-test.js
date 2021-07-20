@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { find, render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('select-box/selected-option', function (hooks) {
@@ -14,6 +14,14 @@ module('select-box/selected-option', function (hooks) {
     assert
       .dom('.select-box__selected-option')
       .hasTagName('div', 'renders with correct class name and tag');
+  });
+
+  test('whitespace', async function (assert) {
+    assert.expect(1);
+
+    await render(hbs`<SelectBox::SelectedOption />`);
+
+    assert.equal(find('.select-box__selected-option').innerHTML, '', ':empty');
   });
 
   test('role', async function (assert) {
