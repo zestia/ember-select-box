@@ -480,4 +480,34 @@ module('native-select-box', function (hooks) {
     assert.dom('.select-box').hasValue('[object Object]');
     assert.dom('.select-box__option:checked').hasText('2');
   });
+
+  test('sanity check usage with mut', async function (assert) {
+    assert.expect(1);
+
+    class Foo {
+      toString() {
+        return '[foo]';
+      }
+    }
+
+    class Bar {
+      toString() {
+        return '[bar]';
+      }
+    }
+
+    this.foo = new Foo();
+    this.bar = new Bar();
+
+    await render(hbs`
+      <NativeSelectBox @onSelect={{fn (mut this.selectedValue)}} as |sb|>
+        <sb.Option @value={{this.foo}} />
+        <sb.Option @value={{this.bar}} />
+      </NativeSelectBox>
+    `);
+
+    await selectNativeOptionsByValue('.select-box', ['[bar]']);
+
+    assert.deepEqual(this.selectedValue, this.bar);
+  });
 });
