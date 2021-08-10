@@ -481,7 +481,7 @@ module('native-select-box', function (hooks) {
     assert.dom('.select-box__option:checked').hasText('2');
   });
 
-  test('sanity check usage with mut', async function (assert) {
+  test('sanity check usage with mut (issue #36)', async function (assert) {
     assert.expect(1);
 
     class Foo {
