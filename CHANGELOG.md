@@ -2,6 +2,8 @@
 
 ## 15.3.2 (not yet published)
 
+- Doesn't render `aria-multiselectable=false`, when not relevant
+
 ## 15.3.1
 
 - Upgrade dependencies

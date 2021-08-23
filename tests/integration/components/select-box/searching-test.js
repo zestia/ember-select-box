@@ -100,7 +100,7 @@ module('select-box (searching)', function (hooks) {
   });
 
   test('multiselectable combobox', async function (assert) {
-    assert.expect(3);
+    assert.expect(4);
 
     await render(hbs`
       <SelectBox @multiple={{this.multiple}} as |sb|>
@@ -109,30 +109,19 @@ module('select-box (searching)', function (hooks) {
       </SelectBox>
     `);
 
-    assert
-      .dom('[aria-multiselectable="false"]')
-      .exists(
-        { count: 2 },
-        'the parent select box is not multiselectable, nor is the child listbox'
-      );
-
-    this.set('multiple', true);
-
-    assert
-      .dom('.select-box')
-      .hasAttribute(
-        'aria-multiselectable',
-        'false',
-        'the parent select box is not multiselectable'
-      );
+    assert.dom('.select-box').doesNotHaveAttribute('aria-multiselectable');
 
     assert
       .dom('.select-box__options')
-      .hasAttribute(
-        'aria-multiselectable',
-        'true',
-        'the child listbox is multiselectable'
-      );
+      .hasAttribute('aria-multiselectable', 'false');
+
+    this.set('multiple', true);
+
+    assert.dom('.select-box').doesNotHaveAttribute('aria-multiselectable');
+
+    assert
+      .dom('.select-box__options')
+      .hasAttribute('aria-multiselectable', 'true');
   });
 
   test('searching (promise)', async function (assert) {

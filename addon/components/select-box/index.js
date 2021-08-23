@@ -180,7 +180,7 @@ export default class SelectBox extends Component {
   }
 
   get isMultiSelectable() {
-    return this.isMultiple && this.isListbox;
+    return this.isListbox ? this.isMultiple : null;
   }
 
   get labelledBy() {
