@@ -366,7 +366,7 @@ module('select-box (activating options)', function (hooks) {
     await triggerKeyEvent('.select-box', 'keypress', 82); // r
     await triggerKeyEvent('.select-box', 'keypress', 69); // e
     await triggerKeyEvent('.select-box', 'keypress', 68); // d
-    await triggerKeyEvent('.select-box', 'keypress', 32); // space
+    await triggerKeyEvent('.select-box', 'keydown', 32); // space
     await triggerKeyEvent('.select-box', 'keypress', 83); // s
     await triggerKeyEvent('.select-box', 'keypress', 91); // [
 
@@ -422,12 +422,41 @@ module('select-box (activating options)', function (hooks) {
     await triggerKeyEvent('.select-box', 'keypress', 66); // b
     await triggerKeyEvent('.select-box', 'keypress', 65); // a
     await triggerKeyEvent('.select-box', 'keypress', 82); // r
-    await triggerKeyEvent('.select-box', 'keypress', 32); // space
+    await triggerKeyEvent('.select-box', 'keydown', 32); // space
     await triggerKeyEvent('.select-box', 'keypress', 65); // s
 
     assert
       .dom('.select-box__option[aria-current="true"]')
       .hasText('bar baz', 'jumps to the matching option');
+  });
+
+  test('jumping to an option (with a space)', async function (assert) {
+    assert.expect(1);
+
+    this.handleSelect = () => assert.step('select');
+    this.handlePressKey = (e, sb) => sb.activateOptionForKeyCode(e.keyCode);
+
+    await render(hbs`
+      <SelectBox
+        @onPressKey={{this.handlePressKey}}
+        @onSelect={{this.handleSelect}}
+        as |sb|
+      >
+        <sb.Option @value={{1}}>a 1</sb.Option>
+        <sb.Option @value={{2}}>a 2</sb.Option>
+      </SelectBox>
+    `);
+
+    await triggerKeyEvent('.select-box', 'keypress', 65); // b
+    await triggerKeyEvent('.select-box', 'keydown', 32); // space
+    await triggerKeyEvent('.select-box', 'keypress', 50); // 2
+
+    assert.verifySteps(
+      [],
+      'does not select option 1 (which has a space in it)' +
+        'because space should does select an option, unless' +
+        'the user is inputting characters to jump to options'
+    );
   });
 
   test('active option element id infinite rendering', async function (assert) {
