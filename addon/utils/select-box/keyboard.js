@@ -30,7 +30,7 @@ function keyedDown(selectBox, key, e) {
   selectBox.args[`onPress${key}`]?.(e, selectBox.api);
 }
 
-function keyedDownSpace(selectBox, e) {
+function keyedDownSpace(selectBox) {
   if (!selectBox.activeOption) {
     return;
   }
