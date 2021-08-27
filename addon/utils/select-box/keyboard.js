@@ -31,7 +31,7 @@ function keyedDown(selectBox, key, e) {
 }
 
 function keyedDownSpace(selectBox) {
-  if (!selectBox.activeOption || !!selectBox.charState.chars.trim()) {
+  if (!selectBox.activeOption || !!selectBox.charState) {
     return;
   }
 

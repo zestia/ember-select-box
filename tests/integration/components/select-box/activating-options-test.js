@@ -462,7 +462,7 @@ module('select-box (activating options)', function (hooks) {
   });
 
   test('jumping to an option (repeating space)', async function (assert) {
-    assert.expect(3);
+    assert.expect(2);
 
     this.handleSelect = () => assert.step('select');
     this.handlePressKey = (e, sb) => sb.activateOptionForKeyCode(e.keyCode);
