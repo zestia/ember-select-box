@@ -454,8 +454,8 @@ module('select-box (activating options)', function (hooks) {
 
     assert.verifySteps(
       [],
-      'pressing space whilst jumping to an option forms part of the ' +
-        'string to search the options with, and is not used to select an option'
+      'space can be used as part of the jump to option search string ' +
+        'without unintentionally causing an option to be selected'
     );
 
     assert.dom('.select-box__option[aria-current="true"]').hasText('a 2');
@@ -464,7 +464,7 @@ module('select-box (activating options)', function (hooks) {
   test('jumping to an option (repeating space)', async function (assert) {
     assert.expect(3);
 
-    this.handleSelect = (value) => assert.step(`select ${value}`);
+    this.handleSelect = () => assert.step('select');
     this.handlePressKey = (e, sb) => sb.activateOptionForKeyCode(e.keyCode);
 
     await render(hbs`
@@ -474,23 +474,16 @@ module('select-box (activating options)', function (hooks) {
         as |sb|
       >
         <sb.Option @value={{1}}>a</sb.Option>
-        <sb.Option @value={{2}}>b</sb.Option>
       </SelectBox>
     `);
 
-    await triggerEvent('.select-box__option:nth-child(1)', 'mouseenter');
-    await triggerKeyEvent('.select-box', 'keydown', 32); // space (for triggering a selection)
-    await triggerKeyEvent('.select-box', 'keypress', 32); // space (for collecting characters)
-
+    await triggerKeyEvent('.select-box', 'keypress', 65); // a
     await waitForReset();
-
-    await triggerEvent('.select-box__option:nth-child(2)', 'mouseenter');
-    await triggerKeyEvent('.select-box', 'keydown', 32); // space (for triggering a selection)
-    await triggerKeyEvent('.select-box', 'keypress', 32); // space (for collecting characters)
+    await triggerKeyEvent('.select-box', 'keydown', 32); // space
 
     assert.verifySteps(
-      ['select 1', 'select 2'],
-      'collecting space characters does not prevent space being used to select an option'
+      ['select'],
+      'jumping to an option does not prevent space being used to select an option'
     );
   });
 
