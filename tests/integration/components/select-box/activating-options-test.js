@@ -366,7 +366,7 @@ module('select-box (activating options)', function (hooks) {
     await triggerKeyEvent('.select-box', 'keypress', 82); // r
     await triggerKeyEvent('.select-box', 'keypress', 69); // e
     await triggerKeyEvent('.select-box', 'keypress', 68); // d
-    await triggerKeyEvent('.select-box', 'keydown', 32); // space
+    await triggerKeyEvent('.select-box', 'keypress', 32); // space
     await triggerKeyEvent('.select-box', 'keypress', 83); // s
     await triggerKeyEvent('.select-box', 'keypress', 91); // [
 
@@ -422,7 +422,7 @@ module('select-box (activating options)', function (hooks) {
     await triggerKeyEvent('.select-box', 'keypress', 66); // b
     await triggerKeyEvent('.select-box', 'keypress', 65); // a
     await triggerKeyEvent('.select-box', 'keypress', 82); // r
-    await triggerKeyEvent('.select-box', 'keydown', 32); // space
+    await triggerKeyEvent('.select-box', 'keypress', 32); // space
     await triggerKeyEvent('.select-box', 'keypress', 65); // s
 
     assert
@@ -431,7 +431,7 @@ module('select-box (activating options)', function (hooks) {
   });
 
   test('jumping to an option (with a space)', async function (assert) {
-    assert.expect(1);
+    assert.expect(2);
 
     this.handleSelect = () => assert.step('select');
     this.handlePressKey = (e, sb) => sb.activateOptionForKeyCode(e.keyCode);
@@ -447,15 +447,50 @@ module('select-box (activating options)', function (hooks) {
       </SelectBox>
     `);
 
-    await triggerKeyEvent('.select-box', 'keypress', 65); // b
-    await triggerKeyEvent('.select-box', 'keydown', 32); // space
+    await triggerKeyEvent('.select-box', 'keypress', 65); // a
+    await triggerKeyEvent('.select-box', 'keydown', 32); // space (for triggering a selection)
+    await triggerKeyEvent('.select-box', 'keypress', 32); // space (for collecting characters)
     await triggerKeyEvent('.select-box', 'keypress', 50); // 2
 
     assert.verifySteps(
       [],
-      'does not select option 1 (which has a space in it)' +
-        'because space should does select an option, unless' +
-        'the user is inputting characters to jump to options'
+      'pressing space whilst jumping to an option forms part of the ' +
+        'string to search the options with, and is not used to select an option'
+    );
+
+    assert.dom('.select-box__option[aria-current="true"]').hasText('a 2');
+  });
+
+  test('jumping to an option (repeating space)', async function (assert) {
+    assert.expect(3);
+
+    this.handleSelect = (value) => assert.step(`select ${value}`);
+    this.handlePressKey = (e, sb) => sb.activateOptionForKeyCode(e.keyCode);
+
+    await render(hbs`
+      <SelectBox
+        @onPressKey={{this.handlePressKey}}
+        @onSelect={{this.handleSelect}}
+        as |sb|
+      >
+        <sb.Option @value={{1}}>a</sb.Option>
+        <sb.Option @value={{2}}>b</sb.Option>
+      </SelectBox>
+    `);
+
+    await triggerEvent('.select-box__option:nth-child(1)', 'mouseenter');
+    await triggerKeyEvent('.select-box', 'keydown', 32); // space (for triggering a selection)
+    await triggerKeyEvent('.select-box', 'keypress', 32); // space (for collecting characters)
+
+    await waitForReset();
+
+    await triggerEvent('.select-box__option:nth-child(2)', 'mouseenter');
+    await triggerKeyEvent('.select-box', 'keydown', 32); // space (for triggering a selection)
+    await triggerKeyEvent('.select-box', 'keypress', 32); // space (for collecting characters)
+
+    assert.verifySteps(
+      ['select 1', 'select 2'],
+      'collecting space characters does not prevent space being used to select an option'
     );
   });
 
