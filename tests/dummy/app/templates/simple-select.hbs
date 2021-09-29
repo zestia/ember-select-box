@@ -25,16 +25,16 @@
   @onSelect={{this.selectPudding}}
   as |sb|
 >
-  <sb.SelectedOption>
+  <sb.Trigger>
     {{sb.value.name}}
-  </sb.SelectedOption>
-  <sb.Options>
+  </sb.Trigger>
+  <sb.Dropdown>
     {{#each this.selectablePuddings as |pudding|}}
       <sb.Option @value={{pudding}}>
         {{pudding.name}}
       </sb.Option>
     {{/each}}
-  </sb.Options>
+  </sb.Dropdown>
 </SimpleSelect>
 
 <p>

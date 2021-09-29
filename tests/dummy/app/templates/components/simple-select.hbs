@@ -13,12 +13,12 @@
   {{yield
     (hash
       value=sb.value
-      SelectedOption=(component
+      Trigger=(component
         (ensure-safe-component sb.SelectedOption)
         onclick=sb.toggle
         role="button"
       )
-      Options=sb.Options
+      Dropdown=sb.Options
       Option=sb.Option
     )
   }}
