@@ -1,5 +1,6 @@
 <p>
-  Demonstration of a faux select box with an input element that can be used for filtering the available options.
+  Demonstration of a faux select box with an input element that can be used for
+  filtering the available options.
 </p>
 
 <p>
@@ -19,7 +20,8 @@
 <FilterSelect
   @labelKey="name"
   @onSearch={{this.filterPies}}
-  @onSelect={{this.selectPie}} as |sb results|
+  @onSelect={{this.selectPie}}
+  as |sb results|
 >
   {{#each results as |pie|}}
     <sb.Option @value={{pie}}>
@@ -33,5 +35,6 @@
 </FilterSelect>
 
 <p>
-  Selected pie: {{this.selectedPie.name}}
+  Selected pie:
+  {{this.selectedPie.name}}
 </p>

@@ -11,6 +11,9 @@ export default class NativeSelectBoxOption extends Component {
   previousValue = null;
   sealedAPI = {};
   valueId = 0;
+  lifecycleActions = lifecycleActions(this);
+  receiveValue = receiveValue(this);
+  registerElement = registerElement(this);
 
   @tracked isFulfilled = false;
   @tracked isPending = true;
@@ -37,13 +40,5 @@ export default class NativeSelectBoxOption extends Component {
 
   get isSelected() {
     return isSelected(this);
-  }
-
-  constructor() {
-    super(...arguments);
-
-    this.lifecycleActions = lifecycleActions(this);
-    this.receiveValue = receiveValue(this);
-    this.registerElement = registerElement(this);
   }
 }

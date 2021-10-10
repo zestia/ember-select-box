@@ -316,17 +316,21 @@ module('select-box (selecting)', function (hooks) {
   });
 
   test('pressing enter with an active option', async function (assert) {
-    assert.expect(3);
+    assert.expect(5);
 
     this.handleSelect = (value) => assert.step(`selected ${value}`);
 
     await render(hbs`
       <SelectBox @onSelect={{this.handleSelect}} as |sb|>
+        {{#if this.showInput}}
+          <sb.Input />
+        {{/if}}
+
         <sb.Option @value="foo" />
       </SelectBox>
     `);
 
-    await triggerKeyEvent('.select-box', 'keyup', 13); // Enter
+    await triggerKeyEvent('.select-box', 'keydown', 13); // Enter
 
     assert.verifySteps(
       [],
@@ -335,11 +339,67 @@ module('select-box (selecting)', function (hooks) {
 
     await triggerEvent('.select-box__option', 'mouseenter');
 
-    await triggerKeyEvent('.select-box', 'keyup', 13); // Enter
+    await triggerKeyEvent('.select-box', 'keydown', 13); // Enter
 
     assert.verifySteps(
       ['selected foo'],
       'select action fires, because an option was active'
+    );
+
+    this.set('showInput', true);
+
+    await triggerKeyEvent('.select-box', 'keydown', 13); // Enter
+
+    assert.verifySteps(
+      ['selected foo'],
+      'select action fires (even with an input present), because an option was active.' +
+        'this is because the input is specifically not multiline.'
+    );
+  });
+
+  test('pressing space with an active option', async function (assert) {
+    assert.expect(4);
+
+    // Even though space on a button will only click the button on keyup,
+    // Here, we want to use keydown, because we are mimicking a native select box
+    // which would select the option on keydown too.
+
+    this.handleSelect = (value) => assert.step(`selected ${value}`);
+
+    await render(hbs`
+      <SelectBox @onSelect={{this.handleSelect}} as |sb|>
+        {{#if this.showInput}}
+          <sb.Input />
+        {{/if}}
+
+        <sb.Option @value="foo" />
+      </SelectBox>
+    `);
+
+    await triggerKeyEvent('.select-box', 'keydown', 32); // Space
+
+    assert.verifySteps(
+      [],
+      'select action does not fire, because no option was active'
+    );
+
+    await triggerEvent('.select-box__option', 'mouseenter');
+
+    await triggerKeyEvent('.select-box', 'keydown', 32); // Space
+
+    assert.verifySteps(
+      ['selected foo'],
+      'select action fires, because an option was active'
+    );
+
+    this.set('showInput', true);
+
+    await triggerKeyEvent('.select-box', 'keydown', 32); // Space
+
+    assert.verifySteps(
+      [],
+      'select action does not fire, because an input was present ' +
+        'so pressing space should insert a space, and not select the active option'
     );
   });
 
@@ -522,14 +582,14 @@ module('select-box (selecting)', function (hooks) {
       </SelectBox>
     `);
 
-    api.update(resolve(2)).then((value) => {
-      assert.strictEqual(
-        value,
-        undefined,
-        'does not resolve the value' +
-          '(this is not how the api is intended to be used)'
-      );
-    });
+    const value = api.update(resolve(2));
+
+    assert.strictEqual(
+      value,
+      undefined,
+      'does not resolve the value' +
+        '(this is not how the api is intended to be used)'
+    );
   });
 
   test('manual selection', async function (assert) {

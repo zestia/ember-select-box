@@ -50,8 +50,8 @@ module('select-box (activating options)', function (hooks) {
       );
 
     assert.ok(
-      one.getAttribute('id').match(/select-box-el-\d+/),
-      'active option has an id with a numeric part'
+      one.getAttribute('id').match(/ember\d+/),
+      'active option has an id'
     );
 
     assert
@@ -153,6 +153,10 @@ module('select-box (activating options)', function (hooks) {
     // this allows us (or the user of the addon) to preventDefault on
     // the event. Thereby stopping the page from scrolling when trying
     // to navigate.
+
+    // Also note that we don't cycle through the options when reaching
+    // the beginning or end boundaries, because we want to mimic as closely
+    // as possible native select boxes.
 
     this.handlePressDown = (e, sb) => sb.activateNextOption();
     this.handlePressUp = (e, sb) => sb.activatePreviousOption();
@@ -424,6 +428,63 @@ module('select-box (activating options)', function (hooks) {
     assert
       .dom('.select-box__option[aria-current="true"]')
       .hasText('bar baz', 'jumps to the matching option');
+  });
+
+  test('jumping to an option (with a space)', async function (assert) {
+    assert.expect(2);
+
+    this.handleSelect = () => assert.step('select');
+    this.handlePressKey = (e, sb) => sb.activateOptionForKeyCode(e.keyCode);
+
+    await render(hbs`
+      <SelectBox
+        @onPressKey={{this.handlePressKey}}
+        @onSelect={{this.handleSelect}}
+        as |sb|
+      >
+        <sb.Option @value={{1}}>a 1</sb.Option>
+        <sb.Option @value={{2}}>a 2</sb.Option>
+      </SelectBox>
+    `);
+
+    await triggerKeyEvent('.select-box', 'keypress', 65); // a
+    await triggerKeyEvent('.select-box', 'keydown', 32); // space (for triggering a selection)
+    await triggerKeyEvent('.select-box', 'keypress', 32); // space (for collecting characters)
+    await triggerKeyEvent('.select-box', 'keypress', 50); // 2
+
+    assert.verifySteps(
+      [],
+      'space can be used as part of the jump to option search string ' +
+        'without unintentionally causing an option to be selected'
+    );
+
+    assert.dom('.select-box__option[aria-current="true"]').hasText('a 2');
+  });
+
+  test('jumping to an option (repeating space)', async function (assert) {
+    assert.expect(2);
+
+    this.handleSelect = () => assert.step('select');
+    this.handlePressKey = (e, sb) => sb.activateOptionForKeyCode(e.keyCode);
+
+    await render(hbs`
+      <SelectBox
+        @onPressKey={{this.handlePressKey}}
+        @onSelect={{this.handleSelect}}
+        as |sb|
+      >
+        <sb.Option @value={{1}}>a</sb.Option>
+      </SelectBox>
+    `);
+
+    await triggerKeyEvent('.select-box', 'keypress', 65); // a
+    await waitForReset();
+    await triggerKeyEvent('.select-box', 'keydown', 32); // space
+
+    assert.verifySteps(
+      ['select'],
+      'jumping to an option does not prevent space being used to select an option'
+    );
   });
 
   test('active option element id infinite rendering', async function (assert) {

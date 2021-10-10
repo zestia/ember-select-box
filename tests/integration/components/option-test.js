@@ -19,6 +19,14 @@ module('select-box/option', function (hooks) {
     assert.dom('.select-box__option').hasAttribute('aria-disabled', 'false');
   });
 
+  test('whitespace', async function (assert) {
+    assert.expect(1);
+
+    await render(hbs`<SelectBox::Option />`);
+
+    assert.equal(find('.select-box__option').innerHTML, '', ':empty');
+  });
+
   test('role', async function (assert) {
     assert.expect(1);
 
@@ -37,7 +45,7 @@ module('select-box/option', function (hooks) {
     assert.ok(
       find('.select-box__option')
         .getAttribute('id')
-        .match(/select-box-el-\d+/),
+        .match(/ember\d+/),
       'gets a unique id'
     );
   });

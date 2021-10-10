@@ -1,8 +1,8 @@
 import Component from '@glimmer/component';
-import buildId from '../../../utils/shared/id';
+import { guidFor } from '@ember/object/internals';
 
 export default class SelectBoxGroup extends Component {
   get labelId() {
-    return buildId(this);
+    return guidFor(this);
   }
 }

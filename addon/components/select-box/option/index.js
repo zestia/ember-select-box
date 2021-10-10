@@ -6,7 +6,7 @@ import registerElement from '../../../utils/registration/element';
 import { receiveValue } from '../../../utils/component/value';
 import isSelected from '../../../utils/shared/selected';
 import buildAPI from '../../../utils/shared/api';
-import buildId from '../../../utils/shared/id';
+import { guidFor } from '@ember/object/internals';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
@@ -15,6 +15,10 @@ export default class SelectBoxOption extends Component {
   previousValue = null;
   sealedAPI = {};
   valueId = 0;
+  id = guidFor(this);
+  lifecycleActions = lifecycleActions(this);
+  receiveValue = receiveValue(this);
+  registerElement = registerElement(this);
 
   @tracked isFulfilled = false;
   @tracked isPending = true;
@@ -53,15 +57,6 @@ export default class SelectBoxOption extends Component {
 
   get isSelected() {
     return isSelected(this);
-  }
-
-  constructor() {
-    super(...arguments);
-
-    this.id = buildId(this);
-    this.lifecycleActions = lifecycleActions(this);
-    this.receiveValue = receiveValue(this);
-    this.registerElement = registerElement(this);
   }
 
   @action

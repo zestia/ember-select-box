@@ -102,13 +102,10 @@ export function activateOptionForKeyCode(selectBox, keyCode, config) {
 }
 
 function optionForChar(selectBox, char) {
-  const prev = selectBox.optionCharState || { chars: '', ms: 0, index: 0 };
+  const prev = selectBox.charState ?? { chars: '', index: 0 };
   const prevChar = prev.chars.substring(prev.chars.length - 1);
-  const ms = Date.now();
-  const duration = ms - prev.ms;
   const repeatedChar = char === prevChar;
-  const reset = duration > 1000;
-  const chars = reset ? char : `${prev.chars}${char}`;
+  const chars = `${prev.chars}${char}`;
   const registeredOptions = selectBox.option;
 
   let options = filterComponentsByTextContent(registeredOptions, chars);
@@ -126,7 +123,14 @@ function optionForChar(selectBox, char) {
     option = options[index];
   }
 
-  selectBox.optionCharState = { chars, ms, index };
+  if (prev.timer) {
+    clearTimeout(prev.timer);
+  }
+
+  const timer = setTimeout(() => (selectBox.charState = null), 1000);
+  const next = { chars, index, timer };
+
+  selectBox.charState = next;
 
   return option;
 }

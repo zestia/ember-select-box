@@ -26,6 +26,14 @@ module('native-select-box', function (hooks) {
       .hasTagName('select', 'renders with correct class name and tag');
   });
 
+  test('whitespace', async function (assert) {
+    assert.expect(1);
+
+    await render(hbs`<NativeSelectBox />`);
+
+    assert.equal(find('.select-box').innerHTML, '', ':empty');
+  });
+
   test('size', async function (assert) {
     assert.expect(1);
 
@@ -471,5 +479,35 @@ module('native-select-box', function (hooks) {
 
     assert.dom('.select-box').hasValue('[object Object]');
     assert.dom('.select-box__option:checked').hasText('2');
+  });
+
+  test('sanity check usage with mut (issue #36)', async function (assert) {
+    assert.expect(1);
+
+    class Foo {
+      toString() {
+        return '[foo]';
+      }
+    }
+
+    class Bar {
+      toString() {
+        return '[bar]';
+      }
+    }
+
+    this.foo = new Foo();
+    this.bar = new Bar();
+
+    await render(hbs`
+      <NativeSelectBox @onSelect={{fn (mut this.selectedValue)}} as |sb|>
+        <sb.Option @value={{this.foo}} />
+        <sb.Option @value={{this.bar}} />
+      </NativeSelectBox>
+    `);
+
+    await selectNativeOptionsByValue('.select-box', ['[bar]']);
+
+    assert.deepEqual(this.selectedValue, this.bar);
   });
 });

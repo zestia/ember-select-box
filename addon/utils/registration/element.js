@@ -1,9 +1,13 @@
-import { modifier } from 'ember-modifier';
+import Modifier from 'ember-modifier';
 
 export default function registerElement(selectBox) {
-  return modifier((element) => {
-    selectBox.element = element;
+  return class extends Modifier {
+    didInstall() {
+      selectBox.element = this.element;
+    }
 
-    return () => (selectBox.element = null);
-  });
+    willDestroy() {
+      selectBox.element = null;
+    }
+  };
 }

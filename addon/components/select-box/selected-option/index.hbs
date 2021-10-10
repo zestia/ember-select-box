@@ -1,14 +1,17 @@
+{{! template-lint-disable no-positive-tabindex no-down-event-binding }}
+{{!
+Issue affects attributes `role`, `onclick`, `onmousedown`, `tabindex`
+https://github.com/emberjs/rfcs/issues/497
+}}
 <div
   class="select-box__selected-option"
   id={{this.id}}
-  {{!-- begin issue: https://github.com/emberjs/rfcs/issues/497 --}}
-  {{! template-lint-disable no-invalid-interactive no-positive-tabindex }}
   role={{@role}}
   onclick={{@onclick}}
+  onmousedown={{@onmousedown}}
   tabindex={{@tabindex}}
-  {{!-- end issue --}}
   ...attributes
   {{this.lifecycleActions}}
 >
-  {{yield}}
+  {{~yield~}}
 </div>

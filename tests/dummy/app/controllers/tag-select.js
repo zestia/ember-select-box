@@ -5,12 +5,7 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
 export default class TagSelectController extends Controller {
-  @tracked selectedTagNames;
-
-  constructor() {
-    super(...arguments);
-    this.selectedTagNames = ['foo', 'bar'];
-  }
+  @tracked selectedTagNames = ['foo', 'bar'];
 
   @action
   filterTagNames(query) {

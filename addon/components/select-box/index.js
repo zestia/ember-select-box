@@ -45,7 +45,7 @@ import {
   registerOptions
 } from '../../utils/registration/options';
 import { focusOut } from '../../utils/select-box/focus';
-import { keyDown, keyUp, keyPress } from '../../utils/select-box/keyboard';
+import { keyDown, keyPress } from '../../utils/select-box/keyboard';
 import { setInputValue } from '../../utils/select-box/input/value';
 import buildAPI from '../../utils/shared/api';
 import {
@@ -60,11 +60,17 @@ import { tracked } from '@glimmer/tracking';
 export default class SelectBox extends Component {
   // Misc state
   element = null;
-  optionCharState = null;
+  charState = null;
   previousValue = null;
   sealedAPI = {};
   searchId = 0;
   valueId = 0;
+
+  // Modifiers
+  ready = ready(this);
+  receiveValue = receiveValue(this);
+  registerComponents = registerComponents(this);
+  registerElement = registerElement(this);
 
   // Tracked state
   @tracked activeOptionIndex = -1;
@@ -178,7 +184,7 @@ export default class SelectBox extends Component {
   }
 
   get isMultiSelectable() {
-    return this.isMultiple && this.isListbox;
+    return this.isListbox ? this.isMultiple : null;
   }
 
   get labelledBy() {
@@ -203,15 +209,6 @@ export default class SelectBox extends Component {
 
   get searchSlowTime() {
     return this.args.searchSlowTime ?? 500;
-  }
-
-  constructor() {
-    super(...arguments);
-
-    this.ready = ready(this);
-    this.receiveValue = receiveValue(this);
-    this.registerComponents = registerComponents(this);
-    this.registerElement = registerElement(this);
   }
 
   @action
@@ -282,11 +279,6 @@ export default class SelectBox extends Component {
   @action
   handleKeyDown(e) {
     keyDown(this, e);
-  }
-
-  @action
-  handleKeyUp(e) {
-    keyUp(this, e);
   }
 
   @action

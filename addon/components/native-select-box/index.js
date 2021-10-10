@@ -22,6 +22,10 @@ export default class NativeSelectBox extends Component {
   previousValue = null;
   sealedAPI = {};
   valueId = 0;
+  ready = ready(this);
+  receiveValue = receiveValue(this);
+  registerComponents = registerComponents(this);
+  registerElement = registerElement(this);
 
   @tracked isFulfilled = false;
   @tracked isPending = true;
@@ -59,15 +63,6 @@ export default class NativeSelectBox extends Component {
 
   get isMultiple() {
     return this.args.multiple;
-  }
-
-  constructor() {
-    super(...arguments);
-
-    this.ready = ready(this);
-    this.receiveValue = receiveValue(this);
-    this.registerComponents = registerComponents(this);
-    this.registerElement = registerElement(this);
   }
 
   @action

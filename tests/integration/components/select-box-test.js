@@ -18,6 +18,14 @@ module('select-box', function (hooks) {
       .hasTagName('div', 'renders with correct class name and tag');
   });
 
+  test('whitespace', async function (assert) {
+    assert.expect(1);
+
+    await render(hbs`<SelectBox />`);
+
+    assert.equal(find('.select-box').innerHTML, '', ':empty');
+  });
+
   test('role', async function (assert) {
     assert.expect(1);
 

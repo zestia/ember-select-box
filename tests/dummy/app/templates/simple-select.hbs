@@ -1,7 +1,9 @@
 <p>
-  Demonstration of faux select box that can be opened and closed, and is keyboard navigatable.
+  Demonstration of faux select box that can be opened and closed, and is
+  keyboard navigatable.
   <br />
-  Typing characters will jump to an appropriate option, to mimic native select box behaviour.
+  Typing characters will jump to an appropriate option, to mimic native select
+  box behaviour.
 </p>
 
 <p>
@@ -20,20 +22,22 @@
 
 <SimpleSelect
   @value={{this.selectedPudding}}
-  @onSelect={{this.selectPudding}} as |sb|
+  @onSelect={{this.selectPudding}}
+  as |sb|
 >
-  <sb.SelectedOption>
+  <sb.Trigger>
     {{sb.value.name}}
-  </sb.SelectedOption>
-  <sb.Options>
+  </sb.Trigger>
+  <sb.Dropdown>
     {{#each this.selectablePuddings as |pudding|}}
       <sb.Option @value={{pudding}}>
         {{pudding.name}}
       </sb.Option>
     {{/each}}
-  </sb.Options>
+  </sb.Dropdown>
 </SimpleSelect>
 
 <p>
-  Selected pudding: {{this.selectedPudding.name}}
+  Selected pudding:
+  {{this.selectedPudding.name}}
 </p>

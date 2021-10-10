@@ -1,14 +1,16 @@
+{{! template-lint-disable no-invalid-interactive }}
+{{!
+Issue affects `onclick` attribute
+https://github.com/emberjs/rfcs/issues/497
+}}
 <div
   aria-multiselectable="{{this.isMultiSelectable}}"
   class="select-box__options"
   id={{this.id}}
   role={{if @selectBox.isCombobox "listbox"}}
-  {{!-- begin issue: https://github.com/emberjs/rfcs/issues/497 --}}
-  {{! template-lint-disable no-invalid-interactive }}
   onclick={{@onclick}}
-  {{!-- end issue --}}
   ...attributes
   {{this.lifecycleActions}}
 >
-  {{yield}}
+  {{~yield~}}
 </div>
