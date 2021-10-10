@@ -160,9 +160,7 @@ module('select-box', function (hooks) {
       .dom('.select-box')
       .hasAttribute('aria-expanded', 'false', 'precondition, not open');
 
-    await settled();
-
-    assert.strictEqual(api.value, undefined, 'has expected value');
+    assert.strictEqual(api.value, null, 'has expected value');
 
     assert.deepEqual(
       api.element,

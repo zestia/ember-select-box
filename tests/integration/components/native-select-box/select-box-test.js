@@ -4,7 +4,7 @@ import { fillIn, find, findAll, render, settled } from '@ember/test-helpers';
 import Component from '@glimmer/component';
 import { setComponentTemplate } from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
-import { resolve } from 'rsvp';
+import { later } from '@ember/runloop';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import {
@@ -290,7 +290,9 @@ module('native-select-box', function (hooks) {
   test('initial update action (promises)', async function (assert) {
     assert.expect(2);
 
-    this.barPromise = resolve('bar');
+    this.barPromise = new Promise((resolve) => {
+      later(() => resolve('bar'), 100);
+    });
 
     const fooSelectBox = hbs`
       <div class="display-label">
