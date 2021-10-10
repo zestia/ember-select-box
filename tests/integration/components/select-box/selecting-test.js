@@ -582,14 +582,14 @@ module('select-box (selecting)', function (hooks) {
       </SelectBox>
     `);
 
-    const value = api.update(resolve(2));
-
-    assert.strictEqual(
-      value,
-      undefined,
-      'does not resolve the value' +
-        '(this is not how the api is intended to be used)'
-    );
+    api.update(resolve(2)).then((value) => {
+      assert.strictEqual(
+        value,
+        undefined,
+        'thenable, but does not resolve the value' +
+          '(this is not how the api is intended to be used)'
+      );
+    });
   });
 
   test('manual selection', async function (assert) {

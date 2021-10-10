@@ -705,13 +705,13 @@ module('select-box (searching)', function (hooks) {
         />
       `);
 
-    const results = await api.search('foo');
-
-    assert.strictEqual(
-      results,
-      undefined,
-      'does not resolve the search results. ' +
-        '(this is not how the api is intended to be used)'
-    );
+    api.search('foo').then((results) => {
+      assert.strictEqual(
+        results,
+        undefined,
+        'thenable, but does not resolve the search results. ' +
+          '(this is not how the api is intended to be used)'
+      );
+    });
   });
 });

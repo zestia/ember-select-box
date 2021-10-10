@@ -66,12 +66,6 @@ export default class SelectBox extends Component {
   searchId = 0;
   valueId = 0;
 
-  // Modifiers
-  ready = ready(this);
-  receiveValue = receiveValue(this);
-  registerComponents = registerComponents(this);
-  registerElement = registerElement(this);
-
   // Tracked state
   @tracked activeOptionIndex = -1;
   @tracked isFulfilled = false;
@@ -83,6 +77,12 @@ export default class SelectBox extends Component {
   @tracked isSettled = false;
   @tracked isSlowSearch = false;
   @tracked value = null;
+
+  // Modifiers
+  ready = ready(this);
+  receiveValue = receiveValue(this);
+  registerComponents = registerComponents(this);
+  registerElement = registerElement(this);
 
   // Component classes
   SelectBoxGroup = SelectBoxGroup;

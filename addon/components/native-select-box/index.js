@@ -22,16 +22,19 @@ export default class NativeSelectBox extends Component {
   previousValue = null;
   sealedAPI = {};
   valueId = 0;
-  ready = ready(this);
-  receiveValue = receiveValue(this);
-  registerComponents = registerComponents(this);
-  registerElement = registerElement(this);
 
+  // Tracked state
   @tracked isFulfilled = false;
   @tracked isPending = true;
   @tracked isRejected = false;
   @tracked isSettled = false;
   @tracked value = null;
+
+  // Modifiers
+  ready = ready(this);
+  receiveValue = receiveValue(this);
+  registerComponents = registerComponents(this);
+  registerElement = registerElement(this);
 
   // Component classes
   NativeSelectBoxOption = NativeSelectBoxOption;
