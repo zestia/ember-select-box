@@ -4,6 +4,7 @@
 
 - Doesn't render `aria-multiselectable=false`, when not relevant
 - Fix space character usage in `activateOptionForKeyCode`
+- Correct app re-exports
 
 ## 15.3.1
 
