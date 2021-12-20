@@ -13,11 +13,11 @@ export default class SelectBoxSelectedOptions extends Component {
     return buildId(this);
   }
 
-  handleInsertElement() {
+  handleInsertElement = () => {
     _insertComponent(this);
-  }
+  };
 
-  handleDestroyElement() {
+  handleDestroyElement = () => {
     _destroyComponent(this);
-  }
+  };
 }

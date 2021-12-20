@@ -21,11 +21,11 @@ export default class SelectBoxOptions extends Component {
     );
   }
 
-  handleInsertElement() {
+  handleInsertElement = () => {
     _insertComponent(this);
-  }
+  };
 
-  handleDestroyElement() {
+  handleDestroyElement = () => {
     _destroyComponent(this);
-  }
+  };
 }
