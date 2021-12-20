@@ -7,9 +7,11 @@
   id={{this.id}}
   role="option"
   ...attributes
-  {{did-insert this.handleInsertElement}}
-  {{did-update this.handleUpdateValue @value}}
-  {{will-destroy this.handleDestroyElement}}
+  {{this.lifecycleHooks
+    didInstall=this.handleInsertElement
+    didUpdateArguments=this.handleUpdatedValue
+    willDestroy=this.handleDestroyElement
+  }}
   {{on "mouseenter" this.handleMouseEnter}}
   {{on "focus" this.handleFocus}}
   {{on "click" this.handleClick}}

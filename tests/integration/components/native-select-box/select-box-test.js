@@ -5,7 +5,6 @@ import Component from '@glimmer/component';
 import { setComponentTemplate } from '@ember/component';
 import hbs from 'htmlbars-inline-precompile';
 import { resolve } from 'rsvp';
-import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import {
   getNativeMultipleSelectBoxValue,
@@ -308,14 +307,13 @@ module('native-select-box', function (hooks) {
     class FooSelectBox extends Component {
       @tracked displayLabel;
 
-      @action
-      updateDisplayLabel(sb) {
+      updateDisplayLabel = (sb) => {
         const label = sb.element
           .querySelector('option:checked')
           .textContent.trim();
 
         this.displayLabel = label;
-      }
+      };
     }
 
     this.FooSelectBox = setComponentTemplate(fooSelectBox, FooSelectBox);

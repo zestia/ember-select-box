@@ -11,8 +11,10 @@ https://github.com/emberjs/rfcs/issues/497
   onmousedown={{@onmousedown}}
   tabindex={{@tabindex}}
   ...attributes
-  {{did-insert this.handleInsertElement}}
-  {{will-destroy this.handleDestroyElement}}
+  {{this.lifecycleHooks
+    didInstall=this.handleInsertElement
+    willDestroy=this.handleDestroyElement
+  }}
 >
   {{~yield~}}
 </div>

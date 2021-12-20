@@ -1,6 +1,7 @@
 import Component from '@glimmer/component';
 import { _activateOption } from '../../../utils/select-box/option/activate';
 import {
+  lifecycleHooks,
   _destroyComponent,
   _insertComponent
 } from '../../../utils/component/lifecycle';
@@ -13,7 +14,6 @@ import { receiveValue } from '../../../utils/component/value';
 import isSelected from '../../../utils/shared/selected';
 import buildAPI from '../../../utils/shared/api';
 import buildId from '../../../utils/shared/id';
-import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
 export default class SelectBoxOption extends Component {
@@ -27,6 +27,8 @@ export default class SelectBoxOption extends Component {
   @tracked isRejected = false;
   @tracked isSettled = false;
   @tracked value = null;
+
+  lifecycleHooks = lifecycleHooks(this);
 
   get api() {
     return buildAPI(this, [
@@ -70,35 +72,29 @@ export default class SelectBoxOption extends Component {
     receiveValue(this);
   }
 
-  @action
-  handleInsertElement(element) {
+  handleInsertElement = (element) => {
     registerElement(this, element);
     _insertComponent(this);
-  }
+  };
 
-  @action
-  handleDestroyElement() {
+  handleUpdatedValue = () => {
+    receiveValue(this);
+  };
+
+  handleDestroyElement = () => {
     deregisterElement(this);
     _destroyComponent(this);
-  }
+  };
 
-  @action
-  handleUpdateValue() {
-    receiveValue(this);
-  }
-
-  @action
-  handleMouseEnter() {
+  handleMouseEnter = () => {
     _activateOption(this);
-  }
+  };
 
-  @action
-  handleFocus() {
+  handleFocus = () => {
     _activateOption(this);
-  }
+  };
 
-  @action
-  handleClick() {
+  handleClick = () => {
     _selectOption(this);
-  }
+  };
 }

@@ -1,6 +1,5 @@
 import Controller from '@ember/controller';
 import { biscuits } from '../utils/dummy-data';
-import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
 export default class NativeSimpleSelectController extends Controller {
@@ -8,8 +7,7 @@ export default class NativeSimpleSelectController extends Controller {
 
   selectableBiscuits = biscuits;
 
-  @action
-  selectBiscuit(biscuit) {
+  selectBiscuit = (biscuit) => {
     this.selectedBiscuit = biscuit;
-  }
+  };
 }

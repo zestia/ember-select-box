@@ -16,8 +16,8 @@ import {
 import { selectValue as _selectValue } from '../../utils/native-select-box/value';
 import buildAPI from '../../utils/shared/api';
 import { ready } from '../../utils/shared/ready';
-import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
+import { lifecycleHooks } from '../../utils/component/lifecycle';
 
 export default class NativeSelectBox extends Component {
   element = null;
@@ -40,6 +40,8 @@ export default class NativeSelectBox extends Component {
   // Component instances
   @tracked option = [];
   pendingOption = [];
+
+  lifecycleHooks = lifecycleHooks(this);
 
   get api() {
     return buildAPI(this, [
@@ -68,44 +70,36 @@ export default class NativeSelectBox extends Component {
     receiveValue(this);
   }
 
-  @action
-  handleInsertElement(element) {
+  handleInsertElement = (element) => {
     registerElement(this, element);
     ready(this);
-  }
+  };
 
-  @action
-  handleDestroyElement() {
-    deregisterElement(this);
-  }
-
-  @action
-  handleUpdateValue() {
+  handleUpdatedValue = () => {
     receiveValue(this);
-  }
+  };
 
-  @action
-  handleInsertOption(option) {
+  handleDestroyElement = () => {
+    deregisterElement(this);
+  };
+
+  handleInsertOption = (option) => {
     registerOption(this, option);
-  }
+  };
 
-  @action
-  handleDestroyOption(option) {
+  handleDestroyOption = (option) => {
     deregisterOption(this, option);
-  }
+  };
 
-  @action
-  handleChange() {
+  handleChange = () => {
     _selectValue(this);
-  }
+  };
 
-  @action
-  select(value) {
+  select = (value) => {
     return selectValue(this, value);
-  }
+  };
 
-  @action
-  update(value) {
+  update = (value) => {
     return updateValue(this, value);
-  }
+  };
 }
