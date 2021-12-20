@@ -1,4 +1,5 @@
 {{! template-lint-disable no-positive-tabindex no-down-event-binding }}
+{{! template-lint-configure no-curly-component-invocation {"allow": ["this.registerComponents"]}  }}
 {{this.registerComponents
   Option=(component
     (ensure-safe-component this.SelectBoxOption)

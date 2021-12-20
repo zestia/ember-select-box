@@ -103,6 +103,7 @@ export default class SelectBox extends Component {
   @tracked selectedOption = [];
   @tracked selectedOptions = null;
   pendingOption = [];
+  pendingSelectedOption = [];
 
   registerComponents = registerComponents(this);
   lifecycleHooks = lifecycleHooks(this);
