@@ -46,6 +46,7 @@ import {
   deregisterOptions,
   registerOptions
 } from '../../utils/registration/options';
+import { registerComponents } from '../../utils/registration/components';
 import { focusOut } from '../../utils/select-box/focus';
 import { keyDown, keyPress } from '../../utils/select-box/keyboard';
 import { setInputValue } from '../../utils/select-box/input/value';
@@ -103,6 +104,7 @@ export default class SelectBox extends Component {
   @tracked selectedOptions = null;
   pendingOption = [];
 
+  registerComponents = registerComponents(this);
   lifecycleHooks = lifecycleHooks(this);
 
   get api() {

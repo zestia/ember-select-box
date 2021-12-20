@@ -1,6 +1,5 @@
 {{! template-lint-disable no-positive-tabindex no-down-event-binding }}
-{{-register-components
-  this
+{{this.registerComponents
   Option=(component
     (ensure-safe-component this.SelectBoxOption)
     selectBox=this

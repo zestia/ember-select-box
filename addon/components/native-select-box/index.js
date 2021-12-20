@@ -8,6 +8,7 @@ import {
   deregisterOption,
   registerOption
 } from '../../utils/registration/option';
+import { registerComponents } from '../../utils/registration/components';
 import {
   receiveValue,
   selectValue,
@@ -42,6 +43,7 @@ export default class NativeSelectBox extends Component {
   pendingOption = [];
 
   lifecycleHooks = lifecycleHooks(this);
+  registerComponents = registerComponents(this);
 
   get api() {
     return buildAPI(this, [
