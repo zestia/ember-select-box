@@ -84,7 +84,8 @@
     "qunit-dom": "^2.0.0",
     "release-it": "^14.11.8",
     "sass": "^1.45.0",
-    "stylelint": "^14.1.0"
+    "stylelint": "^14.1.0",
+    "webpack": "^5.65.0"
   },
   "engines": {
     "node": "10.* || >= 12"
