@@ -1,5 +1,6 @@
 {{! template-lint-configure no-curly-component-invocation {"allow": ["this.registerComponents"]}  }}
-{{this.registerComponents
+{{-register-components
+  this
   Option=(component
     (ensure-safe-component this.NativeSelectBoxOption)
     selectBox=this
