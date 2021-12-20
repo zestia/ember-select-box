@@ -1,23 +1,31 @@
 import Component from '@glimmer/component';
 import {
+  lifecycleHooks,
   _destroyComponent,
   _insertComponent
 } from '../../../utils/component/lifecycle';
-import { action } from '@ember/object';
+import {
+  deregisterElement,
+  registerElement
+} from '../../../utils/registration/element';
 import buildId from '../../../utils/shared/id';
 
 export default class SelectBoxSelectedOption extends Component {
+  element = null;
+
+  lifecycleHooks = lifecycleHooks(this);
+
   get id() {
     return buildId(this);
   }
 
-  @action
-  handleInsertElement(element) {
+  handleInsertElement = (element) => {
     _insertComponent(this);
-  }
+    registerElement(this, element);
+  };
 
-  @action
-  handleDestroyElement() {
+  handleDestroyElement = () => {
+    deregisterElement(this);
     _destroyComponent(this);
-  }
+  };
 }

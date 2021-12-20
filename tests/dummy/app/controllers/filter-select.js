@@ -1,6 +1,5 @@
 import Controller from '@ember/controller';
 import { pies } from '../utils/dummy-data';
-import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
 export default class FilterSelect extends Controller {
@@ -8,15 +7,13 @@ export default class FilterSelect extends Controller {
 
   selectablePies = pies;
 
-  @action
-  filterPies(query) {
+  filterPies = (query) => {
     return pies.filter(
       (pie) => pie.name.toLowerCase().indexOf(query.toLowerCase()) >= 0
     );
-  }
+  };
 
-  @action
-  selectPie(pie) {
+  selectPie = (pie) => {
     this.selectedPie = pie;
-  }
+  };
 }

@@ -1,16 +1,17 @@
 import Component from '@glimmer/component';
-import {
-  _destroyComponent,
-  _insertComponent
-} from '../../../utils/component/lifecycle';
+
 import {
   deregisterElement,
   registerElement
 } from '../../../utils/registration/element';
+import {
+  lifecycleHooks,
+  _destroyComponent,
+  _insertComponent
+} from '../../../utils/component/lifecycle';
 import buildAPI from '../../../utils/shared/api';
 import { receiveValue } from '../../../utils/component/value';
 import isSelected from '../../../utils/shared/selected';
-import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
 export default class NativeSelectBoxOption extends Component {
@@ -24,6 +25,8 @@ export default class NativeSelectBoxOption extends Component {
   @tracked isRejected = false;
   @tracked isSettled = false;
   @tracked value = null;
+
+  lifecycleHooks = lifecycleHooks(this);
 
   get api() {
     return buildAPI(this, [
@@ -51,20 +54,17 @@ export default class NativeSelectBoxOption extends Component {
     receiveValue(this);
   }
 
-  @action
-  handleInsertElement(element) {
+  handleInsertElement = (element) => {
     registerElement(this, element);
     _insertComponent(this);
-  }
+  };
 
-  @action
-  handleDestroyElement() {
+  handleUpdatedValue = () => {
+    receiveValue(this);
+  };
+
+  handleDestroyElement = () => {
     deregisterElement(this);
     _destroyComponent(this);
-  }
-
-  @action
-  handleUpdateValue() {
-    receiveValue(this);
-  }
+  };
 }

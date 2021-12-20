@@ -1,6 +1,5 @@
 import Controller from '@ember/controller';
 import { breads } from '../utils/dummy-data';
-import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
 export default class SingleSelectController extends Controller {
@@ -8,8 +7,7 @@ export default class SingleSelectController extends Controller {
 
   selectableBreads = breads;
 
-  @action
-  selectBread(bread) {
+  selectBread = (bread) => {
     this.selectedBread = bread;
-  }
+  };
 }

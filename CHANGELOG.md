@@ -1,10 +1,11 @@
 # Changelog
 
-## 15.3.2 (not yet published)
+## 16.0.0
 
 - Doesn't render `aria-multiselectable=false`, when not relevant
 - Fix space character usage in `activateOptionForKeyCode`
 - Correct app re-exports
+- Ember Auto Import 2x
 
 ## 15.3.1
 

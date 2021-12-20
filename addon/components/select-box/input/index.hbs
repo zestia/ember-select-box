@@ -15,8 +15,10 @@ https://github.com/emberjs/rfcs/issues/497
   onclick={{@onclick}}
   value={{@value}}
   ...attributes
-  {{did-insert this.handleInsertElement}}
-  {{will-destroy this.handleDestroyElement}}
+  {{this.lifecycleHooks
+    didInstall=this.handleInsertElement
+    willDestroy=this.handleDestroyElement
+  }}
   {{on "input" this.handleInput}}
   {{on "keydown" this.handleKeyDown}}
 />

@@ -1,6 +1,8 @@
 import { helper } from '@ember/component/helper';
-import registerComponents from '../utils/registration/components';
+const { assign } = Object;
+
+// Temporarily using a global helper until local helpers are supported
 
 export default helper(function ([component], components) {
-  registerComponents(component, components);
+  assign(component, components);
 });

@@ -1,5 +1,6 @@
 import Component from '@glimmer/component';
 import {
+  lifecycleHooks,
   _destroyComponent,
   _insertComponent
 } from '../../../utils/component/lifecycle';
@@ -8,35 +9,32 @@ import {
   registerElement
 } from '../../../utils/registration/element';
 import { input, keyDown } from '../../../utils/select-box/input/keyboard';
-import { action } from '@ember/object';
 import buildId from '../../../utils/shared/id';
 
 export default class SelectBoxInput extends Component {
   element = null;
 
+  lifecycleHooks = lifecycleHooks(this);
+
   get id() {
     return buildId(this);
   }
 
-  @action
-  handleInsertElement(element) {
+  handleInsertElement = (element) => {
     registerElement(this, element);
     _insertComponent(this);
-  }
+  };
 
-  @action
-  handleDestroyElement() {
+  handleDestroyElement = () => {
     deregisterElement(this);
     _destroyComponent(this);
-  }
+  };
 
-  @action
-  handleInput(e) {
+  handleInput = (e) => {
     input(this, e);
-  }
+  };
 
-  @action
-  handleKeyDown(e) {
+  handleKeyDown = (e) => {
     keyDown(this, e);
-  }
+  };
 }

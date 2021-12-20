@@ -1,4 +1,5 @@
 {{! template-lint-disable no-positive-tabindex no-down-event-binding }}
+{{! template-lint-configure no-curly-component-invocation {"allow": ["this.registerComponents"]}  }}
 {{-register-components
   this
   Option=(component
@@ -46,9 +47,12 @@
   role={{this.role}}
   tabindex={{this.tabIndex}}
   ...attributes
-  {{did-insert this.handleInsertElement}}
-  {{did-update this.handleUpdateValue @value}}
-  {{will-destroy this.handleDestroyElement}}
+  {{this.lifecycleHooks
+    @value
+    didInstall=this.handleInsertElement
+    didUpdateArguments=this.handleUpdatedValue
+    willDestroy=this.handleDestroyElement
+  }}
   {{on "focusout" this.handleFocusOut}}
   {{on "keydown" this.handleKeyDown}}
   {{on "keypress" this.handleKeyPress}}
