@@ -215,11 +215,11 @@ export default class SelectBox extends Component {
   constructor() {
     super(...arguments);
     receiveValue(this);
+    ready(this);
   }
 
   handleInsertElement = (element) => {
     registerElement(this, element);
-    ready(this);
   };
 
   handleUpdatedValue = () => {
