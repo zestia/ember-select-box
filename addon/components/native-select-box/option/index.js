@@ -17,7 +17,7 @@ import { tracked } from '@glimmer/tracking';
 export default class NativeSelectBoxOption extends Component {
   element = null;
   previousValue = null;
-  sealedAPI = {};
+  stableAPI = {};
   valueId = 0;
 
   @tracked isFulfilled = false;

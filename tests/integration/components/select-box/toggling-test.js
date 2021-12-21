@@ -48,7 +48,8 @@ module('select-box (toggling)', function (hooks) {
       .doesNotContainText(
         'open',
         'unfortunately open state is not tracked ' +
-          'this is because only `api` is tracked'
+          'this is because only `api` is tracked' +
+          'use |sb| instead'
       );
 
     assert

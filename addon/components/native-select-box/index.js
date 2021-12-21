@@ -23,7 +23,7 @@ import { lifecycleHooks } from '../../utils/component/lifecycle';
 export default class NativeSelectBox extends Component {
   element = null;
   previousValue = null;
-  sealedAPI = {};
+  stableAPI = {};
   valueId = 0;
 
   @tracked isFulfilled = false;

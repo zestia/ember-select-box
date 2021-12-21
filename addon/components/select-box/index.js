@@ -65,7 +65,7 @@ export default class SelectBox extends Component {
   element = null;
   charState = null;
   previousValue = null;
-  sealedAPI = {};
+  stableAPI = {};
   searchId = 0;
   valueId = 0;
 
