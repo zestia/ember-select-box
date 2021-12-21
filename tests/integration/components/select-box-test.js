@@ -171,6 +171,16 @@ module('select-box', function (hooks) {
     );
   });
 
+  test('infinite revalidation check', async function (assert) {
+    assert.expect(0);
+
+    this.open = (sb) => sb.open();
+
+    await render(hbs`<SelectBox @onReady={{this.open}} />`);
+
+    assert.dom('.select-box').hasAttribute('aria-expanded', 'true');
+  });
+
   test('api value', async function (assert) {
     assert.expect(6);
 

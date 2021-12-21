@@ -28,6 +28,7 @@ export default class NativeSelectBox extends Component {
 
   @tracked isFulfilled = false;
   @tracked isPending = true;
+  @tracked isReady = false;
   @tracked isRejected = false;
   @tracked isSettled = false;
   @tracked value = null;
