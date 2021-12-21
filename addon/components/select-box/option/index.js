@@ -15,6 +15,7 @@ import isSelected from '../../../utils/shared/selected';
 import buildAPI from '../../../utils/shared/api';
 import buildId from '../../../utils/shared/id';
 import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
 export default class SelectBoxOption extends Component {
   element = null;
@@ -72,29 +73,35 @@ export default class SelectBoxOption extends Component {
     receiveValue(this);
   }
 
-  handleInsertElement = (element) => {
+  @action
+  handleInsertElement(element) {
     registerElement(this, element);
     _insertComponent(this);
-  };
+  }
 
-  handleUpdatedValue = () => {
+  @action
+  handleUpdatedValue() {
     receiveValue(this);
-  };
+  }
 
-  handleDestroyElement = () => {
+  @action
+  handleDestroyElement() {
     deregisterElement(this);
     _destroyComponent(this);
-  };
+  }
 
-  handleMouseEnter = () => {
+  @action
+  handleMouseEnter() {
     _activateOption(this);
-  };
+  }
 
-  handleFocus = () => {
+  @action
+  handleFocus() {
     _activateOption(this);
-  };
+  }
 
-  handleClick = () => {
+  @action
+  handleClick() {
     _selectOption(this);
-  };
+  }
 }

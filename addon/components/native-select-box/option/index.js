@@ -13,6 +13,7 @@ import buildAPI from '../../../utils/shared/api';
 import { receiveValue } from '../../../utils/component/value';
 import isSelected from '../../../utils/shared/selected';
 import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
 export default class NativeSelectBoxOption extends Component {
   element = null;
@@ -54,17 +55,20 @@ export default class NativeSelectBoxOption extends Component {
     receiveValue(this);
   }
 
-  handleInsertElement = (element) => {
+  @action
+  handleInsertElement(element) {
     registerElement(this, element);
     _insertComponent(this);
-  };
+  }
 
-  handleUpdatedValue = () => {
+  @action
+  handleUpdatedValue() {
     receiveValue(this);
-  };
+  }
 
-  handleDestroyElement = () => {
+  @action
+  handleDestroyElement() {
     deregisterElement(this);
     _destroyComponent(this);
-  };
+  }
 }

@@ -3,20 +3,24 @@ import { later } from '@ember/runloop';
 import { breads } from '../utils/dummy-data';
 import { Promise } from 'rsvp';
 import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
 export default class SearchSelectController extends Controller {
   @tracked selectedBread;
   @tracked newBread;
 
-  selectBread = (bread) => {
+  @action
+  selectBread(bread) {
     this.selectedBread = bread;
-  };
+  }
 
-  addNewBread = (name) => {
+  @action
+  addNewBread(name) {
     this.newBread = name;
-  };
+  }
 
-  findBread = (query) => {
+  @action
+  findBread(query) {
     const bread = breads.filter(
       (bread) => bread.name.toLowerCase().indexOf(query.toLowerCase()) >= 0
     );
@@ -26,5 +30,5 @@ export default class SearchSelectController extends Controller {
         resolve(bread);
       }, 1000);
     });
-  };
+  }
 }

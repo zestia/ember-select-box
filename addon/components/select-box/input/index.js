@@ -10,6 +10,7 @@ import {
 } from '../../../utils/registration/element';
 import { input, keyDown } from '../../../utils/select-box/input/keyboard';
 import buildId from '../../../utils/shared/id';
+import { action } from '@ember/object';
 
 export default class SelectBoxInput extends Component {
   element = null;
@@ -20,21 +21,25 @@ export default class SelectBoxInput extends Component {
     return buildId(this);
   }
 
-  handleInsertElement = (element) => {
+  @action
+  handleInsertElement(element) {
     registerElement(this, element);
     _insertComponent(this);
-  };
+  }
 
-  handleDestroyElement = () => {
+  @action
+  handleDestroyElement() {
     deregisterElement(this);
     _destroyComponent(this);
-  };
+  }
 
-  handleInput = (e) => {
+  @action
+  handleInput(e) {
     input(this, e);
-  };
+  }
 
-  handleKeyDown = (e) => {
+  @action
+  handleKeyDown(e) {
     keyDown(this, e);
-  };
+  }
 }

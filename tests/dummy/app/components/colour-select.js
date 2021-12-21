@@ -1,20 +1,24 @@
 import Component from '@glimmer/component';
 import { colours } from '../utils/dummy-data';
+import { action } from '@ember/object';
 
 export default class ColourSelect extends Component {
   colours = colours;
 
-  close = (e, sb) => {
+  @action
+  close(e, sb) {
     sb.close();
-  };
+  }
 
-  handlePressLeft = (e, sb) => {
+  @action
+  handlePressLeft(e, sb) {
     e.preventDefault();
     sb.activatePreviousOption();
-  };
+  }
 
-  handlePressRight = (e, sb) => {
+  @action
+  handlePressRight(e, sb) {
     e.preventDefault();
     sb.activateNextOption();
-  };
+  }
 }

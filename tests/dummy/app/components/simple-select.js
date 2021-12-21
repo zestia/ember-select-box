@@ -1,31 +1,37 @@
 import Component from '@glimmer/component';
+import { action } from '@ember/object';
 
 export default class SimpleSelect extends Component {
-  handlePressKey = (e, sb) => {
+  @action
+  handlePressKey(e, sb) {
     sb.activateOptionForKeyCode(e.keyCode);
 
     if (!sb.isOpen) {
       sb.selectActiveOption();
     }
-  };
+  }
 
-  handlePressUp = (e, sb) => {
+  @action
+  handlePressUp(e, sb) {
     e.preventDefault();
     sb.activatePreviousOption();
-  };
+  }
 
-  handlePressDown = (e, sb) => {
+  @action
+  handlePressDown(e, sb) {
     e.preventDefault();
     sb.activateNextOption();
     sb.open();
-  };
+  }
 
-  close = (e, sb) => {
+  @action
+  close(e, sb) {
     sb.close();
-  };
+  }
 
-  select = (value, sb) => {
+  @action
+  select(value, sb) {
     this.args.onSelect(value);
     sb.close();
-  };
+  }
 }

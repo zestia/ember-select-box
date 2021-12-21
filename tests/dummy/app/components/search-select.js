@@ -1,17 +1,20 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
 export default class SearchSelect extends Component {
   @tracked results;
   @tracked lastQuery;
 
-  close = (e, sb) => {
+  @action
+  close(e, sb) {
     sb.close();
-  };
+  }
 
-  handleSearched = (results, query, sb) => {
+  @action
+  handleSearched(results, query, sb) {
     this.results = results;
     this.lastQuery = query;
     sb.open();
-  };
+  }
 }

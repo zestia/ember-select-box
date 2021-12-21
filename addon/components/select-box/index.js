@@ -59,6 +59,7 @@ import {
 import { ready } from '../../utils/shared/ready';
 import { tracked } from '@glimmer/tracking';
 import { lifecycleHooks } from '../../utils/component/lifecycle';
+import { action } from '@ember/object';
 
 export default class SelectBox extends Component {
   // Misc state
@@ -218,151 +219,187 @@ export default class SelectBox extends Component {
     ready(this);
   }
 
-  handleInsertElement = (element) => {
+  @action
+  handleInsertElement(element) {
     registerElement(this, element);
-  };
+  }
 
-  handleUpdatedValue = () => {
+  @action
+  handleUpdatedValue() {
     receiveValue(this);
-  };
+  }
 
-  handleDestroyElement = () => {
+  @action
+  handleDestroyElement() {
     deregisterElement(this);
-  };
+  }
 
-  handleInsertOption = (option) => {
+  @action
+  handleInsertOption(option) {
     registerOption(this, option);
-  };
+  }
 
-  handleDestroyOption = (option) => {
+  @action
+  handleDestroyOption(option) {
     deregisterOption(this, option);
-  };
+  }
 
-  handleInsertOptions = (options) => {
+  @action
+  handleInsertOptions(options) {
     registerOptions(this, options);
-  };
+  }
 
-  handleDestroyOptions = (options) => {
+  @action
+  handleDestroyOptions(options) {
     deregisterOptions(this, options);
-  };
+  }
 
-  handleInsertSelectedOption = (selectedOption) => {
+  @action
+  handleInsertSelectedOption(selectedOption) {
     registerSelectedOption(this, selectedOption);
-  };
+  }
 
-  handleDestroySelectedOption = (selectedOption) => {
+  @action
+  handleDestroySelectedOption(selectedOption) {
     deregisterSelectedOption(this, selectedOption);
-  };
+  }
 
-  handleInsertSelectedOptions = (selectedOptions) => {
+  @action
+  handleInsertSelectedOptions(selectedOptions) {
     registerSelectedOptions(this, selectedOptions);
-  };
+  }
 
-  handleDestroySelectedOptions = (selectedOptions) => {
+  @action
+  handleDestroySelectedOptions(selectedOptions) {
     deregisterSelectedOptions(this, selectedOptions);
-  };
+  }
 
-  handleInsertInput = (input) => {
+  @action
+  handleInsertInput(input) {
     registerInput(this, input);
-  };
+  }
 
-  handleDestroyInput = (input) => {
+  @action
+  handleDestroyInput(input) {
     deregisterInput(this, input);
-  };
+  }
 
-  handleInputText = (text) => {
+  @action
+  handleInputText(text) {
     maybeSearch(this, text);
-  };
+  }
 
-  handleFocusOut = (e) => {
+  @action
+  handleFocusOut(e) {
     focusOut(this, e);
-  };
+  }
 
-  handleKeyPress = (e) => {
+  @action
+  handleKeyPress(e) {
     keyPress(this, e);
-  };
+  }
 
-  handleKeyDown = (e) => {
+  @action
+  handleKeyDown(e) {
     keyDown(this, e);
-  };
+  }
 
-  handleSelectOption = (option) => {
+  @action
+  handleSelectOption(option) {
     selectOption(this, option);
-  };
+  }
 
-  handleActivateOption = (option) => {
+  @action
+  handleActivateOption(option) {
     activateOption(this, option);
-  };
+  }
 
-  select = (value) => {
+  @action
+  select(value) {
     return selectValue(this, value);
-  };
+  }
 
-  update = (value) => {
+  @action
+  update(value) {
     return updateValue(this, value);
-  };
+  }
 
-  selectActiveOption = () => {
+  @action
+  selectActiveOption() {
     if (!this.activeOption) {
       return;
     }
 
     return _selectOption(this.activeOption);
-  };
+  }
 
-  open = () => {
+  @action
+  open() {
     open(this);
-  };
+  }
 
-  close = () => {
+  @action
+  close() {
     close(this);
-  };
+  }
 
-  toggle = () => {
+  @action
+  toggle() {
     toggle(this);
-  };
+  }
 
-  search = (query) => {
+  @action
+  search(query) {
     return search(this, query);
-  };
+  }
 
-  cancelSearch = () => {
+  @action
+  cancelSearch() {
     cancelSearch(this);
-  };
+  }
 
-  focusInput = () => {
+  @action
+  focusInput() {
     focusInput(this);
-  };
+  }
 
-  blurInput = () => {
+  @action
+  blurInput() {
     blurInput(this);
-  };
+  }
 
-  setInputValue = (value) => {
+  @action
+  setInputValue(value) {
     setInputValue(this, value);
-  };
+  }
 
-  activateOptionForValue = (value, config) => {
+  @action
+  activateOptionForValue(value, config) {
     activateOptionForValue(this, value, config);
-  };
+  }
 
-  activateOptionAtIndex = (index, config) => {
+  @action
+  activateOptionAtIndex(index, config) {
     activateOptionAtIndex(this, index, config);
-  };
+  }
 
-  activateNextOption = (config) => {
+  @action
+  activateNextOption(config) {
     activateNextOption(this, config);
-  };
+  }
 
-  activatePreviousOption = (config) => {
+  @action
+  activatePreviousOption(config) {
     activatePreviousOption(this, config);
-  };
+  }
 
-  activateOptionForKeyCode = (keyCode, config) => {
+  @action
+  activateOptionForKeyCode(keyCode, config) {
     activateOptionForKeyCode(this, keyCode, config);
-  };
+  }
 
-  deactivateOptions = () => {
+  @action
+  deactivateOptions() {
     deactivateOptions(this);
-  };
+  }
 }

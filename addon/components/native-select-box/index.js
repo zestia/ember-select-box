@@ -18,6 +18,7 @@ import { selectValue as _selectValue } from '../../utils/native-select-box/value
 import buildAPI from '../../utils/shared/api';
 import { ready } from '../../utils/shared/ready';
 import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 import { lifecycleHooks } from '../../utils/component/lifecycle';
 
 export default class NativeSelectBox extends Component {
@@ -71,38 +72,46 @@ export default class NativeSelectBox extends Component {
   constructor() {
     super(...arguments);
     receiveValue(this);
+    ready(this);
   }
 
-  handleInsertElement = (element) => {
+  @action
+  handleInsertElement(element) {
     registerElement(this, element);
-    ready(this);
-  };
+  }
 
-  handleUpdatedValue = () => {
+  @action
+  handleUpdatedValue() {
     receiveValue(this);
-  };
+  }
 
-  handleDestroyElement = () => {
+  @action
+  handleDestroyElement() {
     deregisterElement(this);
-  };
+  }
 
-  handleInsertOption = (option) => {
+  @action
+  handleInsertOption(option) {
     registerOption(this, option);
-  };
+  }
 
-  handleDestroyOption = (option) => {
+  @action
+  handleDestroyOption(option) {
     deregisterOption(this, option);
-  };
+  }
 
-  handleChange = () => {
+  @action
+  handleChange() {
     _selectValue(this);
-  };
+  }
 
-  select = (value) => {
+  @action
+  select(value) {
     return selectValue(this, value);
-  };
+  }
 
-  update = (value) => {
+  @action
+  update(value) {
     return updateValue(this, value);
-  };
+  }
 }

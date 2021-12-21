@@ -2,6 +2,7 @@
 
 import Controller from '@ember/controller';
 import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
 export default class FastNativeSingleSelectController extends Controller {
   @tracked selectedModelId;
@@ -32,7 +33,8 @@ export default class FastNativeSingleSelectController extends Controller {
     return this.models.find((model) => model.id === this.selectedModelId);
   }
 
-  selectModelId = (modelId) => {
+  @action
+  selectModelId(modelId) {
     this.selectedModelId = modelId;
-  };
+  }
 }

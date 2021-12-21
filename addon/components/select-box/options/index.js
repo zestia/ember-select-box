@@ -5,6 +5,7 @@ import {
   _insertComponent
 } from '../../../utils/component/lifecycle';
 import buildId from '../../../utils/shared/id';
+import { action } from '@ember/object';
 
 export default class SelectBoxOptions extends Component {
   lifecycleHooks = lifecycleHooks(this);
@@ -21,11 +22,13 @@ export default class SelectBoxOptions extends Component {
     );
   }
 
-  handleInsertElement = () => {
+  @action
+  handleInsertElement() {
     _insertComponent(this);
-  };
+  }
 
-  handleDestroyElement = () => {
+  @action
+  handleDestroyElement() {
     _destroyComponent(this);
-  };
+  }
 }

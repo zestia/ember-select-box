@@ -1,25 +1,30 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
 export default class FilterSelect extends Component {
   @tracked results;
 
-  close = (e, sb) => {
+  @action
+  close(e, sb) {
     sb.close();
-  };
+  }
 
-  handleSearched = (results) => {
+  @action
+  handleSearched(results) {
     this.results = results;
-  };
+  }
 
-  reveal = (sb) => {
+  @action
+  reveal(sb) {
     sb.search('');
     sb.open();
-  };
+  }
 
-  select = (value, sb) => {
+  @action
+  select(value, sb) {
     this.args.onSelect(value);
     sb.setInputValue(value[this.args.labelKey]);
     sb.close();
-  };
+  }
 }

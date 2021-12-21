@@ -2,6 +2,7 @@ import Controller from '@ember/controller';
 import { tags } from '../utils/dummy-data';
 import { resolve } from 'rsvp';
 import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
 export default class TagSelectController extends Controller {
   @tracked selectedTagNames;
@@ -11,15 +12,17 @@ export default class TagSelectController extends Controller {
     this.selectedTagNames = ['foo', 'bar'];
   }
 
-  filterTagNames = (query) => {
+  @action
+  filterTagNames(query) {
     const names = tags
       .filter((tag) => tag.name.toLowerCase().indexOf(query.toLowerCase()) >= 0)
       .map((tag) => tag.name);
 
     return resolve(names);
-  };
+  }
 
-  handleSelectTags = (tagNames) => {
+  @action
+  handleSelectTags(tagNames) {
     this.selectedTagNames = tagNames;
-  };
+  }
 }

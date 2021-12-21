@@ -1,22 +1,27 @@
 import Controller from '@ember/controller';
 import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
 export default class BacktrackSelectController extends Controller {
   @tracked value = null;
 
-  reproHandleFocusOut = () => {
+  @action
+  reproHandleFocusOut() {
     this.value = 2;
-  };
+  }
 
-  reproHandleClick = () => {
+  @action
+  reproHandleClick() {
     this.value = 1;
-  };
+  }
 
-  handleFocusLeave = (e, sb) => {
+  @action
+  handleFocusLeave(e, sb) {
     sb.deactivateOptions();
-  };
+  }
 
-  handleSelect = (value, sb) => {
+  @action
+  handleSelect(value, sb) {
     sb.deactivateOptions();
-  };
+  }
 }

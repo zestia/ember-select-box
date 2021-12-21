@@ -9,6 +9,7 @@ import {
   registerElement
 } from '../../../utils/registration/element';
 import buildId from '../../../utils/shared/id';
+import { action } from '@ember/object';
 
 export default class SelectBoxSelectedOption extends Component {
   element = null;
@@ -19,13 +20,15 @@ export default class SelectBoxSelectedOption extends Component {
     return buildId(this);
   }
 
-  handleInsertElement = (element) => {
+  @action
+  handleInsertElement(element) {
     _insertComponent(this);
     registerElement(this, element);
-  };
+  }
 
-  handleDestroyElement = () => {
+  @action
+  handleDestroyElement() {
     deregisterElement(this);
     _destroyComponent(this);
-  };
+  }
 }
