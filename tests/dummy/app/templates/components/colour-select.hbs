@@ -13,6 +13,7 @@
 >
   <sb.SelectedOption
     role="button"
+    aria-label={{if sb.value sb.value "None"}}
     style={{style (concat "background:" sb.value)}}
     {{on "click" sb.toggle}}
   />

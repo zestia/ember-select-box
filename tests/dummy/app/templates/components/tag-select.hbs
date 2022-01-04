@@ -30,10 +30,11 @@
   </sb.SelectedOptions>
 
   <sb.Input
-    autofocus={{true}}
+    aria-label="Search"
     @onDelete={{this.deselectLast}}
     {{on "click" (fn this.reveal sb)}}
     {{on "input" sb.open}}
+    {{auto-focus}}
   />
 
   {{#if sb.isOpen}}

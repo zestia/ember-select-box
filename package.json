@@ -49,6 +49,7 @@
     "@embroider/test-setup": "^0.48.1",
     "@glimmer/component": "^1.0.4",
     "@glimmer/tracking": "^1.0.4",
+    "@zestia/ember-auto-focus": "^4.2.0",
     "@zestia/eslint-config": "^4.0.6",
     "@zestia/prettier-config": "^1.0.5",
     "@zestia/stylelint-config": "^4.0.1",

@@ -26,7 +26,11 @@
   as |sb|
 >
   <sb.Trigger>
-    {{sb.value.name}}
+    {{#if sb.value}}
+      {{sb.value.name}}
+    {{else}}
+      None
+    {{/if}}
   </sb.Trigger>
   <sb.Dropdown>
     {{#each this.selectablePuddings as |pudding|}}
