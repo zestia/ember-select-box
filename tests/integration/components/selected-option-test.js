@@ -27,6 +27,19 @@ module('select-box/selected-option', function (hooks) {
   test('role', async function (assert) {
     assert.expect(1);
 
+    await render(hbs`<SelectBox::SelectedOption />`);
+
+    assert
+      .dom('.select-box__selected-option')
+      .doesNotHaveAttribute(
+        'role',
+        'does not have role="option" (behaviour is up to the developer)'
+      );
+  });
+
+  test('component helper role', async function (assert) {
+    assert.expect(1);
+
     await render(hbs`
       {{! template-lint-disable no-unnecessary-component-helper }}
       {{component "select-box/selected-option" role="button"}}
