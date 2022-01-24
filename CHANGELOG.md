@@ -1,6 +1,6 @@
 # Changelog
 
-## 16.0.0
+## 16.0.0-beta-0
 
 - Doesn't render `aria-multiselectable=false`, when not relevant
 - Fix space character usage in `activateOptionForKeyCode`
