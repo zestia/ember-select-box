@@ -1,6 +1,8 @@
 # Changelog
 
-## 15.3.2 (not yet published)
+## 15.3.2
+
+- Upgrade Embroider dependencies
 
 ## 15.3.1
 
