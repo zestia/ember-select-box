@@ -7,6 +7,10 @@
 - Correct app re-exports
 - Ember Auto Import 2x
 
+## 15.3.2
+
+- Upgrade `@embroider/util`
+
 ## 15.3.1
 
 - Upgrade dependencies
