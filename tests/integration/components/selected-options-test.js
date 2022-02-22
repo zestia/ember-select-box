@@ -21,6 +21,10 @@ module('select-box/selected-options', function (hooks) {
 
     await render(hbs`<SelectBox::SelectedOptions />`);
 
-    assert.equal(find('.select-box__selected-options').innerHTML, '', ':empty');
+    assert.strictEqual(
+      find('.select-box__selected-options').innerHTML,
+      '',
+      ':empty'
+    );
   });
 });

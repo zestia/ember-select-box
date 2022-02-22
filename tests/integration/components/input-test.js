@@ -82,7 +82,7 @@ module('select-box/input', function (hooks) {
     assert.expect(1);
 
     this.cleared = (sb) => {
-      assert.equal(
+      assert.strictEqual(
         typeof sb,
         'object',
         'clearing the input value sends an action with the select box api'
@@ -106,7 +106,7 @@ module('select-box/input', function (hooks) {
     this.deleted = (sb) => {
       count++;
 
-      assert.equal(
+      assert.strictEqual(
         typeof sb,
         'object',
         'the onDelete action receives select box api'
@@ -129,7 +129,7 @@ module('select-box/input', function (hooks) {
 
     await triggerKeyEvent(input, 'keydown', 8); // Backspace
 
-    assert.equal(
+    assert.strictEqual(
       count,
       1,
       'delete action is only fired when value is blank & backspace is pressed'

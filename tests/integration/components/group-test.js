@@ -21,8 +21,16 @@ module('select-box/group', function (hooks) {
 
     await render(hbs`<SelectBox::Group />`);
 
-    assert.equal(find('.select-box__group-label').innerHTML, '', ':empty');
-    assert.equal(find('.select-box__group-options').innerHTML, '', ':empty');
+    assert.strictEqual(
+      find('.select-box__group-label').innerHTML,
+      '',
+      ':empty'
+    );
+    assert.strictEqual(
+      find('.select-box__group-options').innerHTML,
+      '',
+      ':empty'
+    );
   });
 
   test('label', async function (assert) {

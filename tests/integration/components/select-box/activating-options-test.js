@@ -81,13 +81,13 @@ module('select-box (activating options)', function (hooks) {
     assert.expect(2);
 
     this.handleActivate = (value, sb) => {
-      assert.equal(
+      assert.strictEqual(
         value,
         'foo',
         'activating an option sends an action with the value'
       );
 
-      assert.equal(typeof sb, 'object', 'sends the api');
+      assert.strictEqual(typeof sb, 'object', 'sends the api');
     };
 
     await render(hbs`
@@ -112,13 +112,13 @@ module('select-box (activating options)', function (hooks) {
     let activated = 0;
 
     this.handleActivate = (value, sb) => {
-      assert.equal(
+      assert.strictEqual(
         value,
         'bar',
         'activating an option sends an action with the value'
       );
 
-      assert.equal(typeof sb, 'object', 'sends the api');
+      assert.strictEqual(typeof sb, 'object', 'sends the api');
 
       activated++;
     };
@@ -135,7 +135,7 @@ module('select-box (activating options)', function (hooks) {
 
     await click('button');
 
-    assert.equal(
+    assert.strictEqual(
       activated,
       1,
       'onActivate only fires once (for the first matching option)'

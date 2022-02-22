@@ -24,7 +24,7 @@ module('select-box/option', function (hooks) {
 
     await render(hbs`<SelectBox::Option />`);
 
-    assert.equal(find('.select-box__option').innerHTML, '', ':empty');
+    assert.strictEqual(find('.select-box__option').innerHTML, '', ':empty');
   });
 
   test('role', async function (assert) {

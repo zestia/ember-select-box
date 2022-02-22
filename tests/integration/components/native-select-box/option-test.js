@@ -22,7 +22,7 @@ module('native-select-box/option', function (hooks) {
 
     await render(hbs`<NativeSelectBox::Option />`);
 
-    assert.equal(find('.select-box__option').innerHTML, '', ':empty');
+    assert.strictEqual(find('.select-box__option').innerHTML, '', ':empty');
   });
 
   test('value', async function (assert) {

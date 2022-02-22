@@ -23,7 +23,7 @@ module('select-box', function (hooks) {
 
     await render(hbs`<SelectBox />`);
 
-    assert.equal(find('.select-box').innerHTML, '', ':empty');
+    assert.strictEqual(find('.select-box').innerHTML, '', ':empty');
   });
 
   test('role', async function (assert) {

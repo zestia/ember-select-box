@@ -220,7 +220,11 @@ module('select-box (searching)', function (hooks) {
     this.handleSearchFailure = (error, query, sb) => {
       this.setProperties({ error, query });
 
-      assert.equal(query, 'foo', 'sends the query that caused the failure');
+      assert.strictEqual(
+        query,
+        'foo',
+        'sends the query that caused the failure'
+      );
 
       assert.deepEqual(
         error,
@@ -228,7 +232,7 @@ module('select-box (searching)', function (hooks) {
         'sends the error that was the result of the failure'
       );
 
-      assert.equal(typeof sb, 'object', 'sends the api');
+      assert.strictEqual(typeof sb, 'object', 'sends the api');
     };
 
     await render(hbs`
@@ -430,7 +434,7 @@ module('select-box (searching)', function (hooks) {
     const deferred = defer();
 
     this.handleSearch = (query) => {
-      assert.equal(query, 'foo', 'whitespace is trimmed from the query');
+      assert.strictEqual(query, 'foo', 'whitespace is trimmed from the query');
 
       return deferred.promise;
     };
@@ -567,11 +571,11 @@ module('select-box (searching)', function (hooks) {
 
     const input = find('.select-box__input');
 
-    assert.equal(input.value, 'foo', 'precondition, has a value');
+    assert.strictEqual(input.value, 'foo', 'precondition, has a value');
 
     await click('button');
 
-    assert.equal(
+    assert.strictEqual(
       input.value,
       'bar',
       'exposes ability to change the input value'

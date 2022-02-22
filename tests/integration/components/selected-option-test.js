@@ -21,7 +21,11 @@ module('select-box/selected-option', function (hooks) {
 
     await render(hbs`<SelectBox::SelectedOption />`);
 
-    assert.equal(find('.select-box__selected-option').innerHTML, '', ':empty');
+    assert.strictEqual(
+      find('.select-box__selected-option').innerHTML,
+      '',
+      ':empty'
+    );
   });
 
   test('role', async function (assert) {

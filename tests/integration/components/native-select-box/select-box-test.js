@@ -30,7 +30,7 @@ module('native-select-box', function (hooks) {
 
     await render(hbs`<NativeSelectBox />`);
 
-    assert.equal(find('.select-box').innerHTML, '', ':empty');
+    assert.strictEqual(find('.select-box').innerHTML, '', ':empty');
   });
 
   test('size', async function (assert) {
@@ -115,7 +115,7 @@ module('native-select-box', function (hooks) {
       'does not mutate the initial selected value'
     );
 
-    assert.equal(
+    assert.strictEqual(
       selectedValue,
       'bar',
       'sends an action with the selected value'
@@ -424,8 +424,8 @@ module('native-select-box', function (hooks) {
 
     this.handleReady = (sb) => (api = sb);
 
-    this.handleSelect = (value, sb) =>
-      assert.equal(value, 2, 'sends action with selected value');
+    this.handleSelect = (value) =>
+      assert.strictEqual(value, '2', 'sends action with selected value');
 
     await render(hbs`
       <NativeSelectBox
@@ -458,7 +458,7 @@ module('native-select-box', function (hooks) {
     this.handleReady = (sb) => (api = sb);
 
     this.handleSelect = (value, sb) =>
-      assert.equal(value, this.two, 'sends action with selected value');
+      assert.strictEqual(value, this.two, 'sends action with selected value');
 
     await render(hbs`
       <NativeSelectBox

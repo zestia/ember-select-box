@@ -392,7 +392,7 @@ module('select-box (promises)', function (hooks) {
 
     await click(findAll('.select-box__option')[2]);
 
-    assert.equal(this.myValue, 'baz');
+    assert.strictEqual(this.myValue, 'baz');
 
     assert.dom('.select-box__option[aria-selected="true"]').hasText('Baz');
   });

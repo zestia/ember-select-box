@@ -118,7 +118,7 @@ module('select-box (selecting)', function (hooks) {
       'does not mutate the initial selected value'
     );
 
-    assert.equal(
+    assert.strictEqual(
       selectedValue,
       'foo',
       'sends an action with the selected value'
@@ -555,11 +555,11 @@ module('select-box (selecting)', function (hooks) {
       </SelectBox>
     `);
 
-    assert.equal(updated, 1, 'initial update action');
+    assert.strictEqual(updated, 1, 'initial update action');
 
     await click(findAll('button')[1]);
 
-    assert.equal(updated, 2, 'update value action');
+    assert.strictEqual(updated, 2, 'update value action');
     assert.strictEqual(updatedValue, 'bar', 'has fired update action');
     assert.strictEqual(selected, 0, 'has not fired a select action');
 
@@ -682,7 +682,7 @@ module('select-box (selecting)', function (hooks) {
 
     await click(findAll('.select-box__option')[3]);
 
-    assert.equal(
+    assert.strictEqual(
       selected,
       0,
       'does not fire select action if option is disabled'
@@ -727,7 +727,7 @@ module('select-box (selecting)', function (hooks) {
 
     this.set('ariaLabel', 'Choice');
 
-    assert.equal(
+    assert.strictEqual(
       updated,
       1,
       "does not fire update action when the value hasn't actually updated"
@@ -886,7 +886,7 @@ module('select-box (selecting)', function (hooks) {
 
     await settled();
 
-    assert.equal(
+    assert.strictEqual(
       calledBuild,
       1,
       'updating the selected value via the api does not trigger build selection'
@@ -900,7 +900,7 @@ module('select-box (selecting)', function (hooks) {
 
     await settled();
 
-    assert.equal(
+    assert.strictEqual(
       calledBuild,
       1,
       'selecting a selected value via the api does not trigger build selection'
@@ -933,7 +933,7 @@ module('select-box (selecting)', function (hooks) {
 
     await api.selectActiveOption();
 
-    assert.equal(
+    assert.strictEqual(
       selectedValue,
       'bar',
       'can select the active option via the api'
@@ -1009,7 +1009,7 @@ module('select-box (selecting)', function (hooks) {
 
     await click('.select-box__option');
 
-    assert.equal(
+    assert.strictEqual(
       selectedValue,
       'Fail',
       'selecting a value whose promise rejected, selects the rejection reason'
