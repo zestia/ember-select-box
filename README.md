@@ -1,26 +1,15 @@
 # @zestia/ember-select-box
 
-<p>
-  <!--
-  <a href="https://github.com/zestia/ember-select-box/actions/workflows/ci.yml">
-    <img src="https://github.com/zestia/ember-select-box/actions/workflows/ci.yml/badge.svg">
-  </a>
-  -->
+[![Latest npm release][npm-badge]][npm-badge-url]
+[![GitHub Actions][github-actions-badge]][github-actions-url]
+[![Ember Observer][ember-observer-badge]][ember-observer-url]
 
-  <a href="https://david-dm.org/zestia/ember-select-box#badge-embed">
-    <img src="https://david-dm.org/zestia/ember-select-box.svg">
-  </a>
-
-  <a href="https://david-dm.org/zestia/ember-select-box#dev-badge-embed">
-    <img src="https://david-dm.org/zestia/ember-select-box/dev-status.svg">
-  </a>
-
-  <a href="https://emberobserver.com/addons/@zestia/ember-select-box">
-    <img src="https://emberobserver.com/badges/-zestia-ember-select-box.svg">
-  </a>
-
-  <img src="https://img.shields.io/badge/Ember-%3E%3D%203.20.5-brightgreen">
-</p>
+[npm-badge]: https://img.shields.io/npm/v/@zestia/ember-select-box.svg
+[npm-badge-url]: https://www.npmjs.com/package/@zestia/ember-select-box
+[github-actions-badge]: https://github.com/zestia/ember-select-box/workflows/CI/badge.svg
+[github-actions-url]: https://github.com/zestia/ember-select-box/actions
+[ember-observer-badge]: https://emberobserver.com/badges/-zestia-ember-select-box.svg
+[ember-observer-url]: https://emberobserver.com/addons/@zestia/ember-select-box
 
 Select box solutions are rarely perfect for what you want.
 
