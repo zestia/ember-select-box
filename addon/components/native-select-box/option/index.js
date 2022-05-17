@@ -5,7 +5,6 @@ import {
   registerElement
 } from '../../../utils/registration/element';
 import {
-  lifecycleHooks,
   _destroyComponent,
   _insertComponent
 } from '../../../utils/component/lifecycle';
@@ -26,8 +25,6 @@ export default class NativeSelectBoxOption extends Component {
   @tracked isRejected = false;
   @tracked isSettled = false;
   @tracked value = null;
-
-  lifecycleHooks = lifecycleHooks(this);
 
   get api() {
     return buildAPI(this, [

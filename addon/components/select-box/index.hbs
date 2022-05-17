@@ -47,12 +47,9 @@
   role={{this.role}}
   tabindex={{this.tabIndex}}
   ...attributes
-  {{this.lifecycleHooks
-    @value
-    didInstall=this.handleInsertElement
-    didUpdateArguments=this.handleUpdatedValue
-    willDestroy=this.handleDestroyElement
-  }}
+  {{did-insert this.handleInsertElement}}
+  {{did-update this.handleUpdatedValue @value}}
+  {{will-destroy this.handleDestroyElement}}
   {{on "focusout" this.handleFocusOut}}
   {{on "keydown" this.handleKeyDown}}
   {{on "keypress" this.handleKeyPress}}

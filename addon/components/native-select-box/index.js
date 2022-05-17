@@ -19,7 +19,6 @@ import buildAPI from '../../utils/shared/api';
 import { ready } from '../../utils/shared/ready';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
-import { lifecycleHooks } from '../../utils/component/lifecycle';
 
 export default class NativeSelectBox extends Component {
   element = null;
@@ -44,7 +43,6 @@ export default class NativeSelectBox extends Component {
   @tracked option = [];
   pendingOption = [];
 
-  lifecycleHooks = lifecycleHooks(this);
   registerComponents = registerComponents(this);
 
   get api() {

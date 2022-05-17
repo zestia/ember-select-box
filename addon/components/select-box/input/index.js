@@ -1,6 +1,5 @@
 import Component from '@glimmer/component';
 import {
-  lifecycleHooks,
   _destroyComponent,
   _insertComponent
 } from '../../../utils/component/lifecycle';
@@ -14,8 +13,6 @@ import { action } from '@ember/object';
 
 export default class SelectBoxInput extends Component {
   element = null;
-
-  lifecycleHooks = lifecycleHooks(this);
 
   get id() {
     return buildId(this);

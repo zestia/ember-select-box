@@ -1,6 +1,5 @@
 import Component from '@glimmer/component';
 import {
-  lifecycleHooks,
   _destroyComponent,
   _insertComponent
 } from '../../../utils/component/lifecycle';
@@ -8,8 +7,6 @@ import buildId from '../../../utils/shared/id';
 import { action } from '@ember/object';
 
 export default class SelectBoxSelectedOptions extends Component {
-  lifecycleHooks = lifecycleHooks(this);
-
   get id() {
     return buildId(this);
   }

@@ -58,7 +58,6 @@ import {
 } from '../../utils/shared/value';
 import { ready } from '../../utils/shared/ready';
 import { tracked } from '@glimmer/tracking';
-import { lifecycleHooks } from '../../utils/component/lifecycle';
 import { action } from '@ember/object';
 
 export default class SelectBox extends Component {
@@ -108,7 +107,6 @@ export default class SelectBox extends Component {
   pendingSelectedOption = [];
 
   registerComponents = registerComponents(this);
-  lifecycleHooks = lifecycleHooks(this);
 
   get api() {
     return buildAPI(this, [

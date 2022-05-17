@@ -12,12 +12,9 @@
   class="select-box"
   multiple={{this.isMultiple}}
   ...attributes
-  {{this.lifecycleHooks
-    @value
-    didInstall=this.handleInsertElement
-    didUpdateArguments=this.handleUpdatedValue
-    willDestroy=this.handleDestroyElement
-  }}
+  {{did-insert this.handleInsertElement}}
+  {{did-update this.handleUpdatedValue @value}}
+  {{will-destroy this.handleDestroyElement}}
   {{on "change" this.handleChange}}
 >
   {{~yield this.api~}}
