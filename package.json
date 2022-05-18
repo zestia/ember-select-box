@@ -53,7 +53,7 @@
     "@zestia/ember-auto-focus": "^4.3.0",
     "@zestia/eslint-config": "^4.0.12",
     "@zestia/prettier-config": "^1.0.8",
-    "@zestia/stylelint-config": "^4.0.4",
+    "@zestia/stylelint-config": "^4.1.2",
     "@zestia/template-lint-config": "^5.3.0",
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
