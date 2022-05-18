@@ -136,6 +136,20 @@ module('select-box/input', function (hooks) {
     );
   });
 
+  test('setting input value', async function (assert) {
+    assert.expect(1);
+
+    this.setInputValue = (sb) => sb.setInputValue('foo');
+
+    await render(hbs`
+      <SelectBox @onReady={{this.setInputValue}} as |sb|>
+        <sb.Input />
+      </SelectBox>
+    `);
+
+    assert.dom('.select-box__input').hasValue('foo');
+  });
+
   test('input actions when no input', async function (assert) {
     assert.expect(0);
 

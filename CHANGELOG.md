@@ -1,5 +1,9 @@
 # Changelog
 
+## 15.4.1
+
+- Fix not being able to set initial input value via yielded API
+
 ## 15.4.0
 
 - Doesn't render `aria-multiselectable=false`, when not relevant
