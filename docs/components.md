@@ -80,7 +80,7 @@
       <td><code>@onBuildSelection</code></td>
       <td>
         Fired whenever a selection is made. This function receives the value most recently
-        selected, and the currently selected values. The return value is used as the final selection.
+        selected, and the currently selected value(s). The return value is used as the final selection.
         This is primarily used to customise the default behaviour of a multiple select box, where this behaviour is undefined by default and totally depends on your use-case.
       </td>
     </tr>
