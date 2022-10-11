@@ -1,9 +1,13 @@
+{{!
+Issue affects attributes `class`
+https://github.com/emberjs/rfcs/issues/497
+}}
 <div
   aria-busy="{{this.isPending}}"
   aria-current="{{this.isActive}}"
   aria-disabled="{{this.isDisabled}}"
   aria-selected="{{this.isSelected}}"
-  class="select-box__option"
+  class={{concat "select-box__option" (if @class (concat " " @class))}}
   id={{this.id}}
   role="option"
   ...attributes

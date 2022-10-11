@@ -1,5 +1,10 @@
 # Changelog
 
+## 15.4.2
+
+- Allow setting class attribute via an argument on an option. [Reason](https://github.com/emberjs/rfcs/issues/497)
+- Upgrade dependencies
+
 ## 15.4.1
 
 - Fix not being able to set initial input value via yielded API

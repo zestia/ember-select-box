@@ -66,6 +66,19 @@ module('select-box/option', function (hooks) {
     assert.dom('.select-box__option').hasAttribute('aria-disabled', 'true');
   });
 
+  test('class (closure component)', async function (assert) {
+    assert.expect(1);
+
+    await render(hbs`
+      {{! template-lint-disable no-unnecessary-component-helper }}
+      {{component "select-box/option" class="foo"}}
+    `);
+
+    assert
+      .dom('.select-box__option')
+      .hasClass('foo', 'can set the class attribute (via an argument)');
+  });
+
   test('aria selected', async function (assert) {
     assert.expect(4);
 
