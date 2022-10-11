@@ -8,7 +8,7 @@ module('select-box/option', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function (assert) {
-    assert.expect(2);
+    assert.expect(3);
 
     await render(hbs`<SelectBox::Option />`);
 
@@ -17,6 +17,8 @@ module('select-box/option', function (hooks) {
       .hasTagName('div', 'renders with correct class name and tag');
 
     assert.dom('.select-box__option').hasAttribute('aria-disabled', 'false');
+
+    assert.dom('.select-box__option').doesNotHaveAttribute('tabindex');
   });
 
   test('whitespace', async function (assert) {
@@ -77,6 +79,23 @@ module('select-box/option', function (hooks) {
     assert
       .dom('.select-box__option')
       .hasClass('foo', 'can set the class attribute (via an argument)');
+  });
+
+  test('tabindex (closure component)', async function (assert) {
+    assert.expect(1);
+
+    await render(hbs`
+      {{! template-lint-disable no-unnecessary-component-helper }}
+      {{component "select-box/option" tabindex="0"}}
+    `);
+
+    assert
+      .dom('.select-box__option')
+      .hasAttribute(
+        'tabindex',
+        '0',
+        'can set the tabindex attribute (via an argument)'
+      );
   });
 
   test('aria selected', async function (assert) {

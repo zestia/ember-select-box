@@ -1,5 +1,9 @@
 # Changelog
 
+## 15.4.3
+
+- Allow setting tabindex via an argument on an Option. [Reason](https://github.com/emberjs/rfcs/issues/497)
+
 ## 15.4.2
 
 - Allow setting class attribute via an argument on an option. [Reason](https://github.com/emberjs/rfcs/issues/497)

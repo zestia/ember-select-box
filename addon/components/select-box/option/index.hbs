@@ -1,5 +1,6 @@
+{{! template-lint-disable no-positive-tabindex }}
 {{!
-Issue affects attributes `class`
+Issue affects attributes `class`, `tabindex`
 https://github.com/emberjs/rfcs/issues/497
 }}
 <div
@@ -10,6 +11,7 @@ https://github.com/emberjs/rfcs/issues/497
   class={{concat "select-box__option" (if @class (concat " " @class))}}
   id={{this.id}}
   role="option"
+  tabindex={{@tabindex}}
   ...attributes
   {{did-insert this.handleInsertElement}}
   {{did-update this.handleUpdatedValue @value}}
