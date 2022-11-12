@@ -116,7 +116,7 @@ Optional. If true, `@value` is expected to be an array. If an option's value is 
 
 #### `@onBuildSelection`
 
-Optional. Fired whenever a selection is made. This function receives the values most recently selected, and the previously selected values. The return value is then used as the final selection. This is primarily used to customise the select boxes where `@multiple` is true - because the behaviour for a selection is undefined and totally depends on your use-case.
+Optional. Fired whenever a selection is made. This function receives the values most recently selected, and the previously selected values. The return value is then used as the final selection. This is primarily used to customise select boxes where `@multiple` is true - because the behaviour for a selection is undefined and totally depends on your use-case.
 
 #### `@onSearch`
 
