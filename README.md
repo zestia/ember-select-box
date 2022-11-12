@@ -74,7 +74,11 @@ The select box component isn't designed to be used on its own, but rather used t
 </FooSelect>
 ```
 
+<br>
+
 > ### As you can see, apart from being able to select a value - this addon does very little out of the box! It's up to _you_ to add the layer of behaviour that you require using the API.
+
+<br>
 
 ## Docs
 
@@ -306,23 +310,23 @@ Whether the promised search results are taking longer than expected
 
 #### `@value`
 
-The value of the option. Can be anything, including a promise
+Required. The value of the option. Can be anything, including a promise
 
 #### `@disabled`
 
-Prevents the option from being selected.
+Optional. Prevents the option from being selected.
 
 #### `@selected`
 
-For manually specifying that this option is selected. Preferably, allow selection to be automatically computed by just setting `@value`
+Optional. For manually specifying that this option is selected. Preferably, allow selection to be automatically computed by just setting `@value`
 
 #### `@onActivate`
 
-Fired when an option is activated (by mousing over, or via keyboard control, or the api)
+Optional. Fired when an option is activated (by mousing over, or via keyboard control, or the api)
 
 #### `@onSelect`
 
-Fired when an individual option is selected (by clicking, or pressing Enter, or the api)
+Optional. Fired when an individual option is selected (by clicking, or pressing Enter, or the api)
 
 ### API
 
@@ -372,7 +376,7 @@ Whether or not the option is currently selected
 
 #### `@label`
 
-The group label (similar to the native `optgroup`)
+Required. The group label (similar to the native `optgroup`)
 
 ## `Options`
 
@@ -386,11 +390,11 @@ An input, which when present defines whether the select box is a combo box or a 
 
 #### `@onClear`
 
-Fired when text is cleared completely
+Optional. Fired when text is cleared completely
 
 #### `@onDelete`
 
-Fired when there is no text present, but backspace is pressed.
+Optional. Fired when there is no text present, but backspace is pressed.
 
 ## `SelectedOption`
 

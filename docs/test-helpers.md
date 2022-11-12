@@ -21,8 +21,6 @@ import {
 } from '@zestia/ember-select-box/test-support/helpers/selecting';
 
 test('selecting things', async function (assert) {
-  assert.expect(1);
-
   await render(hbs`
     <NativeSelectBox @multiple={{true}} as |sb|>
       <sb.Option @value={{1}}>One</sb.Option>
