@@ -198,7 +198,7 @@ Selects arbitrary value(s). This mimics making a selection, and so `@onSelect` w
 
 #### `update`
 
-Updates the select box with a new value(s). This is different from `select. It will update the select box's internal state. @onSelect will not fire. It is useful for resetting the select box after a selection is made.
+Updates the select box with a new value(s). This is different from `select`. It will update the select box's internal state. @onSelect will not fire. It is useful for resetting the select box after a selection is made.
 
 #### `selectActiveOption`
 
