@@ -108,15 +108,15 @@ Optional. Similar to `@onSelect` But only fired when the value changes. Either b
 
 #### `@disabled`
 
-Optional. If true, the component will be unfocusable, and if it contained an `Input`, then that too will be disabled.
+Optional. If `true`, the component will be unfocusable, and if it contained an `Input`, then that too will be disabled.
 
 #### `@multiple`
 
-Optional. If true, `@value` is expected to be an array. If an option's value is included in that array, it will be considered 'selected'.
+Optional. If `true`, `@value` is expected to be an array. If an option's value is included in that array, it will be considered 'selected'.
 
 #### `@onBuildSelection`
 
-Optional. Fired whenever a selection is made. This function receives the values most recently selected, and the previously selected values. The return value is then used as the final selection. This is primarily used to customise select boxes where `@multiple` is true - because the behaviour for a selection is undefined and totally depends on your use-case.
+Optional. Fired whenever a selection is made. This function receives the values most recently selected, and the previously selected values. The return value is then used as the final selection. This is primarily used to customise select boxes where `@multiple` is `true` - because the behaviour for a selection is undefined and totally depends on your use-case.
 
 #### `@onSearch`
 
