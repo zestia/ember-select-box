@@ -132,7 +132,7 @@ Optional. Fired if a search attempt failed
 
 #### `@searchDelayTime`
 
-Optional. Milliseconds to debounce the `@onSearch` action from firing. Default `100` ms.
+Optional. Milliseconds to debounce the `@onSearch` action from firing. Default `100`ms.
 
 #### `@searchMinChars`
 
@@ -140,7 +140,7 @@ Optional. Prevents the `@onSearch` action from firing until there are enough cha
 
 #### `@searchSlowTime`
 
-Optional. Milliseconds before a search is considered to be taking too long. Default `500` ms.
+Optional. Milliseconds before a search is considered to be taking too long. Default `500`ms.
 
 #### `@onFocusLeave`
 
