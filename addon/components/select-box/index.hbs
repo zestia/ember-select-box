@@ -3,7 +3,7 @@
 {{-register-components
   this
   Option=(component
-    (ensure-safe-component this.SelectBoxOption)
+    this.SelectBoxOption
     selectBox=this
     _onActivate=this.handleActivateOption
     _onSelect=this.handleSelectOption
@@ -11,29 +11,29 @@
     _onInsert=this.handleInsertOption
   )
   Input=(component
-    (ensure-safe-component this.SelectBoxInput)
+    this.SelectBoxInput
     selectBox=this
     _onInsert=this.handleInsertInput
     _onDestroy=this.handleDestroyInput
     _onInput=this.handleInputText
   )
   SelectedOptions=(component
-    (ensure-safe-component this.SelectBoxSelectedOptions)
+    this.SelectBoxSelectedOptions
     _onInsert=this.handleInsertSelectedOptions
     _onDestroy=this.handleDestroySelectedOptions
   )
   SelectedOption=(component
-    (ensure-safe-component this.SelectBoxSelectedOption)
+    this.SelectBoxSelectedOption
     _onInsert=this.handleInsertSelectedOption
     _onDestroy=this.handleDestroySelectedOption
   )
   Options=(component
-    (ensure-safe-component this.SelectBoxOptions)
+    this.SelectBoxOptions
     selectBox=this
     _onInsert=this.handleInsertOptions
     _onDestroy=this.handleDestroyOptions
   )
-  Group=(ensure-safe-component this.SelectBoxGroup)
+  Group=this.SelectBoxGroup
 }}
 <div
   aria-activedescendant={{this.activeOption.id}}

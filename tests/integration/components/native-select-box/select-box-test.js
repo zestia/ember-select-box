@@ -319,7 +319,7 @@ module('native-select-box', function (hooks) {
     this.FooSelectBox = setComponentTemplate(fooSelectBox, FooSelectBox);
 
     await render(hbs`
-      {{#let (ensure-safe-component this.FooSelectBox) as |FooSelectBox|}}
+      {{#let this.FooSelectBox as |FooSelectBox|}}
         <FooSelectBox @value={{this.barPromise}} as |sb|>
           <sb.Option @value="foo">Foo</sb.Option>
           <sb.Option @value="bar">Bar</sb.Option>
