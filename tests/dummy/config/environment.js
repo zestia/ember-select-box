@@ -7,15 +7,14 @@ module.exports = function (environment) {
     rootURL: '/',
     locationType: 'history',
     EmberENV: {
+      EXTEND_PROTOTYPES: false,
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
-        // e.g. 'with-controller': true
-      },
-      EXTEND_PROTOTYPES: false
+        // e.g. EMBER_NATIVE_DECORATOR_SUPPORT: true
+      }
     },
 
     APP: {
-      buildTarget: process.env.buildTarget
       // Here you can pass flags/options to your application instance
       // when it is created
     }
@@ -42,7 +41,6 @@ module.exports = function (environment) {
   }
 
   if (environment === 'production') {
-    ENV.locationType = 'hash';
     ENV.rootURL = '/ember-select-box/';
   }
 
