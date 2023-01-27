@@ -320,7 +320,7 @@ module('select-box (searching)', function (hooks) {
         @onSearched={{this.handleSearched}} as |sb|
       >
         <sb.Input />
-        {{this.items.[0]}}
+        {{get this.items "0"}}
       </SelectBox>
     `);
 
@@ -360,7 +360,7 @@ module('select-box (searching)', function (hooks) {
         @onSearched={{this.handleSearched}} as |sb|
       >
         <sb.Input />
-        {{this.items.[0]}}
+        {{get this.items "0"}}
       </SelectBox>
     `);
 

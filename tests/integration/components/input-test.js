@@ -22,20 +22,6 @@ module('select-box/input', function (hooks) {
       .hasTagName('input', 'renders with correct class name and tag');
   });
 
-  test('role', async function (assert) {
-    assert.expect(1);
-
-    await render(hbs`<SelectBox::Input />`);
-
-    assert
-      .dom('.select-box__input')
-      .hasAttribute(
-        'role',
-        'searchbox',
-        'a select box input has an appropriate role'
-      );
-  });
-
   test('aria multiline', async function (assert) {
     assert.expect(1);
 

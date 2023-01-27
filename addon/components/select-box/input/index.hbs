@@ -1,4 +1,4 @@
-{{! template-lint-disable no-down-event-binding no-element-event-actions }}
+{{! template-lint-disable no-pointer-down-event-binding no-element-event-actions }}
 {{!
 Issue affects attributes `type`, `onclick` and `value`
 https://github.com/emberjs/rfcs/issues/497
@@ -10,7 +10,6 @@ https://github.com/emberjs/rfcs/issues/497
   class="select-box__input"
   disabled={{@selectBox.isDisabled}}
   id={{this.id}}
-  role="searchbox"
   type={{if @type @type "text"}}
   onclick={{@onclick}}
   value={{@value}}

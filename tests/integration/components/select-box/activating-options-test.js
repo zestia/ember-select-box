@@ -412,6 +412,8 @@ module('select-box (activating options)', function (hooks) {
     this.handlePressKey = (e, sb) => sb.activateOptionForKeyCode(e.keyCode);
 
     await render(hbs`
+      {{! template-lint-disable no-whitespace-for-layout }}
+
       <SelectBox @onPressKey={{this.handlePressKey}} as |sb|>
         <sb.Option @value={{1}}> foo </sb.Option>
         <sb.Option @value={{2}}> bar  baz </sb.Option>

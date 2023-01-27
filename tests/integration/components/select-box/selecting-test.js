@@ -474,7 +474,7 @@ module('select-box (selecting)', function (hooks) {
       <SelectBox {{on "keydown" this.handleKeyDown}} as |sb|>
         <sb.Option @value="foo" />
         <sb.Option @value="bar" >
-          <a href="#" class="my-link"></a>
+          <a href="#" class="my-link">My Link</a>
         </sb.Option>
       </SelectBox>
     `);
