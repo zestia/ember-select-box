@@ -1,21 +1,16 @@
-{{! template-lint-disable no-pointer-down-event-binding no-element-event-actions }}
-{{!
-Issue affects attributes `type`, `onclick` and `value`
-https://github.com/emberjs/rfcs/issues/497
-}}
+{{! template-lint-disable no-positive-tabindex require-aria-activedescendant-tabindex no-redundant-role }}
 <input
-  aria-multiline="false"
-  aria-controls={{@selectBox.options.id}}
-  autocomplete="off"
+  aria-activedescendant="{{@aria-activedescendant}}"
+  aria-busy="{{@aria-busy}}"
+  aria-controls="{{@aria-controls}}"
+  aria-expanded="{{@aria-expanded}}"
   class="select-box__input"
-  disabled={{@selectBox.isDisabled}}
-  id={{this.id}}
-  type={{if @type @type "text"}}
-  onclick={{@onclick}}
-  value={{@value}}
+  disabled={{@disabled}}
+  role="combobox"
+  tabindex={{@tabindex}}
+  {{did-insert @onInsert}}
+  {{will-destroy @onDestroy}}
+  {{on "input" @onInput}}
+  {{on "keydown" @onKeyDown}}
   ...attributes
-  {{did-insert this.handleInsertElement}}
-  {{will-destroy this.handleDestroyElement}}
-  {{on "input" this.handleInput}}
-  {{on "keydown" this.handleKeyDown}}
 />

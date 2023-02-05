@@ -1,0 +1,18 @@
+<p>
+  A listbox that mimics a native single select box
+</p>
+
+<p>
+  Selected:
+  {{this.selected.name}}
+</p>
+
+<Example1
+  @value={{this.selected}}
+  @options={{this.data.biscuits}}
+  @onChange={{this.handleSelect}}
+>
+  <:option as |option|>
+    {{option.name}}
+  </:option>
+</Example1>

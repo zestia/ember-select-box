@@ -1,0 +1,75 @@
+@mixin screen-reader-only {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+@mixin box {
+  border: 2px solid var(--light-grey);
+  display: inline-flex;
+  flex-direction: column;
+  margin: 2px;
+  padding: 2px;
+}
+
+@mixin box-focused {
+  border-color: var(--dark-grey);
+}
+
+@mixin option {
+  cursor: pointer;
+  padding: 6px;
+}
+
+@mixin options {
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+@mixin option-current {
+  box-shadow: inset 0 0 0 2px var(--white), inset 0 0 0 4px var(--green); /* stylelint-disable-line */
+}
+
+@mixin option-selected {
+  box-shadow: inset 0 0 0 2px var(--white), inset 0 0 0 4px var(--red); /* stylelint-disable-line */
+}
+
+@mixin group-label {
+  padding: 2px;
+  margin: 2px;
+  font-weight: bold;
+}
+
+@mixin trigger {
+  cursor: pointer;
+  padding: 4px;
+  outline: none;
+  user-select: none;
+  border: 2px solid transparent;
+}
+
+@mixin trigger-focused {
+  border-color: var(--blue);
+}
+
+@mixin input {
+  font-family: var(--font-family);
+  font-size: 100%;
+  box-sizing: border-box;
+  min-width: 200px;
+  border: 2px solid var(--light-grey);
+  padding: 2px;
+  margin: 2px;
+  outline: none;
+  display: block;
+}
+
+@mixin input-focused {
+  border-color: var(--blue);
+}

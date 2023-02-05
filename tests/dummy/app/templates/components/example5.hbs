@@ -1,0 +1,20 @@
+<SelectBox
+  class="example5"
+  @value={{@value}}
+  @options={{@options}}
+  @multiple={{true}}
+  @onSearch={{@onFilter}}
+  @onBuildSelection={{this.buildSelection}}
+  @onChange={{@onChange}}
+  ...attributes
+  as |sb|
+>
+  <sb.Input type="search" />
+  <sb.Options>
+    {{#each sb.options as |value|}}
+      <sb.Option @value={{value}}>
+        {{value}}
+      </sb.Option>
+    {{/each}}
+  </sb.Options>
+</SelectBox>

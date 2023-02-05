@@ -4,7 +4,9 @@
     "@ember/render-modifiers": "^2.0.5",
     "@embroider/util": "^1.10.0",
     "ember-cli-babel": "^7.26.11",
-    "ember-cli-htmlbars": "^6.2.0"
+    "ember-cli-htmlbars": "^6.2.0",
+    "tracked-built-ins": "^3.1.1",
+    "ember-concurrency": "^2.3.7"
   },
   "description": "A faux select box for Ember apps",
   "devDependencies": {
@@ -15,7 +17,7 @@
     "@glimmer/component": "^1.1.2",
     "@glimmer/tracking": "^1.1.2",
     "@zestia/ember-auto-focus": "^4.4.0",
-    "@zestia/eslint-config": "^4.0.14",
+    "@zestia/eslint-config": "^4.0.18",
     "@zestia/prettier-config": "^1.0.9",
     "@zestia/stylelint-config": "^4.1.5",
     "@zestia/template-lint-config": "^6.0.3",
@@ -38,7 +40,7 @@
     "ember-resolver": "^10.0.0",
     "ember-source": "~4.10.0",
     "ember-source-channel-url": "^3.0.0",
-    "ember-template-lint": "^5.3.2",
+    "ember-template-lint": "^5.3.3",
     "ember-try": "^2.0.0",
     "eslint": "^7.32.0",
     "eslint-plugin-n": "^15.6.1",
@@ -47,7 +49,7 @@
     "qunit": "^2.19.4",
     "qunit-dom": "^2.0.0",
     "release-it": "^15.6.0",
-    "sass": "^1.57.1",
+    "sass": "^1.58.0",
     "stylelint": "^14.16.1",
     "webpack": "^5.75.0"
   },

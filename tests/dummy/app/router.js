@@ -9,15 +9,11 @@ export default class Router extends EmberRouter {
 }
 
 Router.map(function () {
-  this.route('native-single-select');
-  this.route('native-multiple-select');
-  this.route('native-simple-select');
-  this.route('fast-native-single-select');
-  this.route('single-select');
-  this.route('simple-select');
-  this.route('filter-select');
-  this.route('search-select');
-  this.route('tag-select');
-  this.route('colour-select');
-  this.route('backtrack-select');
+  this.route('example1');
+  this.route('example2');
+  this.route('example3');
+  this.route('example4');
+  this.route('example5');
+  this.route('example6');
+  this.route('example7');
 });

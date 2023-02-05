@@ -1,104 +1,69 @@
 import Component from '@glimmer/component';
-import { _activateOption } from '../../../utils/select-box/option/activate';
-import {
-  _destroyComponent,
-  _insertComponent
-} from '../../../utils/component/lifecycle';
-import { _selectOption } from '../../../utils/select-box/option/select';
-import {
-  deregisterElement,
-  registerElement
-} from '../../../utils/registration/element';
-import { receiveValue } from '../../../utils/component/value';
-import isSelected from '../../../utils/shared/selected';
-import buildAPI from '../../../utils/shared/api';
-import buildId from '../../../utils/shared/id';
-import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
+import { guidFor } from '@ember/object/internals';
+import { cached } from '@glimmer/tracking';
 
 export default class SelectBoxOption extends Component {
   element = null;
-  previousValue = null;
-  stableAPI = {};
-  valueId = 0;
 
-  @tracked isFulfilled = false;
-  @tracked isPending = true;
-  @tracked isRejected = false;
-  @tracked isSettled = false;
-  @tracked value = null;
-
-  get api() {
-    return buildAPI(this, [
-      'element',
-      'index',
-      'isActive',
-      'isDisabled',
-      'isFulfilled',
-      'isPending',
-      'isRejected',
-      'isSelected',
-      'isSettled',
-      'value'
-    ]);
-  }
-
-  get id() {
-    return buildId(this);
-  }
+  id = guidFor(this);
 
   get index() {
-    return this.args.selectBox ? this.args.selectBox.option.indexOf(this) : -1;
-  }
-
-  get isActive() {
-    return this.args.selectBox
-      ? this.index === this.args.selectBox.activeOptionIndex
-      : false;
+    return this.args.selectBox.options.indexOf(this);
   }
 
   get isDisabled() {
-    return !!this.args.disabled;
+    return this.args.disabled ?? this.args.selectBox.args.disabled;
+  }
+
+  get isActive() {
+    if (this.isDisabled) {
+      return null;
+    }
+
+    return this.args.selectBox.activeOption === this;
   }
 
   get isSelected() {
-    return isSelected(this);
-  }
+    if (this.args.selectBox.isMultiple) {
+      return this.args.selectBox.value.includes(this.args.value);
+    }
 
-  constructor() {
-    super(...arguments);
-    receiveValue(this);
+    return this.args.value === this.args.selectBox.value;
   }
 
   @action
   handleInsertElement(element) {
-    registerElement(this, element);
-    _insertComponent(this);
-  }
-
-  @action
-  handleUpdatedValue() {
-    receiveValue(this);
+    this.element = element;
+    this.args.onInsert?.(this);
   }
 
   @action
   handleDestroyElement() {
-    deregisterElement(this);
-    _destroyComponent(this);
+    this.element = null;
+    this.args.onDestroy?.(this);
   }
 
-  @action
-  handleMouseEnter() {
-    _activateOption(this);
+  scrollIntoView() {
+    this.element.scrollIntoView({ block: 'nearest' });
   }
 
-  @action
-  handleFocus() {
-    _activateOption(this);
+  @cached
+  get _api() {
+    return {
+      id: this.id,
+      index: this.index,
+      isActive: this.isActive,
+      isSelected: this.isSelected,
+      isDisabled: this.isDisabled,
+      value: this.args.value
+    };
   }
 
-  @action
-  handleClick() {
-    _selectOption(this);
-  }
+  api = new Proxy(this, {
+    get(target, key) {
+      return target._api[key];
+    },
+    set() {}
+  });
 }

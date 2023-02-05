@@ -1,18 +1,16 @@
-{{! template-lint-disable no-invalid-interactive no-positive-tabindex no-element-event-actions }}
-{{!
-Issue affects `onclick` attribute
-https://github.com/emberjs/rfcs/issues/497
-}}
-<div
-  aria-multiselectable="{{this.isMultiSelectable}}"
-  class="select-box__options"
-  id={{this.id}}
-  role={{if @selectBox.isCombobox "listbox"}}
-  onclick={{@onclick}}
-  tabindex={{@tabindex}}
-  ...attributes
-  {{did-insert this.handleInsertElement}}
-  {{will-destroy this.handleDestroyElement}}
->
-  {{~yield~}}
-</div>
+{{! template-lint-disable no-positive-tabindex }}
+{{#let (unique-id) as |id|}}
+  <div
+    aria-multiselectable="{{@aria-multiselectable}}"
+    class="select-box__options"
+    id={{id}}
+    role="listbox"
+    tabindex={{@tabindex}}
+    ...attributes
+    {{did-insert @onInsert}}
+    {{will-destroy @onDestroy}}
+    {{on "keydown" @onKeyDown}}
+  >
+    {{~yield~}}
+  </div>
+{{/let}}

@@ -1,24 +1,20 @@
-{{! template-lint-disable no-positive-tabindex }}
-{{!
-Issue affects attributes `class`, `tabindex`
-https://github.com/emberjs/rfcs/issues/497
-}}
+{{! template-lint-disable no-positive-tabindex no-pointer-down-event-binding }}
 <div
-  aria-busy="{{this.isPending}}"
+  id={{this.id}}
   aria-current="{{this.isActive}}"
   aria-disabled="{{this.isDisabled}}"
   aria-selected="{{this.isSelected}}"
   class={{concat "select-box__option" (if @class (concat " " @class))}}
-  id={{this.id}}
   role="option"
   tabindex={{@tabindex}}
   ...attributes
   {{did-insert this.handleInsertElement}}
-  {{did-update this.handleUpdatedValue @value}}
   {{will-destroy this.handleDestroyElement}}
-  {{on "mouseenter" this.handleMouseEnter}}
-  {{on "focus" this.handleFocus}}
-  {{on "click" this.handleClick}}
+  {{on "mouseenter" (fn @onMouseEnter this)}}
+  {{on "mousedown" @onMouseDown}}
+  {{on "keydown" @onKeyDown}}
+  {{on "mouseup" (fn @onMouseUp this)}}
+  {{on "focusin" (fn @onFocusIn this)}}
 >
   {{~yield this.api~}}
 </div>

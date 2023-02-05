@@ -1,58 +1,68 @@
-{{! template-lint-disable no-positive-tabindex no-pointer-down-event-binding require-aria-activedescendant-tabindex }}
-{{! template-lint-configure no-curly-component-invocation {"allow": ["this.registerComponents"]}  }}
-{{-register-components
-  this
-  Option=(component
-    this.SelectBoxOption
-    selectBox=this
-    _onActivate=this.handleActivateOption
-    _onSelect=this.handleSelectOption
-    _onDestroy=this.handleDestroyOption
-    _onInsert=this.handleInsertOption
+{{! template-lint-disable no-invalid-interactive no-pointer-down-event-binding }}
+{{this.registerComponents
+  (hash
+    Trigger=(component
+      this.SelectBoxTrigger
+      role=this.triggerRole
+      aria-busy=this.isBusy
+      aria-disabled=this.isDisabled
+      aria-activedescendant=this.activeOption.element.id
+      aria-expanded=this.isOpenAttr
+      aria-controls=this.optionsElement.id
+      tabindex=this.triggerTabIndex
+      onInsert=this.handleInsertTrigger
+      onDestroy=this.handleDestroyTrigger
+      onMouseDown=this.handleMouseDownTrigger
+      onKeyDown=this.handleKeyDownTrigger
+    )
+    Input=(component
+      this.SelectBoxInput
+      disabled=this.isDisabled
+      aria-busy=this.isBusy
+      aria-activedescendant=this.activeOption.element.id
+      aria-expanded=this.isOpenAttr
+      aria-controls=this.optionsElement.id
+      onInsert=this.handleInsertInput
+      onDestroy=this.handleDestroyInput
+      onInput=this.handleInput
+      onKeyDown=this.handleKeyDownInput
+    )
+    Group=this.SelectBoxGroup
+    Options=(component
+      this.SelectBoxOptions
+      aria-multiselectable=this.isMultiple
+      tabindex=this.optionsTabIndex
+      onInsert=this.handleInsertOptions
+      onDestroy=this.handleDestroyOptions
+      onKeyDown=this.handleKeyDownOptions
+    )
+    Option=(component
+      this.SelectBoxOption
+      selectBox=this
+      onInsert=this.handleInsertOption
+      onDestroy=this.handleDestroyOption
+      onMouseEnter=this.handleMouseEnterOption
+      onMouseUp=this.handleMouseUpOption
+      onMouseDown=this.handleMouseDownOption
+      onKeyDown=this.handleKeyDownOption
+      onFocusIn=this.handleFocusInOption
+    )
   )
-  Input=(component
-    this.SelectBoxInput
-    selectBox=this
-    _onInsert=this.handleInsertInput
-    _onDestroy=this.handleDestroyInput
-    _onInput=this.handleInputText
-  )
-  SelectedOptions=(component
-    this.SelectBoxSelectedOptions
-    _onInsert=this.handleInsertSelectedOptions
-    _onDestroy=this.handleDestroySelectedOptions
-  )
-  SelectedOption=(component
-    this.SelectBoxSelectedOption
-    _onInsert=this.handleInsertSelectedOption
-    _onDestroy=this.handleDestroySelectedOption
-  )
-  Options=(component
-    this.SelectBoxOptions
-    selectBox=this
-    _onInsert=this.handleInsertOptions
-    _onDestroy=this.handleDestroyOptions
-  )
-  Group=this.SelectBoxGroup
 }}
 <div
-  aria-activedescendant={{this.activeOption.id}}
-  aria-busy="{{this.isBusy}}"
-  aria-disabled="{{this.isDisabled}}"
-  aria-expanded="{{this.isOpen}}"
-  aria-labelledby={{this.labelledBy}}
-  aria-multiselectable="{{this.isMultiSelectable}}"
-  aria-owns={{if this.isCombobox this.options.id}}
   class="select-box"
-  role={{this.role}}
-  tabindex={{this.tabIndex}}
+  data-busy="{{this.isBusy}}"
+  data-disabled="{{this.isDisabled}}"
+  data-open="{{this.isOpenAttr}}"
+  {{on "focusout" this.handleFocusOut}}
+  {{on "mousedown" this.handleMouseDown}}
+  {{on "mouseup" this.handleMouseUp}}
+  {{on "mouseleave" this.handleMouseLeave}}
   ...attributes
   {{did-insert this.handleInsertElement}}
   {{did-update this.handleUpdatedValue @value}}
+  {{did-update this.handleUpdatedOptions @options}}
   {{will-destroy this.handleDestroyElement}}
-  {{on "focusout" this.handleFocusOut}}
-  {{on "keydown" this.handleKeyDown}}
-  {{on "keypress" this.handleKeyPress}}
 >
   {{~yield this.api~}}
 </div>

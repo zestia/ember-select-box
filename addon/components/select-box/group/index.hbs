@@ -1,13 +1,15 @@
-<div
-  class="select-box__group"
-  role="group"
-  aria-labelledby={{this.labelId}}
-  ...attributes
->
-  <div class="select-box__group-label" id={{this.labelId}}>
-    {{~@label~}}
+{{#let (unique-id) as |labelId|}}
+  <div
+    aria-labelledby={{labelId}}
+    class="select-box__group"
+    role="group"
+    ...attributes
+  >
+    <div class="select-box__group-label" id={{labelId}}>
+      {{~@label~}}
+    </div>
+    <div class="select-box__group-options">
+      {{~yield~}}
+    </div>
   </div>
-  <div class="select-box__group-options">
-    {{~yield~}}
-  </div>
-</div>
+{{/let}}

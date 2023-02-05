@@ -1,82 +1,75 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled } from '@ember/test-helpers';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('select-box (disabling)', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('default', async function (assert) {
-    assert.expect(1);
-
-    await render(hbs`<SelectBox />`);
-
-    assert
-      .dom('.select-box')
-      .hasAttribute('aria-disabled', 'false', 'enabled by default');
-  });
-
-  test('disabling and enabling', async function (assert) {
-    assert.expect(2);
-
-    this.isDisabled = true;
-
-    await render(hbs`<SelectBox @disabled={{this.isDisabled}} />`);
-
-    assert
-      .dom('.select-box')
-      .hasAttribute('aria-disabled', 'true', 'can set the disabled state');
-
-    this.set('isDisabled', false);
-
-    assert
-      .dom('.select-box')
-      .hasAttribute('aria-disabled', 'false', 'can change the disabled state');
-  });
-
-  test('presence of an input', async function (assert) {
-    assert.expect(1);
+  test('disabled (input only)', async function (assert) {
+    assert.expect(3);
 
     await render(hbs`
       <SelectBox @disabled={{true}} as |sb|>
         <sb.Input />
+        <sb.Options>
+          <sb.Option />
+          <sb.Option />
+          <sb.Option />
+        </sb.Options>
+      </SelectBox>
+    `);
+
+    assert.dom('.select-box').hasAttribute('data-disabled', 'true');
+    assert.dom('.select-box__input').isDisabled();
+    assert
+      .dom('.select-box__option[aria-disabled="true"]')
+      .exists({ count: 3 });
+  });
+
+  test('disabled (trigger only)', async function (assert) {
+    assert.expect(4);
+
+    await render(hbs`
+      <SelectBox @disabled={{true}} as |sb|>
+        <sb.Trigger />
+        <sb.Options>
+          <sb.Option />
+          <sb.Option />
+          <sb.Option />
+        </sb.Options>
+      </SelectBox>
+    `);
+
+    assert.dom('.select-box').hasAttribute('data-disabled', 'true');
+    assert.dom('.select-box__trigger').hasAttribute('aria-disabled', 'true');
+    assert.dom('.select-box__trigger').hasAttribute('tabindex', '-1');
+    assert
+      .dom('.select-box__option[aria-disabled="true"]')
+      .exists({ count: 3 });
+  });
+
+  test('disabled with a value', async function (assert) {
+    assert.expect(2);
+
+    await render(hbs`
+      <SelectBox @value={{2}} @disabled={{true}} as |sb|>
+        <sb.Trigger />
+        <sb.Options>
+          <sb.Option @value={{1}} />
+          <sb.Option @value={{2}} />
+          <sb.Option @value={{1}} />
+        </sb.Options>
       </SelectBox>
     `);
 
     assert
-      .dom('.select-box__input')
-      .isDisabled(
-        "a select box's input element is disabled if the select box is disabled"
-      );
-  });
-
-  test('disabling (api)', async function (assert) {
-    assert.expect(2);
-
-    this.disabled = false;
-
-    this.handleReady = (sb) => this.set('api', sb);
-
-    await render(hbs`
-      {{if this.api.isDisabled "disabled" "enabled"}}
-
-      <SelectBox
-        @disabled={{this.disabled}}
-        @onReady={{this.handleReady}} />
-    `);
-
-    assert.dom(this.element).containsText('enabled');
-
-    this.set('disabled', true);
-
-    await settled();
-
-    assert
-      .dom(this.element)
-      .doesNotContainText(
-        'disabled',
-        'unfortunately, the disabled state is not tracked ' +
-          'this is because only `api` is tracked'
+      .dom('.select-box__option:nth-child(2)')
+      .hasAttribute('aria-selected', 'true')
+      .hasAttribute(
+        'aria-disabled',
+        'true',
+        'option is still selected, even though disabled'
       );
   });
 });
