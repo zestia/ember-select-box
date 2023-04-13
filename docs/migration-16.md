@@ -8,6 +8,8 @@ Here is a list of all the things that have been removed and what they have been 
 
 - Removed: `NativeSelectBox`<br>
   There is no replacement in this addon. The reason is, native select boxes can now be achieved in Ember very easily. The only drawback is the lack of support for non-primitive values. But this is easily worked around. Since the main purpose of this addon is to provide a faux-select box, there seemed little point in supporting this any more.
+- Removed: `@onUpdate`
+  This was changed to `@onChange` to more closely align with native select boxes. `@onSelect` remains, but is not the preferred action to use day to day. `@onChange` fires when the value changes, whereas `@onSelect` fires when ever a selection is made. This is still useful in addition to `@onChange`, for occasions when you might need to reset a value or something.
 - Removed: All `@onPress` actions.<br>
   Now, pressing up/down/escape/enter/space all do what one would expect of those keys. So there is no longer a need to hook them up manually using the API.
 - Removed: `@onFocusLeave`<br>
