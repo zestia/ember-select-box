@@ -1,5 +1,13 @@
 # Changelog
 
+## 16.0.0
+
+- [Migration guide](docs/migration-16.md)
+
+## 16.0.0-beta.0
+
+- Large refactor to fix some incorrect uses of aria attributes and to dry out common select box behaviour
+
 ## 15.4.3
 
 - Allow setting tabindex via an argument on an Option. [Reason](https://github.com/emberjs/rfcs/issues/497)
@@ -66,18 +74,18 @@
 - Release changes from 15.0.0-beta
 - Run ember-cli-update
 
-## 15.0.0-beta-9
+## 15.0.0-beta.9
 
 - Make sure yielded-template-API is the same instance as the callback-based-API.
 - Drop support for Ember 3.16
 - Fix failing tests in beta versions of Ember
 - Upgrade dependencies
 
-## 15.0.0-beta-8
+## 15.0.0-beta.8
 
 - Add regression test for typeahead with repeating character
 
-## 15.0.0-beta-7
+## 15.0.0-beta.7
 
 - Simplify typeahead checks
 - Upgrade dependencies

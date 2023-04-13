@@ -1,0 +1,25 @@
+<SelectBox
+  class="example4"
+  @value={{@value}}
+  @multiple={{true}}
+  @onChange={{@onChange}}
+  ...attributes
+  as |sb|
+>
+  <sb.Trigger>
+    {{yield sb.value to="trigger"}}
+  </sb.Trigger>
+  <sb.Options>
+    {{#each @options as |value|}}
+      <sb.Option @value={{value}} as |option|>
+        <input
+          aria-labelledby={{option.id}}
+          type="checkbox"
+          checked={{option.isSelected}}
+          {{on "click" this.preventDefault}}
+        />
+        {{yield value to="option"}}
+      </sb.Option>
+    {{/each}}
+  </sb.Options>
+</SelectBox>

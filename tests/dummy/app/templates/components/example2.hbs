@@ -1,0 +1,12 @@
+<SelectBox
+  class="example2"
+  @value={{@value}}
+  @multiple={{true}}
+  @onChange={{@onChange}}
+  ...attributes
+  as |sb|
+>
+  <sb.Options>
+    {{yield sb}}
+  </sb.Options>
+</SelectBox>

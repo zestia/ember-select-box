@@ -12,11 +12,7 @@
 [ember-observer-badge]: https://emberobserver.com/badges/-zestia-ember-select-box.svg
 [ember-observer-url]: https://emberobserver.com/addons/@zestia/ember-select-box
 
-Select box solutions are rarely perfect for what you want.
-
-They come with a myriad of options to configure every possible situation, and they make too many assumptions about how your select-box should behave.
-
-This addon does less, and gives you the tools to build your own.
+This addon mimics a native select box. It is lightweight and highly flexible.
 
 ## Installation
 
@@ -30,18 +26,14 @@ https://zestia.github.io/ember-select-box
 
 ## Features
 
-- Native select box _(that supports complex values)_ ✔︎
-- Faux select box _(mimics a native select box, but easily stylable)_ ✔︎
+- Mimics a native select box, but easily stylable ✔︎
 - Navigatable options and groups ✔︎
-- ARIA Attributes ✔︎
-- Supports promises ✔︎
+- Valid Combobox / Listbox ✔︎
 - Any HTML you want ✔︎
-- Ember Data friendly ✔︎
 - Full control at all times with the API ✔︎
-- Native-like typeahead behaviour ✔︎
+- No configuration options ✔︎
 - Very few issues over many years of Ember! ✔︎
-- Easily create an autocompleter ✔︎
-- Easily create a dropdown menu ✔︎
+- Customisable filtering built in ✔︎
 
 ## Notes
 
@@ -49,42 +41,38 @@ https://zestia.github.io/ember-select-box
 
 ## Example
 
-The select box component isn't designed to be used on its own, but rather used to compose a new select box component... in this example it's called "foo-select"
-
 ```handlebars
-{{! foo-select.hbs }}
-<SelectBox class='foo' @value={{@value}} @onSelect={{@onSelect}} as |sb|>
-  <sb.SelectedOption {{on 'click' sb.toggle}}>
-    {{sb.value.name}}
-  </sb.SelectedOption>
+<SelectBox @value='Foo' @onChange={{this.handleChange}} as |sb|>
+  <sb.Trigger>
+    {{sb.value}}
+  </sb.Trigger>
   <sb.Options>
-    {{yield sb}}
+    <sb.Option @value='Foo'>
+      Foo
+    </sb.Option>
   </sb.Options>
 </SelectBox>
 ```
 
-...and then use it like this:
+## How it works
 
-```handlebars
-{{! application.hbs }}
-<FooSelect @value={{this.foo1}} @onSelect={{this.handleSelectFoo}} as |sb|>
-  {{#each this.foos as |foo|}}
-    <sb.Option @value={{foo}}>{{foo.name}}</sb.Option>
-  {{/each}}
-</FooSelect>
-```
+This addon will render a [Combobox](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/combobox_role) if you utilise the `Trigger` or `Input` component.
+<br>Otherwise it will render a [Listbox](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/listbox_role).
 
-<br>
+<details>
+  <summary>View more details</summary>
 
-> ### As you can see, apart from being able to select a value - this addon does very little out of the box! It's up to _you_ to add the layer of behaviour that you require using the API.
+### Differences to Native Select Boxes
 
-<br>
+1. When using the arrow keys on a native select box, it will stop dead when you reach the end or the beginning. Whereas, with this addon it will cycle through the options. This is following advice from [w3.org](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/).
+2. When mousing-out of a native single select box, the current option is forgotten. Whereas, with this addon the option stays current. This is because, the select box still has focus and as such, is still receptive to user input - like pressing Enter to select that option.
+3. When using a multiple native select box, selecting an option only selects that 1 option. Whereas, with this addon, the item is added if it isn't already in the collection and removed if it is (although this can be customised with `@onBuildSelection`)
 
-## Docs
+### Differences to Ember Power Select
 
-- [High level overview of how it works](docs/how-it-works.md)
-- [Test helpers](docs/test-helpers.md)
-- [Troubleshooting](docs/troubleshooting.md)
+1. With EPS you have to provide it a data structure which the addon uses to draw your UI. Whereas, with this addon the markup provides the structure - the same way you do with a native select box in HTML.
+2. You tell EPS which component to render for each option. Whereas with this addon you can utilise Named Blocks.
+</details>
 
 ## `SelectBox`
 
@@ -96,19 +84,28 @@ Optional. Fired when the select box is ready. A useful opportunity to get access
 
 #### `@value`
 
-Required. Used to determine which option(s) are selected, can be a promise.
+Required. Used to determine which option(s) are selected. This value is compared to the `@value`'s of the option components.
+
+#### `@options`
+
+Optional. Use this provide an initial set of options. See yielded [`options`](#options-1)
+
+#### `@onChange`
+
+Required. Fired when a selection is made (that is, an option is clicked, or enter/space is pressed) and the new value is different to the old value.
 
 #### `@onSelect`
 
-Required. Fired when a selection is made (that is, an option is clicked, or enter is pressed) regardless as to whether the value changed or not.
+Optional. Similar to `@onChange` but fires regardless as to whether the value changed or not.
 
-#### `@onUpdate`
+#### `@onSearch`
 
-Optional. Similar to `@onSelect` But only fired when the value changes. Either because a new `@value` argument was received, or a selection was made by the user that resulted in the value changing.
+Optional. The default search behaviour filters down the `@options`. Use this action to perform a custom search or
+see [Filtering](#filtering).
 
 #### `@disabled`
 
-Optional. If `true`, the component will be unfocusable, and if it contained an `Input`, then that too will be disabled.
+Optional. If `true`, the component will be unfocusable and all child components (`Trigger`, `Input` and `Option`s) will also be disabled.
 
 #### `@multiple`
 
@@ -118,139 +115,35 @@ Optional. If `true`, `@value` is expected to be an array. If an option's value i
 
 Optional. Fired whenever a selection is made. This function receives the values most recently selected, and the previously selected values. The return value is then used as the final selection. This is primarily used to customise select boxes where `@multiple` is `true` - because the behaviour for a selection is undefined and totally depends on your use-case.
 
-#### `@onSearch`
-
-Optional. Fired when the select box decides to run a search because the criteria have been met (like enough characters present for example)
-
-#### `@onSearched`
-
-Optional Fired after the _last successful_ search attempt.
-
-#### `@onSearchError`
-
-Optional. Fired if a search attempt failed
-
-#### `@searchDelayTime`
-
-Optional. Milliseconds to debounce the `@onSearch` action from firing. Default `100`ms.
-
-#### `@searchMinChars`
-
-Optional. Prevents the `@onSearch` action from firing until there are enough characters typed in the `Input` component. Default `1` char.
-
-#### `@searchSlowTime`
-
-Optional. Milliseconds before a search is considered to be taking too long. Default `500`ms.
-
-#### `@onFocusLeave`
-
-Optional. Fired when the select box is no longer being interacted with. For example, the user clicks outside it, _or tabs away_. In most cases this is better than 'on click outside' and more akin to how native select boxes behave.
-
 #### `@onOpen`
 
 Optional. Fired when the select box is opened
+
+#### `@onWillClose`
+
+Optional. The select box will close when the user has finished interacting with it. This means, it has lost focus, or the the user aborted their mouse click, or they pressed Escape. Returning `false` will prevent this behaviour, keeping the select box open. You are then free to manually close the select box using the API.
 
 #### `@onClose`
 
 Optional. Fired when the select box is closed
 
-#### `@onPressBackspace`
+#### `@onActivate`
 
-Optional. Fired when Backspace is pressed.
-
-#### `@onPressDown`
-
-Optional. Fired when the Down Arrow key is pressed.
-
-#### `@onPressEnter`
-
-Optional. Fired when the Enter key is pressed.
-
-#### `@onPressEscape`
-
-Optional. Fired when the Escape key is pressed
-
-#### `@onPressKey`
-
-Optional. Fired when any key is pressed.
-
-#### `@onPressLeft`
-
-Optional. Fired when the Left Arrow key is pressed.
-
-#### `@onPressRight`
-
-Optional. Fired when the Right Arrow key is pressed.
-
-#### `@onPressTab`
-
-Optional. Fired when the Tab key is pressed.
-
-#### `@onPressUp`
-
-Optional. Fired when the Up Arrow key is pressed.
+Optional. Fired when an option is moused over or focused via the keyboard controls
 
 ### API
 
 #### `select`
 
-Selects arbitrary value(s). This mimics making a selection, and so `@onSelect` will fire. `@onUpdate` will also fire if the value is different.
+Mimics the user making a selection, and so `@onChange` may fire.
 
 #### `update`
 
-Updates the select box with a new value(s). This is different from `select`. It will update the select box's internal state. `@onSelect` will not fire. It is useful for resetting the select box after a selection is made.
-
-#### `selectActiveOption`
-
-Selects the value of whichever option is currently active
-
-#### `activateNextOption`
-
-Activates the next option.
-
-#### `activatePreviousOption`
-
-Activates the previous option.
-
-#### `activateOptionForValue`
-
-Activates the first option that matches the given value.
-
-#### `activateOptionAtIndex`
-
-Activates the option at the given index.
-
-#### `activateOptionForKeyCode`
-
-Mimics native select box behaviour by jumping to an appropriate option based on the `textContent` of the options. <a href="https://zestia.github.io/ember-select-box/#/simple-select">Demo</a>.
-
-#### `deactivateOptions`
-
-Makes no option be active.
-
-#### `search`
-
-Runs an arbitrary search using the search function provided by `@onSearch`. Useful to kick off a default search, or reset search results after a selection has been made for example.
-
-#### `cancelSearch`
-
-Cancels searches currently in progress.
-
-#### `setInputValue`
-
-Update the input value. Useful for pre-filling the `Input` with the active option's value for example.
-
-#### focusInput
-
-Focuses the `Input` associated with the select box.
-
-#### `blurInput`
-
-Unfocuses the `Input` associated with the select box.
+Updates the select box with a new value(s). `@onChange` will not fire.
 
 #### `open`
 
-Opens the select box
+Opens the select box.
 
 #### `toggle`
 
@@ -268,41 +161,22 @@ The element of the select box
 
 The selected value(s) of the select box
 
-#### `isFulfilled`
-
-True if `@value` resolved
-
-#### `isPending`
-
-True whilst `@value` is being resolved
-
-#### `isRejected`
-
-True if `@value` failed to resolve
-
-#### `isSettled`
-
-True once `@value` has resolved or rejected
-
 #### `isBusy`
 
-True if the select box is resolving the `@value` argument, or it is waiting for a search to finish
-
-#### `isDisabled`
-
-Whether or not the select box is currently disabled
-
-#### `isMultiple`
-
-Whether the select box allows selecting multiple values
+True if the select box is waiting for a search to finish
 
 #### `isOpen`
 
 Whether the select box is open
 
-#### `isSlowSearch`
+#### `query`
 
-Whether the promised search results are taking longer than expected
+The query used to produce the latest search results. (This may be different to the current value in the text input).
+
+#### `options`
+
+These are the same options as given to the component via `@options`, yielded back to you.
+Unless a search has run, in which case they will be the return value from `@onSearch`
 
 ## `Option`
 
@@ -310,49 +184,21 @@ Whether the promised search results are taking longer than expected
 
 #### `@value`
 
-Required. The value of the option. Can be anything, including a promise
+Required. The value of the option.
 
 #### `@disabled`
 
-Optional. Prevents the option from being selected.
-
-#### `@selected`
-
-Optional. For manually specifying that this option is selected. Preferably, allow selection to be automatically computed by just setting `@value`
-
-#### `@onActivate`
-
-Optional. Fired when an option is activated (by mousing over, or via keyboard control, or the api)
-
-#### `@onSelect`
-
-Optional. Fired when an individual option is selected (by clicking, or pressing Enter, or the api)
+Optional. Prevents the option from being activated or selected.
 
 ### API
 
-#### `element`
+#### `id`
 
-The DOM element of the option component
+The unique id of the option element
 
 #### `value`
 
 The value of the option
-
-#### `isFulfilled`
-
-True if `@value` resolved
-
-#### `isPending`
-
-True whilst `@value is being resolved
-
-#### `isRejected`
-
-True if `@value` failed to resolve
-
-#### `isSettled`
-
-True once `@value` has resolved or rejected
 
 #### `index`
 
@@ -380,22 +226,85 @@ Required. The group label (similar to the native `optgroup`)
 
 ## `Options`
 
-A container element to house each option
+A container element to house each option. If no `Trigger` or `Input` is rendered, then this will be a Listbox.
 
 ## `Input`
 
-An input, which when present defines whether the select box is a combo box or a list box, and can be used to run searches from.
+A combobox, which by default filters down the available `@options`. Customise this behaviour by providing `@onSearch`.
 
-### Arguments
+## `Trigger`
 
-#### `@onClear`
+A combobox, which toggles the select box open/closed.
 
-Optional. Fired when text is cleared completely
+# Filtering
 
-#### `@onDelete`
+Since filtering options down is a common requirement, this addon comes with a utility to help.
 
-Optional. Fired when there is no text present, but backspace is pressed.
+<details>
+  <summary>View example</summary>
 
-## `SelectedOption`
+```javascript
+import { filter } from '@zestia/ember-select-box';
 
-An element to house the option that has been selected
+/**
+ * [{
+ *   groupLabel: 'Group 1',
+ *   items: [{
+ *     id: 1,
+ *     name: 'Foo'
+ *   }, {
+ *     id: 2,
+ *     name: 'Bar'
+ *   }]
+ *  }, {
+ *   groupLabel: 'Group 2',
+ *   items: [{
+ *     id: 3,
+ *     name: 'Baz'
+ *   }, {
+ *     id: 4,
+ *     name: 'Qux'
+ *   }]
+ * }]
+ */
+
+@action
+handleSearch(query) {
+  return filter(this.args.options)
+    .by('name')
+    .groups('items')
+    .dropEmptyGroups()
+    .query(query)
+    .run();
+}
+```
+
+</details>
+
+### `filter(<array>)`
+
+Accepts an array of options to filter down.
+
+#### `query(<string>)`
+
+Required. The query string used to filter each option
+
+#### `by(<string|array|function(option)>)`
+
+Optional. By default the value of each option will be used for filtering. Provide a string to pick a specific key from an option. Provide an array to filter by multiple properties. Or provide a function to pluck your own value.
+
+#### `groups(<string>)`
+
+Optional. Calling this tells the filter function that your data structure contains groups of options, and the key to where those options can be found.
+
+#### `dropEmptyGroups()`
+
+Optional. Tells the filter to exclude groups with no options
+
+#### `using(<function(string, query)>)`
+
+Optional. By default each option will be included in the results if it contains the query string. Use this function to provide your own logic to compute whether or not an option should be included.
+
+#### `run()`
+
+Kicks off the filter you've configured

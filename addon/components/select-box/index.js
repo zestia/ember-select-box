@@ -1,403 +1,762 @@
-import Component from '@glimmer/component';
-import SelectBoxGroup from './group/index';
-import SelectBoxInput from './input/index';
-import SelectBoxOption from './option/index';
-import SelectBoxOptions from './options/index';
-import SelectBoxSelectedOption from './selected-option/index';
-import SelectBoxSelectedOptions from './selected-options/index';
-import {
-  _selectOption,
-  selectOption
-} from '../../utils/select-box/option/select';
-import {
-  deactivateOptions,
-  activateNextOption,
-  activateOption,
-  activateOptionAtIndex,
-  activateOptionForKeyCode,
-  activateOptionForValue,
-  activatePreviousOption
-} from '../../utils/select-box/option/activate';
-import { blurInput, focusInput } from '../../utils/select-box/input/focus';
-import {
-  cancelSearch,
-  maybeSearch,
-  search
-} from '../../utils/select-box/search';
-import { close, open, toggle } from '../../utils/select-box/toggle';
-import {
-  deregisterElement,
-  registerElement
-} from '../../utils/registration/element';
-import { deregisterInput, registerInput } from '../../utils/registration/input';
-import {
-  deregisterSelectedOption,
-  registerSelectedOption
-} from '../../utils/registration/selected-option';
-import {
-  deregisterSelectedOptions,
-  registerSelectedOptions
-} from '../../utils/registration/selected-options';
-import {
-  deregisterOption,
-  registerOption
-} from '../../utils/registration/option';
-import {
-  deregisterOptions,
-  registerOptions
-} from '../../utils/registration/options';
-import { registerComponents } from '../../utils/registration/components';
-import { focusOut } from '../../utils/select-box/focus';
-import { keyDown, keyPress } from '../../utils/select-box/keyboard';
-import { setInputValue } from '../../utils/select-box/input/value';
-import buildAPI from '../../utils/shared/api';
-import {
-  receiveValue,
-  selectValue,
-  updateValue
-} from '../../utils/shared/value';
-import { ready } from '../../utils/shared/ready';
-import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
+import { assert } from '@ember/debug';
+import { scheduleOnce } from '@ember/runloop';
+import { makeArray } from '@ember/array';
+import Component from '@glimmer/component';
+import SelectBoxTrigger from '@zestia/ember-select-box/components/select-box/trigger';
+import SelectBoxGroup from '@zestia/ember-select-box/components/select-box/group';
+import SelectBoxOption from '@zestia/ember-select-box/components/select-box/option';
+import SelectBoxOptions from '@zestia/ember-select-box/components/select-box/options';
+import SelectBoxInput from '@zestia/ember-select-box/components/select-box/input';
+import { task } from 'ember-concurrency';
+import { cached } from '@glimmer/tracking';
+import { tracked } from 'tracked-built-ins';
+import { filter } from '@zestia/ember-select-box/utils';
+import { startsWithString } from '@zestia/ember-select-box/-private/utils';
+const { assign } = Object;
 
 export default class SelectBox extends Component {
-  // Misc state
-  element = null;
-  charState = null;
-  previousValue = null;
-  stableAPI = {};
-  searchId = 0;
-  valueId = 0;
+  @tracked _options = tracked([]);
+  @tracked activeOption;
+  @tracked element;
+  @tracked inputElement;
+  @tracked isOpen = this.args.open ?? null;
+  @tracked optionsElement;
+  @tracked triggerElement;
+  @tracked value;
+  @tracked results = this.args.options;
+  @tracked query = null;
 
-  // Tracked state
-  @tracked activeOptionIndex = -1;
-  @tracked isFulfilled = false;
-  @tracked isOpen = false;
-  @tracked isPending = true;
-  @tracked isReady = false;
-  @tracked isRejected = false;
-  @tracked isSearching = false;
-  @tracked isSettled = false;
-  @tracked isSlowSearch = false;
-  @tracked value = null;
+  chars = '';
+  charTimer;
+  initialRender = true;
+  lastMouseDownElement;
 
-  // Component classes
+  Group;
+  Input;
+  Option;
+  Options;
+  Trigger;
+
   SelectBoxGroup = SelectBoxGroup;
   SelectBoxInput = SelectBoxInput;
   SelectBoxOption = SelectBoxOption;
   SelectBoxOptions = SelectBoxOptions;
-  SelectBoxSelectedOption = SelectBoxSelectedOption;
-  SelectBoxSelectedOptions = SelectBoxSelectedOptions;
+  SelectBoxTrigger = SelectBoxTrigger;
 
-  // Component declarations
-  Group = null;
-  Input = null;
-  Option = null;
-  Options = null;
-  SelectedOption = null;
-  SelectedOptions = null;
-
-  // Component instances
-  @tracked input = null;
-  @tracked option = [];
-  @tracked options = null;
-  @tracked selectedOption = [];
-  @tracked selectedOptions = null;
-  pendingOption = [];
-  pendingSelectedOption = [];
-
-  registerComponents = registerComponents(this);
-
-  get api() {
-    return buildAPI(this, [
-      // Components
-      'Group',
-      'Input',
-      'Option',
-      'Options',
-      'SelectedOption',
-      'SelectedOptions',
-      // Properties
-      'element',
-      'isBusy',
-      'isDisabled',
-      'isFulfilled',
-      'isMultiple',
-      'isOpen',
-      'isPending',
-      'isRejected',
-      'isSearching',
-      'isSettled',
-      'isSlowSearch',
-      'value',
-      // Actions
-      'activateNextOption',
-      'activateOptionAtIndex',
-      'activateOptionForKeyCode',
-      'activateOptionForValue',
-      'activatePreviousOption',
-      'blurInput',
-      'cancelSearch',
-      'close',
-      'deactivateOptions',
-      'focusInput',
-      'open',
-      'search',
-      'select',
-      'selectActiveOption',
-      'setInputValue',
-      'toggle',
-      'update'
-    ]);
-  }
-
-  get activeOption() {
-    return this.option[this.activeOptionIndex];
-  }
-
-  get role() {
-    return this.input ? 'combobox' : 'listbox';
-  }
-
-  get isListbox() {
-    return this.role === 'listbox';
-  }
-
-  get isCombobox() {
-    return this.role === 'combobox';
-  }
-
-  get tabIndex() {
-    return this.isDisabled || this.isCombobox ? '-1' : '0';
-  }
-
-  get isBusy() {
-    return this.isPending || this.isSearching;
-  }
-
-  get isDisabled() {
-    return !!this.args.disabled;
-  }
-
-  get isMultiple() {
-    return !!this.args.multiple;
-  }
-
-  get isMultiSelectable() {
-    return this.isListbox ? this.isMultiple : null;
-  }
-
-  get labelledBy() {
-    if (this.selectedOptions) {
-      return this.selectedOptions.id;
-    } else if (this.selectedOption.length > 0) {
-      return this.selectedOption[0].id;
-    } else if (this.input) {
-      return this.input.id;
-    } else {
-      return null;
-    }
-  }
-
-  get searchDelayTime() {
-    return this.args.searchDelayTime ?? 100;
-  }
-
-  get searchMinChars() {
-    return this.args.searchMinChars ?? 1;
-  }
-
-  get searchSlowTime() {
-    return this.args.searchSlowTime ?? 500;
-  }
+  registerComponents = (components) => {
+    assign(this, components);
+  };
 
   constructor() {
     super(...arguments);
-    receiveValue(this);
-    ready(this);
+    this._setValue(this.args.value);
+    this.args.onReady?.(this.api);
+    scheduleOnce('afterRender', this, '_handleRender');
+  }
+
+  get isDisabled() {
+    return this.args.disabled;
+  }
+
+  get isMultiple() {
+    return this.args.multiple;
+  }
+
+  get isSingle() {
+    return !this.isMultiple;
+  }
+
+  get isComboBox() {
+    return this.hasInput || this.hasTrigger;
+  }
+
+  get isListBox() {
+    return !this.isComboBox;
+  }
+
+  get isClosed() {
+    return !this.isOpen;
+  }
+
+  get isOpenAttr() {
+    return this.isComboBox
+      ? this.hasTrigger
+        ? !!this.isOpen
+        : this.isOpen
+      : null;
+  }
+
+  get isOpenState() {
+    return this.isListBox ? true : this.isOpen === true;
+  }
+
+  get isClosedState() {
+    return this.isListBox ? false : this.isOpen === false;
+  }
+
+  get canOpen() {
+    return this.isComboBox && this.isClosed;
+  }
+
+  get canClose() {
+    return this.isComboBox && this.isOpen;
+  }
+
+  get canAutoOpen() {
+    return this.hasTrigger && this.isClosed;
+  }
+
+  get canAutoClose() {
+    return this.isSingle;
+  }
+
+  get canAutoSelect() {
+    return this.isSingle && this.isClosedState;
+  }
+
+  get isBusy() {
+    return this.hasSearch ? this.searchTask.isRunning : null;
+  }
+
+  get hasInput() {
+    return !!this.inputElement;
+  }
+
+  get hasTrigger() {
+    return !!this.triggerElement;
+  }
+
+  get hasOptions() {
+    return !!this.optionsElement;
+  }
+
+  get hasSearch() {
+    return typeof this.args.onSearch === 'function';
+  }
+
+  get optionsTabIndex() {
+    return this.isListBox ? '0' : null;
+  }
+
+  get triggerTabIndex() {
+    return this.isDisabled || this.hasInput ? '-1' : '0';
+  }
+
+  get triggerRole() {
+    return this.interactiveElement === this.triggerElement
+      ? 'combobox'
+      : 'button';
+  }
+
+  get activeOptionIndex() {
+    return this.activeOption ? this.activeOption.index : -1;
+  }
+
+  @cached
+  get interactiveElements() {
+    return [this.inputElement, this.triggerElement, this.optionsElement].filter(
+      Boolean
+    );
+  }
+
+  get interactiveElement() {
+    return this.interactiveElements[0];
+  }
+
+  get hasFocus() {
+    return this.interactiveElement === document.activeElement;
+  }
+
+  get optionElements() {
+    return [...this.element.querySelectorAll('.select-box__option')];
+  }
+
+  @cached
+  get options() {
+    if (!this.element) {
+      return [];
+    }
+
+    const els = this.optionElements;
+
+    return this._options
+      .filter((option) => !option.isDisabled)
+      .sort((a, b) => els.indexOf(a.element) - els.indexOf(b.element));
   }
 
   @action
   handleInsertElement(element) {
-    registerElement(this, element);
-  }
-
-  @action
-  handleUpdatedValue() {
-    receiveValue(this);
+    this.element = element;
+    this._setup();
   }
 
   @action
   handleDestroyElement() {
-    deregisterElement(this);
+    this.element = null;
+    this._tearDown();
+  }
+
+  @action
+  handleUpdatedValue() {
+    this._setValue(this.args.value);
+  }
+
+  @action
+  handleUpdatedOptions() {
+    this.results = this.args.options;
   }
 
   @action
   handleInsertOption(option) {
-    registerOption(this, option);
+    this._options.push(option);
+    scheduleOnce('afterRender', this, '_handleRenderedOptions');
   }
 
   @action
   handleDestroyOption(option) {
-    deregisterOption(this, option);
+    this._options.splice(this._options.indexOf(option), 1);
+    scheduleOnce('afterRender', this, '_handleRenderedOptions');
   }
 
   @action
-  handleInsertOptions(options) {
-    registerOptions(this, options);
+  handleInsertOptions(element) {
+    assert('can only have 1 listbox', !this.hasOptions);
+
+    this.optionsElement = element;
   }
 
   @action
-  handleDestroyOptions(options) {
-    deregisterOptions(this, options);
+  handleDestroyOptions() {
+    this.optionsElement = null;
   }
 
   @action
-  handleInsertSelectedOption(selectedOption) {
-    registerSelectedOption(this, selectedOption);
+  handleInsertTrigger(element) {
+    assert('can only have 1 trigger', !this.hasTrigger);
+
+    this.triggerElement = element;
+    this.isOpen = !!this.args.open;
   }
 
   @action
-  handleDestroySelectedOption(selectedOption) {
-    deregisterSelectedOption(this, selectedOption);
+  handleDestroyTrigger() {
+    this.triggerElement = null;
   }
 
   @action
-  handleInsertSelectedOptions(selectedOptions) {
-    registerSelectedOptions(this, selectedOptions);
+  handleInsertInput(element) {
+    assert('can only have 1 input', !this.hasInput);
+
+    this.inputElement = element;
   }
 
   @action
-  handleDestroySelectedOptions(selectedOptions) {
-    deregisterSelectedOptions(this, selectedOptions);
+  handleDestroyInput() {
+    this.inputElement = null;
   }
 
   @action
-  handleInsertInput(input) {
-    registerInput(this, input);
+  handleInput() {
+    this._search(this.inputElement.value);
   }
 
   @action
-  handleDestroyInput(input) {
-    deregisterInput(this, input);
+  handleMouseDown(event) {
+    this.lastMouseDownElement = event.target;
   }
 
   @action
-  handleInputText(text) {
-    maybeSearch(this, text);
-  }
-
-  @action
-  handleFocusOut(e) {
-    focusOut(this, e);
-  }
-
-  @action
-  handleKeyPress(e) {
-    keyPress(this, e);
-  }
-
-  @action
-  handleKeyDown(e) {
-    keyDown(this, e);
-  }
-
-  @action
-  handleSelectOption(option) {
-    selectOption(this, option);
-  }
-
-  @action
-  handleActivateOption(option) {
-    activateOption(this, option);
-  }
-
-  @action
-  select(value) {
-    return selectValue(this, value);
-  }
-
-  @action
-  update(value) {
-    return updateValue(this, value);
-  }
-
-  @action
-  selectActiveOption() {
-    if (!this.activeOption) {
+  handleMouseUp(event) {
+    if (!this.lastMouseDownElement) {
       return;
     }
 
-    return _selectOption(this.activeOption);
+    this.lastMouseDownElement = null;
+
+    if (this.element.contains(event.target)) {
+      return;
+    }
+
+    this._handleClickAbort(event);
   }
 
   @action
-  open() {
-    open(this);
+  handleMouseLeave() {
+    if (this.hasFocus) {
+      return;
+    }
+
+    this._deactivateOptions();
+  }
+
+  @action
+  handleFocusOut(event) {
+    if (this.element.contains(event.relatedTarget)) {
+      return;
+    }
+
+    if (
+      !event.relatedTarget &&
+      this.element.contains(this.lastMouseDownElement)
+    ) {
+      this._ensureFocus();
+      return;
+    }
+
+    scheduleOnce('afterRender', this, '_handleFocusLeave', event);
+  }
+
+  @action
+  handleKeyDownTrigger(event) {
+    this._handleKeyDown(event);
+    this._handleInputChar(event);
+  }
+
+  @action
+  handleKeyDownInput(event) {
+    this._handleKeyDown(event);
+  }
+
+  @action
+  handleKeyDownOptions(event) {
+    if (this.isComboBox) {
+      return;
+    }
+
+    this._handleKeyDown(event);
+    this._handleInputChar(event);
+  }
+
+  @action
+  handleMouseDownTrigger(event) {
+    if (this.isDisabled || event.button !== 0) {
+      return;
+    }
+
+    event.preventDefault();
+
+    this._toggle();
+  }
+
+  @action
+  handleMouseEnterOption(option) {
+    this._activateOption(option, { scrollIntoView: false });
+  }
+
+  @action
+  handleMouseDownOption(event) {
+    event.preventDefault();
+    this._ensureFocus();
+  }
+
+  @action
+  handleMouseUpOption(option, event) {
+    this._activateOption(option, { scrollIntoView: false });
+    this._selectActiveOption();
+    this._handleSelected(event);
+  }
+
+  @action
+  handleFocusInOption(option) {
+    this._activateOption(option);
+  }
+
+  @action
+  handleKeyDownOption(event) {
+    this._handleKeyDown(event);
   }
 
   @action
   close() {
-    close(this);
+    this._close();
+  }
+
+  @action
+  open() {
+    this._open();
   }
 
   @action
   toggle() {
-    toggle(this);
+    this._toggle();
   }
 
   @action
   search(query) {
-    return search(this, query);
+    return this._search(query);
   }
 
   @action
-  cancelSearch() {
-    cancelSearch(this);
+  update(value) {
+    this._setValue(value);
   }
 
   @action
-  focusInput() {
-    focusInput(this);
+  select(value) {
+    this._selectValue(value);
+    this._handleSelected();
   }
 
-  @action
-  blurInput() {
-    blurInput(this);
+  _handleKeyDown(event) {
+    switch (event.key) {
+      case 'ArrowUp':
+        this._handleArrowUp(event);
+        break;
+      case 'ArrowDown':
+        this._handleArrowDown(event);
+        break;
+      case 'Escape':
+        this._handleEscape(event);
+        break;
+      case 'Enter':
+        this._handleEnter(event);
+        break;
+      case ' ':
+        this._handleSpace(event);
+        break;
+    }
   }
 
-  @action
-  setInputValue(value) {
-    setInputValue(this, value);
+  _handleArrowUp(event) {
+    event.preventDefault();
+    this._activatePreviousOption();
   }
 
-  @action
-  activateOptionForValue(value, config) {
-    activateOptionForValue(this, value, config);
+  _handleArrowDown(event) {
+    event.preventDefault();
+
+    if (this.canAutoOpen) {
+      this._open();
+      return;
+    }
+
+    this._activateNextOption();
   }
 
-  @action
-  activateOptionAtIndex(index, config) {
-    activateOptionAtIndex(this, index, config);
+  _handleEnter(event) {
+    if (event.target === this.inputElement && this.activeOption) {
+      event.preventDefault();
+    }
+
+    this._handleEnterAndSpace(event);
   }
 
-  @action
-  activateNextOption(config) {
-    activateNextOption(this, config);
+  _handleSpace(event) {
+    if (event.target === this.inputElement) {
+      return;
+    }
+
+    if (this.chars.trim() !== '') {
+      return;
+    }
+
+    event.preventDefault();
+
+    this._handleEnterAndSpace(event);
   }
 
-  @action
-  activatePreviousOption(config) {
-    activatePreviousOption(this, config);
+  _handleEnterAndSpace(event) {
+    if (this.canAutoOpen) {
+      this._open();
+      return;
+    }
+
+    this._selectActiveOption();
+    this._handleSelected(event);
   }
 
-  @action
-  activateOptionForKeyCode(keyCode, config) {
-    activateOptionForKeyCode(this, keyCode, config);
+  _handleEscape() {
+    this._handleWillClose(Symbol('ESCAPE'));
   }
 
-  @action
-  deactivateOptions() {
-    deactivateOptions(this);
+  _handleFocusLeave() {
+    this._deactivateOptions();
+    this._handleWillClose(Symbol('FOCUS_LEAVE'));
   }
+
+  _handleSelected() {
+    this.args.onSelect?.(this.api);
+    this._handleWillClose(Symbol('SELECTED'), this.canAutoClose);
+  }
+
+  _handleClickAbort() {
+    this._handleWillClose(Symbol('CLICK_ABORT'));
+  }
+
+  _handleWillClose(reason, close = true) {
+    if (this.isClosed) {
+      return;
+    }
+
+    close = this.args.onWillClose?.(reason, this.api) ?? close;
+
+    if (close) {
+      this._close(reason);
+    }
+  }
+
+  _handleOpened() {
+    this._activateInitialOption();
+    this._ensureFocus();
+  }
+
+  _handleClosed({ description: reason } = {}) {
+    if (reason !== 'FOCUS_LEAVE') {
+      this._ensureFocus();
+    }
+  }
+
+  _handleRender() {
+    assert('must have an interactive element', this.interactiveElement);
+  }
+
+  _handleRenderedOptions() {
+    if (this.initialRender) {
+      this.initialRender = false;
+    } else if (this.activeOption?.isDestroying) {
+      this._activateOptionForValue(this.activeOption.args.value);
+    } else if (this.activeOption) {
+      this.activeOption.scrollIntoView();
+    } else {
+      this._activateInitialOption();
+    }
+  }
+
+  _handleInputChar(event) {
+    const { key: char } = event;
+
+    if (char.length > 1) {
+      return;
+    }
+
+    clearTimeout(this.charTimer);
+
+    this.chars = this.chars.concat(char);
+    this.charTimer = setTimeout(() => (this.chars = ''), 1000);
+
+    let option = this.activeOption ?? this._getOptionForValue(this.value);
+
+    const repeating = this.chars.split('').every((c) => c === char);
+    const string = repeating ? char : this.chars;
+    const offset = repeating ? 1 : 0;
+    const index = (option ? option.index : -1) + offset;
+    const before = this.options.slice(0, index);
+    const after = this.options.slice(index);
+    const options = after.concat(before);
+
+    [option] = this._getOptionsByTextContent(options, string);
+
+    if (!option) {
+      return;
+    }
+
+    this._activateOption(option);
+
+    if (this.canAutoSelect) {
+      this._selectActiveOption();
+      this._handleSelected(event);
+    }
+  }
+
+  _open() {
+    if (!this.canOpen) {
+      return;
+    }
+
+    this.isOpen = true;
+    this.args.onOpen?.(this.api);
+
+    scheduleOnce('afterRender', this, '_handleOpened');
+  }
+
+  _close(reason) {
+    if (!this.canClose) {
+      return;
+    }
+
+    this.isOpen = false;
+    this.args.onClose?.(this.api);
+
+    scheduleOnce('afterRender', this, '_handleClosed', reason);
+  }
+
+  _toggle() {
+    if (this.isOpen) {
+      this._close();
+    } else {
+      this._open();
+    }
+  }
+
+  _deactivateOptions() {
+    this.activeOption = null;
+  }
+
+  _activateOption(option, config = { scrollIntoView: true }) {
+    if (!option) {
+      option = this.options[0];
+    }
+
+    if (!option || option.isDisabled || option.isActive) {
+      return;
+    }
+
+    this.activeOption = option;
+
+    if (config.scrollIntoView && this.isOpenState) {
+      option.scrollIntoView();
+    }
+
+    this.args.onActivate?.(option.args.value, this.api);
+  }
+
+  _activateInitialOption() {
+    this._activateOptionForValue(this.value);
+  }
+
+  _activateOptionForValue(value) {
+    this._activateOption(this._getOptionForValue(value));
+  }
+
+  _activateNextOption() {
+    this._activateOptionAtIndex(this.activeOptionIndex + 1);
+  }
+
+  _activatePreviousOption() {
+    this._activateOptionAtIndex(this.activeOptionIndex - 1);
+  }
+
+  _activateOptionAtIndex(index) {
+    if (index < 0) {
+      index = this.options.length - 1;
+    } else if (index >= this.options.length) {
+      index = 0;
+    }
+
+    this._activateOption(this.options[index]);
+  }
+
+  _selectActiveOption() {
+    this._selectOption(this.activeOption);
+  }
+
+  _selectOption(option) {
+    if (!option || option.isDisabled) {
+      return;
+    }
+
+    const value = this._buildSelection(option.args.value);
+
+    this._selectValue(value);
+  }
+
+  _setValue(value) {
+    this.value = this.isMultiple ? makeArray(value) : value;
+  }
+
+  _selectValue(value) {
+    if (this.value !== value) {
+      this._setValue(value);
+      this.args.onChange?.(this.value, this.api);
+    }
+  }
+
+  _ensureFocus() {
+    this.interactiveElement?.focus({ focusVisible: false });
+  }
+
+  _getOptionForValue(value) {
+    return this.options.find((option) => option.args.value === value);
+  }
+
+  _getOptionsByTextContent(options, query) {
+    return filter(options)
+      .by((option) => option.element.textContent)
+      .query(query)
+      .using(startsWithString)
+      .run();
+  }
+
+  _buildSelection(value) {
+    const build =
+      this.args.onBuildSelection ?? this._defaultBuildSelection.bind(this);
+
+    return build(value, this.value);
+  }
+
+  _defaultBuildSelection(newValue, oldValue) {
+    let value = newValue;
+
+    if (this.isMultiple) {
+      const temp = [...oldValue];
+
+      if (temp.includes(newValue)) {
+        temp.splice(temp.indexOf(newValue), 1);
+      } else {
+        temp.push(newValue);
+      }
+
+      value = temp;
+    }
+
+    return value;
+  }
+
+  _search(query) {
+    this.searchTask?.cancelAll();
+    return this.searchTask.perform(query);
+  }
+
+  searchTask = task(async (query) => {
+    const string = query ?? '';
+    const search = this.args.onSearch ?? this._defaultSearch.bind(this);
+
+    this.results = await search(string, this.api);
+    this.query = string;
+  });
+
+  _defaultSearch(query) {
+    return filter(this.args.options).query(query).run();
+  }
+
+  _setup() {
+    document.addEventListener('mouseup', this.handleMouseUp);
+  }
+
+  _tearDown() {
+    document.removeEventListener('mouseup', this.handleMouseUp);
+  }
+
+  get _api() {
+    return {
+      // Components
+      Group: this.Group,
+      Input: this.Input,
+      Option: this.Option,
+      Options: this.Options,
+      Trigger: this.Trigger,
+      // Properties
+      close: this.close,
+      element: this.element,
+      isBusy: this.isBusy,
+      isOpen: this.isOpen,
+      options: this.results,
+      query: this.query,
+      value: this.value,
+      // Actions
+      open: this.open,
+      search: this.search,
+      select: this.select,
+      toggle: this.toggle,
+      update: this.update
+    };
+  }
+
+  api = new Proxy(this, {
+    get(target, key) {
+      return target._api[key];
+    },
+    set() {}
+  });
 }

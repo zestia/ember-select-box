@@ -1,0 +1,20 @@
+<p>
+  A combobox that mimics a multiple native select box, but which allows
+  searching.
+</p>
+
+<p>
+  Selected:
+  {{#each this.selected as |selected|}}
+    {{selected}}
+    <button type="button" {{on "click" (fn this.handleUnSelect selected)}}>
+      ×
+    </button>
+  {{/each}}
+</p>
+
+<Example5
+  @value={{this.selected}}
+  @options={{this.pies}}
+  @onChange={{this.handleSelect}}
+/>

@@ -1,0 +1,32 @@
+@use 'example';
+
+.example2 {
+  @include example.box;
+
+  &:focus-within {
+    @include example.box-focused;
+  }
+
+  .select-box__options {
+    @include example.options;
+
+    width: 160px;
+    height: 450px;
+  }
+
+  .select-box__group-label {
+    @include example.group-label;
+  }
+
+  .select-box__option {
+    @include example.option;
+  }
+
+  .select-box__option[aria-current='true'] {
+    @include example.option-current;
+  }
+
+  .select-box__option[aria-selected='true'] {
+    @include example.option-selected;
+  }
+}

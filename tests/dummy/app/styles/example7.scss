@@ -1,0 +1,44 @@
+@use 'example';
+
+.example7 {
+  @include example.box;
+
+  &:focus-within {
+    @include example.box-focused;
+  }
+
+  .select-box__trigger {
+    @include example.trigger;
+
+    width: 20px;
+    text-align: center;
+  }
+
+  .select-box__input {
+    @include example.input;
+  }
+
+  .select-box__input:focus {
+    @include example.input-focused;
+  }
+
+  .select-box__option {
+    @include example.option;
+  }
+
+  .select-box__options {
+    @include example.options;
+  }
+
+  .select-box__option[aria-current='true'] {
+    @include example.option-current;
+  }
+
+  .select-box__option[aria-selected='true'] {
+    @include example.option-selected;
+  }
+}
+
+.example7__wrapper {
+  display: flex;
+}

@@ -3,53 +3,44 @@
 </h1>
 
 <p>
-  <LinkTo @route="native-single-select">
-    Native single select
+  <LinkTo @route="example1">
+    Single listbox
   </LinkTo>
   |
-  <LinkTo @route="native-multiple-select">
-    Native multiple select
+  <LinkTo @route="example2">
+    Multiple listbox
   </LinkTo>
   |
-  <LinkTo @route="fast-native-single-select">
-    Fast native single select
+  <LinkTo @route="example3">
+    Single Combobox
   </LinkTo>
   |
-  <LinkTo @route="native-simple-select">
-    Native simple select
+  <LinkTo @route="example4">
+    Multiple Combobox
   </LinkTo>
   |
-  <LinkTo @route="single-select">
-    Single select
+  <LinkTo @route="example5">
+    Multiple Combobox with input
   </LinkTo>
   |
-  <LinkTo @route="simple-select">
-    Simple select
+  <LinkTo @route="example6">
+    Combobox with input inside
   </LinkTo>
   |
-  <LinkTo @route="filter-select">
-    Filter select
-  </LinkTo>
-  |
-  <LinkTo @route="search-select">
-    Search select
-  </LinkTo>
-  |
-  <LinkTo @route="tag-select">
-    Tag select
-  </LinkTo>
-  |
-  <LinkTo @route="colour-select">
-    Colour select
+  <LinkTo @route="example7">
+    Combobox with input outside
   </LinkTo>
 </p>
 
 <p>
-  <strong>
-    Please note
-  </strong>
-  these demos are very minimal. It is up to the developer to utilise the select
-  box's API to flesh out the behaviour.
+  <strong>Please note</strong>
+  These select boxes do not come with the addon. The addon provides the tools to
+  create them, and many more variations. Check out the
+  <a
+    href="https://github.com/zestia/ember-select-box/tree/main/tests/dummy/app/templates"
+  >
+    templates
+  </a>.
 </p>
 
 {{outlet}}
