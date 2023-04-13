@@ -341,7 +341,7 @@ export default class SelectBox extends Component {
 
   @action
   handleMouseEnterOption(option) {
-    this._activateOption(option, { scrollIntoView: false });
+    this._activateOption(option);
   }
 
   @action
@@ -352,7 +352,7 @@ export default class SelectBox extends Component {
 
   @action
   handleMouseUpOption(option, event) {
-    this._activateOption(option, { scrollIntoView: false });
+    this._activateOption(option);
     this._selectActiveOption();
     this._handleSelected(event);
   }
@@ -551,7 +551,9 @@ export default class SelectBox extends Component {
       return;
     }
 
-    this._activateOption(option);
+    this._activateOption(option, {
+      scrollIntoView: true
+    });
 
     if (this.canAutoSelect) {
       this._selectActiveOption();
@@ -593,7 +595,7 @@ export default class SelectBox extends Component {
     this.activeOption = null;
   }
 
-  _activateOption(option, config = { scrollIntoView: true }) {
+  _activateOption(option, config = {}) {
     if (!option) {
       option = this.options[0];
     }
@@ -612,29 +614,35 @@ export default class SelectBox extends Component {
   }
 
   _activateInitialOption() {
-    this._activateOptionForValue(this.value);
-  }
-
-  _activateOptionForValue(value) {
-    this._activateOption(this._getOptionForValue(value));
+    this._activateOptionForValue(this.value, {
+      scrollIntoView: true
+    });
   }
 
   _activateNextOption() {
-    this._activateOptionAtIndex(this.activeOptionIndex + 1);
+    this._activateOptionAtIndex(this.activeOptionIndex + 1, {
+      scrollIntoView: true
+    });
   }
 
   _activatePreviousOption() {
-    this._activateOptionAtIndex(this.activeOptionIndex - 1);
+    this._activateOptionAtIndex(this.activeOptionIndex - 1, {
+      scrollIntoView: true
+    });
   }
 
-  _activateOptionAtIndex(index) {
+  _activateOptionForValue(value, config) {
+    this._activateOption(this._getOptionForValue(value), config);
+  }
+
+  _activateOptionAtIndex(index, config) {
     if (index < 0) {
       index = this.options.length - 1;
     } else if (index >= this.options.length) {
       index = 0;
     }
 
-    this._activateOption(this.options[index]);
+    this._activateOption(this.options[index], config);
   }
 
   _selectActiveOption() {
