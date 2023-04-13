@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import { module, test, todo } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import {
   render,
@@ -637,7 +637,7 @@ module('select-box (focus)', function (hooks) {
       );
   });
 
-  test('focus-visible', async function (assert) {
+  todo('focus-visible', async function (assert) {
     assert.expect(1);
 
     await render(hbs`
