@@ -1,0 +1,315 @@
+:root {
+  --font-family: serif;
+  --light-grey: gainsboro;
+  --dark-grey: dimgrey;
+  --green: green;
+  --red: red;
+  --blue: blue;
+  --white: white;
+}
+
+/* stylelint-disable-next-line */
+a {
+  display: inline-block;
+}
+
+.example1 {
+  border: 2px solid var(--light-grey);
+  display: inline-flex;
+  flex-direction: column;
+  margin: 2px;
+  padding: 2px;
+}
+.example1:focus-within {
+  border-color: var(--dark-grey);
+}
+.example1 .select-box__options {
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+.example1 .select-box__option {
+  cursor: pointer;
+  padding: 6px;
+}
+.example1 .select-box__option[aria-current=true] {
+  box-shadow: inset 0 0 0 2px var(--white), inset 0 0 0 4px var(--green); /* stylelint-disable-line */
+}
+.example1 .select-box__option[aria-selected=true] {
+  box-shadow: inset 0 0 0 2px var(--white), inset 0 0 0 4px var(--red); /* stylelint-disable-line */
+}
+
+.example2 {
+  border: 2px solid var(--light-grey);
+  display: inline-flex;
+  flex-direction: column;
+  margin: 2px;
+  padding: 2px;
+}
+.example2:focus-within {
+  border-color: var(--dark-grey);
+}
+.example2 .select-box__options {
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  width: 160px;
+  height: 450px;
+}
+.example2 .select-box__group-label {
+  padding: 2px;
+  margin: 2px;
+  font-weight: bold;
+}
+.example2 .select-box__option {
+  cursor: pointer;
+  padding: 6px;
+}
+.example2 .select-box__option[aria-current=true] {
+  box-shadow: inset 0 0 0 2px var(--white), inset 0 0 0 4px var(--green); /* stylelint-disable-line */
+}
+.example2 .select-box__option[aria-selected=true] {
+  box-shadow: inset 0 0 0 2px var(--white), inset 0 0 0 4px var(--red); /* stylelint-disable-line */
+}
+
+.example3 {
+  border: 2px solid var(--light-grey);
+  display: inline-flex;
+  flex-direction: column;
+  margin: 2px;
+  padding: 2px;
+}
+.example3:focus-within {
+  border-color: var(--dark-grey);
+}
+.example3[data-open=false] .select-box__options {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+.example3 .select-box__trigger {
+  cursor: pointer;
+  padding: 4px;
+  outline: none;
+  user-select: none;
+  border: 2px solid transparent;
+  width: 200px;
+}
+.example3 .select-box__trigger:focus {
+  border-color: var(--blue);
+}
+.example3 .select-box__option {
+  cursor: pointer;
+  padding: 6px;
+}
+.example3 .select-box__options {
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  height: 240px;
+}
+.example3 .select-box__option[aria-current=true] {
+  box-shadow: inset 0 0 0 2px var(--white), inset 0 0 0 4px var(--green); /* stylelint-disable-line */
+}
+.example3 .select-box__option[aria-selected=true] {
+  box-shadow: inset 0 0 0 2px var(--white), inset 0 0 0 4px var(--red); /* stylelint-disable-line */
+}
+
+.example4 {
+  border: 2px solid var(--light-grey);
+  display: inline-flex;
+  flex-direction: column;
+  margin: 2px;
+  padding: 2px;
+}
+.example4:focus-within {
+  border-color: var(--dark-grey);
+}
+.example4[data-open=false] .select-box__options {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+.example4 .select-box__trigger {
+  cursor: pointer;
+  padding: 4px;
+  outline: none;
+  user-select: none;
+  border: 2px solid transparent;
+  width: 200px;
+}
+.example4 .select-box__trigger:focus {
+  border-color: var(--blue);
+}
+.example4 .select-box__option {
+  cursor: pointer;
+  padding: 6px;
+}
+.example4 .select-box__options {
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  height: 282px;
+}
+.example4 .select-box__option[aria-current=true] {
+  box-shadow: inset 0 0 0 2px var(--white), inset 0 0 0 4px var(--green); /* stylelint-disable-line */
+}
+.example4 .select-box__option[aria-selected=true] {
+  box-shadow: inset 0 0 0 2px var(--white), inset 0 0 0 4px var(--red); /* stylelint-disable-line */
+}
+
+.example5 {
+  border: 2px solid var(--light-grey);
+  display: inline-flex;
+  flex-direction: column;
+  margin: 2px;
+  padding: 2px;
+}
+.example5:focus-within {
+  border-color: var(--dark-grey);
+}
+.example5 .select-box__input {
+  font-family: var(--font-family);
+  font-size: 100%;
+  box-sizing: border-box;
+  min-width: 200px;
+  border: 2px solid var(--light-grey);
+  padding: 2px;
+  margin: 2px;
+  outline: none;
+  display: block;
+}
+.example5 .select-box__input:focus {
+  border-color: var(--blue);
+}
+.example5 .select-box__option {
+  cursor: pointer;
+  padding: 6px;
+}
+.example5 .select-box__options {
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+.example5 .select-box__option[aria-current=true] {
+  box-shadow: inset 0 0 0 2px var(--white), inset 0 0 0 4px var(--green); /* stylelint-disable-line */
+}
+.example5 .select-box__option[aria-selected=true] {
+  box-shadow: inset 0 0 0 2px var(--white), inset 0 0 0 4px var(--red); /* stylelint-disable-line */
+}
+
+.example6 {
+  border: 2px solid var(--light-grey);
+  display: inline-flex;
+  flex-direction: column;
+  margin: 2px;
+  padding: 2px;
+}
+.example6:focus-within {
+  border-color: var(--dark-grey);
+}
+.example6 .select-box__trigger {
+  cursor: pointer;
+  padding: 4px;
+  outline: none;
+  user-select: none;
+  border: 2px solid transparent;
+  width: 200px;
+}
+.example6 .select-box__input {
+  font-family: var(--font-family);
+  font-size: 100%;
+  box-sizing: border-box;
+  min-width: 200px;
+  border: 2px solid var(--light-grey);
+  padding: 2px;
+  margin: 2px;
+  outline: none;
+  display: block;
+}
+.example6 .select-box__input:focus {
+  border-color: var(--blue);
+}
+.example6 .select-box__option {
+  cursor: pointer;
+  padding: 6px;
+}
+.example6 .select-box__options {
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+.example6 .select-box__option[aria-current=true] {
+  box-shadow: inset 0 0 0 2px var(--white), inset 0 0 0 4px var(--green); /* stylelint-disable-line */
+}
+.example6 .select-box__option[aria-selected=true] {
+  box-shadow: inset 0 0 0 2px var(--white), inset 0 0 0 4px var(--red); /* stylelint-disable-line */
+}
+
+.example7 {
+  border: 2px solid var(--light-grey);
+  display: inline-flex;
+  flex-direction: column;
+  margin: 2px;
+  padding: 2px;
+}
+.example7:focus-within {
+  border-color: var(--dark-grey);
+}
+.example7 .select-box__trigger {
+  cursor: pointer;
+  padding: 4px;
+  outline: none;
+  user-select: none;
+  border: 2px solid transparent;
+  width: 20px;
+  text-align: center;
+}
+.example7 .select-box__input {
+  font-family: var(--font-family);
+  font-size: 100%;
+  box-sizing: border-box;
+  min-width: 200px;
+  border: 2px solid var(--light-grey);
+  padding: 2px;
+  margin: 2px;
+  outline: none;
+  display: block;
+}
+.example7 .select-box__input:focus {
+  border-color: var(--blue);
+}
+.example7 .select-box__option {
+  cursor: pointer;
+  padding: 6px;
+}
+.example7 .select-box__options {
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+.example7 .select-box__option[aria-current=true] {
+  box-shadow: inset 0 0 0 2px var(--white), inset 0 0 0 4px var(--green); /* stylelint-disable-line */
+}
+.example7 .select-box__option[aria-selected=true] {
+  box-shadow: inset 0 0 0 2px var(--white), inset 0 0 0 4px var(--red); /* stylelint-disable-line */
+}
+
+.example7__wrapper {
+  display: flex;
+}
