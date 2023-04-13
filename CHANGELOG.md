@@ -4,6 +4,10 @@
 
 - [Migration guide](docs/migration-16.md)
 
+## 16.0.0-1
+
+- Re-release of 16.0.0-0
+
 ## 16.0.0-0
 
 - Large refactor to fix some incorrect uses of aria attributes and to dry out common select box behaviour
