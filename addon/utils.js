@@ -69,12 +69,12 @@ export function filter(options) {
       return this;
     },
 
-    dropEmptyGroups(_) {
+    dropEmptyGroups() {
       dropEmptyGroups = true;
       return this;
     },
 
-    run(_) {
+    run() {
       return filter(options);
     }
   };
