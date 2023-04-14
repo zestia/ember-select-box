@@ -74,7 +74,7 @@ module('select-box (enter)', function (hooks) {
   });
 
   test('enter in input of combobox', async function (assert) {
-    assert.expect(14);
+    assert.expect(12);
 
     await render(hbs`
       <SelectBox @onChange={{this.handleChange}} as |sb|>
@@ -87,46 +87,75 @@ module('select-box (enter)', function (hooks) {
       </SelectBox>
     `);
 
-    assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
+    // pressing enter whilst inside an input will submit the form
+    // because there is no option active to be selected
 
     await focus('.select-box__input');
-
-    assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
-
-    await triggerKeyEvent('.select-box__input', 'keydown', 'Enter');
-
-    assert.verifySteps([], 'change event is not fired');
-
-    assert.false(this.event.defaultPrevented);
-
-    assert.dom('.select-box').doesNotHaveAttribute('data-open');
-
-    assert
-      .dom('.select-box__input')
-      .doesNotHaveAttribute('aria-expanded', 'true');
-
-    assert
-      .dom('.select-box__option:nth-child(1)')
-      .hasAttribute('aria-current', 'false');
-
-    assert
-      .dom('.select-box__option:nth-child(1)')
-      .hasAttribute('aria-selected', 'false', 'precondition');
-
     await triggerKeyEvent('.select-box__input', 'keydown', 'Enter');
 
     assert.verifySteps([]);
-
-    assert.false(
-      this.event.defaultPrevented,
-      `pressing enter whilst inside an input will submit the form
-       because there is no option active (to be selected)`
-    );
-
+    assert.false(this.event.defaultPrevented);
     assert.dom('.select-box').doesNotHaveAttribute('data-open');
     assert.dom('.select-box__input').doesNotHaveAttribute('aria-expanded');
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
     assert.dom('.select-box__option[aria-selected="true"]').doesNotExist();
+
+    await triggerKeyEvent('.select-box__input', 'keydown', 'Enter');
+
+    assert.verifySteps([]);
+    assert.false(this.event.defaultPrevented);
+    assert.dom('.select-box').doesNotHaveAttribute('data-open');
+    assert.dom('.select-box__input').doesNotHaveAttribute('aria-expanded');
+    assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
+    assert.dom('.select-box__option[aria-selected="true"]').doesNotExist();
+  });
+
+  test('enter in input of combobox (with a trigger)', async function (assert) {
+    assert.expect(13);
+
+    await render(hbs`
+      <SelectBox @onChange={{this.handleChange}} as |sb|>
+        <sb.Input {{on "keydown" this.handleKeyDown}} />
+        <sb.Trigger />
+        <sb.Options>
+          <sb.Option @value="a" />
+          <sb.Option @value="b" />
+          <sb.Option @value="c" />
+        </sb.Options>
+      </SelectBox>
+    `);
+
+    // pressing enter whilst inside an input would usually submit the form
+    // but in this case, since there is a trigger, the select box will toggle
+
+    await focus('.select-box__input');
+    await triggerKeyEvent('.select-box__input', 'keydown', 'Enter');
+
+    assert.verifySteps([]);
+    assert.true(this.event.defaultPrevented);
+    assert.dom('.select-box').hasAttribute('data-open', 'true');
+    assert.dom('.select-box__input').hasAttribute('aria-expanded', 'true');
+
+    assert
+      .dom('.select-box__option:nth-child(1)')
+      .hasAttribute('aria-current', 'true');
+
+    assert.dom('.select-box__option[aria-selected="true"]').doesNotExist();
+
+    await triggerKeyEvent('.select-box__input', 'keydown', 'Enter');
+
+    assert.verifySteps(['a']);
+    assert.true(this.event.defaultPrevented);
+    assert.dom('.select-box').hasAttribute('data-open', 'false');
+    assert.dom('.select-box__input').hasAttribute('aria-expanded', 'false');
+
+    assert
+      .dom('.select-box__option:nth-child(1)')
+      .hasAttribute('aria-current', 'true');
+
+    assert
+      .dom('.select-box__option:nth-child(1)')
+      .hasAttribute('aria-selected', 'true');
   });
 
   test('enter in input of combobox (with active option)', async function (assert) {

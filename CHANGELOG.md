@@ -4,6 +4,10 @@
 
 - [Migration guide](docs/migration-16.md)
 
+## 16.0.0-3
+
+- Ensure select box does not open when pressing Enter inside the input, if a form is to be submitted
+
 ## 16.0.0-2
 
 - Keep open when document is hidden
