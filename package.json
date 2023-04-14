@@ -102,5 +102,5 @@
     "test:ember": "ember test",
     "test:ember-compatibility": "ember try:each"
   },
-  "version": "16.0.0-2"
+  "version": "16.0.0-3"
 }
