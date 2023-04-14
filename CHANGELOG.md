@@ -4,6 +4,10 @@
 
 - [Migration guide](docs/migration-16.md)
 
+## 16.0.0-2
+
+- Keep open when document is hidden
+
 ## 16.0.0-1
 
 - Re-release of 16.0.0-0

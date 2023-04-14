@@ -669,4 +669,32 @@ module('select-box (focus)', function (hooks) {
        to the element using the keyboard`
     );
   });
+
+  test('changing tabs', async function (assert) {
+    assert.expect(4);
+
+    await render(hbs`
+      <SelectBox as |sb|>
+        <sb.Trigger />
+        <sb.Options />
+      </SelectBox>
+    `);
+
+    await click('.select-box__trigger');
+
+    assert.dom('.select-box__trigger').isFocused();
+    assert.dom('.select-box').hasAttribute('data-open', 'true');
+
+    await triggerEvent('.select-box__trigger', 'focusout');
+
+    assert.dom('.select-box__trigger').isFocused();
+    assert.dom('.select-box').hasAttribute(
+      'data-open',
+      'true',
+      `focusout fires when changing tabs (before document.hidden becomes true)
+       which causes the select box to close. but when returning to that tab,
+       focus will still be on the interactive element, therefore really it
+       should not close when changing tabs.`
+    );
+  });
 });

@@ -292,7 +292,10 @@ export default class SelectBox extends Component {
 
   @action
   handleFocusOut(event) {
-    if (this.element.contains(event.relatedTarget)) {
+    if (
+      document.activeElement === this.interactiveElement ||
+      this.element.contains(event.relatedTarget)
+    ) {
       return;
     }
 
