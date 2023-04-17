@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('select-box (disabling)', function (hooks) {
@@ -58,7 +58,7 @@ module('select-box (disabling)', function (hooks) {
         <sb.Options>
           <sb.Option @value={{1}} />
           <sb.Option @value={{2}} />
-          <sb.Option @value={{1}} />
+          <sb.Option @value={{3}} />
         </sb.Options>
       </SelectBox>
     `);
@@ -71,5 +71,40 @@ module('select-box (disabling)', function (hooks) {
         'true',
         'option is still selected, even though disabled'
       );
+  });
+
+  test('clicking a disabled option', async function (assert) {
+    assert.expect(2);
+
+    this.handleChange = (value) => assert.step(value);
+
+    await render(hbs`
+      <SelectBox @onChange={{this.handleChange}} as |sb|>
+        <sb.Trigger />
+        {{#if sb.isOpen}}
+          <sb.Options>
+            <sb.Option @value="a" />
+            <sb.Option @value="b" @disabled={{true}} />
+            <sb.Option @value="c" />
+          </sb.Options>
+        {{/if}}
+      </SelectBox>
+    `);
+
+    await click('.select-box__trigger');
+    await click('.select-box__option:nth-child(2)');
+
+    assert
+      .dom('.select-box')
+      .hasAttribute(
+        'data-open',
+        'true',
+        'does not close when selecting a disabled option'
+      );
+
+    assert.verifySteps(
+      [],
+      'does not allow option to be selected / cause change action to fire'
+    );
   });
 });

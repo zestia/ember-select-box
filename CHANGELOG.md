@@ -4,6 +4,10 @@
 
 - [Migration guide](docs/migration-16.md)
 
+## 16.0.0-4
+
+- Ensure clicking a disabled option does not close the select box
+
 ## 16.0.0-3
 
 - Ensure select box does not open when pressing Enter inside the input, if a form is to be submitted

@@ -356,8 +356,7 @@ export default class SelectBox extends Component {
   @action
   handleMouseUpOption(option, event) {
     this._activateOption(option);
-    this._selectActiveOption();
-    this._handleSelected(event);
+    this._selectOption(option, event);
   }
 
   @action
@@ -398,7 +397,6 @@ export default class SelectBox extends Component {
   @action
   select(value) {
     this._selectValue(value);
-    this._handleSelected();
   }
 
   _handleKeyDown(event) {
@@ -468,8 +466,7 @@ export default class SelectBox extends Component {
       return;
     }
 
-    this._selectActiveOption();
-    this._handleSelected(event);
+    this._selectActiveOption(event);
   }
 
   _handleEscape() {
@@ -562,8 +559,7 @@ export default class SelectBox extends Component {
     });
 
     if (this.canAutoSelect) {
-      this._selectActiveOption();
-      this._handleSelected(event);
+      this._selectActiveOption(event);
     }
   }
 
@@ -651,29 +647,31 @@ export default class SelectBox extends Component {
     this._activateOption(this.options[index], config);
   }
 
-  _selectActiveOption() {
-    this._selectOption(this.activeOption);
+  _selectActiveOption(event) {
+    this._selectOption(this.activeOption, event);
   }
 
-  _selectOption(option) {
+  _selectOption(option, event) {
     if (!option || option.isDisabled) {
       return;
     }
 
     const value = this._buildSelection(option.args.value);
 
-    this._selectValue(value);
+    this._selectValue(value, event);
   }
 
   _setValue(value) {
     this.value = this.isMultiple ? makeArray(value) : value;
   }
 
-  _selectValue(value) {
+  _selectValue(value, event) {
     if (this.value !== value) {
       this._setValue(value);
       this.args.onChange?.(this.value, this.api);
     }
+
+    this._handleSelected(event);
   }
 
   _ensureFocus() {
