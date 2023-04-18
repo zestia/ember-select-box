@@ -64,8 +64,8 @@ module('select-box (enter)', function (hooks) {
       .dom('.select-box__option:nth-child(1)')
       .hasAttribute(
         'aria-current',
-        'true',
-        'option remains active, because the select box is still focused'
+        'false',
+        'active option is forgotten when the select box closes'
       );
 
     assert
@@ -151,7 +151,7 @@ module('select-box (enter)', function (hooks) {
 
     assert
       .dom('.select-box__option:nth-child(1)')
-      .hasAttribute('aria-current', 'true');
+      .hasAttribute('aria-current', 'false');
 
     assert
       .dom('.select-box__option:nth-child(1)')

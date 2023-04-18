@@ -421,6 +421,12 @@ export default class SelectBox extends Component {
 
   _handleArrowUp(event) {
     event.preventDefault();
+
+    if (this.canAutoOpen) {
+      this._open();
+      return;
+    }
+
     this._activatePreviousOption();
   }
 
@@ -580,6 +586,7 @@ export default class SelectBox extends Component {
     }
 
     this.isOpen = false;
+    this._deactivateOptions();
     this.args.onClose?.(this.api);
 
     scheduleOnce('afterRender', this, '_handleClosed', reason);

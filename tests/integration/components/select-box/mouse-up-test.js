@@ -51,13 +51,7 @@ module('select-box (mouseenter option)', function (hooks) {
     await triggerEvent('.select-box', 'mouseleave');
     await triggerEvent('.outside', 'mouseup');
 
-    assert.dom('.select-box__option:nth-child(2)').hasAttribute(
-      'aria-current',
-      'true',
-      `select box still has focus, so the current option is remembered,
-       even though the select box may be closed.`
-    );
-
+    assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
     assert.dom('.select-box__trigger').isFocused();
     assert.dom('.select-box').hasAttribute('data-open', 'false');
     assert.verifySteps([]);

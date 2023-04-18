@@ -5,8 +5,8 @@ import {
   click,
   render,
   find,
-  triggerKeyEvent,
-  triggerEvent
+  triggerEvent,
+  triggerKeyEvent
 } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
@@ -193,22 +193,25 @@ module('select-box (down arrow key)', function (hooks) {
       }
       </style>
 
-      <SelectBox as |sb|>
+      <SelectBox @value="B" as |sb|>
         <sb.Trigger />
-        <sb.Options>
-          <sb.Option>a</sb.Option>
-          <sb.Option>b</sb.Option>
-          <sb.Option>c</sb.Option>
-        </sb.Options>
+        {{#if sb.isOpen}}
+          <sb.Options>
+            <sb.Option @value="A">a</sb.Option>
+            <sb.Option @value="B">b</sb.Option>
+            <sb.Option @value="C">c</sb.Option>
+          </sb.Options>
+        {{/if}}
       </SelectBox>
     `);
 
     await click('.select-box__trigger');
 
-    const expectedTop = find('.select-box__option:nth-child(2)').offsetTop;
+    const startTop = find('.select-box__option:nth-child(2)').offsetTop;
+    const expectedTop = find('.select-box__option:nth-child(3)').offsetTop;
 
-    assert.ok(expectedTop > 0);
-    assert.strictEqual(find('.select-box__options').scrollTop, 0);
+    assert.ok(startTop > 0);
+    assert.strictEqual(find('.select-box__options').scrollTop, startTop);
 
     await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowDown');
 
@@ -311,10 +314,10 @@ module('select-box (down arrow key)', function (hooks) {
 
     assert
       .dom('.select-box__option:nth-child(1)')
-      .hasAttribute('aria-current', 'true', 'still activates the first option');
+      .hasAttribute('aria-current', 'true', 'still navigates options');
   });
 
-  test('down on options of a listbox after making a selection', async function (assert) {
+  test('up on options of a listbox after making a selection', async function (assert) {
     assert.expect(2);
 
     await render(hbs`
@@ -381,5 +384,25 @@ module('select-box (down arrow key)', function (hooks) {
       `because there was a selected option,
        keyboard navigation starts from that point`
     );
+  });
+
+  test('does not scroll the active option into view when closed', async function (assert) {
+    assert.expect(1);
+
+    await render(hbs`
+      <SelectBox as |sb|>
+        <sb.Trigger />
+        <sb.Options>
+          <sb.Option @value="A">a</sb.Option>
+          <sb.Option @value="B">b</sb.Option>
+          <sb.Option @value="C">c</sb.Option>
+        </sb.Options>
+      </SelectBox>
+    `);
+
+    await focus('.select-box__trigger');
+    await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowDown');
+
+    assert.strictEqual(find('.select-box__options').scrollTop, 0);
   });
 });

@@ -42,7 +42,7 @@ module('select-box (escape)', function (hooks) {
 
     assert
       .dom('.select-box__option')
-      .hasAttribute('aria-current', 'true')
+      .hasAttribute('aria-current', 'false')
       .hasAttribute('aria-selected', 'false');
 
     assert.verifySteps(['close']);
@@ -80,7 +80,7 @@ module('select-box (escape)', function (hooks) {
 
     assert
       .dom('.select-box__option')
-      .hasAttribute('aria-current', 'true')
+      .hasAttribute('aria-current', 'false')
       .hasAttribute('aria-selected', 'false');
 
     assert.verifySteps(['close']);

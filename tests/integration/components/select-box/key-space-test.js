@@ -66,8 +66,8 @@ module('select-box (space)', function (hooks) {
       .dom('.select-box__option:nth-child(1)')
       .hasAttribute(
         'aria-current',
-        'true',
-        'option remains active, because the select box is still focused'
+        'false',
+        'active option is forgotten when the select box closes'
       );
 
     assert

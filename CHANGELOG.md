@@ -4,6 +4,10 @@
 
 - [Migration guide](docs/migration-16.md)
 
+## 16.0.0-5
+
+- Up arrow also opens the select box
+
 ## 16.0.0-4
 
 - Ensure clicking a disabled option does not close the select box

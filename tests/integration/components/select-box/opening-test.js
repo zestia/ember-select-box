@@ -50,18 +50,30 @@ module('select-box (opening)', function (hooks) {
   });
 
   test('can set initial open state', async function (assert) {
-    assert.expect(3);
+    assert.expect(6);
 
     await render(hbs`
       <SelectBox @open={{true}} as |sb|>
         <sb.Trigger />
         <sb.Input />
+        <sb.Options>
+          <sb.Option />
+        </sb.Options>
       </SelectBox>
     `);
 
     assert.dom('.select-box').hasAttribute('data-open', 'true');
     assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'true');
     assert.dom('.select-box__input').hasAttribute('aria-expanded', 'true');
+    assert.dom('.select-box__trigger').isNotFocused();
+    assert.dom('.select-box__input').isNotFocused();
+
+    assert.dom('.select-box__option').hasAttribute(
+      'aria-current',
+      'false',
+      `because open happens at construction, not after render, no options are
+       set to be current, since there are none at this point.`
+    );
   });
 
   test('cannot manually open listbox', async function (assert) {
@@ -350,5 +362,32 @@ module('select-box (opening)', function (hooks) {
 
     assert.ok(expectedTop > 0);
     assert.strictEqual(find('.select-box__options').scrollTop, expectedTop);
+  });
+
+  test('opening forgets previous active option', async function (assert) {
+    assert.expect(2);
+
+    await render(hbs`
+      <SelectBox as |sb|>
+        <sb.Trigger />
+        <sb.Options>
+          <sb.Option />
+          <sb.Option />
+          <sb.Option />
+        </sb.Options>
+      </SelectBox>
+    `);
+
+    await click('.select-box__trigger');
+
+    await triggerEvent('.select-box__option:nth-child(2)', 'mouseenter');
+
+    assert
+      .dom('.select-box__option:nth-child(2)')
+      .hasAttribute('aria-current', 'true');
+
+    await click('.select-box__trigger');
+
+    assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
   });
 });
