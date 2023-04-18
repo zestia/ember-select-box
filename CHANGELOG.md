@@ -7,6 +7,7 @@
 ## 16.0.0-5
 
 - Up arrow also opens the select box
+- Active option is forgotten when closing
 
 ## 16.0.0-4
 
