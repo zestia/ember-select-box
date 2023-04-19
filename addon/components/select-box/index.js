@@ -144,9 +144,11 @@ export default class SelectBox extends Component {
   }
 
   get triggerRole() {
-    return this.interactiveElement === this.triggerElement
-      ? 'combobox'
-      : 'button';
+    return this.hasInput ? 'button' : 'combobox';
+  }
+
+  get triggerActiveDescendant() {
+    return this.hasInput ? null : this.activeOption?.element.id;
   }
 
   get activeOptionIndex() {

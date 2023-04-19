@@ -37,3 +37,8 @@
     @include example.option-selected;
   }
 }
+
+.example6__dropdown {
+  display: flex;
+  flex-direction: column;
+}

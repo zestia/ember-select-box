@@ -1,6 +1,12 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, find, setupOnerror, resetOnerror } from '@ember/test-helpers';
+import {
+  render,
+  find,
+  setupOnerror,
+  resetOnerror,
+  triggerEvent
+} from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('select-box/trigger', function (hooks) {
@@ -92,7 +98,7 @@ module('select-box/trigger', function (hooks) {
     assert.dom('.select-box__trigger').hasAttribute('role', 'combobox');
   });
 
-  test('role with input', async function (assert) {
+  test('role (with input)', async function (assert) {
     assert.expect(1);
 
     await render(hbs`
@@ -141,5 +147,25 @@ module('select-box/trigger', function (hooks) {
     `);
 
     resetOnerror();
+  });
+
+  test('active descendant (with input)', async function (assert) {
+    assert.expect(1);
+
+    await render(hbs`
+      <SelectBox as |sb|>
+        <sb.Trigger />
+        <sb.Input />
+        <sb.Options>
+          <sb.Option />
+        </sb.Options>
+      </SelectBox>
+    `);
+
+    await triggerEvent('.select-box__option', 'mouseenter');
+
+    assert
+      .dom('.select-box__trigger')
+      .doesNotHaveAttribute('aria-activedescendant');
   });
 });

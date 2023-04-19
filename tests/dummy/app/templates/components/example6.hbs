@@ -12,18 +12,19 @@
   </sb.Trigger>
 
   {{#if sb.isOpen}}
-    <sb.Options>
+    <div class="example6__dropdown">
       <sb.Input />
-
-      {{#each sb.options as |value|}}
-        <sb.Option @value={{value}}>
-          {{yield value to="option"}}
-        </sb.Option>
-      {{else}}
-        <sb.Option @disabled={{true}}>
-          {{yield sb.query to="noOptions"}}
-        </sb.Option>
-      {{/each}}
-    </sb.Options>
+      <sb.Options>
+        {{#each sb.options as |value|}}
+          <sb.Option @value={{value}}>
+            {{yield value to="option"}}
+          </sb.Option>
+        {{else}}
+          <sb.Option @disabled={{true}}>
+            {{yield sb.query to="noOptions"}}
+          </sb.Option>
+        {{/each}}
+      </sb.Options>
+    </div>
   {{/if}}
 </SelectBox>
