@@ -42,6 +42,7 @@ module.exports = function (environment) {
 
   if (environment === 'production') {
     ENV.rootURL = '/ember-select-box/';
+    ENV.locationType = 'hash';
   }
 
   return ENV;
