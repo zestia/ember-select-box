@@ -190,13 +190,11 @@ export default class SelectBox extends Component {
   @action
   handleInsertElement(element) {
     this.element = element;
-    this._setup();
   }
 
   @action
   handleDestroyElement() {
     this.element = null;
-    this._tearDown();
   }
 
   @action
@@ -266,11 +264,13 @@ export default class SelectBox extends Component {
   @action
   handleMouseDown(event) {
     this.lastMouseDownElement = event.target;
+
+    document.addEventListener('mouseup', this.handleMouseUp, { once: true });
   }
 
   @action
   handleMouseUp(event) {
-    if (!this.lastMouseDownElement) {
+    if (!this.element || !this.lastMouseDownElement) {
       return;
     }
 
@@ -739,14 +739,6 @@ export default class SelectBox extends Component {
 
   _defaultSearch(query) {
     return filter(this.args.options).query(query).run();
-  }
-
-  _setup() {
-    document.addEventListener('mouseup', this.handleMouseUp);
-  }
-
-  _tearDown() {
-    document.removeEventListener('mouseup', this.handleMouseUp);
   }
 
   get _api() {
