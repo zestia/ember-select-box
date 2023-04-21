@@ -4,6 +4,11 @@
 
 - [Migration guide](docs/migration-16.md)
 
+## 16.0.0-6
+
+- Only apply `aria-activedescendent` to the interactive element when necessary
+- Only add document level event listener when necessary
+
 ## 16.0.0-5
 
 - Up arrow also opens the select box
