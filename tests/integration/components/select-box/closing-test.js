@@ -135,15 +135,10 @@ module('select-box (closing)', function (hooks) {
   });
 
   test('closing due to loss of focus', async function (assert) {
-    assert.expect(2);
-
-    this.handleWillClose = ({ description: reason }) => {
-      this.reason = reason;
-      return false;
-    };
+    assert.expect(3);
 
     await render(hbs`
-      <SelectBox @onWillClose={{this.handleWillClose}} as |sb|>
+      <SelectBox @onClose={{this.handleClose}} as |sb|>
         <sb.Trigger />
         <sb.Options>
           <sb.Option />
@@ -154,27 +149,15 @@ module('select-box (closing)', function (hooks) {
     await click('.select-box__trigger');
     await blur('.select-box__trigger');
 
-    assert
-      .dom('.select-box')
-      .hasAttribute(
-        'data-open',
-        'true',
-        'return value of onWillClose controls whether the select box closes'
-      );
-
-    assert.strictEqual(this.reason, 'FOCUS_LEAVE');
+    assert.dom('.select-box').hasAttribute('data-open', 'false');
+    assert.verifySteps(['close']);
   });
 
   test('closing due mousing up outside', async function (assert) {
-    assert.expect(2);
-
-    this.handleWillClose = ({ description: reason }) => {
-      this.reason = reason;
-      return false;
-    };
+    assert.expect(3);
 
     await render(hbs`
-      <SelectBox @onWillClose={{this.handleWillClose}} as |sb|>
+      <SelectBox @onClose={{this.handleClose}} as |sb|>
         <sb.Trigger />
         <sb.Options>
           <sb.Option />
@@ -187,28 +170,19 @@ module('select-box (closing)', function (hooks) {
     await triggerEvent('.select-box__trigger', 'mousedown');
     await triggerEvent('.outside', 'mouseup');
 
-    assert
-      .dom('.select-box')
-      .hasAttribute(
-        'data-open',
-        'true',
-        'return value of onWillClose controls whether the select box closes'
-      );
-
-    assert.strictEqual(this.reason, 'CLICK_ABORT');
+    assert.dom('.select-box').hasAttribute('data-open', 'false');
+    assert.verifySteps(['close']);
   });
 
   test('mousing up outside must have moused down first', async function (assert) {
     assert.expect(1);
-
-    this.handleWillClose = () => assert.step('will close');
 
     await render(hbs`
       <button type="button"></button>
 
       <SelectBox
         @open={{true}}
-        @onWillClose={{this.handleWillClose}}
+        @onlClose={{this.handleClose}}
         as |sb|
       >
         <sb.Trigger />
@@ -221,15 +195,10 @@ module('select-box (closing)', function (hooks) {
   });
 
   test('closing due to pressing escape', async function (assert) {
-    assert.expect(2);
-
-    this.handleWillClose = ({ description: reason }) => {
-      this.reason = reason;
-      return false;
-    };
+    assert.expect(3);
 
     await render(hbs`
-      <SelectBox @onWillClose={{this.handleWillClose}} as |sb|>
+      <SelectBox @onClose={{this.handleClose}} as |sb|>
         <sb.Trigger />
         <sb.Options>
           <sb.Option />
@@ -240,24 +209,15 @@ module('select-box (closing)', function (hooks) {
     await click('.select-box__trigger');
     await triggerKeyEvent('.select-box__trigger', 'keydown', 'Escape');
 
-    assert
-      .dom('.select-box')
-      .hasAttribute(
-        'data-open',
-        'true',
-        'return value of onWilClose controls whether the select box closes'
-      );
-
-    assert.strictEqual(this.reason, 'ESCAPE');
+    assert.dom('.select-box').hasAttribute('data-open', 'false');
+    assert.verifySteps(['close']);
   });
 
-  test('will close only fires once', async function (assert) {
+  test('close only fires once', async function (assert) {
     assert.expect(2);
 
-    this.handleWillClose = () => assert.step('will close');
-
     await render(hbs`
-      <SelectBox @onWillClose={{this.handleWillClose}} as |sb|>
+      <SelectBox @onClose={{this.handleClose}} as |sb|>
         <sb.Trigger />
       </SelectBox>
       <div class="outside"></div>
@@ -268,29 +228,39 @@ module('select-box (closing)', function (hooks) {
     await triggerEvent('.outside', 'mouseup');
 
     assert.verifySteps(
-      ['will close'],
-      `a select box may close on focus leave and mousing up outside.,
+      ['close'],
+      `a select box may close on focus leave and mousing up outside,
        if focus is lost _because_ of the mousing up outside, then
-       the willOnClose action only fires once, not twice`
+       the onClose action only fires once, not twice`
     );
   });
 
   test('programmatically closing', async function (assert) {
-    assert.expect(1);
+    assert.expect(3);
 
-    this.handleWillClose = () => assert.step('will close');
+    this.handleSelect = () => false;
 
     await render(hbs`
-      <SelectBox @onWillClose={{this.handleWillClose}} as |sb|>
+      <SelectBox
+        @onSelect={{this.handleSelect}}
+        @onClose={{this.handleClose}} as |sb|
+      >
         <sb.Trigger />
         <button type="button" {{on "click" sb.close}}></button>
       </SelectBox>
     `);
 
     await click('.select-box__trigger');
+
+    assert.verifySteps(
+      [],
+      `the return value of onSelect controls whether or not the
+       select box will close after making the selection`
+    );
+
     await click('button');
 
-    assert.verifySteps([], 'does not fire onWillClose');
+    assert.verifySteps(['close']);
   });
 
   test('clicking to programmatically close', async function (assert) {

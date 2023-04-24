@@ -96,7 +96,7 @@ Required. Fired when a selection is made (that is, an option is clicked, or ente
 
 #### `@onSelect`
 
-Optional. Similar to `@onChange` but fires regardless as to whether the value changed or not.
+Optional. Similar to `@onChange` but fires regardless as to whether the value changed or not. The return value controls whether or not the select box will close after the selection.
 
 #### `@onSearch`
 
@@ -122,10 +122,6 @@ Optional. Whether or not the select box should be in an open state initially.
 #### `@onOpen`
 
 Optional. Fired when the select box is opened
-
-#### `@onWillClose`
-
-Optional. The select box will close when the user has finished interacting with it. This means, it has lost focus, or the the user aborted their mouse click, or they pressed Escape. Returning `false` will prevent this behaviour, keeping the select box open. You are then free to manually close the select box using the API.
 
 #### `@onClose`
 

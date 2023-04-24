@@ -478,32 +478,23 @@ export default class SelectBox extends Component {
   }
 
   _handleEscape() {
-    this._handleWillClose(Symbol('ESCAPE'));
+    this._close(Symbol('ESCAPE'));
   }
 
   _handleFocusLeave() {
     this._deactivateOptions();
-    this._handleWillClose(Symbol('FOCUS_LEAVE'));
-  }
-
-  _handleSelected() {
-    this.args.onSelect?.(this.api);
-    this._handleWillClose(Symbol('SELECTED'), this.canAutoClose);
+    this._close(Symbol('FOCUS_LEAVE'));
   }
 
   _handleClickAbort() {
-    this._handleWillClose(Symbol('CLICK_ABORT'));
+    this._close(Symbol('CLICK_ABORT'));
   }
 
-  _handleWillClose(reason, close = true) {
-    if (this.isClosed) {
-      return;
-    }
-
-    close = this.args.onWillClose?.(reason, this.api) ?? close;
+  _handleSelected() {
+    const close = this.args.onSelect?.(this.api) ?? this.canAutoClose;
 
     if (close) {
-      this._close(reason);
+      this._close(Symbol('SELECTED'));
     }
   }
 
