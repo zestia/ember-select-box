@@ -238,7 +238,7 @@ A combobox, which toggles the select box open/closed.
 
 # Filtering
 
-Since filtering options down is a common requirement, this addon comes with a utility to help.
+Since filtering options down (and accounting for diacritics) is a common requirement, this addon comes with a utility to help.
 
 <details>
   <summary>View example</summary>
