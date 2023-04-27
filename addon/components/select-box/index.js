@@ -475,6 +475,7 @@ export default class SelectBox extends Component {
     }
 
     this._selectActiveOption(event);
+    this._close();
   }
 
   _handleEscape() {
@@ -598,10 +599,6 @@ export default class SelectBox extends Component {
   }
 
   _activateOption(option, config = {}) {
-    if (!option) {
-      option = this.options[0];
-    }
-
     if (!option || option.isDisabled || option.isActive) {
       return;
     }

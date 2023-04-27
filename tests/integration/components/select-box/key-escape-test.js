@@ -28,7 +28,7 @@ module('select-box (escape)', function (hooks) {
 
     assert
       .dom('.select-box__option')
-      .hasAttribute('aria-current', 'true')
+      .hasAttribute('aria-current', 'false')
       .hasAttribute('aria-selected', 'false');
 
     assert.dom('.select-box').hasAttribute('data-open', 'true');
@@ -66,7 +66,7 @@ module('select-box (escape)', function (hooks) {
 
     assert
       .dom('.select-box__option')
-      .hasAttribute('aria-current', 'true')
+      .hasAttribute('aria-current', 'false')
       .hasAttribute('aria-selected', 'false');
 
     assert.dom('.select-box').hasAttribute('data-open', 'true');

@@ -4,6 +4,10 @@
 
 - [Migration guide](docs/migration-16.md)
 
+## 16.0.0-7
+
+- Don't activate first option
+
 ## 16.0.0-6
 
 - Only apply `aria-activedescendent` to the interactive element when necessary

@@ -17,7 +17,7 @@ module('select-box (space)', function (hooks) {
   });
 
   test('space on trigger of combobox', async function (assert) {
-    assert.expect(11);
+    assert.expect(10);
 
     await render(hbs`
       <SelectBox @onChange={{this.handleChange}} as |sb|>
@@ -35,44 +35,22 @@ module('select-box (space)', function (hooks) {
 
     assert.verifySteps([], 'change event is not fired');
     assert.true(this.event.defaultPrevented);
+
     assert.dom('.select-box').hasAttribute('data-open', 'true');
+    assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'true');
 
     assert
       .dom('.select-box__option:nth-child(1)')
-      .hasAttribute(
-        'aria-current',
-        'true',
-        'first option is activated when the select box opens'
-      );
-
-    assert
-      .dom('.select-box__option:nth-child(1)')
-      .hasAttribute('aria-selected', 'false', 'precondition');
+      .hasAttribute('aria-current', 'false')
+      .hasAttribute('aria-selected', 'false');
 
     await triggerKeyEvent('.select-box__trigger', 'keydown', ' ');
 
-    assert.verifySteps(['A'], 'change event is fired');
+    assert.verifySteps([], 'change event is not fired');
     assert.true(this.event.defaultPrevented);
 
-    assert
-      .dom('.select-box')
-      .hasAttribute(
-        'data-open',
-        'false',
-        'select box closes when space is pressed'
-      );
-
-    assert
-      .dom('.select-box__option:nth-child(1)')
-      .hasAttribute(
-        'aria-current',
-        'false',
-        'active option is forgotten when the select box closes'
-      );
-
-    assert
-      .dom('.select-box__option:nth-child(1)')
-      .hasAttribute('aria-selected', 'true', 'enter on an option selects it');
+    assert.dom('.select-box').hasAttribute('data-open', 'false');
+    assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'false');
   });
 
   test('space in input of combobox', async function (assert) {

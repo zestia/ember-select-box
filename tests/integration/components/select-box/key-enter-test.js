@@ -18,7 +18,7 @@ module('select-box (enter)', function (hooks) {
   });
 
   test('enter on trigger of combobox', async function (assert) {
-    assert.expect(13);
+    assert.expect(10);
 
     await render(hbs`
       <SelectBox @onChange={{this.handleChange}} as |sb|>
@@ -42,35 +42,16 @@ module('select-box (enter)', function (hooks) {
 
     assert
       .dom('.select-box__option:nth-child(1)')
-      .hasAttribute(
-        'aria-current',
-        'true',
-        'first option is activated when the select box opens'
-      );
-
-    assert
-      .dom('.select-box__option:nth-child(1)')
-      .hasAttribute('aria-selected', 'false', 'precondition');
+      .hasAttribute('aria-current', 'false')
+      .hasAttribute('aria-selected', 'false');
 
     await triggerKeyEvent('.select-box__trigger', 'keydown', 'Enter');
 
-    assert.verifySteps(['a'], 'change event is fired');
+    assert.verifySteps([], 'change event is not fired');
     assert.false(this.event.defaultPrevented);
 
     assert.dom('.select-box').hasAttribute('data-open', 'false');
     assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'false');
-
-    assert
-      .dom('.select-box__option:nth-child(1)')
-      .hasAttribute(
-        'aria-current',
-        'false',
-        'active option is forgotten when the select box closes'
-      );
-
-    assert
-      .dom('.select-box__option:nth-child(1)')
-      .hasAttribute('aria-selected', 'true', 'enter on an option selects it');
   });
 
   test('enter in input of combobox', async function (assert) {
@@ -111,10 +92,10 @@ module('select-box (enter)', function (hooks) {
   });
 
   test('enter in input of combobox (with a trigger)', async function (assert) {
-    assert.expect(13);
+    assert.expect(12);
 
     await render(hbs`
-      <SelectBox @onChange={{this.handleChange}} as |sb|>
+      <SelectBox @value="b" @onChange={{this.handleChange}} as |sb|>
         <sb.Input {{on "keydown" this.handleKeyDown}} />
         <sb.Trigger />
         <sb.Options>
@@ -137,24 +118,20 @@ module('select-box (enter)', function (hooks) {
     assert.dom('.select-box__input').hasAttribute('aria-expanded', 'true');
 
     assert
-      .dom('.select-box__option:nth-child(1)')
-      .hasAttribute('aria-current', 'true');
-
-    assert.dom('.select-box__option[aria-selected="true"]').doesNotExist();
+      .dom('.select-box__option:nth-child(2)')
+      .hasAttribute('aria-current', 'true')
+      .hasAttribute('aria-selected', 'true');
 
     await triggerKeyEvent('.select-box__input', 'keydown', 'Enter');
 
-    assert.verifySteps(['a']);
+    assert.verifySteps([]);
     assert.true(this.event.defaultPrevented);
     assert.dom('.select-box').hasAttribute('data-open', 'false');
     assert.dom('.select-box__input').hasAttribute('aria-expanded', 'false');
 
     assert
-      .dom('.select-box__option:nth-child(1)')
-      .hasAttribute('aria-current', 'false');
-
-    assert
-      .dom('.select-box__option:nth-child(1)')
+      .dom('.select-box__option:nth-child(2)')
+      .hasAttribute('aria-current', 'false')
       .hasAttribute('aria-selected', 'true');
   });
 

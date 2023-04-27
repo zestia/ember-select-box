@@ -151,7 +151,7 @@ module('select-box (opening)', function (hooks) {
       .hasAttribute('aria-current', 'true');
   });
 
-  test('activates option (multiple)', async function (assert) {
+  test('activating option (multiple)', async function (assert) {
     assert.expect(1);
 
     await render(hbs`
@@ -169,10 +169,8 @@ module('select-box (opening)', function (hooks) {
     await click('.select-box__trigger');
 
     assert
-      .dom('.select-box__option:nth-child(1)')
-      .hasAttribute(
-        'aria-current',
-        'true',
+      .dom('.select-box__option[aria-current="true"]')
+      .doesNotExist(
         'does not attempt to activate any of the options for the given value'
       );
   });
