@@ -54,6 +54,28 @@ module('select-box (enter)', function (hooks) {
     assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'false');
   });
 
+  test('enter on trigger of combobox (multiple)', async function (assert) {
+    assert.expect(2);
+
+    await render(hbs`
+      <SelectBox @multiple={{true}} as |sb|>
+        <sb.Trigger />
+        <sb.Options>
+          <sb.Option />
+        </sb.Options>
+      </SelectBox>
+    `);
+
+    await focus('.select-box__trigger');
+    await triggerKeyEvent('.select-box__trigger', 'keydown', 'Enter');
+
+    assert.dom('.select-box').hasAttribute('data-open', 'true');
+
+    await triggerKeyEvent('.select-box__trigger', 'keydown', 'Enter');
+
+    assert.dom('.select-box').hasAttribute('data-open', 'true');
+  });
+
   test('enter in input of combobox', async function (assert) {
     assert.expect(12);
 

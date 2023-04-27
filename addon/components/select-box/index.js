@@ -108,7 +108,7 @@ export default class SelectBox extends Component {
   }
 
   get canAutoClose() {
-    return this.isSingle;
+    return this.isSingle && this.isOpen;
   }
 
   get canAutoSelect() {
@@ -475,7 +475,10 @@ export default class SelectBox extends Component {
     }
 
     this._selectActiveOption(event);
-    this._close();
+
+    if (this.canAutoClose) {
+      this._close();
+    }
   }
 
   _handleEscape() {
