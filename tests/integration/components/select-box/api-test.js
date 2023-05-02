@@ -380,7 +380,8 @@ module('select-box (api)', function (hooks) {
       .hasAttribute(
         'aria-disabled',
         'true',
-        'can still select a disabled option, by value'
+        `can still select a disabled option by value
+         (native select boxes can have disabled options that are selected)`
       );
   });
 
