@@ -34,11 +34,13 @@ https://zestia.github.io/ember-select-box
 - No configuration options ✔︎
 - Very few issues over many years of Ember! ✔︎
 - Customisable filtering built in ✔︎
-- Agnostic towards dropdown positioning ✔︎
 
 ## Notes
 
-- This addon intentionally does not come with any styles.
+This addon...
+
+- Intentionally does not come with any styles
+- Does not concern itself with dropdown positioning
 
 ## Example
 
