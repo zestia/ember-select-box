@@ -13,6 +13,7 @@
     {{#each @options as |value|}}
       <sb.Option @value={{value}} as |option|>
         <input
+          aria-hidden="true"
           aria-labelledby={{option.id}}
           type="checkbox"
           checked={{option.isSelected}}
