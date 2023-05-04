@@ -473,7 +473,11 @@ export default class SelectBox extends Component {
     }
   }
 
-  _handleEscape() {
+  _handleEscape(event) {
+    if (this.canClose) {
+      event.stopPropagation();
+    }
+
     this._close(Symbol('ESCAPE'));
   }
 

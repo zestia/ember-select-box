@@ -85,4 +85,55 @@ module('select-box (escape)', function (hooks) {
 
     assert.verifySteps(['close']);
   });
+
+  test('escape inside something else escapable (e.g. a dropdown) - escape parent', async function (assert) {
+    assert.expect(1);
+
+    this.handleKeyDownParent = (event) => (this.event = event);
+
+    await render(hbs`
+      {{! template-lint-disable no-invalid-interactive }}
+      <div {{on "keydown" this.handleKeyDownParent}}>
+        <SelectBox @onClose={{this.handleClose}} as |sb|>
+          <sb.Trigger />
+          <sb.Options />
+        </SelectBox>
+      </div>
+    `);
+
+    await triggerKeyEvent('.select-box__trigger', 'keydown', 'Escape');
+
+    assert.true(
+      this.event instanceof Event,
+      'event not stopped, escape allowed to bubble up'
+    );
+  });
+
+  test('escape inside something else escapable (e.g. a dropdown) - escape child', async function (assert) {
+    assert.expect(3);
+
+    this.handleKeyDownParent = (event) => (this.event = event);
+
+    await render(hbs`
+      {{! template-lint-disable no-invalid-interactive }}
+      <div {{on "keydown" this.handleKeyDownParent}}>
+        <SelectBox @onClose={{this.handleClose}} as |sb|>
+          <sb.Trigger />
+          <sb.Options />
+        </SelectBox>
+      </div>
+    `);
+
+    await click('.select-box__trigger');
+    await triggerKeyEvent('.select-box__trigger', 'keydown', 'Escape');
+
+    assert.notOk(
+      this.event,
+      `event propagation is stopped, since escape has caused the select box
+       to close. we don't want escape to also close the parent element (dropdown)
+       that the select box is contained within`
+    );
+
+    assert.verifySteps(['close']);
+  });
 });

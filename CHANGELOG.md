@@ -4,6 +4,10 @@
 
 - [Migration guide](docs/migration-16.md)
 
+## 16.0.0-9
+
+- Allow escape to work when nested
+
 ## 16.0.0-8
 
 - Fix Enter/Space closing multiple select boxes
