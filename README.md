@@ -34,6 +34,7 @@ https://zestia.github.io/ember-select-box
 - No configuration options ✔︎
 - Very few issues over many years of Ember! ✔︎
 - Customisable filtering built in ✔︎
+- Agnostic towards dropdown positioning ✔︎
 
 ## Notes
 
