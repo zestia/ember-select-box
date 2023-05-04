@@ -87,14 +87,6 @@ export default class SelectBox extends Component {
       : null;
   }
 
-  get isOpenState() {
-    return this.isListBox ? true : this.isOpen === true;
-  }
-
-  get isClosedState() {
-    return this.isListBox ? false : this.isOpen === false;
-  }
-
   get canOpen() {
     return this.isComboBox && this.isClosed;
   }
@@ -112,7 +104,7 @@ export default class SelectBox extends Component {
   }
 
   get canAutoSelect() {
-    return this.isSingle && this.isClosedState;
+    return this.isSingle && this.isComboBox && this.isClosed;
   }
 
   get isBusy() {
@@ -608,7 +600,7 @@ export default class SelectBox extends Component {
 
     this.activeOption = option;
 
-    if (config.scrollIntoView && this.isOpenState) {
+    if (config.scrollIntoView) {
       option.scrollIntoView();
     }
 
