@@ -37,9 +37,9 @@ https://zestia.github.io/ember-select-box
 
 ## Notes
 
-This addon...
+This addon intentionally...
 
-- Intentionally does not come with any styles
+- Does not come with any styles
 - Does not concern itself with dropdown positioning
 
 ## Example
