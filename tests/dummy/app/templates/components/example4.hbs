@@ -15,8 +15,9 @@
         <input
           aria-hidden="true"
           aria-labelledby={{option.id}}
-          type="checkbox"
           checked={{option.isSelected}}
+          tabindex="-1"
+          type="checkbox"
           {{on "click" this.preventDefault}}
         />
         {{yield value to="option"}}
