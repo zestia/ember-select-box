@@ -29,7 +29,7 @@ module('utils', function (hooks) {
   test('#startsWithString', function (assert) {
     assert.expect(10);
 
-    assert.false(startsWith('foo', 'x'), 'does not contain');
+    assert.false(startsWith('foo', 'x'), 'does not start with');
     assert.true(startsWith(' foo ', 'f'), 'spaces trimmed from input');
     assert.false(startsWith('foo', ' f '), 'spaces not trimmed from query');
     assert.true(startsWith('FOO', 'f'), 'case insensitive input');
