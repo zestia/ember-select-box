@@ -4,6 +4,10 @@
 
 - [Migration guide](docs/migration-16.md)
 
+## 16.0.0-11
+
+- Fix tabbing for Firefox
+
 ## 16.0.0-10
 
 - Add `ember-auto-import` to dependencies

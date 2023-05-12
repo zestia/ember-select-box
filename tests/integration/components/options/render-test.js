@@ -51,7 +51,13 @@ module('select-box/options', function (hooks) {
       </SelectBox>
     `);
 
-    assert.dom('.select-box__options').hasAttribute('tabindex', '0');
+    assert
+      .dom('.select-box__options')
+      .hasAttribute(
+        'tabindex',
+        '0',
+        'the listbox is the primary interactive element'
+      );
   });
 
   test('tabindex (combobox with input)', async function (assert) {
@@ -64,7 +70,13 @@ module('select-box/options', function (hooks) {
       </SelectBox>
     `);
 
-    assert.dom('.select-box__options').doesNotHaveAttribute('tabindex');
+    assert.dom('.select-box__options').hasAttribute(
+      'tabindex',
+      '-1',
+      `some browsers (firefox) will sequentially tab from the input to the listbox,
+       but that is not necessary since the interactive element is the input and
+       that controls the listbox anyway`
+    );
   });
 
   test('tabindex (combobox with trigger)', async function (assert) {
@@ -72,12 +84,18 @@ module('select-box/options', function (hooks) {
 
     await render(hbs`
       <SelectBox as |sb|>
-        <sb.Input />
+        <sb.Trigger />
         <sb.Options />
       </SelectBox>
     `);
 
-    assert.dom('.select-box__options').doesNotHaveAttribute('tabindex');
+    assert.dom('.select-box__options').hasAttribute(
+      'tabindex',
+      '-1',
+      `some browsers (firefox) will sequentially tab from the trigger to the listbox,
+       but that is not necessary since the interactive element is the trigger and
+       that controls the listbox anyway`
+    );
   });
 
   test('id', async function (assert) {
