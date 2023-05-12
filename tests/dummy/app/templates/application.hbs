@@ -43,7 +43,9 @@
   </a>.
 </p>
 
-{{outlet}}
+<form {{on "submit" this.handleSubmit}}>
+  {{outlet}}
+</form>
 
 {{! template-lint-disable no-inline-styles }}
 <a href="https://github.com/zestia/ember-select-box">

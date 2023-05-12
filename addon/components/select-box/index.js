@@ -436,10 +436,7 @@ export default class SelectBox extends Component {
   }
 
   _handleEnter(event) {
-    if (
-      event.target === this.inputElement &&
-      (this.activeOption || this.canAutoOpen)
-    ) {
+    if (this.isComboBox) {
       event.preventDefault();
     }
 

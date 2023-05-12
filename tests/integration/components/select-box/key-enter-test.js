@@ -35,7 +35,7 @@ module('select-box (enter)', function (hooks) {
     await triggerKeyEvent('.select-box__trigger', 'keydown', 'Enter');
 
     assert.verifySteps([], 'change event is not fired');
-    assert.false(this.event.defaultPrevented);
+    assert.true(this.event.defaultPrevented);
 
     assert.dom('.select-box').hasAttribute('data-open', 'true');
     assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'true');
@@ -48,7 +48,7 @@ module('select-box (enter)', function (hooks) {
     await triggerKeyEvent('.select-box__trigger', 'keydown', 'Enter');
 
     assert.verifySteps([], 'change event is not fired');
-    assert.false(this.event.defaultPrevented);
+    assert.true(this.event.defaultPrevented);
 
     assert.dom('.select-box').hasAttribute('data-open', 'false');
     assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'false');
@@ -90,14 +90,18 @@ module('select-box (enter)', function (hooks) {
       </SelectBox>
     `);
 
-    // pressing enter whilst inside an input will submit the form
-    // because there is no option active to be selected
+    // pressing enter whilst inside an input will not submit the form
+    // (as it would on a normal input)
+    // even though there is no option active to be selected (so it could
+    // theoretically be ok to do so. But, as a generic addon we cannot
+    // know whether a developer has hooked up an action to call `open`
+    // so its safest to just prevent default.
 
     await focus('.select-box__input');
     await triggerKeyEvent('.select-box__input', 'keydown', 'Enter');
 
     assert.verifySteps([]);
-    assert.false(this.event.defaultPrevented);
+    assert.true(this.event.defaultPrevented);
     assert.dom('.select-box').doesNotHaveAttribute('data-open');
     assert.dom('.select-box__input').doesNotHaveAttribute('aria-expanded');
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
@@ -106,7 +110,7 @@ module('select-box (enter)', function (hooks) {
     await triggerKeyEvent('.select-box__input', 'keydown', 'Enter');
 
     assert.verifySteps([]);
-    assert.false(this.event.defaultPrevented);
+    assert.true(this.event.defaultPrevented);
     assert.dom('.select-box').doesNotHaveAttribute('data-open');
     assert.dom('.select-box__input').doesNotHaveAttribute('aria-expanded');
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
