@@ -396,7 +396,9 @@ module('select-box (focus)', function (hooks) {
       {{! template-lint-disable no-pointer-down-event-binding }}
       <SelectBox {{on "mousedown" this.handleMouseDown}} as |sb|>
         <sb.Trigger />
-        <span class="inside"></span>
+        <sb.Options>
+          <span class="inside"></span>
+        </sb.Options>
       </SelectBox>
     `);
 
