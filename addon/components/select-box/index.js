@@ -128,7 +128,7 @@ export default class SelectBox extends Component {
   }
 
   get optionsTabIndex() {
-    return this.isListBox ? '0' : '-1';
+    return this.isListBox ? '0' : null;
   }
 
   get triggerTabIndex() {
