@@ -4,9 +4,14 @@
 
 - [Migration guide](docs/migration-16.md)
 
+## 16.0.0-12
+
+- Revert [Fix FF tab order](https://bugzilla.mozilla.org/show_bug.cgi?id=1721401)
+
 ## 16.0.0-11
 
 - Fix pressing Enter behaviour inside a form
+- Fix FF tab order
 
 ## 16.0.0-10
 
