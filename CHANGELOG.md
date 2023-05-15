@@ -4,6 +4,10 @@
 
 - [Migration guide](docs/migration-16.md)
 
+## 16.0.0-13
+
+- Enter on trigger should not toggle
+
 ## 16.0.0-12
 
 - Revert [Fix FF tab order](https://bugzilla.mozilla.org/show_bug.cgi?id=1721401)

@@ -464,10 +464,6 @@ export default class SelectBox extends Component {
     }
 
     this._selectActiveOption(event);
-
-    if (this.canAutoClose) {
-      this._close();
-    }
   }
 
   _handleEscape(event) {
@@ -571,9 +567,14 @@ export default class SelectBox extends Component {
   }
 
   _close(reason) {
+    console.log('close', reason);
+
     if (!this.canClose) {
+      console.log('skip', reason);
       return;
     }
+
+    console.log('closed', reason);
 
     this.isOpen = false;
     this._deactivateOptions();

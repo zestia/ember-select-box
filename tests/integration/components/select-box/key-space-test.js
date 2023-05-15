@@ -49,8 +49,15 @@ module('select-box (space)', function (hooks) {
     assert.verifySteps([], 'change event is not fired');
     assert.true(this.event.defaultPrevented);
 
-    assert.dom('.select-box').hasAttribute('data-open', 'false');
-    assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'false');
+    assert
+      .dom('.select-box')
+      .hasAttribute(
+        'data-open',
+        'true',
+        'does not close (no option was active)'
+      );
+
+    assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'true');
   });
 
   test('space in input of combobox', async function (assert) {
