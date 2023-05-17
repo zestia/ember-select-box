@@ -129,7 +129,7 @@ module('select-box (space)', function (hooks) {
   });
 
   test('space on trigger of combobox whilst typing', async function (assert) {
-    assert.expect(8);
+    assert.expect(10);
 
     await render(hbs`
       {{! template-lint-disable no-whitespace-for-layout }}
@@ -150,11 +150,21 @@ module('select-box (space)', function (hooks) {
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
 
     await triggerKeyEvent('.select-box__trigger', 'keydown', 'A');
+
+    assert.false(this.event.defaultPrevented);
+
     await triggerKeyEvent('.select-box__trigger', 'keydown', ' ');
+
+    assert.true(
+      this.event.defaultPrevented,
+      'will not scroll if space is pressed whilst typing to jump to an option'
+    );
+
     await triggerKeyEvent('.select-box__trigger', 'keydown', '2');
 
-    assert.verifySteps(['A', 'A 2'], 'change event fires');
     assert.false(this.event.defaultPrevented);
+
+    assert.verifySteps(['A', 'A 2'], 'change event fires');
 
     assert.dom('.select-box').hasAttribute(
       'data-open',

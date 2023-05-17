@@ -111,6 +111,10 @@ export default class SelectBox extends Component {
     return this.hasSearch ? this.searchTask.isRunning : null;
   }
 
+  get isTyping() {
+    return this.chars.trim() !== '';
+  }
+
   get hasInput() {
     return !!this.inputElement;
   }
@@ -448,11 +452,11 @@ export default class SelectBox extends Component {
       return;
     }
 
-    if (this.chars.trim() !== '') {
+    event.preventDefault();
+
+    if (this.isTyping) {
       return;
     }
-
-    event.preventDefault();
 
     this._handleEnterAndSpace(event);
   }

@@ -4,6 +4,10 @@
 
 - [Migration guide](docs/migration-16.md)
 
+## 16.0.0-14
+
+- Do no scroll if space is pressed when typing
+
 ## 16.0.0-13
 
 - Enter on trigger should not toggle
