@@ -79,7 +79,7 @@ This addon will render a [Combobox](https://developer.mozilla.org/en-US/docs/Web
 ### Differences to Ember Power Select
 
 1. With EPS you have to provide it a data structure which the addon uses to draw your UI. Whereas, with this addon _the markup provides the structure_ - the same way you do with a native select box in HTML.
-2. You tell EPS which component to render for each option. Whereas with this addon you can utilise Named Blocks.
+2. You tell EPS which component to render for each option. Whereas with this addon you just render an Option, and fill its contents using Named Blocks.
 </details>
 
 ## `SelectBox`
