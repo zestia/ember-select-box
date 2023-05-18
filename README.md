@@ -65,6 +65,11 @@ This addon will render a [Combobox](https://developer.mozilla.org/en-US/docs/Web
 <details>
   <summary>View more details</summary>
 
+### The general gist
+
+* There is one interactive element at any one time. If you render a `Trigger`, then it is the Trigger that the user interacts with. It has a role of combobox. And so, by definition, it is _combined_ with a listbox. Whilst the Trigger has focus, it accepts user input and will allow control of its associated listbox.
+* Similarly, if you utilise the `Input` instead, then _it_ is the interactive element. The Input does not automatically open or close the select box like the Trigger, since that behaviour is up to the developer to hook up.
+
 ### Differences to Native Select Boxes
 
 1. When using the arrow keys on a native select box, it will stop dead when you reach the end or the beginning. Whereas, with this addon it will cycle through the options. This is following advice from [w3.org](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/).
