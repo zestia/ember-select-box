@@ -621,8 +621,8 @@ module('select-box (focus)', function (hooks) {
     await render(hbs`
       <SelectBox as |sb|>
         <sb.Options>
-          <sb.Option as |option|>
-            <a href="#"></a>
+          <sb.Option>
+            <a href="#">Hyperlink</a>
           </sb.Option>
         </sb.Options>
       </SelectBox>
