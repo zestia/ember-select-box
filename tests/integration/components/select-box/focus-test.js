@@ -622,24 +622,19 @@ module('select-box (focus)', function (hooks) {
       <SelectBox as |sb|>
         <sb.Options>
           <sb.Option as |option|>
-            <input type="checkbox"
-              aria-hidden="true"
-              aria-labelledby={{option.id}}
-            />
+            <a href="#"></a>
           </sb.Option>
         </sb.Options>
       </SelectBox>
     `);
 
-    await focus('input[type="checkbox"]');
+    await focus('a');
 
     assert.dom('.select-box__option').hasAttribute(
       'aria-current',
       'true',
       `focusing moving into an option activates that option
-       (not technically valid to have nested interactive elements,
-        but acceptable from a visual perspective so long as the
-        nested interactive element is hidden from screen readers)`
+       (not technically valid to have nested interactive elements)`
     );
   });
 
