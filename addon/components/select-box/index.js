@@ -353,6 +353,10 @@ export default class SelectBox extends Component {
 
   @action
   handleMouseUpOption(option, event) {
+    if (event.button !== 0) {
+      return;
+    }
+
     this._activateOption(option);
     this._selectOption(option, event);
   }

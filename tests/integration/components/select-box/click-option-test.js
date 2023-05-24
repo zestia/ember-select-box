@@ -181,4 +181,22 @@ module('select-box (clicking option)', function (hooks) {
 
     assert.ok(true, 'does not cause infinite revalidation bug');
   });
+
+  test('right clicking an option does not select it', async function (assert) {
+    assert.expect(1);
+
+    this.handleSelect = () => assert.step('select');
+
+    await render(hbs`
+      <SelectBox @onSelect={{this.handleSelect}} as |sb|>
+        <sb.Options>
+          <sb.Option @value="foo" />
+        </sb.Options>
+      </SelectBox>
+    `);
+
+    await click('.select-box__option', { button: 2 });
+
+    assert.verifySteps([]);
+  });
 });

@@ -1,5 +1,9 @@
 # Changelog
 
+## 16.0.1
+
+- Only left button performs selection
+
 ## 16.0.0
 
 - [Migration guide](docs/migration-16.md)
