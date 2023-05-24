@@ -76,6 +76,7 @@ This addon will render a [Combobox](https://developer.mozilla.org/en-US/docs/Web
 1. When using the arrow keys on a native select box, it will stop dead when you reach the end or the beginning. Whereas, with this addon it will cycle through the options. This is following advice from [w3.org](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/).
 2. When mousing-out of a native single select box, the current option is forgotten. Whereas, with this addon the option stays current. This is because, the select box still has focus and as such, is still receptive to user input - like pressing Enter to select that option.
 3. When using a multiple native select box, selecting an option only selects that 1 option. Whereas, with this addon, the item is added if it isn't already in the collection and removed if it is (although this can be customised with `@onBuildSelection`)
+4. Right clicking an option in a native select box will select it. Whereas, with this addon, only left clicking will.
 
 ### Differences to Ember Power Select
 
