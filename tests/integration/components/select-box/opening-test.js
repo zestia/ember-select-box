@@ -109,8 +109,8 @@ module('select-box (opening)', function (hooks) {
     assert.dom('.select-box__input').hasAttribute('aria-expanded', 'false');
   });
 
-  test('activates first option', async function (assert) {
-    assert.expect(1);
+  test('activates first option (undefined === undefined)', async function (assert) {
+    assert.expect(3);
 
     await render(hbs`
       <SelectBox as |sb|>
@@ -128,6 +128,14 @@ module('select-box (opening)', function (hooks) {
     assert
       .dom('.select-box__option:nth-child(1)')
       .hasAttribute('aria-current', 'true');
+
+    assert
+      .dom('.select-box__option:nth-child(2)')
+      .hasAttribute('aria-current', 'false');
+
+    assert
+      .dom('.select-box__option:nth-child(3)')
+      .hasAttribute('aria-current', 'false');
   });
 
   test('activates option for value (single)', async function (assert) {
