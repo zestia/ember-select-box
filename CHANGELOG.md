@@ -1,5 +1,9 @@
 # Changelog
 
+## 16.0.3
+
+- Remove use of Array.at
+
 ## 16.0.2
 
 - Improve performance of option teardown
