@@ -215,7 +215,7 @@ export default class SelectBox extends Component {
     // https://stackoverflow.com/questions/30304719/javascript-fastest-way-to-remove-object-from-array
     // this._options.splice(this._options.indexOf(option), 1);
     const index = this._options.indexOf(option);
-    this._options[index] = this._options[this.length - 1];
+    this._options[index] = this._options[this._options.length - 1];
     this._options.pop();
     scheduleOnce('afterRender', this, '_handleRenderedOptions');
   }
