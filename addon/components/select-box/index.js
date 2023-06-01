@@ -213,6 +213,7 @@ export default class SelectBox extends Component {
   handleDestroyOption(option) {
     // https://github.com/tracked-tools/tracked-built-ins/issues/405
     // https://stackoverflow.com/questions/30304719/javascript-fastest-way-to-remove-object-from-array
+    // this._options.splice(this._options.indexOf(option), 1);
     const index = this._options.indexOf(option);
     this._options[index] = this._options.at(-1);
     this._options.pop();
