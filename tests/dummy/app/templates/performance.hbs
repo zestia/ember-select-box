@@ -1,0 +1,25 @@
+<p>
+  Selected:
+  {{this.selected.name}}
+</p>
+
+<SelectBox
+  class="example3"
+  @value={{@value}}
+  @onChange={{@onChange}}
+  ...attributes
+  as |sb|
+>
+  <sb.Trigger>
+    {{if sb.value sb.value.name "None"}}
+  </sb.Trigger>
+  {{#if sb.isOpen}}
+    <sb.Options>
+      {{#each this.data as |value|}}
+        <sb.Option @value={{value}}>
+          {{value.name}}
+        </sb.Option>
+      {{/each}}
+    </sb.Options>
+  {{/if}}
+</SelectBox>
