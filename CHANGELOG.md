@@ -1,5 +1,9 @@
 # Changelog
 
+## 16.0.2
+
+- Improve performance of option teardown
+
 ## 16.0.1
 
 - Only left button performs selection
