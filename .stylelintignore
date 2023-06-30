@@ -1,6 +1,8 @@
-/vendor/
+# unconventional files
+/blueprints/*/files/
+
+# compiled output
 /dist/
-/tmp/
-/bower_components/
-/node_modules/
+
+# addons
 /.node_modules.ember-try/

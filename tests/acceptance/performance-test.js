@@ -14,6 +14,8 @@ module('Acceptance | performance', function (hooks) {
   });
 
   test('rendering options', async function (assert) {
+    assert.expect(7);
+
     await visit('/performance');
 
     assert.dom('.select-box__option').doesNotExist();
