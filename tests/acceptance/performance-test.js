@@ -1,11 +1,6 @@
-import { module, test, skip } from 'qunit';
+import { module, test } from 'qunit';
 import { visit, click } from '@ember/test-helpers';
 import { setupApplicationTest } from 'dummy/tests/helpers';
-import config from 'dummy/config/environment';
-
-console.log('>>', config.environment); // eslint-disable-line
-
-const testInProd = config.APP.buildTarget === 'production' ? test : skip;
 
 module('Acceptance | performance', function (hooks) {
   setupApplicationTest(hooks);
@@ -18,7 +13,7 @@ module('Acceptance | performance', function (hooks) {
     this.timeTaken = () => this.stopTime - this.startTime;
   });
 
-  testInProd('rendering options', async function (assert) {
+  test('rendering options', async function (assert) {
     assert.expect(7);
 
     await visit('/performance');
