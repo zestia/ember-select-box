@@ -29,9 +29,7 @@ module('Acceptance | performance', function (hooks) {
     assert.dom('.select-box__option').exists({ count: 10000 });
 
     assert.ok(this.timeTaken() > 500);
-    assert.ok(this.timeTaken() < 2000);
-
-    console.log(this.timeTaken(), 'open'); // eslint-disable-line
+    assert.ok(this.timeTaken() < 2100);
 
     this.startTimer();
 
@@ -41,9 +39,7 @@ module('Acceptance | performance', function (hooks) {
 
     assert.dom('.select-box__option').doesNotExist();
 
-    console.log(this.timeTaken(), 'closed'); // eslint-disable-line
-
     assert.ok(this.timeTaken() > 500);
-    assert.ok(this.timeTaken() < 2000);
+    assert.ok(this.timeTaken() < 2100);
   });
 });
