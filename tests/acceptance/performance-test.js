@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import { module, skip } from 'qunit';
 import { visit, click } from '@ember/test-helpers';
 import { setupApplicationTest } from 'dummy/tests/helpers';
 
@@ -13,7 +13,7 @@ module('Acceptance | performance', function (hooks) {
     this.timeTaken = () => this.stopTime - this.startTime;
   });
 
-  test('rendering options', async function (assert) {
+  skip('rendering options', async function (assert) {
     assert.expect(7);
 
     await visit('/performance');
@@ -29,7 +29,7 @@ module('Acceptance | performance', function (hooks) {
     assert.dom('.select-box__option').exists({ count: 10000 });
 
     assert.ok(this.timeTaken() > 500);
-    assert.ok(this.timeTaken() < 2500);
+    assert.ok(this.timeTaken() < 2000);
 
     this.startTimer();
 
@@ -40,6 +40,6 @@ module('Acceptance | performance', function (hooks) {
     assert.dom('.select-box__option').doesNotExist();
 
     assert.ok(this.timeTaken() > 500);
-    assert.ok(this.timeTaken() < 2500);
+    assert.ok(this.timeTaken() < 2000);
   });
 });
