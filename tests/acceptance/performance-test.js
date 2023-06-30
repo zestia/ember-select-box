@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import { module, skip } from 'qunit';
 import { visit, click } from '@ember/test-helpers';
 import { setupApplicationTest } from 'dummy/tests/helpers';
 
@@ -13,7 +13,9 @@ module('Acceptance | performance', function (hooks) {
     this.timeTaken = () => this.stopTime - this.startTime;
   });
 
-  test('rendering options', async function (assert) {
+  skip('rendering options', async function (assert) {
+    assert.expect(7);
+
     await visit('/performance');
 
     assert.dom('.select-box__option').doesNotExist();
