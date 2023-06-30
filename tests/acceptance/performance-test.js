@@ -1,6 +1,11 @@
-import { module, test } from 'qunit';
+import { module, test, skip } from 'qunit';
 import { visit, click } from '@ember/test-helpers';
 import { setupApplicationTest } from 'dummy/tests/helpers';
+import config from 'dummy/config/environment';
+
+console.log('>>', config.environment); // eslint-disable-line
+
+const testInProd = config.APP.buildTarget === 'production' ? test : skip;
 
 module('Acceptance | performance', function (hooks) {
   setupApplicationTest(hooks);
@@ -13,7 +18,7 @@ module('Acceptance | performance', function (hooks) {
     this.timeTaken = () => this.stopTime - this.startTime;
   });
 
-  test('rendering options', async function (assert) {
+  testInProd('rendering options', async function (assert) {
     assert.expect(7);
 
     await visit('/performance');
@@ -31,6 +36,8 @@ module('Acceptance | performance', function (hooks) {
     assert.ok(this.timeTaken() > 500);
     assert.ok(this.timeTaken() < 2000);
 
+    console.log(this.timeTaken(), 'open'); // eslint-disable-line
+
     this.startTimer();
 
     await click('h1');
@@ -38,6 +45,8 @@ module('Acceptance | performance', function (hooks) {
     this.stopTimer();
 
     assert.dom('.select-box__option').doesNotExist();
+
+    console.log(this.timeTaken(), 'closed'); // eslint-disable-line
 
     assert.ok(this.timeTaken() > 500);
     assert.ok(this.timeTaken() < 2000);
