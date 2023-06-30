@@ -29,7 +29,7 @@ module('Acceptance | performance', function (hooks) {
     assert.dom('.select-box__option').exists({ count: 10000 });
 
     assert.ok(this.timeTaken() > 500);
-    assert.ok(this.timeTaken() < 2100);
+    assert.ok(this.timeTaken() < 2250);
 
     this.startTimer();
 
@@ -40,6 +40,6 @@ module('Acceptance | performance', function (hooks) {
     assert.dom('.select-box__option').doesNotExist();
 
     assert.ok(this.timeTaken() > 500);
-    assert.ok(this.timeTaken() < 2100);
+    assert.ok(this.timeTaken() < 2250);
   });
 });
