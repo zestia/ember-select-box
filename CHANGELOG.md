@@ -1,5 +1,9 @@
 # Changelog
 
+## 16.1.0
+
+- Upgrade dependencies
+
 ## 16.0.3
 
 - Remove use of Array.at
