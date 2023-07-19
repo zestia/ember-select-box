@@ -84,6 +84,9 @@
     "type": "git",
     "url": "https://github.com/zestia/ember-select-box.git"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "scripts": {
     "build": "ember build --environment=production",
     "deploy": "ember build --environment production && ember github-pages:commit --message \"Deploy gh-pages from commit $(git rev-parse HEAD)\" && git push origin gh-pages:gh-pages",
