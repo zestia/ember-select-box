@@ -22,10 +22,10 @@ export default class SelectBox extends Component {
   @tracked inputElement;
   @tracked isOpen = this.args.open ?? null;
   @tracked optionsElement;
+  @tracked query = null;
+  @tracked results = this.args.options;
   @tracked triggerElement;
   @tracked value;
-  @tracked results = this.args.options;
-  @tracked query = null;
 
   chars = '';
   charTimer;

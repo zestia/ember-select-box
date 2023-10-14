@@ -76,6 +76,47 @@ module('select-box (opening)', function (hooks) {
     );
   });
 
+  test('initial open state of combobox without a trigger (custom behaviour!)', async function (assert) {
+    assert.expect(5);
+
+    // The addon can't know if the combobox is one where the options are already visible,
+    // or one where they will be shown by interacting with the input element. If the developer
+    // had used a Trigger element, we make the assumption that it will control the expanded state.
+
+    await render(hbs`
+      <SelectBox as |sb|>
+        <sb.Input />
+        <sb.Options />
+      </SelectBox>
+    `);
+
+    assert
+      .dom('.select-box')
+      .doesNotHaveAttribute(
+        'data-open',
+        'technically invalid, ought to have expanded attr'
+      );
+
+    // ...therefore, because the developer has opted out of having a Trigger button,
+    // they must manually set its initial expanded state and configure a way to
+    // control that expanded state, in order to be valid aria. Example:
+
+    await render(hbs`
+      <SelectBox @open={{false}} as |sb|>
+        <sb.Input {{on "focus" sb.open}} />
+        <sb.Options />
+      </SelectBox>
+    `);
+
+    assert.dom('.select-box').hasAttribute('data-open', 'false');
+    assert.dom('.select-box__input').hasAttribute('aria-expanded', 'false');
+
+    await focus('.select-box__input');
+
+    assert.dom('.select-box').hasAttribute('data-open', 'true');
+    assert.dom('.select-box__input').hasAttribute('aria-expanded', 'true');
+  });
+
   test('cannot manually open listbox', async function (assert) {
     assert.expect(1);
 
