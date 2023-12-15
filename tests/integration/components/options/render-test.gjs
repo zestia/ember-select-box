@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { find, render, setupOnerror, resetOnerror } from '@ember/test-helpers';
-import hbs from 'htmlbars-inline-precompile';
+import SelectBox from '@zestia/ember-select-box/components/select-box';
 
 module('select-box/options', function (hooks) {
   setupRenderingTest(hooks);
@@ -9,11 +9,11 @@ module('select-box/options', function (hooks) {
   test('it renders', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Options />
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box__options').hasTagName('div');
   });
@@ -21,11 +21,11 @@ module('select-box/options', function (hooks) {
   test('splattributes', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Options class="foo" />
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box__options').hasClass('foo');
   });
@@ -33,11 +33,11 @@ module('select-box/options', function (hooks) {
   test('role', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Options />
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box__options').hasAttribute('role', 'listbox');
   });
@@ -45,11 +45,11 @@ module('select-box/options', function (hooks) {
   test('tabindex (listbox)', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Options />
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box__options').hasAttribute('tabindex', '0');
   });
@@ -57,12 +57,12 @@ module('select-box/options', function (hooks) {
   test('tabindex (combobox with input)', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Input />
         <sb.Options />
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box__options').doesNotHaveAttribute('tabindex');
   });
@@ -70,12 +70,12 @@ module('select-box/options', function (hooks) {
   test('tabindex (combobox with trigger)', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Input />
         <sb.Options />
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box__options').doesNotHaveAttribute('tabindex');
   });
@@ -83,11 +83,11 @@ module('select-box/options', function (hooks) {
   test('id', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Options />
       </SelectBox>
-    `);
+    </template>);
 
     assert.ok(
       find('.select-box__options')
@@ -99,11 +99,11 @@ module('select-box/options', function (hooks) {
   test('whitespace', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Options />
       </SelectBox>
-    `);
+    </template>);
 
     assert.strictEqual(find('.select-box__options').innerHTML, '');
   });
@@ -111,11 +111,11 @@ module('select-box/options', function (hooks) {
   test('single', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Options />
       </SelectBox>
-    `);
+    </template>);
 
     assert
       .dom('.select-box__options')
@@ -125,11 +125,11 @@ module('select-box/options', function (hooks) {
   test('multiple', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox @multiple={{true}} as |sb|>
         <sb.Options />
       </SelectBox>
-    `);
+    </template>);
 
     assert
       .dom('.select-box__options')
@@ -146,12 +146,12 @@ module('select-box/options', function (hooks) {
       );
     });
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Options />
         <sb.Options />
       </SelectBox>
-    `);
+    </template>);
 
     resetOnerror();
   });
@@ -166,7 +166,7 @@ module('select-box/options', function (hooks) {
       );
     });
 
-    await render(hbs`<SelectBox />`);
+    await render(<template><SelectBox /></template>);
 
     resetOnerror();
   });

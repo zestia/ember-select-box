@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, click } from '@ember/test-helpers';
-import hbs from 'htmlbars-inline-precompile';
+import SelectBox from '@zestia/ember-select-box/components/select-box';
 
 module('select-box (disabling)', function (hooks) {
   setupRenderingTest(hooks);
@@ -9,7 +9,7 @@ module('select-box (disabling)', function (hooks) {
   test('disabled (input only)', async function (assert) {
     assert.expect(3);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox @disabled={{true}} as |sb|>
         <sb.Input />
         <sb.Options>
@@ -18,7 +18,7 @@ module('select-box (disabling)', function (hooks) {
           <sb.Option />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box').hasAttribute('data-disabled', 'true');
     assert.dom('.select-box__input').isDisabled();
@@ -30,7 +30,7 @@ module('select-box (disabling)', function (hooks) {
   test('disabled (trigger only)', async function (assert) {
     assert.expect(4);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox @disabled={{true}} as |sb|>
         <sb.Trigger />
         <sb.Options>
@@ -39,7 +39,7 @@ module('select-box (disabling)', function (hooks) {
           <sb.Option />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box').hasAttribute('data-disabled', 'true');
     assert.dom('.select-box__trigger').hasAttribute('aria-disabled', 'true');
@@ -52,7 +52,7 @@ module('select-box (disabling)', function (hooks) {
   test('disabled with a value', async function (assert) {
     assert.expect(2);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox @value={{2}} @disabled={{true}} as |sb|>
         <sb.Trigger />
         <sb.Options>
@@ -61,7 +61,7 @@ module('select-box (disabling)', function (hooks) {
           <sb.Option @value={{3}} />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     assert
       .dom('.select-box__option:nth-child(2)')
@@ -76,10 +76,10 @@ module('select-box (disabling)', function (hooks) {
   test('clicking a disabled option', async function (assert) {
     assert.expect(2);
 
-    this.handleChange = (value) => assert.step(value);
+    const handleChange = (value) => assert.step(value);
 
-    await render(hbs`
-      <SelectBox @onChange={{this.handleChange}} as |sb|>
+    await render(<template>
+      <SelectBox @onChange={{handleChange}} as |sb|>
         <sb.Trigger />
         {{#if sb.isOpen}}
           <sb.Options>
@@ -89,7 +89,7 @@ module('select-box (disabling)', function (hooks) {
           </sb.Options>
         {{/if}}
       </SelectBox>
-    `);
+    </template>);
 
     await click('.select-box__trigger');
     await click('.select-box__option:nth-child(2)');

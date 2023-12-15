@@ -7,7 +7,7 @@ import {
   resetOnerror,
   triggerEvent
 } from '@ember/test-helpers';
-import hbs from 'htmlbars-inline-precompile';
+import SelectBox from '@zestia/ember-select-box/components/select-box';
 
 module('select-box/trigger', function (hooks) {
   setupRenderingTest(hooks);
@@ -15,11 +15,11 @@ module('select-box/trigger', function (hooks) {
   test('it renders', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Trigger />
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box__trigger').hasTagName('div');
   });
@@ -27,11 +27,11 @@ module('select-box/trigger', function (hooks) {
   test('splattributes', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Trigger class="foo" />
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box__trigger').hasClass('foo');
   });
@@ -39,11 +39,11 @@ module('select-box/trigger', function (hooks) {
   test('aria defaults', async function (assert) {
     assert.expect(6);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Trigger />
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box__trigger').doesNotHaveAttribute('aria-busy');
     assert.dom('.select-box__trigger').doesNotHaveAttribute('aria-controls');
@@ -65,12 +65,12 @@ module('select-box/trigger', function (hooks) {
   test('aria controls', async function (assert) {
     assert.expect(2);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Trigger />
         <sb.Options />
       </SelectBox>
-    `);
+    </template>);
 
     assert.ok(
       find('.select-box__trigger')
@@ -89,11 +89,11 @@ module('select-box/trigger', function (hooks) {
   test('role', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Trigger />
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box__trigger').hasAttribute('role', 'combobox');
   });
@@ -101,12 +101,12 @@ module('select-box/trigger', function (hooks) {
   test('role (with input)', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Input />
         <sb.Trigger />
       </SelectBox>
-    `);
+    </template>);
 
     assert
       .dom('.select-box__trigger')
@@ -120,11 +120,11 @@ module('select-box/trigger', function (hooks) {
   test('whitespace', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Trigger />
       </SelectBox>
-    `);
+    </template>);
 
     assert.strictEqual(find('.select-box__trigger').innerHTML, '');
   });
@@ -139,12 +139,12 @@ module('select-box/trigger', function (hooks) {
       );
     });
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Trigger />
         <sb.Trigger />
       </SelectBox>
-    `);
+    </template>);
 
     resetOnerror();
   });
@@ -152,7 +152,7 @@ module('select-box/trigger', function (hooks) {
   test('active descendant (with input)', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Trigger />
         <sb.Input />
@@ -160,7 +160,7 @@ module('select-box/trigger', function (hooks) {
           <sb.Option />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     await triggerEvent('.select-box__option', 'mouseenter');
 

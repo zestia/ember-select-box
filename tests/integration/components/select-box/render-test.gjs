@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
-import hbs from 'htmlbars-inline-precompile';
+import SelectBox from '@zestia/ember-select-box/components/select-box';
 
 module('select-box', function (hooks) {
   setupRenderingTest(hooks);
@@ -9,11 +9,11 @@ module('select-box', function (hooks) {
   test('it renders', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Options />
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box').hasTagName('div');
   });
@@ -21,11 +21,11 @@ module('select-box', function (hooks) {
   test('splattributes', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox class="foo" as |sb|>
         <sb.Options />
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box').hasClass('foo');
   });
@@ -33,11 +33,11 @@ module('select-box', function (hooks) {
   test('expanded (listbox)', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Options />
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box').doesNotHaveAttribute('data-open');
   });
@@ -45,11 +45,11 @@ module('select-box', function (hooks) {
   test('expanded (combobox)', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Trigger />
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box').hasAttribute('data-open', 'false');
   });

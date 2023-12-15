@@ -1,8 +1,17 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { find, focus, render, triggerEvent, fillIn } from '@ember/test-helpers';
-import hbs from 'htmlbars-inline-precompile';
-import sleep from 'dummy/utils/sleep';
+import {
+  find,
+  focus,
+  render,
+  rerender,
+  triggerEvent,
+  fillIn
+} from '@ember/test-helpers';
+import wait from 'dummy/utils/wait';
+import { tracked } from '@glimmer/tracking';
+import { array } from '@ember/helper';
+import SelectBox from '@zestia/ember-select-box/components/select-box';
 
 module('select-box (changing options)', function (hooks) {
   setupRenderingTest(hooks);
@@ -10,20 +19,22 @@ module('select-box (changing options)', function (hooks) {
   test('changing available options (removing)', async function (assert) {
     assert.expect(2);
 
-    this.showThree = true;
+    const state = new (class {
+      @tracked showThree = true;
+    })();
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Options>
           <sb.Option />
           <sb.Option />
 
-          {{#if this.showThree}}
+          {{#if state.showThree}}
             <sb.Option />
           {{/if}}
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     await triggerEvent('.select-box__option:nth-child(3)', 'mouseenter');
 
@@ -31,7 +42,9 @@ module('select-box (changing options)', function (hooks) {
       .dom('.select-box__option:nth-child(3)')
       .hasAttribute('aria-current', 'true');
 
-    this.set('showThree', false);
+    state.showThree = false;
+
+    await rerender();
 
     assert
       .dom('.select-box__option:nth-child(1)')
@@ -45,12 +58,14 @@ module('select-box (changing options)', function (hooks) {
   test('changing available options recomputes active index (adding)', async function (assert) {
     assert.expect(2);
 
-    this.showOne = false;
+    const state = new (class {
+      @tracked showOne = false;
+    })();
 
-    await render(hbs`
+    await render(<template>
       <SelectBox @value={{1}} as |sb|>
         <sb.Options>
-          {{#if this.showOne}}
+          {{#if state.showOne}}
             <sb.Option />
           {{/if}}
 
@@ -58,7 +73,7 @@ module('select-box (changing options)', function (hooks) {
           <sb.Option />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     await triggerEvent('.select-box__option:nth-child(2)', 'mouseenter');
 
@@ -66,7 +81,9 @@ module('select-box (changing options)', function (hooks) {
       .dom('.select-box__option:nth-child(2)')
       .hasAttribute('aria-current', 'true');
 
-    this.set('showOne', true);
+    state.showOne = true;
+
+    await rerender();
 
     assert
       .dom('.select-box__option:nth-child(3)')
@@ -80,16 +97,11 @@ module('select-box (changing options)', function (hooks) {
   test('changing available options when searching', async function (assert) {
     assert.expect(7);
 
-    await render(hbs`
+    await render(<template>
       {{! template-lint-disable no-forbidden-elements }}
       <style>
-      .select-box__options {
-        height: 1em;
-        overflow: auto;
-      }
-      .select-box__option {
-        line-height: 1;
-      }
+        .select-box__options { height: 1em; overflow: auto; }
+        .select-box__option { line-height: 1; }
       </style>
 
       <SelectBox @options={{array "a1" "b1" "b2"}} as |sb|>
@@ -102,7 +114,7 @@ module('select-box (changing options)', function (hooks) {
           {{/each}}
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     const expectedTop = find('.select-box__option').offsetHeight;
 
@@ -134,20 +146,16 @@ module('select-box (changing options)', function (hooks) {
   test('changing available options when searching (after re-render)', async function (assert) {
     assert.expect(4);
 
-    this.options = ['a1', 'b1', 'b2'];
+    const options = ['a1', 'b1', 'b2'];
 
-    this.handleSearch = async () => {
-      await sleep(100);
+    const handleSearch = async () => {
+      await wait(100);
 
       return ['b1', 'b2'];
     };
 
-    await render(hbs`
-      <SelectBox
-        @options={{this.options}}
-        @onSearch={{this.handleSearch}}
-        as |sb|
-      >
+    await render(<template>
+      <SelectBox @options={{options}} @onSearch={{handleSearch}} as |sb|>
         <sb.Input />
         <sb.Options>
           {{#if sb.isBusy}}
@@ -163,7 +171,7 @@ module('select-box (changing options)', function (hooks) {
           {{/if}}
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     await focus('.select-box__input');
     await triggerEvent('.select-box__option:nth-child(3)', 'mouseenter');

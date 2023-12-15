@@ -8,36 +8,40 @@ import {
   triggerEvent,
   triggerKeyEvent
 } from '@ember/test-helpers';
-import hbs from 'htmlbars-inline-precompile';
+import { tracked } from '@glimmer/tracking';
+import { on } from '@ember/modifier';
+import autoFocus from '@zestia/ember-auto-focus/modifiers/auto-focus';
+import SelectBox from '@zestia/ember-select-box/components/select-box';
 
 module('select-box (closing)', function (hooks) {
   setupRenderingTest(hooks);
 
+  let api;
+  let handleClose;
+
+  const handleReady = (sb) => (api = sb);
+
   hooks.beforeEach(function (assert) {
-    this.handleReady = (sb) => (this.api = sb);
-    this.handleClose = () => assert.step('close');
+    handleClose = () => assert.step('close');
   });
 
   test('closing with api', async function (assert) {
     assert.expect(6);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox
         @open={{true}}
-        @onReady={{this.handleReady}}
-        @onClose={{this.handleClose}}
+        @onReady={{handleReady}}
+        @onClose={{handleClose}}
         as |sb|
       >
-        <button
-          type="button"
-          {{on "click" sb.close}}
-        ></button>
+        <button type="button" {{on "click" sb.close}}></button>
         <sb.Trigger />
         <sb.Input />
       </SelectBox>
-    `);
+    </template>);
 
-    assert.true(this.api.isOpen);
+    assert.true(api.isOpen);
 
     await click('button');
     await click('button');
@@ -52,12 +56,12 @@ module('select-box (closing)', function (hooks) {
   test('closes when trigger loses focus', async function (assert) {
     assert.expect(3);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox @open={{true}} as |sb|>
         <sb.Trigger />
         <sb.Input />
       </SelectBox>
-    `);
+    </template>);
 
     await focus('.select-box__trigger');
     await blur('.select-box__trigger');
@@ -70,12 +74,12 @@ module('select-box (closing)', function (hooks) {
   test('closes when input loses focus', async function (assert) {
     assert.expect(3);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox @open={{true}} as |sb|>
         <sb.Trigger />
         <sb.Input />
       </SelectBox>
-    `);
+    </template>);
 
     await focus('.select-box__input');
     await blur('.select-box__input');
@@ -88,17 +92,12 @@ module('select-box (closing)', function (hooks) {
   test('closing listbox', async function (assert) {
     assert.expect(1);
 
-    this.handleClose = () => assert.step('close');
-
-    await render(hbs`
-      <SelectBox @open={{true}} @onClose={{this.handleClose}} as |sb|>
-        <button
-          type="button"
-          {{on "click" sb.close}}
-        ></button>
+    await render(<template>
+      <SelectBox @open={{true}} @onClose={{handleClose}} as |sb|>
+        <button type="button" {{on "click" sb.close}}></button>
         <sb.Options />
       </SelectBox>
-    `);
+    </template>);
 
     await click('button');
 
@@ -108,25 +107,29 @@ module('select-box (closing)', function (hooks) {
   test('closing does not steal focus', async function (assert) {
     assert.expect(2);
 
-    this.handleChange = (value) => this.set('value', value);
+    const state = new (class {
+      @tracked value;
+    })();
 
-    await render(hbs`
-      <SelectBox @onChange={{this.handleChange}} as |sb|>
+    const handleChange = (value) => (state.value = value);
+
+    await render(<template>
+      <SelectBox @onChange={{handleChange}} as |sb|>
         <sb.Trigger />
         <sb.Options>
           <sb.Option @value="foo" />
         </sb.Options>
       </SelectBox>
 
-      {{#if this.value}}
+      {{#if state.value}}
         <input
           class="outside"
-          value={{this.value}}
+          value={{state.value}}
           aria-label="Example"
-          {{auto-focus}}
+          {{autoFocus}}
         />
       {{/if}}
-    `);
+    </template>);
 
     await click('.select-box__trigger');
     await click('.select-box__option');
@@ -137,14 +140,14 @@ module('select-box (closing)', function (hooks) {
   test('closing due to loss of focus', async function (assert) {
     assert.expect(3);
 
-    await render(hbs`
-      <SelectBox @onClose={{this.handleClose}} as |sb|>
+    await render(<template>
+      <SelectBox @onClose={{handleClose}} as |sb|>
         <sb.Trigger />
         <sb.Options>
           <sb.Option />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     await click('.select-box__trigger');
     await blur('.select-box__trigger');
@@ -156,8 +159,8 @@ module('select-box (closing)', function (hooks) {
   test('closing due mousing up outside', async function (assert) {
     assert.expect(3);
 
-    await render(hbs`
-      <SelectBox @onClose={{this.handleClose}} as |sb|>
+    await render(<template>
+      <SelectBox @onClose={{handleClose}} as |sb|>
         <sb.Trigger />
         <sb.Options>
           <sb.Option />
@@ -165,7 +168,7 @@ module('select-box (closing)', function (hooks) {
       </SelectBox>
 
       <div class="outside"></div>
-    `);
+    </template>);
 
     await triggerEvent('.select-box__trigger', 'mousedown');
     await triggerEvent('.outside', 'mouseup');
@@ -177,17 +180,13 @@ module('select-box (closing)', function (hooks) {
   test('mousing up outside must have moused down first', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <button type="button"></button>
 
-      <SelectBox
-        @open={{true}}
-        @onlClose={{this.handleClose}}
-        as |sb|
-      >
+      <SelectBox @open={{true}} @onlClose={{handleClose}} as |sb|>
         <sb.Trigger />
       </SelectBox>
-    `);
+    </template>);
 
     await click('button');
 
@@ -197,14 +196,14 @@ module('select-box (closing)', function (hooks) {
   test('closing due to pressing escape', async function (assert) {
     assert.expect(3);
 
-    await render(hbs`
-      <SelectBox @onClose={{this.handleClose}} as |sb|>
+    await render(<template>
+      <SelectBox @onClose={{handleClose}} as |sb|>
         <sb.Trigger />
         <sb.Options>
           <sb.Option />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     await click('.select-box__trigger');
     await triggerKeyEvent('.select-box__trigger', 'keydown', 'Escape');
@@ -216,12 +215,12 @@ module('select-box (closing)', function (hooks) {
   test('close only fires once', async function (assert) {
     assert.expect(2);
 
-    await render(hbs`
-      <SelectBox @onClose={{this.handleClose}} as |sb|>
+    await render(<template>
+      <SelectBox @onClose={{handleClose}} as |sb|>
         <sb.Trigger />
       </SelectBox>
       <div class="outside"></div>
-    `);
+    </template>);
 
     await click('.select-box__trigger');
     await blur('.select-box__trigger');
@@ -238,17 +237,14 @@ module('select-box (closing)', function (hooks) {
   test('programmatically closing', async function (assert) {
     assert.expect(3);
 
-    this.handleSelect = () => false;
+    const handleSelect = () => false;
 
-    await render(hbs`
-      <SelectBox
-        @onSelect={{this.handleSelect}}
-        @onClose={{this.handleClose}} as |sb|
-      >
+    await render(<template>
+      <SelectBox @onSelect={{handleSelect}} @onClose={{handleClose}} as |sb|>
         <sb.Trigger />
         <button type="button" {{on "click" sb.close}}></button>
       </SelectBox>
-    `);
+    </template>);
 
     await click('.select-box__trigger');
 
@@ -266,7 +262,7 @@ module('select-box (closing)', function (hooks) {
   test('clicking to programmatically close', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Trigger />
         {{#if sb.isOpen}}
@@ -275,7 +271,7 @@ module('select-box (closing)', function (hooks) {
           </sb.Options>
         {{/if}}
       </SelectBox>
-    `);
+    </template>);
 
     await click('.select-box__trigger');
     await click('button');

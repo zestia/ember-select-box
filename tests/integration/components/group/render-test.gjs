@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, find } from '@ember/test-helpers';
-import hbs from 'htmlbars-inline-precompile';
+import SelectBox from '@zestia/ember-select-box/components/select-box';
 
 module('select-box/group', function (hooks) {
   setupRenderingTest(hooks);
@@ -9,13 +9,13 @@ module('select-box/group', function (hooks) {
   test('it renders', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Options>
           <sb.Group />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box__group').hasTagName('div');
   });
@@ -23,13 +23,13 @@ module('select-box/group', function (hooks) {
   test('splattributes', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Options>
           <sb.Group class="foo" />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box__group').hasClass('foo');
   });
@@ -37,13 +37,13 @@ module('select-box/group', function (hooks) {
   test('whitespace', async function (assert) {
     assert.expect(2);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Options>
           <sb.Group />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     assert.strictEqual(find('.select-box__group-label').innerHTML, '');
     assert.strictEqual(find('.select-box__group-options').innerHTML, '');
@@ -52,13 +52,13 @@ module('select-box/group', function (hooks) {
   test('label', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Options>
           <sb.Group @label="Foo" />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box__group-label').hasText('Foo');
   });
@@ -66,13 +66,13 @@ module('select-box/group', function (hooks) {
   test('role', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Options>
           <sb.Group />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box__group').hasAttribute('role', 'group');
   });
@@ -80,13 +80,13 @@ module('select-box/group', function (hooks) {
   test('aria', async function (assert) {
     assert.expect(2);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Options>
           <sb.Group />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     assert.ok(
       find('.select-box__group-label')
@@ -105,7 +105,7 @@ module('select-box/group', function (hooks) {
   test('block', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Options>
           <sb.Group>
@@ -113,7 +113,7 @@ module('select-box/group', function (hooks) {
           </sb.Group>
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box__group-options').hasText('Hello World');
   });

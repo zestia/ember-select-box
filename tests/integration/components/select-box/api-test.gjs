@@ -1,8 +1,18 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { find, render, fillIn, settled, click } from '@ember/test-helpers';
-import hbs from 'htmlbars-inline-precompile';
+import {
+  find,
+  render,
+  rerender,
+  fillIn,
+  settled,
+  click
+} from '@ember/test-helpers';
 import { defer } from 'rsvp';
+import { tracked } from '@glimmer/tracking';
+import { on } from '@ember/modifier';
+import { fn } from '@ember/helper';
+import SelectBox from '@zestia/ember-select-box/components/select-box';
 
 module('select-box (api)', function (hooks) {
   setupRenderingTest(hooks);
@@ -10,164 +20,172 @@ module('select-box (api)', function (hooks) {
   test('api', async function (assert) {
     assert.expect(18);
 
-    this.handleReady = (sb) => (this.api = sb);
-    this.capture = (o) => (this.api2 = o);
+    let api;
+    let api2;
 
-    await render(hbs`
-      <SelectBox @onReady={{this.handleReady}} as |sb|>
+    const handleReady = (sb) => (api = sb);
+    const capture = (sb) => (api2 = sb);
+
+    await render(<template>
+      <SelectBox @onReady={{handleReady}} as |sb|>
         <sb.Trigger />
         <sb.Options>
-          {{this.capture sb}}
+          {{capture sb}}
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
-    assert.strictEqual(this.api, this.api2);
+    assert.strictEqual(api, api2);
 
     // Components
-    assert.strictEqual(typeof this.api.Group, 'object');
-    assert.strictEqual(typeof this.api.Input, 'object');
-    assert.strictEqual(typeof this.api.Option, 'object');
-    assert.strictEqual(typeof this.api.Options, 'object');
-    assert.strictEqual(typeof this.api.Trigger, 'object');
+    assert.strictEqual(typeof api.Group, 'object');
+    assert.strictEqual(typeof api.Input, 'object');
+    assert.strictEqual(typeof api.Option, 'object');
+    assert.strictEqual(typeof api.Options, 'object');
+    assert.strictEqual(typeof api.Trigger, 'object');
 
     // Properties
-    assert.deepEqual(this.api.element, find('.select-box'));
-    assert.strictEqual(this.api.isBusy, null);
-    assert.false(this.api.isOpen);
-    assert.strictEqual(this.api.options, undefined);
-    assert.strictEqual(this.api.query, null);
-    assert.strictEqual(this.api.value, undefined);
+    assert.deepEqual(api.element, find('.select-box'));
+    assert.strictEqual(api.isBusy, null);
+    assert.false(api.isOpen);
+    assert.strictEqual(api.options, undefined);
+    assert.strictEqual(api.query, null);
+    assert.strictEqual(api.value, undefined);
 
     // Actions
-    assert.strictEqual(typeof this.api.close, 'function');
-    assert.strictEqual(typeof this.api.open, 'function');
-    assert.strictEqual(typeof this.api.search, 'function');
-    assert.strictEqual(typeof this.api.toggle, 'function');
-    assert.strictEqual(typeof this.api.update, 'function');
-    assert.strictEqual(typeof this.api.select, 'function');
+    assert.strictEqual(typeof api.close, 'function');
+    assert.strictEqual(typeof api.open, 'function');
+    assert.strictEqual(typeof api.search, 'function');
+    assert.strictEqual(typeof api.toggle, 'function');
+    assert.strictEqual(typeof api.update, 'function');
+    assert.strictEqual(typeof api.select, 'function');
   });
 
   test('provides access to two useful elements', async function (assert) {
     assert.expect(1);
 
-    this.handleReady = (sb) => (this.api = sb);
+    let api;
 
-    await render(hbs`
-      <SelectBox @onReady={{this.handleReady}} as |sb|>
+    const handleReady = (sb) => (api = sb);
+
+    await render(<template>
+      <SelectBox @onReady={{handleReady}} as |sb|>
         <sb.Options />
       </SelectBox>
-    `);
+    </template>);
 
-    assert.strictEqual(this.api.element, find('.select-box'));
+    assert.strictEqual(api.element, find('.select-box'));
   });
 
   test('isBusy (searchable)', async function (assert) {
     assert.expect(3);
 
-    this.deferred = defer();
+    let api;
 
-    this.handleReady = (sb) => (this.api = sb);
-    this.handleSearch = () => this.deferred.promise;
+    const deferred = defer();
 
-    await render(hbs`
-      <SelectBox
-        @onReady={{this.handleReady}}
-        @onSearch={{this.handleSearch}}
-        as |sb|
-      >
+    const handleReady = (sb) => (api = sb);
+    const handleSearch = () => deferred.promise;
+
+    await render(<template>
+      <SelectBox @onReady={{handleReady}} @onSearch={{handleSearch}} as |sb|>
         <sb.Options>
           <sb.Input />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
-    assert.false(this.api.isBusy);
+    assert.false(api.isBusy);
 
     await fillIn('.select-box__input', 'x');
 
-    assert.true(this.api.isBusy);
+    assert.true(api.isBusy);
 
-    this.deferred.resolve();
+    deferred.resolve();
 
     await settled();
 
-    assert.false(this.api.isBusy);
+    assert.false(api.isBusy);
   });
 
   test('isBusy (not searchable)', async function (assert) {
     assert.expect(1);
 
-    this.handleReady = (sb) => (this.api = sb);
+    let api;
 
-    await render(hbs`
-      <SelectBox @onReady={{this.handleReady}} as |sb|>
+    const handleReady = (sb) => (api = sb);
+
+    await render(<template>
+      <SelectBox @onReady={{handleReady}} as |sb|>
         <sb.Options />
       </SelectBox>
-    `);
+    </template>);
 
-    assert.strictEqual(this.api.isBusy, null, 'behaviour undefined');
+    assert.strictEqual(api.isBusy, null, 'behaviour undefined');
   });
 
   test('isOpen', async function (assert) {
     assert.expect(2);
 
-    this.handleReady = (sb) => (this.api = sb);
+    let api;
 
-    await render(hbs`
-      <SelectBox @onReady={{this.handleReady}} as |sb|>
+    const handleReady = (sb) => (api = sb);
+
+    await render(<template>
+      <SelectBox @onReady={{handleReady}} as |sb|>
         <sb.Trigger />
       </SelectBox>
-    `);
+    </template>);
 
-    assert.false(this.api.isOpen);
+    assert.false(api.isOpen);
 
     await click('.select-box__trigger');
 
-    assert.true(this.api.isOpen);
+    assert.true(api.isOpen);
   });
 
   test('value', async function (assert) {
     assert.expect(3);
 
-    this.value = 'foo';
+    const state = new (class {
+      @tracked value = 'foo';
+    })();
 
-    await render(hbs`
-      <SelectBox @value={{this.value}} as |sb|>
+    await render(<template>
+      <SelectBox @value={{state.value}} as |sb|>
         {{sb.value}}
 
         <sb.Options>
           <sb.Option @value="bar" />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
-    assert.dom(this.element).hasText('foo');
+    assert.dom('.select-box').hasText('foo');
 
     await click('.select-box__option');
 
-    assert.dom(this.element).hasText('bar');
+    assert.dom('.select-box').hasText('bar');
 
-    this.set('value', 'baz');
+    state.value = 'baz';
 
-    assert.dom(this.element).hasText('baz');
+    await rerender();
+
+    assert.dom('.select-box').hasText('baz');
   });
 
   test('search', async function (assert) {
     assert.expect(2);
 
-    this.handleSearch = (foo) => assert.step(foo);
+    const handleSearch = (foo) => assert.step(foo);
 
-    await render(hbs`
-      <SelectBox @onSearch={{this.handleSearch}} as |sb|>
-        <button
-          type="button"
-          {{on "click" (fn sb.search "foo")}}
-        ></button>
+    await render(<template>
+      <SelectBox @onSearch={{handleSearch}} as |sb|>
+        <button type="button" {{on "click" (fn sb.search "foo")}}></button>
 
         <sb.Options />
       </SelectBox>
-    `);
+    </template>);
 
     await click('button');
 
@@ -177,16 +195,13 @@ module('select-box (api)', function (hooks) {
   test('open', async function (assert) {
     assert.expect(3);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Input />
         <sb.Trigger />
-        <button
-          type="button"
-          {{on "click" sb.open}}
-        ></button>
+        <button type="button" {{on "click" sb.open}}></button>
       </SelectBox>
-    `);
+    </template>);
 
     await click('button');
 
@@ -198,16 +213,13 @@ module('select-box (api)', function (hooks) {
   test('close', async function (assert) {
     assert.expect(3);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox @open={{true}} as |sb|>
         <sb.Input />
         <sb.Trigger />
-        <button
-          type="button"
-          {{on "click" sb.close}}
-        ></button>
+        <button type="button" {{on "click" sb.close}}></button>
       </SelectBox>
-    `);
+    </template>);
 
     await click('button');
 
@@ -219,16 +231,13 @@ module('select-box (api)', function (hooks) {
   test('toggle', async function (assert) {
     assert.expect(6);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Input />
         <sb.Trigger />
-        <button
-          type="button"
-          {{on "click" sb.toggle}}
-        ></button>
+        <button type="button" {{on "click" sb.toggle}}></button>
       </SelectBox>
-    `);
+    </template>);
 
     await click('button');
 
@@ -246,42 +255,43 @@ module('select-box (api)', function (hooks) {
   test('select', async function (assert) {
     assert.expect(8);
 
-    this.value = '1';
+    let api;
 
-    this.handleReady = (sb) => (this.api = sb);
-    this.handleChange = (value) => assert.step(`change: ${value}`);
-    this.handleSelect = () => assert.step('select');
+    const state = new (class {
+      value = '1';
+    })();
 
-    this.handleBuildSelection = (value) => {
+    const handleReady = (sb) => (api = sb);
+    const handleChange = (value) => assert.step(`change: ${value}`);
+    const handleSelect = () => assert.step('select');
+
+    const handleBuildSelection = (value) => {
       assert.step('build selection');
       return value;
     };
 
-    await render(hbs`
+    await render(<template>
       <SelectBox
-        @value={{this.value}}
-        @onReady={{this.handleReady}}
-        @onChange={{this.handleChange}}
-        @onSelect={{this.handleSelect}}
-        @onBuildSelection={{this.handleBuildSelection}}
+        @value={{state.value}}
+        @onReady={{handleReady}}
+        @onChange={{handleChange}}
+        @onSelect={{handleSelect}}
+        @onBuildSelection={{handleBuildSelection}}
         as |sb|
       >
-        <button
-          type="button"
-          {{on "click" (fn sb.select "2")}}
-        ></button>
+        <button type="button" {{on "click" (fn sb.select "2")}}></button>
         <sb.Options>
           <sb.Option @value="1" />
           <sb.Option @value="2" />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     await click('button');
     await click('button');
 
-    assert.strictEqual(this.value, '1', 'does not mutate value');
-    assert.strictEqual(this.api.value, '2', 'api is correct');
+    assert.strictEqual(state.value, '1', 'does not mutate value');
+    assert.strictEqual(api.value, '2', 'api is correct');
 
     assert.verifySteps(
       ['change: 2', 'select', 'select'],
@@ -301,10 +311,14 @@ module('select-box (api)', function (hooks) {
   test('select (not focused)', async function (assert) {
     assert.expect(4);
 
-    this.handleReady = (sb) => (this.api = sb);
+    const state = new (class {
+      @tracked api;
+    })();
 
-    await render(hbs`
-      <SelectBox @onReady={{this.handleReady}} as |sb|>
+    const handleReady = (sb) => (state.api = sb);
+
+    await render(<template>
+      <SelectBox @onReady={{handleReady}} as |sb|>
         <sb.Input />
         <sb.Trigger />
         <sb.Options>
@@ -313,8 +327,8 @@ module('select-box (api)', function (hooks) {
         </sb.Options>
       </SelectBox>
 
-      <button type="button" {{on "click" (fn this.api.select "2")}}></button>
-    `);
+      <button type="button" {{on "click" (fn state.api.select "2")}}></button>
+    </template>);
 
     await click('button');
 
@@ -330,10 +344,14 @@ module('select-box (api)', function (hooks) {
   test('select (closes)', async function (assert) {
     assert.expect(1);
 
-    this.handleReady = (sb) => (this.api = sb);
+    const state = new (class {
+      @tracked api;
+    })();
 
-    await render(hbs`
-      <SelectBox @open={{true}} @onReady={{this.handleReady}} as |sb|>
+    const handleReady = (sb) => (state.api = sb);
+
+    await render(<template>
+      <SelectBox @open={{true}} @onReady={{handleReady}} as |sb|>
         <sb.Trigger />
         <sb.Options>
           <sb.Option @value="1" />
@@ -341,8 +359,8 @@ module('select-box (api)', function (hooks) {
         </sb.Options>
       </SelectBox>
 
-      <button type="button" {{on "click" (fn this.api.select "2")}}></button>
-    `);
+      <button type="button" {{on "click" (fn state.api.select "2")}}></button>
+    </template>);
 
     await click('button');
 
@@ -358,10 +376,14 @@ module('select-box (api)', function (hooks) {
   test('select (disabled option)', async function (assert) {
     assert.expect(2);
 
-    this.handleReady = (sb) => (this.api = sb);
+    const state = new (class {
+      @tracked api;
+    })();
 
-    await render(hbs`
-      <SelectBox @onReady={{this.handleReady}} as |sb|>
+    const handleReady = (sb) => (state.api = sb);
+
+    await render(<template>
+      <SelectBox @onReady={{handleReady}} as |sb|>
         <sb.Input />
         <sb.Trigger />
         <sb.Options>
@@ -369,8 +391,8 @@ module('select-box (api)', function (hooks) {
         </sb.Options>
       </SelectBox>
 
-      <button type="button" {{on "click" (fn this.api.select "foo")}}></button>
-    `);
+      <button type="button" {{on "click" (fn state.api.select "foo")}}></button>
+    </template>);
 
     await click('button');
 
@@ -388,42 +410,43 @@ module('select-box (api)', function (hooks) {
   test('update', async function (assert) {
     assert.expect(5);
 
-    this.value = '1';
+    let api;
 
-    this.handleReady = (sb) => (this.api = sb);
-    this.handleChange = (value) => assert.step(`change: ${value}`);
-    this.handleSelect = () => assert.step('select');
+    const state = new (class {
+      value = '1';
+    })();
 
-    this.handleBuildSelection = (value) => {
+    const handleReady = (sb) => (api = sb);
+    const handleChange = (value) => assert.step(`change: ${value}`);
+    const handleSelect = () => assert.step('select');
+
+    const handleBuildSelection = (value) => {
       assert.step('build selection');
       return value;
     };
 
-    await render(hbs`
+    await render(<template>
       <SelectBox
-        @value={{this.value}}
-        @onReady={{this.handleReady}}
-        @onChange={{this.handleChange}}
-        @onSelect={{this.handleSelect}}
-        @onBuildSelection={{this.handleBuildSelection}}
+        @value={{state.value}}
+        @onReady={{handleReady}}
+        @onChange={{handleChange}}
+        @onSelect={{handleSelect}}
+        @onBuildSelection={{handleBuildSelection}}
         as |sb|
       >
-        <button
-          type="button"
-          {{on "click" (fn sb.update "2")}}
-        ></button>
+        <button type="button" {{on "click" (fn sb.update "2")}}></button>
         <sb.Options>
           <sb.Option @value="1" />
           <sb.Option @value="2" />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     await click('button');
     await click('button');
 
-    assert.strictEqual(this.value, '1', 'does not mutate value');
-    assert.strictEqual(this.api.value, '2', 'api is correct');
+    assert.strictEqual(state.value, '1', 'does not mutate value');
+    assert.strictEqual(api.value, '2', 'api is correct');
     assert.verifySteps([], 'does not fires actions');
 
     assert
@@ -438,20 +461,17 @@ module('select-box (api)', function (hooks) {
   test('api stability', async function (assert) {
     assert.expect(1);
 
-    this.update = (sb) => {
+    const update = (sb) => {
       sb.update(1);
       assert.strictEqual(sb.value, 1, 'sb is a stable reference');
     };
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
-        <button
-          type="button"
-          {{on "click" (fn this.update sb)}}
-        ></button>
+        <button type="button" {{on "click" (fn update sb)}}></button>
         <sb.Options />
       </SelectBox>
-    `);
+    </template>);
 
     await click('button');
   });
@@ -459,12 +479,12 @@ module('select-box (api)', function (hooks) {
   test('open boolean with a trigger defaults to closed', async function (assert) {
     assert.expect(2);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Trigger />
         <sb.Options data-open="{{sb.isOpen}}" />
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box').hasAttribute('data-open', 'false');
     assert.dom('.select-box__options').hasAttribute('data-open', 'false');
@@ -473,11 +493,11 @@ module('select-box (api)', function (hooks) {
   test('open boolean without a trigger is undefined', async function (assert) {
     assert.expect(2);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Options data-open="{{sb.isOpen}}" />
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box').doesNotHaveAttribute('data-open');
     assert.dom('.select-box__options').doesNotHaveAttribute('data-open');

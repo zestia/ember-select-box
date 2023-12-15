@@ -1,7 +1,8 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, triggerEvent } from '@ember/test-helpers';
-import hbs from 'htmlbars-inline-precompile';
+import { on } from '@ember/modifier';
+import SelectBox from '@zestia/ember-select-box/components/select-box';
 
 module('select-box (clicking trigger)', function (hooks) {
   setupRenderingTest(hooks);
@@ -9,14 +10,16 @@ module('select-box (clicking trigger)', function (hooks) {
   test('clicking trigger toggles select box on mousedown', async function (assert) {
     assert.expect(7);
 
-    this.handleMouseDownTrigger = (event) => (this.event = event);
+    let event;
 
-    await render(hbs`
+    const handleMouseDownTrigger = (_event) => (event = _event);
+
+    await render(<template>
       <SelectBox as |sb|>
         {{! template-lint-disable no-pointer-down-event-binding }}
-        <sb.Trigger {{on "mousedown" this.handleMouseDownTrigger}} />
+        <sb.Trigger {{on "mousedown" handleMouseDownTrigger}} />
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box').hasAttribute('data-open', 'false');
     assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'false');
@@ -31,17 +34,17 @@ module('select-box (clicking trigger)', function (hooks) {
     assert.dom('.select-box').hasAttribute('data-open', 'false');
     assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'false');
 
-    assert.true(this.event.defaultPrevented);
+    assert.true(event.defaultPrevented);
   });
 
   test('right clicking trigger does not open select box', async function (assert) {
     assert.expect(2);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Trigger />
       </SelectBox>
-    `);
+    </template>);
 
     await triggerEvent('.select-box__trigger', 'mousedown', { button: 2 });
 

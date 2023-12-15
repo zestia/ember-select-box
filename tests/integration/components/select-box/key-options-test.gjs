@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { focus, render, triggerKeyEvent } from '@ember/test-helpers';
-import hbs from 'htmlbars-inline-precompile';
+import SelectBox from '@zestia/ember-select-box/components/select-box';
 
 module('select-box (keydown on options)', function (hooks) {
   setupRenderingTest(hooks);
@@ -9,17 +9,17 @@ module('select-box (keydown on options)', function (hooks) {
   test('can navigate options with the arrow keys', async function (assert) {
     assert.expect(8);
 
-    this.handleActivateOption = (value) => assert.step(value);
+    const handleActivateOption = (value) => assert.step(value);
 
-    await render(hbs`
-      <SelectBox @onActivate={{this.handleActivateOption}} as |sb|>
+    await render(<template>
+      <SelectBox @onActivate={{handleActivateOption}} as |sb|>
         <sb.Options>
           <sb.Option @value="a" />
           <sb.Option @value="b" @disabled={{true}} />
           <sb.Option @value="c" />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
 
@@ -47,10 +47,10 @@ module('select-box (keydown on options)', function (hooks) {
   test('key down on options is ignored', async function (assert) {
     assert.expect(2);
 
-    this.handleActivateOption = (value) => assert.step(value);
+    const handleActivateOption = (value) => assert.step(value);
 
-    await render(hbs`
-      <SelectBox @onActivate={{this.handleActivateOption}} as |sb|>
+    await render(<template>
+      <SelectBox @onActivate={{handleActivateOption}} as |sb|>
         <sb.Trigger />
         <sb.Options>
           <sb.Option @value="a" />
@@ -58,7 +58,7 @@ module('select-box (keydown on options)', function (hooks) {
           <sb.Option @value="c" />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     await triggerKeyEvent('.select-box__options', 'keydown', 'ArrowDown');
 

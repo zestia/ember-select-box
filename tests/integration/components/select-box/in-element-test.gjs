@@ -1,25 +1,23 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { click, render, find, triggerEvent } from '@ember/test-helpers';
-import hbs from 'htmlbars-inline-precompile';
+import SelectBox from '@zestia/ember-select-box/components/select-box';
 
 module('select-box (in-element)', function (hooks) {
   setupRenderingTest(hooks);
 
-  hooks.beforeEach(function () {
-    this.destination = () => find('.destination');
-  });
+  const destination = () => find('.destination');
 
   test('a common scenario of rendering a dropdown in an external element works', async function (assert) {
     assert.expect(6);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Trigger>
           {{sb.value}}
         </sb.Trigger>
         {{#if sb.isOpen}}
-          {{#in-element (this.destination) insertBefore=null}}
+          {{#in-element (destination) insertBefore=null}}
             <sb.Options>
               <sb.Option @value="foo" />
               <sb.Option @value="bar" />
@@ -31,7 +29,7 @@ module('select-box (in-element)', function (hooks) {
       <div class="destination"></div>
 
       <button class="outside" type="button"></button>
-    `);
+    </template>);
 
     await triggerEvent('.select-box__trigger', 'mousedown');
 
