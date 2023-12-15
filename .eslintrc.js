@@ -1,5 +1,3 @@
 'use strict';
 
-module.exports = {
-  extends: '@zestia/eslint-config/ember-addon'
-};
+module.exports = require('@zestia/eslint-config/ember-addon');
