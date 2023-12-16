@@ -2,14 +2,17 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import {
   render,
+  rerender,
   click,
   focus,
   find,
-  settled,
   triggerEvent,
   triggerKeyEvent
 } from '@ember/test-helpers';
-import hbs from 'htmlbars-inline-precompile';
+import { on } from '@ember/modifier';
+import { array } from '@ember/helper';
+import { tracked } from '@glimmer/tracking';
+import SelectBox from '@zestia/ember-select-box/components/select-box';
 
 module('select-box (opening)', function (hooks) {
   setupRenderingTest(hooks);
@@ -17,30 +20,25 @@ module('select-box (opening)', function (hooks) {
   test('opening with api', async function (assert) {
     assert.expect(7);
 
-    this.handleReady = (sb) => (this.api = sb);
-    this.handleOpen = () => assert.step('open');
+    let api;
 
-    await render(hbs`
-      <SelectBox
-        @onReady={{this.handleReady}}
-        @onOpen={{this.handleOpen}}
-        as |sb|
-      >
-        <button
-          type="button"
-          {{on "click" sb.open}}
-        ></button>
+    const handleReady = (sb) => (api = sb);
+    const handleOpen = () => assert.step('open');
+
+    await render(<template>
+      <SelectBox @onReady={{handleReady}} @onOpen={{handleOpen}} as |sb|>
+        <button type="button" {{on "click" sb.open}}></button>
         <sb.Trigger />
         <sb.Input />
       </SelectBox>
-    `);
+    </template>);
 
-    assert.false(this.api.isOpen);
+    assert.false(api.isOpen);
 
     await click('button');
     await click('button');
 
-    assert.true(this.api.isOpen);
+    assert.true(api.isOpen);
 
     assert.verifySteps(['open']);
 
@@ -52,7 +50,7 @@ module('select-box (opening)', function (hooks) {
   test('can set initial open state', async function (assert) {
     assert.expect(6);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox @open={{true}} as |sb|>
         <sb.Trigger />
         <sb.Input />
@@ -60,7 +58,7 @@ module('select-box (opening)', function (hooks) {
           <sb.Option />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box').hasAttribute('data-open', 'true');
     assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'true');
@@ -83,12 +81,12 @@ module('select-box (opening)', function (hooks) {
     // or one where they will be shown by interacting with the input element. If the developer
     // had used a Trigger element, we make the assumption that it will control the expanded state.
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Input />
         <sb.Options />
       </SelectBox>
-    `);
+    </template>);
 
     assert
       .dom('.select-box')
@@ -101,12 +99,12 @@ module('select-box (opening)', function (hooks) {
     // they must manually set its initial expanded state and configure a way to
     // control that expanded state, in order to be valid aria. Example:
 
-    await render(hbs`
+    await render(<template>
       <SelectBox @open={{false}} as |sb|>
         <sb.Input {{on "focus" sb.open}} />
         <sb.Options />
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box').hasAttribute('data-open', 'false');
     assert.dom('.select-box__input').hasAttribute('aria-expanded', 'false');
@@ -118,32 +116,37 @@ module('select-box (opening)', function (hooks) {
   });
 
   test('cannot manually open listbox', async function (assert) {
-    assert.expect(1);
+    assert.expect(2);
 
-    this.handleOpen = () => assert.step('open');
+    const handleOpen = () => assert.step('open');
 
-    await render(hbs`
-      <SelectBox @open={{true}} as |sb|>
+    await render(<template>
+      <SelectBox @open={{true}} @onOpen={{handleOpen}} as |sb|>
         <sb.Options />
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box').doesNotHaveAttribute('data-open');
+    assert.verifySteps([]);
   });
 
   test('cannot open combobox manually with argument', async function (assert) {
     assert.expect(3);
 
-    await render(hbs`
-      <SelectBox @open={{this.isOpen}} as |sb|>
+    const state = new (class {
+      @tracked isOpen;
+    })();
+
+    await render(<template>
+      <SelectBox @open={{state.isOpen}} as |sb|>
         <sb.Trigger />
         <sb.Input />
       </SelectBox>
-    `);
+    </template>);
 
-    this.set('isOpen', true);
+    state.isOpen = true;
 
-    await settled();
+    await rerender();
 
     assert.dom('.select-box').hasAttribute('data-open', 'false');
     assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'false');
@@ -153,7 +156,7 @@ module('select-box (opening)', function (hooks) {
   test('activates first option (undefined === undefined)', async function (assert) {
     assert.expect(3);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Trigger />
         <sb.Options>
@@ -162,7 +165,7 @@ module('select-box (opening)', function (hooks) {
           <sb.Option />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     await click('.select-box__trigger');
 
@@ -182,7 +185,7 @@ module('select-box (opening)', function (hooks) {
   test('activates option for value (single)', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox @value={{2}} as |sb|>
         <sb.Trigger />
         <sb.Options>
@@ -191,7 +194,7 @@ module('select-box (opening)', function (hooks) {
           <sb.Option @value={{3}} />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     await click('.select-box__trigger');
 
@@ -203,7 +206,7 @@ module('select-box (opening)', function (hooks) {
   test('activating option (multiple)', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox @multiple={{true}} @value={{array 4 3 2}} as |sb|>
         <sb.Trigger />
         <sb.Options>
@@ -213,7 +216,7 @@ module('select-box (opening)', function (hooks) {
           <sb.Option @value={{4}} />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     await click('.select-box__trigger');
 
@@ -227,7 +230,7 @@ module('select-box (opening)', function (hooks) {
   test('activates option for value after they are rendered', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox @value={{2}} as |sb|>
         <sb.Trigger />
         {{#if sb.isOpen}}
@@ -238,7 +241,7 @@ module('select-box (opening)', function (hooks) {
           </sb.Options>
         {{/if}}
       </SelectBox>
-    `);
+    </template>);
 
     await click('.select-box__trigger');
 
@@ -250,11 +253,11 @@ module('select-box (opening)', function (hooks) {
   test('opening via the trigger does not lose focus', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Trigger />
       </SelectBox>
-    `);
+    </template>);
 
     await click('.select-box__trigger');
 
@@ -264,12 +267,12 @@ module('select-box (opening)', function (hooks) {
   test('opening via the trigger advances focus to the input (mouse)', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Trigger />
         <sb.Input />
       </SelectBox>
-    `);
+    </template>);
 
     await click('.select-box__trigger');
 
@@ -279,12 +282,12 @@ module('select-box (opening)', function (hooks) {
   test('opening via the trigger advances focus to the input (keyboard)', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Trigger />
         <sb.Input />
       </SelectBox>
-    `);
+    </template>);
 
     await focus('.select-box__trigger');
     await triggerKeyEvent('.select-box__trigger', 'keydown', 'Enter');
@@ -295,12 +298,12 @@ module('select-box (opening)', function (hooks) {
   test('opening via the api advances focus to the input', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Trigger {{on "mouseenter" sb.open}} />
         <sb.Input />
       </SelectBox>
-    `);
+    </template>);
 
     await triggerEvent('.select-box__trigger', 'mouseenter');
 
@@ -310,17 +313,14 @@ module('select-box (opening)', function (hooks) {
   test('opening listbox', async function (assert) {
     assert.expect(1);
 
-    this.handleOpen = () => assert.step('open');
+    const handleOpen = () => assert.step('open');
 
-    await render(hbs`
-      <SelectBox @onOpen={{this.handleOpen}} as |sb|>
-        <button
-          type="button"
-          {{on "click" sb.open}}
-        ></button>
+    await render(<template>
+      <SelectBox @onOpen={{handleOpen}} as |sb|>
+        <button type="button" {{on "click" sb.open}}></button>
         <sb.Options />
       </SelectBox>
-    `);
+    </template>);
 
     await click('button');
 
@@ -330,11 +330,11 @@ module('select-box (opening)', function (hooks) {
   test('opening combo box with arg (trigger)', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox @open={{true}} as |sb|>
         <sb.Trigger />
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box__trigger').isNotFocused('does not steal focus');
   });
@@ -342,11 +342,11 @@ module('select-box (opening)', function (hooks) {
   test('opening combo box with arg (input)', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox @open={{true}} as |sb|>
         <sb.Input />
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box__input').isNotFocused('does not steal focus');
   });
@@ -354,7 +354,7 @@ module('select-box (opening)', function (hooks) {
   test('opening combobox with input only', async function (assert) {
     assert.expect(4);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Input {{on "click" sb.open}} />
         <sb.Options>
@@ -362,7 +362,7 @@ module('select-box (opening)', function (hooks) {
           <sb.Option />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box[aria-current="true"]').doesNotExist();
 
@@ -379,16 +379,11 @@ module('select-box (opening)', function (hooks) {
   test('opening with a selected value scrolls it into view', async function (assert) {
     assert.expect(2);
 
-    await render(hbs`
+    await render(<template>
       {{! template-lint-disable no-forbidden-elements }}
       <style>
-      .select-box__options {
-        height: 1em;
-        overflow: auto;
-      }
-      .select-box__option {
-        line-height: 1;
-      }
+        .select-box__options { height: 1em; overflow: auto; }
+        .select-box__option { line-height: 1; }
       </style>
 
       <SelectBox @value={{3}} as |sb|>
@@ -401,7 +396,7 @@ module('select-box (opening)', function (hooks) {
           </sb.Options>
         {{/if}}
       </SelectBox>
-    `);
+    </template>);
 
     await click('.select-box__trigger');
 
@@ -414,7 +409,7 @@ module('select-box (opening)', function (hooks) {
   test('opening forgets previous active option', async function (assert) {
     assert.expect(2);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Trigger />
         <sb.Options>
@@ -423,7 +418,7 @@ module('select-box (opening)', function (hooks) {
           <sb.Option />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     await click('.select-box__trigger');
 

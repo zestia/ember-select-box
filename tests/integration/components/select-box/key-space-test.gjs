@@ -6,35 +6,40 @@ import {
   focus,
   triggerEvent
 } from '@ember/test-helpers';
-import hbs from 'htmlbars-inline-precompile';
+import { on } from '@ember/modifier';
+import SelectBox from '@zestia/ember-select-box/components/select-box';
 
 module('select-box (space)', function (hooks) {
   setupRenderingTest(hooks);
 
+  let event;
+  let handleChange;
+
+  const handleKeyDown = (_event) => (event = _event);
+
   hooks.beforeEach(function (assert) {
-    this.handleChange = (value) => assert.step(value);
-    this.handleKeyDown = (event) => (this.event = event);
+    handleChange = (value) => assert.step(value);
   });
 
   test('space on trigger of combobox', async function (assert) {
     assert.expect(10);
 
-    await render(hbs`
-      <SelectBox @onChange={{this.handleChange}} as |sb|>
-        <sb.Trigger {{on "keydown" this.handleKeyDown}} />
+    await render(<template>
+      <SelectBox @onChange={{handleChange}} as |sb|>
+        <sb.Trigger {{on "keydown" handleKeyDown}} />
         <sb.Options>
           <sb.Option @value="A" />
           <sb.Option @value="B" />
           <sb.Option @value="C" />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     await focus('.select-box__trigger');
     await triggerKeyEvent('.select-box__trigger', 'keydown', ' ');
 
     assert.verifySteps([], 'change event is not fired');
-    assert.true(this.event.defaultPrevented);
+    assert.true(event.defaultPrevented);
 
     assert.dom('.select-box').hasAttribute('data-open', 'true');
     assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'true');
@@ -47,7 +52,7 @@ module('select-box (space)', function (hooks) {
     await triggerKeyEvent('.select-box__trigger', 'keydown', ' ');
 
     assert.verifySteps([], 'change event is not fired');
-    assert.true(this.event.defaultPrevented);
+    assert.true(event.defaultPrevented);
 
     assert
       .dom('.select-box')
@@ -63,22 +68,22 @@ module('select-box (space)', function (hooks) {
   test('space in input of combobox', async function (assert) {
     assert.expect(5);
 
-    await render(hbs`
-      <SelectBox @onChange={{this.handleChange}} as |sb|>
-        <sb.Input {{on "keydown" this.handleKeyDown}} />
+    await render(<template>
+      <SelectBox @onChange={{handleChange}} as |sb|>
+        <sb.Input {{on "keydown" handleKeyDown}} />
         <sb.Options>
           <sb.Option @value="A" />
           <sb.Option @value="B" />
           <sb.Option @value="C" />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     await focus('.select-box__input');
     await triggerKeyEvent('.select-box__input', 'keydown', ' ');
 
     assert.verifySteps([], 'change event is not fired');
-    assert.false(this.event.defaultPrevented, 'can type spaces still');
+    assert.false(event.defaultPrevented, 'can type spaces still');
 
     assert.dom('.select-box').doesNotHaveAttribute(
       'data-open',
@@ -98,10 +103,10 @@ module('select-box (space)', function (hooks) {
   test('space in listbox', async function (assert) {
     assert.expect(4);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox
-        @onChange={{this.handleChange}}
-        {{on "keydown" this.handleKeyDown}}
+        @onChange={{handleChange}}
+        {{on "keydown" handleKeyDown}}
         as |sb|
       >
         <sb.Options>
@@ -110,7 +115,7 @@ module('select-box (space)', function (hooks) {
           <sb.Option @value="C" />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     await focus('.select-box__options');
     await triggerEvent('.select-box__option:nth-child(2)', 'mouseenter');
@@ -125,23 +130,23 @@ module('select-box (space)', function (hooks) {
       );
 
     assert.verifySteps(['B']);
-    assert.true(this.event.defaultPrevented, 'will not scroll');
+    assert.true(event.defaultPrevented, 'will not scroll');
   });
 
   test('space on trigger of combobox whilst typing', async function (assert) {
     assert.expect(10);
 
-    await render(hbs`
+    await render(<template>
       {{! template-lint-disable no-whitespace-for-layout }}
-      <SelectBox @onChange={{this.handleChange}} as |sb|>
-        <sb.Trigger {{on "keydown" this.handleKeyDown}} />
+      <SelectBox @onChange={{handleChange}} as |sb|>
+        <sb.Trigger {{on "keydown" handleKeyDown}} />
         <sb.Options>
           <sb.Option @value="A">a</sb.Option>
           <sb.Option @value="A1">a1</sb.Option>
-          <sb.Option @value="A 2">a  2</sb.Option>
+          <sb.Option @value="A 2">a 2</sb.Option>
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
 
@@ -151,18 +156,18 @@ module('select-box (space)', function (hooks) {
 
     await triggerKeyEvent('.select-box__trigger', 'keydown', 'A');
 
-    assert.false(this.event.defaultPrevented);
+    assert.false(event.defaultPrevented);
 
     await triggerKeyEvent('.select-box__trigger', 'keydown', ' ');
 
     assert.true(
-      this.event.defaultPrevented,
+      event.defaultPrevented,
       'will not scroll if space is pressed whilst typing to jump to an option'
     );
 
     await triggerKeyEvent('.select-box__trigger', 'keydown', '2');
 
-    assert.false(this.event.defaultPrevented);
+    assert.false(event.defaultPrevented);
 
     assert.verifySteps(['A', 'A 2'], 'change event fires');
 

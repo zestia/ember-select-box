@@ -1,7 +1,8 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { triggerEvent, findAll, render, settled } from '@ember/test-helpers';
-import hbs from 'htmlbars-inline-precompile';
+import { triggerEvent, findAll, render, rerender } from '@ember/test-helpers';
+import { tracked } from '@glimmer/tracking';
+import SelectBox from '@zestia/ember-select-box/components/select-box';
 
 module('select-box/option (api)', function (hooks) {
   setupRenderingTest(hooks);
@@ -9,30 +10,32 @@ module('select-box/option (api)', function (hooks) {
   test('api', async function (assert) {
     assert.expect(6);
 
-    this.capture = (o) => (this.api = o);
+    let api;
 
-    await render(hbs`
+    const capture = (o) => (api = o);
+
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Options>
           <sb.Option as |option|>
-            {{this.capture option}}
+            {{capture option}}
           </sb.Option>
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
-    assert.strictEqual(this.api.index, 0);
-    assert.false(this.api.isActive);
-    assert.true(this.api.isSelected);
-    assert.strictEqual(this.api.isDisabled, undefined);
-    assert.strictEqual(this.api.value, undefined);
-    assert.ok(this.api.id.match(/[\w\d+]/));
+    assert.strictEqual(api.index, 0);
+    assert.false(api.isActive);
+    assert.true(api.isSelected);
+    assert.strictEqual(api.isDisabled, undefined);
+    assert.strictEqual(api.value, undefined);
+    assert.ok(api.id.match(/[\w\d+]/));
   });
 
   test('isActive', async function (assert) {
     assert.expect(2);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Options>
           <sb.Option as |option|>
@@ -40,7 +43,7 @@ module('select-box/option (api)', function (hooks) {
           </sb.Option>
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box__option').hasText('false');
 
@@ -52,21 +55,25 @@ module('select-box/option (api)', function (hooks) {
   test('isSelected', async function (assert) {
     assert.expect(2);
 
-    await render(hbs`
-      <SelectBox @value={{this.value}} as |sb|>
+    const state = new (class {
+      @tracked value;
+    })();
+
+    await render(<template>
+      <SelectBox @value={{state.value}} as |sb|>
         <sb.Options>
           <sb.Option as |option|>
             {{option.isSelected}}
           </sb.Option>
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box__option').hasText('true');
 
-    this.set('value', null);
+    state.value = null;
 
-    await settled();
+    await rerender();
 
     assert.dom('.select-box__option').hasText('false');
   });
@@ -74,7 +81,7 @@ module('select-box/option (api)', function (hooks) {
   test('index', async function (assert) {
     assert.expect(3);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Options>
           <sb.Option as |option|>
@@ -88,7 +95,7 @@ module('select-box/option (api)', function (hooks) {
           </sb.Option>
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box__option:nth-child(1)').hasText('0');
     assert.dom('.select-box__option:nth-child(2)').hasText('1');
@@ -98,7 +105,7 @@ module('select-box/option (api)', function (hooks) {
   test('index of disabled options', async function (assert) {
     assert.expect(4);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Options>
           <sb.Option as |option|>
@@ -112,7 +119,7 @@ module('select-box/option (api)', function (hooks) {
           </sb.Option>
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box__option:nth-child(1)').hasText('0');
     assert.dom('.select-box__option:nth-child(2)').hasText('-1');
@@ -136,30 +143,38 @@ module('select-box/option (api)', function (hooks) {
     const baz = { myValue: 'baz', myLabel: 'Baz' };
     const qux = { myValue: 'qux', myLabel: 'Qux' };
 
-    this.group1 = [foo, bar];
-    this.group2 = [baz, qux];
-    this.myValue = baz;
+    const state = new (class {
+      group1 = [foo, bar];
+      @tracked group2 = [baz, qux];
+      myValue = baz;
+    })();
 
-    await render(hbs`
-      <SelectBox @value={{this.myValue}} as |sb|>
+    await render(<template>
+      <SelectBox @value={{state.myValue}} as |sb|>
         <sb.Options>
           <sb.Group @label="Group 1">
-            {{#each this.group1 as |item i|}}
+            {{#each state.group1 as |item i|}}
               <sb.Option @value={{item}} as |option|>
-                {{option.value.myLabel}} {{i}} {{option.index}} {{option.isSelected}}
+                {{option.value.myLabel}}
+                {{i}}
+                {{option.index}}
+                {{option.isSelected}}
               </sb.Option>
             {{/each}}
           </sb.Group>
           <sb.Group @label="Group 2">
-            {{#each this.group2 as |item i|}}
+            {{#each state.group2 as |item i|}}
               <sb.Option @value={{item}} as |option|>
-                {{option.value.myLabel}} {{i}} {{option.index}} {{option.isSelected}}
+                {{option.value.myLabel}}
+                {{i}}
+                {{option.index}}
+                {{option.isSelected}}
               </sb.Option>
             {{/each}}
           </sb.Group>
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     // select box options can yield their label, value, index and selected state
     assert.dom(findAll('.select-box__option')[0]).hasText('Foo 0 0 false');
@@ -167,7 +182,9 @@ module('select-box/option (api)', function (hooks) {
     assert.dom(findAll('.select-box__option')[2]).hasText('Baz 0 2 true');
     assert.dom(findAll('.select-box__option')[3]).hasText('Qux 1 3 false');
 
-    this.set('group2', [qux, baz]);
+    state.group2 = [qux, baz];
+
+    await rerender();
 
     // index gets out of sync due to lack of key="@index"'
     // this is not the responsibility of the addon to fix

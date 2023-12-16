@@ -8,15 +8,16 @@ import {
   triggerEvent,
   triggerKeyEvent
 } from '@ember/test-helpers';
-import hbs from 'htmlbars-inline-precompile';
+import { on } from '@ember/modifier';
+import SelectBox from '@zestia/ember-select-box/components/select-box';
 
-module('select-box (up arrow key)', function (hooks) {
+module('select-box (down arrow key)', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('up on options cycles listbox', async function (assert) {
+  test('down on options cycles listbox', async function (assert) {
     assert.expect(6);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Options>
           <sb.Option />
@@ -24,7 +25,7 @@ module('select-box (up arrow key)', function (hooks) {
           <sb.Option />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
 
@@ -32,35 +33,35 @@ module('select-box (up arrow key)', function (hooks) {
 
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
 
-    await triggerKeyEvent('.select-box__options', 'keydown', 'ArrowUp');
-
-    assert
-      .dom('.select-box__option:nth-child(3)')
-      .hasAttribute('aria-current', 'true');
-
-    await triggerKeyEvent('.select-box__options', 'keydown', 'ArrowUp');
-
-    assert
-      .dom('.select-box__option:nth-child(2)')
-      .hasAttribute('aria-current', 'true');
-
-    await triggerKeyEvent('.select-box__options', 'keydown', 'ArrowUp');
+    await triggerKeyEvent('.select-box__options', 'keydown', 'ArrowDown');
 
     assert
       .dom('.select-box__option:nth-child(1)')
       .hasAttribute('aria-current', 'true');
 
-    await triggerKeyEvent('.select-box__options', 'keydown', 'ArrowUp');
+    await triggerKeyEvent('.select-box__options', 'keydown', 'ArrowDown');
+
+    assert
+      .dom('.select-box__option:nth-child(2)')
+      .hasAttribute('aria-current', 'true');
+
+    await triggerKeyEvent('.select-box__options', 'keydown', 'ArrowDown');
 
     assert
       .dom('.select-box__option:nth-child(3)')
       .hasAttribute('aria-current', 'true');
+
+    await triggerKeyEvent('.select-box__options', 'keydown', 'ArrowDown');
+
+    assert
+      .dom('.select-box__option:nth-child(1)')
+      .hasAttribute('aria-current', 'true');
   });
 
-  test('up on trigger cycles combobox', async function (assert) {
+  test('down on trigger cycles combobox', async function (assert) {
     assert.expect(7);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Trigger />
         <sb.Options>
@@ -69,7 +70,7 @@ module('select-box (up arrow key)', function (hooks) {
           <sb.Option />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
 
@@ -77,25 +78,25 @@ module('select-box (up arrow key)', function (hooks) {
 
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
 
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowUp');
+    await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowDown');
 
     assert
       .dom('.select-box__option:nth-child(1)')
       .hasAttribute('aria-current', 'true');
 
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowUp');
-
-    assert
-      .dom('.select-box__option:nth-child(3)')
-      .hasAttribute('aria-current', 'true');
-
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowUp');
+    await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowDown');
 
     assert
       .dom('.select-box__option:nth-child(2)')
       .hasAttribute('aria-current', 'true');
 
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowUp');
+    await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowDown');
+
+    assert
+      .dom('.select-box__option:nth-child(3)')
+      .hasAttribute('aria-current', 'true');
+
+    await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowDown');
 
     assert
       .dom('.select-box__option:nth-child(1)')
@@ -109,10 +110,10 @@ module('select-box (up arrow key)', function (hooks) {
       );
   });
 
-  test('up on input cycles combobox', async function (assert) {
+  test('down on input cycles combobox', async function (assert) {
     assert.expect(7);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Input />
         <sb.Options>
@@ -121,7 +122,7 @@ module('select-box (up arrow key)', function (hooks) {
           <sb.Option />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
 
@@ -129,68 +130,65 @@ module('select-box (up arrow key)', function (hooks) {
 
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
 
-    await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowUp');
-
-    assert
-      .dom('.select-box__option:nth-child(3)')
-      .hasAttribute('aria-current', 'true');
-
-    await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowUp');
-
-    assert
-      .dom('.select-box__option:nth-child(2)')
-      .hasAttribute('aria-current', 'true');
-
-    await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowUp');
+    await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
 
     assert
       .dom('.select-box__option:nth-child(1)')
       .hasAttribute('aria-current', 'true');
 
-    await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowUp');
+    await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
+
+    assert
+      .dom('.select-box__option:nth-child(2)')
+      .hasAttribute('aria-current', 'true');
+
+    await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
 
     assert
       .dom('.select-box__option:nth-child(3)')
+      .hasAttribute('aria-current', 'true');
+
+    await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
+
+    assert
+      .dom('.select-box__option:nth-child(1)')
       .hasAttribute('aria-current', 'true');
 
     assert
       .dom('.select-box__input')
       .hasAttribute(
         'aria-activedescendant',
-        find('.select-box__option:nth-child(3)').getAttribute('id')
+        find('.select-box__option:nth-child(1)').getAttribute('id')
       );
   });
 
-  test('up will not scroll the page', async function (assert) {
+  test('down will not scroll the page', async function (assert) {
     assert.expect(1);
 
-    this.handleKeyDown = (event) => (this.event = event);
+    let event;
 
-    await render(hbs`
+    const handleKeyDown = (_event) => (event = _event);
+
+    await render(<template>
       <SelectBox as |sb|>
-        <sb.Options {{on "keydown" this.handleKeyDown}} />
+        <sb.Options {{on "keydown" handleKeyDown}} />
       </SelectBox>
-    `);
+    </template>);
 
     await focus('.select-box__options');
-    await triggerKeyEvent('.select-box__options', 'keydown', 'ArrowUp');
+    await triggerKeyEvent('.select-box__options', 'keydown', 'ArrowDown');
 
-    assert.true(this.event.defaultPrevented);
+    assert.true(event.defaultPrevented);
   });
 
-  test('up scrolls the active option into view', async function (assert) {
+  test('down scrolls the active option into view', async function (assert) {
     assert.expect(3);
 
-    await render(hbs`
+    await render(<template>
       {{! template-lint-disable no-forbidden-elements }}
       <style>
-      .select-box__options {
-        height: 1em;
-        overflow: auto;
-      }
-      .select-box__option {
-        line-height: 1;
-      }
+        .select-box__options { height: 1em; overflow: auto; }
+        .select-box__option { line-height: 1; }
       </style>
 
       <SelectBox @value="B" as |sb|>
@@ -203,25 +201,25 @@ module('select-box (up arrow key)', function (hooks) {
           </sb.Options>
         {{/if}}
       </SelectBox>
-    `);
+    </template>);
 
     await click('.select-box__trigger');
 
     const startTop = find('.select-box__option:nth-child(2)').offsetTop;
-    const expectedTop = find('.select-box__option:nth-child(1)').offsetTop;
+    const expectedTop = find('.select-box__option:nth-child(3)').offsetTop;
 
     assert.ok(startTop > 0);
     assert.strictEqual(find('.select-box__options').scrollTop, startTop);
 
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowUp');
+    await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowDown');
 
     assert.strictEqual(find('.select-box__options').scrollTop, expectedTop);
   });
 
-  test('up on options will not open listbox', async function (assert) {
+  test('down on options will not open listbox', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Options>
           <sb.Option />
@@ -229,18 +227,18 @@ module('select-box (up arrow key)', function (hooks) {
           <sb.Option />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     await focus('.select-box__options');
-    await triggerKeyEvent('.select-box__options', 'keydown', 'ArrowUp');
+    await triggerKeyEvent('.select-box__options', 'keydown', 'ArrowDown');
 
     assert.dom('.select-box').doesNotHaveAttribute('data-open');
   });
 
-  test('up on trigger will open combobox', async function (assert) {
+  test('down on trigger will open combobox', async function (assert) {
     assert.expect(3);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Trigger />
         <sb.Options>
@@ -249,10 +247,10 @@ module('select-box (up arrow key)', function (hooks) {
           <sb.Option />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     await focus('.select-box__trigger');
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowUp');
+    await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowDown');
 
     assert
       .dom('.select-box')
@@ -267,10 +265,10 @@ module('select-box (up arrow key)', function (hooks) {
       .hasAttribute('aria-current', 'true', 'activates the first option');
   });
 
-  test('up on trigger will open combobox (with selected value)', async function (assert) {
+  test('down on trigger will open combobox (with selected value)', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox @value={{2}} as |sb|>
         <sb.Trigger />
         <sb.Options>
@@ -279,7 +277,7 @@ module('select-box (up arrow key)', function (hooks) {
           <sb.Option @value={{3}} />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     await focus('.select-box__trigger');
     await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowDown');
@@ -289,10 +287,10 @@ module('select-box (up arrow key)', function (hooks) {
       .hasAttribute('aria-current', 'true', 'the selected option is active');
   });
 
-  test('up on input will not open combobox (behaviour undefined)', async function (assert) {
+  test('down on input will not open combobox (behaviour undefined)', async function (assert) {
     assert.expect(3);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Input />
         <sb.Options>
@@ -301,10 +299,10 @@ module('select-box (up arrow key)', function (hooks) {
           <sb.Option />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     await focus('.select-box__input');
-    await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowUp');
+    await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
 
     assert.dom('.select-box').doesNotHaveAttribute('data-open', 'false');
 
@@ -313,14 +311,14 @@ module('select-box (up arrow key)', function (hooks) {
       .doesNotHaveAttribute('aria-expanded', 'false');
 
     assert
-      .dom('.select-box__option:nth-child(3)')
+      .dom('.select-box__option:nth-child(1)')
       .hasAttribute('aria-current', 'true', 'still navigates options');
   });
 
-  test('down on options of a listbox after making a selection', async function (assert) {
+  test('up on options of a listbox after making a selection', async function (assert) {
     assert.expect(2);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Options>
           <sb.Option />
@@ -328,7 +326,7 @@ module('select-box (up arrow key)', function (hooks) {
           <sb.Option />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     await click('.select-box__option:nth-child(2)');
 
@@ -336,10 +334,10 @@ module('select-box (up arrow key)', function (hooks) {
       .dom('.select-box__option:nth-child(2)')
       .hasAttribute('aria-current', 'true', 'precondition');
 
-    await triggerKeyEvent('.select-box__options', 'keydown', 'ArrowUp');
+    await triggerKeyEvent('.select-box__options', 'keydown', 'ArrowDown');
 
     assert
-      .dom('.select-box__option:nth-child(1)')
+      .dom('.select-box__option:nth-child(3)')
       .hasAttribute(
         'aria-current',
         'true',
@@ -347,10 +345,10 @@ module('select-box (up arrow key)', function (hooks) {
       );
   });
 
-  test('clicking an option, but mousing out of the select box, then pressing up', async function (assert) {
+  test('clicking an option, but mousing out of the select box, then pressing down', async function (assert) {
     assert.expect(3);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Options>
           <sb.Option />
@@ -358,7 +356,7 @@ module('select-box (up arrow key)', function (hooks) {
           <sb.Option />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     await click('.select-box__option:nth-child(2)');
 
@@ -376,9 +374,9 @@ module('select-box (up arrow key)', function (hooks) {
        to select the current option`
     );
 
-    await triggerKeyEvent('.select-box__options', 'keydown', 'ArrowUp');
+    await triggerKeyEvent('.select-box__options', 'keydown', 'ArrowDown');
 
-    assert.dom('.select-box__option:nth-child(1)').hasAttribute(
+    assert.dom('.select-box__option:nth-child(3)').hasAttribute(
       'aria-current',
       'true',
       `because there was a selected option,
@@ -389,7 +387,7 @@ module('select-box (up arrow key)', function (hooks) {
   test('does not scroll the active option into view when closed', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Trigger />
         <sb.Options>
@@ -398,10 +396,10 @@ module('select-box (up arrow key)', function (hooks) {
           <sb.Option @value="C">c</sb.Option>
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     await focus('.select-box__trigger');
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowUp');
+    await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowDown');
 
     assert.strictEqual(find('.select-box__options').scrollTop, 0);
   });

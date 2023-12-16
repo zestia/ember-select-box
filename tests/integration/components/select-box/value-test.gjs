@@ -1,8 +1,8 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, click } from '@ember/test-helpers';
-import { resolve } from 'rsvp';
-import hbs from 'htmlbars-inline-precompile';
+import { render, rerender, click } from '@ember/test-helpers';
+import { tracked } from '@glimmer/tracking';
+import SelectBox from '@zestia/ember-select-box/components/select-box';
 
 module('select-box (value)', function (hooks) {
   setupRenderingTest(hooks);
@@ -10,18 +10,14 @@ module('select-box (value)', function (hooks) {
   test('undefined', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
-      <SelectBox
-        @value={{this.value}}
-        @onChange={{this.handleChange}}
-        as |sb|
-      >
+    await render(<template>
+      <SelectBox @value={{undefined}} as |sb|>
         <sb.Options>
           <sb.Option />
           <sb.Option />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     assert
       .dom('.select-box__option[aria-selected="true"]')
@@ -31,18 +27,14 @@ module('select-box (value)', function (hooks) {
   test('null', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
-      <SelectBox
-        @value={{null}}
-        @onChange={{this.handleChange}}
-        as |sb|
-      >
+    await render(<template>
+      <SelectBox @value={{null}} as |sb|>
         <sb.Options>
           <sb.Option />
           <sb.Option />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     assert.dom('.select-box__option[aria-selected="true"]').doesNotExist();
   });
@@ -50,18 +42,14 @@ module('select-box (value)', function (hooks) {
   test('unknown', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
-      <SelectBox
-        @value="foo"
-        @onChange={{this.handleChange}}
-        as |sb|
-      >
+    await render(<template>
+      <SelectBox @value="foo" as |sb|>
         <sb.Trigger>
           {{sb.value}}
         </sb.Trigger>
         <sb.Options />
       </SelectBox>
-    `);
+    </template>);
 
     assert
       .dom('.select-box__trigger')
@@ -74,21 +62,21 @@ module('select-box (value)', function (hooks) {
   test('non-primitive values', async function (assert) {
     assert.expect(2);
 
-    this.foo = {};
-    this.bar = {};
-    this.baz = {};
+    const foo = {};
+    const bar = {};
+    const baz = {};
 
-    this.value = this.bar;
+    const value = bar;
 
-    await render(hbs`
-      <SelectBox @value={{this.value}} as |sb|>
+    await render(<template>
+      <SelectBox @value={{value}} as |sb|>
         <sb.Options>
-          <sb.Option @value={{this.foo}} />
-          <sb.Option @value={{this.bar}} />
-          <sb.Option @value={{this.baz}} />
+          <sb.Option @value={{foo}} />
+          <sb.Option @value={{bar}} />
+          <sb.Option @value={{baz}} />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     assert
       .dom('.select-box__option[aria-selected="true"]')
@@ -102,16 +90,16 @@ module('select-box (value)', function (hooks) {
   test('promise values not supported', async function (assert) {
     assert.expect(2);
 
-    this.promiseForFoo = resolve('foo');
+    const promiseForFoo = Promise.resolve('foo');
 
-    await render(hbs`
+    await render(<template>
       <SelectBox @value="foo" as |sb|>
         <sb.Options>
           <sb.Option @value="foo" />
-          <sb.Option @value={{this.promiseForFoo}} />
+          <sb.Option @value={{promiseForFoo}} />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     assert
       .dom('.select-box__option:nth-child(1)')
@@ -123,27 +111,24 @@ module('select-box (value)', function (hooks) {
   });
 
   test('setting value data flow', async function (assert) {
-    assert.expect(4);
+    assert.expect(5);
 
-    this.value = 'a';
+    const state = new (class {
+      value = 'a';
+    })();
 
-    this.handleChange = (value) => {
-      this.set('value', value);
+    const handleChange = (value) => {
       assert.step(value);
     };
 
-    await render(hbs`
-      <SelectBox
-        @value={{this.value}}
-        @onChange={{this.handleChange}}
-        as |sb|
-      >
+    await render(<template>
+      <SelectBox @value={{state.value}} @onChange={{handleChange}} as |sb|>
         <sb.Options>
           <sb.Option @value="a" />
           <sb.Option @value="b" />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     assert
       .dom('.select-box__option:nth-child(1)')
@@ -155,25 +140,23 @@ module('select-box (value)', function (hooks) {
       .dom('.select-box__option:nth-child(2)')
       .hasAttribute('aria-selected', 'true');
 
+    assert.strictEqual(state.value, 'a', 'does not mutate');
+
     assert.verifySteps(['b']);
   });
 
   test('multiple (string value)', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
-      <SelectBox
-        @value="b"
-        @multiple={{true}}
-        as |sb|
-      >
+    await render(<template>
+      <SelectBox @value="b" @multiple={{true}} as |sb|>
         <sb.Options>
           <sb.Option @value="a" />
           <sb.Option @value="b" />
           <sb.Option @value="c" />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     assert
       .dom('.select-box__option:nth-child(2)')
@@ -183,19 +166,15 @@ module('select-box (value)', function (hooks) {
   test('multiple (null value)', async function (assert) {
     assert.expect(1);
 
-    await render(hbs`
-      <SelectBox
-        @value={{null}}
-        @multiple={{true}}
-        as |sb|
-      >
+    await render(<template>
+      <SelectBox @value={{null}} @multiple={{true}} as |sb|>
         <sb.Options>
           <sb.Option @value="a" />
           <sb.Option @value="b" />
           <sb.Option @value="c" />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     assert
       .dom('.select-box__option[aria-selected="true"]')
@@ -205,15 +184,17 @@ module('select-box (value)', function (hooks) {
   test('multiple (array reference)', async function (assert) {
     assert.expect(1);
 
-    this.handleReady = (sb) => (this.api = sb);
+    let api;
 
-    this.array = ['b', 'c'];
+    const handleReady = (sb) => (api = sb);
 
-    await render(hbs`
+    const array = ['b', 'c'];
+
+    await render(<template>
       <SelectBox
-        @value={{this.array}}
+        @value={{array}}
         @multiple={{true}}
-        @onReady={{this.handleReady}}
+        @onReady={{handleReady}}
         as |sb|
       >
         <sb.Options>
@@ -222,11 +203,11 @@ module('select-box (value)', function (hooks) {
           <sb.Option @value="c" />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     assert.strictEqual(
-      this.api.value,
-      this.array,
+      api.value,
+      array,
       'does not manage a copy of the array internally.'
     );
   });
@@ -234,26 +215,34 @@ module('select-box (value)', function (hooks) {
   test('changing value', async function (assert) {
     assert.expect(2);
 
-    this.handleChange = (value) => assert.step(value);
+    const state = new (class {
+      @tracked value;
+    })();
 
-    await render(hbs`
-      <SelectBox
-        @value={{this.value}}
-        @onChange={{this.handleChange}}
-        as |sb|
-      >
+    const handleChange = (value) => assert.step(value);
+
+    await render(<template>
+      <SelectBox @value={{state.value}} @onChange={{handleChange}} as |sb|>
         <sb.Options>
           <sb.Option @value="a" />
           <sb.Option @value="b" />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     assert.verifySteps([]);
 
-    this.set('value', 'a');
-    this.set('value', 'a');
-    this.set('value', 'b');
+    state.value = 'a';
+
+    await rerender();
+
+    state.value = 'a';
+
+    await rerender();
+
+    state.value = 'b';
+
+    await rerender();
 
     assert.verifySteps([]);
   });
@@ -261,26 +250,28 @@ module('select-box (value)', function (hooks) {
   test('selected option, but disabled', async function (assert) {
     assert.expect(5);
 
-    this.handleChange = (value) => assert.step(value);
+    const state = new (class {
+      @tracked value;
+    })();
 
-    await render(hbs`
-      <SelectBox
-        @value={{this.value}}
-        @onChange={{this.handleChange}}
-        as |sb|
-      >
+    const handleChange = (value) => assert.step(value);
+
+    await render(<template>
+      <SelectBox @value={{state.value}} @onChange={{handleChange}} as |sb|>
         <sb.Options>
           <sb.Option @value="a" @disabled={{true}} />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     assert
       .dom('.select-box__option')
       .doesNotHaveAttribute('aria-current')
       .hasAttribute('aria-selected', 'false');
 
-    this.set('value', 'a');
+    state.value = 'a';
+
+    await rerender();
 
     assert
       .dom('.select-box__option')
@@ -289,7 +280,7 @@ module('select-box (value)', function (hooks) {
         'aria-selected',
         'true',
         `like a native select box, you can style a disabled option
-         which is also selected`
+         which is also selected (via the aria attrs)`
       );
 
     assert.verifySteps([]);

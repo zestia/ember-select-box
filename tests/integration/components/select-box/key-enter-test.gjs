@@ -7,35 +7,40 @@ import {
   triggerKeyEvent,
   triggerEvent
 } from '@ember/test-helpers';
-import hbs from 'htmlbars-inline-precompile';
+import { on } from '@ember/modifier';
+import SelectBox from '@zestia/ember-select-box/components/select-box';
 
 module('select-box (enter)', function (hooks) {
   setupRenderingTest(hooks);
 
+  let event;
+  let handleChange;
+
+  const handleKeyDown = (_event) => (event = _event);
+
   hooks.beforeEach(function (assert) {
-    this.handleChange = (value) => assert.step(value);
-    this.handleKeyDown = (event) => (this.event = event);
+    handleChange = (value) => assert.step(value);
   });
 
   test('enter on trigger of combobox', async function (assert) {
     assert.expect(10);
 
-    await render(hbs`
-      <SelectBox @onChange={{this.handleChange}} as |sb|>
-        <sb.Trigger {{on "keydown" this.handleKeyDown}} />
+    await render(<template>
+      <SelectBox @onChange={{handleChange}} as |sb|>
+        <sb.Trigger {{on "keydown" handleKeyDown}} />
         <sb.Options>
           <sb.Option @value="a" />
           <sb.Option @value="b" />
           <sb.Option @value="c" />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     await focus('.select-box__trigger');
     await triggerKeyEvent('.select-box__trigger', 'keydown', 'Enter');
 
     assert.verifySteps([], 'change event is not fired');
-    assert.true(this.event.defaultPrevented);
+    assert.true(event.defaultPrevented);
 
     assert.dom('.select-box').hasAttribute('data-open', 'true');
     assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'true');
@@ -48,7 +53,7 @@ module('select-box (enter)', function (hooks) {
     await triggerKeyEvent('.select-box__trigger', 'keydown', 'Enter');
 
     assert.verifySteps([], 'change event is not fired');
-    assert.true(this.event.defaultPrevented);
+    assert.true(event.defaultPrevented);
 
     assert
       .dom('.select-box')
@@ -64,14 +69,14 @@ module('select-box (enter)', function (hooks) {
   test('enter on trigger of combobox (multiple)', async function (assert) {
     assert.expect(2);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox @multiple={{true}} as |sb|>
         <sb.Trigger />
         <sb.Options>
           <sb.Option />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     await focus('.select-box__trigger');
     await triggerKeyEvent('.select-box__trigger', 'keydown', 'Enter');
@@ -86,16 +91,16 @@ module('select-box (enter)', function (hooks) {
   test('enter in input of combobox', async function (assert) {
     assert.expect(12);
 
-    await render(hbs`
-      <SelectBox @onChange={{this.handleChange}} as |sb|>
-        <sb.Input {{on "keydown" this.handleKeyDown}} />
+    await render(<template>
+      <SelectBox @onChange={{handleChange}} as |sb|>
+        <sb.Input {{on "keydown" handleKeyDown}} />
         <sb.Options>
           <sb.Option @value="a" />
           <sb.Option @value="b" />
           <sb.Option @value="c" />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     // pressing enter whilst inside an input will not submit the form
     // (as it would on a normal input)
@@ -108,7 +113,7 @@ module('select-box (enter)', function (hooks) {
     await triggerKeyEvent('.select-box__input', 'keydown', 'Enter');
 
     assert.verifySteps([]);
-    assert.true(this.event.defaultPrevented);
+    assert.true(event.defaultPrevented);
     assert.dom('.select-box').doesNotHaveAttribute('data-open');
     assert.dom('.select-box__input').doesNotHaveAttribute('aria-expanded');
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
@@ -117,7 +122,7 @@ module('select-box (enter)', function (hooks) {
     await triggerKeyEvent('.select-box__input', 'keydown', 'Enter');
 
     assert.verifySteps([]);
-    assert.true(this.event.defaultPrevented);
+    assert.true(event.defaultPrevented);
     assert.dom('.select-box').doesNotHaveAttribute('data-open');
     assert.dom('.select-box__input').doesNotHaveAttribute('aria-expanded');
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
@@ -127,9 +132,9 @@ module('select-box (enter)', function (hooks) {
   test('enter in input of combobox (with a trigger)', async function (assert) {
     assert.expect(12);
 
-    await render(hbs`
-      <SelectBox @value="b" @onChange={{this.handleChange}} as |sb|>
-        <sb.Input {{on "keydown" this.handleKeyDown}} />
+    await render(<template>
+      <SelectBox @value="b" @onChange={{handleChange}} as |sb|>
+        <sb.Input {{on "keydown" handleKeyDown}} />
         <sb.Trigger />
         <sb.Options>
           <sb.Option @value="a" />
@@ -137,7 +142,7 @@ module('select-box (enter)', function (hooks) {
           <sb.Option @value="c" />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     // pressing enter whilst inside an input would usually submit the form
     // but in this case, since there is a trigger, the select box will toggle
@@ -146,7 +151,7 @@ module('select-box (enter)', function (hooks) {
     await triggerKeyEvent('.select-box__input', 'keydown', 'Enter');
 
     assert.verifySteps([]);
-    assert.true(this.event.defaultPrevented);
+    assert.true(event.defaultPrevented);
     assert.dom('.select-box').hasAttribute('data-open', 'true');
     assert.dom('.select-box__input').hasAttribute('aria-expanded', 'true');
 
@@ -158,7 +163,7 @@ module('select-box (enter)', function (hooks) {
     await triggerKeyEvent('.select-box__input', 'keydown', 'Enter');
 
     assert.verifySteps([]);
-    assert.true(this.event.defaultPrevented);
+    assert.true(event.defaultPrevented);
     assert.dom('.select-box').hasAttribute('data-open', 'false');
     assert.dom('.select-box__input').hasAttribute('aria-expanded', 'false');
 
@@ -171,16 +176,16 @@ module('select-box (enter)', function (hooks) {
   test('enter in input of combobox (with active option)', async function (assert) {
     assert.expect(5);
 
-    await render(hbs`
-      <SelectBox @onChange={{this.handleChange}} as |sb|>
-        <sb.Input {{on "keydown" this.handleKeyDown}} />
+    await render(<template>
+      <SelectBox @onChange={{handleChange}} as |sb|>
+        <sb.Input {{on "keydown" handleKeyDown}} />
         <sb.Options>
           <sb.Option @value="a" />
           <sb.Option @value="b" />
           <sb.Option @value="c" />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     await focus('.select-box__input');
     await triggerEvent('.select-box__option:nth-child(2)', 'mouseenter');
@@ -189,7 +194,7 @@ module('select-box (enter)', function (hooks) {
     assert.verifySteps(['b']);
 
     assert.true(
-      this.event.defaultPrevented,
+      event.defaultPrevented,
       `pressing enter whilst inside an input will not submit the form
        because instead, it will select the active option`
     );
@@ -201,10 +206,10 @@ module('select-box (enter)', function (hooks) {
   test('enter in listbox', async function (assert) {
     assert.expect(4);
 
-    await render(hbs`
+    await render(<template>
       <SelectBox
-        @onChange={{this.handleChange}}
-        {{on "keydown" this.handleKeyDown}}
+        @onChange={{handleChange}}
+        {{on "keydown" handleKeyDown}}
         as |sb|
       >
         <sb.Options>
@@ -213,7 +218,7 @@ module('select-box (enter)', function (hooks) {
           <sb.Option @value="c" />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     await focus('.select-box__options');
     await triggerEvent('.select-box__option:nth-child(2)', 'mouseenter');
@@ -228,42 +233,38 @@ module('select-box (enter)', function (hooks) {
       );
 
     assert.verifySteps(['b']);
-    assert.false(this.event.defaultPrevented);
+    assert.false(event.defaultPrevented);
   });
 
   test('pressing enter on a child', async function (assert) {
     assert.expect(1);
 
-    this.handleKeyDown = (event) => (this.event = event);
-
-    await render(hbs`
+    await render(<template>
       <SelectBox as |sb|>
         <sb.Options>
           <sb.Option>
-            <a href="#" {{on "keydown" this.handleKeyDown}}>Link</a>
+            <a href="#" {{on "keydown" handleKeyDown}}>Link</a>
           </sb.Option>
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     await focus('.select-box__options');
     await triggerKeyEvent('a', 'keydown', 'Enter');
 
-    assert.false(this.event.defaultPrevented, 'ui still accessible');
+    assert.false(event.defaultPrevented, 'ui still accessible');
   });
 
   test('pressing enter on a focusable option (listbox)', async function (assert) {
     assert.expect(2);
 
-    this.handleChange = (value) => assert.step(value);
-
-    await render(hbs`
-      <SelectBox @onChange={{this.handleChange}} as |sb|>
+    await render(<template>
+      <SelectBox @onChange={{handleChange}} as |sb|>
         <sb.Options>
           <sb.Option @value="1" tabindex="0" />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     await focus('.select-box__option');
     await triggerKeyEvent('.select-box__option', 'keydown', 'Enter');
@@ -274,16 +275,14 @@ module('select-box (enter)', function (hooks) {
   test('pressing enter on a focusable option (combobox)', async function (assert) {
     assert.expect(2);
 
-    this.handleChange = (value) => assert.step(value);
-
-    await render(hbs`
-      <SelectBox @onChange={{this.handleChange}} as |sb|>
+    await render(<template>
+      <SelectBox @onChange={{handleChange}} as |sb|>
         <sb.Trigger />
         <sb.Options>
           <sb.Option @value="1" tabindex="0" />
         </sb.Options>
       </SelectBox>
-    `);
+    </template>);
 
     await click('.select-box__trigger');
     await focus('.select-box__option');
