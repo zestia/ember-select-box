@@ -66,28 +66,43 @@ This addon intentionally...
 
 ## How it works
 
-This addon will render a [Combobox](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/combobox_role) or a [Listbox](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/listbox_role), depending on the components you use.
+This addon will automatically render a [Combobox](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/combobox_role) or a [Listbox](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/listbox_role), depending on the components you use.
 
 <details>
   <summary>View more details</summary>
 
-### The general gist
-
-- There is one interactive element at any one time. If you render a `Trigger`, then it is the Trigger that the user interacts with. It has a role of combobox. And so, by definition, it is _combined_ with a listbox. Whilst the Trigger has focus, it accepts user input and will allow control of its associated listbox.
-- Similarly, if you utilise the `Input` instead, then _it_ is the interactive element. The Input does not automatically open or close the select box like the Trigger, since that behaviour is up to the developer to hook up.
-- Because each option is rendered similar to a native `<option>`, this allows the addon to provide the typeahead behaviour like native select boxes (e.g. pressing F would jump to an option containing the text 'Foo').
-
 ### Differences to Native Select Boxes
 
-1. When using the arrow keys on a native select box, it will stop dead when you reach the end or the beginning. Whereas, with this addon it will cycle through the options. This is following advice from [w3.org](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/).
-2. When mousing-out of a native single select box, the current option is forgotten. Whereas, with this addon the option stays current. This is because, the select box still has focus and as such, is still receptive to user input - like pressing Enter to select that option.
-3. When using a multiple native select box, selecting an option only selects that 1 option. Whereas, with this addon, the item is added if it isn't already in the collection and removed if it is (although this can be customised with `@onBuildSelection`)
-4. Right clicking an option in a native select box will select it. Whereas, with this addon, only left clicking will.
+#### Arrow key navigation
+
+- **Native**: Stop dead at the end<br>
+- **This addon**: Cycles through options
+- **Reason**: This is following advice from [w3.org](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/).
+
+####Mousing out
+
+- **Native**: Forgets current option<br>
+- **This addon**: Remembers current option
+- **Reason**: This is because, the select box still has focus and as such, it is still receptive to user input - like pressing Enter to select that option.
+
+#### Multiple choice
+
+- **Native**: Selects only 1 option (requires keyboard shortcut)
+- **This addon** Automatically added or removed
+- **Reason**: Multiple selection can be customised by using `@onBuildSelection`
+
+#### Right clicking
+
+- **Native**: Selects an option
+- **This addon**: Does not select the option
+- **Reason**: Allows for further customisation
 
 ### Differences to Ember Power Select
 
-1. With EPS you have to provide it a data structure which the addon uses to draw your UI. Whereas, with this addon _the markup provides the structure_ - the same way you do with a native select box in HTML.
-2. You tell EPS which component to render for each option. Whereas with this addon you just render an `Option`, and fill its contents by using Named Blocks.
+#### Rendering
+
+- **Ember Power Select**: Requires a data structure to describe the UI
+- **This addon**: Uses markup, like you would with a native select box.
 </details>
 
 ## `SelectBox`
