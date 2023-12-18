@@ -71,14 +71,14 @@ This addon will automatically render a [Combobox](https://developer.mozilla.org/
 <details>
   <summary>View more details</summary>
 
-### Differences to Native Select Boxes
-
 ### Differences to Ember Power Select
 
 #### Rendering
 
 - **Ember Power Select**: Requires a data structure to describe the UI
 - **This addon**: Uses markup, like you would with a native select box.
+
+### Differences to Native Select Boxes
 
 #### Arrow key navigation
 
