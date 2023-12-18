@@ -77,9 +77,9 @@ This addon will automatically render a [Combobox](https://developer.mozilla.org/
 
 - **Native**: Stop dead at the end<br>
 - **This addon**: Cycles through options
-- **Reason**: This is following advice from [w3.org](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/).
+- **Reason**: Following advice from [w3.org](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/).
 
-####Mousing out
+#### Mousing out
 
 - **Native**: Forgets current option<br>
 - **This addon**: Remembers current option
