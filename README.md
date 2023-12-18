@@ -93,7 +93,7 @@ This addon will automatically render a [Combobox](https://developer.mozilla.org/
 
 #### Right clicking
 
-- **Native**: Selects an option
+- **Native**: Selects the option
 - **This addon**: Does not select the option
 - **Reason**: Allows for further customisation
 
