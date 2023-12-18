@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import { setupRenderingTest } from 'ember-qunit';
+import { setupRenderingTest } from 'dummy/tests/helpers';
 import { triggerEvent, findAll, render, rerender } from '@ember/test-helpers';
 import { tracked } from '@glimmer/tracking';
 import SelectBox from '@zestia/ember-select-box/components/select-box';

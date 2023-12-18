@@ -1,5 +1,5 @@
 import { module, test, todo } from 'qunit';
-import { setupRenderingTest } from 'ember-qunit';
+import { setupRenderingTest } from 'dummy/tests/helpers';
 import {
   render,
   click,

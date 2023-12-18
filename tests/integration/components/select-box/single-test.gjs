@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import { setupRenderingTest } from 'ember-qunit';
+import { setupRenderingTest } from 'dummy/tests/helpers';
 import { render, focus } from '@ember/test-helpers';
 import SelectBox from '@zestia/ember-select-box/components/select-box';
 
