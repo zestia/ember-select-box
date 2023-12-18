@@ -66,8 +66,7 @@ This addon intentionally...
 
 ## How it works
 
-This addon will render a [Combobox](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/combobox_role) if you utilise the `Trigger` or `Input` component.
-<br>Otherwise it will render a [Listbox](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/listbox_role).
+This addon will render a [Combobox](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/combobox_role) or a [Listbox](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/listbox_role), depending on the components you use.
 
 <details>
   <summary>View more details</summary>
