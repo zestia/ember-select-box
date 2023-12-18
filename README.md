@@ -88,7 +88,7 @@ This addon will automatically render a [Combobox](https://developer.mozilla.org/
 #### Multiple choice
 
 - **Native**: Selects only 1 option (requires keyboard shortcut)
-- **This addon** Automatically added or removed
+- **This addon** Automatically adds or removes
 - **Reason**: Multiple selection can be customised by using `@onBuildSelection`
 
 #### Right clicking
