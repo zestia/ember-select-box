@@ -1,6 +1,5 @@
 # @zestia/ember-select-box
 
-[![Latest npm release][npm-badge]][npm-badge-url]
 [![Ember Observer][ember-observer-badge]][ember-observer-url]
 
 <!-- [![GitHub Actions][github-actions-badge]][github-actions-url] -->
