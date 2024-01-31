@@ -1,18 +1,23 @@
 import { action } from '@ember/object';
 import { assert } from '@ember/debug';
-import { scheduleOnce } from '@ember/runloop';
+import { cached } from '@glimmer/tracking';
+import { filter } from '@zestia/ember-select-box/utils';
+import { hash } from '@ember/helper';
 import { makeArray } from '@ember/array';
+import { on } from '@ember/modifier';
+import { scheduleOnce } from '@ember/runloop';
+import { startsWithString } from '@zestia/ember-select-box/-private/utils';
+import { task } from 'ember-concurrency';
+import { tracked } from 'tracked-built-ins';
 import Component from '@glimmer/component';
-import SelectBoxTrigger from '@zestia/ember-select-box/components/select-box/trigger';
+import didInsert from '@ember/render-modifiers/modifiers/did-insert';
+import didUpdate from '@ember/render-modifiers/modifiers/did-update';
 import SelectBoxGroup from '@zestia/ember-select-box/components/select-box/group';
+import SelectBoxInput from '@zestia/ember-select-box/components/select-box/input';
 import SelectBoxOption from '@zestia/ember-select-box/components/select-box/option';
 import SelectBoxOptions from '@zestia/ember-select-box/components/select-box/options';
-import SelectBoxInput from '@zestia/ember-select-box/components/select-box/input';
-import { task } from 'ember-concurrency';
-import { cached } from '@glimmer/tracking';
-import { tracked } from 'tracked-built-ins';
-import { filter } from '@zestia/ember-select-box/utils';
-import { startsWithString } from '@zestia/ember-select-box/-private/utils';
+import SelectBoxTrigger from '@zestia/ember-select-box/components/select-box/trigger';
+import willDestroy from '@ember/render-modifiers/modifiers/will-destroy';
 const { assign } = Object;
 
 export default class SelectBox extends Component {
@@ -765,4 +770,75 @@ export default class SelectBox extends Component {
     },
     set() {}
   });
+
+  <template>
+    {{! template-lint-disable no-invalid-interactive no-pointer-down-event-binding }}
+    {{this.registerComponents
+      (hash
+        Trigger=(component
+          this.SelectBoxTrigger
+          role=this.triggerRole
+          aria-busy=this.isBusy
+          aria-disabled=this.isDisabled
+          aria-activedescendant=this.triggerActiveDescendant
+          aria-expanded=this.isOpenAttr
+          aria-controls=this.optionsElement.id
+          tabindex=this.triggerTabIndex
+          onInsert=this.handleInsertTrigger
+          onDestroy=this.handleDestroyTrigger
+          onMouseDown=this.handleMouseDownTrigger
+          onKeyDown=this.handleKeyDownTrigger
+        )
+        Input=(component
+          this.SelectBoxInput
+          disabled=this.isDisabled
+          aria-busy=this.isBusy
+          aria-activedescendant=this.activeOption.element.id
+          aria-expanded=this.isOpenAttr
+          aria-controls=this.optionsElement.id
+          onInsert=this.handleInsertInput
+          onDestroy=this.handleDestroyInput
+          onInput=this.handleInput
+          onKeyDown=this.handleKeyDownInput
+        )
+        Group=this.SelectBoxGroup
+        Options=(component
+          this.SelectBoxOptions
+          aria-multiselectable=this.isMultiple
+          tabindex=this.optionsTabIndex
+          onInsert=this.handleInsertOptions
+          onDestroy=this.handleDestroyOptions
+          onKeyDown=this.handleKeyDownOptions
+        )
+        Option=(component
+          this.SelectBoxOption
+          selectBox=this
+          onInsert=this.handleInsertOption
+          onDestroy=this.handleDestroyOption
+          onMouseEnter=this.handleMouseEnterOption
+          onMouseUp=this.handleMouseUpOption
+          onMouseDown=this.handleMouseDownOption
+          onKeyDown=this.handleKeyDownOption
+          onFocusIn=this.handleFocusInOption
+        )
+      )
+    }}
+    <div
+      class="select-box"
+      data-busy="{{this.isBusy}}"
+      data-disabled="{{this.isDisabled}}"
+      data-open="{{this.isOpenAttr}}"
+      {{on "focusout" this.handleFocusOut}}
+      {{on "mousedown" this.handleMouseDown}}
+      {{on "mouseup" this.handleMouseUp}}
+      {{on "mouseleave" this.handleMouseLeave}}
+      ...attributes
+      {{didInsert this.handleInsertElement}}
+      {{didUpdate this.handleUpdatedValue @value}}
+      {{didUpdate this.handleUpdatedOptions @options}}
+      {{willDestroy this.handleDestroyElement}}
+    >
+      {{~yield this.api~}}
+    </div>
+  </template>
 }

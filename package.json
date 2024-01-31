@@ -8,6 +8,7 @@
     "ember-cli-babel": "^8.2.0",
     "ember-cli-htmlbars": "^6.3.0",
     "ember-concurrency": "^3.1.1",
+    "ember-template-imports": "^4.0.0",
     "tracked-built-ins": "^3.3.0"
   },
   "description": "A faux select box for Ember apps",
@@ -40,7 +41,6 @@
     "ember-resolver": "^11.0.1",
     "ember-source": "~5.5.0",
     "ember-source-channel-url": "^3.0.0",
-    "ember-template-imports": "^4.0.0",
     "ember-template-lint": "^5.13.0",
     "ember-try": "^3.0.0",
     "eslint": "^8.55.0",

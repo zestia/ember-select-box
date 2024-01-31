@@ -1,7 +1,11 @@
-import Component from '@glimmer/component';
 import { action } from '@ember/object';
-import { guidFor } from '@ember/object/internals';
 import { cached } from '@glimmer/tracking';
+import { concat, fn } from '@ember/helper';
+import { guidFor } from '@ember/object/internals';
+import { on } from '@ember/modifier';
+import Component from '@glimmer/component';
+import didInsert from '@ember/render-modifiers/modifiers/did-insert';
+import willDestroy from '@ember/render-modifiers/modifiers/will-destroy';
 
 export default class SelectBoxOption extends Component {
   element = null;
@@ -66,4 +70,27 @@ export default class SelectBoxOption extends Component {
     },
     set() {}
   });
+
+  <template>
+    {{! template-lint-disable no-positive-tabindex no-pointer-down-event-binding }}
+    <div
+      id={{this.id}}
+      aria-current="{{this.isActive}}"
+      aria-disabled="{{this.isDisabled}}"
+      aria-selected="{{this.isSelected}}"
+      class={{concat "select-box__option" (if @class (concat " " @class))}}
+      role="option"
+      tabindex={{@tabindex}}
+      ...attributes
+      {{didInsert this.handleInsertElement}}
+      {{willDestroy this.handleDestroyElement}}
+      {{on "mouseenter" (fn @onMouseEnter this)}}
+      {{on "mousedown" @onMouseDown}}
+      {{on "keydown" @onKeyDown}}
+      {{on "mouseup" (fn @onMouseUp this)}}
+      {{on "focusin" (fn @onFocusIn this)}}
+    >
+      {{~yield this.api~}}
+    </div>
+  </template>
 }
