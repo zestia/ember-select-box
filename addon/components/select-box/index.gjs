@@ -43,12 +43,6 @@ export default class SelectBox extends Component {
   Options;
   Trigger;
 
-  SelectBoxGroup = SelectBoxGroup;
-  SelectBoxInput = SelectBoxInput;
-  SelectBoxOption = SelectBoxOption;
-  SelectBoxOptions = SelectBoxOptions;
-  SelectBoxTrigger = SelectBoxTrigger;
-
   registerComponents = (components) => {
     assign(this, components);
   };
@@ -776,7 +770,7 @@ export default class SelectBox extends Component {
     {{this.registerComponents
       (hash
         Trigger=(component
-          this.SelectBoxTrigger
+          SelectBoxTrigger
           role=this.triggerRole
           aria-busy=this.isBusy
           aria-disabled=this.isDisabled
@@ -790,7 +784,7 @@ export default class SelectBox extends Component {
           onKeyDown=this.handleKeyDownTrigger
         )
         Input=(component
-          this.SelectBoxInput
+          SelectBoxInput
           disabled=this.isDisabled
           aria-busy=this.isBusy
           aria-activedescendant=this.activeOption.element.id
@@ -801,9 +795,9 @@ export default class SelectBox extends Component {
           onInput=this.handleInput
           onKeyDown=this.handleKeyDownInput
         )
-        Group=this.SelectBoxGroup
+        Group=SelectBoxGroup
         Options=(component
-          this.SelectBoxOptions
+          SelectBoxOptions
           aria-multiselectable=this.isMultiple
           tabindex=this.optionsTabIndex
           onInsert=this.handleInsertOptions
@@ -811,7 +805,7 @@ export default class SelectBox extends Component {
           onKeyDown=this.handleKeyDownOptions
         )
         Option=(component
-          this.SelectBoxOption
+          SelectBoxOption
           selectBox=this
           onInsert=this.handleInsertOption
           onDestroy=this.handleDestroyOption
