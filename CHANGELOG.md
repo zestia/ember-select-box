@@ -1,5 +1,9 @@
 # Changelog
 
+## 16.1.5
+
+- Correct app re-export
+
 ## 16.1.4
 
 - Convert to `.gjs`
