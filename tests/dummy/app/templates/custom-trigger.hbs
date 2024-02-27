@@ -4,17 +4,19 @@
 </p>
 
 <SelectBox
-  class="example3"
+  class="custom-trigger"
   @value={{@value}}
   @onChange={{this.handleSelect}}
   as |sb|
 >
   <sb.Trigger>
-    {{if sb.value sb.value.name "None"}}
+    <CustomButton>
+      {{if sb.value sb.value.name "None"}}
+    </CustomButton>
   </sb.Trigger>
   {{#if sb.isOpen}}
     <sb.Options>
-      {{#each this.data as |value|}}
+      {{#each this.data.pies as |value|}}
         <sb.Option @value={{value}}>
           {{value.name}}
         </sb.Option>

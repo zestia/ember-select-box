@@ -1,0 +1,30 @@
+@use 'example';
+
+.custom-trigger {
+  &[data-open='false'] .select-box__options {
+    @include example.screen-reader-only;
+  }
+
+  .select-box__trigger {
+    display: contents;
+  }
+
+  .select-box__options {
+    @include example.box;
+    @include example.options;
+
+    height: 240px;
+  }
+
+  .select-box__option {
+    @include example.option;
+  }
+
+  .select-box__option[aria-current='true'] {
+    @include example.option-current;
+  }
+
+  .select-box__option[aria-selected='true'] {
+    @include example.option-selected;
+  }
+}
