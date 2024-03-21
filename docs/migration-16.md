@@ -22,7 +22,7 @@ Here is a list of all the things that have been removed and what they have been 
 - Removed: `isFulfilled`, `isPending`, `isRejected`, `isSettled`.<br>
   Support for promises originally existed so that Ember Data async relationships could be resolved and compared. It is easier to resolve any data ahead of time, or use an `await` helper instead.
 - Removed: `@selected` from individual options.
-- Removed: `@onActivate` from individual options. <br>`@onActivate` now exists at the SelectBox level, but is likely never to be used and may be removed in future.
+- Removed: `@onActivate` from individual options. <br>`@onActivate` now exists at the SelectBox level.
 - Removed `@onSelect` from individual options.<br>
   This was originally added because some UI's require a select box with a set of options, and then perhaps a couple of extra options, which themselves did not provide a `@value`, and so could not be 'selected' as such, but were still useful e.g: "Foo", "Bar', "Baz", "Add another". The latter option being selectable, but not having a value. So `@onSelect` would allow you to hook into the click handler, and enter key handler in-one go. There is no replacement for this, but it is easily worked around in many ways. One of which is by providing a value like `@value="ADD_ANOTHER"`, and then responding to that being selected.
 - Removed: `SelectedOption`.<br>
