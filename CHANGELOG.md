@@ -2,7 +2,7 @@
 
 ## 16.2.0
 
-- Activate selected option by default
+- Fix an issue where on initial render the `aria-selected` option did not also have `aria-current`
 
 ## 16.1.4
 
