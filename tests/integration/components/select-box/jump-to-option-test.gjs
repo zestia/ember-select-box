@@ -117,7 +117,7 @@ module('select-box (jump to option)', function (hooks) {
     assert.expect(3);
 
     await render(<template>
-      <SelectBox as |sb|>
+      <SelectBox @value={{null}} as |sb|>
         <sb.Input />
         <sb.Options>
           <sb.Option>a</sb.Option>
@@ -146,7 +146,7 @@ module('select-box (jump to option)', function (hooks) {
     assert.expect(8);
 
     await render(<template>
-      <SelectBox as |sb|>
+      <SelectBox @value={{null}} as |sb|>
         <sb.Options>
           <sb.Option />
           <sb.Option>a1</sb.Option>
@@ -338,8 +338,8 @@ module('select-box (jump to option)', function (hooks) {
       );
   });
 
-  test('jumping to an option starts from the current active option (listbox)', async function (assert) {
-    assert.expect(3);
+  test('jumping to an option starts from the selected option (listbox)', async function (assert) {
+    assert.expect(2);
 
     await render(<template>
       <SelectBox @value="A2" as |sb|>
@@ -353,13 +353,7 @@ module('select-box (jump to option)', function (hooks) {
 
     assert
       .dom('.select-box__option:nth-child(2)')
-      .hasAttribute('aria-current', 'false', 'precondition');
-
-    await focus('.select-box__options');
-
-    assert
-      .dom('.select-box__option:nth-child(2)')
-      .hasAttribute('aria-current', 'false');
+      .hasAttribute('aria-current', 'true', 'precondition');
 
     await triggerKeyEvent('.select-box__options', 'keydown', 'A');
 
@@ -368,8 +362,8 @@ module('select-box (jump to option)', function (hooks) {
       .hasAttribute('aria-current', 'true');
   });
 
-  test('jumping to an option starts from the current active option (combobox)', async function (assert) {
-    assert.expect(3);
+  test('jumping to an option starts from the selected option (combobox)', async function (assert) {
+    assert.expect(2);
 
     await render(<template>
       <SelectBox @value="A2" as |sb|>
@@ -384,13 +378,7 @@ module('select-box (jump to option)', function (hooks) {
 
     assert
       .dom('.select-box__option:nth-child(2)')
-      .hasAttribute('aria-current', 'false', 'precondition');
-
-    await focus('.select-box__trigger');
-
-    assert
-      .dom('.select-box__option:nth-child(2)')
-      .hasAttribute('aria-current', 'false');
+      .hasAttribute('aria-current', 'true');
 
     await triggerKeyEvent('.select-box__trigger', 'keydown', 'A');
 
@@ -399,7 +387,7 @@ module('select-box (jump to option)', function (hooks) {
       .hasAttribute('aria-current', 'true');
   });
 
-  test('jumping to an option starts from the current active option (repeating)', async function (assert) {
+  test('jumping to an option starts from the selected option (repeating)', async function (assert) {
     assert.expect(4);
 
     await render(<template>
@@ -415,7 +403,7 @@ module('select-box (jump to option)', function (hooks) {
 
     assert
       .dom('.select-box__option:nth-child(2)')
-      .hasAttribute('aria-current', 'false');
+      .hasAttribute('aria-current', 'true');
 
     await triggerKeyEvent('.select-box__trigger', 'keydown', 'A');
 

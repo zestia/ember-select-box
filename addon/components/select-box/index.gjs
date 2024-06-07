@@ -34,7 +34,6 @@ export default class SelectBox extends Component {
 
   chars = '';
   charTimer;
-  initialRender = true;
   lastMouseDownElement;
 
   Group;
@@ -487,7 +486,6 @@ export default class SelectBox extends Component {
   }
 
   _handleFocusLeave() {
-    this._deactivateOptions();
     this._close(Symbol('FOCUS_LEAVE'));
   }
 
@@ -519,9 +517,7 @@ export default class SelectBox extends Component {
   }
 
   _handleRenderedOptions() {
-    if (this.initialRender) {
-      this.initialRender = false;
-    } else if (this.activeOption?.isDestroying) {
+    if (this.activeOption?.isDestroying) {
       this._activateOptionForValue(this.activeOption.args.value);
     } else if (this.activeOption) {
       this.activeOption.scrollIntoView();

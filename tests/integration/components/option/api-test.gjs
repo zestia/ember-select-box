@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'dummy/tests/helpers';
-import { triggerEvent, findAll, render, rerender } from '@ember/test-helpers';
+import { findAll, render, rerender } from '@ember/test-helpers';
 import { tracked } from '@glimmer/tracking';
 import SelectBox from '@zestia/ember-select-box/components/select-box';
 
@@ -25,7 +25,7 @@ module('select-box/option (api)', function (hooks) {
     </template>);
 
     assert.strictEqual(api.index, 0);
-    assert.false(api.isActive);
+    assert.true(api.isActive);
     assert.true(api.isSelected);
     assert.strictEqual(api.isDisabled, undefined);
     assert.strictEqual(api.value, undefined);
@@ -41,15 +41,15 @@ module('select-box/option (api)', function (hooks) {
           <sb.Option as |option|>
             {{option.isActive}}
           </sb.Option>
+          <sb.Option as |option|>
+            {{option.isActive}}
+          </sb.Option>
         </sb.Options>
       </SelectBox>
     </template>);
 
-    assert.dom('.select-box__option').hasText('false');
-
-    await triggerEvent('.select-box__option', 'mouseenter');
-
-    assert.dom('.select-box__option').hasText('true');
+    assert.dom('.select-box__option:nth-child(1)').hasText('true');
+    assert.dom('.select-box__option:nth-child(2)').hasText('false');
   });
 
   test('isSelected', async function (assert) {
@@ -125,12 +125,15 @@ module('select-box/option (api)', function (hooks) {
     assert.dom('.select-box__option:nth-child(2)').hasText('-1');
     assert.dom('.select-box__option:nth-child(3)').hasText('1');
 
-    assert.dom('.select-box__option[aria-current="true"]').doesNotExist(
-      '0',
-      `the disabled option is not accidentally computed as active
-       due to having an index of -1 which is the same as the
-       initial active index`
-    );
+    assert
+      .dom('.select-box__option[aria-disabled="true"]')
+      .doesNotHaveAttribute(
+        'aria-current',
+        'true',
+        `the disabled option is not accidentally computed as active
+         due to having an index of -1 which is the same as the
+         initial active index`
+      );
   });
 
   test('index failure', async function (assert) {

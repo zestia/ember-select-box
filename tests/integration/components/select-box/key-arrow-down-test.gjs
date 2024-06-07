@@ -15,10 +15,10 @@ module('select-box (down arrow key)', function (hooks) {
   setupRenderingTest(hooks);
 
   test('down on options cycles listbox', async function (assert) {
-    assert.expect(6);
+    assert.expect(5);
 
     await render(<template>
-      <SelectBox as |sb|>
+      <SelectBox @value={{null}} as |sb|>
         <sb.Options>
           <sb.Option />
           <sb.Option />
@@ -30,9 +30,6 @@ module('select-box (down arrow key)', function (hooks) {
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
 
     await focus('.select-box__options');
-
-    assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
-
     await triggerKeyEvent('.select-box__options', 'keydown', 'ArrowDown');
 
     assert
@@ -59,10 +56,10 @@ module('select-box (down arrow key)', function (hooks) {
   });
 
   test('down on trigger cycles combobox', async function (assert) {
-    assert.expect(7);
+    assert.expect(8);
 
     await render(<template>
-      <SelectBox as |sb|>
+      <SelectBox @value={{null}} as |sb|>
         <sb.Trigger />
         <sb.Options>
           <sb.Option />
@@ -77,6 +74,12 @@ module('select-box (down arrow key)', function (hooks) {
     await focus('.select-box__trigger');
 
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
+
+    await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowDown');
+
+    assert
+      .dom('.select-box__option[aria-current="true"]')
+      .doesNotExist('the first down auto opens rather than navigating options');
 
     await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowDown');
 
@@ -114,7 +117,7 @@ module('select-box (down arrow key)', function (hooks) {
     assert.expect(7);
 
     await render(<template>
-      <SelectBox as |sb|>
+      <SelectBox @value={{null}} as |sb|>
         <sb.Input />
         <sb.Options>
           <sb.Option />
@@ -291,7 +294,7 @@ module('select-box (down arrow key)', function (hooks) {
     assert.expect(3);
 
     await render(<template>
-      <SelectBox as |sb|>
+      <SelectBox @value={{null}} as |sb|>
         <sb.Input />
         <sb.Options>
           <sb.Option />

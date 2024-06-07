@@ -1,5 +1,9 @@
 # Changelog
 
+## 16.2.0
+
+- Activate selected option by default
+
 ## 16.1.4
 
 - Convert to `.gjs`
