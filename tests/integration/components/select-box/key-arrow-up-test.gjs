@@ -18,7 +18,7 @@ module('select-box (up arrow key)', function (hooks) {
     assert.expect(6);
 
     await render(<template>
-      <SelectBox as |sb|>
+      <SelectBox @value={{null}} as |sb|>
         <sb.Options>
           <sb.Option />
           <sb.Option />
@@ -59,10 +59,10 @@ module('select-box (up arrow key)', function (hooks) {
   });
 
   test('up on trigger cycles combobox', async function (assert) {
-    assert.expect(7);
+    assert.expect(8);
 
     await render(<template>
-      <SelectBox as |sb|>
+      <SelectBox @value={{null}} as |sb|>
         <sb.Trigger />
         <sb.Options>
           <sb.Option />
@@ -81,8 +81,8 @@ module('select-box (up arrow key)', function (hooks) {
     await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowUp');
 
     assert
-      .dom('.select-box__option:nth-child(1)')
-      .hasAttribute('aria-current', 'true');
+      .dom('.select-box__option[aria-current="true"]')
+      .doesNotExist('the first up auto opens rather than navigating options');
 
     await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowUp');
 
@@ -108,13 +108,19 @@ module('select-box (up arrow key)', function (hooks) {
         'aria-activedescendant',
         find('.select-box__option:nth-child(1)').getAttribute('id')
       );
+
+    await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowUp');
+
+    assert
+      .dom('.select-box__option:nth-child(3)')
+      .hasAttribute('aria-current', 'true');
   });
 
   test('up on input cycles combobox', async function (assert) {
     assert.expect(7);
 
     await render(<template>
-      <SelectBox as |sb|>
+      <SelectBox @value={{null}} as |sb|>
         <sb.Input />
         <sb.Options>
           <sb.Option />

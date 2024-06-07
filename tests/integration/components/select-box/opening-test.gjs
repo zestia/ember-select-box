@@ -65,13 +65,7 @@ module('select-box (opening)', function (hooks) {
     assert.dom('.select-box__input').hasAttribute('aria-expanded', 'true');
     assert.dom('.select-box__trigger').isNotFocused();
     assert.dom('.select-box__input').isNotFocused();
-
-    assert.dom('.select-box__option').hasAttribute(
-      'aria-current',
-      'false',
-      `because open happens at construction, not after render, no options are
-       set to be current, since there are none at this point.`
-    );
+    assert.dom('.select-box__option').hasAttribute('aria-current', 'true');
   });
 
   test('initial open state of combobox without a trigger (custom behaviour!)', async function (assert) {

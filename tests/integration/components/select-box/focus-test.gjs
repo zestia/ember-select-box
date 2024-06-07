@@ -124,7 +124,7 @@ module('select-box (focus)', function (hooks) {
     assert.true(event.defaultPrevented);
   });
 
-  test('focus leaving listbox forgets active option', async function (assert) {
+  test('focus leaving listbox does not forget active option', async function (assert) {
     assert.expect(2);
 
     await render(<template>
@@ -142,10 +142,10 @@ module('select-box (focus)', function (hooks) {
 
     await blur('.select-box__options');
 
-    assert.dom('.select-box__option').hasAttribute('aria-current', 'false');
+    assert.dom('.select-box__option').hasAttribute('aria-current', 'true');
   });
 
-  test('focus leaving combobox forgets active option (trigger)', async function (assert) {
+  test('focus leaving combobox does not forget active option (trigger)', async function (assert) {
     assert.expect(2);
 
     await render(<template>
@@ -164,10 +164,10 @@ module('select-box (focus)', function (hooks) {
 
     await blur('.select-box__trigger');
 
-    assert.dom('.select-box__option').hasAttribute('aria-current', 'false');
+    assert.dom('.select-box__option').hasAttribute('aria-current', 'true');
   });
 
-  test('focus leaving combobox forgets active option (input)', async function (assert) {
+  test('focus leaving combobox does not forgets active option (input)', async function (assert) {
     assert.expect(2);
 
     await render(<template>
@@ -186,7 +186,7 @@ module('select-box (focus)', function (hooks) {
 
     await blur('.select-box__input');
 
-    assert.dom('.select-box__option').hasAttribute('aria-current', 'false');
+    assert.dom('.select-box__option').hasAttribute('aria-current', 'true');
   });
 
   test('focusing trigger does not open the combobox', async function (assert) {
@@ -497,129 +497,6 @@ module('select-box (focus)', function (hooks) {
       `focusing an option activates it. usually this is not required
        because focus is managed virtually using aria-activedescendant`
     );
-  });
-
-  test('focusing a listbox does not activate the first option', async function (assert) {
-    assert.expect(1);
-
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option @value={{1}} />
-        </sb.Options>
-      </SelectBox>
-    </template>);
-
-    await focus('.select-box__options');
-
-    assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
-  });
-
-  test('focusing a listbox does not activate the selected option', async function (assert) {
-    assert.expect(1);
-
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option @value={{1}} />
-          <sb.Option />
-        </sb.Options>
-      </SelectBox>
-    </template>);
-
-    await focus('.select-box__options');
-
-    assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
-  });
-
-  test('focusing a combobox does not activate the first option (trigger)', async function (assert) {
-    assert.expect(1);
-
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Trigger />
-        <sb.Options>
-          <sb.Option />
-        </sb.Options>
-      </SelectBox>
-    </template>);
-
-    await focus('.select-box__trigger');
-
-    assert.dom('.select-box__option[aria-current="true"]').doesNotExist(`
-      activating an option on focus prevents screen readers from describing the control,
-      so instead, we activate the options on user input (keydown etc)
-    `);
-  });
-
-  test('focusing a combobox does not activate the selected option (trigger)', async function (assert) {
-    assert.expect(1);
-
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Trigger />
-        <sb.Options>
-          <sb.Option @value={{1}} />
-          <sb.Option />
-        </sb.Options>
-      </SelectBox>
-    </template>);
-
-    await focus('.select-box__trigger');
-
-    assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
-  });
-
-  test('focusing a combobox does not activate the first option (input)', async function (assert) {
-    assert.expect(1);
-
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Input />
-        <sb.Options>
-          <sb.Option @value={{1}} />
-        </sb.Options>
-      </SelectBox>
-    </template>);
-
-    await focus('.select-box__input');
-
-    assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
-  });
-
-  test('focusing a combobox does not activate the first option (input / no value)', async function (assert) {
-    assert.expect(1);
-
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Input />
-        <sb.Options>
-          <sb.Option />
-        </sb.Options>
-      </SelectBox>
-    </template>);
-
-    await focus('.select-box__input');
-
-    assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
-  });
-
-  test('focusing a combobox does not activate the selected option (input)', async function (assert) {
-    assert.expect(1);
-
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Input />
-        <sb.Options>
-          <sb.Option @value={{1}} />
-          <sb.Option />
-        </sb.Options>
-      </SelectBox>
-    </template>);
-
-    await focus('.select-box__input');
-
-    assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
   });
 
   test('focusing something inside an option', async function (assert) {
