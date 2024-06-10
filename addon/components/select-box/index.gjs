@@ -613,7 +613,6 @@ export default class SelectBox extends Component {
   }
 
   _activateInitialOption() {
-    console.log('here', this.value);
     this._activateOptionForValue(this.value, {
       scrollIntoView: true
     });
