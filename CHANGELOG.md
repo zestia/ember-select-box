@@ -1,5 +1,9 @@
 # Changelog
 
+## 16.2.2
+
+- Use optional chaining in js land, to match behaviour of htmlbars
+
 ## 16.2.1
 
 - Ensure changing the value via `@value` or via the API also updates the current option

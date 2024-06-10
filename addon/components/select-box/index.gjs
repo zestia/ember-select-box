@@ -142,7 +142,7 @@ export default class SelectBox extends Component {
   }
 
   get triggerActiveDescendant() {
-    return this.hasInput ? null : this.activeOption?.element.id;
+    return this.hasInput ? null : this.activeOption?.element?.id;
   }
 
   get activeOptionIndex() {
