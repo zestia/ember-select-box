@@ -193,7 +193,7 @@ export default class SelectBox extends Component {
 
   @action
   handleUpdatedValue() {
-    this._setValue(this.args.value);
+    this._changedValue(this.args.value);
   }
 
   @action
@@ -396,7 +396,7 @@ export default class SelectBox extends Component {
 
   @action
   update(value) {
-    this._setValue(value);
+    this._changedValue(value);
   }
 
   @action
@@ -613,6 +613,7 @@ export default class SelectBox extends Component {
   }
 
   _activateInitialOption() {
+    console.log('here', this.value);
     this._activateOptionForValue(this.value, {
       scrollIntoView: true
     });
@@ -660,6 +661,11 @@ export default class SelectBox extends Component {
 
   _setValue(value) {
     this.value = this.isMultiple ? makeArray(value) : value;
+  }
+
+  _changedValue(value) {
+    this._setValue(value);
+    this._activateInitialOption();
   }
 
   _selectValue(value, event) {

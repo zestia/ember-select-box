@@ -408,7 +408,7 @@ module('select-box (api)', function (hooks) {
   });
 
   test('update', async function (assert) {
-    assert.expect(5);
+    assert.expect(7);
 
     let api;
 
@@ -451,10 +451,12 @@ module('select-box (api)', function (hooks) {
 
     assert
       .dom('.select-box__option:nth-child(1)')
+      .hasAttribute('aria-current', 'false')
       .hasAttribute('aria-selected', 'false');
 
     assert
       .dom('.select-box__option:nth-child(2)')
+      .hasAttribute('aria-current', 'true')
       .hasAttribute('aria-selected', 'true');
   });
 

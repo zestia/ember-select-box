@@ -248,7 +248,7 @@ module('select-box (jump to option)', function (hooks) {
       .hasAttribute('aria-current', 'true');
   });
 
-  test(`space character on trigger doesn't accidentally advance active option`, async function (assert) {
+  test("space character on trigger doesn't accidentally advance active option", async function (assert) {
     assert.expect(3);
 
     await render(<template>
