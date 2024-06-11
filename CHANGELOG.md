@@ -1,5 +1,9 @@
 # Changelog
 
+## 16.2.4
+
+- Expose `startsWithString` search util
+
 ## 16.2.3
 
 - Do not call `scrollIntoView` on initial render

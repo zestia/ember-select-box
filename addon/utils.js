@@ -1,8 +1,11 @@
 import { assert } from '@ember/debug';
-import { containsString } from '@zestia/ember-select-box/-private/utils';
+import {
+  containsString,
+  startsWithString
+} from '@zestia/ember-select-box/-private/utils';
 const { isArray } = Array;
 
-export function filter(options) {
+function filter(options) {
   assert('must be an array', isArray(options));
 
   let by;
@@ -79,3 +82,5 @@ export function filter(options) {
     }
   };
 }
+
+export { filter, containsString, startsWithString };
