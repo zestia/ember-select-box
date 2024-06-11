@@ -78,8 +78,10 @@ module('select-box (single)', function (hooks) {
     })();
 
     await render(<template>
+      {{! template-lint-disable no-forbidden-elements }}
       <style>
         .select-box__options { overflow: scroll; height: 1em; }
+        .select-box__option { line-height: 1 }
       </style>
 
       <SelectBox @value={{state.value}} as |sb|>

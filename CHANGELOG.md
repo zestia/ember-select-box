@@ -1,5 +1,9 @@
 # Changelog
 
+## 16.2.3
+
+- Do not call `scrollIntoView` on initial render
+
 ## 16.2.2
 
 - Use optional chaining in js land, to match behaviour of htmlbars
