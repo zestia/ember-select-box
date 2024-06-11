@@ -502,7 +502,7 @@ export default class SelectBox extends Component {
   }
 
   _handleOpened() {
-    this._activateInitialOption();
+    this._activateOptionForCurrentValue({ scrollIntoView: true });
     this._ensureFocus();
   }
 
@@ -522,7 +522,7 @@ export default class SelectBox extends Component {
     } else if (this.activeOption) {
       this.activeOption.scrollIntoView();
     } else {
-      this._activateInitialOption();
+      this._activateOptionForCurrentValue();
     }
   }
 
@@ -554,9 +554,7 @@ export default class SelectBox extends Component {
       return;
     }
 
-    this._activateOption(option, {
-      scrollIntoView: true
-    });
+    this._activateOption(option, { scrollIntoView: true });
 
     if (this.canAutoSelect) {
       this._selectActiveOption(event);
@@ -612,12 +610,6 @@ export default class SelectBox extends Component {
     this.args.onActivate?.(option.args.value, this.api);
   }
 
-  _activateInitialOption() {
-    this._activateOptionForValue(this.value, {
-      scrollIntoView: true
-    });
-  }
-
   _activateNextOption() {
     this._activateOptionAtIndex(this.activeOptionIndex + 1, {
       scrollIntoView: true
@@ -632,6 +624,10 @@ export default class SelectBox extends Component {
 
   _activateOptionForValue(value, config) {
     this._activateOption(this._getOptionForValue(value), config);
+  }
+
+  _activateOptionForCurrentValue(config) {
+    this._activateOptionForValue(this.value, config);
   }
 
   _activateOptionAtIndex(index, config) {
@@ -664,7 +660,7 @@ export default class SelectBox extends Component {
 
   _changedValue(value) {
     this._setValue(value);
-    this._activateInitialOption();
+    this._activateOptionForCurrentValue();
   }
 
   _selectValue(value, event) {

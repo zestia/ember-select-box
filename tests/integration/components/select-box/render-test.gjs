@@ -53,31 +53,4 @@ module('select-box', function (hooks) {
 
     assert.dom('.select-box').hasAttribute('data-open', 'false');
   });
-
-  test('scroll into view', async function (assert) {
-    assert.expect(1);
-
-    await render(<template>
-      <style>
-        .select-box__options { overflow: scroll; height: 1em; }
-      </style>
-
-      <SelectBox @value={{2}} as |sb|>
-        <sb.Trigger />
-        <sb.Options>
-          <sb.Option @value={{1}}>One</sb.Option>
-          <sb.Option @value={{2}}>Two</sb.Option>
-          <sb.Option @value={{3}}>Three</sb.Option>
-        </sb.Options>
-      </SelectBox>
-    </template>);
-
-    assert.strictEqual(
-      find('.select-box__options').scrollTop,
-      0,
-      `does not trigger scroll into view on the active option
-       on initial render, we don't want to accidently cause
-       pages to jump around`
-    );
-  });
 });

@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'dummy/tests/helpers';
-import { render, rerender } from '@ember/test-helpers';
+import { render, rerender, find } from '@ember/test-helpers';
 import SelectBox from '@zestia/ember-select-box/components/select-box';
 import { tracked } from '@glimmer/tracking';
 
@@ -71,21 +71,33 @@ module('select-box (single)', function (hooks) {
   });
 
   test('single changing value', async function (assert) {
-    assert.expect(6);
+    assert.expect(8);
 
     const state = new (class {
       @tracked value = 2;
     })();
 
     await render(<template>
+      <style>
+        .select-box__options { overflow: scroll; height: 1em; }
+      </style>
+
       <SelectBox @value={{state.value}} as |sb|>
         <sb.Options>
-          <sb.Option @value={{1}} />
-          <sb.Option @value={{2}} />
-          <sb.Option @value={{3}} />
+          <sb.Option @value={{1}}>One</sb.Option>
+          <sb.Option @value={{2}}>Two</sb.Option>
+          <sb.Option @value={{3}}>Three</sb.Option>
         </sb.Options>
       </SelectBox>
     </template>);
+
+    assert.strictEqual(
+      find('.select-box__options').scrollTop,
+      0,
+      `does not trigger scroll into view on the active option
+       on initial render, we don't want to accidently cause
+       pages to jump around`
+    );
 
     assert
       .dom('.select-box__option:nth-child(2)')
@@ -95,6 +107,14 @@ module('select-box (single)', function (hooks) {
     state.value = 3;
 
     await rerender();
+
+    assert.strictEqual(
+      find('.select-box__options').scrollTop,
+      0,
+      `changing the value programatically does not scroll the active
+       option into view. scrolling into view should only happen as
+       a result of the user interacting with the select box`
+    );
 
     assert
       .dom('.select-box__option[aria-selected="true"]')
