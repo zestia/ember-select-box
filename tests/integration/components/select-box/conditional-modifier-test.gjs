@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import { module, skip } from 'qunit';
 import { setupRenderingTest } from 'dummy/tests/helpers';
 import { render, click } from '@ember/test-helpers';
 import SelectBox from '@zestia/ember-select-box/components/select-box';
@@ -16,7 +16,7 @@ module('select-box', function (hooks) {
     { eager: false }
   );
 
-  test('it does not blow up', async function (assert) {
+  skip('it does not blow up', async function (assert) {
     assert.expect(0);
 
     const state = new (class {

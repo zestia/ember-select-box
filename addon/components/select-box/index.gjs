@@ -1,3 +1,5 @@
+/* eslint-disable ember/no-runloop */
+
 import { action } from '@ember/object';
 import { assert } from '@ember/debug';
 import { cached } from '@glimmer/tracking';
@@ -5,31 +7,30 @@ import { filter } from '@zestia/ember-select-box/utils';
 import { hash } from '@ember/helper';
 import { makeArray } from '@ember/array';
 import { on } from '@ember/modifier';
-import { scheduleOnce } from '@ember/runloop';
+import { scheduleOnce, next } from '@ember/runloop';
 import { startsWithString } from '@zestia/ember-select-box/-private/utils';
 import { task } from 'ember-concurrency';
 import { tracked } from 'tracked-built-ins';
 import Component from '@glimmer/component';
-import didInsert from '@ember/render-modifiers/modifiers/did-insert';
-import didUpdate from '@ember/render-modifiers/modifiers/did-update';
+import lifecycle from '@zestia/ember-select-box/modifiers/lifecycle';
 import SelectBoxGroup from '@zestia/ember-select-box/components/select-box/group';
 import SelectBoxInput from '@zestia/ember-select-box/components/select-box/input';
 import SelectBoxOption from '@zestia/ember-select-box/components/select-box/option';
 import SelectBoxOptions from '@zestia/ember-select-box/components/select-box/options';
 import SelectBoxTrigger from '@zestia/ember-select-box/components/select-box/trigger';
-import willDestroy from '@ember/render-modifiers/modifiers/will-destroy';
+import trackArg from '@zestia/ember-select-box/modifiers/track-arg';
 const { assign } = Object;
 
 export default class SelectBox extends Component {
   @tracked _options = tracked([]);
   @tracked activeOption;
   @tracked element;
-  @tracked inputElement;
+  @tracked inputElements = tracked([]);
   @tracked isOpen = this.args.open ?? null;
-  @tracked optionsElement;
+  @tracked optionsElements = tracked([]);
   @tracked query = null;
   @tracked results = this.args.options;
-  @tracked triggerElement;
+  @tracked triggerElements = tracked([]);
   @tracked value;
 
   chars = '';
@@ -113,16 +114,12 @@ export default class SelectBox extends Component {
     return this.chars.trim() !== '';
   }
 
-  get hasInput() {
-    return !!this.inputElement;
-  }
-
   get hasTrigger() {
-    return !!this.triggerElement;
+    return this.triggerElements.length === 1;
   }
 
-  get hasOptions() {
-    return !!this.optionsElement;
+  get hasInput() {
+    return this.inputElements.length === 1;
   }
 
   get hasSearch() {
@@ -164,6 +161,18 @@ export default class SelectBox extends Component {
     return this.interactiveElement === document.activeElement;
   }
 
+  get optionsElement() {
+    return this.optionsElements[0];
+  }
+
+  get triggerElement() {
+    return this.triggerElements[0];
+  }
+
+  get inputElement() {
+    return this.inputElements[0];
+  }
+
   get optionElements() {
     return [...this.element.querySelectorAll('.select-box__option')];
   }
@@ -193,7 +202,7 @@ export default class SelectBox extends Component {
 
   @action
   handleUpdatedValue() {
-    this._changedValue(this.args.value);
+    next(this, '_changedValue', this.args.value);
   }
 
   @action
@@ -220,39 +229,33 @@ export default class SelectBox extends Component {
 
   @action
   handleInsertOptions(element) {
-    assert('can only have 1 listbox', !this.hasOptions);
-
-    this.optionsElement = element;
+    this.optionsElements.push(element);
   }
 
   @action
   handleDestroyOptions() {
-    this.optionsElement = null;
+    this.optionsElements = tracked([]);
   }
 
   @action
   handleInsertTrigger(element) {
-    assert('can only have 1 trigger', !this.hasTrigger);
-
-    this.triggerElement = element;
+    this.triggerElements.push(element);
     this.isOpen = !!this.args.open;
   }
 
   @action
   handleDestroyTrigger() {
-    this.triggerElement = null;
+    this.triggerElements = tracked([]);
   }
 
   @action
   handleInsertInput(element) {
-    assert('can only have 1 input', !this.hasInput);
-
-    this.inputElement = element;
+    this.inputElements.push(element);
   }
 
   @action
   handleDestroyInput() {
-    this.inputElement = null;
+    this.inputElements = tracked([]);
   }
 
   @action
@@ -514,6 +517,9 @@ export default class SelectBox extends Component {
 
   _handleRender() {
     assert('must have an interactive element', this.interactiveElement);
+    assert('can only have 1 listbox', this.optionsElements.length <= 1);
+    assert('can only have 1 input', this.inputElements.length <= 1);
+    assert('can only have 1 trigger', this.triggerElements.length <= 1);
   }
 
   _handleRenderedOptions() {
@@ -664,12 +670,16 @@ export default class SelectBox extends Component {
   }
 
   _selectValue(value, event) {
-    if (this.value !== value) {
+    if (this._valueChanged(value)) {
       this._setValue(value);
       this.args.onChange?.(this.value, this.api);
     }
 
     this._handleSelected(event);
+  }
+
+  _valueChanged(value) {
+    return this.value !== value;
   }
 
   _ensureFocus() {
@@ -824,10 +834,9 @@ export default class SelectBox extends Component {
       {{on "mouseup" this.handleMouseUp}}
       {{on "mouseleave" this.handleMouseLeave}}
       ...attributes
-      {{didInsert this.handleInsertElement}}
-      {{didUpdate this.handleUpdatedValue @value}}
-      {{didUpdate this.handleUpdatedOptions @options}}
-      {{willDestroy this.handleDestroyElement}}
+      {{lifecycle this.handleInsertElement this.handleDestroyElement}}
+      {{trackArg @value this.handleUpdatedValue}}
+      {{trackArg @options this.handleUpdatedOptions}}
     >
       {{~yield this.api~}}
     </div>

@@ -1,13 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'dummy/tests/helpers';
-import {
-  find,
-  render,
-  rerender,
-  fillIn,
-  settled,
-  click
-} from '@ember/test-helpers';
+import { find, render, fillIn, settled, click } from '@ember/test-helpers';
 import { defer } from 'rsvp';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
@@ -169,7 +162,7 @@ module('select-box (api)', function (hooks) {
 
     state.value = 'baz';
 
-    await rerender();
+    await settled();
 
     assert.dom('.select-box').hasText('baz');
   });
