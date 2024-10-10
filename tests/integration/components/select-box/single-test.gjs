@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'dummy/tests/helpers';
-import { render, rerender, find } from '@ember/test-helpers';
+import { render, settled, find } from '@ember/test-helpers';
 import SelectBox from '@zestia/ember-select-box/components/select-box';
 import { tracked } from '@glimmer/tracking';
 
@@ -108,7 +108,7 @@ module('select-box (single)', function (hooks) {
 
     state.value = 3;
 
-    await rerender();
+    await settled();
 
     assert.strictEqual(
       find('.select-box__options').scrollTop,

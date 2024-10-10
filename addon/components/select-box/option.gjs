@@ -4,8 +4,7 @@ import { concat, fn } from '@ember/helper';
 import { guidFor } from '@ember/object/internals';
 import { on } from '@ember/modifier';
 import Component from '@glimmer/component';
-import didInsert from '@ember/render-modifiers/modifiers/did-insert';
-import willDestroy from '@ember/render-modifiers/modifiers/will-destroy';
+import lifecycle from '@zestia/ember-select-box/modifiers/lifecycle';
 
 export default class SelectBoxOption extends Component {
   element = null;
@@ -82,13 +81,12 @@ export default class SelectBoxOption extends Component {
       role="option"
       tabindex={{@tabindex}}
       ...attributes
-      {{didInsert this.handleInsertElement}}
-      {{willDestroy this.handleDestroyElement}}
       {{on "mouseenter" (fn @onMouseEnter this)}}
       {{on "mousedown" @onMouseDown}}
       {{on "keydown" @onKeyDown}}
       {{on "mouseup" (fn @onMouseUp this)}}
       {{on "focusin" (fn @onFocusIn this)}}
+      {{lifecycle this.handleInsertElement this.handleDestroyElement}}
     >
       {{~yield this.api~}}
     </div>

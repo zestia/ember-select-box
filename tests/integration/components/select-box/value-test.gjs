@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'dummy/tests/helpers';
-import { render, rerender, click } from '@ember/test-helpers';
+import { render, rerender, settled, click } from '@ember/test-helpers';
 import { tracked } from '@glimmer/tracking';
 import SelectBox from '@zestia/ember-select-box/components/select-box';
 
@@ -271,7 +271,7 @@ module('select-box (value)', function (hooks) {
 
     state.value = 'a';
 
-    await rerender();
+    await settled();
 
     assert
       .dom('.select-box__option')
