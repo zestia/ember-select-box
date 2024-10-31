@@ -64,7 +64,13 @@ module('select-box/options', function (hooks) {
       </SelectBox>
     </template>);
 
-    assert.dom('.select-box__options').doesNotHaveAttribute('tabindex');
+    assert.dom('.select-box__options').hasAttribute(
+      'tabindex',
+      '-1',
+      `can not be tabbed to - is not primary interactive element
+       fixes regression caused by:
+       https://developer.chrome.com/blog/keyboard-focusable-scrollers`
+    );
   });
 
   test('tabindex (combobox with trigger)', async function (assert) {
@@ -77,7 +83,13 @@ module('select-box/options', function (hooks) {
       </SelectBox>
     </template>);
 
-    assert.dom('.select-box__options').doesNotHaveAttribute('tabindex');
+    assert.dom('.select-box__options').hasAttribute(
+      'tabindex',
+      '-1',
+      `can not be tabbed to - is not primary interactive element
+       fixes regression caused by:
+       https://developer.chrome.com/blog/keyboard-focusable-scrollers`
+    );
   });
 
   test('id', async function (assert) {

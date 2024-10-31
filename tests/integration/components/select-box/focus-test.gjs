@@ -393,6 +393,11 @@ module('select-box (focus)', function (hooks) {
   test('focus moving to somewhere else inside the combo box (none interactive element)', async function (assert) {
     assert.expect(3);
 
+    // Note:
+    // Clicking 'inside', a browser may chose to focus sb.Options (the listbox)
+    // due to "Keyboard Focusable Scrollers" behaviour
+    // See https://developer.chrome.com/blog/keyboard-focusable-scrollers
+
     let event;
 
     const handleMouseDown = (_event) => (event = _event);

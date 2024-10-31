@@ -127,7 +127,7 @@ export default class SelectBox extends Component {
   }
 
   get optionsTabIndex() {
-    return this.isListBox ? '0' : null;
+    return this.isListBox ? '0' : '-1';
   }
 
   get triggerTabIndex() {
@@ -333,6 +333,13 @@ export default class SelectBox extends Component {
 
     this._handleKeyDown(event);
     this._handleInputChar(event);
+  }
+
+  @action
+  handleFocusOptions() {
+    if (this.isComboBox) {
+      this._ensureFocus();
+    }
   }
 
   @action
@@ -810,6 +817,7 @@ export default class SelectBox extends Component {
           onInsert=this.handleInsertOptions
           onDestroy=this.handleDestroyOptions
           onKeyDown=this.handleKeyDownOptions
+          onFocus=this.handleFocusOptions
         )
         Option=(component
           SelectBoxOption
