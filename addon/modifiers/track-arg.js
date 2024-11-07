@@ -5,7 +5,7 @@ export default class TrackArgModifier extends Modifier {
 
   modify(element, [value, callback]) {
     if (this.didSetup) {
-      callback(value);
+      callback();
     }
 
     this.didSetup = true;
