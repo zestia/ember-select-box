@@ -8,7 +8,6 @@ import {
   click,
   findAll
 } from '@ember/test-helpers';
-import wait from 'dummy/utils/wait';
 import { defer } from 'rsvp';
 import { tracked } from '@glimmer/tracking';
 import { array, fn } from '@ember/helper';
@@ -126,13 +125,14 @@ module('select-box (searching)', function (hooks) {
         <sb.Input />
         {{#unless sb.isBusy}}
           <sb.Options>
-            <sb.Option />
+            <sb.Option @value="A">a</sb.Option>
+            <sb.Option @value="B">b</sb.Option>
           </sb.Options>
         {{/unless}}
       </SelectBox>
     </template>);
 
-    await fillIn('.select-box__input', 'x');
+    await fillIn('.select-box__input', 'b');
 
     assert.dom('.select-box__option').doesNotExist('precondition');
 
@@ -144,44 +144,45 @@ module('select-box (searching)', function (hooks) {
       .dom('.select-box__option:nth-child(1)')
       .hasAttribute(
         'aria-current',
-        'true',
-        'can open the select box after a search and activate the first option'
+        'false',
+        'the first option is not active _when opened_ after a search'
       );
   });
 
-  test('active option after a search (with selected value)', async function (assert) {
-    assert.expect(1);
-
-    const handleSearch = async () => {
-      await wait(250);
-      return ['a', 'b', 'c'];
-    };
+  test('active option after clearing search', async function (assert) {
+    assert.expect(6);
 
     await render(<template>
-      <SelectBox @value="b" @onSearch={{handleSearch}} as |sb|>
-        <sb.Input />
-        <sb.Trigger />
+      <SelectBox @value="c" @options={{array "a" "b" "c"}} as |sb|>
         <sb.Options>
-          {{#if sb.isBusy}}
-            <sb.Option @disabled={{true}}>
-              Please wait...
+          {{#each sb.options as |value|}}
+            <sb.Option @value={{value}}>
+              {{value}}
             </sb.Option>
-          {{else}}
-            {{#each sb.options as |value|}}
-              <sb.Option @value={{value}}>
-                {{value}}
-              </sb.Option>
-            {{/each}}
-          {{/if}}
+          {{/each}}
         </sb.Options>
+        <sb.Input />
       </SelectBox>
     </template>);
+
+    assert
+      .dom('.select-box__option:nth-child(3)')
+      .hasText('c')
+      .hasAttribute('aria-current', 'true');
+
+    await fillIn('.select-box__input', 'b');
+
+    assert
+      .dom('.select-box__option:nth-child(1)')
+      .hasText('b')
+      .hasAttribute('aria-current', 'false');
 
     await fillIn('.select-box__input', '');
 
     assert
-      .dom('.select-box__option:nth-child(2)')
-      .hasAttribute('aria-current', 'true');
+      .dom('.select-box__option:nth-child(1)')
+      .hasText('a')
+      .hasAttribute('aria-current', 'false');
   });
 
   test('default search', async function (assert) {

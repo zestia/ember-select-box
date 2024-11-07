@@ -100,21 +100,28 @@ module('select-box (mouseenter option)', function (hooks) {
   });
 
   test("mousing into an option activates it even if the select box doesn't have focus", async function (assert) {
-    assert.expect(3);
+    assert.expect(4);
 
     const handleActivateOption = () => assert.step('activate');
 
     await render(<template>
       <SelectBox @onActivate={{handleActivateOption}} as |sb|>
         <sb.Options>
-          <sb.Option />
+          <sb.Option @value={{1}} />
+          <sb.Option @value={{2}} />
         </sb.Options>
       </SelectBox>
     </template>);
 
-    await triggerEvent('.select-box__option', 'mouseenter');
+    await triggerEvent('.select-box__option:nth-child(2)', 'mouseenter');
 
-    assert.dom('.select-box__option').hasAttribute('aria-current', 'true');
+    assert
+      .dom('.select-box__option:nth-child(1)')
+      .hasAttribute('aria-current', 'false');
+
+    assert
+      .dom('.select-box__option:nth-child(2)')
+      .hasAttribute('aria-current', 'true');
 
     assert.verifySteps(['activate']);
   });

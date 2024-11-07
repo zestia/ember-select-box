@@ -3,6 +3,10 @@ function escapeRegExp(string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+export function pressingModifier(event) {
+  return event.ctrlKey || event.altKey || event.shiftKey || event.metaKey;
+}
+
 function removeDiacritics(string) {
   return string.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 }

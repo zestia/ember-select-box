@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'dummy/tests/helpers';
-import { render, settled, find } from '@ember/test-helpers';
+import { render, settled, click, find } from '@ember/test-helpers';
 import SelectBox from '@zestia/ember-select-box/components/select-box';
 import { tracked } from '@glimmer/tracking';
 
@@ -128,5 +128,60 @@ module('select-box (single)', function (hooks) {
       .dom('.select-box__option:nth-child(3)')
       .hasAttribute('aria-selected', 'true')
       .hasAttribute('aria-current', 'true');
+  });
+
+  test('onActivate doesnt fire initially', async function (assert) {
+    assert.expect(1);
+
+    const handleActivate = () => assert.step('activate');
+
+    await render(<template>
+      <SelectBox @onActivate={{handleActivate}} @value={{1}} as |sb|>
+        <sb.Options>
+          <sb.Option @value={{1}} />
+        </sb.Options>
+      </SelectBox>
+    </template>);
+
+    assert.verifySteps([]);
+  });
+
+  test('custom build selection', async function (assert) {
+    assert.expect(6);
+
+    let value;
+
+    const handleChange = (_value) => (value = _value);
+
+    const buildSelection = (newValue, oldValue) => {
+      assert.step(`new: ${newValue}, old: ${oldValue}`);
+
+      return null;
+    };
+
+    await render(<template>
+      <SelectBox
+        @value={{1}}
+        @onChange={{handleChange}}
+        @onBuildSelection={{buildSelection}}
+        as |sb|
+      >
+        <sb.Options>
+          <sb.Option @value={{1}}>One</sb.Option>
+          <sb.Option @value={{2}}>Two</sb.Option>
+          <sb.Option @value={{3}}>Three</sb.Option>
+        </sb.Options>
+      </SelectBox>
+    </template>);
+
+    await click('.select-box__option:nth-child(2)');
+
+    assert.verifySteps(['new: 2, old: 1']);
+    assert.strictEqual(value, null);
+
+    await click('.select-box__option:nth-child(3)');
+
+    assert.verifySteps(['new: 3, old: null']);
+    assert.deepEqual(value, null);
   });
 });

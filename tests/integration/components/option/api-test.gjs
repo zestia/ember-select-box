@@ -189,7 +189,7 @@ module('select-box/option (api)', function (hooks) {
 
     await rerender();
 
-    // index gets out of sync due to lack of key="@index"'
+    // index gets out of sync due to lack of key="..."'
     // this is not the responsibility of the addon to fix
     assert.dom(findAll('.select-box__option')[0]).hasText('Foo 0 0 false');
     assert.dom(findAll('.select-box__option')[1]).hasText('Bar 1 1 false');

@@ -483,4 +483,49 @@ module('select-box (jump to option)', function (hooks) {
 
     assert.strictEqual(find('.select-box__options').scrollTop, expectedTop);
   });
+
+  test('jumping to with a modifier', async function (assert) {
+    assert.expect(1);
+
+    await render(<template>
+      <SelectBox as |sb|>
+        <sb.Options>
+          <sb.Option @value="shift">Shift</sb.Option>
+          <sb.Option @value="ctrl">Ctrl</sb.Option>
+        </sb.Options>
+      </SelectBox>
+    </template>);
+
+    await focus('.select-box__options');
+    await triggerKeyEvent('.select-box__options', 'keydown', 'Shift');
+
+    assert
+      .dom('.select-box__option[aria-current="true"]')
+      .doesNotExist('ignored');
+  });
+
+  test('jumping to with modifier followed by a char', async function (assert) {
+    assert.expect(1);
+
+    await render(<template>
+      <SelectBox as |sb|>
+        <sb.Options>
+          <sb.Option @value="blue">Blue</sb.Option>
+          <sb.Option @value="red">Red</sb.Option>
+          <sb.Option @value="green">Green</sb.Option>
+        </sb.Options>
+      </SelectBox>
+    </template>);
+
+    await focus('.select-box__options');
+    await triggerKeyEvent('.select-box__options', 'keydown', 'R', {
+      metaKey: true
+    });
+
+    assert
+      .dom('.select-box__option[aria-current="true"]')
+      .doesNotExist(
+        'cmd+r should not jump to the option before refreshing the page'
+      );
+  });
 });
