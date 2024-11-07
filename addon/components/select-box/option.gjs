@@ -86,7 +86,10 @@ export default class SelectBoxOption extends Component {
       {{on "keydown" @onKeyDown}}
       {{on "mouseup" (fn @onMouseUp this)}}
       {{on "focusin" (fn @onFocusIn this)}}
-      {{lifecycle this.handleInsertElement this.handleDestroyElement}}
+      {{lifecycle
+        onInsert=this.handleInsertElement
+        onDestroy=this.handleDestroyElement
+      }}
     >
       {{~yield this.api~}}
     </div>

@@ -13,7 +13,7 @@ import lifecycle from '@zestia/ember-select-box/modifiers/lifecycle';
       tabindex={{@tabindex}}
       ...attributes
       {{on "keydown" @onKeyDown}}
-      {{lifecycle @onInsert @onDestroy}}
+      {{lifecycle onInsert=@onInsert onDestroy=@onDestroy}}
     >
       {{~yield~}}
     </div>

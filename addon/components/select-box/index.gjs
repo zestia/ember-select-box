@@ -18,7 +18,7 @@ import SelectBoxInput from '@zestia/ember-select-box/components/select-box/input
 import SelectBoxOption from '@zestia/ember-select-box/components/select-box/option';
 import SelectBoxOptions from '@zestia/ember-select-box/components/select-box/options';
 import SelectBoxTrigger from '@zestia/ember-select-box/components/select-box/trigger';
-import trackArg from '@zestia/ember-select-box/modifiers/track-arg';
+import track from '@zestia/ember-select-box/modifiers/track';
 const { assign } = Object;
 
 export default class SelectBox extends Component {
@@ -834,9 +834,12 @@ export default class SelectBox extends Component {
       {{on "mouseup" this.handleMouseUp}}
       {{on "mouseleave" this.handleMouseLeave}}
       ...attributes
-      {{lifecycle this.handleInsertElement this.handleDestroyElement}}
-      {{trackArg @value this.handleUpdatedValue}}
-      {{trackArg @options this.handleUpdatedOptions}}
+      {{lifecycle
+        onInsert=this.handleInsertElement
+        onDestroy=this.handleDestroyElement
+      }}
+      {{track @value onUpdate=this.handleUpdatedValue}}
+      {{track @options onUpdate=this.handleUpdatedOptions}}
     >
       {{~yield this.api~}}
     </div>
