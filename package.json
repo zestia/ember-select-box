@@ -95,7 +95,7 @@
     "lint": "concurrently \"npm:lint:*(!fix)\" --names \"lint:\"",
     "lint:css": "stylelint '**/*.{css,scss}'",
     "lint:css:fix": "concurrently \"npm:lint:css -- --fix\"",
-    "lint:fix": "npm run lint:css:fix; npm run lint:hbs:fix; npm run lint:js:fix; npm run lint:intl:fix; npm run lint:prettier:fix",
+    "lint:fix": "npm run lint:css:fix; npm run lint:hbs:fix; npm run lint:js:fix; npm run lint:prettier:fix",
     "lint:hbs": "ember-template-lint .",
     "lint:hbs:fix": "ember-template-lint . --fix",
     "lint:js": "eslint . --cache",
