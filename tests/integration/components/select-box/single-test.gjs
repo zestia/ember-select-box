@@ -137,8 +137,10 @@ module('select-box (single)', function (hooks) {
       @tracked value = 1;
     })();
 
+    const handleChange = (value) => (state.value = value);
+
     await render(<template>
-      <SelectBox @value={{state.value}} as |sb|>
+      <SelectBox @value={{state.value}} @onChange={{handleChange}} as |sb|>
         <sb.Trigger>
           {{sb.value}}
         </sb.Trigger>
