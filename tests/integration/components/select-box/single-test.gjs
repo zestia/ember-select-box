@@ -131,7 +131,7 @@ module('select-box (single)', function (hooks) {
   });
 
   test('single changing value local copy with external update', async function (assert) {
-    assert.expect(3);
+    assert.expect(6);
 
     const state = new (class {
       @tracked value = 1;
@@ -139,10 +139,13 @@ module('select-box (single)', function (hooks) {
 
     await render(<template>
       <SelectBox @value={{state.value}} as |sb|>
+        <sb.Trigger>
+          {{sb.value}}
+        </sb.Trigger>
         <sb.Options>
-          <sb.Option @value={{1}}>One</sb.Option>
-          <sb.Option @value={{2}}>Two</sb.Option>
-          <sb.Option @value={{3}}>Three</sb.Option>
+          <sb.Option @value={{1}}>1</sb.Option>
+          <sb.Option @value={{2}}>2</sb.Option>
+          <sb.Option @value={{3}}>3</sb.Option>
         </sb.Options>
       </SelectBox>
     </template>);
@@ -151,15 +154,21 @@ module('select-box (single)', function (hooks) {
       .dom('.select-box__option:nth-child(1)')
       .hasAttribute('aria-selected', 'true');
 
+    assert.dom('.select-box__trigger').hasText('1');
+
     await click('.select-box__option:nth-child(2)');
 
     assert
       .dom('.select-box__option:nth-child(2)')
       .hasAttribute('aria-selected', 'true');
 
+    assert.dom('.select-box__trigger').hasText('2');
+
     state.value = 3;
 
     await settled();
+
+    assert.dom('.select-box__trigger').hasText('3');
 
     assert
       .dom('.select-box__option:nth-child(3)')
