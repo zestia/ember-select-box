@@ -407,9 +407,9 @@ module('select-box (opening)', function (hooks) {
       <SelectBox as |sb|>
         <sb.Trigger />
         <sb.Options>
-          <sb.Option />
-          <sb.Option />
-          <sb.Option />
+          <sb.Option @value={{1}} />
+          <sb.Option @value={{2}} />
+          <sb.Option @value={{3}} />
         </sb.Options>
       </SelectBox>
     </template>);

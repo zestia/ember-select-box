@@ -169,7 +169,7 @@ module('select-box (enter)', function (hooks) {
 
     assert
       .dom('.select-box__option:nth-child(2)')
-      .hasAttribute('aria-current', 'false')
+      .hasAttribute('aria-current', 'true')
       .hasAttribute('aria-selected', 'true');
   });
 

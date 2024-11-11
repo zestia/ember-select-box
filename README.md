@@ -275,7 +275,7 @@ Since filtering options down (and accounting for diacritics) is a common require
   <summary>View example</summary>
 
 ```javascript
-import { filter } from '@zestia/ember-select-box';
+import { filter } from '@zestia/ember-select-box/utils';
 
 /**
  * [{

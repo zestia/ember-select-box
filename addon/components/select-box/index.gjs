@@ -5,10 +5,14 @@ import { assert } from '@ember/debug';
 import { cached } from '@glimmer/tracking';
 import { filter } from '@zestia/ember-select-box/utils';
 import { hash } from '@ember/helper';
+import { localCopy } from 'tracked-toolbox';
 import { makeArray } from '@ember/array';
 import { on } from '@ember/modifier';
-import { scheduleOnce, next } from '@ember/runloop';
-import { startsWithString } from '@zestia/ember-select-box/-private/utils';
+import { scheduleOnce } from '@ember/runloop';
+import {
+  startsWithString,
+  pressingModifier
+} from '@zestia/ember-select-box/-private/utils';
 import { task } from 'ember-concurrency';
 import { tracked } from 'tracked-built-ins';
 import Component from '@glimmer/component';
@@ -18,20 +22,21 @@ import SelectBoxInput from '@zestia/ember-select-box/components/select-box/input
 import SelectBoxOption from '@zestia/ember-select-box/components/select-box/option';
 import SelectBoxOptions from '@zestia/ember-select-box/components/select-box/options';
 import SelectBoxTrigger from '@zestia/ember-select-box/components/select-box/trigger';
-import track from '@zestia/ember-select-box/modifiers/track';
 const { assign } = Object;
 
 export default class SelectBox extends Component {
+  @tracked _activeOption;
   @tracked _options = tracked([]);
-  @tracked activeOption;
   @tracked element;
   @tracked inputElements = tracked([]);
   @tracked isOpen = this.args.open ?? null;
   @tracked optionsElements = tracked([]);
+  @tracked canScrollActiveOptionIntoView = false;
   @tracked query = null;
-  @tracked results = this.args.options;
   @tracked triggerElements = tracked([]);
-  @tracked value;
+
+  @localCopy('args.value') _value;
+  @localCopy('args.options') results;
 
   chars = '';
   charTimer;
@@ -49,9 +54,12 @@ export default class SelectBox extends Component {
 
   constructor() {
     super(...arguments);
-    this._setValue(this.args.value);
     this.args.onReady?.(this.api);
     scheduleOnce('afterRender', this, '_handleRender');
+  }
+
+  get value() {
+    return this.isMultiple ? makeArray(this._value) : this._value;
   }
 
   get isDisabled() {
@@ -142,8 +150,33 @@ export default class SelectBox extends Component {
     return this.hasInput ? null : this.activeOption?.element?.id;
   }
 
+  @cached
+  get activeOption() {
+    return this.specificActiveOption || this.optionForValue;
+  }
+
+  get specificActiveOption() {
+    return this.options.includes(this._activeOption)
+      ? this._activeOption
+      : null;
+  }
+
+  get optionForValue() {
+    return this.options.find((option) => option.args.value === this.value);
+  }
+
   get activeOptionIndex() {
     return this.activeOption ? this.activeOption.index : -1;
+  }
+
+  get previousOption() {
+    const index = this.activeOptionIndex - 1;
+    return this.options[index < 0 ? this.options.length - 1 : index];
+  }
+
+  get nextOption() {
+    const index = this.activeOptionIndex + 1;
+    return this.options[index >= this.options.length ? 0 : index];
   }
 
   @cached
@@ -201,19 +234,8 @@ export default class SelectBox extends Component {
   }
 
   @action
-  handleUpdatedValue() {
-    next(this, '_changedValue', this.args.value);
-  }
-
-  @action
-  handleUpdatedOptions() {
-    this.results = this.args.options;
-  }
-
-  @action
   handleInsertOption(option) {
     this._options.push(option);
-    scheduleOnce('afterRender', this, '_handleRenderedOptions');
   }
 
   @action
@@ -224,7 +246,6 @@ export default class SelectBox extends Component {
     const index = this._options.indexOf(option);
     this._options[index] = this._options[this._options.length - 1];
     this._options.pop();
-    scheduleOnce('afterRender', this, '_handleRenderedOptions');
   }
 
   @action
@@ -282,7 +303,7 @@ export default class SelectBox extends Component {
       return;
     }
 
-    this._handleClickAbort(event);
+    this._handleClickAbort();
   }
 
   @action
@@ -291,7 +312,7 @@ export default class SelectBox extends Component {
       return;
     }
 
-    this._deactivateOptions();
+    this._forgetActiveOption();
   }
 
   @action
@@ -348,7 +369,7 @@ export default class SelectBox extends Component {
 
   @action
   handleMouseEnterOption(option) {
-    this._activateOption(option);
+    this._activateOption(option, false);
   }
 
   @action
@@ -364,7 +385,7 @@ export default class SelectBox extends Component {
     }
 
     this._activateOption(option);
-    this._selectOption(option, event);
+    this._selectOption(option);
   }
 
   @action
@@ -399,7 +420,7 @@ export default class SelectBox extends Component {
 
   @action
   update(value) {
-    this._changedValue(value);
+    this._setValue(value);
   }
 
   @action
@@ -435,7 +456,7 @@ export default class SelectBox extends Component {
       return;
     }
 
-    this._activatePreviousOption();
+    this._activateOption(this.previousOption);
   }
 
   _handleArrowDown(event) {
@@ -446,7 +467,7 @@ export default class SelectBox extends Component {
       return;
     }
 
-    this._activateNextOption();
+    this._activateOption(this.nextOption);
   }
 
   _handleEnter(event) {
@@ -454,7 +475,7 @@ export default class SelectBox extends Component {
       event.preventDefault();
     }
 
-    this._handleEnterAndSpace(event);
+    this._handleEnterAndSpace();
   }
 
   _handleSpace(event) {
@@ -468,16 +489,16 @@ export default class SelectBox extends Component {
       return;
     }
 
-    this._handleEnterAndSpace(event);
+    this._handleEnterAndSpace();
   }
 
-  _handleEnterAndSpace(event) {
+  _handleEnterAndSpace() {
     if (this.canAutoOpen) {
       this._open();
       return;
     }
 
-    this._selectActiveOption(event);
+    this._selectActiveOption();
   }
 
   _handleEscape(event) {
@@ -505,7 +526,7 @@ export default class SelectBox extends Component {
   }
 
   _handleOpened() {
-    this._activateOptionForCurrentValue({ scrollIntoView: true });
+    this._forgetActiveOption();
     this._ensureFocus();
   }
 
@@ -522,20 +543,10 @@ export default class SelectBox extends Component {
     assert('can only have 1 trigger', this.triggerElements.length <= 1);
   }
 
-  _handleRenderedOptions() {
-    if (this.activeOption?.isDestroying) {
-      this._activateOptionForValue(this.activeOption.args.value);
-    } else if (this.activeOption) {
-      this.activeOption.scrollIntoView();
-    } else {
-      this._activateOptionForCurrentValue();
-    }
-  }
-
   _handleInputChar(event) {
     const { key: char } = event;
 
-    if (char.length > 1) {
+    if (char.length > 1 || pressingModifier(event)) {
       return;
     }
 
@@ -544,7 +555,7 @@ export default class SelectBox extends Component {
     this.chars = this.chars.concat(char);
     this.charTimer = setTimeout(() => (this.chars = ''), 1000);
 
-    let option = this.activeOption ?? this._getOptionForValue(this.value);
+    let option = this.activeOption;
 
     const repeating = this.chars.split('').every((c) => c === char);
     const string = repeating ? char : this.chars;
@@ -556,14 +567,10 @@ export default class SelectBox extends Component {
 
     [option] = this._getOptionsByTextContent(options, string);
 
-    if (!option) {
-      return;
-    }
-
-    this._activateOption(option, { scrollIntoView: true });
+    this._activateOption(option);
 
     if (this.canAutoSelect) {
-      this._selectActiveOption(event);
+      this._selectActiveOption();
     }
   }
 
@@ -584,7 +591,7 @@ export default class SelectBox extends Component {
     }
 
     this.isOpen = false;
-    this._deactivateOptions();
+    this._forgetActiveOption();
     this.args.onClose?.(this.api);
 
     scheduleOnce('afterRender', this, '_handleClosed', reason);
@@ -598,96 +605,55 @@ export default class SelectBox extends Component {
     }
   }
 
-  _deactivateOptions() {
-    this.activeOption = null;
+  _forgetActiveOption() {
+    this.canScrollActiveOptionIntoView = true;
+    this._activeOption = null;
   }
 
-  _activateOption(option, config = {}) {
+  _activateOption(option, scrollIntoView = true) {
     if (!option || option.isDisabled || option.isActive) {
       return;
     }
 
-    this.activeOption = option;
-
-    if (config.scrollIntoView) {
-      option.scrollIntoView();
-    }
+    this._activeOption = option;
+    this.canScrollActiveOptionIntoView = scrollIntoView;
 
     this.args.onActivate?.(option.args.value, this.api);
   }
 
-  _activateNextOption() {
-    this._activateOptionAtIndex(this.activeOptionIndex + 1, {
-      scrollIntoView: true
-    });
+  _selectActiveOption() {
+    this._selectOption(this.activeOption);
   }
 
-  _activatePreviousOption() {
-    this._activateOptionAtIndex(this.activeOptionIndex - 1, {
-      scrollIntoView: true
-    });
-  }
-
-  _activateOptionForValue(value, config) {
-    this._activateOption(this._getOptionForValue(value), config);
-  }
-
-  _activateOptionForCurrentValue(config) {
-    this._activateOptionForValue(this.value, config);
-  }
-
-  _activateOptionAtIndex(index, config) {
-    if (index < 0) {
-      index = this.options.length - 1;
-    } else if (index >= this.options.length) {
-      index = 0;
-    }
-
-    this._activateOption(this.options[index], config);
-  }
-
-  _selectActiveOption(event) {
-    this._selectOption(this.activeOption, event);
-  }
-
-  _selectOption(option, event) {
+  _selectOption(option) {
     if (!option || option.isDisabled) {
       return;
     }
 
     const value = this._buildSelection(option.args.value);
 
-    this._selectValue(value, event);
+    this._selectValue(value);
   }
 
   _setValue(value) {
-    this.value = this.isMultiple ? makeArray(value) : value;
-  }
-
-  _changedValue(value) {
-    this._setValue(value);
-    this._activateOptionForCurrentValue();
-  }
-
-  _selectValue(value, event) {
-    if (this._valueChanged(value)) {
-      this._setValue(value);
-      this.args.onChange?.(this.value, this.api);
-    }
-
-    this._handleSelected(event);
+    this._value = value;
   }
 
   _valueChanged(value) {
     return this.value !== value;
   }
 
-  _ensureFocus() {
-    this.interactiveElement?.focus({ focusVisible: false });
+  _selectValue(value) {
+    if (this._valueChanged(value)) {
+      this._setValue(value);
+      this.args.onChange?.(this.value, this.api);
+    }
+
+    this._handleSelected();
   }
 
-  _getOptionForValue(value) {
-    return this.options.find((option) => option.args.value === value);
+  _ensureFocus() {
+    this.interactiveElement?.focus({ focusVisible: false });
   }
 
   _getOptionsByTextContent(options, query) {
@@ -833,13 +799,11 @@ export default class SelectBox extends Component {
       {{on "mousedown" this.handleMouseDown}}
       {{on "mouseup" this.handleMouseUp}}
       {{on "mouseleave" this.handleMouseLeave}}
-      ...attributes
       {{lifecycle
         onInsert=this.handleInsertElement
         onDestroy=this.handleDestroyElement
       }}
-      {{track @value onUpdate=this.handleUpdatedValue}}
-      {{track @options onUpdate=this.handleUpdatedOptions}}
+      ...attributes
     >
       {{~yield this.api~}}
     </div>
