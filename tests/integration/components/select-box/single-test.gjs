@@ -70,7 +70,7 @@ module('select-box (single)', function (hooks) {
       );
   });
 
-  test('single changing value', async function (assert) {
+  test('single changing value arg', async function (assert) {
     assert.expect(8);
 
     const state = new (class {
@@ -128,6 +128,42 @@ module('select-box (single)', function (hooks) {
       .dom('.select-box__option:nth-child(3)')
       .hasAttribute('aria-selected', 'true')
       .hasAttribute('aria-current', 'true');
+  });
+
+  test('single changing value local copy with external update', async function (assert) {
+    assert.expect(3);
+
+    const state = new (class {
+      @tracked value = 1;
+    })();
+
+    await render(<template>
+      <SelectBox @value={{state.value}} as |sb|>
+        <sb.Options>
+          <sb.Option @value={{1}}>One</sb.Option>
+          <sb.Option @value={{2}}>Two</sb.Option>
+          <sb.Option @value={{3}}>Three</sb.Option>
+        </sb.Options>
+      </SelectBox>
+    </template>);
+
+    assert
+      .dom('.select-box__option:nth-child(1)')
+      .hasAttribute('aria-selected', 'true');
+
+    await click('.select-box__option:nth-child(2)');
+
+    assert
+      .dom('.select-box__option:nth-child(2)')
+      .hasAttribute('aria-selected', 'true');
+
+    state.value = 3;
+
+    await settled();
+
+    assert
+      .dom('.select-box__option:nth-child(3)')
+      .hasAttribute('aria-selected', 'true');
   });
 
   test('onActivate doesnt fire initially', async function (assert) {
