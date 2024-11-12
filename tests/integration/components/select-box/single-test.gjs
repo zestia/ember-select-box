@@ -290,6 +290,7 @@ module('select-box (single)', function (hooks) {
         as |sb|
       >
         <sb.Trigger>
+          {{state.value}},
           {{sb.value}}
         </sb.Trigger>
         <sb.Options>
@@ -304,7 +305,7 @@ module('select-box (single)', function (hooks) {
 
     assert.strictEqual(state.value, 3);
 
-    assert.dom('.select-box__trigger').hasText('2');
+    assert.dom('.select-box__trigger').hasText('3, 2');
 
     assert.dom('.select-box__option[aria-selected="true"]').hasText(
       'Two',
