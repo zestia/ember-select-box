@@ -8,7 +8,6 @@ import {
   click,
   findAll
 } from '@ember/test-helpers';
-import { defer } from 'rsvp';
 import { tracked } from '@glimmer/tracking';
 import { array, fn } from '@ember/helper';
 import { on } from '@ember/modifier';
@@ -26,7 +25,7 @@ module('select-box (searching)', function (hooks) {
   test('busy state whilst searching', async function (assert) {
     assert.expect(9);
 
-    const deferred = defer();
+    const deferred = Promise.withResolvers();
 
     const handleSearch = () => deferred.promise;
 
@@ -60,10 +59,10 @@ module('select-box (searching)', function (hooks) {
     assert.expect(10);
 
     const searches = {
-      first: defer(),
-      second: defer(),
-      third: defer(),
-      fourth: defer()
+      first: Promise.withResolvers(),
+      second: Promise.withResolvers(),
+      third: Promise.withResolvers(),
+      fourth: Promise.withResolvers()
     };
 
     const handleSearch = (query) => {
@@ -113,7 +112,7 @@ module('select-box (searching)', function (hooks) {
   test('active option after a search', async function (assert) {
     assert.expect(2);
 
-    const deferred = defer();
+    const deferred = Promise.withResolvers();
 
     const handleSearch = async (query, sb) => {
       await deferred.promise;
@@ -340,7 +339,7 @@ module('select-box (searching)', function (hooks) {
   test('return value is thenable', async function (assert) {
     assert.expect(2);
 
-    const deferred = defer();
+    const deferred = Promise.withResolvers();
 
     const handleSearch = (q) => deferred.promise;
 

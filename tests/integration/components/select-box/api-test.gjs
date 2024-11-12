@@ -1,7 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'dummy/tests/helpers';
 import { find, render, fillIn, settled, click } from '@ember/test-helpers';
-import { defer } from 'rsvp';
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 import { fn } from '@ember/helper';
@@ -75,7 +74,7 @@ module('select-box (api)', function (hooks) {
 
     let api;
 
-    const deferred = defer();
+    const deferred = Promise.withResolvers();
 
     const handleReady = (sb) => (api = sb);
     const handleSearch = () => deferred.promise;

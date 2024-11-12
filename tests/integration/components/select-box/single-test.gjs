@@ -231,4 +231,87 @@ module('select-box (single)', function (hooks) {
     assert.verifySteps(['new: 3, old: null']);
     assert.deepEqual(value, null);
   });
+
+  test('ignore selection approach 1', async function (assert) {
+    assert.expect(3);
+
+    const state = new (class {
+      @tracked value = 2;
+    })();
+
+    const handleChange = (value) => (state.value = 2);
+
+    await render(<template>
+      <SelectBox @value={{state.value}} @onChange={{handleChange}} as |sb|>
+        <sb.Trigger>
+          {{state.value}},
+          {{sb.value}}
+        </sb.Trigger>
+        <sb.Options>
+          <sb.Option @value={{1}}>One</sb.Option>
+          <sb.Option @value={{2}}>Two</sb.Option>
+          <sb.Option @value={{3}}>Three</sb.Option>
+        </sb.Options>
+      </SelectBox>
+    </template>);
+
+    await click('.select-box__option:nth-child(3)');
+
+    assert.strictEqual(state.value, 2);
+
+    assert.dom('.select-box__trigger').hasText('2, 3');
+
+    assert
+      .dom('.select-box__option[aria-selected="true"]')
+      .hasText(
+        'Three',
+        'not possible to ignore selected value using this data-down technique'
+      );
+  });
+
+  test('ignore selection approach 2', async function (assert) {
+    assert.expect(3);
+
+    const state = new (class {
+      @tracked value = 2;
+    })();
+
+    const handleChange = (value) => (state.value = value);
+
+    const buildSelection = (newValue, oldValue) => {
+      handleChange(newValue);
+      return oldValue;
+    };
+
+    await render(<template>
+      <SelectBox
+        @value={{state.value}}
+        @onBuildSelection={{buildSelection}}
+        as |sb|
+      >
+        <sb.Trigger>
+          {{sb.value}}
+        </sb.Trigger>
+        <sb.Options>
+          <sb.Option @value={{1}}>One</sb.Option>
+          <sb.Option @value={{2}}>Two</sb.Option>
+          <sb.Option @value={{3}}>Three</sb.Option>
+        </sb.Options>
+      </SelectBox>
+    </template>);
+
+    await click('.select-box__option:nth-child(3)');
+
+    assert.strictEqual(state.value, 3);
+
+    assert.dom('.select-box__trigger').hasText('2');
+
+    assert.dom('.select-box__option[aria-selected="true"]').hasText(
+      'Two',
+      `its possible to create a select box that collects a value,
+       but the UI does not reflect that selection. this allows developers
+       to leave the select box in a 'pending' state until some later time,
+       when the value is persisted for example.`
+    );
+  });
 });
