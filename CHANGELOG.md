@@ -1,5 +1,9 @@
 # Changelog
 
+## 16.3.0
+
+- Remove use of `@ember/render-modifiers`
+
 ## 16.2.4
 
 - Expose `startsWithString` search util
