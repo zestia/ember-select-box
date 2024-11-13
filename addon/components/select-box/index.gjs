@@ -31,7 +31,6 @@ export default class SelectBox extends Component {
   @tracked inputElements = tracked([]);
   @tracked isOpen = this.args.open ?? null;
   @tracked optionsElements = tracked([]);
-  @tracked canScrollActiveOptionIntoView = false;
   @tracked query = null;
   @tracked triggerElements = tracked([]);
 
@@ -369,7 +368,7 @@ export default class SelectBox extends Component {
 
   @action
   handleMouseEnterOption(option) {
-    this._activateOption(option, false);
+    this._activateOption(option);
   }
 
   @action
@@ -456,7 +455,7 @@ export default class SelectBox extends Component {
       return;
     }
 
-    this._activateOption(this.previousOption);
+    this._activateOption(this.previousOption, true);
   }
 
   _handleArrowDown(event) {
@@ -467,7 +466,7 @@ export default class SelectBox extends Component {
       return;
     }
 
-    this._activateOption(this.nextOption);
+    this._activateOption(this.nextOption, true);
   }
 
   _handleEnter(event) {
@@ -526,7 +525,7 @@ export default class SelectBox extends Component {
   }
 
   _handleOpened() {
-    this._forgetActiveOption();
+    this.activeOption?.scrollIntoView();
     this._ensureFocus();
   }
 
@@ -567,7 +566,7 @@ export default class SelectBox extends Component {
 
     [option] = this._getOptionsByTextContent(options, string);
 
-    this._activateOption(option);
+    this._activateOption(option, true);
 
     if (this.canAutoSelect) {
       this._selectActiveOption();
@@ -606,17 +605,19 @@ export default class SelectBox extends Component {
   }
 
   _forgetActiveOption() {
-    this.canScrollActiveOptionIntoView = true;
     this._activeOption = null;
   }
 
-  _activateOption(option, scrollIntoView = true) {
+  _activateOption(option, scrollIntoView = false) {
     if (!option || option.isDisabled || option.isActive) {
       return;
     }
 
     this._activeOption = option;
-    this.canScrollActiveOptionIntoView = scrollIntoView;
+
+    if (scrollIntoView) {
+      this._activeOption.scrollIntoView();
+    }
 
     this.args.onActivate?.(option.args.value, this.api);
   }

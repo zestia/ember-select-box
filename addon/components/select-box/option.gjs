@@ -2,7 +2,6 @@ import { action } from '@ember/object';
 import { cached } from '@glimmer/tracking';
 import { concat, fn } from '@ember/helper';
 import { guidFor } from '@ember/object/internals';
-import { modifier } from 'ember-modifier';
 import { on } from '@ember/modifier';
 import Component from '@glimmer/component';
 import lifecycle from '@zestia/ember-select-box/modifiers/lifecycle';
@@ -20,6 +19,7 @@ export default class SelectBoxOption extends Component {
     return this.args.disabled ?? this.args.selectBox.args.disabled;
   }
 
+  @cached
   get isActive() {
     if (this.isDisabled) {
       return null;
@@ -28,6 +28,7 @@ export default class SelectBoxOption extends Component {
     return this.args.selectBox.activeOption === this;
   }
 
+  @cached
   get isSelected() {
     if (this.args.selectBox.isMultiple) {
       return this.args.selectBox.value.includes(this.args.value);
@@ -48,11 +49,9 @@ export default class SelectBoxOption extends Component {
     this.args.onDestroy?.(this);
   }
 
-  scrollIntoView = modifier((element, [isActive]) => {
-    if (this.args.selectBox.canScrollActiveOptionIntoView && this.isActive) {
-      element.scrollIntoView({ block: 'nearest' });
-    }
-  });
+  scrollIntoView() {
+    this.element.scrollIntoView({ block: 'nearest' });
+  }
 
   @cached
   get _api() {
@@ -92,7 +91,6 @@ export default class SelectBoxOption extends Component {
         onInsert=this.handleInsertElement
         onDestroy=this.handleDestroyElement
       }}
-      {{this.scrollIntoView}}
       ...attributes
     >
       {{~yield this.api~}}
