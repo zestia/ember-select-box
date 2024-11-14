@@ -316,6 +316,8 @@ export default class SelectBox extends Component {
 
   @action
   handleFocusOut(event) {
+    console.log(event);
+
     if (
       document.activeElement === this.interactiveElement ||
       this.element.contains(event.relatedTarget)
@@ -802,7 +804,7 @@ export default class SelectBox extends Component {
       data-busy="{{this.isBusy}}"
       data-disabled="{{this.isDisabled}}"
       data-open="{{this.isOpenAttr}}"
-      {{on "focusout" this.handleFocusOut}}
+      {{on "touchcancel" this.handleFocusOut}}
       {{on "mousedown" this.handleMouseDown}}
       {{on "mouseup" this.handleMouseUp}}
       {{on "mouseleave" this.handleMouseLeave}}

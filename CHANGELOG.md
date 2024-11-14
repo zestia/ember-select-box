@@ -1,5 +1,9 @@
 # Changelog
 
+## 16.3.1
+
+- Maintain visibility of current option after search
+
 ## 16.3.0
 
 - Remove use of `@ember/render-modifiers`
