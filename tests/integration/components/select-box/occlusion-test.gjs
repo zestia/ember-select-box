@@ -81,7 +81,7 @@ module('select-box (occlusion)', function (hooks) {
 
     await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
     await raf();
-    assert.dom('.select-box__option[aria-current="true"]').hasText('six');
+    assert.dom('.select-box__option[aria-current="true"]').hasText('one');
     assert.deepEqual(getOptions(), ['one', 'two', 'three']);
     assert.verifySteps(['scroll 0']);
   });
