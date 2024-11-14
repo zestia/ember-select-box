@@ -3,7 +3,6 @@
 ## 16.4.0
 
 - Remove cycling options, to get closer to native behaviour
-- Forgets active option on mouseout, to get closer to native behaviour
 
 ## 16.3.1
 

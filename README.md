@@ -91,6 +91,12 @@ This addon will automatically render a [Combobox](https://developer.mozilla.org/
 - **This addon**: Does not select the option
 - **Reason**: Allows for further customisation
 
+#### Mousing out
+
+- **Native**: Forgets current option<br>
+- **This addon**: Remembers current option
+- **Reason**: This is because, the select box still has focus and as such, it is still receptive to user input - like pressing Enter to select that option. It also makes styling the different states easier with CSS and can prevent the active option from jumping around when mousing in and out.
+
 </details>
 
 ## `SelectBox`

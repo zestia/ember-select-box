@@ -203,6 +203,10 @@ export default class SelectBox extends Component {
     return [...this.element.querySelectorAll('.select-box__option')];
   }
 
+  get hasFocus() {
+    return this.interactiveElement === document.activeElement;
+  }
+
   @cached
   get options() {
     if (!this.element) {
@@ -301,6 +305,10 @@ export default class SelectBox extends Component {
 
   @action
   handleMouseLeave() {
+    if (this.hasFocus) {
+      return;
+    }
+
     this._forgetActiveOption();
   }
 
