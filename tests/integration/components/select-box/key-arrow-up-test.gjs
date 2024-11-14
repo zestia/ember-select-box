@@ -188,7 +188,7 @@ module('select-box (up arrow key)', function (hooks) {
   });
 
   test('up scrolls the active option into view', async function (assert) {
-    assert.expect(3);
+    assert.expect(4);
 
     await render(<template>
       {{! template-lint-disable no-forbidden-elements }}
@@ -214,7 +214,8 @@ module('select-box (up arrow key)', function (hooks) {
     const startTop = find('.select-box__option:nth-child(2)').offsetTop;
     const expectedTop = find('.select-box__option:nth-child(1)').offsetTop;
 
-    assert.ok(startTop > 0);
+    assert.strictEqual(startTop, 16);
+    assert.strictEqual(expectedTop, 0);
     assert.strictEqual(find('.select-box__options').scrollTop, startTop);
 
     await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowUp');

@@ -396,7 +396,7 @@ module('select-box (opening)', function (hooks) {
 
     const expectedTop = find('.select-box__option:nth-child(3)').offsetTop;
 
-    assert.ok(expectedTop > 0);
+    assert.strictEqual(expectedTop, 32);
     assert.strictEqual(find('.select-box__options').scrollTop, expectedTop);
   });
 

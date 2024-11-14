@@ -95,17 +95,39 @@ module('select-box (changing options)', function (hooks) {
       );
   });
 
-  test('changing available options when searching', async function (assert) {
-    assert.expect(10);
+  test('changing available options when searching (with active option)', async function (assert) {
+    assert.expect(7);
+
+    const options = [
+      'a1',
+      'a2',
+      'a3',
+      'a4',
+      'a5',
+      'a6',
+      'b1',
+      'b2',
+      'b3',
+      'b4',
+      'b5',
+      'b6',
+      'c1',
+      'c2',
+      'c3',
+      'c4',
+      'c5',
+      'c6'
+    ];
 
     await render(<template>
       {{! template-lint-disable no-forbidden-elements }}
       <style>
-        .select-box__options { height: 1em; overflow: auto; }
+        .select-box__options { height: 3em; overflow: auto; }
         .select-box__option { line-height: 1em }
       </style>
 
-      <SelectBox @options={{array "foo" "bar" "baz"}} as |sb|>
+      <SelectBox @options={{options}} as |sb|>
+        <sb.Input />
         <sb.Options>
           {{#each sb.options as |value|}}
             <sb.Option @value={{value}}>
@@ -113,56 +135,70 @@ module('select-box (changing options)', function (hooks) {
             </sb.Option>
           {{/each}}
         </sb.Options>
-        <sb.Input />
       </SelectBox>
     </template>);
 
-    await focus('.select-box__input');
-    await triggerKeyEvent(
-      '.select-box__option:nth-child(3)',
-      'keydown',
-      'ArrowUp'
-    );
-    assert.dom('.select-box__option').exists({ count: 3 });
-    assert.ok(find('.select-box__options').scrollTop > 0);
+    await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
+    await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
+    await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
+    await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
+    await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
+    await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
+    await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
+    await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
+    await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
 
-    assert
-      .dom('.select-box__option:nth-child(3)')
-      .hasText('baz')
-      .hasAttribute('aria-current', 'true');
+    assert.dom('.select-box__option').exists({ count: 18 });
+    assert.dom('.select-box__option[aria-current="true"]').hasText('b3');
+
+    // 16px each times 6 preceeding options
+    assert.strictEqual(find('.select-box__options').scrollTop, 96);
 
     await fillIn('.select-box__input', 'b');
 
-    const expectedTop = find('.select-box__option:nth-child(2)').offsetTop;
+    // 16px each times 2 preceeding options
+    assert.strictEqual(
+      find('.select-box__options').scrollTop,
+      32,
+      'the active option stays in view as the results change'
+    );
 
-    assert.dom('.select-box__option').exists({ count: 2 });
-
-    assert
-      .dom('.select-box__option:nth-child(1)')
-      .hasText('bar')
-      .hasAttribute(
-        'aria-current',
-        'false',
-        `we do not assume that the first option should be active, just
-         because its the closest match for the query. because that assumes
-         the input is rendered above the options. but if the input is rendered
-         below the options then the first option is actually the last option.
-         so we leave it up to the user to choose by pressing up/down.`
-      );
+    assert.dom('.select-box__option').exists({ count: 6 });
 
     assert
-      .dom('.select-box__option:nth-child(2)')
-      .hasText('baz')
+      .dom('.select-box__option:nth-child(3)')
+      .hasText('b3')
       .hasAttribute(
         'aria-current',
         'true',
         'retains current option after search'
       );
+  });
 
-    assert.strictEqual(
-      find('.select-box__options').scrollTop,
-      expectedTop,
-      'the active option stays in view as the results change'
+  test('changing available options when searching (no active option)', async function (assert) {
+    assert.expect(1);
+
+    await render(<template>
+      <SelectBox @options={{array "foo" "bar" "baz"}} as |sb|>
+        <sb.Input />
+        <sb.Options>
+          {{#each sb.options as |value|}}
+            <sb.Option @value={{value}}>
+              {{value}}
+            </sb.Option>
+          {{/each}}
+        </sb.Options>
+      </SelectBox>
+    </template>);
+
+    await fillIn('.select-box__input', 'f');
+
+    assert.dom('.select-box__option[aria-current="true"]').doesNotExist(
+      `we do not assume that the first option should be active, just
+       because its the closest match for the query. because that assumes
+       the input is rendered above the options. but if the input is rendered
+       below the options then the first option is actually the last option.
+       so we leave it up to the user to choose by pressing up/down.`
     );
   });
 

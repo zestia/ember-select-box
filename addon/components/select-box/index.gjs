@@ -535,6 +535,10 @@ export default class SelectBox extends Component {
     }
   }
 
+  _handleSearched() {
+    this.activeOption?.scrollIntoView();
+  }
+
   _handleRender() {
     assert('must have an interactive element', this.interactiveElement);
     assert('can only have 1 listbox', this.optionsElements.length <= 1);
@@ -701,6 +705,8 @@ export default class SelectBox extends Component {
 
     this.results = await search(string, this.api);
     this.query = string;
+
+    scheduleOnce('afterRender', this, '_handleSearched');
   });
 
   _defaultSearch(query) {
