@@ -1,26 +1,14 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'dummy/tests/helpers';
-import {
-  render,
-  rerender,
-  settled,
-  fillIn,
-  click,
-  findAll
-} from '@ember/test-helpers';
+import { render, rerender, settled, fillIn, click } from '@ember/test-helpers';
 import { tracked } from '@glimmer/tracking';
 import { array, fn } from '@ember/helper';
 import { on } from '@ember/modifier';
 import SelectBox from '@zestia/ember-select-box/components/select-box';
+import getOptions from 'dummy/tests/helpers/get-options';
 
 module('select-box (searching)', function (hooks) {
   setupRenderingTest(hooks);
-
-  const getOptions = () => {
-    return findAll('.select-box__option').map((element) =>
-      element.textContent.trim()
-    );
-  };
 
   test('busy state whilst searching', async function (assert) {
     assert.expect(9);

@@ -1,16 +1,27 @@
-import { module, skip } from 'qunit';
+import { module, test } from 'qunit';
 import { setupRenderingTest } from 'dummy/tests/helpers';
-import { render } from '@ember/test-helpers';
+import { render, find, settled, triggerKeyEvent } from '@ember/test-helpers';
 import SelectBox from '@zestia/ember-select-box/components/select-box';
 import VerticalCollection from '@html-next/vertical-collection/components/vertical-collection/component';
+import getOptions from 'dummy/tests/helpers/get-options';
+import { on } from '@ember/modifier';
 
 module('select-box (occlusion)', function (hooks) {
   setupRenderingTest(hooks);
 
-  skip('navigation', async function (assert) {
-    assert.expect(1);
+  async function raf() {
+    await new Promise(requestAnimationFrame);
+    await settled();
+  }
+
+  test('navigation', async function (assert) {
+    assert.expect(11);
 
     const options = ['one', 'two', 'three', 'four', 'five', 'six'];
+
+    const handleScroll = () => {
+      assert.step(`scroll ${find('.select-box__options').scrollTop}`);
+    };
 
     await render(<template>
       {{! template-lint-disable no-forbidden-elements }}
@@ -20,7 +31,7 @@ module('select-box (occlusion)', function (hooks) {
       </style>
       <SelectBox @options={{options}} as |sb|>
         <sb.Input />
-        <sb.Options>
+        <sb.Options {{on "scroll" handleScroll}}>
           <VerticalCollection
             @items={{sb.options}}
             @estimateHeight={{16}}
@@ -35,11 +46,27 @@ module('select-box (occlusion)', function (hooks) {
       </SelectBox>
     </template>);
 
-    // await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
-    // await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
-    // await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
-    // await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
-    // await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
-    // await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
+    await raf();
+    assert.dom('.select-box__option').exists({ count: 3 });
+
+    await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
+    await raf();
+    assert.deepEqual(getOptions(), ['one', 'two', 'three']);
+    assert.verifySteps([]);
+
+    await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
+    await raf();
+    assert.deepEqual(getOptions(), ['one', 'two', 'three']);
+    assert.verifySteps([]);
+
+    await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
+    await raf();
+    assert.deepEqual(getOptions(), ['one', 'two', 'three', 'four']);
+    assert.verifySteps(['scroll 16']);
+
+    await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
+    await raf();
+    assert.deepEqual(getOptions(), ['two', 'three', 'four', 'five']);
+    assert.verifySteps(['scroll 32']);
   });
 });
