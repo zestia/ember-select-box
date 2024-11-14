@@ -126,7 +126,7 @@ module('select-box (changing options)', function (hooks) {
         .select-box__option { line-height: 1em }
       </style>
 
-      <SelectBox @options={{options}} as |sb|>
+      <SelectBox @value="a1" @options={{options}} as |sb|>
         <sb.Input />
         <sb.Options>
           {{#each sb.options as |value|}}
@@ -138,7 +138,6 @@ module('select-box (changing options)', function (hooks) {
       </SelectBox>
     </template>);
 
-    await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
     await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
     await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
     await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
