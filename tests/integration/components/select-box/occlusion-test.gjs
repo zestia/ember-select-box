@@ -27,7 +27,8 @@ module('select-box (occlusion)', function (hooks) {
       {{! template-lint-disable no-forbidden-elements }}
       <style>
         .select-box__options { height: 2em; overflow: auto; }
-        .select-box__option { line-height: 1; }
+        .select-box__option { line-height: 1; } [aria-current="true"] {
+        background: red}
       </style>
       <SelectBox @options={{options}} as |sb|>
         <sb.Input />
@@ -81,8 +82,8 @@ module('select-box (occlusion)', function (hooks) {
 
     await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
     await raf();
-    assert.dom('.select-box__option[aria-current="true"]').hasText('one');
-    assert.deepEqual(getOptions(), ['one', 'two', 'three']);
-    assert.verifySteps(['scroll 0']);
+    assert.dom('.select-box__option[aria-current="true"]').hasText('six');
+    assert.deepEqual(getOptions(), ['four', 'five', 'six']);
+    assert.verifySteps([]);
   });
 });

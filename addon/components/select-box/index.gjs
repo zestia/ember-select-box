@@ -169,13 +169,11 @@ export default class SelectBox extends Component {
   }
 
   get previousOption() {
-    const index = this.activeOptionIndex - 1;
-    return this.options[index < 0 ? this.options.length - 1 : index];
+    return this.options[this.activeOptionIndex - 1];
   }
 
   get nextOption() {
-    const index = this.activeOptionIndex + 1;
-    return this.options[index >= this.options.length ? 0 : index];
+    return this.options[this.activeOptionIndex + 1];
   }
 
   @cached
@@ -187,10 +185,6 @@ export default class SelectBox extends Component {
 
   get interactiveElement() {
     return this.interactiveElements[0];
-  }
-
-  get hasFocus() {
-    return this.interactiveElement === document.activeElement;
   }
 
   get optionsElement() {
@@ -307,10 +301,6 @@ export default class SelectBox extends Component {
 
   @action
   handleMouseLeave() {
-    if (this.hasFocus) {
-      return;
-    }
-
     this._forgetActiveOption();
   }
 

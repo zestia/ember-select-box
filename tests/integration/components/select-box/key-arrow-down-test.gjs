@@ -14,7 +14,7 @@ import SelectBox from '@zestia/ember-select-box/components/select-box';
 module('select-box (down arrow key)', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('down on options cycles listbox', async function (assert) {
+  test('down on options does not cycle listbox', async function (assert) {
     assert.expect(5);
 
     await render(<template>
@@ -51,11 +51,11 @@ module('select-box (down arrow key)', function (hooks) {
     await triggerKeyEvent('.select-box__options', 'keydown', 'ArrowDown');
 
     assert
-      .dom('.select-box__option:nth-child(1)')
+      .dom('.select-box__option:nth-child(3)')
       .hasAttribute('aria-current', 'true');
   });
 
-  test('down on trigger cycles combobox', async function (assert) {
+  test('down on trigger does not cycle combobox', async function (assert) {
     assert.expect(8);
 
     await render(<template>
@@ -102,18 +102,18 @@ module('select-box (down arrow key)', function (hooks) {
     await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowDown');
 
     assert
-      .dom('.select-box__option:nth-child(1)')
+      .dom('.select-box__option:nth-child(3)')
       .hasAttribute('aria-current', 'true');
 
     assert
       .dom('.select-box__trigger')
       .hasAttribute(
         'aria-activedescendant',
-        find('.select-box__option:nth-child(1)').getAttribute('id')
+        find('.select-box__option:nth-child(3)').getAttribute('id')
       );
   });
 
-  test('down on input cycles combobox', async function (assert) {
+  test('down on input does not cycle combobox', async function (assert) {
     assert.expect(7);
 
     await render(<template>
@@ -154,14 +154,14 @@ module('select-box (down arrow key)', function (hooks) {
     await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
 
     assert
-      .dom('.select-box__option:nth-child(1)')
+      .dom('.select-box__option:nth-child(3)')
       .hasAttribute('aria-current', 'true');
 
     assert
       .dom('.select-box__input')
       .hasAttribute(
         'aria-activedescendant',
-        find('.select-box__option:nth-child(1)').getAttribute('id')
+        find('.select-box__option:nth-child(3)').getAttribute('id')
       );
   });
 
@@ -355,9 +355,9 @@ module('select-box (down arrow key)', function (hooks) {
     await render(<template>
       <SelectBox as |sb|>
         <sb.Options>
-          <sb.Option />
-          <sb.Option />
-          <sb.Option />
+          <sb.Option @value={{1}} />
+          <sb.Option @value={{2}} />
+          <sb.Option @value={{3}} />
         </sb.Options>
       </SelectBox>
     </template>);
@@ -370,13 +370,9 @@ module('select-box (down arrow key)', function (hooks) {
 
     await triggerEvent('.select-box', 'mouseleave');
 
-    assert.dom('.select-box__option:nth-child(2)').hasAttribute(
-      'aria-current',
-      'true',
-      `active option is not forgotten - the select box still has focus
-       and as such, is still receptive to use input - like pressing Enter
-       to select the current option`
-    );
+    assert
+      .dom('.select-box__option:nth-child(2)')
+      .hasAttribute('aria-current', 'true');
 
     await triggerKeyEvent('.select-box__options', 'keydown', 'ArrowDown');
 

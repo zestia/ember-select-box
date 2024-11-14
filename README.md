@@ -79,18 +79,6 @@ This addon will automatically render a [Combobox](https://developer.mozilla.org/
 
 ### Differences to Native Select Boxes
 
-#### Arrow key navigation
-
-- **Native**: Stop dead at the end<br>
-- **This addon**: Cycles through options
-- **Reason**: Following advice from [w3.org](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/).
-
-#### Mousing out
-
-- **Native**: Forgets current option<br>
-- **This addon**: Remembers current option
-- **Reason**: This is because, the select box still has focus and as such, it is still receptive to user input - like pressing Enter to select that option.
-
 #### Multiple choice
 
 - **Native**: Selects only 1 option (requires keyboard shortcut)

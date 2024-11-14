@@ -212,8 +212,8 @@ module('select-box (mouseenter option)', function (hooks) {
       );
   });
 
-  test('mousing out of a select box does not deactivate the options when it has focus (listbox)', async function (assert) {
-    assert.expect(1);
+  test('mousing out of a select box deactivates the options when it has focus (listbox)', async function (assert) {
+    assert.expect(2);
 
     await render(<template>
       <SelectBox as |sb|>
@@ -227,17 +227,23 @@ module('select-box (mouseenter option)', function (hooks) {
 
     await focus('.select-box__options');
     await triggerEvent('.select-box__option:nth-child(2)', 'mouseenter');
+
+    assert
+      .dom('.select-box__option:nth-child(2)')
+      .hasAttribute('aria-current', 'true', 'precondition');
+
     await triggerEvent('.select-box', 'mouseleave');
 
     assert.dom('.select-box__option:nth-child(2)').hasAttribute(
       'aria-current',
-      'true',
+      'false',
       `the list box still has focus, and as such it is receptive to user input
-       therefore, this option must be current in order to be selected`
+       therefore, one might expect the current option to remain as such,
+       but this addon tries to mimic native select boxes as much as possible`
     );
   });
 
-  test('mousing out of a select box does not deactivate the options when it has focus (comobox - trigger)', async function (assert) {
+  test('mousing out of a select box deactivates the options when it has focus (comobox - trigger)', async function (assert) {
     assert.expect(1);
 
     await render(<template>
@@ -257,10 +263,10 @@ module('select-box (mouseenter option)', function (hooks) {
 
     assert
       .dom('.select-box__option:nth-child(2)')
-      .hasAttribute('aria-current', 'true');
+      .hasAttribute('aria-current', 'false');
   });
 
-  test('mousing out of a select box does not deactivate the options when it has focus (comobox - input)', async function (assert) {
+  test('mousing out of a select box deactivates the options when it has focus (comobox - input)', async function (assert) {
     assert.expect(1);
 
     await render(<template>
@@ -280,7 +286,7 @@ module('select-box (mouseenter option)', function (hooks) {
 
     assert
       .dom('.select-box__option:nth-child(2)')
-      .hasAttribute('aria-current', 'true');
+      .hasAttribute('aria-current', 'false');
   });
 
   test('mousing down on an option does not select it', async function (assert) {
