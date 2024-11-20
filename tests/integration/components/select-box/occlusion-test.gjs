@@ -23,6 +23,9 @@ module('select-box (occlusion)', function (hooks) {
   skip('navigation', async function (assert) {
     assert.expect(11);
 
+    // Using occlusion, _does_ work, but seemingly not in the test suite
+    // and also, requires a buffer larger than 1.
+
     const options = ['one', 'two', 'three', 'four', 'five', 'six'];
 
     const handleScroll = () => {
@@ -88,6 +91,7 @@ module('select-box (occlusion)', function (hooks) {
     await raf();
     assert.dom('.select-box__option[aria-current="true"]').hasText('six');
     assert.deepEqual(getOptions(), ['four', 'five', 'six']);
+
     assert.verifySteps([]);
   });
 
