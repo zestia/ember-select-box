@@ -52,7 +52,7 @@ module('select-box (focus)', function (hooks) {
 
     assert
       .dom('.select-box__input')
-      .isFocused('the input is assumed to be the main interactive element');
+      .isFocused('the input is the main interactive element');
   });
 
   test('focus after clicking an option (trigger combobox)', async function (assert) {
@@ -73,7 +73,7 @@ module('select-box (focus)', function (hooks) {
 
     assert
       .dom('.select-box__trigger')
-      .isFocused('the trigger is assumed to be the main interactive element');
+      .isFocused('the trigger is the main interactive element');
   });
 
   test('focus after clicking an option (input & trigger combobox)', async function (assert) {
@@ -93,7 +93,7 @@ module('select-box (focus)', function (hooks) {
 
     assert
       .dom('.select-box__input')
-      .isFocused('the input is assumed to be the main interactive element');
+      .isFocused('the input is the main interactive element');
   });
 
   test('combobox with input', async function (assert) {
@@ -118,7 +118,8 @@ module('select-box (focus)', function (hooks) {
 
     assert.dom('.select-box__input').isFocused(`
       clicking an option does not steal focus from the input,
-      otherwise the select box would close
+      otherwise the select box would close (due to focus out
+      of the main interactive element)
     `);
 
     assert.true(event.defaultPrevented);
@@ -419,11 +420,21 @@ module('select-box (focus)', function (hooks) {
       );
 
     assert.dom('.select-box__trigger').isFocused(`
-      focus must be maintained on the interactive element,
-      otherwise the select box will not be receptive to user actions
+      focus must be maintained on the interactive element, regardless
+      of where is clicked inside the select box, otherwise the
+      select box will not be receptive to user actions, which is the
+      same as how any other native component would behave/
     `);
 
-    assert.false(event.defaultPrevented);
+    // Note
+    // we use tabindex="-1" on the listbox to prevent
+    // keyboard-focusable-scrollers from stealing focus, but
+    // this has a down side of actually allowing the listbox
+    // to be focusable on click, so we must prevent that.
+    // https://issues.chromium.org/issues/376718258
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=1930662
+
+    assert.true(event.defaultPrevented);
   });
 
   test('focus moving to somewhere else inside the combo box', async function (assert) {
@@ -449,7 +460,9 @@ module('select-box (focus)', function (hooks) {
       'true',
       `focus is free to move about inside an open select box
        it will not be receptive to user actions, but the interactive
-       elements inside it will, and that's ok.`
+       elements inside it will, and that's ok. unusual, but at least
+       allows flexibility for the developer if designing a highly
+       custom select box`
     );
 
     assert.dom('.inside').isFocused();
@@ -484,7 +497,7 @@ module('select-box (focus)', function (hooks) {
     await render(<template>
       <SelectBox as |sb|>
         <sb.Options>
-          <sb.Option tabindex="0" />
+          <sb.Option @value="A" tabindex="0" />
         </sb.Options>
       </SelectBox>
     </template>);
@@ -493,8 +506,9 @@ module('select-box (focus)', function (hooks) {
 
     assert.dom('.select-box__option').hasAttribute(
       'aria-current',
-      'true',
-      `focusing an option activates it. usually this is not required
+      'false',
+      `focusing an option does not activate it.
+       options are not directly focusable
        because focus is managed virtually using aria-activedescendant`
     );
   });
@@ -550,34 +564,6 @@ module('select-box (focus)', function (hooks) {
        focus-visible styles to apply. (here, the trigger was clicked,
        whereas the styles should only apply if the user had navigated
        to the element using the keyboard`
-    );
-  });
-
-  test('changing tabs', async function (assert) {
-    assert.expect(4);
-
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Trigger />
-        <sb.Options />
-      </SelectBox>
-    </template>);
-
-    await click('.select-box__trigger');
-
-    assert.dom('.select-box__trigger').isFocused();
-    assert.dom('.select-box').hasAttribute('data-open', 'true');
-
-    await triggerEvent('.select-box__trigger', 'focusout');
-
-    assert.dom('.select-box__trigger').isFocused();
-    assert.dom('.select-box').hasAttribute(
-      'data-open',
-      'true',
-      `focusout fires when changing tabs (before document.hidden becomes true)
-       which causes the select box to close. but when returning to that tab,
-       focus will still be on the interactive element, therefore really it
-       should not close when changing tabs.`
     );
   });
 });

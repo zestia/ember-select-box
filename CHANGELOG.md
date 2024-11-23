@@ -1,5 +1,13 @@
 # Changelog
 
+## 16.4.1
+
+- Don't allow focus to move to listbox, when in a combbox
+  (avoids keyboard-focusable-scroller behaviour)
+- Use touch events instead of focus out on touch devices
+  to determine when to close.
+- Clarify virtual focus tests
+
 ## 16.4.0
 
 - Remove cycling options, to get closer to native behaviour

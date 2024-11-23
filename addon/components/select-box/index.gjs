@@ -134,7 +134,7 @@ export default class SelectBox extends Component {
   }
 
   get optionsTabIndex() {
-    return this.isListBox ? '0' : null;
+    return this.isListBox ? '0' : '-1';
   }
 
   get triggerTabIndex() {
@@ -228,6 +228,9 @@ export default class SelectBox extends Component {
   @action
   handleDestroyElement() {
     this.element = null;
+
+    document.removeEventListener('mouseup', this.handleMouseUp);
+    document.removeEventListener('touchstart', this.handleTouchStart);
   }
 
   @action
@@ -285,7 +288,13 @@ export default class SelectBox extends Component {
   handleMouseDown(event) {
     this.lastMouseDownElement = event.target;
 
-    document.addEventListener('mouseup', this.handleMouseUp, { once: true });
+    document.addEventListener('mouseup', this.handleMouseUp, {
+      once: true
+    });
+
+    document.addEventListener('touchstart', this.handleTouchStart, {
+      once: true
+    });
   }
 
   @action
@@ -313,11 +322,17 @@ export default class SelectBox extends Component {
   }
 
   @action
+  handleTouchStart(event) {
+    if (this.element.contains(event.target)) {
+      return;
+    }
+
+    this._close();
+  }
+
+  @action
   handleFocusOut(event) {
-    if (
-      document.activeElement === this.interactiveElement ||
-      this.element.contains(event.relatedTarget)
-    ) {
+    if (this.element.contains(event.relatedTarget)) {
       return;
     }
 
@@ -351,6 +366,13 @@ export default class SelectBox extends Component {
 
     this._handleKeyDown(event);
     this._handleInputChar(event);
+  }
+
+  @action
+  handleMouseDownOptions(event) {
+    if (this.isComboBox) {
+      event.preventDefault();
+    }
   }
 
   @action
@@ -781,6 +803,7 @@ export default class SelectBox extends Component {
           onInsert=this.handleInsertOptions
           onDestroy=this.handleDestroyOptions
           onKeyDown=this.handleKeyDownOptions
+          onMouseDown=this.handleMouseDownOptions
         )
         Option=(component
           SelectBoxOption
@@ -791,7 +814,6 @@ export default class SelectBox extends Component {
           onMouseUp=this.handleMouseUpOption
           onMouseDown=this.handleMouseDownOption
           onKeyDown=this.handleKeyDownOption
-          onFocusIn=this.handleFocusInOption
         )
       )
     }}

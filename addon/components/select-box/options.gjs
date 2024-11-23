@@ -12,6 +12,7 @@ import lifecycle from '@zestia/ember-select-box/modifiers/lifecycle';
       role="listbox"
       tabindex={{@tabindex}}
       {{on "keydown" @onKeyDown}}
+      {{on "mousedown" @onMouseDown}}
       {{lifecycle onInsert=@onInsert onDestroy=@onDestroy}}
       ...attributes
     >

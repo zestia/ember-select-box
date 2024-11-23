@@ -10,6 +10,11 @@ module('select-box (clicking trigger)', function (hooks) {
   test('clicking trigger toggles select box on mousedown', async function (assert) {
     assert.expect(7);
 
+    // Mouse down makes the select box feel more responsive
+    // than on click, which would open on mouseup.
+    // It's also what would happen if you clicked on a
+    // native select box.
+
     let event;
 
     const handleMouseDownTrigger = (_event) => (event = _event);

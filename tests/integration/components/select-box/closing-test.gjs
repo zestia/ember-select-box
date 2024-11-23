@@ -178,19 +178,38 @@ module('select-box (closing)', function (hooks) {
   });
 
   test('mousing up outside must have moused down first', async function (assert) {
-    assert.expect(1);
+    assert.expect(2);
 
     await render(<template>
-      <button type="button"></button>
-
-      <SelectBox @open={{true}} @onlClose={{handleClose}} as |sb|>
+      <SelectBox @open={{true}} @onClose={{handleClose}} as |sb|>
         <sb.Trigger />
       </SelectBox>
+
+      <div class="outside"></div>
     </template>);
 
-    await click('button');
+    await click('.outside');
 
+    assert.dom('.select-box').hasAttribute('data-open', 'true');
     assert.verifySteps([]);
+  });
+
+  test('closing due to touching outside', async function (assert) {
+    assert.expect(3);
+
+    await render(<template>
+      <SelectBox @open={{true}} @onClose={{handleClose}} as |sb|>
+        <sb.Trigger />
+      </SelectBox>
+
+      <div class="outside"></div>
+    </template>);
+
+    await triggerEvent('.select-box', 'mousedown');
+    await triggerEvent('.outside', 'touchstart');
+
+    assert.dom('.select-box').hasAttribute('data-open', 'false');
+    assert.verifySteps(['close']);
   });
 
   test('closing due to pressing escape', async function (assert) {
@@ -219,6 +238,7 @@ module('select-box (closing)', function (hooks) {
       <SelectBox @onClose={{handleClose}} as |sb|>
         <sb.Trigger />
       </SelectBox>
+
       <div class="outside"></div>
     </template>);
 

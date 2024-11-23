@@ -51,7 +51,13 @@ module('select-box/options', function (hooks) {
       </SelectBox>
     </template>);
 
-    assert.dom('.select-box__options').hasAttribute('tabindex', '0');
+    assert
+      .dom('.select-box__options')
+      .hasAttribute(
+        'tabindex',
+        '0',
+        'the main interactive element is the listbox'
+      );
   });
 
   test('tabindex (combobox with input)', async function (assert) {
@@ -64,7 +70,15 @@ module('select-box/options', function (hooks) {
       </SelectBox>
     </template>);
 
-    assert.dom('.select-box__options').doesNotHaveAttribute('tabindex');
+    assert.dom('.select-box__options').hasAttribute(
+      'tabindex',
+      '-1',
+      `the main interactive element is the input (combobox)
+       focus should not move to the listbox, which is
+       aria controlled by the input.
+       this prevents keyboard-focusable-scrollers from stealing focus,
+       since options often overflows`
+    );
   });
 
   test('tabindex (combobox with trigger)', async function (assert) {
@@ -72,12 +86,18 @@ module('select-box/options', function (hooks) {
 
     await render(<template>
       <SelectBox as |sb|>
-        <sb.Input />
+        <sb.Trigger />
         <sb.Options />
       </SelectBox>
     </template>);
 
-    assert.dom('.select-box__options').doesNotHaveAttribute('tabindex');
+    assert.dom('.select-box__options').hasAttribute(
+      'tabindex',
+      '-1',
+      `the main interactive element is the trigger (combobox)
+       focus should not move to the listbox, which is
+       aria controlled by the trigger`
+    );
   });
 
   test('id', async function (assert) {

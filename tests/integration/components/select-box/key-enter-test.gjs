@@ -256,7 +256,7 @@ module('select-box (enter)', function (hooks) {
   });
 
   test('pressing enter on a focusable option (listbox)', async function (assert) {
-    assert.expect(2);
+    assert.expect(1);
 
     await render(<template>
       <SelectBox @onChange={{handleChange}} as |sb|>
@@ -269,11 +269,11 @@ module('select-box (enter)', function (hooks) {
     await focus('.select-box__option');
     await triggerKeyEvent('.select-box__option', 'keydown', 'Enter');
 
-    assert.verifySteps(['1']);
+    assert.verifySteps([], 'not supported. focus is managed virtually');
   });
 
   test('pressing enter on a focusable option (combobox)', async function (assert) {
-    assert.expect(2);
+    assert.expect(1);
 
     await render(<template>
       <SelectBox @onChange={{handleChange}} as |sb|>
@@ -288,6 +288,6 @@ module('select-box (enter)', function (hooks) {
     await focus('.select-box__option');
     await triggerKeyEvent('.select-box__option', 'keydown', 'Enter');
 
-    assert.verifySteps(['1']);
+    assert.verifySteps([], 'not supported. focus is managed virtually');
   });
 });
