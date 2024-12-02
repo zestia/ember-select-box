@@ -3,7 +3,7 @@ import { uniqueId } from '@ember/helper';
 import lifecycle from '@zestia/ember-select-box/modifiers/lifecycle';
 
 <template>
-  {{! template-lint-disable no-positive-tabindex }}
+  {{! template-lint-disable no-positive-tabindex no-pointer-down-event-binding }}
   {{#let (uniqueId) as |id|}}
     <div
       aria-multiselectable="{{@aria-multiselectable}}"
