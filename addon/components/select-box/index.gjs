@@ -327,7 +327,7 @@ export default class SelectBox extends Component {
       return;
     }
 
-    this._close();
+    this._handleTapOutside();
   }
 
   @action
@@ -534,6 +534,10 @@ export default class SelectBox extends Component {
 
   _handleClickAbort() {
     this._close(Symbol('CLICK_ABORT'));
+  }
+
+  _handleTapOutside() {
+    this._handleFocusLeave();
   }
 
   _handleSelected() {
