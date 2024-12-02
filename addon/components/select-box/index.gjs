@@ -332,14 +332,14 @@ export default class SelectBox extends Component {
 
   @action
   handleFocusOut(event) {
-    if (this.element.contains(event.relatedTarget)) {
+    const interactiveEl = event.relatedTarget;
+    const nonInteractiveEl = this.lastMouseDownElement;
+
+    if (this.element.contains(interactiveEl)) {
       return;
     }
 
-    if (
-      !event.relatedTarget &&
-      this.element.contains(this.lastMouseDownElement)
-    ) {
+    if (this.element.contains(nonInteractiveEl)) {
       this._ensureFocus();
       return;
     }
@@ -814,6 +814,7 @@ export default class SelectBox extends Component {
           onMouseUp=this.handleMouseUpOption
           onMouseDown=this.handleMouseDownOption
           onKeyDown=this.handleKeyDownOption
+          onFocusIn=this.handleFocusInOption
         )
       )
     }}

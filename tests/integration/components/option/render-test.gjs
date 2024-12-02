@@ -103,7 +103,7 @@ module('select-box/option', function (hooks) {
       </SelectBox>
     </template>);
 
-    assert.dom('.select-box__option').doesNotHaveAttribute('tabindex');
+    assert.dom('.select-box__option').hasAttribute('tabindex', '3');
   });
 
   test('disabled', async function (assert) {

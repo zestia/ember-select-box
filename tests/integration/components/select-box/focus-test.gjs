@@ -494,10 +494,20 @@ module('select-box (focus)', function (hooks) {
   test('focusable options', async function (assert) {
     assert.expect(1);
 
+    // This behaviour may be removed in future versions
+    // to reduce API surface and align more with native behaviour,
+    // Kind of depends where this goes:
+    // https://open-ui.org/components/customizableselect/
+
     await render(<template>
       <SelectBox as |sb|>
         <sb.Options>
-          <sb.Option @value="A" tabindex="0" />
+          <sb.Option class="looks-like-an-option" tabindex="0">
+            Choose
+          </sb.Option>
+          <a href="#" class="looks-like-an-option">
+            Choose
+          </a>
         </sb.Options>
       </SelectBox>
     </template>);
@@ -506,10 +516,12 @@ module('select-box (focus)', function (hooks) {
 
     assert.dom('.select-box__option').hasAttribute(
       'aria-current',
-      'false',
-      `focusing an option does not activate it.
-       options are not directly focusable
-       because focus is managed virtually using aria-activedescendant`
+      'true',
+      `focusing an option is not necessary in normal scenarios,
+       because focus is managed virtually using aria-activedescendant.
+       however, in some custom cases, you may wish to mix select box
+       options with buttons, and therefore tabbing through these
+       should be allowed.`
     );
   });
 
