@@ -434,7 +434,7 @@ module('select-box (focus)', function (hooks) {
     // https://issues.chromium.org/issues/376718258
     // https://bugzilla.mozilla.org/show_bug.cgi?id=1930662
 
-    assert.true(event.defaultPrevented);
+    assert.true(event.defaultPrevented, 'would prefer not to have to do this');
   });
 
   test('focus moving to somewhere else inside the combo box', async function (assert) {
