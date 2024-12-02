@@ -25,6 +25,7 @@ module('select-box (occlusion)', function (hooks) {
 
     // Using occlusion, _does_ work, but seemingly not in the test suite
     // and also, requires a buffer larger than 1.
+    // Not advised.
 
     const options = ['one', 'two', 'three', 'four', 'five', 'six'];
 

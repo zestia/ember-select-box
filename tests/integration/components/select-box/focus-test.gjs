@@ -423,7 +423,7 @@ module('select-box (focus)', function (hooks) {
       focus must be maintained on the interactive element, regardless
       of where is clicked inside the select box, otherwise the
       select box will not be receptive to user actions, which is the
-      same as how any other native component would behave/
+      same as how any other native component would behave
     `);
 
     // Note
