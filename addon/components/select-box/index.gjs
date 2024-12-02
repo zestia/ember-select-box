@@ -829,7 +829,6 @@ export default class SelectBox extends Component {
       data-open="{{this.isOpenAttr}}"
       {{on "focusout" this.handleFocusOut}}
       {{on "mousedown" this.handleMouseDown}}
-      {{on "mouseup" this.handleMouseUp}}
       {{on "mouseleave" this.handleMouseLeave}}
       {{lifecycle
         onInsert=this.handleInsertElement

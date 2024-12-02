@@ -156,7 +156,7 @@ module('select-box (closing)', function (hooks) {
     assert.verifySteps(['close']);
   });
 
-  test('closing due mousing up outside', async function (assert) {
+  test('closing due to mousing up outside', async function (assert) {
     assert.expect(3);
 
     await render(<template>
