@@ -6,7 +6,6 @@
   (avoids keyboard-focusable-scroller behaviour)
 - Use touch events instead of focus out on touch devices
   to determine when to close.
-- Clarify virtual focus tests
 
 ## 16.4.0
 
