@@ -1,7 +1,6 @@
 /* eslint-disable ember/no-runloop */
 
 import { action } from '@ember/object';
-import { assert } from '@ember/debug';
 import { cached } from '@glimmer/tracking';
 import { filter } from '@zestia/ember-select-box/utils';
 import { hash } from '@ember/helper';
@@ -17,30 +16,30 @@ import { task } from 'ember-concurrency';
 import { tracked } from 'tracked-built-ins';
 import Component from '@glimmer/component';
 import lifecycle from '@zestia/ember-select-box/modifiers/lifecycle';
+import Dropdown from '@zestia/ember-select-box/components/dropdown/index';
 import SelectBoxGroup from '@zestia/ember-select-box/components/select-box/group';
 import SelectBoxInput from '@zestia/ember-select-box/components/select-box/input';
 import SelectBoxOption from '@zestia/ember-select-box/components/select-box/option';
 import SelectBoxOptions from '@zestia/ember-select-box/components/select-box/options';
-import SelectBoxTrigger from '@zestia/ember-select-box/components/select-box/trigger';
 const { assign } = Object;
 
 export default class SelectBox extends Component {
   @tracked _activeOption;
   @tracked _options = tracked([]);
+  @tracked dropdown;
   @tracked element;
-  @tracked inputElements = tracked([]);
-  @tracked isOpen = this.args.open ?? null;
-  @tracked optionsElements = tracked([]);
+  @tracked inputElement;
+  @tracked optionsElement;
   @tracked query = null;
-  @tracked triggerElements = tracked([]);
+  @tracked triggerElement;
 
   @localCopy('args.value') _value;
   @localCopy('args.options') results;
 
   chars = '';
   charTimer;
-  lastMouseDownElement;
 
+  Dropdown;
   Group;
   Input;
   Option;
@@ -50,12 +49,6 @@ export default class SelectBox extends Component {
   registerComponents = (components) => {
     assign(this, components);
   };
-
-  constructor() {
-    super(...arguments);
-    this.args.onReady?.(this.api);
-    scheduleOnce('afterRender', this, '_handleRender');
-  }
 
   get value() {
     return this.isMultiple ? makeArray(this._value) : this._value;
@@ -74,43 +67,23 @@ export default class SelectBox extends Component {
   }
 
   get isComboBox() {
-    return this.hasInput || this.hasTrigger;
+    return this.hasOptions && (this.hasInput || this.hasTrigger);
   }
 
   get isListBox() {
-    return !this.isComboBox;
-  }
-
-  get isClosed() {
-    return !this.isOpen;
-  }
-
-  get isOpenAttr() {
-    return this.isComboBox
-      ? this.hasTrigger
-        ? !!this.isOpen
-        : this.isOpen
-      : null;
-  }
-
-  get canOpen() {
-    return this.isComboBox && this.isClosed;
-  }
-
-  get canClose() {
-    return this.isComboBox && this.isOpen;
+    return this.hasOptions && !(this.hasInput || this.hasTrigger);
   }
 
   get canAutoOpen() {
-    return this.hasTrigger && this.isClosed;
+    return this.hasTrigger && !this.dropdown.isOpen;
   }
 
   get canAutoClose() {
-    return this.isSingle && this.isOpen;
+    return this.isSingle && this.hasTrigger && this.dropdown.isOpen;
   }
 
   get canAutoSelect() {
-    return this.isSingle && this.isComboBox && this.isClosed;
+    return this.isSingle && this.hasTrigger && !this.dropdown.isOpen;
   }
 
   get isBusy() {
@@ -121,12 +94,16 @@ export default class SelectBox extends Component {
     return this.chars.trim() !== '';
   }
 
+  get hasOptions() {
+    return !!this.optionsElement;
+  }
+
   get hasTrigger() {
-    return this.triggerElements.length === 1;
+    return !!this.triggerElement;
   }
 
   get hasInput() {
-    return this.inputElements.length === 1;
+    return !!this.inputElement;
   }
 
   get hasSearch() {
@@ -176,31 +153,20 @@ export default class SelectBox extends Component {
     return this.options[this.activeOptionIndex + 1];
   }
 
-  @cached
-  get interactiveElements() {
-    return [this.inputElement, this.triggerElement, this.optionsElement].filter(
-      Boolean
-    );
+  get optionElements() {
+    return [...this.element.querySelectorAll('.select-box__option')];
   }
 
   get interactiveElement() {
-    return this.interactiveElements[0];
-  }
+    if (this.hasInput) {
+      return this.inputElement;
+    }
 
-  get optionsElement() {
-    return this.optionsElements[0];
-  }
+    if (this.hasTrigger) {
+      return this.triggerElement;
+    }
 
-  get triggerElement() {
-    return this.triggerElements[0];
-  }
-
-  get inputElement() {
-    return this.inputElements[0];
-  }
-
-  get optionElements() {
-    return [...this.element.querySelectorAll('.select-box__option')];
+    return this.optionsElement;
   }
 
   get hasFocus() {
@@ -223,14 +189,12 @@ export default class SelectBox extends Component {
   @action
   handleInsertElement(element) {
     this.element = element;
+    this.args.onReady?.(this.api);
   }
 
   @action
   handleDestroyElement() {
     this.element = null;
-
-    document.removeEventListener('mouseup', this.handleMouseUp);
-    document.removeEventListener('touchstart', this.handleTouchStart);
   }
 
   @action
@@ -250,66 +214,47 @@ export default class SelectBox extends Component {
 
   @action
   handleInsertOptions(element) {
-    this.optionsElements.push(element);
+    this.optionsElement = element;
   }
 
   @action
   handleDestroyOptions() {
-    this.optionsElements = tracked([]);
+    this.optionsElement = null;
   }
 
   @action
   handleInsertTrigger(element) {
-    this.triggerElements.push(element);
-    this.isOpen = !!this.args.open;
+    this.triggerElement = element;
   }
 
   @action
   handleDestroyTrigger() {
-    this.triggerElements = tracked([]);
+    this.triggerElement = null;
   }
 
   @action
   handleInsertInput(element) {
-    this.inputElements.push(element);
+    this.inputElement = element;
   }
 
   @action
   handleDestroyInput() {
-    this.inputElements = tracked([]);
+    this.inputElement = null;
+  }
+
+  @action
+  registerDropdown(dropdown) {
+    this.dropdown = dropdown;
+  }
+
+  @action
+  handleDestroyDropdown() {
+    this.dropdown = null;
   }
 
   @action
   handleInput() {
     this._search(this.inputElement.value);
-  }
-
-  @action
-  handleMouseDown(event) {
-    this.lastMouseDownElement = event.target;
-
-    document.addEventListener('mouseup', this.handleMouseUp, {
-      once: true
-    });
-
-    document.addEventListener('touchstart', this.handleTouchStart, {
-      once: true
-    });
-  }
-
-  @action
-  handleMouseUp(event) {
-    if (!this.element || !this.lastMouseDownElement) {
-      return;
-    }
-
-    this.lastMouseDownElement = null;
-
-    if (this.element.contains(event.target)) {
-      return;
-    }
-
-    this._handleClickAbort();
   }
 
   @action
@@ -322,29 +267,18 @@ export default class SelectBox extends Component {
   }
 
   @action
-  handleTouchStart(event) {
-    if (this.element.contains(event.target)) {
-      return;
-    }
-
-    this._handleTapOutside();
+  handleMouseDown(event) {
+    event.preventDefault();
+    this._ensureFocus();
   }
 
   @action
-  handleFocusOut(event) {
-    const interactiveEl = event.relatedTarget;
-    const nonInteractiveEl = this.lastMouseDownElement;
-
-    if (this.element.contains(interactiveEl)) {
+  handleFocusOut() {
+    if (this.dropdown) {
       return;
     }
 
-    if (this.element.contains(nonInteractiveEl)) {
-      this._ensureFocus();
-      return;
-    }
-
-    scheduleOnce('afterRender', this, '_handleFocusLeave', event);
+    this._forgetActiveOption();
   }
 
   @action
@@ -369,32 +303,8 @@ export default class SelectBox extends Component {
   }
 
   @action
-  handleMouseDownOptions(event) {
-    if (this.isComboBox) {
-      event.preventDefault();
-    }
-  }
-
-  @action
-  handleMouseDownTrigger(event) {
-    if (this.isDisabled || event.button !== 0) {
-      return;
-    }
-
-    event.preventDefault();
-
-    this._toggle();
-  }
-
-  @action
   handleMouseEnterOption(option) {
     this._activateOption(option);
-  }
-
-  @action
-  handleMouseDownOption(event) {
-    event.preventDefault();
-    this._ensureFocus();
   }
 
   @action
@@ -418,18 +328,18 @@ export default class SelectBox extends Component {
   }
 
   @action
-  close() {
-    this._close();
+  handleOpenDropdown() {
+    this.activeOption?.scrollIntoView();
+    this._ensureFocus();
   }
 
   @action
-  open() {
-    this._open();
-  }
+  handleCloseDropdown(reason) {
+    this._forgetActiveOption();
 
-  @action
-  toggle() {
-    this._toggle();
+    if (reason?.description !== 'FOCUS_LEAVE') {
+      this._ensureFocus();
+    }
   }
 
   @action
@@ -455,9 +365,6 @@ export default class SelectBox extends Component {
       case 'ArrowDown':
         this._handleArrowDown(event);
         break;
-      case 'Escape':
-        this._handleEscape(event);
-        break;
       case 'Enter':
         this._handleEnter(event);
         break;
@@ -471,7 +378,7 @@ export default class SelectBox extends Component {
     event.preventDefault();
 
     if (this.canAutoOpen) {
-      this._open();
+      this.dropdown.open();
       return;
     }
 
@@ -482,7 +389,7 @@ export default class SelectBox extends Component {
     event.preventDefault();
 
     if (this.canAutoOpen) {
-      this._open();
+      this.dropdown.open();
       return;
     }
 
@@ -494,7 +401,7 @@ export default class SelectBox extends Component {
       event.preventDefault();
     }
 
-    this._handleEnterAndSpace();
+    this._handleEnterOrSpace();
   }
 
   _handleSpace(event) {
@@ -508,66 +415,28 @@ export default class SelectBox extends Component {
       return;
     }
 
-    this._handleEnterAndSpace();
+    this._handleEnterOrSpace();
   }
 
-  _handleEnterAndSpace() {
+  _handleEnterOrSpace(event) {
     if (this.canAutoOpen) {
-      this._open();
+      this.dropdown.open();
       return;
     }
 
     this._selectActiveOption();
   }
 
-  _handleEscape(event) {
-    if (this.canClose) {
-      event.stopPropagation();
-    }
-
-    this._close(Symbol('ESCAPE'));
-  }
-
-  _handleFocusLeave() {
-    this._close(Symbol('FOCUS_LEAVE'));
-  }
-
-  _handleClickAbort() {
-    this._close(Symbol('CLICK_ABORT'));
-  }
-
-  _handleTapOutside() {
-    this._handleFocusLeave();
-  }
-
   _handleSelected() {
     const close = this.args.onSelect?.(this.api) ?? this.canAutoClose;
 
     if (close) {
-      this._close(Symbol('SELECTED'));
-    }
-  }
-
-  _handleOpened() {
-    this.activeOption?.scrollIntoView();
-    this._ensureFocus();
-  }
-
-  _handleClosed({ description: reason } = {}) {
-    if (reason !== 'FOCUS_LEAVE') {
-      this._ensureFocus();
+      this.dropdown.close();
     }
   }
 
   _handleSearched() {
     this.activeOption?.scrollIntoView();
-  }
-
-  _handleRender() {
-    assert('must have an interactive element', this.interactiveElement);
-    assert('can only have 1 listbox', this.optionsElements.length <= 1);
-    assert('can only have 1 input', this.inputElements.length <= 1);
-    assert('can only have 1 trigger', this.triggerElements.length <= 1);
   }
 
   _handleInputChar(event) {
@@ -598,37 +467,6 @@ export default class SelectBox extends Component {
 
     if (this.canAutoSelect) {
       this._selectActiveOption();
-    }
-  }
-
-  _open() {
-    if (!this.canOpen) {
-      return;
-    }
-
-    this.isOpen = true;
-    this.args.onOpen?.(this.api);
-
-    scheduleOnce('afterRender', this, '_handleOpened');
-  }
-
-  _close(reason) {
-    if (!this.canClose) {
-      return;
-    }
-
-    this.isOpen = false;
-    this._forgetActiveOption();
-    this.args.onClose?.(this.api);
-
-    scheduleOnce('afterRender', this, '_handleClosed', reason);
-  }
-
-  _toggle() {
-    if (this.isOpen) {
-      this._close();
-    } else {
-      this._open();
     }
   }
 
@@ -740,24 +578,22 @@ export default class SelectBox extends Component {
   get _api() {
     return {
       // Components
+      Dropdown: this.Dropdown,
       Group: this.Group,
       Input: this.Input,
       Option: this.Option,
       Options: this.Options,
       Trigger: this.Trigger,
       // Properties
-      close: this.close,
       element: this.element,
       isBusy: this.isBusy,
-      isOpen: this.isOpen,
       options: this.results,
       query: this.query,
       value: this.value,
+      dropdown: this.dropdown,
       // Actions
-      open: this.open,
       search: this.search,
       select: this.select,
-      toggle: this.toggle,
       update: this.update
     };
   }
@@ -771,28 +607,14 @@ export default class SelectBox extends Component {
 
   <template>
     {{! template-lint-disable no-invalid-interactive no-pointer-down-event-binding }}
-    {{this.registerComponents
+    {{~this.registerComponents
       (hash
-        Trigger=(component
-          SelectBoxTrigger
-          role=this.triggerRole
-          aria-busy=this.isBusy
-          aria-disabled=this.isDisabled
-          aria-activedescendant=this.triggerActiveDescendant
-          aria-expanded=this.isOpenAttr
-          aria-controls=this.optionsElement.id
-          tabindex=this.triggerTabIndex
-          onInsert=this.handleInsertTrigger
-          onDestroy=this.handleDestroyTrigger
-          onMouseDown=this.handleMouseDownTrigger
-          onKeyDown=this.handleKeyDownTrigger
-        )
         Input=(component
           SelectBoxInput
           disabled=this.isDisabled
           aria-busy=this.isBusy
           aria-activedescendant=this.activeOption.element.id
-          aria-expanded=this.isOpenAttr
+          aria-expanded=this.dropdown.isOpen
           aria-controls=this.optionsElement.id
           onInsert=this.handleInsertInput
           onDestroy=this.handleDestroyInput
@@ -807,7 +629,6 @@ export default class SelectBox extends Component {
           onInsert=this.handleInsertOptions
           onDestroy=this.handleDestroyOptions
           onKeyDown=this.handleKeyDownOptions
-          onMouseDown=this.handleMouseDownOptions
         )
         Option=(component
           SelectBoxOption
@@ -816,20 +637,39 @@ export default class SelectBox extends Component {
           onDestroy=this.handleDestroyOption
           onMouseEnter=this.handleMouseEnterOption
           onMouseUp=this.handleMouseUpOption
-          onMouseDown=this.handleMouseDownOption
           onKeyDown=this.handleKeyDownOption
           onFocusIn=this.handleFocusInOption
         )
+        Dropdown=(component
+          Dropdown
+          class="select-box__dropdown"
+          onReady=this.registerDropdown
+          onOpenClosure=this.handleOpenDropdown
+          onCloseClosure=this.handleCloseDropdown
+          onDestroy=this.handleDestroyDropdown
+        )
+        Trigger=(component
+          this.dropdown.Trigger
+          class="select-box__trigger"
+          role=this.triggerRole
+          aria-busy=this.isBusy
+          aria-disabled=this.isDisabled
+          aria-activedescendant=this.triggerActiveDescendant
+          aria-controls=this.optionsElement.id
+          tabindex=this.triggerTabIndex
+          onInsertClosure=this.handleInsertTrigger
+          onDestroy=this.handleDestroyTrigger
+          onKeyDown=this.handleKeyDownTrigger
+        )
       )
-    }}
+    ~}}
     <div
       class="select-box"
       data-busy="{{this.isBusy}}"
       data-disabled="{{this.isDisabled}}"
-      data-open="{{this.isOpenAttr}}"
-      {{on "focusout" this.handleFocusOut}}
-      {{on "mousedown" this.handleMouseDown}}
       {{on "mouseleave" this.handleMouseLeave}}
+      {{on "mousedown" this.handleMouseDown}}
+      {{on "focusout" this.handleFocusOut}}
       {{lifecycle
         onInsert=this.handleInsertElement
         onDestroy=this.handleDestroyElement

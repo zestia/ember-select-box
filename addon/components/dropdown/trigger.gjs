@@ -1,0 +1,34 @@
+import { on } from '@ember/modifier';
+import lifecycle from '@zestia/ember-select-box/modifiers/lifecycle';
+import { concat } from '@ember/helper';
+import { action } from '@ember/object';
+import Component from '@glimmer/component';
+
+export default class DropdownTrigger extends Component {
+  @action
+  handleInsert(element) {
+    this.args.onInsert?.(element);
+    this.args.onInsertClosure?.(element);
+  }
+
+  <template>
+    {{! template-lint-disable no-positive-tabindex require-aria-activedescendant-tabindex no-pointer-down-event-binding }}
+    <div
+      class={{concat "dropdown__trigger" (if @class (concat " " @class))}}
+      aria-haspopup="true"
+      aria-activedescendant="{{@aria-activedescendant}}"
+      aria-busy="{{@aria-busy}}"
+      aria-controls="{{@aria-controls}}"
+      aria-disabled="{{@aria-disabled}}"
+      aria-expanded="{{@aria-expanded}}"
+      role="{{@role}}"
+      tabindex={{if @tabindex @tabindex "0"}}
+      {{on "mousedown" @onMouseDown}}
+      {{on "keydown" @onKeyDown}}
+      {{lifecycle onInsert=this.handleInsert onDestroy=@onDestroy}}
+      ...attributes
+    >
+      {{~yield~}}
+    </div>
+  </template>
+}

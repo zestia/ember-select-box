@@ -7,6 +7,11 @@
     @include example.box-focused;
   }
 
+  .dropdown__content {
+    display: flex;
+    flex-direction: column;
+  }
+
   .select-box__trigger {
     @include example.trigger;
 
@@ -36,9 +41,4 @@
   .select-box__option[aria-selected='true'] {
     @include example.option-selected;
   }
-}
-
-.example6__dropdown {
-  display: flex;
-  flex-direction: column;
 }

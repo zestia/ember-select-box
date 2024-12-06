@@ -95,7 +95,7 @@
     "build": "ember build --environment=production",
     "deploy": "ember build --environment production && ember github-pages:commit --message \"Deploy gh-pages from commit $(git rev-parse HEAD)\" && git push origin gh-pages:gh-pages",
     "lint": "concurrently \"npm:lint:*(!fix)\" --names \"lint:\"",
-    "lint:css": "stylelint '**/*.{css,scss}'",
+    "lint:css": "stylelint '**/*.{css,scss}' --quiet-deprecation-warnings",
     "lint:css:fix": "concurrently \"npm:lint:css -- --fix\"",
     "lint:fix": "npm run lint:css:fix; npm run lint:hbs:fix; npm run lint:js:fix; npm run lint:prettier:fix",
     "lint:hbs": "ember-template-lint .",
