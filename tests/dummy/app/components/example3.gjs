@@ -8,15 +8,17 @@ import SelectBox from '@zestia/ember-select-box/components/select-box';
     ...attributes
     as |sb|
   >
-    <sb.Trigger>
-      {{yield sb.value to="trigger"}}
-    </sb.Trigger>
-    <sb.Options>
-      {{#each @options as |value|}}
-        <sb.Option @value={{value}}>
-          {{yield value to="option"}}
-        </sb.Option>
-      {{/each}}
-    </sb.Options>
+    <sb.Dropdown>
+      <sb.Trigger>
+        {{yield sb.value to="trigger"}}
+      </sb.Trigger>
+      <sb.Options>
+        {{#each @options as |value|}}
+          <sb.Option @value={{value}}>
+            {{yield value to="option"}}
+          </sb.Option>
+        {{/each}}
+      </sb.Options>
+    </sb.Dropdown>
   </SelectBox>
 </template>

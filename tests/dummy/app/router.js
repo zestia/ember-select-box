@@ -17,5 +17,4 @@ Router.map(function () {
   this.route('example6');
   this.route('example7');
   this.route('performance');
-  this.route('custom-trigger');
 });
