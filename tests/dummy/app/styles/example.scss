@@ -12,24 +12,35 @@
   border: 2px solid var(--light-grey);
   display: inline-flex;
   flex-direction: column;
-  margin: var(--space-sm);
-  padding: var(--space-sm);
+  margin: var(--space-s);
+  padding: var(--space-s);
 }
 
 @mixin box-focused {
   border-color: var(--dark-grey);
 }
 
-@mixin option {
+@mixin trigger {
   cursor: pointer;
-  padding: var(--space-lg);
+  padding: var(--space-m);
+  outline: none;
+  user-select: none;
+  border: 2px solid transparent;
+}
+
+@mixin dropdown-content {
+  display: flex;
+  flex-direction: column;
 }
 
 @mixin options {
   outline: none;
-  display: flex;
-  flex-direction: column;
   overflow: auto;
+}
+
+@mixin option {
+  cursor: pointer;
+  padding: var(--space-l);
 }
 
 @mixin option-current {
@@ -45,17 +56,9 @@
 }
 
 @mixin group-label {
-  padding: var(--space-sm);
-  margin: var(--space-sm);
+  padding: var(--space-s);
+  margin: var(--space-s);
   font-weight: bold;
-}
-
-@mixin trigger {
-  cursor: pointer;
-  padding: var(--space-md);
-  outline: none;
-  user-select: none;
-  border: 2px solid transparent;
 }
 
 @mixin trigger-focused {
@@ -68,8 +71,8 @@
   box-sizing: border-box;
   min-width: 200px;
   border: 2px solid var(--light-grey);
-  padding: var(--space-sm);
-  margin: var(--space-sm);
+  padding: var(--space-s);
+  margin: var(--space-s);
   outline: none;
   display: block;
 }

@@ -7,28 +7,32 @@
     @include example.box-focused;
   }
 
-  &[data-open='false'] .select-box__options {
+  .dropdown[data-open='false'] .dropdown__content {
     @include example.screen-reader-only;
   }
 
-  .select-box__trigger {
+  .dropdown__trigger {
     @include example.trigger;
 
     width: 200px;
   }
 
-  .select-box__trigger:focus {
+  .dropdown__trigger:focus {
     @include example.trigger-focused;
   }
 
-  .select-box__option {
-    @include example.option;
+  .dropdown__content {
+    @include example.dropdown-content;
+
+    height: 240px;
   }
 
   .select-box__options {
     @include example.options;
+  }
 
-    height: 240px;
+  .select-box__option {
+    @include example.option;
   }
 
   .select-box__option[aria-current='true'] {

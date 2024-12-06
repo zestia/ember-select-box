@@ -83,7 +83,6 @@ export default class SelectBoxOption extends Component {
       role="option"
       tabindex={{@tabindex}}
       {{on "mouseenter" (fn @onMouseEnter this)}}
-      {{on "mousedown" @onMouseDown}}
       {{on "keydown" @onKeyDown}}
       {{on "mouseup" (fn @onMouseUp this)}}
       {{on "focusin" (fn @onFocusIn this)}}

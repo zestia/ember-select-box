@@ -1,5 +1,9 @@
 # Changelog
 
+## 17.0.0
+
+- Add dropdown primitive
+
 ## 16.4.0
 
 - Don't allow focus to move to listbox, when in a combbox
