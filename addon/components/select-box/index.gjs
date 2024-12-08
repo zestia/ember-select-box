@@ -74,10 +74,6 @@ export default class SelectBox extends Component {
     return this.hasOptions && !(this.hasInput || this.hasTrigger);
   }
 
-  get canAutoOpen() {
-    return this.hasTrigger && !this.dropdown.isOpen;
-  }
-
   get canAutoClose() {
     return this.isSingle && this.hasTrigger && this.dropdown.isOpen;
   }
