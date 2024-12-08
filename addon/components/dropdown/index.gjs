@@ -107,7 +107,7 @@ export default class Dropdown extends Component {
   handleMouseUp(event) {
     this.lastMouseDownElement = null;
 
-    if (this._isInside(event.target)) {
+    if (this._owns(event.target)) {
       return;
     }
 
@@ -116,7 +116,7 @@ export default class Dropdown extends Component {
 
   @action
   handleTouchStart(event) {
-    if (this._isInside(event.target)) {
+    if (this._owns(event.target)) {
       return;
     }
 
@@ -142,11 +142,11 @@ export default class Dropdown extends Component {
     const interactiveEl = event.relatedTarget;
     const nonInteractiveEl = this.lastMouseDownElement;
 
-    if (this._isInside(interactiveEl)) {
+    if (this._owns(interactiveEl)) {
       return;
     }
 
-    if (this._isInside(nonInteractiveEl)) {
+    if (this._owns(nonInteractiveEl)) {
       this._ensureFocus();
       return;
     }
@@ -211,7 +211,13 @@ export default class Dropdown extends Component {
     this.toggle();
   }
 
-  _isInside(element) {
+  _owns(element) {
+    if (this.contentElement) {
+      return (
+        element === this.triggerElement || this.contentElement.contains(element)
+      );
+    }
+
     return this.element.contains(element);
   }
 
@@ -267,6 +273,8 @@ export default class Dropdown extends Component {
         )
         Content=(component
           DropdownContent
+          onFocusOut=this.handleFocusOutContent
+          onMouseDown=this.handleMouseDownContent
           onInsert=this.handleInsertContent
           onDestroy=this.handleDestroyContent
         )
@@ -275,9 +283,9 @@ export default class Dropdown extends Component {
     <div
       class={{concat "dropdown" (if @class (concat " " @class))}}
       data-open="{{this.isOpen}}"
+      {{on "keydown" this.handleKeyDown}}
       {{on "focusout" this.handleFocusOut}}
       {{on "mousedown" this.handleMouseDown}}
-      {{on "keydown" this.handleKeyDown}}
       {{this.documentListeners}}
       {{lifecycle
         onInsert=this.handleInsertElement

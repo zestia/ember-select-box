@@ -1,4 +1,5 @@
 import lifecycle from '@zestia/ember-select-box/modifiers/lifecycle';
+import { on } from '@ember/modifier';
 
 <template>
   <div
