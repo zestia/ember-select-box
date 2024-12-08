@@ -388,8 +388,6 @@ export default class SelectBox extends Component {
   }
 
   _handleEnter(event) {
-    event.preventDefault();
-
     if (this.isComboBox) {
       event.preventDefault();
     }
