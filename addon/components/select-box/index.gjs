@@ -406,11 +406,15 @@ export default class SelectBox extends Component {
   }
 
   _handleSpace(event) {
-    if (event.target === this.inputElement || this.isTyping) {
+    if (event.target === this.inputElement) {
       return;
     }
 
     event.preventDefault();
+
+    if (this.isTyping) {
+      return;
+    }
 
     this._handleEnterOrSpace();
   }
@@ -660,7 +664,7 @@ export default class SelectBox extends Component {
           aria-activedescendant=this.triggerActiveDescendant
           aria-controls=this.optionsElement.id
           tabindex=this.triggerTabIndex
-          onInsert=this.handleInsertTrigger
+          onInsertClosure=this.handleInsertTrigger
           onDestroy=this.handleDestroyTrigger
           onKeyDown=this.handleKeyDownTrigger
         )

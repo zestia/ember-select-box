@@ -24,7 +24,7 @@ export default class DropdownTrigger extends Component {
       role="{{@role}}"
       tabindex={{if @tabindex @tabindex "0"}}
       {{on "mousedown" @onMouseDown}}
-      {{(if @onKeyDown (modifier on "keydown" @onKeyDown))}}
+      {{on "keydown" @onKeyDown}}
       {{lifecycle onInsert=this.handleInsert onDestroy=@onDestroy}}
       ...attributes
     >

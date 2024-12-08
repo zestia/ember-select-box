@@ -160,8 +160,6 @@ export default class Dropdown extends Component {
       return;
     }
 
-    console.log('open');
-
     this._isOpen = true;
 
     scheduleOnce('afterRender', this, '_handleOpened');
@@ -172,8 +170,6 @@ export default class Dropdown extends Component {
     if (!this.canClose) {
       return;
     }
-
-    console.log('close');
 
     this._isOpen = false;
 
@@ -207,15 +203,11 @@ export default class Dropdown extends Component {
     }
 
     event.stopPropagation();
+
     this.close(ESCAPE);
   }
 
   _handleEnterOrSpace(event) {
-    if (event.defaultPrevented) {
-      console.log('skip');
-      return;
-    }
-
     this.toggle();
   }
 
@@ -269,8 +261,8 @@ export default class Dropdown extends Component {
           DropdownTrigger
           aria-expanded=this.isOpen
           onMouseDown=this.handleMouseDownTrigger
-          onKeyDownTrigger=this.handleKeyDownTrigger
-          onInsertClosure=this.handleInsertTrigger
+          onKeyDown=this.handleKeyDownTrigger
+          onInsert=this.handleInsertTrigger
           onDestroy=this.handleDestroyTrigger
         )
         Content=(component
