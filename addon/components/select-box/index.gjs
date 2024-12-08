@@ -388,20 +388,22 @@ export default class SelectBox extends Component {
   }
 
   _handleEnter(event) {
-    this._handleEnterOrSpace(event);
+    event.preventDefault();
+
+    this._handleEnterOrSpace();
   }
 
   _handleSpace(event) {
+    event.preventDefault();
+
     if (this.isTyping) {
-      // return;
+      return;
     }
 
-    this._handleEnterOrSpace(event);
+    this._handleEnterOrSpace();
   }
 
   _handleEnterOrSpace(event) {
-    event.preventDefault();
-
     this._selectActiveOption();
   }
 
