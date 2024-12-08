@@ -378,7 +378,10 @@ export default class SelectBox extends Component {
   _handleArrowUp(event) {
     event.preventDefault();
 
-    this.dropdown?.open();
+    if (this.canAutoOpen) {
+      this.dropdown.open();
+      return;
+    }
 
     this._activateOption(this.previousOption, true);
   }
@@ -386,13 +389,18 @@ export default class SelectBox extends Component {
   _handleArrowDown(event) {
     event.preventDefault();
 
-    this.dropdown?.open();
+    if (this.canAutoOpen) {
+      this.dropdown.open();
+      return;
+    }
 
     this._activateOption(this.nextOption, true);
   }
 
   _handleEnter(event) {
-    event.preventDefault();
+    if (this.isComboBox) {
+      event.preventDefault();
+    }
 
     this._handleEnterOrSpace();
   }
