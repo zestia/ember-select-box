@@ -124,15 +124,16 @@ export default class Dropdown extends Component {
   }
 
   @action
+  handleKeyDownTrigger(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      this._handleEnterOrSpace(event);
+    }
+  }
+
+  @action
   handleKeyDown(event) {
-    switch (event.key) {
-      case 'Escape':
-        this._handleEscape(event);
-        break;
-      case ' ':
-      case 'Enter':
-        this._handleEnterOrSpace(event);
-        break;
+    if (event.key === 'Escape') {
+      this._handleEscape(event);
     }
   }
 
@@ -268,6 +269,7 @@ export default class Dropdown extends Component {
           DropdownTrigger
           aria-expanded=this.isOpen
           onMouseDown=this.handleMouseDownTrigger
+          onKeyDownTrigger=this.handleKeyDownTrigger
           onInsertClosure=this.handleInsertTrigger
           onDestroy=this.handleDestroyTrigger
         )

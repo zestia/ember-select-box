@@ -406,11 +406,11 @@ export default class SelectBox extends Component {
   }
 
   _handleSpace(event) {
-    event.preventDefault();
-
-    if (this.isTyping) {
+    if (event.target === this.inputElement || this.isTyping) {
       return;
     }
+
+    event.preventDefault();
 
     this._handleEnterOrSpace();
   }
@@ -645,7 +645,7 @@ export default class SelectBox extends Component {
         Dropdown=(component
           Dropdown
           class="select-box__dropdown"
-          suppressTrigger=true
+          manualTrigger=true
           onReady=this.registerDropdown
           onOpenClosure=this.handleOpenDropdown
           onCloseClosure=this.handleCloseDropdown
