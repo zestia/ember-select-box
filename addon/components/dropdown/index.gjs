@@ -206,10 +206,6 @@ export default class Dropdown extends Component {
   }
 
   _handleEnterOrSpace(event) {
-    if (event.defaultPrevented) {
-      return;
-    }
-
     this.toggle();
   }
 
