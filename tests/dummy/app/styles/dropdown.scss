@@ -1,0 +1,29 @@
+@use 'example';
+
+.dropdown.example {
+  .dropdown__trigger {
+    appearance: none;
+    all: unset;
+    cursor: pointer;
+    padding: var(--space-m);
+    outline: none;
+    user-select: none;
+    display: inline-block;
+    border: 2px solid var(--light-grey);
+  }
+
+  .dropdown__trigger:focus {
+    @include example.box-focused;
+  }
+
+  .dropdown__content {
+    border: 2px solid var(--light-grey);
+    margin-top: var(--space-m);
+    padding: var(--space-xl);
+    width: 300px;
+  }
+
+  .dropdown__content:focus-within {
+    @include example.box-focused;
+  }
+}
