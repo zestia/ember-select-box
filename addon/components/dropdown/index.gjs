@@ -131,7 +131,7 @@ export default class Dropdown extends Component {
         break;
       case ' ':
       case 'Enter':
-        this._handleEnterAndSpace(event);
+        this._handleEnterOrSpace(event);
         break;
     }
   }
@@ -205,7 +205,7 @@ export default class Dropdown extends Component {
     this.close(ESCAPE);
   }
 
-  _handleEnterAndSpace() {
+  _handleEnterOrSpace() {
     console.log('toggle');
     this.toggle();
   }

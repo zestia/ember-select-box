@@ -183,7 +183,7 @@ module('select-box (down arrow key)', function (hooks) {
     await focus('.select-box__options');
     await triggerKeyEvent('.select-box__options', 'keydown', 'ArrowDown');
 
-    assert.true(event.defaultPrevented);
+    assert.true(event.defaultPrevented, 'prevents window scrolling');
   });
 
   test('down scrolls the active option into view', async function (assert) {

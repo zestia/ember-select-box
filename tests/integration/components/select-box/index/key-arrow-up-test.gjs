@@ -180,7 +180,7 @@ module('select-box (up arrow key)', function (hooks) {
     await focus('.select-box__options');
     await triggerKeyEvent('.select-box__options', 'keydown', 'ArrowUp');
 
-    assert.true(event.defaultPrevented);
+    assert.true(event.defaultPrevented, 'prevents window scrolling');
   });
 
   test('up scrolls the active option into view', async function (assert) {

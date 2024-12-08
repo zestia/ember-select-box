@@ -278,7 +278,7 @@ export default class SelectBox extends Component {
 
   @action
   handleKeyDownTrigger(event) {
-    // this._handleKeyDown(event);
+    this._handleKeyDown(event);
     this._handleInputChar(event);
   }
 
@@ -378,10 +378,7 @@ export default class SelectBox extends Component {
   _handleArrowUp(event) {
     event.preventDefault();
 
-    if (this.canAutoOpen) {
-      this.dropdown.open();
-      return;
-    }
+    this.dropdown?.open();
 
     this._activateOption(this.previousOption, true);
   }
@@ -389,20 +386,19 @@ export default class SelectBox extends Component {
   _handleArrowDown(event) {
     event.preventDefault();
 
-    if (this.canAutoOpen) {
-      this.dropdown.open();
-      return;
-    }
+    this.dropdown?.open();
 
     this._activateOption(this.nextOption, true);
   }
 
   _handleEnter(event) {
+    event.preventDefault();
+
     if (this.isComboBox) {
       event.preventDefault();
     }
 
-    this._handleEnterAndSpace();
+    this._handleEnterOrSpace();
   }
 
   _handleSpace(event) {
@@ -416,15 +412,10 @@ export default class SelectBox extends Component {
       return;
     }
 
-    this._handleEnterAndSpace();
+    this._handleEnterOrSpace();
   }
 
-  _handleEnterAndSpace() {
-    if (this.canAutoOpen) {
-      this.dropdown.open();
-      return;
-    }
-
+  _handleEnterOrSpace() {
     this._selectActiveOption();
   }
 
