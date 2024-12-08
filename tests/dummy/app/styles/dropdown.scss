@@ -2,6 +2,8 @@
 
 .dropdown.example {
   .dropdown__trigger {
+    appearance: none;
+    all: unset;
     cursor: pointer;
     padding: var(--space-m);
     outline: none;

@@ -278,7 +278,7 @@ export default class SelectBox extends Component {
 
   @action
   handleKeyDownTrigger(event) {
-    this._handleKeyDown(event);
+    // this._handleKeyDown(event);
     this._handleInputChar(event);
   }
 

@@ -125,8 +125,14 @@ export default class Dropdown extends Component {
 
   @action
   handleKeyDown(event) {
-    if (event.key === 'Escape') {
-      this._handleEscape(event);
+    switch (event.key) {
+      case 'Escape':
+        this._handleEscape(event);
+        break;
+      case ' ':
+      case 'Enter':
+        this._handleEnterAndSpace(event);
+        break;
     }
   }
 
@@ -197,6 +203,11 @@ export default class Dropdown extends Component {
 
     event.stopPropagation();
     this.close(ESCAPE);
+  }
+
+  _handleEnterAndSpace() {
+    console.log('toggle');
+    this.toggle();
   }
 
   _isInside(element) {
