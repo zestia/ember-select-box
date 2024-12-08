@@ -81,7 +81,7 @@ export default class SelectBoxOption extends Component {
       aria-selected="{{this.isSelected}}"
       class={{concat "select-box__option" (if @class (concat " " @class))}}
       role="option"
-      tabindex={{@tabindex}}
+      tabindex="0"
       {{on "mouseenter" (fn @onMouseEnter this)}}
       {{on "mousedown" @onMouseDown}}
       {{on "keydown" @onKeyDown}}
