@@ -212,13 +212,9 @@ export default class Dropdown extends Component {
   }
 
   _owns(element) {
-    if (this.contentElement) {
-      return (
-        element === this.triggerElement || this.contentElement.contains(element)
-      );
-    }
-
-    return this.element.contains(element);
+    return (
+      element === this.triggerElement || this.contentElement?.contains(element)
+    );
   }
 
   _handleOpened() {
