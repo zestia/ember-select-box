@@ -2,7 +2,7 @@
 
 import { action } from '@ember/object';
 import { cached, tracked } from '@glimmer/tracking';
-import { concat } from '@ember/helper';
+import { concat, hash } from '@ember/helper';
 import { on } from '@ember/modifier';
 import Component from '@glimmer/component';
 import lifecycle from '@zestia/ember-select-box/modifiers/lifecycle';
@@ -10,6 +10,7 @@ import DropdownTrigger from '@zestia/ember-select-box/components/dropdown/trigge
 import DropdownContent from '@zestia/ember-select-box/components/dropdown/content';
 import { scheduleOnce } from '@ember/runloop';
 import { modifier } from 'ember-modifier';
+const { assign } = Object;
 
 const ESCAPE = Symbol('ESCAPE');
 const FOCUS_LEAVE = Symbol('FOCUS_LEAVE');
@@ -18,13 +19,15 @@ const TAP_OUTSIDE = Symbol('TAP_OUTSIDE');
 
 export default class Dropdown extends Component {
   @tracked triggerElement;
+  @tracked contentElement;
   @tracked element;
   @tracked _isOpen = this.args.open;
 
   Trigger;
+  Content;
 
-  registerTrigger = (Trigger) => {
-    this.Trigger = Trigger;
+  registerComponents = (components) => {
+    assign(this, components);
   };
 
   get isOpen() {
@@ -60,13 +63,28 @@ export default class Dropdown extends Component {
   }
 
   @action
+  handleDestroyElement() {
+    this.element = null;
+  }
+
+  @action
   handleInsertTrigger(element) {
     this.triggerElement = element;
   }
 
   @action
-  handleDestroyElement() {
-    this.element = null;
+  handleDestroyTrigger() {
+    this.triggerElement = null;
+  }
+
+  @action
+  handleInsertContent(element) {
+    this.contentElement = element;
+  }
+
+  @action
+  handleDestroyContent() {
+    this.contentElement = null;
   }
 
   @action
@@ -207,7 +225,7 @@ export default class Dropdown extends Component {
   get _api() {
     return {
       Trigger: this.Trigger,
-      Content: DropdownContent,
+      Content: this.Content,
       element: this.element,
       isOpen: this.isOpen,
       open: this.open,
@@ -225,12 +243,20 @@ export default class Dropdown extends Component {
 
   <template>
     {{! template-lint-disable no-invalid-interactive no-pointer-down-event-binding }}
-    {{~this.registerTrigger
-      (component
-        DropdownTrigger
-        aria-expanded=this.isOpen
-        onMouseDown=this.handleMouseDownTrigger
-        onInsertClosure=this.handleInsertTrigger
+    {{~this.registerComponents
+      (hash
+        Trigger=(component
+          DropdownTrigger
+          aria-expanded=this.isOpen
+          onMouseDown=this.handleMouseDownTrigger
+          onInsertClosure=this.handleInsertTrigger
+          onDestroy=this.handleDestroyTrigger
+        )
+        Content=(component
+          DropdownContent
+          onInsert=this.handleInsertContent
+          onDestroy=this.handleDestroyContent
+        )
       )
     ~}}
     <div
