@@ -3,7 +3,7 @@ import { uniqueId } from '@ember/helper';
 import lifecycle from '@zestia/ember-select-box/modifiers/lifecycle';
 
 <template>
-  {{! template-lint-disable no-positive-tabindex no-pointer-down-event-binding }}
+  {{! template-lint-disable no-positive-tabindex  }}
   {{#let (uniqueId) as |id|}}
     <div
       aria-multiselectable="{{@aria-multiselectable}}"
@@ -12,7 +12,6 @@ import lifecycle from '@zestia/ember-select-box/modifiers/lifecycle';
       role="listbox"
       tabindex={{@tabindex}}
       {{on "keydown" @onKeyDown}}
-      {{on "mousedown" @onMouseDown}}
       {{lifecycle onInsert=@onInsert onDestroy=@onDestroy}}
       ...attributes
     >

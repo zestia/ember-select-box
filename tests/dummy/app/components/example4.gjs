@@ -18,24 +18,28 @@ export default class extends Component {
       ...attributes
       as |sb|
     >
-      <sb.Trigger>
-        {{yield sb.value to="trigger"}}
-      </sb.Trigger>
-      <sb.Options>
-        {{#each @options as |value|}}
-          <sb.Option @value={{value}} as |option|>
-            <input
-              aria-hidden="true"
-              aria-labelledby={{option.id}}
-              checked={{option.isSelected}}
-              tabindex="-1"
-              type="checkbox"
-              {{on "click" this.preventDefault}}
-            />
-            {{yield value to="option"}}
-          </sb.Option>
-        {{/each}}
-      </sb.Options>
+      <sb.Dropdown as |dd|>
+        <sb.Trigger>
+          {{yield sb.value to="trigger"}}
+        </sb.Trigger>
+        <dd.Content>
+          <sb.Options>
+            {{#each @options as |value|}}
+              <sb.Option @value={{value}} as |option|>
+                <input
+                  aria-hidden="true"
+                  aria-labelledby={{option.id}}
+                  checked={{option.isSelected}}
+                  tabindex="-1"
+                  type="checkbox"
+                  {{on "click" this.preventDefault}}
+                />
+                {{yield value to="option"}}
+              </sb.Option>
+            {{/each}}
+          </sb.Options>
+        </dd.Content>
+      </sb.Dropdown>
     </SelectBox>
   </template>
 }

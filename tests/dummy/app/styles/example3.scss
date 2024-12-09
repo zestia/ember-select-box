@@ -7,7 +7,7 @@
     @include example.box-focused;
   }
 
-  &[data-open='false'] .select-box__options {
+  .select-box__dropdown[data-open='false'] .select-box__options {
     @include example.screen-reader-only;
   }
 

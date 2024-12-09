@@ -52,14 +52,18 @@ This addon intentionally...
 
 ```handlebars
 <SelectBox @value='Foo' @onChange={{this.handleChange}} as |sb|>
-  <sb.Trigger>
-    {{sb.value}}
-  </sb.Trigger>
-  <sb.Options>
-    <sb.Option @value='Foo'>
-      Foo
-    </sb.Option>
-  </sb.Options>
+  <sb.Dropdown as |dd|>
+    <sb.Trigger>
+      {{sb.value}}
+    </sb.Trigger>
+    <dd.Content>
+      <sb.Options>
+        <sb.Option @value='Foo'>
+          Foo
+        </sb.Option>
+      </sb.Options>
+    </dd.Content>
+  </sb.Dropdown>
 </SelectBox>
 ```
 
@@ -140,18 +144,6 @@ Optional. If `true`, `@value` is expected to be an array. If an option's value i
 
 Optional. Fired whenever a selection is made. This function receives the values most recently selected, and the previously selected values. The return value is then used as the final selection. This is primarily used to customise select boxes where `@multiple` is `true` - because the behaviour for a selection is undefined and totally depends on your use-case.
 
-#### `@open`
-
-Optional. Whether or not the select box should be in an open state initially.
-
-#### `@onOpen`
-
-Optional. Fired when the select box is opened
-
-#### `@onClose`
-
-Optional. Fired when the select box is closed
-
 #### `@onActivate`
 
 Optional. Fired when an option is moused over or focused via the keyboard controls
@@ -166,18 +158,6 @@ Mimics the user making a selection, and so `@onChange` may fire.
 
 Updates the select box with a new value(s). `@onChange` will not fire.
 
-#### `open`
-
-Opens the select box.
-
-#### `toggle`
-
-Opens or closes the select box
-
-#### `close`
-
-Closes the select box
-
 #### `element`
 
 The element of the select box
@@ -189,10 +169,6 @@ The selected value(s) of the select box
 #### `isBusy`
 
 True if the select box is waiting for a search to finish
-
-#### `isOpen`
-
-Whether the select box is open
 
 #### `query`
 
@@ -241,6 +217,48 @@ Whether or not the option is currently disabled
 
 Whether or not the option is currently selected
 
+## Dropdown
+
+### Arguments
+
+#### `@open`
+
+Optional. Whether or not the select box's dropdown should be in an open state initially.
+
+#### `@onOpen`
+
+Optional. Fired when the select box's dropdown is opened
+
+#### `@onClose`
+
+Optional. Fired when the select box's dropdown is closed
+
+### API
+
+#### `isOpen`
+
+Whether the select box's dropdown is open
+
+#### `open`
+
+Opens the select box's dropdown
+
+#### `toggle`
+
+Opens or closes the select box's dropdown
+
+#### `close`
+
+Closes the select box's dropdown
+
+#### `element`
+
+The element of the select box's dropdown
+
+## `Options`
+
+A listbox container element to house each option
+
 ## `Group`
 
 ### Arguments
@@ -248,10 +266,6 @@ Whether or not the option is currently selected
 #### `@label`
 
 Required. The group label (similar to the native `optgroup`)
-
-## `Options`
-
-A container element to house each option. If no `Trigger` or `Input` is rendered, then this will be a Listbox.
 
 ## `Input`
 

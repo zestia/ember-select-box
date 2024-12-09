@@ -1,0 +1,313 @@
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'dummy/tests/helpers';
+import {
+  render,
+  click,
+  blur,
+  focus,
+  triggerEvent,
+  triggerKeyEvent
+} from '@ember/test-helpers';
+import { tracked } from '@glimmer/tracking';
+import { on } from '@ember/modifier';
+import autoFocus from '@zestia/ember-auto-focus/modifiers/auto-focus';
+import SelectBox from '@zestia/ember-select-box/components/select-box';
+
+module('select-box (closing)', function (hooks) {
+  setupRenderingTest(hooks);
+
+  let handleClose;
+
+  hooks.beforeEach(function (assert) {
+    handleClose = () => assert.step('close');
+  });
+
+  test('closing with api', async function (assert) {
+    assert.expect(8);
+
+    await render(<template>
+      <SelectBox as |sb|>
+        <sb.Dropdown @onClose={{handleClose}} as |dd|>
+          <dd.Content>
+            <button
+              type="button"
+              class="close"
+              {{on "click" dd.close}}
+            ></button>
+          </dd.Content>
+          <sb.Trigger />
+          <sb.Input />
+        </sb.Dropdown>
+      </SelectBox>
+    </template>);
+
+    await click('.dropdown__trigger');
+
+    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'true');
+    assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'true');
+    assert.dom('.select-box__input').hasAttribute('aria-expanded', 'true');
+
+    // Intentionally twice
+    await click('.close');
+    await click('.close');
+
+    assert.verifySteps(['close']);
+
+    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
+    assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'false');
+    assert.dom('.select-box__input').hasAttribute('aria-expanded', 'false');
+  });
+
+  test('closes when trigger loses focus', async function (assert) {
+    assert.expect(6);
+
+    await render(<template>
+      <SelectBox as |sb|>
+        <sb.Dropdown>
+          <sb.Trigger />
+          <sb.Input />
+        </sb.Dropdown>
+      </SelectBox>
+    </template>);
+
+    await click('.select-box__trigger');
+
+    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'true');
+    assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'true');
+    assert.dom('.select-box__input').hasAttribute('aria-expanded', 'true');
+
+    await focus('.select-box__trigger');
+    await blur('.select-box__trigger');
+
+    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
+    assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'false');
+    assert.dom('.select-box__input').hasAttribute('aria-expanded', 'false');
+  });
+
+  test('closes when input loses focus', async function (assert) {
+    assert.expect(4);
+
+    await render(<template>
+      <SelectBox as |sb|>
+        <sb.Dropdown>
+          <sb.Trigger />
+          <sb.Input />
+        </sb.Dropdown>
+      </SelectBox>
+    </template>);
+
+    await click('.select-box__trigger');
+
+    assert.dom('.select-box__input').isFocused();
+
+    await blur('.select-box__input');
+
+    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
+    assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'false');
+    assert.dom('.select-box__input').hasAttribute('aria-expanded', 'false');
+  });
+
+  test('closing does not steal focus', async function (assert) {
+    assert.expect(2);
+
+    const state = new (class {
+      @tracked value;
+    })();
+
+    const handleChange = (value) => (state.value = value);
+
+    await render(<template>
+      <SelectBox @onChange={{handleChange}} as |sb|>
+        <sb.Dropdown as |dd|>
+          <sb.Trigger />
+          <dd.Content>
+            <sb.Options>
+              <sb.Option @value="foo" />
+            </sb.Options>
+          </dd.Content>
+        </sb.Dropdown>
+      </SelectBox>
+
+      {{#if state.value}}
+        <input
+          class="outside"
+          value={{state.value}}
+          aria-label="Example"
+          {{autoFocus}}
+        />
+      {{/if}}
+    </template>);
+
+    await click('.select-box__trigger');
+    await click('.select-box__option');
+
+    assert.dom('.outside').hasValue('foo').isFocused();
+  });
+
+  test('closing due to mousing up outside', async function (assert) {
+    assert.expect(3);
+
+    // This is a 'click abort'. When the user mouses down on the
+    // select box, drags their cursor over an option, but then
+    // decides no, and drags their cursor outside the select box
+    // and releases.
+
+    await render(<template>
+      <SelectBox as |sb|>
+        <sb.Dropdown @onClose={{handleClose}} as |dd|>
+          <sb.Trigger />
+          <dd.Content>
+            <sb.Options>
+              <sb.Option />
+            </sb.Options>
+          </dd.Content>
+        </sb.Dropdown>
+      </SelectBox>
+
+      <div class="outside"></div>
+    </template>);
+
+    await triggerEvent('.select-box__trigger', 'mousedown');
+    await triggerEvent('.outside', 'mouseup');
+
+    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
+    assert.verifySteps(['close']);
+  });
+
+  test('mousing up outside will close a manually opened dropdown', async function (assert) {
+    assert.expect(4);
+
+    await render(<template>
+      <SelectBox as |sb|>
+        <sb.Dropdown @open={{true}} @onClose={{handleClose}}>
+          <sb.Trigger />
+        </sb.Dropdown>
+      </SelectBox>
+
+      <div class="outside"></div>
+    </template>);
+
+    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'true');
+
+    await click('.outside');
+
+    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
+    assert.verifySteps(['close']);
+  });
+
+  test('closing due to pressing escape', async function (assert) {
+    assert.expect(3);
+
+    await render(<template>
+      <SelectBox as |sb|>
+        <sb.Dropdown @onClose={{handleClose}} as |dd|>
+          <sb.Trigger />
+          <dd.Content>
+            <sb.Options>
+              <sb.Option />
+            </sb.Options>
+          </dd.Content>
+        </sb.Dropdown>
+      </SelectBox>
+    </template>);
+
+    await click('.select-box__trigger');
+    await triggerKeyEvent('.select-box__trigger', 'keydown', 'Escape');
+
+    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
+    assert.verifySteps(['close']);
+  });
+
+  test('programmatically closing', async function (assert) {
+    assert.expect(3);
+
+    const handleSelect = () => false;
+
+    await render(<template>
+      <SelectBox @onSelect={{handleSelect}} as |sb|>
+        <sb.Dropdown @onClose={{handleClose}} as |dd|>
+          <sb.Trigger />
+          <dd.Content>
+            <button type="button" {{on "click" dd.close}}></button>
+          </dd.Content>
+        </sb.Dropdown>
+      </SelectBox>
+    </template>);
+
+    await click('.select-box__trigger');
+
+    assert.verifySteps(
+      [],
+      `the return value of onSelect controls whether or not the
+       select box will close after making the selection`
+    );
+
+    await click('button');
+
+    assert.verifySteps(['close']);
+  });
+
+  test('clicking to programmatically close', async function (assert) {
+    assert.expect(3);
+
+    await render(<template>
+      <SelectBox as |sb|>
+        <sb.Dropdown as |dd|>
+          <sb.Trigger />
+          {{#if dd.isOpen}}
+            <dd.Content>
+              <sb.Options>
+                <sb.Option />
+              </sb.Options>
+              <button
+                type="button"
+                class="close"
+                {{on "click" dd.close}}
+              ></button>
+            </dd.Content>
+          {{/if}}
+        </sb.Dropdown>
+      </SelectBox>
+    </template>);
+
+    await click('.select-box__trigger');
+
+    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'true');
+
+    await click('.close');
+
+    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
+
+    assert.ok(true, 'does not cause infinite revalidation bug');
+  });
+
+  test('closing forgets previous active option', async function (assert) {
+    assert.expect(2);
+
+    await render(<template>
+      <SelectBox as |sb|>
+        <sb.Dropdown as |dd|>
+          <sb.Trigger />
+          <dd.Content>
+            <sb.Options>
+              <sb.Option @value={{1}} />
+              <sb.Option @value={{2}} />
+              <sb.Option @value={{3}} />
+            </sb.Options>
+          </dd.Content>
+        </sb.Dropdown>
+      </SelectBox>
+    </template>);
+
+    await click('.select-box__trigger');
+    await triggerEvent('.select-box__option:nth-child(2)', 'mouseenter');
+
+    assert
+      .dom('.select-box__option:nth-child(2)')
+      .hasAttribute('aria-current', 'true');
+
+    await click('.select-box__trigger');
+
+    assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
+  });
+});
