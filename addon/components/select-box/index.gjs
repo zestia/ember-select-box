@@ -67,11 +67,11 @@ export default class SelectBox extends Component {
   }
 
   get isComboBox() {
-    return this.hasOptions && (this.hasInput || this.hasTrigger);
+    return this.hasInput || this.hasTrigger;
   }
 
   get isListBox() {
-    return this.hasOptions && !(this.hasInput || this.hasTrigger);
+    return !this.isComboBox;
   }
 
   get canAutoOpen() {

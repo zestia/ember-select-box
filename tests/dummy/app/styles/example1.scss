@@ -7,6 +7,10 @@
     @include example.box-focused;
   }
 
+  .select-box__options {
+    @include example.options;
+  }
+
   .select-box__option {
     @include example.option;
   }

@@ -227,6 +227,35 @@ module('select-box (enter)', function (hooks) {
     assert.dom('.select-box__input').hasAttribute('aria-expanded', 'false');
   });
 
+  test('enter in a combobox (but without options)', async function (assert) {
+    assert.expect(2);
+
+    // Just because there are no options (no listbox), yet, pressing enter
+    // should still not submit the form
+
+    await render(<template>
+      <SelectBox @value="b" @onChange={{handleChange}} as |sb|>
+        <sb.Dropdown as |dd|>
+          <sb.Input {{on "keydown" handleKeyDown}} />
+          <sb.Trigger />
+          {{#if dd.isOpen}}
+            <sb.Content>
+              <sb.Options>
+                <sb.Option />
+              </sb.Options>
+            </sb.Content>
+          {{/if}}
+        </sb.Dropdown>
+      </SelectBox>
+    </template>);
+
+    await focus('.select-box__input');
+    await triggerKeyEvent('.select-box__input', 'keydown', 'Enter');
+
+    assert.verifySteps([]);
+    assert.true(event.defaultPrevented);
+  });
+
   test('enter in listbox', async function (assert) {
     assert.expect(4);
 
