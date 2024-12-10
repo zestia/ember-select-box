@@ -52,17 +52,17 @@ This addon intentionally...
 
 ```handlebars
 <SelectBox @value='Foo' @onChange={{this.handleChange}} as |sb|>
-  <sb.Dropdown as |dd|>
+  <sb.Dropdown>
     <sb.Trigger>
       {{sb.value}}
     </sb.Trigger>
-    <dd.Content>
+    <sb.Content>
       <sb.Options>
         <sb.Option @value='Foo'>
           Foo
         </sb.Option>
       </sb.Options>
-    </dd.Content>
+    </sb.Content>
   </sb.Dropdown>
 </SelectBox>
 ```

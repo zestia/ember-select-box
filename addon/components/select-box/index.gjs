@@ -111,7 +111,11 @@ export default class SelectBox extends Component {
   }
 
   get optionsTabIndex() {
-    return this.isListBox ? '0' : '-1';
+    return this.isListBox ? '0' : null;
+  }
+
+  get dropdownTabIndex() {
+    return this.dropdown ? '-1' : null;
   }
 
   get triggerTabIndex() {
@@ -584,6 +588,7 @@ export default class SelectBox extends Component {
       Option: this.Option,
       Options: this.Options,
       Trigger: this.Trigger,
+      Content: this.Content,
       // Properties
       element: this.element,
       isBusy: this.isBusy,
@@ -642,7 +647,6 @@ export default class SelectBox extends Component {
         )
         Dropdown=(component
           Dropdown
-          class="select-box__dropdown"
           onReady=this.registerDropdown
           onOpenClosure=this.handleOpenDropdown
           onCloseClosure=this.handleCloseDropdown
@@ -650,7 +654,6 @@ export default class SelectBox extends Component {
         )
         Trigger=(component
           this.dropdown.Trigger
-          class="select-box__trigger"
           role=this.triggerRole
           aria-busy=this.isBusy
           aria-disabled=this.isDisabled
@@ -661,6 +664,7 @@ export default class SelectBox extends Component {
           onDestroy=this.handleDestroyTrigger
           onKeyDown=this.handleKeyDownTrigger
         )
+        Content=(component this.dropdown.Content tabindex="-1")
       )
     ~}}
     <div

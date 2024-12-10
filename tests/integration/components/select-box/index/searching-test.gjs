@@ -27,13 +27,17 @@ module('select-box (searching)', function (hooks) {
     </template>);
 
     assert.dom('.select-box').hasAttribute('data-busy', 'false');
-    assert.dom('.select-box__trigger').hasAttribute('aria-busy', 'false');
+    assert
+      .dom('.select-box .dropdown__trigger')
+      .hasAttribute('aria-busy', 'false');
     assert.dom('.select-box__input').hasAttribute('aria-busy', 'false');
 
     await fillIn('.select-box__input', 'x');
 
     assert.dom('.select-box').hasAttribute('data-busy', 'true');
-    assert.dom('.select-box__trigger').hasAttribute('aria-busy', 'true');
+    assert
+      .dom('.select-box .dropdown__trigger')
+      .hasAttribute('aria-busy', 'true');
     assert.dom('.select-box__input').hasAttribute('aria-busy', 'true');
 
     deferred.resolve();
@@ -41,7 +45,9 @@ module('select-box (searching)', function (hooks) {
     await settled();
 
     assert.dom('.select-box').hasAttribute('data-busy', 'false');
-    assert.dom('.select-box__trigger').hasAttribute('aria-busy', 'false');
+    assert
+      .dom('.select-box .dropdown__trigger')
+      .hasAttribute('aria-busy', 'false');
     assert.dom('.select-box__input').hasAttribute('aria-busy', 'false');
   });
 
@@ -339,13 +345,13 @@ module('select-box (searching)', function (hooks) {
         <sb.Dropdown as |dd|>
           <sb.Input {{on "click" (fn handleClickInput sb)}} />
           {{#if dd.isOpen}}
-            <dd.Content>
+            <sb.Content>
               <sb.Options>
                 {{#each sb.options}}
                   <sb.Option />
                 {{/each}}
               </sb.Options>
-            </dd.Content>
+            </sb.Content>
           {{/if}}
         </sb.Dropdown>
       </SelectBox>
@@ -369,19 +375,19 @@ module('select-box (searching)', function (hooks) {
       <SelectBox @options={{array "foo" "bar" "baz"}} as |sb|>
         <sb.Input />
         <sb.Trigger {{on "click" (fn sb.search "bar")}} />
-        <sb.Dropdown as |dd|>
-          <dd.Content>
+        <sb.Dropdown>
+          <sb.Content>
             <sb.Options>
               {{#each sb.options as |value|}}
                 <sb.Option @value={{value}} />
               {{/each}}
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
 
     assert.dom('.select-box__input').hasValue('');
     assert.dom('.select-box__options').exists({ count: 1 });

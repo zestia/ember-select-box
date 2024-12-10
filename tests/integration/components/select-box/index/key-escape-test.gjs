@@ -18,34 +18,42 @@ module('select-box (escape)', function (hooks) {
 
     await render(<template>
       <SelectBox as |sb|>
-        <sb.Dropdown @onClose={{handleClose}} as |dd|>
+        <sb.Dropdown @onClose={{handleClose}}>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value="foo">foo</sb.Option>
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
 
     assert
       .dom('.select-box__option')
       .hasAttribute('aria-current', 'false')
       .hasAttribute('aria-selected', 'false');
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'true');
-    assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'true');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'true');
+    assert
+      .dom('.select-box .dropdown__trigger')
+      .hasAttribute('aria-expanded', 'true');
 
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'Escape');
+    await triggerKeyEvent(
+      '.select-box .dropdown__trigger',
+      'keydown',
+      'Escape'
+    );
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
-    assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'false');
-    assert.dom('.select-box__trigger').isFocused();
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
+    assert
+      .dom('.select-box .dropdown__trigger')
+      .hasAttribute('aria-expanded', 'false');
+    assert.dom('.select-box .dropdown__trigger').isFocused();
 
     assert
       .dom('.select-box__option')
@@ -62,11 +70,11 @@ module('select-box (escape)', function (hooks) {
       <SelectBox as |sb|>
         <sb.Dropdown @onClose={{handleClose}} as |dd|>
           <sb.Input {{on "click" dd.open}} />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value="foo">foo</sb.Option>
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
@@ -80,12 +88,12 @@ module('select-box (escape)', function (hooks) {
       .hasAttribute('aria-current', 'false')
       .hasAttribute('aria-selected', 'false');
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'true');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'true');
     assert.dom('.select-box__input').hasAttribute('aria-expanded', 'true');
 
     await triggerKeyEvent('.select-box__input', 'keydown', 'Escape');
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
     assert.dom('.select-box__input').hasAttribute('aria-expanded', 'false');
     assert.dom('.select-box__input').isFocused();
 
@@ -112,14 +120,14 @@ module('select-box (escape)', function (hooks) {
       </SelectBox>
     </template>);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'true');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'true');
 
     await focus('.inside');
-    await triggerKeyEvent('.select-box__dropdown', 'keydown', 'Escape');
+    await triggerKeyEvent('.select-box .dropdown', 'keydown', 'Escape');
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
 
     assert.verifySteps(['close']);
   });
@@ -142,7 +150,7 @@ module('select-box (escape)', function (hooks) {
       </div>
     </template>);
 
-    await triggerKeyEvent('.select-box__dropdown', 'keydown', 'Escape');
+    await triggerKeyEvent('.select-box .dropdown', 'keydown', 'Escape');
 
     assert.true(
       event instanceof Event,
@@ -168,8 +176,8 @@ module('select-box (escape)', function (hooks) {
       </div>
     </template>);
 
-    await click('.select-box__trigger');
-    await triggerKeyEvent('.select-box__dropdown', 'keydown', 'Escape');
+    await click('.select-box .dropdown__trigger');
+    await triggerKeyEvent('.select-box .dropdown', 'keydown', 'Escape');
 
     assert.notOk(
       event,

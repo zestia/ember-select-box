@@ -44,19 +44,19 @@ module('select-box (value)', function (hooks) {
 
     await render(<template>
       <SelectBox @value="foo" as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger>
             {{sb.value}}
           </sb.Trigger>
-          <dd.Content>
+          <sb.Content>
             <sb.Options />
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
     assert
-      .dom('.select-box__trigger')
+      .dom('.select-box .dropdown__trigger')
       .hasText(
         'foo',
         "not a valid option, but that's still the value of the select box"

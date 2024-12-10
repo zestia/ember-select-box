@@ -23,16 +23,16 @@ module('select-box (opening)', function (hooks) {
     await render(<template>
       <SelectBox as |sb|>
         <sb.Dropdown @onOpen={{handleOpen}} as |dd|>
-          <dd.Content>
+          <sb.Content>
             <button type="button" class="open" {{on "click" dd.open}}></button>
-          </dd.Content>
+          </sb.Content>
           <sb.Trigger />
           <sb.Input />
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
 
     // Intentionally twice
     await click('.open');
@@ -40,8 +40,10 @@ module('select-box (opening)', function (hooks) {
 
     assert.verifySteps(['open']);
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'true');
-    assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'true');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'true');
+    assert
+      .dom('.select-box .dropdown__trigger')
+      .hasAttribute('aria-expanded', 'true');
     assert.dom('.select-box__input').hasAttribute('aria-expanded', 'true');
   });
 
@@ -50,23 +52,25 @@ module('select-box (opening)', function (hooks) {
 
     await render(<template>
       <SelectBox as |sb|>
-        <sb.Dropdown @open={{true}} as |dd|>
+        <sb.Dropdown @open={{true}}>
           <sb.Trigger />
           <sb.Input />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value="A" />
               <sb.Option @value="B" />
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'true');
-    assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'true');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'true');
+    assert
+      .dom('.select-box .dropdown__trigger')
+      .hasAttribute('aria-expanded', 'true');
     assert.dom('.select-box__input').hasAttribute('aria-expanded', 'true');
-    assert.dom('.select-box__trigger').isNotFocused();
+    assert.dom('.select-box .dropdown__trigger').isNotFocused();
     assert.dom('.select-box__input').isNotFocused();
     assert
       .dom('.select-box__option:nth-child(1)')
@@ -78,20 +82,20 @@ module('select-box (opening)', function (hooks) {
 
     await render(<template>
       <SelectBox as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option />
               <sb.Option />
               <sb.Option />
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
 
     assert
       .dom('.select-box__option:nth-child(1)')
@@ -111,20 +115,20 @@ module('select-box (opening)', function (hooks) {
 
     await render(<template>
       <SelectBox @value={{2}} as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value={{1}} />
               <sb.Option @value={{2}} />
               <sb.Option @value={{3}} />
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
 
     assert
       .dom('.select-box__option:nth-child(2)')
@@ -136,21 +140,21 @@ module('select-box (opening)', function (hooks) {
 
     await render(<template>
       <SelectBox @multiple={{true}} @value={{array 4 3 2}} as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value={{1}} />
               <sb.Option @value={{2}} />
               <sb.Option @value={{3}} />
               <sb.Option @value={{4}} />
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
 
     assert
       .dom('.select-box__option[aria-current="true"]')
@@ -167,19 +171,19 @@ module('select-box (opening)', function (hooks) {
         <sb.Dropdown as |dd|>
           <sb.Trigger />
           {{#if dd.isOpen}}
-            <dd.Content>
+            <sb.Content>
               <sb.Options>
                 <sb.Option @value={{1}} />
                 <sb.Option @value={{2}} />
                 <sb.Option @value={{3}} />
               </sb.Options>
-            </dd.Content>
+            </sb.Content>
           {{/if}}
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
 
     assert
       .dom('.select-box__option:nth-child(2)')
@@ -197,9 +201,9 @@ module('select-box (opening)', function (hooks) {
       </SelectBox>
     </template>);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
 
-    assert.dom('.select-box__trigger').isFocused();
+    assert.dom('.select-box .dropdown__trigger').isFocused();
   });
 
   test('opening via the trigger advances focus to the input (mouse)', async function (assert) {
@@ -214,7 +218,7 @@ module('select-box (opening)', function (hooks) {
       </SelectBox>
     </template>);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
 
     assert.dom('.select-box__input').isFocused();
   });
@@ -231,8 +235,8 @@ module('select-box (opening)', function (hooks) {
       </SelectBox>
     </template>);
 
-    await focus('.select-box__trigger');
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'Enter');
+    await focus('.select-box .dropdown__trigger');
+    await triggerKeyEvent('.select-box .dropdown__trigger', 'keydown', 'Enter');
 
     assert.dom('.select-box__input').isFocused();
   });
@@ -249,7 +253,7 @@ module('select-box (opening)', function (hooks) {
       </SelectBox>
     </template>);
 
-    await triggerEvent('.select-box__trigger', 'mouseenter');
+    await triggerEvent('.select-box .dropdown__trigger', 'mouseenter');
 
     assert.dom('.select-box__input').isFocused();
   });
@@ -261,12 +265,12 @@ module('select-box (opening)', function (hooks) {
       <SelectBox as |sb|>
         <sb.Dropdown as |dd|>
           <sb.Input {{on "click" dd.open}} />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value="A" />
               <sb.Option @value="B" />
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
@@ -275,7 +279,7 @@ module('select-box (opening)', function (hooks) {
 
     await click('.select-box__input');
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'true');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'true');
     assert.dom('.select-box__input').hasAttribute('aria-expanded', 'true');
   });
 
@@ -293,19 +297,19 @@ module('select-box (opening)', function (hooks) {
         <sb.Dropdown as |dd|>
           <sb.Trigger />
           {{#if dd.isOpen}}
-            <dd.Content>
+            <sb.Content>
               <sb.Options>
                 <sb.Option @value={{1}}>One</sb.Option>
                 <sb.Option @value={{2}}>Two</sb.Option>
                 <sb.Option @value={{3}}>Three</sb.Option>
               </sb.Options>
-            </dd.Content>
+            </sb.Content>
           {{/if}}
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
 
     const expectedTop = find('.select-box__option:nth-child(3)').offsetTop;
 

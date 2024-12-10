@@ -47,21 +47,21 @@ module('select-box (jump to option)', function (hooks) {
 
     await render(<template>
       <SelectBox @onChange={{handleChange}} as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value="1">a</sb.Option>
               <sb.Option @value="2">b1</sb.Option>
               <sb.Option @value="3">b2</sb.Option>
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await click('.select-box__trigger');
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'B');
+    await click('.select-box .dropdown__trigger');
+    await triggerKeyEvent('.select-box .dropdown__trigger', 'keydown', 'B');
 
     assert
       .dom('.select-box__option:nth-child(2)')
@@ -75,21 +75,21 @@ module('select-box (jump to option)', function (hooks) {
 
     await render(<template>
       <SelectBox @onChange={{handleChange}} as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value="1">a</sb.Option>
               <sb.Option @value="2">a1</sb.Option>
               <sb.Option @value="3">B</sb.Option>
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await focus('.select-box__trigger');
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'A');
+    await focus('.select-box .dropdown__trigger');
+    await triggerKeyEvent('.select-box .dropdown__trigger', 'keydown', 'A');
 
     assert
       .dom('.select-box__option:nth-child(1)')
@@ -103,20 +103,20 @@ module('select-box (jump to option)', function (hooks) {
 
     await render(<template>
       <SelectBox @onChange={{handleChange}} @multiple={{true}} as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value="1">a</sb.Option>
               <sb.Option @value="2">b</sb.Option>
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await focus('.select-box__trigger');
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'B');
+    await focus('.select-box .dropdown__trigger');
+    await triggerKeyEvent('.select-box .dropdown__trigger', 'keydown', 'B');
 
     assert
       .dom('.select-box__option:nth-child(2)')
@@ -130,14 +130,14 @@ module('select-box (jump to option)', function (hooks) {
 
     await render(<template>
       <SelectBox @value={{null}} as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Input />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option>a</sb.Option>
               <sb.Option>b</sb.Option>
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
@@ -269,23 +269,23 @@ module('select-box (jump to option)', function (hooks) {
 
     await render(<template>
       <SelectBox as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option>a</sb.Option>
               <sb.Option>b</sb.Option>
               <sb.Option>c</sb.Option>
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await focus('.select-box__trigger');
-    await triggerKeyEvent('.select-box__trigger', 'keydown', ' ');
-    await triggerKeyEvent('.select-box__trigger', 'keydown', ' ');
-    await triggerKeyEvent('.select-box__trigger', 'keydown', ' ');
+    await focus('.select-box .dropdown__trigger');
+    await triggerKeyEvent('.select-box .dropdown__trigger', 'keydown', ' ');
+    await triggerKeyEvent('.select-box .dropdown__trigger', 'keydown', ' ');
+    await triggerKeyEvent('.select-box .dropdown__trigger', 'keydown', ' ');
 
     assert
       .dom('.select-box__option:nth-child(1)')
@@ -387,15 +387,15 @@ module('select-box (jump to option)', function (hooks) {
 
     await render(<template>
       <SelectBox @value="A2" as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value="A1">a1</sb.Option>
               <sb.Option @value="A2">a2</sb.Option>
               <sb.Option @value="A3">a3</sb.Option>
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
@@ -404,7 +404,7 @@ module('select-box (jump to option)', function (hooks) {
       .dom('.select-box__option:nth-child(2)')
       .hasAttribute('aria-current', 'true');
 
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'A');
+    await triggerKeyEvent('.select-box .dropdown__trigger', 'keydown', 'A');
 
     assert
       .dom('.select-box__option:nth-child(3)')
@@ -416,15 +416,15 @@ module('select-box (jump to option)', function (hooks) {
 
     await render(<template>
       <SelectBox @value="A2" as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value="A1">a1</sb.Option>
               <sb.Option @value="A2">a2</sb.Option>
               <sb.Option @value="A3">a3</sb.Option>
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
@@ -433,19 +433,19 @@ module('select-box (jump to option)', function (hooks) {
       .dom('.select-box__option:nth-child(2)')
       .hasAttribute('aria-current', 'true');
 
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'A');
+    await triggerKeyEvent('.select-box .dropdown__trigger', 'keydown', 'A');
 
     assert
       .dom('.select-box__option:nth-child(3)')
       .hasAttribute('aria-current', 'true');
 
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'A');
+    await triggerKeyEvent('.select-box .dropdown__trigger', 'keydown', 'A');
 
     assert
       .dom('.select-box__option:nth-child(1)')
       .hasAttribute('aria-current', 'true');
 
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'A');
+    await triggerKeyEvent('.select-box .dropdown__trigger', 'keydown', 'A');
 
     assert
       .dom('.select-box__option:nth-child(2)')

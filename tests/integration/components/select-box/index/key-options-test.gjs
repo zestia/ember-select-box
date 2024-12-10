@@ -51,15 +51,15 @@ module('select-box (keydown on options)', function (hooks) {
 
     await render(<template>
       <SelectBox @onActivate={{handleActivateOption}} as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value="a" />
               <sb.Option @value="b" @disabled={{true}} />
               <sb.Option @value="c" />
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);

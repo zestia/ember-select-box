@@ -241,20 +241,20 @@ module('select-box (mouseenter option)', function (hooks) {
 
     await render(<template>
       <SelectBox as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option>a</sb.Option>
               <sb.Option>b</sb.Option>
               <sb.Option>c</sb.Option>
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await focus('.select-box__trigger');
+    await focus('.select-box .dropdown__trigger');
     await triggerEvent('.select-box__option:nth-child(2)', 'mouseenter');
     await triggerEvent('.select-box', 'mouseleave');
 

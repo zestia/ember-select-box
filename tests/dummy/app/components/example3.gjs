@@ -8,11 +8,11 @@ import SelectBox from '@zestia/ember-select-box/components/select-box';
     ...attributes
     as |sb|
   >
-    <sb.Dropdown as |dd|>
+    <sb.Dropdown>
       <sb.Trigger>
         {{yield sb.value to="trigger"}}
       </sb.Trigger>
-      <dd.Content>
+      <sb.Content>
         <sb.Options>
           {{#each @options as |value|}}
             <sb.Option @value={{value}}>
@@ -20,7 +20,7 @@ import SelectBox from '@zestia/ember-select-box/components/select-box';
             </sb.Option>
           {{/each}}
         </sb.Options>
-      </dd.Content>
+      </sb.Content>
     </sb.Dropdown>
   </SelectBox>
 </template>

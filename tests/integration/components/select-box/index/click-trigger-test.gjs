@@ -28,18 +28,24 @@ module('select-box (clicking trigger)', function (hooks) {
       </SelectBox>
     </template>);
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
-    assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'false');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
+    assert
+      .dom('.select-box .dropdown__trigger')
+      .hasAttribute('aria-expanded', 'false');
 
-    await triggerEvent('.select-box__trigger', 'mousedown');
+    await triggerEvent('.select-box .dropdown__trigger', 'mousedown');
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'true');
-    assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'true');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'true');
+    assert
+      .dom('.select-box .dropdown__trigger')
+      .hasAttribute('aria-expanded', 'true');
 
-    await triggerEvent('.select-box__trigger', 'mousedown');
+    await triggerEvent('.select-box .dropdown__trigger', 'mousedown');
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
-    assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'false');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
+    assert
+      .dom('.select-box .dropdown__trigger')
+      .hasAttribute('aria-expanded', 'false');
 
     assert.true(
       event.defaultPrevented,
@@ -61,9 +67,11 @@ module('select-box (clicking trigger)', function (hooks) {
       </SelectBox>
     </template>);
 
-    await click('.select-box__trigger', { button: 2 });
+    await click('.select-box .dropdown__trigger', { button: 2 });
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
-    assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'false');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
+    assert
+      .dom('.select-box .dropdown__trigger')
+      .hasAttribute('aria-expanded', 'false');
   });
 });

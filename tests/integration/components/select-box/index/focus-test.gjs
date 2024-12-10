@@ -60,23 +60,25 @@ module('select-box (focus)', function (hooks) {
 
     await render(<template>
       <SelectBox as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option />
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    assert.dom('.select-box__trigger').isNotFocused('does not steal focus');
+    assert
+      .dom('.select-box .dropdown__trigger')
+      .isNotFocused('does not steal focus');
 
     await click('.select-box__option');
 
     assert
-      .dom('.select-box__trigger')
+      .dom('.select-box .dropdown__trigger')
       .isFocused('the trigger is the main interactive element');
   });
 
@@ -85,14 +87,14 @@ module('select-box (focus)', function (hooks) {
 
     await render(<template>
       <SelectBox as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Input />
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option />
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
@@ -159,23 +161,23 @@ module('select-box (focus)', function (hooks) {
 
     await render(<template>
       <SelectBox as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option />
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await focus('.select-box__trigger');
+    await focus('.select-box .dropdown__trigger');
     await triggerEvent('.select-box__option', 'mouseenter');
 
     assert.dom('.select-box__option').hasAttribute('aria-current', 'true');
 
-    await blur('.select-box__trigger');
+    await blur('.select-box .dropdown__trigger');
 
     assert.dom('.select-box__option').hasAttribute('aria-current', 'true');
   });
@@ -214,10 +216,12 @@ module('select-box (focus)', function (hooks) {
       </SelectBox>
     </template>);
 
-    await focus('.select-box__trigger');
+    await focus('.select-box .dropdown__trigger');
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
-    assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'false');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
+    assert
+      .dom('.select-box .dropdown__trigger')
+      .hasAttribute('aria-expanded', 'false');
     assert.dom('.select-box__input').hasAttribute('aria-expanded', 'false');
   });
 
@@ -229,25 +233,27 @@ module('select-box (focus)', function (hooks) {
         <sb.Dropdown as |dd|>
           <sb.Trigger />
           {{#if dd.isOpen}}
-            <dd.Content>
+            <sb.Content>
               <sb.Input />
               <sb.Options>
                 <sb.Option />
               </sb.Options>
-            </dd.Content>
+            </sb.Content>
           {{/if}}
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
 
     assert.dom('.select-box__input').isFocused('focus advances to input');
 
     await click('.select-box__option');
 
     assert.dom('.select-box__option').doesNotExist('precondition (closed)');
-    assert.dom('.select-box__trigger').isFocused('focus restored to trigger');
+    assert
+      .dom('.select-box .dropdown__trigger')
+      .isFocused('focus restored to trigger');
   });
 
   test('a focused input going away', async function (assert) {
@@ -258,12 +264,12 @@ module('select-box (focus)', function (hooks) {
         <sb.Dropdown as |dd|>
           <sb.Trigger />
           {{#if dd.isOpen}}
-            <dd.Content>
+            <sb.Content>
               <sb.Input />
               <sb.Options>
                 <sb.Option />
               </sb.Options>
-            </dd.Content>
+            </sb.Content>
           {{/if}}
         </sb.Dropdown>
       </SelectBox>
@@ -271,14 +277,14 @@ module('select-box (focus)', function (hooks) {
       <button type="button" class="outside"></button>
     </template>);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
 
     assert.dom('.select-box__input').isFocused('focus advances to input');
 
     await click('.outside');
 
     assert.dom('.select-box__option').doesNotExist('precondition (closed)');
-    assert.dom('.select-box__trigger').isNotFocused(`
+    assert.dom('.select-box .dropdown__trigger').isNotFocused(`
       if focus is leaving the select box, this will cause it to close,
       closing should never steal focus. focus should be allowed to leave.
     `);
@@ -292,19 +298,19 @@ module('select-box (focus)', function (hooks) {
         <sb.Dropdown as |dd|>
           <sb.Trigger />
           {{#if dd.isOpen}}
-            <dd.Content>
+            <sb.Content>
               <sb.Input />
               <sb.Options>
                 <sb.Option />
               </sb.Options>
-            </dd.Content>
+            </sb.Content>
           {{/if}}
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await focus('.select-box__trigger');
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'Enter');
+    await focus('.select-box .dropdown__trigger');
+    await triggerKeyEvent('.select-box .dropdown__trigger', 'keydown', 'Enter');
 
     assert.dom('.select-box__input').isFocused('focus advances to input');
 
@@ -312,7 +318,9 @@ module('select-box (focus)', function (hooks) {
     await triggerKeyEvent('.select-box__input', 'keydown', 'Enter');
 
     assert.dom('.select-box__input').doesNotExist('precondition (closed)');
-    assert.dom('.select-box__trigger').isFocused('focus restored to trigger');
+    assert
+      .dom('.select-box .dropdown__trigger')
+      .isFocused('focus restored to trigger');
   });
 
   test('focus leaving combobox (trigger)', async function (assert) {
@@ -327,21 +335,23 @@ module('select-box (focus)', function (hooks) {
       <button type="button" class="outside"></button>
     </template>);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
 
     assert
-      .dom('.select-box__dropdown')
+      .dom('.select-box .dropdown')
       .hasAttribute('data-open', 'true', 'precondition');
 
     focus('.outside');
 
-    await waitFor('.select-box__trigger');
+    await waitFor('.select-box .dropdown__trigger');
 
-    assert.dom('.select-box__trigger').isNotFocused('focus is not stolen');
+    assert
+      .dom('.select-box .dropdown__trigger')
+      .isNotFocused('focus is not stolen');
 
     await settled();
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
     assert.dom('.outside').isFocused();
   });
 
@@ -389,7 +399,7 @@ module('select-box (focus)', function (hooks) {
       </SelectBox>
     </template>);
 
-    assert.dom('.select-box__trigger').hasAttribute(
+    assert.dom('.select-box .dropdown__trigger').hasAttribute(
       'tabindex',
       '-1',
       `because the input is the focused element for this combobox,
@@ -403,27 +413,27 @@ module('select-box (focus)', function (hooks) {
 
     await render(<template>
       <SelectBox as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <span class="inside"></span>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
     await click('.inside');
 
     assert
-      .dom('.select-box__dropdown')
+      .dom('.select-box .dropdown')
       .hasAttribute(
         'data-open',
         'true',
         'remains open if mouse lands on a non interactive element inside the select box'
       );
 
-    assert.dom('.select-box__trigger').isFocused(`
+    assert.dom('.select-box .dropdown__trigger').isFocused(`
       focus must be maintained on the interactive element, regardless
       of where is clicked inside the select box, otherwise the
       select box will not be receptive to user actions, which is the
@@ -448,10 +458,10 @@ module('select-box (focus)', function (hooks) {
       </SelectBox>
     </template>);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
     await click('.inside');
 
-    assert.dom('.select-box__dropdown').hasAttribute(
+    assert.dom('.select-box .dropdown').hasAttribute(
       'data-open',
       'true',
       `focus is free to move about inside an open select box dropdown
@@ -460,7 +470,7 @@ module('select-box (focus)', function (hooks) {
        otherwise the select box will not be receptive to user input`
     );
 
-    assert.dom('.select-box__trigger').isFocused();
+    assert.dom('.select-box .dropdown__trigger').isFocused();
 
     assert.true(event.defaultPrevented);
   });
@@ -478,14 +488,14 @@ module('select-box (focus)', function (hooks) {
       <button type="button" class="outside"></button>
     </template>);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
     await click('.inside');
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'true');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'true');
 
     await focus('.outside');
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
   });
 
   test('focusable options', async function (assert) {
@@ -551,27 +561,27 @@ module('select-box (focus)', function (hooks) {
     await render(<template>
       {{! template-lint-disable no-forbidden-elements }}
       <style>
-        .select-box__trigger:focus-visible { outline: 2px solid red; }
+        .dropdown__trigger:focus-visible { outline: 2px solid red; }
       </style>
       <SelectBox @value="foo" as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger>
             {{sb.value}}
           </sb.Trigger>
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value="foo">foo</sb.Option>
               <sb.Option @value="bar">bar</sb.Option>
               <sb.Option @value="baz">baz</sb.Option>
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
 
-    assert.dom('.select-box__trigger').doesNotHaveStyle(
+    assert.dom('.select-box .dropdown__trigger').doesNotHaveStyle(
       { outline: 'rgb(255, 0, 0) solid 2px' },
       `the select box's focus management does not accidentally cause
        focus-visible styles to apply. (here, the trigger was clicked,
@@ -613,14 +623,20 @@ module('select-box (focus)', function (hooks) {
   });
 
   test('keyboard-focusable-scrollers fix', async function (assert) {
-    assert.expect(1);
+    assert.expect(2);
 
-    // we use tabindex="-1" on the listbox to prevent
+    // we use tabindex="-1" on the dropdown content to prevent
     // keyboard-focusable-scrollers from stealing focus, but
     // this has a down side of actually allowing the listbox
     // to be focusable on click, so we must prevent that.
+    //
     // https://issues.chromium.org/issues/376718258
     // https://bugzilla.mozilla.org/show_bug.cgi?id=1930662
+    //
+    // here, when the primary interactive element is focused,
+    // and the user presses tab, we always want focus to move
+    // to the next interactive element. skipping the overflowing
+    // dropdown content.
 
     let event;
 
@@ -629,18 +645,19 @@ module('select-box (focus)', function (hooks) {
     await render(<template>
       {{! template-lint-disable no-pointer-down-event-binding }}
       <SelectBox as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options {{on "mousedown" handleMouseDown}} />
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
     await click('.select-box__options');
 
+    assert.dom('.dropdown__content').hasAttribute('tabindex', '-1');
     assert.true(event.defaultPrevented);
   });
 });

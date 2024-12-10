@@ -27,13 +27,13 @@ module('select-box (api)', function (hooks) {
 
     await render(<template>
       <SelectBox @onReady={{handleReady}} as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               {{capture sb}}
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
@@ -159,7 +159,7 @@ module('select-box (api)', function (hooks) {
 
     assert.false(api.dropdown.isOpen);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
 
     assert.true(api.dropdown.isOpen);
   });
@@ -277,15 +277,15 @@ module('select-box (api)', function (hooks) {
 
     await render(<template>
       <SelectBox @onReady={{handleReady}} as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Input />
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value="1" />
               <sb.Option @value="2" />
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
@@ -299,7 +299,7 @@ module('select-box (api)', function (hooks) {
       .hasAttribute('aria-selected', 'true');
 
     assert.dom('.select-box__input').isNotFocused();
-    assert.dom('.select-box__trigger').isNotFocused();
+    assert.dom('.select-box .dropdown__trigger').isNotFocused();
     assert.dom('.select-box__options').isNotFocused();
   });
 
@@ -312,28 +312,28 @@ module('select-box (api)', function (hooks) {
 
     await render(<template>
       <SelectBox @onReady={{handleReady}} as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value="1" />
               <sb.Option @value="2" />
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
     await click('.dropdown__trigger');
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'true');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'true');
 
     api.select('2');
 
     await rerender();
 
     assert
-      .dom('.select-box__dropdown')
+      .dom('.select-box .dropdown')
       .hasAttribute(
         'data-open',
         'false',

@@ -18,11 +18,11 @@ export default class extends Component {
       ...attributes
       as |sb|
     >
-      <sb.Dropdown as |dd|>
+      <sb.Dropdown>
         <sb.Trigger>
           {{yield sb.value to="trigger"}}
         </sb.Trigger>
-        <dd.Content>
+        <sb.Content>
           <sb.Options>
             {{#each @options as |value|}}
               <sb.Option @value={{value}} as |option|>
@@ -38,7 +38,7 @@ export default class extends Component {
               </sb.Option>
             {{/each}}
           </sb.Options>
-        </dd.Content>
+        </sb.Content>
       </sb.Dropdown>
     </SelectBox>
   </template>

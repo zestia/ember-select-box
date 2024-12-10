@@ -141,17 +141,17 @@ module('select-box (single)', function (hooks) {
 
     await render(<template>
       <SelectBox @value={{state.value}} @onChange={{handleChange}} as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger>
             {{sb.value}}
           </sb.Trigger>
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value={{1}}>1</sb.Option>
               <sb.Option @value={{2}}>2</sb.Option>
               <sb.Option @value={{3}}>3</sb.Option>
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
@@ -160,7 +160,7 @@ module('select-box (single)', function (hooks) {
       .dom('.select-box__option:nth-child(1)')
       .hasAttribute('aria-selected', 'true');
 
-    assert.dom('.select-box__trigger').hasText('1');
+    assert.dom('.select-box .dropdown__trigger').hasText('1');
 
     await click('.select-box__option:nth-child(2)');
 
@@ -168,13 +168,13 @@ module('select-box (single)', function (hooks) {
       .dom('.select-box__option:nth-child(2)')
       .hasAttribute('aria-selected', 'true');
 
-    assert.dom('.select-box__trigger').hasText('2');
+    assert.dom('.select-box .dropdown__trigger').hasText('2');
 
     state.value = 3;
 
     await settled();
 
-    assert.dom('.select-box__trigger').hasText('3');
+    assert.dom('.select-box .dropdown__trigger').hasText('3');
 
     assert
       .dom('.select-box__option:nth-child(3)')
@@ -267,7 +267,7 @@ module('select-box (single)', function (hooks) {
 
     assert.strictEqual(state.value, 2);
 
-    assert.dom('.select-box__trigger').hasText('2, 3');
+    assert.dom('.select-box .dropdown__trigger').hasText('2, 3');
 
     assert
       .dom('.select-box__option[aria-selected="true"]')
@@ -315,7 +315,7 @@ module('select-box (single)', function (hooks) {
 
     assert.strictEqual(state.value, 3);
 
-    assert.dom('.select-box__trigger').hasText('3, 2');
+    assert.dom('.select-box .dropdown__trigger').hasText('3, 2');
 
     assert.dom('.select-box__option[aria-selected="true"]').hasText(
       'Two',

@@ -14,19 +14,19 @@ module('select-box (mouseenter option)', function (hooks) {
 
     await render(<template>
       <SelectBox as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value={{1}}>one</sb.Option>
               <sb.Option @value={{2}}>two</sb.Option>
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await triggerEvent('.select-box__trigger', 'mousedown');
+    await triggerEvent('.select-box .dropdown__trigger', 'mousedown');
     await triggerEvent('.select-box__option:nth-child(2)', 'mouseup');
 
     assert
@@ -45,30 +45,30 @@ module('select-box (mouseenter option)', function (hooks) {
 
     await render(<template>
       <SelectBox @onSelect={{handleSelect}} as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value={{1}}>one</sb.Option>
               <sb.Option @value={{2}}>two</sb.Option>
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
 
       <button class="outside" type="button"></button>
     </template>);
 
-    await focus('.select-box__trigger');
-    await triggerEvent('.select-box__trigger', 'mousedown');
+    await focus('.select-box .dropdown__trigger');
+    await triggerEvent('.select-box .dropdown__trigger', 'mousedown');
     await triggerEvent('.select-box__option:nth-child(2)', 'mouseenter');
 
     await triggerEvent('.select-box', 'mouseleave');
     await triggerEvent('.outside', 'mouseup');
 
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
-    assert.dom('.select-box__trigger').isFocused();
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
+    assert.dom('.select-box .dropdown__trigger').isFocused();
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
     assert.verifySteps([]);
   });
 });

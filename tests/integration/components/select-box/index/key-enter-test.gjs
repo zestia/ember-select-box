@@ -27,47 +27,51 @@ module('select-box (enter)', function (hooks) {
 
     await render(<template>
       <SelectBox @onChange={{handleChange}} as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger {{on "keydown" handleKeyDown}} />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value="a" />
               <sb.Option @value="b" />
               <sb.Option @value="c" />
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await focus('.select-box__trigger');
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'Enter');
+    await focus('.select-box .dropdown__trigger');
+    await triggerKeyEvent('.select-box .dropdown__trigger', 'keydown', 'Enter');
 
     assert.verifySteps([], 'change event is not fired');
     assert.true(event.defaultPrevented);
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'true');
-    assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'true');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'true');
+    assert
+      .dom('.select-box .dropdown__trigger')
+      .hasAttribute('aria-expanded', 'true');
 
     assert
       .dom('.select-box__option:nth-child(1)')
       .hasAttribute('aria-current', 'false')
       .hasAttribute('aria-selected', 'false');
 
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'Enter');
+    await triggerKeyEvent('.select-box .dropdown__trigger', 'keydown', 'Enter');
 
     assert.verifySteps([], 'change event is not fired');
     assert.true(event.defaultPrevented);
 
     assert
-      .dom('.select-box__dropdown')
+      .dom('.select-box .dropdown')
       .hasAttribute(
         'data-open',
         'true',
         'does not close (no option was active)'
       );
 
-    assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'true');
+    assert
+      .dom('.select-box .dropdown__trigger')
+      .hasAttribute('aria-expanded', 'true');
   });
 
   test('enter on trigger of combobox (multiple)', async function (assert) {
@@ -75,25 +79,25 @@ module('select-box (enter)', function (hooks) {
 
     await render(<template>
       <SelectBox @multiple={{true}} as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option />
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await focus('.select-box__trigger');
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'Enter');
+    await focus('.select-box .dropdown__trigger');
+    await triggerKeyEvent('.select-box .dropdown__trigger', 'keydown', 'Enter');
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'true');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'true');
 
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'Enter');
+    await triggerKeyEvent('.select-box .dropdown__trigger', 'keydown', 'Enter');
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'true');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'true');
   });
 
   test('enter in input of combobox', async function (assert) {
@@ -101,15 +105,15 @@ module('select-box (enter)', function (hooks) {
 
     await render(<template>
       <SelectBox @onChange={{handleChange}} as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Input {{on "keydown" handleKeyDown}} />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value="a" />
               <sb.Option @value="b" />
               <sb.Option @value="c" />
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
@@ -126,7 +130,7 @@ module('select-box (enter)', function (hooks) {
 
     assert.verifySteps([]);
     assert.true(event.defaultPrevented);
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
     assert.dom('.select-box__input').hasAttribute('aria-expanded', 'false');
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
     assert.dom('.select-box__option[aria-selected="true"]').doesNotExist();
@@ -135,7 +139,7 @@ module('select-box (enter)', function (hooks) {
 
     assert.verifySteps([]);
     assert.true(event.defaultPrevented);
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
     assert.dom('.select-box__input').hasAttribute('aria-expanded', 'false');
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
     assert.dom('.select-box__option[aria-selected="true"]').doesNotExist();
@@ -146,16 +150,16 @@ module('select-box (enter)', function (hooks) {
 
     await render(<template>
       <SelectBox @value="b" @onChange={{handleChange}} as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Input {{on "keydown" handleKeyDown}} />
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value="a" />
               <sb.Option @value="b" />
               <sb.Option @value="c" />
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
@@ -168,7 +172,7 @@ module('select-box (enter)', function (hooks) {
 
     assert.verifySteps([]);
     assert.true(event.defaultPrevented);
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'true');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'true');
     assert.dom('.select-box__input').hasAttribute('aria-expanded', 'true');
 
     assert
@@ -180,7 +184,7 @@ module('select-box (enter)', function (hooks) {
 
     assert.verifySteps([]);
     assert.true(event.defaultPrevented);
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
     assert.dom('.select-box__input').hasAttribute('aria-expanded', 'false');
 
     assert
@@ -194,15 +198,15 @@ module('select-box (enter)', function (hooks) {
 
     await render(<template>
       <SelectBox @onChange={{handleChange}} as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Input {{on "keydown" handleKeyDown}} />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value="a" />
               <sb.Option @value="b" />
               <sb.Option @value="c" />
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
@@ -219,7 +223,7 @@ module('select-box (enter)', function (hooks) {
        because instead, it will select the active option`
     );
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
     assert.dom('.select-box__input').hasAttribute('aria-expanded', 'false');
   });
 
@@ -297,18 +301,18 @@ module('select-box (enter)', function (hooks) {
 
     await render(<template>
       <SelectBox @onChange={{handleChange}} as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value="1" tabindex="0" />
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
     await focus('.select-box__option');
     await triggerKeyEvent('.select-box__option', 'keydown', 'Enter');
 

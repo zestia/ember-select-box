@@ -28,13 +28,13 @@ module('select-box (closing)', function (hooks) {
     await render(<template>
       <SelectBox as |sb|>
         <sb.Dropdown @onClose={{handleClose}} as |dd|>
-          <dd.Content>
+          <sb.Content>
             <button
               type="button"
               class="close"
               {{on "click" dd.close}}
             ></button>
-          </dd.Content>
+          </sb.Content>
           <sb.Trigger />
           <sb.Input />
         </sb.Dropdown>
@@ -43,8 +43,10 @@ module('select-box (closing)', function (hooks) {
 
     await click('.dropdown__trigger');
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'true');
-    assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'true');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'true');
+    assert
+      .dom('.select-box .dropdown__trigger')
+      .hasAttribute('aria-expanded', 'true');
     assert.dom('.select-box__input').hasAttribute('aria-expanded', 'true');
 
     // Intentionally twice
@@ -53,8 +55,10 @@ module('select-box (closing)', function (hooks) {
 
     assert.verifySteps(['close']);
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
-    assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'false');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
+    assert
+      .dom('.select-box .dropdown__trigger')
+      .hasAttribute('aria-expanded', 'false');
     assert.dom('.select-box__input').hasAttribute('aria-expanded', 'false');
   });
 
@@ -70,17 +74,21 @@ module('select-box (closing)', function (hooks) {
       </SelectBox>
     </template>);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'true');
-    assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'true');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'true');
+    assert
+      .dom('.select-box .dropdown__trigger')
+      .hasAttribute('aria-expanded', 'true');
     assert.dom('.select-box__input').hasAttribute('aria-expanded', 'true');
 
-    await focus('.select-box__trigger');
-    await blur('.select-box__trigger');
+    await focus('.select-box .dropdown__trigger');
+    await blur('.select-box .dropdown__trigger');
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
-    assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'false');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
+    assert
+      .dom('.select-box .dropdown__trigger')
+      .hasAttribute('aria-expanded', 'false');
     assert.dom('.select-box__input').hasAttribute('aria-expanded', 'false');
   });
 
@@ -96,14 +104,16 @@ module('select-box (closing)', function (hooks) {
       </SelectBox>
     </template>);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
 
     assert.dom('.select-box__input').isFocused();
 
     await blur('.select-box__input');
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
-    assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'false');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
+    assert
+      .dom('.select-box .dropdown__trigger')
+      .hasAttribute('aria-expanded', 'false');
     assert.dom('.select-box__input').hasAttribute('aria-expanded', 'false');
   });
 
@@ -118,13 +128,13 @@ module('select-box (closing)', function (hooks) {
 
     await render(<template>
       <SelectBox @onChange={{handleChange}} as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value="foo" />
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
 
@@ -138,7 +148,7 @@ module('select-box (closing)', function (hooks) {
       {{/if}}
     </template>);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
     await click('.select-box__option');
 
     assert.dom('.outside').hasValue('foo').isFocused();
@@ -154,23 +164,23 @@ module('select-box (closing)', function (hooks) {
 
     await render(<template>
       <SelectBox as |sb|>
-        <sb.Dropdown @onClose={{handleClose}} as |dd|>
+        <sb.Dropdown @onClose={{handleClose}}>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option />
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
 
       <div class="outside"></div>
     </template>);
 
-    await triggerEvent('.select-box__trigger', 'mousedown');
+    await triggerEvent('.select-box .dropdown__trigger', 'mousedown');
     await triggerEvent('.outside', 'mouseup');
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
     assert.verifySteps(['close']);
   });
 
@@ -187,11 +197,11 @@ module('select-box (closing)', function (hooks) {
       <div class="outside"></div>
     </template>);
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'true');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'true');
 
     await click('.outside');
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
     assert.verifySteps(['close']);
   });
 
@@ -200,21 +210,25 @@ module('select-box (closing)', function (hooks) {
 
     await render(<template>
       <SelectBox as |sb|>
-        <sb.Dropdown @onClose={{handleClose}} as |dd|>
+        <sb.Dropdown @onClose={{handleClose}}>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option />
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await click('.select-box__trigger');
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'Escape');
+    await click('.select-box .dropdown__trigger');
+    await triggerKeyEvent(
+      '.select-box .dropdown__trigger',
+      'keydown',
+      'Escape'
+    );
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
     assert.verifySteps(['close']);
   });
 
@@ -227,14 +241,14 @@ module('select-box (closing)', function (hooks) {
       <SelectBox @onSelect={{handleSelect}} as |sb|>
         <sb.Dropdown @onClose={{handleClose}} as |dd|>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <button type="button" {{on "click" dd.close}}></button>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
 
     assert.verifySteps(
       [],
@@ -255,7 +269,7 @@ module('select-box (closing)', function (hooks) {
         <sb.Dropdown as |dd|>
           <sb.Trigger />
           {{#if dd.isOpen}}
-            <dd.Content>
+            <sb.Content>
               <sb.Options>
                 <sb.Option />
               </sb.Options>
@@ -264,19 +278,19 @@ module('select-box (closing)', function (hooks) {
                 class="close"
                 {{on "click" dd.close}}
               ></button>
-            </dd.Content>
+            </sb.Content>
           {{/if}}
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'true');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'true');
 
     await click('.close');
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
 
     assert.ok(true, 'does not cause infinite revalidation bug');
   });
@@ -286,27 +300,27 @@ module('select-box (closing)', function (hooks) {
 
     await render(<template>
       <SelectBox as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value={{1}} />
               <sb.Option @value={{2}} />
               <sb.Option @value={{3}} />
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
     await triggerEvent('.select-box__option:nth-child(2)', 'mouseenter');
 
     assert
       .dom('.select-box__option:nth-child(2)')
       .hasAttribute('aria-current', 'true');
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
 
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
   });

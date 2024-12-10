@@ -26,34 +26,36 @@ module('select-box (space)', function (hooks) {
 
     await render(<template>
       <SelectBox @onChange={{handleChange}} as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger {{on "keydown" handleKeyDown}} />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value="A" />
               <sb.Option @value="B" />
               <sb.Option @value="C" />
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await focus('.select-box__trigger');
-    await triggerKeyEvent('.select-box__trigger', 'keydown', ' ');
+    await focus('.select-box .dropdown__trigger');
+    await triggerKeyEvent('.select-box .dropdown__trigger', 'keydown', ' ');
 
     assert.verifySteps([], 'change event is not fired');
     assert.true(event.defaultPrevented);
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'true');
-    assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'true');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'true');
+    assert
+      .dom('.select-box .dropdown__trigger')
+      .hasAttribute('aria-expanded', 'true');
 
     assert
       .dom('.select-box__option:nth-child(1)')
       .hasAttribute('aria-current', 'false')
       .hasAttribute('aria-selected', 'false');
 
-    await triggerKeyEvent('.select-box__trigger', 'keydown', ' ');
+    await triggerKeyEvent('.select-box .dropdown__trigger', 'keydown', ' ');
 
     assert.verifySteps([], 'change event is not fired');
     assert.true(event.defaultPrevented);
@@ -61,8 +63,10 @@ module('select-box (space)', function (hooks) {
     // Does not close (no option was active)
     // This is counter to a normal dropdown, which toggles.
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'true');
-    assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'true');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'true');
+    assert
+      .dom('.select-box .dropdown__trigger')
+      .hasAttribute('aria-expanded', 'true');
   });
 
   test('space in input of combobox', async function (assert) {
@@ -70,15 +74,15 @@ module('select-box (space)', function (hooks) {
 
     await render(<template>
       <SelectBox @onChange={{handleChange}} as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Input {{on "keydown" handleKeyDown}} />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value="A" />
               <sb.Option @value="B" />
               <sb.Option @value="C" />
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
@@ -90,7 +94,7 @@ module('select-box (space)', function (hooks) {
     assert.false(event.defaultPrevented, 'can type spaces still');
 
     assert
-      .dom('.select-box__dropdown')
+      .dom('.select-box .dropdown')
       .hasAttribute(
         'data-open',
         'false',
@@ -145,45 +149,45 @@ module('select-box (space)', function (hooks) {
     await render(<template>
       {{! template-lint-disable no-whitespace-for-layout }}
       <SelectBox @onChange={{handleChange}} as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger {{on "keydown" handleKeyDown}} />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value="A">a</sb.Option>
               <sb.Option @value="A1">a1</sb.Option>
               <sb.Option @value="A 2">a 2</sb.Option>
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
 
-    await focus('.select-box__trigger');
+    await focus('.select-box .dropdown__trigger');
 
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
 
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'A');
+    await triggerKeyEvent('.select-box .dropdown__trigger', 'keydown', 'A');
 
     assert.false(event.defaultPrevented);
 
     assert.verifySteps(['A'], 'change event fires');
 
-    await triggerKeyEvent('.select-box__trigger', 'keydown', ' ');
+    await triggerKeyEvent('.select-box .dropdown__trigger', 'keydown', ' ');
 
     assert.true(
       event.defaultPrevented,
       'will not scroll if space is pressed whilst typing to jump to an option'
     );
 
-    await triggerKeyEvent('.select-box__trigger', 'keydown', '2');
+    await triggerKeyEvent('.select-box .dropdown__trigger', 'keydown', '2');
 
     assert.false(event.defaultPrevented);
 
     assert.verifySteps(['A 2'], 'change event fires');
 
-    assert.dom('.select-box__dropdown').hasAttribute(
+    assert.dom('.select-box .dropdown').hasAttribute(
       'data-open',
       'false',
       `space usually toggles a select box open/closed. but in this case

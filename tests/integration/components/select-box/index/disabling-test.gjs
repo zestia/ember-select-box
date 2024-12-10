@@ -32,22 +32,24 @@ module('select-box (disabling)', function (hooks) {
 
     await render(<template>
       <SelectBox @disabled={{true}} as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option />
               <sb.Option />
               <sb.Option />
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
     assert.dom('.select-box').hasAttribute('data-disabled', 'true');
-    assert.dom('.select-box__trigger').hasAttribute('aria-disabled', 'true');
-    assert.dom('.select-box__trigger').hasAttribute('tabindex', '-1');
+    assert
+      .dom('.select-box .dropdown__trigger')
+      .hasAttribute('aria-disabled', 'true');
+    assert.dom('.select-box .dropdown__trigger').hasAttribute('tabindex', '-1');
     assert
       .dom('.select-box__option[aria-disabled="true"]')
       .exists({ count: 3 });
@@ -86,23 +88,23 @@ module('select-box (disabling)', function (hooks) {
         <sb.Dropdown as |dd|>
           <sb.Trigger />
           {{#if dd.isOpen}}
-            <dd.Content>
+            <sb.Content>
               <sb.Options>
                 <sb.Option @value="a" />
                 <sb.Option @value="b" @disabled={{true}} />
                 <sb.Option @value="c" />
               </sb.Options>
-            </dd.Content>
+            </sb.Content>
           {{/if}}
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
     await click('.select-box__option:nth-child(2)');
 
     assert
-      .dom('.select-box__dropdown')
+      .dom('.select-box .dropdown')
       .hasAttribute(
         'data-open',
         'true',

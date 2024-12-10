@@ -14,7 +14,7 @@
       {{if sb.value sb.value.name "None"}}
     </sb.Trigger>
     {{#if dd.isOpen}}
-      <dd.Content>
+      <sb.Content>
         <sb.Options>
           {{#each this.data as |value|}}
             <sb.Option @value={{value}}>
@@ -22,7 +22,7 @@
             </sb.Option>
           {{/each}}
         </sb.Options>
-      </dd.Content>
+      </sb.Content>
     {{/if}}
   </sb.Dropdown>
 </SelectBox>

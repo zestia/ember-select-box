@@ -30,16 +30,16 @@ module('select-box', function (hooks) {
       <SelectBox @value={{state.value}} @onChange={{handleChange}} as |sb|>
         <sb.Dropdown as |dd|>
           <sb.Trigger />
-          <dd.Content {{(if dd.isOpen (modifier position sb.element))}}>
+          <sb.Content {{(if dd.isOpen (modifier position sb.element))}}>
             <sb.Options>
               <sb.Option @value="foo" />
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await click('.select-box__trigger'); // Open
+    await click('.select-box .dropdown__trigger'); // Open
     await click('.select-box__option'); // Close
   });
 });

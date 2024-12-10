@@ -54,25 +54,25 @@ module('select-box (clicking option)', function (hooks) {
     await render(<template>
       {{! template-lint-disable no-pointer-down-event-binding }}
       <SelectBox as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger>
             {{sb.value}}
           </sb.Trigger>
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value="#" {{on "mousedown" handleMouseDown}}>
                 <a href="#">Link</a>
               </sb.Option>
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
 
     assert
-      .dom('.select-box__dropdown')
+      .dom('.select-box .dropdown')
       .hasAttribute('data-open', 'true', 'precondition');
 
     await click('a');
@@ -84,16 +84,18 @@ module('select-box (clicking option)', function (hooks) {
        you wish to have options that can be cmd clicked to open in a new tab`
     );
 
-    assert.dom('.select-box__dropdown').hasAttribute(
+    assert.dom('.select-box .dropdown').hasAttribute(
       'data-open',
       'false',
       `the select box closes because an option was selected. even though the target
        was a child of the option.`
     );
 
-    assert.dom('.select-box__trigger').hasText('#');
+    assert.dom('.select-box .dropdown__trigger').hasText('#');
 
-    assert.dom('.select-box__trigger').isFocused('does not lose focus');
+    assert
+      .dom('.select-box .dropdown__trigger')
+      .isFocused('does not lose focus');
   });
 
   test('clicking an option closes single select boxes', async function (assert) {
@@ -101,27 +103,27 @@ module('select-box (clicking option)', function (hooks) {
 
     await render(<template>
       <SelectBox as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option />
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
 
     assert
-      .dom('.select-box__dropdown')
+      .dom('.select-box .dropdown')
       .hasAttribute('data-open', 'true', 'precondition');
 
     await click('.select-box__option');
 
     assert
-      .dom('.select-box__dropdown')
+      .dom('.select-box .dropdown')
       .hasAttribute(
         'data-open',
         'false',
@@ -134,26 +136,26 @@ module('select-box (clicking option)', function (hooks) {
 
     await render(<template>
       <SelectBox @multiple={{true}} as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option />
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
 
     assert
-      .dom('.select-box__dropdown')
+      .dom('.select-box .dropdown')
       .hasAttribute('data-open', 'true', 'precondition');
 
     await click('.select-box__option');
 
-    assert.dom('.select-box__dropdown').hasAttribute(
+    assert.dom('.select-box .dropdown').hasAttribute(
       'data-open',
       'true',
       `assume that more options are to be selected. do not assume its ok to close
@@ -197,21 +199,21 @@ module('select-box (clicking option)', function (hooks) {
     await render(<template>
       {{#unless state.hideSelectBox}}
         <SelectBox @onChange={{handleChange}} as |sb|>
-          <sb.Dropdown as |dd|>
+          <sb.Dropdown>
             <sb.Trigger />
-            <dd.Content>
+            <sb.Content>
               <sb.Options>
                 {{#unless state.value}}
                   <sb.Option @value="foo" />
                 {{/unless}}
               </sb.Options>
-            </dd.Content>
+            </sb.Content>
           </sb.Dropdown>
         </SelectBox>
       {{/unless}}
     </template>);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
     await click('.select-box__option');
 
     assert.ok(true, 'does not cause infinite revalidation bug');

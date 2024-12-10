@@ -60,57 +60,77 @@ module('select-box (down arrow key)', function (hooks) {
 
     await render(<template>
       <SelectBox @value={{null}} as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option />
               <sb.Option />
               <sb.Option />
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
 
-    await focus('.select-box__trigger');
+    await focus('.select-box .dropdown__trigger');
 
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
 
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowDown');
+    await triggerKeyEvent(
+      '.select-box .dropdown__trigger',
+      'keydown',
+      'ArrowDown'
+    );
 
     assert
       .dom('.select-box__option[aria-current="true"]')
       .doesNotExist('the first down auto opens rather than navigating options');
 
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowDown');
+    await triggerKeyEvent(
+      '.select-box .dropdown__trigger',
+      'keydown',
+      'ArrowDown'
+    );
 
     assert
       .dom('.select-box__option:nth-child(1)')
       .hasAttribute('aria-current', 'true');
 
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowDown');
+    await triggerKeyEvent(
+      '.select-box .dropdown__trigger',
+      'keydown',
+      'ArrowDown'
+    );
 
     assert
       .dom('.select-box__option:nth-child(2)')
       .hasAttribute('aria-current', 'true');
 
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowDown');
+    await triggerKeyEvent(
+      '.select-box .dropdown__trigger',
+      'keydown',
+      'ArrowDown'
+    );
 
     assert
       .dom('.select-box__option:nth-child(3)')
       .hasAttribute('aria-current', 'true');
 
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowDown');
+    await triggerKeyEvent(
+      '.select-box .dropdown__trigger',
+      'keydown',
+      'ArrowDown'
+    );
 
     assert
       .dom('.select-box__option:nth-child(3)')
       .hasAttribute('aria-current', 'true');
 
     assert
-      .dom('.select-box__trigger')
+      .dom('.select-box .dropdown__trigger')
       .hasAttribute(
         'aria-activedescendant',
         find('.select-box__option:nth-child(3)').getAttribute('id')
@@ -202,19 +222,19 @@ module('select-box (down arrow key)', function (hooks) {
         <sb.Dropdown as |dd|>
           <sb.Trigger />
           {{#if dd.isOpen}}
-            <dd.Content>
+            <sb.Content>
               <sb.Options>
                 <sb.Option @value="A">a</sb.Option>
                 <sb.Option @value="B">b</sb.Option>
                 <sb.Option @value="C">c</sb.Option>
               </sb.Options>
-            </dd.Content>
+            </sb.Content>
           {{/if}}
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
 
     const startTop = find('.select-box__option:nth-child(2)').offsetTop;
     const expectedTop = find('.select-box__option:nth-child(3)').offsetTop;
@@ -223,7 +243,11 @@ module('select-box (down arrow key)', function (hooks) {
     assert.strictEqual(expectedTop, 32);
     assert.strictEqual(find('.dropdown__content').scrollTop, startTop);
 
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowDown');
+    await triggerKeyEvent(
+      '.select-box .dropdown__trigger',
+      'keydown',
+      'ArrowDown'
+    );
 
     assert.strictEqual(find('.dropdown__content').scrollTop, expectedTop);
   });
@@ -233,28 +257,32 @@ module('select-box (down arrow key)', function (hooks) {
 
     await render(<template>
       <SelectBox as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value="A" />
               <sb.Option @value="B" />
               <sb.Option @value="C" />
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await focus('.select-box__trigger');
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowDown');
+    await focus('.select-box .dropdown__trigger');
+    await triggerKeyEvent(
+      '.select-box .dropdown__trigger',
+      'keydown',
+      'ArrowDown'
+    );
 
     assert
-      .dom('.select-box__dropdown')
+      .dom('.select-box .dropdown')
       .hasAttribute('data-open', 'true', 'opens the select box dropdown');
 
     assert
-      .dom('.select-box__trigger')
+      .dom('.select-box .dropdown__trigger')
       .hasAttribute('aria-expanded', 'true', 'opens the combobox box');
 
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
@@ -265,21 +293,25 @@ module('select-box (down arrow key)', function (hooks) {
 
     await render(<template>
       <SelectBox @value="B" as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value="A" />
               <sb.Option @value="B" />
               <sb.Option @value="C" />
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await focus('.select-box__trigger');
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowDown');
+    await focus('.select-box .dropdown__trigger');
+    await triggerKeyEvent(
+      '.select-box .dropdown__trigger',
+      'keydown',
+      'ArrowDown'
+    );
 
     assert
       .dom('.select-box__option:nth-child(2)')
@@ -297,13 +329,13 @@ module('select-box (down arrow key)', function (hooks) {
 
     await render(<template>
       <SelectBox as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Input />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option />
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
@@ -311,7 +343,7 @@ module('select-box (down arrow key)', function (hooks) {
     await focus('.select-box__input');
     await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
     assert.dom('.select-box__input').hasAttribute('aria-expanded', 'false');
   });
 
@@ -387,21 +419,25 @@ module('select-box (down arrow key)', function (hooks) {
 
     await render(<template>
       <SelectBox as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               <sb.Option @value="A">a</sb.Option>
               <sb.Option @value="B">b</sb.Option>
               <sb.Option @value="C">c</sb.Option>
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    await focus('.select-box__trigger');
-    await triggerKeyEvent('.select-box__trigger', 'keydown', 'ArrowDown');
+    await focus('.select-box .dropdown__trigger');
+    await triggerKeyEvent(
+      '.select-box .dropdown__trigger',
+      'keydown',
+      'ArrowDown'
+    );
 
     assert.strictEqual(find('.select-box__options').scrollTop, 0);
   });

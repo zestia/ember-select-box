@@ -20,8 +20,10 @@ module('select-box (clicking input)', function (hooks) {
 
     await click('.select-box__input');
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
     assert.dom('.select-box__input').hasAttribute('aria-expanded', 'false');
-    assert.dom('.select-box__trigger').hasAttribute('aria-expanded', 'false');
+    assert
+      .dom('.select-box .dropdown__trigger')
+      .hasAttribute('aria-expanded', 'false');
   });
 });

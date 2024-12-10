@@ -20,16 +20,28 @@
   border-color: var(--dark-grey);
 }
 
-@mixin option {
+@mixin trigger {
   cursor: pointer;
-  padding: var(--space-l);
+  padding: var(--space-m);
+  outline: none;
+  user-select: none;
+  border: 2px solid transparent;
+}
+
+@mixin dropdown-content {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
 }
 
 @mixin options {
   outline: none;
-  display: flex;
-  flex-direction: column;
   overflow: auto;
+}
+
+@mixin option {
+  cursor: pointer;
+  padding: var(--space-l);
 }
 
 @mixin option-current {
@@ -48,14 +60,6 @@
   padding: var(--space-s);
   margin: var(--space-s);
   font-weight: bold;
-}
-
-@mixin trigger {
-  cursor: pointer;
-  padding: var(--space-m);
-  outline: none;
-  user-select: none;
-  border: 2px solid transparent;
 }
 
 @mixin trigger-focused {

@@ -70,9 +70,8 @@ module('select-box/options', function (hooks) {
       </SelectBox>
     </template>);
 
-    assert.dom('.select-box__options').hasAttribute(
+    assert.dom('.select-box__options').doesNotHaveAttribute(
       'tabindex',
-      '-1',
       `the main interactive element is the input (combobox)
        focus should not move to the listbox, which is
        aria controlled virtually by the input.`
@@ -84,18 +83,17 @@ module('select-box/options', function (hooks) {
 
     await render(<template>
       <SelectBox as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger />
-          <dd.Content>
+          <sb.Content>
             <sb.Options />
-          </dd.Content>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
     </template>);
 
-    assert.dom('.select-box__options').hasAttribute(
+    assert.dom('.select-box__options').doesNotHaveAttribute(
       'tabindex',
-      '-1',
       `the main interactive element is the trigger (combobox)
        focus should not move to the listbox (options element), which is
        aria controlled virtually by the trigger`

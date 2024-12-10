@@ -16,7 +16,7 @@ import { fn } from '@ember/helper';
       </sb.Trigger>
 
       {{#if dd.isOpen}}
-        <dd.Content>
+        <sb.Content>
           <sb.Input />
           <sb.Options>
             {{#each sb.options as |value|}}
@@ -29,7 +29,7 @@ import { fn } from '@ember/helper';
               </sb.Option>
             {{/each}}
           </sb.Options>
-        </dd.Content>
+        </sb.Content>
       {{/if}}
     </sb.Dropdown>
   </SelectBox>

@@ -19,12 +19,12 @@ module('select-box (in-element)', function (hooks) {
           </sb.Trigger>
           {{#if dd.isOpen}}
             {{#in-element (destination) insertBefore=null}}
-              <dd.Content>
+              <sb.Content>
                 <sb.Options>
                   <sb.Option @value="foo" />
                   <sb.Option @value="bar" />
                 </sb.Options>
-              </dd.Content>
+              </sb.Content>
             {{/in-element}}
           {{/if}}
         </sb.Dropdown>
@@ -35,16 +35,16 @@ module('select-box (in-element)', function (hooks) {
       <button class="outside" type="button"></button>
     </template>);
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'true');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'true');
     assert.dom('.select-box .select-box__options').doesNotExist();
     assert.dom('.destination .select-box__options').exists();
 
     await click('.select-box__option:nth-child(2)');
 
-    assert.dom('.select-box__dropdown').hasAttribute('data-open', 'false');
-    assert.dom('.select-box__trigger').hasText('bar');
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
+    assert.dom('.select-box .dropdown__trigger').hasText('bar');
 
     await click('.outside');
 

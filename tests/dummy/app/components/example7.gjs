@@ -38,7 +38,7 @@ export default class extends Component {
         </div>
 
         {{#if dd.isOpen}}
-          <dd.Content>
+          <sb.Content>
             <sb.Options>
               {{#if sb.isBusy}}
                 <sb.Option @disabled={{true}}>
@@ -56,7 +56,7 @@ export default class extends Component {
                 </sb.Option>
               {{/if}}
             </sb.Options>
-          </dd.Content>
+          </sb.Content>
         {{/if}}
       </sb.Dropdown>
     </SelectBox>
