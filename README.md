@@ -39,6 +39,7 @@ https://zestia.github.io/ember-select-box
 - Full control at all times with the API ✔︎
 - No configuration options ✔︎
 - Very few issues over many years of Ember! ✔︎
+- Dropdown primitive ✔︎
 - Customisable filtering built in ✔︎
 
 ## Notes
@@ -217,7 +218,31 @@ Whether or not the option is currently disabled
 
 Whether or not the option is currently selected
 
-## Dropdown
+## `Options`
+
+A listbox container element to house each option
+
+## `Group`
+
+### Arguments
+
+#### `@label`
+
+Required. The group label (similar to the native `optgroup`)
+
+## `Input`
+
+A combobox, which by default filters down the available `@options`. Customise this behaviour by providing `@onSearch`.
+
+## `Trigger`
+
+A combobox, which toggles the select box's dropdown open/closed.
+
+## `Content`
+
+An element to house the content that displays when the dropdown is opened
+
+## `Dropdown`
 
 ### Arguments
 
@@ -254,26 +279,6 @@ Closes the select box's dropdown
 #### `element`
 
 The element of the select box's dropdown
-
-## `Options`
-
-A listbox container element to house each option
-
-## `Group`
-
-### Arguments
-
-#### `@label`
-
-Required. The group label (similar to the native `optgroup`)
-
-## `Input`
-
-A combobox, which by default filters down the available `@options`. Customise this behaviour by providing `@onSearch`.
-
-## `Trigger`
-
-A combobox, which toggles the select box open/closed.
 
 # Filtering
 
