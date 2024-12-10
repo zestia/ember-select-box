@@ -623,7 +623,7 @@ module('select-box (focus)', function (hooks) {
   });
 
   test('keyboard-focusable-scrollers fix', async function (assert) {
-    assert.expect(2);
+    assert.expect(3);
 
     // we use tabindex="-1" on the dropdown content to prevent
     // keyboard-focusable-scrollers from stealing focus, but
@@ -635,8 +635,9 @@ module('select-box (focus)', function (hooks) {
     //
     // here, when the primary interactive element is focused,
     // and the user presses tab, we always want focus to move
-    // to the next interactive element. skipping the overflowing
-    // dropdown content.
+    // to the next interactive element. skipping the dropdown
+    // content (if it was overflowing), and also skipping over
+    // the listbox (if it was overflowing).
 
     let event;
 
@@ -658,6 +659,7 @@ module('select-box (focus)', function (hooks) {
     await click('.select-box__options');
 
     assert.dom('.dropdown__content').hasAttribute('tabindex', '-1');
+    assert.dom('.select-box__options').hasAttribute('tabindex', '-1');
     assert.true(event.defaultPrevented);
   });
 });

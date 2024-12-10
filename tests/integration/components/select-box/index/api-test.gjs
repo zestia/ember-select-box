@@ -17,7 +17,7 @@ module('select-box (api)', function (hooks) {
   setupRenderingTest(hooks);
 
   test('api', async function (assert) {
-    assert.expect(16);
+    assert.expect(17);
 
     let api;
     let api2;
@@ -47,6 +47,7 @@ module('select-box (api)', function (hooks) {
     assert.strictEqual(typeof api.Options, 'object');
     assert.strictEqual(typeof api.Dropdown, 'object');
     assert.strictEqual(typeof api.Trigger, 'object');
+    assert.strictEqual(typeof api.Content, 'object');
 
     // Properties
     assert.deepEqual(api.element, find('.select-box'));

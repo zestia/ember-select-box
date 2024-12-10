@@ -70,8 +70,9 @@ module('select-box/options', function (hooks) {
       </SelectBox>
     </template>);
 
-    assert.dom('.select-box__options').doesNotHaveAttribute(
+    assert.dom('.select-box__options').hasAttribute(
       'tabindex',
+      '-1',
       `the main interactive element is the input (combobox)
        focus should not move to the listbox, which is
        aria controlled virtually by the input.`
@@ -92,8 +93,9 @@ module('select-box/options', function (hooks) {
       </SelectBox>
     </template>);
 
-    assert.dom('.select-box__options').doesNotHaveAttribute(
+    assert.dom('.select-box__options').hasAttribute(
       'tabindex',
+      '-1',
       `the main interactive element is the trigger (combobox)
        focus should not move to the listbox (options element), which is
        aria controlled virtually by the trigger`
