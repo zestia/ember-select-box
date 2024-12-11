@@ -31,7 +31,6 @@
 @mixin dropdown-content {
   display: flex;
   flex-direction: column;
-  overflow: auto;
 }
 
 @mixin options {

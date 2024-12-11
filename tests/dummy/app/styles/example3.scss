@@ -27,6 +27,10 @@
     height: 240px;
   }
 
+  .select-box__options {
+    @include example.options;
+  }
+
   .select-box__option {
     @include example.option;
   }

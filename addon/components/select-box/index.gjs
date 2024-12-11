@@ -275,15 +275,6 @@ export default class SelectBox extends Component {
   }
 
   @action
-  handleFocusOut() {
-    if (this.dropdown) {
-      return;
-    }
-
-    this._forgetActiveOption();
-  }
-
-  @action
   handleKeyDownTrigger(event) {
     this._handleKeyDown(event);
     this._handleInputChar(event);
@@ -671,7 +662,6 @@ export default class SelectBox extends Component {
       data-disabled="{{this.isDisabled}}"
       {{on "mouseleave" this.handleMouseLeave}}
       {{on "mousedown" this.handleMouseDown}}
-      {{on "focusout" this.handleFocusOut}}
       {{lifecycle
         onInsert=this.handleInsertElement
         onDestroy=this.handleDestroyElement

@@ -591,14 +591,8 @@ module('select-box (focus)', function (hooks) {
     );
   });
 
-  test('focus out listbox forgets active option', async function (assert) {
+  test('focus out does not forget active option', async function (assert) {
     assert.expect(2);
-
-    // We only show the active option when the select box has focus,
-    // because it is receptive to user input and therefore can
-    // be selected. When not focused, there is no need for it.
-    // This is the equivalent of when a select box with a dropdown
-    // (a combobox) is closed.
 
     await render(<template>
       <SelectBox as |sb|>
@@ -620,7 +614,9 @@ module('select-box (focus)', function (hooks) {
 
     await blur('.select-box__options');
 
-    assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
+    assert
+      .dom('.select-box__option:nth-child(2)')
+      .hasAttribute('aria-current', 'true');
   });
 
   test('keyboard-focusable-scrollers fix', async function (assert) {
