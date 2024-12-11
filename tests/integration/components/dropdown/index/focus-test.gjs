@@ -172,4 +172,47 @@ module('dropdown (focus)', function (hooks) {
 
     assert.dom('.outside').isFocused();
   });
+
+  test('auto focusing an element inside the dropdown content', async function (assert) {
+    assert.expect(1);
+
+    await render(<template>
+      <Dropdown as |dd|>
+        <dd.Trigger />
+        {{#if dd.isOpen}}
+          <dd.Content>
+            <input aria-label="example" class="inside" {{autoFocus}} />
+          </dd.Content>
+        {{/if}}
+      </Dropdown>
+    </template>);
+
+    await click('.dropdown__trigger');
+
+    assert.dom('.inside').isFocused();
+  });
+
+  test('focus-visible', async function (assert) {
+    assert.expect(1);
+
+    await render(<template>
+      {{! template-lint-disable no-forbidden-elements }}
+      <style>
+        .dropdown__trigger:focus-visible { outline: 2px solid red; }
+      </style>
+      <Dropdown as |dd|>
+        <dd.Trigger />
+      </Dropdown>
+    </template>);
+
+    await click('.dropdown__trigger');
+
+    assert.dom('.dropdown__trigger').hasStyle(
+      { outline: 'rgb(255, 0, 0) solid 2px' },
+      `the dropdown's focus management does not accidentally cause
+       focus-visible styles to apply. (here, the trigger was clicked,
+       whereas the styles should only apply if the user had navigated
+       to the element using the keyboard`
+    );
+  });
 });

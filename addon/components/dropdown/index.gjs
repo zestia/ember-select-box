@@ -94,7 +94,11 @@ export default class Dropdown extends Component {
       return;
     }
 
+    event.preventDefault();
+
     this.toggle();
+
+    this._ensureFocus();
   }
 
   @action
@@ -207,6 +211,10 @@ export default class Dropdown extends Component {
   _handleClosed(reason) {
     this.args.onCloseClosure?.(reason);
     this.args.onClose?.(reason);
+  }
+
+  _ensureFocus() {
+    this.triggerElement.focus({ focusVisible: false });
   }
 
   @cached

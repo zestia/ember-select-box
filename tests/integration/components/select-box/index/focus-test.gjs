@@ -1,4 +1,4 @@
-import { module, test, todo } from 'qunit';
+import { module, test } from 'qunit';
 import { setupRenderingTest } from 'dummy/tests/helpers';
 import {
   render,
@@ -556,7 +556,7 @@ module('select-box (focus)', function (hooks) {
     );
   });
 
-  todo('focus-visible', async function (assert) {
+  test('focus-visible', async function (assert) {
     assert.expect(1);
 
     await render(<template>
@@ -582,7 +582,7 @@ module('select-box (focus)', function (hooks) {
 
     await click('.select-box .dropdown__trigger');
 
-    assert.dom('.select-box .dropdown__trigger').doesNotHaveStyle(
+    assert.dom('.select-box .dropdown__trigger').hasStyle(
       { outline: 'rgb(255, 0, 0) solid 2px' },
       `the select box's focus management does not accidentally cause
        focus-visible styles to apply. (here, the trigger was clicked,
