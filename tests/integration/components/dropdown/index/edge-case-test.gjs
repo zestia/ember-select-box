@@ -1,4 +1,4 @@
-import { module, skip } from 'qunit';
+import { module, test } from 'qunit';
 import { setupRenderingTest } from 'dummy/tests/helpers';
 import { render, focus, triggerKeyEvent } from '@ember/test-helpers';
 import Dropdown from '@zestia/ember-select-box/components/dropdown';
@@ -8,8 +8,10 @@ import { on } from '@ember/modifier';
 module('dropdown (edge cases)', function (hooks) {
   setupRenderingTest(hooks);
 
-  skip('destroying a dropdown with a focus inside (and no trigger)', async function (assert) {
+  test('destroying a dropdown with a focus inside (and no trigger)', async function (assert) {
     assert.expect(1);
+
+    // https://github.com/emberjs/ember.js/issues/18043
 
     const state = new (class {
       @tracked show = true;
@@ -21,15 +23,13 @@ module('dropdown (edge cases)', function (hooks) {
 
     await render(<template>
       {{#if state.show}}
-        <Dropdown as |dd|>
+        <Dropdown @open={{true}}>
           <input aria-label="example" />
-          <button type="button" {{on "keydown" dd.open}} class="open" />
           <button type="button" {{on "keydown" destroy}} class="close" />
         </Dropdown>
       {{/if}}
     </template>);
 
-    await triggerKeyEvent('.open', 'keydown', 'Enter');
     await focus('input');
     await triggerKeyEvent('.close', 'keydown', 'Enter');
 
