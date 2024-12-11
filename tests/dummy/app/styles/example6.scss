@@ -7,10 +7,14 @@
     @include example.box-focused;
   }
 
-  .select-box__trigger {
+  .dropdown__trigger {
     @include example.trigger;
 
     width: 200px;
+  }
+
+  .dropdown__content {
+    @include example.dropdown-content;
   }
 
   .select-box__input {
@@ -25,10 +29,6 @@
     @include example.option;
   }
 
-  .select-box__options {
-    @include example.options;
-  }
-
   .select-box__option[aria-current='true'] {
     @include example.option-current;
   }
@@ -36,9 +36,4 @@
   .select-box__option[aria-selected='true'] {
     @include example.option-selected;
   }
-}
-
-.example6__dropdown {
-  display: flex;
-  flex-direction: column;
 }

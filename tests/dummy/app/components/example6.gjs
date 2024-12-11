@@ -1,29 +1,22 @@
 import SelectBox from '@zestia/ember-select-box/components/select-box';
-import Component from '@glimmer/component';
-import { action } from '@ember/object';
+import { fn } from '@ember/helper';
 
-export default class extends Component {
-  @action
-  handleOpen(sb) {
-    sb.search('');
-  }
-
-  <template>
-    <SelectBox
-      class="example6"
-      @value={{@value}}
-      @onChange={{@onChange}}
-      @onOpen={{this.handleOpen}}
-      @onSearch={{@onSearch}}
-      ...attributes
-      as |sb|
-    >
+<template>
+  <SelectBox
+    class="example6"
+    @value={{@value}}
+    @onChange={{@onChange}}
+    @onSearch={{@onSearch}}
+    ...attributes
+    as |sb|
+  >
+    <sb.Dropdown @onOpen={{fn sb.search ""}} as |dd|>
       <sb.Trigger>
         {{yield sb.value to="trigger"}}
       </sb.Trigger>
 
-      {{#if sb.isOpen}}
-        <div class="example6__dropdown">
+      {{#if dd.isOpen}}
+        <sb.Content>
           <sb.Input />
           <sb.Options>
             {{#each sb.options as |value|}}
@@ -36,8 +29,8 @@ export default class extends Component {
               </sb.Option>
             {{/each}}
           </sb.Options>
-        </div>
+        </sb.Content>
       {{/if}}
-    </SelectBox>
-  </template>
-}
+    </sb.Dropdown>
+  </SelectBox>
+</template>
