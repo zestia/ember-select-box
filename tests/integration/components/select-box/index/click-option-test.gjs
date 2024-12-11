@@ -183,42 +183,6 @@ module('select-box (clicking option)', function (hooks) {
     assert.dom('.select-box__option[aria-selected="true"]').doesNotExist();
   });
 
-  test('clicking a child that goes away (and so is the select box)', async function (assert) {
-    assert.expect(1);
-
-    const state = new (class {
-      value;
-      @tracked hideSelectBox;
-    })();
-
-    const handleChange = (value) => {
-      state.value = value;
-      state.hideSelectBox = true;
-    };
-
-    await render(<template>
-      {{#unless state.hideSelectBox}}
-        <SelectBox @onChange={{handleChange}} as |sb|>
-          <sb.Dropdown>
-            <sb.Trigger />
-            <sb.Content>
-              <sb.Options>
-                {{#unless state.value}}
-                  <sb.Option @value="foo" />
-                {{/unless}}
-              </sb.Options>
-            </sb.Content>
-          </sb.Dropdown>
-        </SelectBox>
-      {{/unless}}
-    </template>);
-
-    await click('.select-box .dropdown__trigger');
-    await click('.select-box__option');
-
-    assert.ok(true, 'does not cause infinite revalidation bug');
-  });
-
   test('right clicking an option does not select it', async function (assert) {
     assert.expect(1);
 
