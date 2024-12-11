@@ -3,7 +3,7 @@ import { setupRenderingTest } from 'dummy/tests/helpers';
 import { find, render, rerender, click } from '@ember/test-helpers';
 import Dropdown from '@zestia/ember-select-box/components/dropdown';
 
-module('dropdownx (api)', function (hooks) {
+module('dropdown (api)', function (hooks) {
   setupRenderingTest(hooks);
 
   test('api', async function (assert) {

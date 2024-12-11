@@ -3,7 +3,7 @@ import { setupRenderingTest } from 'dummy/tests/helpers';
 import { click, render, find } from '@ember/test-helpers';
 import Dropdown from '@zestia/ember-select-box/components/dropdown';
 
-module('dropdownx (in-element)', function (hooks) {
+module('dropdown (in-element)', function (hooks) {
   setupRenderingTest(hooks);
 
   const destination = () => find('.destination');

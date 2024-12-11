@@ -3,7 +3,7 @@ import { setupRenderingTest } from 'dummy/tests/helpers';
 import { render, triggerKeyEvent } from '@ember/test-helpers';
 import Dropdown from '@zestia/ember-select-box/components/dropdown';
 
-module('dropdownx', function (hooks) {
+module('dropdown', function (hooks) {
   setupRenderingTest(hooks);
 
   test('space on trigger (space)', async function (assert) {

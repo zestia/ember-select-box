@@ -19,7 +19,7 @@ module('select-box (closing)', function (hooks) {
   let handleClose;
 
   hooks.beforeEach(function (assert) {
-    handleClose = () => assert.step('close');
+    handleClose = (reason) => assert.step(`close ${reason?.description}`);
   });
 
   test('closing with api', async function (assert) {
@@ -53,7 +53,7 @@ module('select-box (closing)', function (hooks) {
     await click('.close');
     await click('.close');
 
-    assert.verifySteps(['close']);
+    assert.verifySteps(['close undefined']);
 
     assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
     assert
@@ -181,7 +181,7 @@ module('select-box (closing)', function (hooks) {
     await triggerEvent('.outside', 'mouseup');
 
     assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
-    assert.verifySteps(['close']);
+    assert.verifySteps(['close CLICK_OUTSIDE']);
   });
 
   test('mousing up outside will close a manually opened dropdown', async function (assert) {
@@ -202,7 +202,7 @@ module('select-box (closing)', function (hooks) {
     await click('.outside');
 
     assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
-    assert.verifySteps(['close']);
+    assert.verifySteps(['close CLICK_OUTSIDE']);
   });
 
   test('closing due to pressing escape', async function (assert) {
@@ -229,7 +229,7 @@ module('select-box (closing)', function (hooks) {
     );
 
     assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
-    assert.verifySteps(['close']);
+    assert.verifySteps(['close ESCAPE']);
   });
 
   test('programmatically closing', async function (assert) {
@@ -258,7 +258,7 @@ module('select-box (closing)', function (hooks) {
 
     await click('button');
 
-    assert.verifySteps(['close']);
+    assert.verifySteps(['close undefined']);
   });
 
   test('clicking to programmatically close', async function (assert) {
@@ -323,5 +323,27 @@ module('select-box (closing)', function (hooks) {
     await click('.select-box .dropdown__trigger');
 
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
+  });
+
+  test('closing due to clicking an option', async function (assert) {
+    assert.expect(2);
+
+    await render(<template>
+      <SelectBox as |sb|>
+        <sb.Dropdown @onClose={{handleClose}}>
+          <sb.Trigger />
+          <sb.Content>
+            <sb.Options>
+              <sb.Option />
+            </sb.Options>
+          </sb.Content>
+        </sb.Dropdown>
+      </SelectBox>
+    </template>);
+
+    await click('.select-box .dropdown__trigger');
+    await click('.select-box__option');
+
+    assert.verifySteps(['close SELECTED']);
   });
 });

@@ -319,8 +319,8 @@ module('select-box (up arrow key)', function (hooks) {
     // We can assume a Trigger is for opening/closing.
     // But if there's a dropdown and no trigger, then its
     // probably a custom select box, and we make no assumptions
-    // The developer should probably just render both an input
-    // and a trigger.
+    // The developer might want to open after a search has finished
+    // for example.
 
     await render(<template>
       <SelectBox as |sb|>

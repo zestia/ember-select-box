@@ -1,94 +1,72 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'dummy/tests/helpers';
-import { render, focus, click, blur } from '@ember/test-helpers';
+import { render, focus, click } from '@ember/test-helpers';
 import Dropdown from '@zestia/ember-select-box/components/dropdown';
 import { on } from '@ember/modifier';
+import { tracked } from '@glimmer/tracking';
+import autoFocus from '@zestia/ember-auto-focus/modifiers/auto-focus';
 
-module('dropdownx (focus)', function (hooks) {
+module('dropdown (focus)', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('focus leaving the dropdown trigger', async function (assert) {
-    assert.expect(2);
+  let handleClose;
 
-    await render(<template>
-      <Dropdown as |dd|>
-        <dd.Trigger />
-      </Dropdown>
-    </template>);
-
-    await click('.dropdown__trigger');
-
-    assert.dom('.dropdown').hasAttribute('data-open', 'true');
-
-    await blur('.dropdown__trigger');
-
-    assert.dom('.dropdown').hasAttribute('data-open', 'false');
+  hooks.beforeEach(function (assert) {
+    handleClose = (reason) => assert.step(`close ${reason.description}`);
   });
 
-  test('focus leaving the dropdown trigger when manually opened', async function (assert) {
-    assert.expect(2);
+  test('clicking an interactive element inside the dropdown container', async function (assert) {
+    assert.expect(4);
 
     await render(<template>
-      <Dropdown @open={{true}} as |dd|>
-        <dd.Trigger />
-      </Dropdown>
-
-      <button type="button" class="outside" />
-    </template>);
-
-    await focus('.dropdown__trigger');
-
-    assert.dom('.dropdown').hasAttribute('data-open', 'true');
-
-    await focus('.outside');
-
-    assert.dom('.dropdown').hasAttribute('data-open', 'false');
-  });
-
-  test('focus leaving an interactive element inside the dropdown', async function (assert) {
-    assert.expect(2);
-
-    await render(<template>
-      <Dropdown as |dd|>
+      <Dropdown @onClose={{handleClose}} as |dd|>
         <dd.Trigger />
         <button type="button" class="inside" />
       </Dropdown>
-
-      <button type="button" class="outside" />
     </template>);
 
     await click('.dropdown__trigger');
-    await focus('.inside');
 
     assert.dom('.dropdown').hasAttribute('data-open', 'true');
 
-    await focus('.outside');
+    await click('.inside');
 
-    assert.dom('.dropdown').hasAttribute('data-open', 'false');
+    assert.dom('.dropdown').hasAttribute('data-open', 'true');
+    assert.dom('.inside').isFocused();
+    assert.verifySteps([]);
   });
 
-  test('focus leaving an interactive element inside the content', async function (assert) {
-    assert.expect(2);
+  test('clicking an interactive element inside the dropdown content', async function (assert) {
+    assert.expect(5);
+
+    let event;
+
+    const handleMouseDown = (_event) => (event = _event);
 
     await render(<template>
-      <Dropdown as |dd|>
+      {{! template-lint-disable no-pointer-down-event-binding }}
+      <Dropdown
+        @onClose={{handleClose}}
+        {{on "mousedown" handleMouseDown}}
+        as |dd|
+      >
         <dd.Trigger />
         <dd.Content>
           <button type="button" class="inside" />
         </dd.Content>
       </Dropdown>
-
-      <button type="button" class="outside" />
     </template>);
 
     await click('.dropdown__trigger');
-    await focus('.inside');
 
     assert.dom('.dropdown').hasAttribute('data-open', 'true');
 
-    await focus('.outside');
+    await click('.inside');
 
-    assert.dom('.dropdown').hasAttribute('data-open', 'false');
+    assert.dom('.dropdown').hasAttribute('data-open', 'true');
+    assert.dom('.dropdown__trigger').isNotFocused();
+    assert.false(event.defaultPrevented);
+    assert.verifySteps([]);
   });
 
   test('focus moving inside the dropdown', async function (assert) {
@@ -158,5 +136,40 @@ module('dropdownx (focus)', function (hooks) {
 
     assert.dom('.dropdown__content').doesNotHaveAttribute('tabindex');
     assert.false(event.defaultPrevented);
+  });
+
+  test('closing does not steal focus', async function (assert) {
+    assert.expect(1);
+
+    const state = new (class {
+      @tracked showInput;
+    })();
+
+    const handleClick = () => {
+      state.showInput = true;
+    };
+
+    await render(<template>
+      <Dropdown as |dd|>
+        <dd.Trigger />
+        <dd.Content>
+          <button
+            type="button"
+            class="inside"
+            {{on "click" handleClick}}
+            {{on "click" dd.close}}
+          />
+        </dd.Content>
+      </Dropdown>
+
+      {{#if state.showInput}}
+        <input class="outside" aria-label="Example" {{autoFocus}} />
+      {{/if}}
+    </template>);
+
+    await click('.dropdown__trigger');
+    await click('.inside');
+
+    assert.dom('.outside').isFocused();
   });
 });

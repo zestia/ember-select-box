@@ -257,7 +257,7 @@ module('select-box (focus)', function (hooks) {
   });
 
   test('a focused input going away', async function (assert) {
-    assert.expect(3);
+    assert.expect(4);
 
     await render(<template>
       <SelectBox as |sb|>
@@ -281,9 +281,10 @@ module('select-box (focus)', function (hooks) {
 
     assert.dom('.select-box__input').isFocused('focus advances to input');
 
-    await click('.outside');
+    await focus('.outside');
 
     assert.dom('.select-box__option').doesNotExist('precondition (closed)');
+    assert.dom('.outside').isFocused();
     assert.dom('.select-box .dropdown__trigger').isNotFocused(`
       if focus is leaving the select box, this will cause it to close,
       closing should never steal focus. focus should be allowed to leave.

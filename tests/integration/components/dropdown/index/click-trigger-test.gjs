@@ -3,7 +3,7 @@ import { setupRenderingTest } from 'dummy/tests/helpers';
 import { render, click } from '@ember/test-helpers';
 import Dropdown from '@zestia/ember-select-box/components/dropdown';
 
-module('dropdownx (clicking trigger)', function (hooks) {
+module('dropdown (clicking trigger)', function (hooks) {
   setupRenderingTest(hooks);
 
   test('clicking trigger', async function (assert) {

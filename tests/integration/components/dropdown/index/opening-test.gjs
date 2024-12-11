@@ -4,7 +4,7 @@ import { render, rerender } from '@ember/test-helpers';
 import { tracked } from '@glimmer/tracking';
 import Dropdown from '@zestia/ember-select-box/components/dropdown';
 
-module('dropdownx (opening)', function (hooks) {
+module('dropdown (opening)', function (hooks) {
   setupRenderingTest(hooks);
 
   test('open', async function (assert) {

@@ -23,6 +23,8 @@ import SelectBoxOption from '@zestia/ember-select-box/components/select-box/opti
 import SelectBoxOptions from '@zestia/ember-select-box/components/select-box/options';
 const { assign } = Object;
 
+const SELECTED = Symbol('SELECTED');
+
 export default class SelectBox extends Component {
   @tracked _activeOption;
   @tracked _options = tracked([]);
@@ -337,7 +339,7 @@ export default class SelectBox extends Component {
   handleCloseDropdown(reason) {
     this._forgetActiveOption();
 
-    if (reason?.description !== 'FOCUS_LEAVE') {
+    if (reason === SELECTED) {
       this._ensureFocus();
     }
   }
@@ -431,7 +433,7 @@ export default class SelectBox extends Component {
     const close = this.args.onSelect?.(this.api) ?? this.canAutoClose;
 
     if (close) {
-      this.dropdown.close();
+      this.dropdown.close(SELECTED);
     }
   }
 

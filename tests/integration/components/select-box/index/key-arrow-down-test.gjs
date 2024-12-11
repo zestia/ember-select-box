@@ -318,14 +318,14 @@ module('select-box (down arrow key)', function (hooks) {
       .hasAttribute('aria-current', 'true', 'the selected option is active');
   });
 
-  test('down on input will open combobox', async function (assert) {
+  test('down on input will not open combobox', async function (assert) {
     assert.expect(2);
 
     // We can assume a Trigger is for opening/closing.
     // But if there's a dropdown and no trigger, then its
     // probably a custom select box, and we make no assumptions
-    // The developer should probably just render both an input
-    // and a trigger.
+    // The developer might want to open after a search has finished
+    // for example.
 
     await render(<template>
       <SelectBox as |sb|>

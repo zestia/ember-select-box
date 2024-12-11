@@ -4,7 +4,7 @@ import { render, click, focus, triggerKeyEvent } from '@ember/test-helpers';
 import { on } from '@ember/modifier';
 import Dropdown from '@zestia/ember-select-box/components/dropdown';
 
-module('dropdownx (escape)', function (hooks) {
+module('dropdown (escape)', function (hooks) {
   setupRenderingTest(hooks);
 
   let handleClose;
