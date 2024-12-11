@@ -169,7 +169,8 @@ export default class Dropdown extends Component {
     }
   }
 
-  _handleFocusLeave() {
+  async _handleFocusLeave() {
+    await Promise.resolve();
     this.close(FOCUS_LEAVE);
   }
 
