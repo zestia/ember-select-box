@@ -40,6 +40,26 @@ module('dropdown (api)', function (hooks) {
     assert.strictEqual(typeof api.toggle, 'function');
   });
 
+  test('api writing', async function (assert) {
+    assert.expect(1);
+
+    let api;
+
+    const handleReady = (sb) => (api = sb);
+
+    await render(<template>
+      <Dropdown @onReady={{handleReady}} as |dd|>
+        <dd.Trigger>
+          {{dd.isOpen}}
+        </dd.Trigger>
+      </Dropdown>
+    </template>);
+
+    assert.throws(() => {
+      api.isOpen = true;
+    }, 'read only api');
+  });
+
   test('isOpen', async function (assert) {
     assert.expect(2);
 

@@ -81,6 +81,28 @@ module('select-box (api)', function (hooks) {
     );
   });
 
+  test('api writing', async function (assert) {
+    assert.expect(1);
+
+    let api;
+
+    const handleReady = (sb) => (api = sb);
+
+    await render(<template>
+      <SelectBox @onReady={{handleReady}} as |sb|>
+        <sb.Dropdown>
+          <sb.Trigger>
+            {{sb.value}}
+          </sb.Trigger>
+        </sb.Dropdown>
+      </SelectBox>
+    </template>);
+
+    assert.throws(() => {
+      api.value = 'foo';
+    }, 'read only api');
+  });
+
   test('provides access to the main element', async function (assert) {
     assert.expect(1);
 
