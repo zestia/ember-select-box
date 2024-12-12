@@ -1,12 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'dummy/tests/helpers';
-import {
-  render,
-  focus,
-  settled,
-  triggerEvent,
-  click
-} from '@ember/test-helpers';
+import { render, focus, triggerEvent, click } from '@ember/test-helpers';
 import SelectBox from '@zestia/ember-select-box/components/select-box';
 import { tracked } from '@glimmer/tracking';
 
