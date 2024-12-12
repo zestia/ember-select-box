@@ -78,7 +78,7 @@ module('select-box/group', function (hooks) {
   });
 
   test('aria', async function (assert) {
-    assert.expect(2);
+    assert.expect(3);
 
     await render(<template>
       <SelectBox as |sb|>
@@ -88,18 +88,12 @@ module('select-box/group', function (hooks) {
       </SelectBox>
     </template>);
 
-    assert.ok(
-      find('.select-box__group-label')
-        .getAttribute('id')
-        .match(/[\w\d]+/)
-    );
+    const label = find('.select-box__group-label').getAttribute('id');
+    const group = find('.select-box__group').getAttribute('aria-labelledby');
 
-    assert
-      .dom('.select-box__group')
-      .hasAttribute(
-        'aria-labelledby',
-        find('.select-box__group-label').getAttribute('id')
-      );
+    assert.ok(label.match(/[\w\d]+/));
+    assert.ok(group.match(/[\w\d]+/));
+    assert.true(label === group);
   });
 
   test('block', async function (assert) {
