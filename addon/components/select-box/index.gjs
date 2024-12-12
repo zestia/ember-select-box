@@ -144,15 +144,27 @@ export default class SelectBox extends Component {
   }
 
   get activeOptionIndex() {
-    return this.activeOption ? this.activeOption.index : -1;
+    return this.activeOption ? this.activeOption.index : null;
   }
 
   get previousOption() {
-    return this.options[this.activeOptionIndex - 1];
+    let index = this.activeOptionIndex;
+
+    if (index === null) {
+      index = this.options.length;
+    }
+
+    return this.options[index - 1];
   }
 
   get nextOption() {
-    return this.options[this.activeOptionIndex + 1];
+    let index = this.activeOptionIndex;
+
+    if (index === null) {
+      index = -1;
+    }
+
+    return this.options[index + 1];
   }
 
   get optionElements() {

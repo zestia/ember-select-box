@@ -33,18 +33,16 @@ module('select-box (up arrow key)', function (hooks) {
 
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
 
-    await triggerEvent('.select-box__option:nth-child(3)', 'mouseenter');
-
     await triggerKeyEvent('.select-box__options', 'keydown', 'ArrowUp');
 
     assert
-      .dom('.select-box__option:nth-child(2)')
+      .dom('.select-box__option:nth-child(3)')
       .hasAttribute('aria-current', 'true');
 
     await triggerKeyEvent('.select-box__options', 'keydown', 'ArrowUp');
 
     assert
-      .dom('.select-box__option:nth-child(1)')
+      .dom('.select-box__option:nth-child(2)')
       .hasAttribute('aria-current', 'true');
 
     await triggerKeyEvent('.select-box__options', 'keydown', 'ArrowUp');
