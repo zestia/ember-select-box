@@ -22,7 +22,7 @@ module('Acceptance | performance', function (hooks) {
 
     this.startTimer();
 
-    await click('.select-box__trigger');
+    await click('.select-box .dropdown__trigger');
 
     this.stopTimer();
 

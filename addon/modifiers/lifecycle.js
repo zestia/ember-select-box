@@ -4,17 +4,17 @@ import { registerDestructor } from '@ember/destroyable';
 export default class LifecycleModifier extends Modifier {
   didSetup;
 
-  constructor(appInstance, args) {
+  constructor(appInstance, { named: { onDestroy } }) {
     super(...arguments);
-    registerDestructor(this, args.named.onDestroy);
+    onDestroy && registerDestructor(this, onDestroy);
   }
 
-  modify(element, positional, named) {
+  modify(element, positional, { onInsert }) {
     if (this.didSetup) {
       return;
     }
 
-    named.onInsert(element);
+    onInsert?.(element);
     this.didSetup = true;
   }
 }
