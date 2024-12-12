@@ -9,6 +9,9 @@ module('select-box/trigger', function (hooks) {
   test('it renders', async function (assert) {
     assert.expect(11);
 
+    // The select box yields its own preconfigured
+    // version of a dropdown trigger
+
     await render(<template>
       <SelectBox as |sb|>
         <sb.Dropdown>

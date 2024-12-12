@@ -9,6 +9,9 @@ module('select-box/content', function (hooks) {
   test('it renders', async function (assert) {
     assert.expect(4);
 
+    // The select box yields its own preconfigured
+    // version of dropdown content.
+
     await render(<template>
       <SelectBox as |sb|>
         <sb.Dropdown>
@@ -23,7 +26,7 @@ module('select-box/content', function (hooks) {
       .dom('.dropdown__content')
       .hasTagName('div')
       .hasText('Foo', 'block')
-      .hasAttribute('tabindex', '-1')
+      .hasAttribute('tabindex', '-1', 'skips')
       .hasClass('foo', 'splattributes');
   });
 
@@ -36,6 +39,6 @@ module('select-box/content', function (hooks) {
       </SelectBox>
     </template>);
 
-    assert.strictEqual(find('.select-box').innerHTML.trim(), '<!---->');
+    assert.dom('.dropdown__content').doesNotExist();
   });
 });
