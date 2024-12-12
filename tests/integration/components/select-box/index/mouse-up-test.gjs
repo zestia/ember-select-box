@@ -1,7 +1,14 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'dummy/tests/helpers';
-import { render, focus, triggerEvent } from '@ember/test-helpers';
+import {
+  render,
+  focus,
+  settled,
+  triggerEvent,
+  click
+} from '@ember/test-helpers';
 import SelectBox from '@zestia/ember-select-box/components/select-box';
+import { tracked } from '@glimmer/tracking';
 
 module('select-box (mouseenter option)', function (hooks) {
   setupRenderingTest(hooks);
@@ -70,5 +77,59 @@ module('select-box (mouseenter option)', function (hooks) {
     assert.dom('.select-box .dropdown__trigger').isFocused();
     assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
     assert.verifySteps([]);
+  });
+
+  test('mousing down to make a selection to reveal an open select box', async function (assert) {
+    assert.expect(6);
+
+    // Here, we allow making a selection on one select box, which
+    // reveals another select box already opened.
+    // It ensures we only acknowledge mouse up on the document,
+    // if the dropdown specifically had a document mouse down.
+
+    const state = new (class {
+      @tracked show = false;
+    })();
+
+    const handleChange = () => (state.show = true);
+
+    await render(<template>
+      <SelectBox class="one" @onChange={{handleChange}} as |sb|>
+        <sb.Dropdown>
+          <sb.Trigger />
+          <sb.Content>
+            <sb.Options>
+              <sb.Option @value="show two" />
+            </sb.Options>
+          </sb.Content>
+        </sb.Dropdown>
+      </SelectBox>
+
+      {{#if state.show}}
+        <SelectBox class="two" as |sb|>
+          <sb.Dropdown @open={{true}}>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      {{/if}}
+    </template>);
+
+    assert.dom('.one').exists();
+    assert.dom('.two').doesNotExist();
+
+    await click('.one .dropdown__trigger');
+    await click('.one .select-box__option');
+    await triggerEvent(document, 'mouseup');
+
+    assert.dom('.one').exists();
+    assert.dom('.two').exists();
+
+    assert.dom('.one .dropdown').hasAttribute('data-open', 'false');
+    assert.dom('.two .dropdown').hasAttribute('data-open', 'true');
   });
 });

@@ -108,6 +108,10 @@ export default class Dropdown extends Component {
 
   @action
   handleMouseUp(event) {
+    if (!this.lastMouseDownElement) {
+      return;
+    }
+
     this.lastMouseDownElement = null;
 
     if (this._isInside(event.target)) {

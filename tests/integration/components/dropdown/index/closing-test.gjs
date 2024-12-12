@@ -115,55 +115,41 @@ module('dropdown (closing)', function (hooks) {
     assert.verifySteps(['close CLICK_OUTSIDE']);
   });
 
-  test('closing with exposed api', async function (assert) {
-    assert.expect(5);
-
-    let api;
-
-    const handleReady = (dd) => (api = dd);
+  test('clicking outside a manually opened dropdown', async function (assert) {
+    assert.expect(4);
 
     await render(<template>
-      <Dropdown @onReady={{handleReady}} @onClose={{handleClose}} as |dd|>
-        <dd.Trigger />
+      <Dropdown @open={{true}} @onClose={{handleClose}} as |dd|>
+        <dd.Content />
       </Dropdown>
+      <div class="outside"></div>
     </template>);
-
-    await click('.dropdown__trigger');
 
     assert.dom('.dropdown').hasAttribute('data-open', 'true');
 
-    api.close();
-
-    await rerender();
+    await click('.outside');
 
     assert.dom('.dropdown').hasAttribute('data-open', 'false');
-    assert.dom('.dropdown__trigger').isFocused();
-    assert.verifySteps(['close undefined']);
+    assert.verifySteps(['close CLICK_OUTSIDE']);
   });
 
-  test('closing with yielded api', async function (assert) {
-    assert.expect(5);
+  test('mousing up without first having moused down', async function (assert) {
+    assert.expect(3);
+
+    // This can happen when rendering a dropdown with an initial open state
+    // that was the result of a click to reveal it.
 
     await render(<template>
-      <Dropdown @onClose={{handleClose}} as |dd|>
-        <dd.Trigger />
-        <dd.Content>
-          <button type="button" class="close" {{on "click" dd.close}} />
-        </dd.Content>
-      </Dropdown>
+      <Dropdown class="one" @open={{true}} @onClose={{handleClose}} />
+      <div class="outside"></div>
     </template>);
-
-    await click('.dropdown__trigger');
 
     assert.dom('.dropdown').hasAttribute('data-open', 'true');
 
-    // Intentionally twice
-    await click('.close');
-    await click('.close');
+    await triggerEvent('.outside', 'mouseup');
 
-    assert.dom('.dropdown').hasAttribute('data-open', 'false');
-    assert.dom('.dropdown__trigger').isNotFocused();
-    assert.verifySteps(['close undefined']);
+    assert.dom('.dropdown').hasAttribute('data-open', 'true');
+    assert.verifySteps([]);
   });
 
   test('mousing down on the trigger but mousing up outside', async function (assert) {
@@ -276,5 +262,56 @@ module('dropdown (closing)', function (hooks) {
 
     assert.dom('.dropdown').hasAttribute('data-open', 'false');
     assert.verifySteps(['close FOCUS_LEAVE']);
+  });
+
+  test('closing with exposed api', async function (assert) {
+    assert.expect(5);
+
+    let api;
+
+    const handleReady = (dd) => (api = dd);
+
+    await render(<template>
+      <Dropdown @onReady={{handleReady}} @onClose={{handleClose}} as |dd|>
+        <dd.Trigger />
+      </Dropdown>
+    </template>);
+
+    await click('.dropdown__trigger');
+
+    assert.dom('.dropdown').hasAttribute('data-open', 'true');
+
+    api.close();
+
+    await rerender();
+
+    assert.dom('.dropdown').hasAttribute('data-open', 'false');
+    assert.dom('.dropdown__trigger').isFocused();
+    assert.verifySteps(['close undefined']);
+  });
+
+  test('closing with yielded api', async function (assert) {
+    assert.expect(5);
+
+    await render(<template>
+      <Dropdown @onClose={{handleClose}} as |dd|>
+        <dd.Trigger />
+        <dd.Content>
+          <button type="button" class="close" {{on "click" dd.close}} />
+        </dd.Content>
+      </Dropdown>
+    </template>);
+
+    await click('.dropdown__trigger');
+
+    assert.dom('.dropdown').hasAttribute('data-open', 'true');
+
+    // Intentionally twice
+    await click('.close');
+    await click('.close');
+
+    assert.dom('.dropdown').hasAttribute('data-open', 'false');
+    assert.dom('.dropdown__trigger').isNotFocused();
+    assert.verifySteps(['close undefined']);
   });
 });
