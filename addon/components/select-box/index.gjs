@@ -648,6 +648,7 @@ export default class SelectBox extends Component {
           aria-disabled=this.isDisabled
           aria-activedescendant=this.triggerActiveDescendant
           aria-controls=this.optionsElement.id
+          aria-haspopup=null
           tabindex=this.triggerTabIndex
           onInsertClosure=this.handleInsertTrigger
           onDestroy=this.handleDestroyTrigger

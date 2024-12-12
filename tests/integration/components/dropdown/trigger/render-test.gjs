@@ -39,7 +39,7 @@ module('dropdown/trigger', function (hooks) {
       </Dropdown>
     </template>);
 
-    assert.dom('.dropdown__trigger').doesNotHaveAttribute('role');
+    assert.dom('.dropdown__trigger').hasAttribute('role', 'button');
   });
 
   test('role (closure component)', async function (assert) {

@@ -248,6 +248,9 @@ export default class Dropdown extends Component {
         Trigger=(component
           DropdownTrigger
           aria-expanded=this.isOpen
+          aria-haspopup="true"
+          role="button"
+          tabindex="0"
           onMouseDown=this.handleMouseDownTrigger
           onKeyDown=this.handleKeyDownTrigger
           onInsert=this.handleInsertTrigger
