@@ -401,7 +401,7 @@ module('select-box (focus)', function (hooks) {
     assert.dom('.select-box .dropdown__trigger').hasAttribute(
       'tabindex',
       '-1',
-      `because the input is the focused element for this combobox,
+      `because the input is the interactive element for this combobox,
        pressing tab should skip over the trigger and move to the next
        interactive element`
     );
