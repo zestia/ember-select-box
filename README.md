@@ -240,7 +240,7 @@ A combobox, which toggles the select box's dropdown open/closed.
 
 ## `Content`
 
-An element to house the content that displays when the dropdown is opened
+An element to house the content that displays when the select box's dropdown is opened
 
 ## `Dropdown`
 
