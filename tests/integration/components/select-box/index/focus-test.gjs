@@ -126,11 +126,9 @@ module('select-box (focus)', function (hooks) {
     await focus('.select-box__input');
     await click('.select-box__option');
 
-    assert.dom('.select-box__input').isFocused(`
-      clicking an option does not steal focus from the input,
-      otherwise the select box would close (due to focus out
-      of the main interactive element)
-    `);
+    assert
+      .dom('.select-box__input')
+      .isFocused('clicking an option does not steal focus');
 
     assert.true(event.defaultPrevented);
   });
