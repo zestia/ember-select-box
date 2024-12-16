@@ -78,6 +78,21 @@ module('select-box (disabling)', function (hooks) {
       );
   });
 
+  test('disabling with a non boolean value', async function (assert) {
+    assert.expect(2);
+
+    await render(<template>
+      <SelectBox @disabled="foo" as |sb|>
+        <sb.Options>
+          <sb.Option />
+        </sb.Options>
+      </SelectBox>
+    </template>);
+
+    assert.dom('.select-box').hasAttribute('data-disabled', 'true');
+    assert.dom('.select-box__option').hasAttribute('aria-disabled', 'true');
+  });
+
   test('clicking a disabled option', async function (assert) {
     assert.expect(2);
 

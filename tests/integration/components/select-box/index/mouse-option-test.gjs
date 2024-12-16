@@ -86,7 +86,7 @@ module('select-box (mouseenter option)', function (hooks) {
 
     assert
       .dom('.select-box__option')
-      .doesNotHaveAttribute('aria-disabled')
+      .hasAttribute('aria-disabled', 'false')
       .hasAttribute('aria-current', 'true');
 
     state.disableOne = true;

@@ -106,6 +106,20 @@ module('select-box/option', function (hooks) {
     assert.dom('.select-box__option').hasAttribute('tabindex', '3');
   });
 
+  test('disabled (no arg)', async function (assert) {
+    assert.expect(1);
+
+    await render(<template>
+      <SelectBox as |sb|>
+        <sb.Options>
+          <sb.Option />
+        </sb.Options>
+      </SelectBox>
+    </template>);
+
+    assert.dom('.select-box__option').doesNotHaveAttribute('aria-disabled');
+  });
+
   test('disabled', async function (assert) {
     assert.expect(2);
 
@@ -121,11 +135,25 @@ module('select-box/option', function (hooks) {
       </SelectBox>
     </template>);
 
-    assert.dom('.select-box__option').doesNotHaveAttribute('aria-disabled');
+    assert.dom('.select-box__option').hasAttribute('aria-disabled', 'false');
 
     state.disableOne = true;
 
     await rerender();
+
+    assert.dom('.select-box__option').hasAttribute('aria-disabled', 'true');
+  });
+
+  test('disabled (non boolean)', async function (assert) {
+    assert.expect(1);
+
+    await render(<template>
+      <SelectBox as |sb|>
+        <sb.Options>
+          <sb.Option @disabled="foo" />
+        </sb.Options>
+      </SelectBox>
+    </template>);
 
     assert.dom('.select-box__option').hasAttribute('aria-disabled', 'true');
   });

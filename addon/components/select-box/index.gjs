@@ -57,11 +57,11 @@ export default class SelectBox extends Component {
   }
 
   get isDisabled() {
-    return this.args.disabled;
+    return 'disabled' in this.args ? !!this.args.disabled : null;
   }
 
   get isMultiple() {
-    return this.args.multiple;
+    return 'multiple' in this.args ? !!this.args.multiple : null;
   }
 
   get isSingle() {

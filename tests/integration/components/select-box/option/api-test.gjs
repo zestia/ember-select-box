@@ -27,7 +27,7 @@ module('select-box/option (api)', function (hooks) {
     assert.strictEqual(api.index, 0);
     assert.true(api.isActive);
     assert.true(api.isSelected);
-    assert.strictEqual(api.isDisabled, undefined);
+    assert.strictEqual(api.isDisabled, null);
     assert.strictEqual(api.value, undefined);
     assert.ok(api.id.match(/[\w\d+]/));
   });

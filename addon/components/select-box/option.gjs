@@ -16,7 +16,9 @@ export default class SelectBoxOption extends Component {
   }
 
   get isDisabled() {
-    return this.args.disabled ?? this.args.selectBox.args.disabled;
+    return 'disabled' in this.args
+      ? !!this.args.disabled
+      : this.args.selectBox.isDisabled;
   }
 
   @cached

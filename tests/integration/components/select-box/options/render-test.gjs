@@ -157,4 +157,18 @@ module('select-box/options', function (hooks) {
       .dom('.select-box__options')
       .hasAttribute('aria-multiselectable', 'true');
   });
+
+  test('multiple (non boolean)', async function (assert) {
+    assert.expect(1);
+
+    await render(<template>
+      <SelectBox @multiple="foo" as |sb|>
+        <sb.Options />
+      </SelectBox>
+    </template>);
+
+    assert
+      .dom('.select-box__options')
+      .hasAttribute('aria-multiselectable', 'true');
+  });
 });
