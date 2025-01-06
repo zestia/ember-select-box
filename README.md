@@ -44,10 +44,10 @@ https://zestia.github.io/ember-select-box
 
 ## Notes
 
-This addon intentionally...
-
 - Does not come with any styles
 - Does not concern itself with dropdown positioning
+  (this can be achieved using a positioning libraries or in future using CSS anchor positioning)
+- The Dropdown component will be swapped for a Popover when browsers have better support for it.
 
 ## Example
 
