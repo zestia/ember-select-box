@@ -46,7 +46,7 @@ https://zestia.github.io/ember-select-box
 
 - Does not come with any styles
 - Does not concern itself with dropdown positioning<br>
-  (this can be achieved using positioning libraries, or in future using CSS anchor positioning)
+  (this can be achieved using positioning libraries, or in future, using CSS anchor positioning)
 - The Dropdown component will be swapped for a Popover when browsers have better support for it.
 
 ## Example
