@@ -1,5 +1,9 @@
 # Changelog
 
+## 17.0.1
+
+- Add focus visible styles when focusing inputs
+
 ## 17.0.0
 
 - Add dropdown primitive

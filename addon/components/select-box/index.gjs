@@ -525,7 +525,9 @@ export default class SelectBox extends Component {
   }
 
   _ensureFocus() {
-    this.interactiveElement?.focus({ focusVisible: false });
+    this.interactiveElement?.focus({
+      focusVisible: this.interactiveElement === this.inputElement
+    });
   }
 
   _getOptionsByTextContent(options, query) {

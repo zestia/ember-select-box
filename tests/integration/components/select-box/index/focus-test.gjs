@@ -557,7 +557,7 @@ module('select-box (focus)', function (hooks) {
   todo('focus-visible', async function (assert) {
     assert.expect(2);
 
-    // Experimental focusVisible option does not seem to be working
+    // focusVisible option does not seem to be working (yet)
     // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus#options
     //
     // the select box's focus management does not accidentally cause
@@ -592,6 +592,45 @@ module('select-box (focus)', function (hooks) {
       .dom('.select-box .dropdown__trigger')
       .doesNotHaveStyle({ outline: 'rgb(255, 0, 0) solid 2px' })
       .hasStyle({ outline: 'rgb(0, 0, 0) none 0px' });
+  });
+
+  test('focus-visible (input)', async function (assert) {
+    assert.expect(3);
+
+    // When focusing the interactive element we send focusVisible: false
+    // because we don't want to unnecessarily apply focus-visible styles
+    // (these should only show when interacting with the keyboard)
+    // But when we are _moving_ focus to an input we do want to apply
+    // focus-visible styles, because compared to buttons, this is how
+    // inputs behave natively.
+
+    await render(<template>
+      {{! template-lint-disable no-forbidden-elements }}
+      <style>
+        .select-box__input:focus-visible { outline: 2px solid red; }
+      </style>
+      <SelectBox as |sb|>
+        <sb.Dropdown as |dd|>
+          <sb.Trigger />
+          {{#if dd.isOpen}}
+            <sb.Content>
+              <sb.Input />
+              <sb.Options>
+                <sb.Option />
+              </sb.Options>
+            </sb.Content>
+          {{/if}}
+        </sb.Dropdown>
+      </SelectBox>
+    </template>);
+
+    await click('.select-box .dropdown__trigger');
+
+    assert
+      .dom('.select-box__input')
+      .isFocused('focus advances to input')
+      .hasStyle({ outline: 'rgb(255, 0, 0) solid 2px' })
+      .doesNotHaveStyle({ outline: 'rgb(0, 0, 0) none 0px' });
   });
 
   test('focus out does not forget active option', async function (assert) {
