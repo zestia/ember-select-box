@@ -18,16 +18,8 @@ module('select-box (edge cases)', function (hooks) {
   skip('it does not blow up', async function (assert) {
     assert.expect(0);
 
-    const state = new (class {
-      @tracked value;
-    })();
-
-    const handleChange = (value) => {
-      state.value = value;
-    };
-
     await render(<template>
-      <SelectBox @value={{state.value}} @onChange={{handleChange}} as |sb|>
+      <SelectBox as |sb|>
         <sb.Dropdown as |dd|>
           <sb.Trigger />
           <sb.Content {{(if dd.isOpen (modifier position sb.element))}}>
