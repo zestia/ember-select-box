@@ -1,4 +1,4 @@
-import { module, skip } from 'qunit';
+import { module, test } from 'qunit';
 import { visit, click } from '@ember/test-helpers';
 import { setupApplicationTest } from 'dummy/tests/helpers';
 
@@ -13,7 +13,7 @@ module('Acceptance | performance', function (hooks) {
     this.timeTaken = () => this.stopTime - this.startTime;
   });
 
-  skip('rendering options', async function (assert) {
+  test('rendering options', async function (assert) {
     assert.expect(7);
 
     await visit('/performance');
