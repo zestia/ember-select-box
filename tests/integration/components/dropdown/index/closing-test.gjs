@@ -86,7 +86,8 @@ module('dropdown (closing)', function (hooks) {
   test('clicking a non interactive element inside the dropdown content', async function (assert) {
     assert.expect(7);
 
-    // Selecting text won't cause the dropdown to close.
+    // Selecting text won't cause the dropdown to close
+    // but does allow focus to be moved away from the trigger
 
     await render(<template>
       <Dropdown @onClose={{handleClose}} as |dd|>
