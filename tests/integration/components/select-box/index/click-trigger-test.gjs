@@ -74,4 +74,26 @@ module('select-box (clicking trigger)', function (hooks) {
       .dom('.select-box .dropdown__trigger')
       .hasAttribute('aria-expanded', 'false');
   });
+
+  test('mouse down on trigger', async function (assert) {
+    assert.expect(2);
+
+    let event;
+
+    const handleMouseDown = (_event) => (event = _event);
+
+    await render(<template>
+      {{! template-lint-disable no-pointer-down-event-binding }}
+      <SelectBox as |sb|>
+        <sb.Dropdown>
+          <sb.Trigger {{on "mousedown" handleMouseDown}} />
+        </sb.Dropdown>
+      </SelectBox>
+    </template>);
+
+    await click('.dropdown__trigger');
+
+    assert.dom('.dropdown__trigger').isFocused();
+    assert.true(event.defaultPrevented);
+  });
 });

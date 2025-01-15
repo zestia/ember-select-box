@@ -1,5 +1,9 @@
 # Changelog
 
+## 17.0.1
+
+- Fix selecting text in `sb.Input`
+
 ## 17.0.0
 
 - Add dropdown primitive

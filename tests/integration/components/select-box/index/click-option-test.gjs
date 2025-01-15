@@ -199,4 +199,36 @@ module('select-box (clicking option)', function (hooks) {
 
     assert.verifySteps([]);
   });
+
+  test('mouse down on options', async function (assert) {
+    assert.expect(2);
+
+    let event;
+
+    const handleMouseDown = (_event) => (event = _event);
+
+    await render(<template>
+      {{! template-lint-disable no-pointer-down-event-binding }}
+      <SelectBox as |sb|>
+        <sb.Input />
+        <sb.Options {{on "mousedown" handleMouseDown}}>
+          <sb.Option />
+        </sb.Options>
+      </SelectBox>
+    </template>);
+
+    await click('.select-box__option');
+
+    assert.true(
+      event.defaultPrevented,
+      `mouse down is prevented when clicking an option,
+       so that we can move focus programmatically to
+       the next relevant primary interactive element
+       (options are not interactive elements, and so,
+       clicking them makes focus be lost from the current
+       interactive element - we don't want that)`
+    );
+
+    assert.dom('.select-box__input').isFocused();
+  });
 });

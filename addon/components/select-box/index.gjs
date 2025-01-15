@@ -282,6 +282,10 @@ export default class SelectBox extends Component {
 
   @action
   handleMouseDown(event) {
+    if (event.target === this.interactiveElement) {
+      return;
+    }
+
     event.preventDefault();
     this._ensureFocus();
   }
