@@ -550,7 +550,8 @@ module('select-box (focus)', function (hooks) {
       'aria-current',
       'true',
       `focusing moving into an option activates that option
-       (not technically valid to have nested interactive elements)`
+       (not technically valid to have nested interactive elements,
+        which would be the case when used in a listbox)`
     );
   });
 
