@@ -242,6 +242,10 @@ A combobox, which toggles the select box's dropdown open/closed.
 
 An element to house the content that displays when the select box's dropdown is opened
 
+#### `@destination`
+
+Optional. Wormhole/Portal element
+
 ## `Dropdown`
 
 ### Arguments

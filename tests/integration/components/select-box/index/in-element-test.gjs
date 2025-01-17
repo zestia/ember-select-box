@@ -17,16 +17,12 @@ module('select-box (in-element)', function (hooks) {
           <sb.Trigger>
             {{sb.value}}
           </sb.Trigger>
-          {{#if dd.isOpen}}
-            {{#in-element (destination) insertBefore=null}}
-              <sb.Content>
-                <sb.Options>
-                  <sb.Option @value="foo" />
-                  <sb.Option @value="bar" />
-                </sb.Options>
-              </sb.Content>
-            {{/in-element}}
-          {{/if}}
+          <sb.Content @destination={{(destination)}}>
+            <sb.Options>
+              <sb.Option @value="foo" />
+              <sb.Option @value="bar" />
+            </sb.Options>
+          </sb.Content>
         </sb.Dropdown>
       </SelectBox>
 

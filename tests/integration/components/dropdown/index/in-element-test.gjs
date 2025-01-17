@@ -17,12 +17,10 @@ module('dropdown (in-element)', function (hooks) {
           Trigger
         </dd.Trigger>
         {{#if dd.isOpen}}
-          {{#in-element (destination) insertBefore=null}}
-            <dd.Content>
-              Hello World
-              <button type="button" class="test" />
-            </dd.Content>
-          {{/in-element}}
+          <dd.Content @destination={{(destination)}}>
+            Hello World
+            <button type="button" class="test" />
+          </dd.Content>
         {{/if}}
       </Dropdown>
 
