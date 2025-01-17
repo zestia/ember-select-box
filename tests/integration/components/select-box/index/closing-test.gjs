@@ -325,7 +325,7 @@ module('select-box (closing)', function (hooks) {
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
   });
 
-  test('closing due to clicking an option', async function (assert) {
+  test('closing due to clicking an option (trigger)', async function (assert) {
     assert.expect(2);
 
     await render(<template>
@@ -345,5 +345,30 @@ module('select-box (closing)', function (hooks) {
     await click('.select-box__option');
 
     assert.verifySteps(['close SELECTED']);
+  });
+
+  test('closing due to clicking an option (input)', async function (assert) {
+    assert.expect(1);
+
+    await render(<template>
+      <SelectBox as |sb|>
+        <sb.Dropdown @open={{true}} @onClose={{handleClose}}>
+          <sb.Input />
+          <sb.Content>
+            <sb.Options>
+              <sb.Option />
+            </sb.Options>
+          </sb.Content>
+        </sb.Dropdown>
+      </SelectBox>
+    </template>);
+
+    await click('.select-box__option');
+
+    assert.verifySteps(
+      [],
+      `does not make the assumption to close after making
+       a selection without the presence of a trigger`
+    );
   });
 });
