@@ -13,7 +13,7 @@ module('select-box (in-element)', function (hooks) {
 
     await render(<template>
       <SelectBox as |sb|>
-        <sb.Dropdown as |dd|>
+        <sb.Dropdown>
           <sb.Trigger>
             {{sb.value}}
           </sb.Trigger>

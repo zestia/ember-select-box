@@ -1,5 +1,9 @@
 # Changelog
 
+## 17.1.0
+
+- Add `@destination` argument to dropdown content
+
 ## 17.0.1
 
 - Fix selecting text in `sb.Input`
