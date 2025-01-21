@@ -10,7 +10,7 @@ module('select-box (in-element)', function (hooks) {
   const destination = () => find('.destination');
 
   test('a common scenario of rendering a dropdown in an external element works', async function (assert) {
-    assert.expect(6);
+    assert.expect(7);
 
     await render(<template>
       {{! template-lint-disable no-unnecessary-curly-strings }}

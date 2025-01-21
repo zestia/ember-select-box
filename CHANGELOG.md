@@ -1,5 +1,9 @@
 # Changelog
 
+## 17.1.1
+
+- Fix internal order of options when used with `#in-element`
+
 ## 17.1.0
 
 - Add `@destination` argument to dropdown content

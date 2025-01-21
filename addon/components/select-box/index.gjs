@@ -168,7 +168,9 @@ export default class SelectBox extends Component {
   }
 
   get optionElements() {
-    return [...this.element.querySelectorAll('.select-box__option')];
+    return this.optionsElement
+      ? [...this.optionsElement.querySelectorAll('.select-box__option')]
+      : [];
   }
 
   get interactiveElement() {
