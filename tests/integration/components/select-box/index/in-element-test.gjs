@@ -1,6 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'dummy/tests/helpers';
-import { click, render, find } from '@ember/test-helpers';
+import { click, render, find, fillIn, findAll } from '@ember/test-helpers';
+import { array } from '@ember/helper';
 import SelectBox from '@zestia/ember-select-box/components/select-box';
 
 module('select-box (in-element)', function (hooks) {
@@ -12,15 +13,22 @@ module('select-box (in-element)', function (hooks) {
     assert.expect(6);
 
     await render(<template>
-      <SelectBox as |sb|>
+      {{! template-lint-disable no-unnecessary-curly-strings }}
+      <SelectBox @options={{array "foo" "bar" "baz"}} as |sb|>
         <sb.Dropdown>
+          <sb.Input />
           <sb.Trigger>
             {{sb.value}}
           </sb.Trigger>
           <sb.Content @destination={{(destination)}}>
             <sb.Options>
-              <sb.Option @value="foo" />
-              <sb.Option @value="bar" />
+              {{#each sb.options as |value|}}
+                <sb.Option @value={{value}} as |option|>
+                  {{option.index}}
+                  {{~" "~}}
+                  {{value}}
+                </sb.Option>
+              {{/each}}
             </sb.Options>
           </sb.Content>
         </sb.Dropdown>
@@ -30,6 +38,8 @@ module('select-box (in-element)', function (hooks) {
 
       <button class="outside" type="button"></button>
     </template>);
+
+    // Dropdown behaviour...
 
     await click('.select-box .dropdown__trigger');
 
@@ -45,5 +55,16 @@ module('select-box (in-element)', function (hooks) {
     await click('.outside');
 
     assert.dom('.outside').isFocused();
+
+    // Searching...
+
+    await click('.select-box .dropdown__trigger');
+    await fillIn('.select-box__input', 'b');
+
+    assert.deepEqual(
+      findAll('.select-box__option').map((el) => el.textContent.trim()),
+      ['0 bar', '1 baz'],
+      'computes correct index when options elements are not direct children'
+    );
   });
 });
