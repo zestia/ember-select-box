@@ -167,12 +167,6 @@ export default class SelectBox extends Component {
     return this.options[this.nextOptionIndex];
   }
 
-  get optionElements() {
-    return this.optionsElement
-      ? [...this.optionsElement.querySelectorAll('.select-box__option')]
-      : [];
-  }
-
   get interactiveElement() {
     if (this.hasInput) {
       return this.inputElement;
@@ -190,16 +184,32 @@ export default class SelectBox extends Component {
   }
 
   @cached
+  get optionElements() {
+    return [
+      ...new Set(this._options.map((option) => option.element.parentElement))
+    ].reduce((optionElements, parentElement) => {
+      const els = [...parentElement.querySelectorAll('.select-box__option')];
+      optionElements.push(...els);
+      return optionElements;
+    }, []);
+  }
+
+  @cached
   get options() {
-    if (!this.element) {
-      return [];
-    }
-
-    const els = this.optionElements;
-
     return this._options
       .filter((option) => !option.isDisabled)
-      .sort((a, b) => els.indexOf(a.element) - els.indexOf(b.element));
+      .sort((a, b) => {
+        // Preferred sort is too slow:
+        //   return a.element.compareDocumentPosition(b.element) ===
+        //     Node.DOCUMENT_POSITION_FOLLOWING
+        //     ? -1
+        //     : 1;
+
+        return (
+          this.optionElements.indexOf(a.element) -
+          this.optionElements.indexOf(b.element)
+        );
+      });
   }
 
   @action

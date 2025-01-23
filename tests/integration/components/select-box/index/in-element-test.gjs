@@ -30,6 +30,16 @@ module('select-box (in-element)', function (hooks) {
                 </sb.Option>
               {{/each}}
             </sb.Options>
+            <sb.Option @value={{null}} as |option|>
+              {{option.index}}
+              {{~" "~}}
+              qux
+            </sb.Option>
+            <sb.Option @value={{null}} as |option|>
+              {{option.index}}
+              {{~" "~}}
+              norf
+            </sb.Option>
           </sb.Content>
         </sb.Dropdown>
       </SelectBox>
@@ -63,7 +73,7 @@ module('select-box (in-element)', function (hooks) {
 
     assert.deepEqual(
       findAll('.select-box__option').map((el) => el.textContent.trim()),
-      ['0 bar', '1 baz'],
+      ['0 bar', '1 baz', '2 qux', '3 norf'],
       'computes correct index when options elements are not direct children'
     );
   });

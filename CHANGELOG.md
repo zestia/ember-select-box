@@ -1,5 +1,9 @@
 # Changelog
 
+## 17.1.2
+
+- Change internal option sort function
+
 ## 17.1.1
 
 - Fix internal order of options when used with `#in-element`
