@@ -188,8 +188,9 @@ export default class SelectBox extends Component {
     return [
       ...new Set(this._options.map((option) => option.element.parentElement))
     ].reduce((optionElements, parentElement) => {
-      const els = [...parentElement.querySelectorAll('.select-box__option')];
-      optionElements.push(...els);
+      optionElements.push(
+        ...parentElement.querySelectorAll('.select-box__option')
+      );
       return optionElements;
     }, []);
   }
