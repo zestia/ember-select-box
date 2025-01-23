@@ -110,5 +110,5 @@
     "test:ember": "ember test",
     "test:ember-compatibility": "ember try:each"
   },
-  "version": "17.1.4"
+  "version": "17.1.5"
 }
