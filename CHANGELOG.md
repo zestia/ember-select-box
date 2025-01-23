@@ -1,5 +1,9 @@
 # Changelog
 
+## 17.1.4
+
+- Account for custom markup when sorting options internally
+
 ## 17.1.3
 
 - Miniscule performance improvement

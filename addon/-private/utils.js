@@ -38,3 +38,14 @@ export function startsWithString(string, query) {
   const b = removeDiacritics(normalise(query));
   return a.startsWith(b);
 }
+
+export function sortOptionsFast(elements) {
+  return (a, b) => elements.indexOf(a.element) - elements.indexOf(b.element);
+}
+
+export function sortOptionsSlow(a, b) {
+  return a.element.compareDocumentPosition(b.element) ===
+    Node.DOCUMENT_POSITION_FOLLOWING
+    ? -1
+    : 1;
+}

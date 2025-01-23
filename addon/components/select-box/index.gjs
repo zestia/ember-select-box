@@ -10,7 +10,9 @@ import { on } from '@ember/modifier';
 import { scheduleOnce } from '@ember/runloop';
 import {
   startsWithString,
-  pressingModifier
+  pressingModifier,
+  sortOptionsFast,
+  sortOptionsSlow
 } from '@zestia/ember-select-box/-private/utils';
 import { task } from 'ember-concurrency';
 import { tracked } from 'tracked-built-ins';
@@ -184,34 +186,20 @@ export default class SelectBox extends Component {
   }
 
   @cached
-  get optionElements() {
-    return [
-      ...new Set(this._options.map((option) => option.element.parentElement))
-    ].reduce((optionElements, parentElement) => {
-      optionElements.push(
-        ...parentElement.querySelectorAll('.select-box__option')
-      );
-      return optionElements;
-    }, []);
-  }
-
-  @cached
   get options() {
-    return this._options
-      .filter((option) => !option.isDisabled)
-      .sort((a, b) => {
-        // Preferred sort is too slow:
-        //
-        // return a.element.compareDocumentPosition(b.element) ===
-        //   Node.DOCUMENT_POSITION_FOLLOWING
-        //   ? -1
-        //   : 1;
+    if (!this.element) {
+      return [];
+    }
 
-        return (
-          this.optionElements.indexOf(a.element) -
-          this.optionElements.indexOf(b.element)
-        );
-      });
+    const options = this._options.filter((option) => !option.isDisabled);
+    const disconnected = options.some((option) => !option.isConnected);
+
+    if (disconnected) {
+      return options.sort(sortOptionsSlow);
+    } else {
+      const els = [...this.element.querySelectorAll('.select-box__option')];
+      return options.sort(sortOptionsFast(els));
+    }
   }
 
   @action

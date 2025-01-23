@@ -30,16 +30,18 @@ module('select-box (in-element)', function (hooks) {
                 </sb.Option>
               {{/each}}
             </sb.Options>
-            <sb.Option @value={{null}} as |option|>
-              {{option.index}}
-              {{~" "~}}
-              qux
-            </sb.Option>
-            <sb.Option @value={{null}} as |option|>
-              {{option.index}}
-              {{~" "~}}
-              norf
-            </sb.Option>
+            <div class="wrapper">
+              <sb.Option @value={{null}} as |option|>
+                {{option.index}}
+                {{~" "~}}
+                qux
+              </sb.Option>
+              <sb.Option @value={{null}} as |option|>
+                {{option.index}}
+                {{~" "~}}
+                norf
+              </sb.Option>
+            </div>
           </sb.Content>
         </sb.Dropdown>
       </SelectBox>
