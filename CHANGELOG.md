@@ -1,5 +1,9 @@
 # Changelog
 
+## 17.1.5
+
+- Remove closure `@destination`
+
 ## 17.1.4
 
 - Account for custom markup when sorting options internally

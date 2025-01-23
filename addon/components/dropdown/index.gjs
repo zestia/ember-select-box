@@ -258,7 +258,6 @@ export default class Dropdown extends Component {
         )
         Content=(component
           DropdownContent
-          destination=this.element
           onFocusOut=this.handleFocusOutContent
           onMouseDown=this.handleMouseDownContent
           onInsert=this.handleInsertContent
