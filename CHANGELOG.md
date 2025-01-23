@@ -1,5 +1,9 @@
 # Changelog
 
+## 17.1.3
+
+- Miniscule performance improvement
+
 ## 17.1.2
 
 - Change internal option sort function
