@@ -39,10 +39,6 @@ export default class SelectBoxOption extends Component {
     return this.args.value === this.args.selectBox.value;
   }
 
-  get isConnected() {
-    return !!this.element.closest('.select-box');
-  }
-
   @action
   handleInsertElement(element) {
     this.element = element;
