@@ -1,5 +1,9 @@
 # Changelog
 
+## 17.1.6
+
+- Change sorting algorithm again
+
 ## 17.1.5
 
 - Remove closure `@destination`
