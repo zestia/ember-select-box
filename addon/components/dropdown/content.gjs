@@ -16,6 +16,8 @@ const Destination = <template>
     <div
       class="dropdown__content"
       tabindex={{@tabindex}}
+      id={{@id}}
+      popover
       {{lifecycle onInsert=@onInsert onDestroy=@onDestroy}}
       ...attributes
     >

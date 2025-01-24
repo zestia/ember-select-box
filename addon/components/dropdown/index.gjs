@@ -3,13 +3,14 @@
 import { action } from '@ember/object';
 import { cached, tracked } from '@glimmer/tracking';
 import { concat, hash } from '@ember/helper';
-import { on } from '@ember/modifier';
-import Component from '@glimmer/component';
-import lifecycle from '@zestia/ember-select-box/modifiers/lifecycle';
-import DropdownTrigger from '@zestia/ember-select-box/components/dropdown/trigger';
-import DropdownContent from '@zestia/ember-select-box/components/dropdown/content';
-import { scheduleOnce } from '@ember/runloop';
+import { guidFor } from '@ember/object/internals';
 import { modifier } from 'ember-modifier';
+import { on } from '@ember/modifier';
+import { scheduleOnce } from '@ember/runloop';
+import Component from '@glimmer/component';
+import DropdownContent from '@zestia/ember-select-box/components/dropdown/content';
+import DropdownTrigger from '@zestia/ember-select-box/components/dropdown/trigger';
+import lifecycle from '@zestia/ember-select-box/modifiers/lifecycle';
 const { assign } = Object;
 
 const FOCUS_LEAVE = Symbol('FOCUS_LEAVE');
@@ -21,6 +22,8 @@ export default class Dropdown extends Component {
   @tracked contentElement;
   @tracked element;
   @tracked _isOpen = this.args.open;
+
+  id = guidFor(this);
 
   lastMouseDownElement;
 
@@ -45,6 +48,10 @@ export default class Dropdown extends Component {
 
   get canClose() {
     return this.isOpen;
+  }
+
+  get contentId() {
+    return `${this.id}-content`;
   }
 
   documentListeners = modifier(() => {
@@ -251,6 +258,7 @@ export default class Dropdown extends Component {
           aria-haspopup="true"
           role="button"
           tabindex="0"
+          popovertarget=this.contentId
           onMouseDown=this.handleMouseDownTrigger
           onKeyDown=this.handleKeyDownTrigger
           onInsert=this.handleInsertTrigger
@@ -258,6 +266,7 @@ export default class Dropdown extends Component {
         )
         Content=(component
           DropdownContent
+          id=this.contentId
           onFocusOut=this.handleFocusOutContent
           onMouseDown=this.handleMouseDownContent
           onInsert=this.handleInsertContent

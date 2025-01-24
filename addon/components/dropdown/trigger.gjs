@@ -13,7 +13,7 @@ export default class DropdownTrigger extends Component {
 
   <template>
     {{! template-lint-disable no-positive-tabindex require-aria-activedescendant-tabindex no-pointer-down-event-binding }}
-    <div
+    <button
       class={{concat "dropdown__trigger" (if @class (concat " " @class))}}
       aria-haspopup="{{@aria-haspopup}}"
       aria-activedescendant="{{@aria-activedescendant}}"
@@ -21,14 +21,16 @@ export default class DropdownTrigger extends Component {
       aria-controls="{{@aria-controls}}"
       aria-disabled="{{@aria-disabled}}"
       aria-expanded="{{@aria-expanded}}"
+      type="button"
       role="{{@role}}"
       tabindex="{{@tabindex}}"
+      popovertarget="{{@popovertarget}}"
       {{on "mousedown" @onMouseDown}}
       {{on "keydown" @onKeyDown}}
       {{lifecycle onInsert=this.handleInsert onDestroy=@onDestroy}}
       ...attributes
     >
       {{~yield~}}
-    </div>
+    </button>
   </template>
 }
