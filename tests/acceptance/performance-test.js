@@ -14,7 +14,7 @@ module('Acceptance | performance', function (hooks) {
   });
 
   test('rendering options', async function (assert) {
-    assert.expect(5);
+    assert.expect(7);
 
     await visit('/performance');
 
@@ -28,7 +28,8 @@ module('Acceptance | performance', function (hooks) {
 
     assert.dom('.select-box__option').exists({ count: 10000 });
 
-    assert.closeTo(this.timeTaken(), 3000, 1000);
+    assert.ok(this.timeTaken() > 500);
+    assert.ok(this.timeTaken() < 2500);
 
     this.startTimer();
 
@@ -38,6 +39,7 @@ module('Acceptance | performance', function (hooks) {
 
     assert.dom('.select-box__option').doesNotExist();
 
-    assert.closeTo(this.timeTaken(), 3000, 1000);
+    assert.ok(this.timeTaken() > 500);
+    assert.ok(this.timeTaken() < 2500);
   });
 });
