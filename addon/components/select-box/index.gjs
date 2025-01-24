@@ -10,9 +10,7 @@ import { on } from '@ember/modifier';
 import { scheduleOnce } from '@ember/runloop';
 import {
   startsWithString,
-  pressingModifier,
-  sortOptionsFast,
-  sortOptionsSlow
+  pressingModifier
 } from '@zestia/ember-select-box/-private/utils';
 import { task } from 'ember-concurrency';
 import { tracked } from 'tracked-built-ins';
@@ -29,7 +27,7 @@ const SELECTED = Symbol('SELECTED');
 
 export default class SelectBox extends Component {
   @tracked _activeOption;
-  @tracked _options = tracked([]);
+  @tracked _options = tracked(Set);
   @tracked dropdown;
   @tracked element;
   @tracked inputElement;
@@ -187,19 +185,14 @@ export default class SelectBox extends Component {
 
   @cached
   get options() {
-    if (!this.element) {
-      return [];
-    }
-
-    const options = this._options.filter((option) => !option.isDisabled);
-    const disconnected = options.some((option) => !option.isConnected);
-
-    if (disconnected) {
-      return options.sort(sortOptionsSlow);
-    } else {
-      const els = [...this.element.querySelectorAll('.select-box__option')];
-      return options.sort(sortOptionsFast(els));
-    }
+    return [...this._options]
+      .filter((option) => !option.isDisabled)
+      .sort((a, b) => {
+        return a.element.compareDocumentPosition(b.element) ===
+          Node.DOCUMENT_POSITION_FOLLOWING
+          ? -1
+          : 1;
+      });
   }
 
   @action
@@ -215,17 +208,12 @@ export default class SelectBox extends Component {
 
   @action
   handleInsertOption(option) {
-    this._options.push(option);
+    this._options.add(option);
   }
 
   @action
   handleDestroyOption(option) {
-    // https://github.com/tracked-tools/tracked-built-ins/issues/405
-    // https://stackoverflow.com/questions/30304719/javascript-fastest-way-to-remove-object-from-array
-    // this._options.splice(this._options.indexOf(option), 1);
-    const index = this._options.indexOf(option);
-    this._options[index] = this._options[this._options.length - 1];
-    this._options.pop();
+    this._options.delete(option);
   }
 
   @action

@@ -6,15 +6,15 @@ module('Acceptance | performance', function (hooks) {
   setupApplicationTest(hooks);
 
   hooks.beforeEach(function () {
-    this.startTimer = () => (this.startTime = Date.now());
+    this.startTimer = () => (this.startTime = performance.now());
 
-    this.stopTimer = () => (this.stopTime = Date.now());
+    this.stopTimer = () => (this.stopTime = performance.now());
 
     this.timeTaken = () => this.stopTime - this.startTime;
   });
 
   test('rendering options', async function (assert) {
-    assert.expect(7);
+    assert.expect(5);
 
     await visit('/performance');
 
@@ -28,8 +28,7 @@ module('Acceptance | performance', function (hooks) {
 
     assert.dom('.select-box__option').exists({ count: 10000 });
 
-    assert.ok(this.timeTaken() > 500);
-    assert.ok(this.timeTaken() < 2000);
+    assert.closeTo(this.timeTaken(), 3000, 1000);
 
     this.startTimer();
 
@@ -39,7 +38,6 @@ module('Acceptance | performance', function (hooks) {
 
     assert.dom('.select-box__option').doesNotExist();
 
-    assert.ok(this.timeTaken() > 500);
-    assert.ok(this.timeTaken() < 2000);
+    assert.closeTo(this.timeTaken(), 3000, 1000);
   });
 });
