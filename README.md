@@ -126,7 +126,7 @@ Required. Fired when a selection is made (that is, an option is clicked, or ente
 
 #### `@onSelect`
 
-Optional. Similar to `@onChange` but fires regardless as to whether the value changed or not. The return value controls whether or not the select box will close after the selection.
+Optional. Similar to `@onChange` but fires regardless as to whether the value changed or not.
 
 #### `@onSearch`
 

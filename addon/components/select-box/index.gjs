@@ -427,9 +427,9 @@ export default class SelectBox extends Component {
   }
 
   _handleSelected() {
-    const close = this.args.onSelect?.(this.api) ?? this.canAutoClose;
+    this.args.onSelect?.(this.api);
 
-    if (close) {
+    if (this.canAutoClose) {
       this.dropdown.close(SELECTED);
     }
   }

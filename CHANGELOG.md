@@ -1,5 +1,9 @@
 # Changelog
 
+## 17.2.0
+
+- Remove `return false` from `@onSelect` as a means to close the dropdown. Prefer using the dropdown API directly.
+
 ## 17.1.6
 
 - Change sorting algorithm again
