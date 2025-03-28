@@ -17,7 +17,7 @@ import js from '@eslint/js';
 import zestia from '@zestia/eslint-config';
 
 import ember from 'eslint-plugin-ember/recommended';
-import prettier from 'eslint-plugin-prettier/recommended';
+import eslintConfigPrettier from 'eslint-config-prettier';
 import qunit from 'eslint-plugin-qunit';
 import n from 'eslint-plugin-n';
 
@@ -36,7 +36,7 @@ const esmParserOptions = {
 
 export default [
   js.configs.recommended,
-  prettier,
+  eslintConfigPrettier,
   ember.configs.base,
   ember.configs.gjs,
   zestia,
@@ -87,8 +87,10 @@ export default [
     files: [
       '**/*.cjs',
       'config/**/*.js',
+      'tests/dummy/config/**/*.js',
       'testem.js',
       'testem*.js',
+      'index.js',
       '.prettierrc.js',
       '.stylelintrc.js',
       '.template-lintrc.js',
