@@ -6,7 +6,8 @@ import {
   render,
   find,
   triggerEvent,
-  triggerKeyEvent
+  triggerKeyEvent,
+  settled
 } from '@ember/test-helpers';
 import { on } from '@ember/modifier';
 import SelectBox from '@zestia/ember-select-box/components/select-box';
@@ -413,11 +414,14 @@ module('select-box (down arrow key)', function (hooks) {
   });
 
   test('does not scroll the active option into view when closed', async function (assert) {
-    assert.expect(1);
-
-    // check this
+    assert.expect(8);
 
     await render(<template>
+      {{! template-lint-disable no-forbidden-elements }}
+      <style>
+        .select-box__options { height: 1em; overflow: auto; }
+        .select-box__option { line-height: 1; }
+      </style>
       <SelectBox as |sb|>
         <sb.Dropdown>
           <sb.Trigger />
@@ -433,6 +437,19 @@ module('select-box (down arrow key)', function (hooks) {
     </template>);
 
     await focus('.select-box .dropdown__trigger');
+
+    assert.dom('.dropdown').hasAttribute('data-open', 'false');
+
+    await triggerKeyEvent(
+      '.select-box .dropdown__trigger',
+      'keydown',
+      'ArrowDown'
+    );
+
+    assert.dom('.dropdown').hasAttribute('data-open', 'true');
+    assert.strictEqual(find('.select-box__options').scrollTop, 0);
+    assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
+
     await triggerKeyEvent(
       '.select-box .dropdown__trigger',
       'keydown',
@@ -440,5 +457,61 @@ module('select-box (down arrow key)', function (hooks) {
     );
 
     assert.strictEqual(find('.select-box__options').scrollTop, 0);
+    assert.dom('.select-box__option[aria-current="true"]').hasText('a');
+
+    await triggerKeyEvent(
+      '.select-box .dropdown__trigger',
+      'keydown',
+      'ArrowDown'
+    );
+
+    assert.strictEqual(find('.select-box__options').scrollTop, 16);
+    assert.dom('.select-box__option[aria-current="true"]').hasText('b');
+  });
+
+  test('mouse over options does not interfere with arrow down navigation', async function (assert) {
+    assert.expect(1);
+
+    await render(<template>
+      {{! template-lint-disable no-forbidden-elements }}
+      <style>
+        .select-box__options { height: 1em; overflow: auto; }
+        .select-box__option { line-height: 1; }
+      </style>
+      <SelectBox as |sb|>
+        <sb.Dropdown>
+          <sb.Trigger>T</sb.Trigger>
+          <sb.Content>
+            <sb.Options>
+              <sb.Option @value="A">a</sb.Option>
+              <sb.Option @value="B">b</sb.Option>
+              <sb.Option @value="C">c</sb.Option>
+            </sb.Options>
+          </sb.Content>
+        </sb.Dropdown>
+      </SelectBox>
+    </template>);
+
+    // Set up, activate an option in a scrollable area
+
+    await click('.dropdown__trigger');
+    await triggerEvent('.select-box__option:nth-child(2)', 'mouseenter');
+
+    // User navigates down
+
+    triggerKeyEvent('.select-box .dropdown__trigger', 'keydown', 'ArrowDown');
+
+    // scrollIntoView causes mouse enter event due to the mouse being left
+    // over the contents of the select box.
+
+    setTimeout(() => {
+      triggerEvent('.select-box__option:nth-child(2)', 'mouseenter');
+    }, 0);
+
+    await settled();
+
+    // Keyboard navigation is honoured
+
+    assert.dom('.select-box__option[aria-current="true"]').hasText('c');
   });
 });

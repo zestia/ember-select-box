@@ -35,6 +35,8 @@ export default class SelectBox extends Component {
   @tracked query = null;
   @tracked triggerElement;
 
+  @tracked keyboard;
+
   @localCopy('args.value') _value;
   @localCopy('args.options') results;
 
@@ -303,6 +305,11 @@ export default class SelectBox extends Component {
 
   @action
   handleMouseEnterOption(option) {
+    console.log('enter', option.element.textContent.trim());
+    if (this.keyboard) {
+      return;
+    }
+
     this._activateOption(option);
   }
 
@@ -357,6 +364,9 @@ export default class SelectBox extends Component {
   }
 
   _handleKeyDown(event) {
+    clearTimeout(this.keyboard);
+    this.keyboard = setTimeout(() => (this.keyboard = false), 0);
+
     switch (event.key) {
       case 'ArrowUp':
         this._handleArrowUp(event);
@@ -391,6 +401,8 @@ export default class SelectBox extends Component {
       this.dropdown.open();
       return;
     }
+
+    console.log('down', this.nextOption.element.textContent.trim());
 
     this._activateOption(this.nextOption, true);
   }

@@ -1,5 +1,9 @@
 # Changelog
 
+## 17.2.1
+
+- Prevent mouse events from interfering with keyboard navigation, when the mouse is over the options.
+
 ## 17.2.0
 
 - Remove `return false` from `@onSelect` as a means to close the dropdown. Prefer using the dropdown API directly.
