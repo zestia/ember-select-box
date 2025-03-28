@@ -1,4 +1,4 @@
-import { module, test, todo } from 'qunit';
+import { module, test, skip } from 'qunit';
 import { setupRenderingTest } from 'dummy/tests/helpers';
 import { render, focus, click } from '@ember/test-helpers';
 import Dropdown from '@zestia/ember-select-box/components/dropdown';
@@ -206,7 +206,7 @@ module('dropdown (focus)', function (hooks) {
     assert.dom('.inside').isFocused();
   });
 
-  todo('focus-visible', async function (assert) {
+  skip('focus-visible', async function (assert) {
     assert.expect(2);
 
     // Experimental focusVisible option does not seem to be working

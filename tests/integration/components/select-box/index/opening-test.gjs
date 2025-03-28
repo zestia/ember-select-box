@@ -1,4 +1,4 @@
-import { module, test, todo } from 'qunit';
+import { module, test } from 'qunit';
 import { setupRenderingTest } from 'dummy/tests/helpers';
 import {
   render,
@@ -350,7 +350,7 @@ module('select-box (opening)', function (hooks) {
     assert.strictEqual(find('.dropdown__content').scrollTop, expectedTop);
   });
 
-  todo('dropdown trigger not available', async function (assert) {
+  test('dropdown trigger not available', async function (assert) {
     assert.expect(1);
 
     await render(

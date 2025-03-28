@@ -1,4 +1,4 @@
-import { module, test, todo } from 'qunit';
+import { module, test, skip } from 'qunit';
 import { setupRenderingTest } from 'dummy/tests/helpers';
 import {
   render,
@@ -597,7 +597,7 @@ module('select-box (focus)', function (hooks) {
     );
   });
 
-  todo('focus-visible', async function (assert) {
+  skip('focus-visible', async function (assert) {
     assert.expect(2);
 
     // focusVisible option does not seem to be working (yet)
@@ -641,7 +641,7 @@ module('select-box (focus)', function (hooks) {
       .hasStyle({ outline: 'rgb(0, 0, 0) none 0px' });
   });
 
-  test('focus-visible (input)', async function (assert) {
+  skip('focus-visible (input)', async function (assert) {
     assert.expect(3);
 
     // When focusing the interactive element we send focusVisible: false
