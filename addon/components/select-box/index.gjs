@@ -305,7 +305,6 @@ export default class SelectBox extends Component {
 
   @action
   handleMouseEnterOption(option) {
-    console.log('enter', option.element.textContent.trim());
     if (this.keyboard) {
       return;
     }
@@ -401,8 +400,6 @@ export default class SelectBox extends Component {
       this.dropdown.open();
       return;
     }
-
-    console.log('down', this.nextOption.element.textContent.trim());
 
     this._activateOption(this.nextOption, true);
   }
