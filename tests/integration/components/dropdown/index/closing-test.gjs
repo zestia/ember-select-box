@@ -24,11 +24,13 @@ module('dropdown (closing)', function (hooks) {
   test('pressing escape', async function (assert) {
     assert.expect(3);
 
-    await render(<template>
-      <Dropdown @onClose={{handleClose}} as |dd|>
-        <dd.Trigger />
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown @onClose={{handleClose}} as |dd|>
+          <dd.Trigger />
+        </Dropdown>
+      </template>
+    );
 
     await click('.dropdown__trigger');
 
@@ -41,12 +43,14 @@ module('dropdown (closing)', function (hooks) {
   test('clicking outside', async function (assert) {
     assert.expect(5);
 
-    await render(<template>
-      <Dropdown @onClose={{handleClose}} as |dd|>
-        <dd.Trigger />
-      </Dropdown>
-      <div class="outside"></div>
-    </template>);
+    await render(
+      <template>
+        <Dropdown @onClose={{handleClose}} as |dd|>
+          <dd.Trigger />
+        </Dropdown>
+        <div class="outside"></div>
+      </template>
+    );
 
     await click('.dropdown__trigger');
 
@@ -66,11 +70,13 @@ module('dropdown (closing)', function (hooks) {
     // as empty space, and so click it is the same as
     // clicking outside the dropdown content element.
 
-    await render(<template>
-      <Dropdown @onClose={{handleClose}} as |dd|>
-        <dd.Trigger />
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown @onClose={{handleClose}} as |dd|>
+          <dd.Trigger />
+        </Dropdown>
+      </template>
+    );
 
     await click('.dropdown__trigger');
 
@@ -89,16 +95,18 @@ module('dropdown (closing)', function (hooks) {
     // Selecting text won't cause the dropdown to close
     // but does allow focus to be moved away from the trigger
 
-    await render(<template>
-      <Dropdown @onClose={{handleClose}} as |dd|>
-        <dd.Trigger />
-        <dd.Content>
-          <span class="inside" />
-        </dd.Content>
-      </Dropdown>
+    await render(
+      <template>
+        <Dropdown @onClose={{handleClose}} as |dd|>
+          <dd.Trigger />
+          <dd.Content>
+            <span class="inside" />
+          </dd.Content>
+        </Dropdown>
 
-      <div class="outside"></div>
-    </template>);
+        <div class="outside"></div>
+      </template>
+    );
 
     await click('.dropdown__trigger');
 
@@ -119,12 +127,14 @@ module('dropdown (closing)', function (hooks) {
   test('clicking outside a manually opened dropdown', async function (assert) {
     assert.expect(4);
 
-    await render(<template>
-      <Dropdown @open={{true}} @onClose={{handleClose}} as |dd|>
-        <dd.Content />
-      </Dropdown>
-      <div class="outside"></div>
-    </template>);
+    await render(
+      <template>
+        <Dropdown @open={{true}} @onClose={{handleClose}} as |dd|>
+          <dd.Content />
+        </Dropdown>
+        <div class="outside"></div>
+      </template>
+    );
 
     assert.dom('.dropdown').hasAttribute('data-open', 'true');
 
@@ -140,10 +150,12 @@ module('dropdown (closing)', function (hooks) {
     // This can happen when rendering a dropdown with an initial open state
     // that was the result of a click to reveal it.
 
-    await render(<template>
-      <Dropdown class="one" @open={{true}} @onClose={{handleClose}} />
-      <div class="outside"></div>
-    </template>);
+    await render(
+      <template>
+        <Dropdown class="one" @open={{true}} @onClose={{handleClose}} />
+        <div class="outside"></div>
+      </template>
+    );
 
     assert.dom('.dropdown').hasAttribute('data-open', 'true');
 
@@ -158,12 +170,14 @@ module('dropdown (closing)', function (hooks) {
 
     // aka click-abort
 
-    await render(<template>
-      <Dropdown @onClose={{handleClose}} as |dd|>
-        <dd.Trigger />
-      </Dropdown>
-      <div class="outside"></div>
-    </template>);
+    await render(
+      <template>
+        <Dropdown @onClose={{handleClose}} as |dd|>
+          <dd.Trigger />
+        </Dropdown>
+        <div class="outside"></div>
+      </template>
+    );
 
     assert.dom('.dropdown').hasAttribute('data-open', 'false');
 
@@ -180,11 +194,13 @@ module('dropdown (closing)', function (hooks) {
   test('focus leaving the dropdown trigger', async function (assert) {
     assert.expect(4);
 
-    await render(<template>
-      <Dropdown @onClose={{handleClose}} as |dd|>
-        <dd.Trigger />
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown @onClose={{handleClose}} as |dd|>
+          <dd.Trigger />
+        </Dropdown>
+      </template>
+    );
 
     await click('.dropdown__trigger');
 
@@ -199,13 +215,15 @@ module('dropdown (closing)', function (hooks) {
   test('focus leaving the dropdown trigger when manually opened', async function (assert) {
     assert.expect(4);
 
-    await render(<template>
-      <Dropdown @onClose={{handleClose}} @open={{true}} as |dd|>
-        <dd.Trigger />
-      </Dropdown>
+    await render(
+      <template>
+        <Dropdown @onClose={{handleClose}} @open={{true}} as |dd|>
+          <dd.Trigger />
+        </Dropdown>
 
-      <button type="button" class="outside" />
-    </template>);
+        <button type="button" class="outside" />
+      </template>
+    );
 
     await focus('.dropdown__trigger');
 
@@ -220,14 +238,16 @@ module('dropdown (closing)', function (hooks) {
   test('focus leaving an interactive element inside the dropdown', async function (assert) {
     assert.expect(4);
 
-    await render(<template>
-      <Dropdown @onClose={{handleClose}} as |dd|>
-        <dd.Trigger />
-        <button type="button" class="inside" />
-      </Dropdown>
+    await render(
+      <template>
+        <Dropdown @onClose={{handleClose}} as |dd|>
+          <dd.Trigger />
+          <button type="button" class="inside" />
+        </Dropdown>
 
-      <button type="button" class="outside" />
-    </template>);
+        <button type="button" class="outside" />
+      </template>
+    );
 
     await click('.dropdown__trigger');
     await focus('.inside');
@@ -243,16 +263,18 @@ module('dropdown (closing)', function (hooks) {
   test('focus leaving an interactive element inside the content', async function (assert) {
     assert.expect(4);
 
-    await render(<template>
-      <Dropdown @onClose={{handleClose}} as |dd|>
-        <dd.Trigger />
-        <dd.Content>
-          <button type="button" class="inside" />
-        </dd.Content>
-      </Dropdown>
+    await render(
+      <template>
+        <Dropdown @onClose={{handleClose}} as |dd|>
+          <dd.Trigger />
+          <dd.Content>
+            <button type="button" class="inside" />
+          </dd.Content>
+        </Dropdown>
 
-      <button type="button" class="outside" />
-    </template>);
+        <button type="button" class="outside" />
+      </template>
+    );
 
     await click('.dropdown__trigger');
     await focus('.inside');
@@ -272,11 +294,13 @@ module('dropdown (closing)', function (hooks) {
 
     const handleReady = (dd) => (api = dd);
 
-    await render(<template>
-      <Dropdown @onReady={{handleReady}} @onClose={{handleClose}} as |dd|>
-        <dd.Trigger />
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown @onReady={{handleReady}} @onClose={{handleClose}} as |dd|>
+          <dd.Trigger />
+        </Dropdown>
+      </template>
+    );
 
     await click('.dropdown__trigger');
 
@@ -294,14 +318,16 @@ module('dropdown (closing)', function (hooks) {
   test('closing with yielded api', async function (assert) {
     assert.expect(5);
 
-    await render(<template>
-      <Dropdown @onClose={{handleClose}} as |dd|>
-        <dd.Trigger />
-        <dd.Content>
-          <button type="button" class="close" {{on "click" dd.close}} />
-        </dd.Content>
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown @onClose={{handleClose}} as |dd|>
+          <dd.Trigger />
+          <dd.Content>
+            <button type="button" class="close" {{on "click" dd.close}} />
+          </dd.Content>
+        </Dropdown>
+      </template>
+    );
 
     await click('.dropdown__trigger');
 

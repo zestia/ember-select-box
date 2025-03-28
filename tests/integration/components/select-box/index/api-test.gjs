@@ -25,18 +25,20 @@ module('select-box (api)', function (hooks) {
     const handleReady = (sb) => (api = sb);
     const capture = (sb) => (api2 = sb);
 
-    await render(<template>
-      <SelectBox @onReady={{handleReady}} as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              {{capture sb}}
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onReady={{handleReady}} as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                {{capture sb}}
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     assert.strictEqual(api, api2);
 
@@ -88,15 +90,17 @@ module('select-box (api)', function (hooks) {
 
     const handleReady = (sb) => (api = sb);
 
-    await render(<template>
-      <SelectBox @onReady={{handleReady}} as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger>
-            {{sb.value}}
-          </sb.Trigger>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onReady={{handleReady}} as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger>
+              {{sb.value}}
+            </sb.Trigger>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     assert.throws(() => {
       api.value = 'foo';
@@ -110,11 +114,13 @@ module('select-box (api)', function (hooks) {
 
     const handleReady = (sb) => (api = sb);
 
-    await render(<template>
-      <SelectBox @onReady={{handleReady}} as |sb|>
-        <sb.Options />
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onReady={{handleReady}} as |sb|>
+          <sb.Options />
+        </SelectBox>
+      </template>
+    );
 
     assert.strictEqual(api.element, find('.select-box'));
   });
@@ -129,12 +135,14 @@ module('select-box (api)', function (hooks) {
     const handleReady = (sb) => (api = sb);
     const handleSearch = () => deferred.promise;
 
-    await render(<template>
-      <SelectBox @onReady={{handleReady}} @onSearch={{handleSearch}} as |sb|>
-        <sb.Input />
-        <sb.Options />
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onReady={{handleReady}} @onSearch={{handleSearch}} as |sb|>
+          <sb.Input />
+          <sb.Options />
+        </SelectBox>
+      </template>
+    );
 
     assert.false(api.isBusy);
 
@@ -156,11 +164,13 @@ module('select-box (api)', function (hooks) {
 
     const handleReady = (sb) => (api = sb);
 
-    await render(<template>
-      <SelectBox @onReady={{handleReady}} as |sb|>
-        <sb.Options />
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onReady={{handleReady}} as |sb|>
+          <sb.Options />
+        </SelectBox>
+      </template>
+    );
 
     assert.strictEqual(api.isBusy, null, 'behaviour undefined');
   });
@@ -172,13 +182,15 @@ module('select-box (api)', function (hooks) {
 
     const handleReady = (sb) => (api = sb);
 
-    await render(<template>
-      <SelectBox @onReady={{handleReady}} as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onReady={{handleReady}} as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     assert.false(api.dropdown.isOpen);
 
@@ -194,15 +206,17 @@ module('select-box (api)', function (hooks) {
       @tracked value = 'foo';
     })();
 
-    await render(<template>
-      <SelectBox @value={{state.value}} as |sb|>
-        {{sb.value}}
+    await render(
+      <template>
+        <SelectBox @value={{state.value}} as |sb|>
+          {{sb.value}}
 
-        <sb.Options>
-          <sb.Option @value="bar" />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+          <sb.Options>
+            <sb.Option @value="bar" />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box').hasText('foo');
 
@@ -222,13 +236,15 @@ module('select-box (api)', function (hooks) {
 
     const handleSearch = (foo) => assert.step(foo);
 
-    await render(<template>
-      <SelectBox @onSearch={{handleSearch}} as |sb|>
-        <button type="button" {{on "click" (fn sb.search "foo")}}></button>
+    await render(
+      <template>
+        <SelectBox @onSearch={{handleSearch}} as |sb|>
+          <button type="button" {{on "click" (fn sb.search "foo")}}></button>
 
-        <sb.Options />
-      </SelectBox>
-    </template>);
+          <sb.Options />
+        </SelectBox>
+      </template>
+    );
 
     await click('button');
 
@@ -253,22 +269,24 @@ module('select-box (api)', function (hooks) {
       return value;
     };
 
-    await render(<template>
-      <SelectBox
-        @value={{state.value}}
-        @onReady={{handleReady}}
-        @onChange={{handleChange}}
-        @onSelect={{handleSelect}}
-        @onBuildSelection={{handleBuildSelection}}
-        as |sb|
-      >
-        <button type="button" {{on "click" (fn sb.select "2")}}></button>
-        <sb.Options>
-          <sb.Option @value="1" />
-          <sb.Option @value="2" />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox
+          @value={{state.value}}
+          @onReady={{handleReady}}
+          @onChange={{handleChange}}
+          @onSelect={{handleSelect}}
+          @onBuildSelection={{handleBuildSelection}}
+          as |sb|
+        >
+          <button type="button" {{on "click" (fn sb.select "2")}}></button>
+          <sb.Options>
+            <sb.Option @value="1" />
+            <sb.Option @value="2" />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await click('button');
     await click('button');
@@ -298,20 +316,22 @@ module('select-box (api)', function (hooks) {
 
     const handleReady = (sb) => (api = sb);
 
-    await render(<template>
-      <SelectBox @onReady={{handleReady}} as |sb|>
-        <sb.Dropdown>
-          <sb.Input />
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value="1" />
-              <sb.Option @value="2" />
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onReady={{handleReady}} as |sb|>
+          <sb.Dropdown>
+            <sb.Input />
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option @value="1" />
+                <sb.Option @value="2" />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     api.select('2');
 
@@ -333,19 +353,21 @@ module('select-box (api)', function (hooks) {
 
     const handleReady = (sb) => (api = sb);
 
-    await render(<template>
-      <SelectBox @onReady={{handleReady}} as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value="1" />
-              <sb.Option @value="2" />
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onReady={{handleReady}} as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option @value="1" />
+                <sb.Option @value="2" />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.dropdown__trigger');
 
@@ -371,13 +393,15 @@ module('select-box (api)', function (hooks) {
 
     const handleReady = (sb) => (api = sb);
 
-    await render(<template>
-      <SelectBox @onReady={{handleReady}} as |sb|>
-        <sb.Options>
-          <sb.Option @value="foo" @disabled={{true}} />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onReady={{handleReady}} as |sb|>
+          <sb.Options>
+            <sb.Option @value="foo" @disabled={{true}} />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     api.select('foo');
 
@@ -412,21 +436,23 @@ module('select-box (api)', function (hooks) {
       return value;
     };
 
-    await render(<template>
-      <SelectBox
-        @value={{state.value}}
-        @onReady={{handleReady}}
-        @onChange={{handleChange}}
-        @onSelect={{handleSelect}}
-        @onBuildSelection={{handleBuildSelection}}
-        as |sb|
-      >
-        <sb.Options>
-          <sb.Option @value="1" />
-          <sb.Option @value="2" />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox
+          @value={{state.value}}
+          @onReady={{handleReady}}
+          @onChange={{handleChange}}
+          @onSelect={{handleSelect}}
+          @onBuildSelection={{handleBuildSelection}}
+          as |sb|
+        >
+          <sb.Options>
+            <sb.Option @value="1" />
+            <sb.Option @value="2" />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     api.update('2');
     api.update('2');
@@ -456,12 +482,14 @@ module('select-box (api)', function (hooks) {
       assert.strictEqual(sb.value, 1, 'sb is a stable reference');
     };
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <button type="button" {{on "click" (fn update sb)}}></button>
-        <sb.Options />
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <button type="button" {{on "click" (fn update sb)}}></button>
+          <sb.Options />
+        </SelectBox>
+      </template>
+    );
 
     await click('button');
   });

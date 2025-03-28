@@ -11,23 +11,25 @@ module('dropdown (in-element)', function (hooks) {
   test('a common scenario of rendering a dropdown in an external element works', async function (assert) {
     assert.expect(6);
 
-    await render(<template>
-      <Dropdown as |dd|>
-        <dd.Trigger>
-          Trigger
-        </dd.Trigger>
-        {{#if dd.isOpen}}
-          <dd.Content @destination={{(destination)}}>
-            Hello World
-            <button type="button" class="test" />
-          </dd.Content>
-        {{/if}}
-      </Dropdown>
+    await render(
+      <template>
+        <Dropdown as |dd|>
+          <dd.Trigger>
+            Trigger
+          </dd.Trigger>
+          {{#if dd.isOpen}}
+            <dd.Content @destination={{(destination)}}>
+              Hello World
+              <button type="button" class="test" />
+            </dd.Content>
+          {{/if}}
+        </Dropdown>
 
-      <div class="destination"></div>
+        <div class="destination"></div>
 
-      <button class="outside" type="button"></button>
-    </template>);
+        <button class="outside" type="button"></button>
+      </template>
+    );
 
     await click('.dropdown__trigger');
 

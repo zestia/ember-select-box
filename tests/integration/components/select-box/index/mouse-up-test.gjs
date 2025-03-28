@@ -13,19 +13,21 @@ module('select-box (mouseenter option)', function (hooks) {
     // This tests mousing down, keeping the button pressed,
     // essentially dragging down and then releasing.
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value={{1}}>one</sb.Option>
-              <sb.Option @value={{2}}>two</sb.Option>
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option @value={{1}}>one</sb.Option>
+                <sb.Option @value={{2}}>two</sb.Option>
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await triggerEvent('.select-box .dropdown__trigger', 'mousedown');
     await triggerEvent('.select-box__option:nth-child(2)', 'mouseup');
@@ -44,21 +46,23 @@ module('select-box (mouseenter option)', function (hooks) {
 
     const handleSelect = () => assert.step('select');
 
-    await render(<template>
-      <SelectBox @onSelect={{handleSelect}} as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value={{1}}>one</sb.Option>
-              <sb.Option @value={{2}}>two</sb.Option>
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
+    await render(
+      <template>
+        <SelectBox @onSelect={{handleSelect}} as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option @value={{1}}>one</sb.Option>
+                <sb.Option @value={{2}}>two</sb.Option>
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
 
-      <button class="outside" type="button"></button>
-    </template>);
+        <button class="outside" type="button"></button>
+      </template>
+    );
 
     await focus('.select-box .dropdown__trigger');
     await triggerEvent('.select-box .dropdown__trigger', 'mousedown');
@@ -87,31 +91,33 @@ module('select-box (mouseenter option)', function (hooks) {
 
     const handleChange = () => (state.show = true);
 
-    await render(<template>
-      <SelectBox class="one" @onChange={{handleChange}} as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value="show two" />
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-
-      {{#if state.show}}
-        <SelectBox class="two" as |sb|>
-          <sb.Dropdown @open={{true}}>
+    await render(
+      <template>
+        <SelectBox class="one" @onChange={{handleChange}} as |sb|>
+          <sb.Dropdown>
             <sb.Trigger />
             <sb.Content>
               <sb.Options>
-                <sb.Option />
+                <sb.Option @value="show two" />
               </sb.Options>
             </sb.Content>
           </sb.Dropdown>
         </SelectBox>
-      {{/if}}
-    </template>);
+
+        {{#if state.show}}
+          <SelectBox class="two" as |sb|>
+            <sb.Dropdown @open={{true}}>
+              <sb.Trigger />
+              <sb.Content>
+                <sb.Options>
+                  <sb.Option />
+                </sb.Options>
+              </sb.Content>
+            </sb.Dropdown>
+          </SelectBox>
+        {{/if}}
+      </template>
+    );
 
     assert.dom('.one').exists();
     assert.dom('.two').doesNotExist();

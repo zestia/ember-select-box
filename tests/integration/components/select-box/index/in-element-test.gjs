@@ -12,44 +12,46 @@ module('select-box (in-element)', function (hooks) {
   test('a common scenario of rendering a dropdown in an external element works', async function (assert) {
     assert.expect(7);
 
-    await render(<template>
-      {{! template-lint-disable no-unnecessary-curly-strings }}
-      <SelectBox @options={{array "foo" "bar" "baz"}} as |sb|>
-        <sb.Dropdown>
-          <sb.Input />
-          <sb.Trigger>
-            {{sb.value}}
-          </sb.Trigger>
-          <sb.Content @destination={{(destination)}}>
-            <sb.Options>
-              {{#each sb.options as |value|}}
-                <sb.Option @value={{value}} as |option|>
+    await render(
+      <template>
+        {{! template-lint-disable no-unnecessary-curly-strings }}
+        <SelectBox @options={{array "foo" "bar" "baz"}} as |sb|>
+          <sb.Dropdown>
+            <sb.Input />
+            <sb.Trigger>
+              {{sb.value}}
+            </sb.Trigger>
+            <sb.Content @destination={{(destination)}}>
+              <sb.Options>
+                {{#each sb.options as |value|}}
+                  <sb.Option @value={{value}} as |option|>
+                    {{option.index}}
+                    {{~" "~}}
+                    {{value}}
+                  </sb.Option>
+                {{/each}}
+              </sb.Options>
+              <div class="wrapper">
+                <sb.Option @value={{null}} as |option|>
                   {{option.index}}
                   {{~" "~}}
-                  {{value}}
+                  qux
                 </sb.Option>
-              {{/each}}
-            </sb.Options>
-            <div class="wrapper">
-              <sb.Option @value={{null}} as |option|>
-                {{option.index}}
-                {{~" "~}}
-                qux
-              </sb.Option>
-              <sb.Option @value={{null}} as |option|>
-                {{option.index}}
-                {{~" "~}}
-                norf
-              </sb.Option>
-            </div>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
+                <sb.Option @value={{null}} as |option|>
+                  {{option.index}}
+                  {{~" "~}}
+                  norf
+                </sb.Option>
+              </div>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
 
-      <div class="destination"></div>
+        <div class="destination"></div>
 
-      <button class="outside" type="button"></button>
-    </template>);
+        <button class="outside" type="button"></button>
+      </template>
+    );
 
     // Dropdown behaviour...
 

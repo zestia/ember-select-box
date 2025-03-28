@@ -15,14 +15,16 @@ module('dropdown (api)', function (hooks) {
     const handleReady = (dd) => (api = dd);
     const capture = (dd) => (api2 = dd);
 
-    await render(<template>
-      <Dropdown @onReady={{handleReady}} as |dd|>
-        <dd.Trigger />
-        <dd.Content>
-          {{capture dd}}
-        </dd.Content>
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown @onReady={{handleReady}} as |dd|>
+          <dd.Trigger />
+          <dd.Content>
+            {{capture dd}}
+          </dd.Content>
+        </Dropdown>
+      </template>
+    );
 
     assert.strictEqual(api, api2);
 
@@ -47,13 +49,15 @@ module('dropdown (api)', function (hooks) {
 
     const handleReady = (sb) => (api = sb);
 
-    await render(<template>
-      <Dropdown @onReady={{handleReady}} as |dd|>
-        <dd.Trigger>
-          {{dd.isOpen}}
-        </dd.Trigger>
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown @onReady={{handleReady}} as |dd|>
+          <dd.Trigger>
+            {{dd.isOpen}}
+          </dd.Trigger>
+        </Dropdown>
+      </template>
+    );
 
     assert.throws(() => {
       api.isOpen = true;
@@ -67,11 +71,13 @@ module('dropdown (api)', function (hooks) {
 
     const handleReady = (dd) => (api = dd);
 
-    await render(<template>
-      <Dropdown @onReady={{handleReady}} as |dd|>
-        <dd.Trigger />
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown @onReady={{handleReady}} as |dd|>
+          <dd.Trigger />
+        </Dropdown>
+      </template>
+    );
 
     assert.false(api.isOpen);
 
@@ -87,11 +93,13 @@ module('dropdown (api)', function (hooks) {
 
     const handleReady = (dd) => (api = dd);
 
-    await render(<template>
-      <Dropdown @onReady={{handleReady}} as |dd|>
-        <dd.Trigger />
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown @onReady={{handleReady}} as |dd|>
+          <dd.Trigger />
+        </Dropdown>
+      </template>
+    );
 
     assert.dom('.dropdown').hasAttribute('data-open', 'false');
 

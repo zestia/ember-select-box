@@ -12,15 +12,17 @@ module('select-box/content', function (hooks) {
     // The select box yields its own preconfigured
     // version of dropdown content.
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown>
-          <sb.Content class="foo">
-            Foo
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown>
+            <sb.Content class="foo">
+              Foo
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     assert
       .dom('.dropdown__content')
@@ -33,11 +35,13 @@ module('select-box/content', function (hooks) {
   test('it does not render when there is no dropdown', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Content />
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Content />
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.dropdown__content').doesNotExist();
   });

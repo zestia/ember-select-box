@@ -20,17 +20,23 @@ module('select-box (opening)', function (hooks) {
 
     const handleOpen = () => assert.step('open');
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown @onOpen={{handleOpen}} as |dd|>
-          <sb.Content>
-            <button type="button" class="open" {{on "click" dd.open}}></button>
-          </sb.Content>
-          <sb.Trigger />
-          <sb.Input />
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown @onOpen={{handleOpen}} as |dd|>
+            <sb.Content>
+              <button
+                type="button"
+                class="open"
+                {{on "click" dd.open}}
+              ></button>
+            </sb.Content>
+            <sb.Trigger />
+            <sb.Input />
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
 
@@ -50,20 +56,22 @@ module('select-box (opening)', function (hooks) {
   test('can set initial open state', async function (assert) {
     assert.expect(6);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown @open={{true}}>
-          <sb.Trigger />
-          <sb.Input />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value="A" />
-              <sb.Option @value="B" />
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown @open={{true}}>
+            <sb.Trigger />
+            <sb.Input />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option @value="A" />
+                <sb.Option @value="B" />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box .dropdown').hasAttribute('data-open', 'true');
     assert
@@ -80,20 +88,22 @@ module('select-box (opening)', function (hooks) {
   test('activates first option (undefined === undefined)', async function (assert) {
     assert.expect(3);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option />
-              <sb.Option />
-              <sb.Option />
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option />
+                <sb.Option />
+                <sb.Option />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box .dropdown__trigger');
 
@@ -113,20 +123,22 @@ module('select-box (opening)', function (hooks) {
   test('activates option for value (single)', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox @value={{2}} as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value={{1}} />
-              <sb.Option @value={{2}} />
-              <sb.Option @value={{3}} />
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value={{2}} as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option @value={{1}} />
+                <sb.Option @value={{2}} />
+                <sb.Option @value={{3}} />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box .dropdown__trigger');
 
@@ -138,21 +150,23 @@ module('select-box (opening)', function (hooks) {
   test('activating option (multiple)', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox @multiple={{true}} @value={{array 4 3 2}} as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value={{1}} />
-              <sb.Option @value={{2}} />
-              <sb.Option @value={{3}} />
-              <sb.Option @value={{4}} />
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @multiple={{true}} @value={{array 4 3 2}} as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option @value={{1}} />
+                <sb.Option @value={{2}} />
+                <sb.Option @value={{3}} />
+                <sb.Option @value={{4}} />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box .dropdown__trigger');
 
@@ -166,22 +180,24 @@ module('select-box (opening)', function (hooks) {
   test('activates option for value after they are rendered', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox @value={{2}} as |sb|>
-        <sb.Dropdown as |dd|>
-          <sb.Trigger />
-          {{#if dd.isOpen}}
-            <sb.Content>
-              <sb.Options>
-                <sb.Option @value={{1}} />
-                <sb.Option @value={{2}} />
-                <sb.Option @value={{3}} />
-              </sb.Options>
-            </sb.Content>
-          {{/if}}
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value={{2}} as |sb|>
+          <sb.Dropdown as |dd|>
+            <sb.Trigger />
+            {{#if dd.isOpen}}
+              <sb.Content>
+                <sb.Options>
+                  <sb.Option @value={{1}} />
+                  <sb.Option @value={{2}} />
+                  <sb.Option @value={{3}} />
+                </sb.Options>
+              </sb.Content>
+            {{/if}}
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box .dropdown__trigger');
 
@@ -193,13 +209,15 @@ module('select-box (opening)', function (hooks) {
   test('opening via the trigger does not lose focus', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box .dropdown__trigger');
 
@@ -209,14 +227,16 @@ module('select-box (opening)', function (hooks) {
   test('opening via the trigger advances focus to the input (mouse)', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Input />
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Input />
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box .dropdown__trigger');
 
@@ -226,14 +246,16 @@ module('select-box (opening)', function (hooks) {
   test('opening via the trigger advances focus to the input (keyboard)', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Input />
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Input />
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await focus('.select-box .dropdown__trigger');
     await triggerKeyEvent('.select-box .dropdown__trigger', 'keydown', 'Enter');
@@ -244,14 +266,16 @@ module('select-box (opening)', function (hooks) {
   test('opening via the api advances focus to the input', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown as |dd|>
-          <sb.Trigger {{on "mouseenter" dd.open}} />
-          <sb.Input />
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown as |dd|>
+            <sb.Trigger {{on "mouseenter" dd.open}} />
+            <sb.Input />
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await triggerEvent('.select-box .dropdown__trigger', 'mouseenter');
 
@@ -261,19 +285,21 @@ module('select-box (opening)', function (hooks) {
   test('opening combobox with input only', async function (assert) {
     assert.expect(3);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown as |dd|>
-          <sb.Input {{on "click" dd.open}} />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value="A" />
-              <sb.Option @value="B" />
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown as |dd|>
+            <sb.Input {{on "click" dd.open}} />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option @value="A" />
+                <sb.Option @value="B" />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box[aria-current="true"]').doesNotExist();
 
@@ -286,28 +312,35 @@ module('select-box (opening)', function (hooks) {
   test('opening with a selected value scrolls it into view', async function (assert) {
     assert.expect(2);
 
-    await render(<template>
-      {{! template-lint-disable no-forbidden-elements }}
-      <style>
-        .select-box .dropdown__content { height: 1em; overflow: auto; }
-        .select-box__option { line-height: 1; }
-      </style>
+    await render(
+      <template>
+        {{! template-lint-disable no-forbidden-elements }}
+        <style>
+          .select-box .dropdown__content {
+            height: 1em;
+            overflow: auto;
+          }
+          .select-box__option {
+            line-height: 1;
+          }
+        </style>
 
-      <SelectBox @value={{3}} as |sb|>
-        <sb.Dropdown as |dd|>
-          <sb.Trigger />
-          {{#if dd.isOpen}}
-            <sb.Content>
-              <sb.Options>
-                <sb.Option @value={{1}}>One</sb.Option>
-                <sb.Option @value={{2}}>Two</sb.Option>
-                <sb.Option @value={{3}}>Three</sb.Option>
-              </sb.Options>
-            </sb.Content>
-          {{/if}}
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+        <SelectBox @value={{3}} as |sb|>
+          <sb.Dropdown as |dd|>
+            <sb.Trigger />
+            {{#if dd.isOpen}}
+              <sb.Content>
+                <sb.Options>
+                  <sb.Option @value={{1}}>One</sb.Option>
+                  <sb.Option @value={{2}}>Two</sb.Option>
+                  <sb.Option @value={{3}}>Three</sb.Option>
+                </sb.Options>
+              </sb.Content>
+            {{/if}}
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box .dropdown__trigger');
 
@@ -320,13 +353,15 @@ module('select-box (opening)', function (hooks) {
   todo('dropdown trigger not available', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown as |dd|>
-          <dd.Trigger />
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown as |dd|>
+            <dd.Trigger />
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.dropdown__trigger').doesNotExist(`
       For valid aria, the select box implementation of the dropdown

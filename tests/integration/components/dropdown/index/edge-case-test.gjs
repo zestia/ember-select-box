@@ -17,18 +17,20 @@ module('dropdown (edge cases)', function (hooks) {
       @tracked show = true;
     })();
 
-    const destroy = (value) => {
+    const destroy = () => {
       state.show = false;
     };
 
-    await render(<template>
-      {{#if state.show}}
-        <Dropdown @open={{true}}>
-          <input aria-label="example" />
-          <button type="button" {{on "keydown" destroy}} class="close" />
-        </Dropdown>
-      {{/if}}
-    </template>);
+    await render(
+      <template>
+        {{#if state.show}}
+          <Dropdown @open={{true}}>
+            <input aria-label="example" />
+            <button type="button" {{on "keydown" destroy}} class="close" />
+          </Dropdown>
+        {{/if}}
+      </template>
+    );
 
     await focus('input');
     await triggerKeyEvent('.close', 'keydown', 'Enter');

@@ -18,15 +18,17 @@ module('select-box (up arrow key)', function (hooks) {
   test('up on options does not cycle listbox', async function (assert) {
     assert.expect(6);
 
-    await render(<template>
-      <SelectBox @value={{null}} as |sb|>
-        <sb.Options>
-          <sb.Option />
-          <sb.Option />
-          <sb.Option />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value={{null}} as |sb|>
+          <sb.Options>
+            <sb.Option />
+            <sb.Option />
+            <sb.Option />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
 
@@ -62,20 +64,22 @@ module('select-box (up arrow key)', function (hooks) {
   test('up on trigger does not cycle combobox', async function (assert) {
     assert.expect(7);
 
-    await render(<template>
-      <SelectBox @value={{null}} as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option />
-              <sb.Option />
-              <sb.Option />
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value={{null}} as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option />
+                <sb.Option />
+                <sb.Option />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
 
@@ -136,16 +140,18 @@ module('select-box (up arrow key)', function (hooks) {
   test('up on input cycles combobox', async function (assert) {
     assert.expect(6);
 
-    await render(<template>
-      <SelectBox @value={{null}} as |sb|>
-        <sb.Input />
-        <sb.Options>
-          <sb.Option />
-          <sb.Option />
-          <sb.Option />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value={{null}} as |sb|>
+          <sb.Input />
+          <sb.Options>
+            <sb.Option />
+            <sb.Option />
+            <sb.Option />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
 
@@ -188,11 +194,13 @@ module('select-box (up arrow key)', function (hooks) {
 
     const handleKeyDown = (_event) => (event = _event);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options {{on "keydown" handleKeyDown}} />
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options {{on "keydown" handleKeyDown}} />
+        </SelectBox>
+      </template>
+    );
 
     await focus('.select-box__options');
     await triggerKeyEvent('.select-box__options', 'keydown', 'ArrowUp');
@@ -203,28 +211,35 @@ module('select-box (up arrow key)', function (hooks) {
   test('up scrolls the active option into view', async function (assert) {
     assert.expect(4);
 
-    await render(<template>
-      {{! template-lint-disable no-forbidden-elements }}
-      <style>
-        .select-box .dropdown__content { height: 1em; overflow: auto; }
-        .select-box__option { line-height: 1; }
-      </style>
+    await render(
+      <template>
+        {{! template-lint-disable no-forbidden-elements }}
+        <style>
+          .select-box .dropdown__content {
+            height: 1em;
+            overflow: auto;
+          }
+          .select-box__option {
+            line-height: 1;
+          }
+        </style>
 
-      <SelectBox @value="B" as |sb|>
-        <sb.Dropdown as |dd|>
-          <sb.Trigger />
-          {{#if dd.isOpen}}
-            <sb.Content>
-              <sb.Options>
-                <sb.Option @value="A">a</sb.Option>
-                <sb.Option @value="B">b</sb.Option>
-                <sb.Option @value="C">c</sb.Option>
-              </sb.Options>
-            </sb.Content>
-          {{/if}}
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+        <SelectBox @value="B" as |sb|>
+          <sb.Dropdown as |dd|>
+            <sb.Trigger />
+            {{#if dd.isOpen}}
+              <sb.Content>
+                <sb.Options>
+                  <sb.Option @value="A">a</sb.Option>
+                  <sb.Option @value="B">b</sb.Option>
+                  <sb.Option @value="C">c</sb.Option>
+                </sb.Options>
+              </sb.Content>
+            {{/if}}
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box .dropdown__trigger');
 
@@ -247,20 +262,22 @@ module('select-box (up arrow key)', function (hooks) {
   test('up on trigger will open combobox', async function (assert) {
     assert.expect(3);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option />
-              <sb.Option />
-              <sb.Option />
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option />
+                <sb.Option />
+                <sb.Option />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await focus('.select-box .dropdown__trigger');
     await triggerKeyEvent(
@@ -285,20 +302,22 @@ module('select-box (up arrow key)', function (hooks) {
   test('up on trigger will open combobox (with selected value)', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox @value={{2}} as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value={{1}} />
-              <sb.Option @value={{2}} />
-              <sb.Option @value={{3}} />
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value={{2}} as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option @value={{1}} />
+                <sb.Option @value={{2}} />
+                <sb.Option @value={{3}} />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await focus('.select-box .dropdown__trigger');
     await triggerKeyEvent(
@@ -321,18 +340,20 @@ module('select-box (up arrow key)', function (hooks) {
     // The developer might want to open after a search has finished
     // for example.
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown>
-          <sb.Input />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option />
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown>
+            <sb.Input />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await focus('.select-box__input');
     await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowUp');
@@ -344,15 +365,17 @@ module('select-box (up arrow key)', function (hooks) {
   test('down on options of a listbox after making a selection', async function (assert) {
     assert.expect(2);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option />
-          <sb.Option />
-          <sb.Option />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Option />
+            <sb.Option />
+            <sb.Option />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box__option:nth-child(2)');
 
@@ -374,15 +397,17 @@ module('select-box (up arrow key)', function (hooks) {
   test('clicking an option, but mousing out of the select box, then pressing up', async function (assert) {
     assert.expect(3);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option @value={{1}} />
-          <sb.Option @value={{2}} />
-          <sb.Option @value={{3}} />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Option @value={{1}} />
+            <sb.Option @value={{2}} />
+            <sb.Option @value={{3}} />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box__option:nth-child(2)');
 
@@ -409,25 +434,32 @@ module('select-box (up arrow key)', function (hooks) {
   test('does not scroll the active option into view when closed', async function (assert) {
     assert.expect(8);
 
-    await render(<template>
-      {{! template-lint-disable no-forbidden-elements }}
-      <style>
-        .select-box__options { height: 1em; overflow: auto; }
-        .select-box__option { line-height: 1; }
-      </style>
-      <SelectBox as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value="A">a</sb.Option>
-              <sb.Option @value="B">b</sb.Option>
-              <sb.Option @value="C">c</sb.Option>
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        {{! template-lint-disable no-forbidden-elements }}
+        <style>
+          .select-box__options {
+            height: 1em;
+            overflow: auto;
+          }
+          .select-box__option {
+            line-height: 1;
+          }
+        </style>
+        <SelectBox as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option @value="A">a</sb.Option>
+                <sb.Option @value="B">b</sb.Option>
+                <sb.Option @value="C">c</sb.Option>
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await focus('.select-box .dropdown__trigger');
     assert.dom('.dropdown').hasAttribute('data-open', 'false');
@@ -464,25 +496,32 @@ module('select-box (up arrow key)', function (hooks) {
   test('mouse over options does not interfere with arrow up navigation', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      {{! template-lint-disable no-forbidden-elements }}
-      <style>
-        .select-box__options { height: 1em; overflow: auto; }
-        .select-box__option { line-height: 1; }
-      </style>
-      <SelectBox as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger>T</sb.Trigger>
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value="A">a</sb.Option>
-              <sb.Option @value="B">b</sb.Option>
-              <sb.Option @value="C">c</sb.Option>
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        {{! template-lint-disable no-forbidden-elements }}
+        <style>
+          .select-box__options {
+            height: 1em;
+            overflow: auto;
+          }
+          .select-box__option {
+            line-height: 1;
+          }
+        </style>
+        <SelectBox as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger>T</sb.Trigger>
+            <sb.Content>
+              <sb.Options>
+                <sb.Option @value="A">a</sb.Option>
+                <sb.Option @value="B">b</sb.Option>
+                <sb.Option @value="C">c</sb.Option>
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     // Set up, activate an option in a scrollable area
 

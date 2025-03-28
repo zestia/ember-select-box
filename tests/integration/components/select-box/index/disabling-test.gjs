@@ -9,16 +9,18 @@ module('select-box (disabling)', function (hooks) {
   test('disabled (input only)', async function (assert) {
     assert.expect(3);
 
-    await render(<template>
-      <SelectBox @disabled={{true}} as |sb|>
-        <sb.Input />
-        <sb.Options>
-          <sb.Option />
-          <sb.Option />
-          <sb.Option />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @disabled={{true}} as |sb|>
+          <sb.Input />
+          <sb.Options>
+            <sb.Option />
+            <sb.Option />
+            <sb.Option />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box').hasAttribute('data-disabled', 'true');
     assert.dom('.select-box__input').isDisabled();
@@ -30,20 +32,22 @@ module('select-box (disabling)', function (hooks) {
   test('disabled (trigger only)', async function (assert) {
     assert.expect(4);
 
-    await render(<template>
-      <SelectBox @disabled={{true}} as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option />
-              <sb.Option />
-              <sb.Option />
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @disabled={{true}} as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option />
+                <sb.Option />
+                <sb.Option />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box').hasAttribute('data-disabled', 'true');
     assert
@@ -58,15 +62,17 @@ module('select-box (disabling)', function (hooks) {
   test('disabled with a value', async function (assert) {
     assert.expect(2);
 
-    await render(<template>
-      <SelectBox @value={{2}} @disabled={{true}} as |sb|>
-        <sb.Options>
-          <sb.Option @value={{1}} />
-          <sb.Option @value={{2}} />
-          <sb.Option @value={{3}} />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value={{2}} @disabled={{true}} as |sb|>
+          <sb.Options>
+            <sb.Option @value={{1}} />
+            <sb.Option @value={{2}} />
+            <sb.Option @value={{3}} />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert
       .dom('.select-box__option:nth-child(2)')
@@ -81,13 +87,15 @@ module('select-box (disabling)', function (hooks) {
   test('disabling with a non boolean value', async function (assert) {
     assert.expect(2);
 
-    await render(<template>
-      <SelectBox @disabled="foo" as |sb|>
-        <sb.Options>
-          <sb.Option />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @disabled="foo" as |sb|>
+          <sb.Options>
+            <sb.Option />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box').hasAttribute('data-disabled', 'true');
     assert.dom('.select-box__option').hasAttribute('aria-disabled', 'true');
@@ -98,22 +106,24 @@ module('select-box (disabling)', function (hooks) {
 
     const handleChange = (value) => assert.step(value);
 
-    await render(<template>
-      <SelectBox @onChange={{handleChange}} as |sb|>
-        <sb.Dropdown as |dd|>
-          <sb.Trigger />
-          {{#if dd.isOpen}}
-            <sb.Content>
-              <sb.Options>
-                <sb.Option @value="a" />
-                <sb.Option @value="b" @disabled={{true}} />
-                <sb.Option @value="c" />
-              </sb.Options>
-            </sb.Content>
-          {{/if}}
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onChange={{handleChange}} as |sb|>
+          <sb.Dropdown as |dd|>
+            <sb.Trigger />
+            {{#if dd.isOpen}}
+              <sb.Content>
+                <sb.Options>
+                  <sb.Option @value="a" />
+                  <sb.Option @value="b" @disabled={{true}} />
+                  <sb.Option @value="c" />
+                </sb.Options>
+              </sb.Content>
+            {{/if}}
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box .dropdown__trigger');
     await click('.select-box__option:nth-child(2)');

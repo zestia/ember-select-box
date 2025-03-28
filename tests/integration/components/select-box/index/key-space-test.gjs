@@ -24,20 +24,22 @@ module('select-box (space)', function (hooks) {
   test('space on trigger of combobox', async function (assert) {
     assert.expect(10);
 
-    await render(<template>
-      <SelectBox @onChange={{handleChange}} as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger {{on "keydown" handleKeyDown}} />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value="A" />
-              <sb.Option @value="B" />
-              <sb.Option @value="C" />
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onChange={{handleChange}} as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger {{on "keydown" handleKeyDown}} />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option @value="A" />
+                <sb.Option @value="B" />
+                <sb.Option @value="C" />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await focus('.select-box .dropdown__trigger');
     await triggerKeyEvent('.select-box .dropdown__trigger', 'keydown', ' ');
@@ -72,20 +74,22 @@ module('select-box (space)', function (hooks) {
   test('space in input of combobox', async function (assert) {
     assert.expect(5);
 
-    await render(<template>
-      <SelectBox @onChange={{handleChange}} as |sb|>
-        <sb.Dropdown>
-          <sb.Input {{on "keydown" handleKeyDown}} />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value="A" />
-              <sb.Option @value="B" />
-              <sb.Option @value="C" />
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onChange={{handleChange}} as |sb|>
+          <sb.Dropdown>
+            <sb.Input {{on "keydown" handleKeyDown}} />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option @value="A" />
+                <sb.Option @value="B" />
+                <sb.Option @value="C" />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await focus('.select-box__input');
     await triggerKeyEvent('.select-box__input', 'keydown', ' ');
@@ -113,19 +117,21 @@ module('select-box (space)', function (hooks) {
   test('space in listbox', async function (assert) {
     assert.expect(4);
 
-    await render(<template>
-      <SelectBox
-        @onChange={{handleChange}}
-        {{on "keydown" handleKeyDown}}
-        as |sb|
-      >
-        <sb.Options>
-          <sb.Option @value="A" />
-          <sb.Option @value="B" />
-          <sb.Option @value="C" />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox
+          @onChange={{handleChange}}
+          {{on "keydown" handleKeyDown}}
+          as |sb|
+        >
+          <sb.Options>
+            <sb.Option @value="A" />
+            <sb.Option @value="B" />
+            <sb.Option @value="C" />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await focus('.select-box__options');
     await triggerEvent('.select-box__option:nth-child(2)', 'mouseenter');
@@ -146,21 +152,23 @@ module('select-box (space)', function (hooks) {
   test('space on trigger of combobox whilst typing', async function (assert) {
     assert.expect(11);
 
-    await render(<template>
-      {{! template-lint-disable no-whitespace-for-layout }}
-      <SelectBox @onChange={{handleChange}} as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger {{on "keydown" handleKeyDown}} />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value="A">a</sb.Option>
-              <sb.Option @value="A1">a1</sb.Option>
-              <sb.Option @value="A 2">a 2</sb.Option>
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        {{! template-lint-disable no-whitespace-for-layout }}
+        <SelectBox @onChange={{handleChange}} as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger {{on "keydown" handleKeyDown}} />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option @value="A">a</sb.Option>
+                <sb.Option @value="A1">a1</sb.Option>
+                <sb.Option @value="A 2">a 2</sb.Option>
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
 

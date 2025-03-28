@@ -25,20 +25,22 @@ module('select-box (enter)', function (hooks) {
   test('enter on trigger of combobox', async function (assert) {
     assert.expect(10);
 
-    await render(<template>
-      <SelectBox @onChange={{handleChange}} as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger {{on "keydown" handleKeyDown}} />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value="a" />
-              <sb.Option @value="b" />
-              <sb.Option @value="c" />
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onChange={{handleChange}} as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger {{on "keydown" handleKeyDown}} />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option @value="a" />
+                <sb.Option @value="b" />
+                <sb.Option @value="c" />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await focus('.select-box .dropdown__trigger');
     await triggerKeyEvent('.select-box .dropdown__trigger', 'keydown', 'Enter');
@@ -77,18 +79,20 @@ module('select-box (enter)', function (hooks) {
   test('enter on trigger of combobox (multiple)', async function (assert) {
     assert.expect(2);
 
-    await render(<template>
-      <SelectBox @multiple={{true}} as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option />
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @multiple={{true}} as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await focus('.select-box .dropdown__trigger');
     await triggerKeyEvent('.select-box .dropdown__trigger', 'keydown', 'Enter');
@@ -103,20 +107,22 @@ module('select-box (enter)', function (hooks) {
   test('enter in input of combobox', async function (assert) {
     assert.expect(12);
 
-    await render(<template>
-      <SelectBox @onChange={{handleChange}} as |sb|>
-        <sb.Dropdown>
-          <sb.Input {{on "keydown" handleKeyDown}} />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value="a" />
-              <sb.Option @value="b" />
-              <sb.Option @value="c" />
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onChange={{handleChange}} as |sb|>
+          <sb.Dropdown>
+            <sb.Input {{on "keydown" handleKeyDown}} />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option @value="a" />
+                <sb.Option @value="b" />
+                <sb.Option @value="c" />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     // pressing enter whilst inside an input will not submit the form
     // (as it would on a normal input)
@@ -148,21 +154,23 @@ module('select-box (enter)', function (hooks) {
   test('enter in input of combobox (with a trigger)', async function (assert) {
     assert.expect(12);
 
-    await render(<template>
-      <SelectBox @value="b" @onChange={{handleChange}} as |sb|>
-        <sb.Dropdown>
-          <sb.Input {{on "keydown" handleKeyDown}} />
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value="a" />
-              <sb.Option @value="b" />
-              <sb.Option @value="c" />
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value="b" @onChange={{handleChange}} as |sb|>
+          <sb.Dropdown>
+            <sb.Input {{on "keydown" handleKeyDown}} />
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option @value="a" />
+                <sb.Option @value="b" />
+                <sb.Option @value="c" />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     // pressing enter whilst inside an input would usually submit the form
     // but in this case, since there is a trigger, the select box will toggle
@@ -196,20 +204,22 @@ module('select-box (enter)', function (hooks) {
   test('enter in input of combobox (with active option)', async function (assert) {
     assert.expect(5);
 
-    await render(<template>
-      <SelectBox @onChange={{handleChange}} as |sb|>
-        <sb.Dropdown>
-          <sb.Input {{on "keydown" handleKeyDown}} />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value="a" />
-              <sb.Option @value="b" />
-              <sb.Option @value="c" />
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onChange={{handleChange}} as |sb|>
+          <sb.Dropdown>
+            <sb.Input {{on "keydown" handleKeyDown}} />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option @value="a" />
+                <sb.Option @value="b" />
+                <sb.Option @value="c" />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await focus('.select-box__input');
     await triggerEvent('.select-box__option:nth-child(2)', 'mouseenter');
@@ -233,21 +243,23 @@ module('select-box (enter)', function (hooks) {
     // Just because there are no options (no listbox), yet, pressing enter
     // should still not submit the form
 
-    await render(<template>
-      <SelectBox @value="b" @onChange={{handleChange}} as |sb|>
-        <sb.Dropdown as |dd|>
-          <sb.Input {{on "keydown" handleKeyDown}} />
-          <sb.Trigger />
-          {{#if dd.isOpen}}
-            <sb.Content>
-              <sb.Options>
-                <sb.Option />
-              </sb.Options>
-            </sb.Content>
-          {{/if}}
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value="b" @onChange={{handleChange}} as |sb|>
+          <sb.Dropdown as |dd|>
+            <sb.Input {{on "keydown" handleKeyDown}} />
+            <sb.Trigger />
+            {{#if dd.isOpen}}
+              <sb.Content>
+                <sb.Options>
+                  <sb.Option />
+                </sb.Options>
+              </sb.Content>
+            {{/if}}
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await focus('.select-box__input');
     await triggerKeyEvent('.select-box__input', 'keydown', 'Enter');
@@ -259,19 +271,21 @@ module('select-box (enter)', function (hooks) {
   test('enter in listbox', async function (assert) {
     assert.expect(4);
 
-    await render(<template>
-      <SelectBox
-        @onChange={{handleChange}}
-        {{on "keydown" handleKeyDown}}
-        as |sb|
-      >
-        <sb.Options>
-          <sb.Option @value="a" />
-          <sb.Option @value="b" />
-          <sb.Option @value="c" />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox
+          @onChange={{handleChange}}
+          {{on "keydown" handleKeyDown}}
+          as |sb|
+        >
+          <sb.Options>
+            <sb.Option @value="a" />
+            <sb.Option @value="b" />
+            <sb.Option @value="c" />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await focus('.select-box__options');
     await triggerEvent('.select-box__option:nth-child(2)', 'mouseenter');
@@ -292,15 +306,17 @@ module('select-box (enter)', function (hooks) {
   test('pressing enter on a child', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option>
-            <a href="#" {{on "keydown" handleKeyDown}}>Link</a>
-          </sb.Option>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Option>
+              <a href="#" {{on "keydown" handleKeyDown}}>Link</a>
+            </sb.Option>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await focus('.select-box__options');
     await triggerKeyEvent('a', 'keydown', 'Enter');
@@ -311,13 +327,15 @@ module('select-box (enter)', function (hooks) {
   test('pressing enter on a focusable option (listbox)', async function (assert) {
     assert.expect(2);
 
-    await render(<template>
-      <SelectBox @onChange={{handleChange}} as |sb|>
-        <sb.Options>
-          <sb.Option @value="1" tabindex="0" />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onChange={{handleChange}} as |sb|>
+          <sb.Options>
+            <sb.Option @value="1" tabindex="0" />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await focus('.select-box__option');
     await triggerKeyEvent('.select-box__option', 'keydown', 'Enter');
@@ -328,18 +346,20 @@ module('select-box (enter)', function (hooks) {
   test('pressing enter on a focusable option (combobox)', async function (assert) {
     assert.expect(2);
 
-    await render(<template>
-      <SelectBox @onChange={{handleChange}} as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value="1" tabindex="0" />
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onChange={{handleChange}} as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option @value="1" tabindex="0" />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box .dropdown__trigger');
     await focus('.select-box__option');

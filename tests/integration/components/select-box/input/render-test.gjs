@@ -9,11 +9,13 @@ module('select-box/input', function (hooks) {
   test('it renders', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Input />
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Input />
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__input').hasTagName('input');
   });
@@ -21,11 +23,13 @@ module('select-box/input', function (hooks) {
   test('splattributes', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Input class="foo" />
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Input class="foo" />
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__input').hasClass('foo');
   });
@@ -33,11 +37,13 @@ module('select-box/input', function (hooks) {
   test('role', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Input />
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Input />
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__input').hasAttribute('role', 'combobox');
   });
@@ -45,14 +51,16 @@ module('select-box/input', function (hooks) {
   test('role with trigger', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown>
-          <sb.Input />
-          <sb.Trigger />
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown>
+            <sb.Input />
+            <sb.Trigger />
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     assert
       .dom('.select-box__input')
@@ -66,11 +74,13 @@ module('select-box/input', function (hooks) {
   test('type', async function (assert) {
     assert.expect(2);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Input />
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Input />
+        </SelectBox>
+      </template>
+    );
 
     assert
       .dom('.select-box__input')

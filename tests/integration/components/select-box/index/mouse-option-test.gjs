@@ -18,15 +18,17 @@ module('select-box (mouseenter option)', function (hooks) {
 
     const handleActivateOption = (value) => assert.step(value);
 
-    await render(<template>
-      <SelectBox @onActivate={{handleActivateOption}} as |sb|>
-        <sb.Options>
-          <sb.Option @value="a" />
-          <sb.Option @value="b" @disabled={{true}} />
-          <sb.Option @value="c" />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onActivate={{handleActivateOption}} as |sb|>
+          <sb.Options>
+            <sb.Option @value="a" />
+            <sb.Option @value="b" @disabled={{true}} />
+            <sb.Option @value="c" />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await triggerEvent('.select-box__option:nth-child(1)', 'mouseenter');
 
@@ -74,13 +76,15 @@ module('select-box (mouseenter option)', function (hooks) {
       @tracked disableOne;
     })();
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option @disabled={{state.disableOne}} />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Option @disabled={{state.disableOne}} />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await triggerEvent('.select-box__option', 'mouseenter');
 
@@ -104,21 +108,28 @@ module('select-box (mouseenter option)', function (hooks) {
 
     // This would create annoying shift as you move the mouse.
 
-    await render(<template>
-      {{! template-lint-disable no-forbidden-elements }}
-      <style>
-        .select-box__options { height: 1em; overflow: auto; }
-        .select-box__option { line-height: 1; }
-      </style>
+    await render(
+      <template>
+        {{! template-lint-disable no-forbidden-elements }}
+        <style>
+          .select-box__options {
+            height: 1em;
+            overflow: auto;
+          }
+          .select-box__option {
+            line-height: 1;
+          }
+        </style>
 
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option>a</sb.Option>
-          <sb.Option>b</sb.Option>
-          <sb.Option>c</sb.Option>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Option>a</sb.Option>
+            <sb.Option>b</sb.Option>
+            <sb.Option>c</sb.Option>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await triggerEvent('.select-box__option:nth-child(2)', 'mouseenter');
 
@@ -128,15 +139,17 @@ module('select-box (mouseenter option)', function (hooks) {
   test('mousing out of an option does not deactivate it', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option>a</sb.Option>
-          <sb.Option>b</sb.Option>
-          <sb.Option>c</sb.Option>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Option>a</sb.Option>
+            <sb.Option>b</sb.Option>
+            <sb.Option>c</sb.Option>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await focus('.select-box__options');
     await triggerEvent('.select-box__option:nth-child(2)', 'mouseenter');
@@ -154,15 +167,17 @@ module('select-box (mouseenter option)', function (hooks) {
   test('mousing out of a select box deactivates the options when it does not have focus', async function (assert) {
     assert.expect(4);
 
-    await render(<template>
-      <SelectBox @value="c" as |sb|>
-        <sb.Options>
-          <sb.Option @value="a">a</sb.Option>
-          <sb.Option @value="b">b</sb.Option>
-          <sb.Option @value="c">c</sb.Option>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value="c" as |sb|>
+          <sb.Options>
+            <sb.Option @value="a">a</sb.Option>
+            <sb.Option @value="b">b</sb.Option>
+            <sb.Option @value="c">c</sb.Option>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert
       .dom('.select-box__option:nth-child(3)')
@@ -196,15 +211,17 @@ module('select-box (mouseenter option)', function (hooks) {
   test('mousing out of a select box does not deactivate the options when it has focus (listbox)', async function (assert) {
     assert.expect(4);
 
-    await render(<template>
-      <SelectBox @value="c" as |sb|>
-        <sb.Options>
-          <sb.Option @value="a">a</sb.Option>
-          <sb.Option @value="b">b</sb.Option>
-          <sb.Option @value="c">c</sb.Option>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value="c" as |sb|>
+          <sb.Options>
+            <sb.Option @value="a">a</sb.Option>
+            <sb.Option @value="b">b</sb.Option>
+            <sb.Option @value="c">c</sb.Option>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await focus('.select-box__options');
 
@@ -239,20 +256,22 @@ module('select-box (mouseenter option)', function (hooks) {
   test('mousing out of a select box does not deactivate the options when it has focus (comobox - trigger)', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option>a</sb.Option>
-              <sb.Option>b</sb.Option>
-              <sb.Option>c</sb.Option>
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option>a</sb.Option>
+                <sb.Option>b</sb.Option>
+                <sb.Option>c</sb.Option>
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await focus('.select-box .dropdown__trigger');
     await triggerEvent('.select-box__option:nth-child(2)', 'mouseenter');
@@ -266,16 +285,18 @@ module('select-box (mouseenter option)', function (hooks) {
   test('mousing out of a select box does not deactivate the options when it has focus (comobox - input)', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Input />
-        <sb.Options>
-          <sb.Option>a</sb.Option>
-          <sb.Option>b</sb.Option>
-          <sb.Option>c</sb.Option>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Input />
+          <sb.Options>
+            <sb.Option>a</sb.Option>
+            <sb.Option>b</sb.Option>
+            <sb.Option>c</sb.Option>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await focus('.select-box__input');
     await triggerEvent('.select-box__option:nth-child(2)', 'mouseenter');
@@ -289,13 +310,15 @@ module('select-box (mouseenter option)', function (hooks) {
   test('mousing down on an option does not select it', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option @value={{1}} />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Option @value={{1}} />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await triggerEvent('.select-box__option', 'mousedown');
 

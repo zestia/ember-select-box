@@ -426,7 +426,7 @@ export default class SelectBox extends Component {
     this._handleEnterOrSpace();
   }
 
-  _handleEnterOrSpace(event) {
+  _handleEnterOrSpace() {
     if (this.canAutoOpen) {
       this.dropdown.open();
       return;

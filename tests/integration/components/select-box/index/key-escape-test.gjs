@@ -16,18 +16,20 @@ module('select-box (escape)', function (hooks) {
   test('escape on trigger in combobox', async function (assert) {
     assert.expect(12);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown @onClose={{handleClose}}>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value="foo">foo</sb.Option>
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown @onClose={{handleClose}}>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option @value="foo">foo</sb.Option>
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
 
@@ -66,18 +68,20 @@ module('select-box (escape)', function (hooks) {
   test('escape on input in combobox', async function (assert) {
     assert.expect(12);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown @onClose={{handleClose}} as |dd|>
-          <sb.Input {{on "click" dd.open}} />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value="foo">foo</sb.Option>
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown @onClose={{handleClose}} as |dd|>
+            <sb.Input {{on "click" dd.open}} />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option @value="foo">foo</sb.Option>
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
 
@@ -111,14 +115,16 @@ module('select-box (escape)', function (hooks) {
     // This ensures our listeners are on the dropdown itself,
     // and not just on the trigger.
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown @onClose={{handleClose}}>
-          <sb.Trigger />
-          <button type="button" class="inside" />
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown @onClose={{handleClose}}>
+            <sb.Trigger />
+            <button type="button" class="inside" />
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box .dropdown__trigger');
 
@@ -139,16 +145,18 @@ module('select-box (escape)', function (hooks) {
 
     const handleKeyDownParent = (_event) => (event = _event);
 
-    await render(<template>
-      {{! template-lint-disable no-invalid-interactive }}
-      <div {{on "keydown" handleKeyDownParent}}>
-        <SelectBox as |sb|>
-          <sb.Dropdown @onClose={{handleClose}}>
-            <sb.Trigger />
-          </sb.Dropdown>
-        </SelectBox>
-      </div>
-    </template>);
+    await render(
+      <template>
+        {{! template-lint-disable no-invalid-interactive }}
+        <div {{on "keydown" handleKeyDownParent}}>
+          <SelectBox as |sb|>
+            <sb.Dropdown @onClose={{handleClose}}>
+              <sb.Trigger />
+            </sb.Dropdown>
+          </SelectBox>
+        </div>
+      </template>
+    );
 
     await triggerKeyEvent('.select-box .dropdown', 'keydown', 'Escape');
 
@@ -165,16 +173,18 @@ module('select-box (escape)', function (hooks) {
 
     const handleKeyDownParent = (_event) => (event = _event);
 
-    await render(<template>
-      {{! template-lint-disable no-invalid-interactive }}
-      <div {{on "keydown" handleKeyDownParent}}>
-        <SelectBox as |sb|>
-          <sb.Dropdown @onClose={{handleClose}}>
-            <sb.Trigger />
-          </sb.Dropdown>
-        </SelectBox>
-      </div>
-    </template>);
+    await render(
+      <template>
+        {{! template-lint-disable no-invalid-interactive }}
+        <div {{on "keydown" handleKeyDownParent}}>
+          <SelectBox as |sb|>
+            <sb.Dropdown @onClose={{handleClose}}>
+              <sb.Trigger />
+            </sb.Dropdown>
+          </SelectBox>
+        </div>
+      </template>
+    );
 
     await click('.select-box .dropdown__trigger');
     await triggerKeyEvent('.select-box .dropdown', 'keydown', 'Escape');

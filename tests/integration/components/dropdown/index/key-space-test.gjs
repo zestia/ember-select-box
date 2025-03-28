@@ -9,11 +9,13 @@ module('dropdown', function (hooks) {
   test('space on trigger (space)', async function (assert) {
     assert.expect(2);
 
-    await render(<template>
-      <Dropdown as |dd|>
-        <dd.Trigger />
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown as |dd|>
+          <dd.Trigger />
+        </Dropdown>
+      </template>
+    );
 
     await triggerKeyEvent('.dropdown__trigger', 'keydown', ' ');
 

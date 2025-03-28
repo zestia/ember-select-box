@@ -14,15 +14,17 @@ module('select-box/option (api)', function (hooks) {
 
     const capture = (o) => (api = o);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option as |option|>
-            {{capture option}}
-          </sb.Option>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Option as |option|>
+              {{capture option}}
+            </sb.Option>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.strictEqual(api.index, 0);
     assert.true(api.isActive);
@@ -35,18 +37,20 @@ module('select-box/option (api)', function (hooks) {
   test('isActive', async function (assert) {
     assert.expect(2);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option as |option|>
-            {{option.isActive}}
-          </sb.Option>
-          <sb.Option as |option|>
-            {{option.isActive}}
-          </sb.Option>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Option as |option|>
+              {{option.isActive}}
+            </sb.Option>
+            <sb.Option as |option|>
+              {{option.isActive}}
+            </sb.Option>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__option:nth-child(1)').hasText('true');
     assert.dom('.select-box__option:nth-child(2)').hasText('false');
@@ -59,15 +63,17 @@ module('select-box/option (api)', function (hooks) {
       @tracked value;
     })();
 
-    await render(<template>
-      <SelectBox @value={{state.value}} as |sb|>
-        <sb.Options>
-          <sb.Option as |option|>
-            {{option.isSelected}}
-          </sb.Option>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value={{state.value}} as |sb|>
+          <sb.Options>
+            <sb.Option as |option|>
+              {{option.isSelected}}
+            </sb.Option>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__option').hasText('true');
 
@@ -81,21 +87,23 @@ module('select-box/option (api)', function (hooks) {
   test('index', async function (assert) {
     assert.expect(3);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option as |option|>
-            {{option.index}}
-          </sb.Option>
-          <sb.Option as |option|>
-            {{option.index}}
-          </sb.Option>
-          <sb.Option as |option|>
-            {{option.index}}
-          </sb.Option>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Option as |option|>
+              {{option.index}}
+            </sb.Option>
+            <sb.Option as |option|>
+              {{option.index}}
+            </sb.Option>
+            <sb.Option as |option|>
+              {{option.index}}
+            </sb.Option>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__option:nth-child(1)').hasText('0');
     assert.dom('.select-box__option:nth-child(2)').hasText('1');
@@ -105,21 +113,23 @@ module('select-box/option (api)', function (hooks) {
   test('index of disabled options', async function (assert) {
     assert.expect(4);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option as |option|>
-            {{option.index}}
-          </sb.Option>
-          <sb.Option @disabled={{true}} as |option|>
-            {{option.index}}
-          </sb.Option>
-          <sb.Option as |option|>
-            {{option.index}}
-          </sb.Option>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Option as |option|>
+              {{option.index}}
+            </sb.Option>
+            <sb.Option @disabled={{true}} as |option|>
+              {{option.index}}
+            </sb.Option>
+            <sb.Option as |option|>
+              {{option.index}}
+            </sb.Option>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__option:nth-child(1)').hasText('0');
     assert.dom('.select-box__option:nth-child(2)').hasText('-1');
@@ -152,32 +162,34 @@ module('select-box/option (api)', function (hooks) {
       myValue = baz;
     })();
 
-    await render(<template>
-      <SelectBox @value={{state.myValue}} as |sb|>
-        <sb.Options>
-          <sb.Group @label="Group 1">
-            {{#each state.group1 as |item i|}}
-              <sb.Option @value={{item}} as |option|>
-                {{option.value.myLabel}}
-                {{i}}
-                {{option.index}}
-                {{option.isSelected}}
-              </sb.Option>
-            {{/each}}
-          </sb.Group>
-          <sb.Group @label="Group 2">
-            {{#each state.group2 as |item i|}}
-              <sb.Option @value={{item}} as |option|>
-                {{option.value.myLabel}}
-                {{i}}
-                {{option.index}}
-                {{option.isSelected}}
-              </sb.Option>
-            {{/each}}
-          </sb.Group>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value={{state.myValue}} as |sb|>
+          <sb.Options>
+            <sb.Group @label="Group 1">
+              {{#each state.group1 as |item i|}}
+                <sb.Option @value={{item}} as |option|>
+                  {{option.value.myLabel}}
+                  {{i}}
+                  {{option.index}}
+                  {{option.isSelected}}
+                </sb.Option>
+              {{/each}}
+            </sb.Group>
+            <sb.Group @label="Group 2">
+              {{#each state.group2 as |item i|}}
+                <sb.Option @value={{item}} as |option|>
+                  {{option.value.myLabel}}
+                  {{i}}
+                  {{option.index}}
+                  {{option.isSelected}}
+                </sb.Option>
+              {{/each}}
+            </sb.Group>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     // select box options can yield their label, value, index and selected state
     assert.dom(findAll('.select-box__option')[0]).hasText('Foo 0 0 false');

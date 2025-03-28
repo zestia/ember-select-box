@@ -22,15 +22,17 @@ module('select-box (jump to option)', function (hooks) {
   test('jump to options in a listbox', async function (assert) {
     assert.expect(2);
 
-    await render(<template>
-      <SelectBox @onChange={{handleChange}} as |sb|>
-        <sb.Options>
-          <sb.Option @value="1">a</sb.Option>
-          <sb.Option @value="2">b1</sb.Option>
-          <sb.Option @value="3">b2</sb.Option>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onChange={{handleChange}} as |sb|>
+          <sb.Options>
+            <sb.Option @value="1">a</sb.Option>
+            <sb.Option @value="2">b1</sb.Option>
+            <sb.Option @value="3">b2</sb.Option>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await focus('.select-box__options');
     await triggerKeyEvent('.select-box__options', 'keydown', 'B');
@@ -45,20 +47,22 @@ module('select-box (jump to option)', function (hooks) {
   test('jump to options in a combobox', async function (assert) {
     assert.expect(2);
 
-    await render(<template>
-      <SelectBox @onChange={{handleChange}} as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value="1">a</sb.Option>
-              <sb.Option @value="2">b1</sb.Option>
-              <sb.Option @value="3">b2</sb.Option>
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onChange={{handleChange}} as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option @value="1">a</sb.Option>
+                <sb.Option @value="2">b1</sb.Option>
+                <sb.Option @value="3">b2</sb.Option>
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box .dropdown__trigger');
     await triggerKeyEvent('.select-box .dropdown__trigger', 'keydown', 'B');
@@ -73,20 +77,22 @@ module('select-box (jump to option)', function (hooks) {
   test('jump to when closed', async function (assert) {
     assert.expect(3);
 
-    await render(<template>
-      <SelectBox @onChange={{handleChange}} as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value="1">a</sb.Option>
-              <sb.Option @value="2">a1</sb.Option>
-              <sb.Option @value="3">B</sb.Option>
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onChange={{handleChange}} as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option @value="1">a</sb.Option>
+                <sb.Option @value="2">a1</sb.Option>
+                <sb.Option @value="3">B</sb.Option>
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await focus('.select-box .dropdown__trigger');
     await triggerKeyEvent('.select-box .dropdown__trigger', 'keydown', 'A');
@@ -101,19 +107,21 @@ module('select-box (jump to option)', function (hooks) {
   test('jump to when closed (multiple)', async function (assert) {
     assert.expect(2);
 
-    await render(<template>
-      <SelectBox @onChange={{handleChange}} @multiple={{true}} as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value="1">a</sb.Option>
-              <sb.Option @value="2">b</sb.Option>
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onChange={{handleChange}} @multiple={{true}} as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option @value="1">a</sb.Option>
+                <sb.Option @value="2">b</sb.Option>
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await focus('.select-box .dropdown__trigger');
     await triggerKeyEvent('.select-box .dropdown__trigger', 'keydown', 'B');
@@ -128,19 +136,21 @@ module('select-box (jump to option)', function (hooks) {
   test('jump to when input is focused', async function (assert) {
     assert.expect(3);
 
-    await render(<template>
-      <SelectBox @value={{null}} as |sb|>
-        <sb.Dropdown>
-          <sb.Input />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option>a</sb.Option>
-              <sb.Option>b</sb.Option>
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value={{null}} as |sb|>
+          <sb.Dropdown>
+            <sb.Input />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option>a</sb.Option>
+                <sb.Option>b</sb.Option>
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
 
@@ -161,16 +171,18 @@ module('select-box (jump to option)', function (hooks) {
   test('has 1 second to find a match', async function (assert) {
     assert.expect(8);
 
-    await render(<template>
-      <SelectBox @value={{null}} as |sb|>
-        <sb.Options>
-          <sb.Option />
-          <sb.Option>a1</sb.Option>
-          <sb.Option>b</sb.Option>
-          <sb.Option>b2</sb.Option>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value={{null}} as |sb|>
+          <sb.Options>
+            <sb.Option />
+            <sb.Option>a1</sb.Option>
+            <sb.Option>b</sb.Option>
+            <sb.Option>b2</sb.Option>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
 
@@ -220,15 +232,17 @@ module('select-box (jump to option)', function (hooks) {
   test('space character is included', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option>a 1</sb.Option>
-          <sb.Option>a 2</sb.Option>
-          <sb.Option>a 3</sb.Option>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Option>a 1</sb.Option>
+            <sb.Option>a 2</sb.Option>
+            <sb.Option>a 3</sb.Option>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await focus('.select-box__options');
     await triggerKeyEvent('.select-box__options', 'keydown', 'A');
@@ -243,18 +257,20 @@ module('select-box (jump to option)', function (hooks) {
   test('text content is trimmed', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option>
-            a
-          </sb.Option>
-          <sb.Option>
-            b
-          </sb.Option>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Option>
+              a
+            </sb.Option>
+            <sb.Option>
+              b
+            </sb.Option>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await focus('.select-box__options');
     await triggerKeyEvent('.select-box__options', 'keydown', 'B');
@@ -267,20 +283,22 @@ module('select-box (jump to option)', function (hooks) {
   test("space character on trigger doesn't accidentally advance active option", async function (assert) {
     assert.expect(3);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option>a</sb.Option>
-              <sb.Option>b</sb.Option>
-              <sb.Option>c</sb.Option>
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option>a</sb.Option>
+                <sb.Option>b</sb.Option>
+                <sb.Option>c</sb.Option>
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await focus('.select-box .dropdown__trigger');
     await triggerKeyEvent('.select-box .dropdown__trigger', 'keydown', ' ');
@@ -303,16 +321,18 @@ module('select-box (jump to option)', function (hooks) {
   test('repeating characters cycles through ignoring timeout', async function (assert) {
     assert.expect(6);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option />
-          <sb.Option>a1</sb.Option>
-          <sb.Option>aa1</sb.Option>
-          <sb.Option>a2</sb.Option>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Option />
+            <sb.Option>a1</sb.Option>
+            <sb.Option>aa1</sb.Option>
+            <sb.Option>a2</sb.Option>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await focus('.select-box__options');
     await triggerKeyEvent('.select-box__options', 'keydown', 'A');
@@ -361,15 +381,17 @@ module('select-box (jump to option)', function (hooks) {
   test('jumping to an option starts from the selected option (listbox)', async function (assert) {
     assert.expect(2);
 
-    await render(<template>
-      <SelectBox @value="A2" as |sb|>
-        <sb.Options>
-          <sb.Option @value="A1">a1</sb.Option>
-          <sb.Option @value="A2">a2</sb.Option>
-          <sb.Option @value="A3">a3</sb.Option>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value="A2" as |sb|>
+          <sb.Options>
+            <sb.Option @value="A1">a1</sb.Option>
+            <sb.Option @value="A2">a2</sb.Option>
+            <sb.Option @value="A3">a3</sb.Option>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert
       .dom('.select-box__option:nth-child(2)')
@@ -385,20 +407,22 @@ module('select-box (jump to option)', function (hooks) {
   test('jumping to an option starts from the selected option (combobox)', async function (assert) {
     assert.expect(2);
 
-    await render(<template>
-      <SelectBox @value="A2" as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value="A1">a1</sb.Option>
-              <sb.Option @value="A2">a2</sb.Option>
-              <sb.Option @value="A3">a3</sb.Option>
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value="A2" as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option @value="A1">a1</sb.Option>
+                <sb.Option @value="A2">a2</sb.Option>
+                <sb.Option @value="A3">a3</sb.Option>
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     assert
       .dom('.select-box__option:nth-child(2)')
@@ -414,20 +438,22 @@ module('select-box (jump to option)', function (hooks) {
   test('jumping to an option starts from the selected option (repeating)', async function (assert) {
     assert.expect(4);
 
-    await render(<template>
-      <SelectBox @value="A2" as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value="A1">a1</sb.Option>
-              <sb.Option @value="A2">a2</sb.Option>
-              <sb.Option @value="A3">a3</sb.Option>
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value="A2" as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option @value="A1">a1</sb.Option>
+                <sb.Option @value="A2">a2</sb.Option>
+                <sb.Option @value="A3">a3</sb.Option>
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     assert
       .dom('.select-box__option:nth-child(2)')
@@ -455,14 +481,16 @@ module('select-box (jump to option)', function (hooks) {
   test('jump to option continuous match', async function (assert) {
     assert.expect(2);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option @value="fo">fo</sb.Option>
-          <sb.Option @value="foo">foo</sb.Option>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Option @value="fo">fo</sb.Option>
+            <sb.Option @value="foo">foo</sb.Option>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await focus('.select-box__options');
     await triggerKeyEvent('.select-box__options', 'keydown', 'F');
@@ -485,21 +513,28 @@ module('select-box (jump to option)', function (hooks) {
   test('jumping to an option scrolls it into view', async function (assert) {
     assert.expect(3);
 
-    await render(<template>
-      {{! template-lint-disable no-forbidden-elements }}
-      <style>
-        .select-box__options { height: 1em; overflow: auto; }
-        .select-box__option { line-height: 1; }
-      </style>
+    await render(
+      <template>
+        {{! template-lint-disable no-forbidden-elements }}
+        <style>
+          .select-box__options {
+            height: 1em;
+            overflow: auto;
+          }
+          .select-box__option {
+            line-height: 1;
+          }
+        </style>
 
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option>a</sb.Option>
-          <sb.Option>b</sb.Option>
-          <sb.Option>c</sb.Option>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Option>a</sb.Option>
+            <sb.Option>b</sb.Option>
+            <sb.Option>c</sb.Option>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     const expectedTop = find('.select-box__option:nth-child(3)').offsetTop;
 
@@ -515,14 +550,16 @@ module('select-box (jump to option)', function (hooks) {
   test('jumping to with a modifier', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option @value="shift">Shift</sb.Option>
-          <sb.Option @value="ctrl">Ctrl</sb.Option>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Option @value="shift">Shift</sb.Option>
+            <sb.Option @value="ctrl">Ctrl</sb.Option>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await focus('.select-box__options');
     await triggerKeyEvent('.select-box__options', 'keydown', 'Shift');
@@ -535,15 +572,17 @@ module('select-box (jump to option)', function (hooks) {
   test('jumping to with modifier followed by a char', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option @value="blue">Blue</sb.Option>
-          <sb.Option @value="red">Red</sb.Option>
-          <sb.Option @value="green">Green</sb.Option>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Option @value="blue">Blue</sb.Option>
+            <sb.Option @value="red">Red</sb.Option>
+            <sb.Option @value="green">Green</sb.Option>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await focus('.select-box__options');
     await triggerKeyEvent('.select-box__options', 'keydown', 'R', {

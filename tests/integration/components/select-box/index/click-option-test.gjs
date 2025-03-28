@@ -15,15 +15,17 @@ module('select-box (clicking option)', function (hooks) {
     const handleChange = (value) => assert.step(value);
     const handleClick = (_event) => (event = _event);
 
-    await render(<template>
-      <SelectBox @onChange={{handleChange}} as |sb|>
-        <sb.Options>
-          <sb.Option @value="a" />
-          <sb.Option @value="b" {{on "click" handleClick}} />
-          <sb.Option @value="c" />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onChange={{handleChange}} as |sb|>
+          <sb.Options>
+            <sb.Option @value="a" />
+            <sb.Option @value="b" {{on "click" handleClick}} />
+            <sb.Option @value="c" />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box__option:nth-child(2)');
     await click('.select-box__option:nth-child(2)');
@@ -50,23 +52,25 @@ module('select-box (clicking option)', function (hooks) {
 
     const handleMouseDown = (_event) => (event = _event);
 
-    await render(<template>
-      {{! template-lint-disable no-pointer-down-event-binding }}
-      <SelectBox as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger>
-            {{sb.value}}
-          </sb.Trigger>
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value="#" {{on "mousedown" handleMouseDown}}>
-                <a href="#">Link</a>
-              </sb.Option>
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        {{! template-lint-disable no-pointer-down-event-binding }}
+        <SelectBox as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger>
+              {{sb.value}}
+            </sb.Trigger>
+            <sb.Content>
+              <sb.Options>
+                <sb.Option @value="#" {{on "mousedown" handleMouseDown}}>
+                  <a href="#">Link</a>
+                </sb.Option>
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box .dropdown__trigger');
 
@@ -100,18 +104,20 @@ module('select-box (clicking option)', function (hooks) {
   test('clicking an option closes single select boxes', async function (assert) {
     assert.expect(2);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option />
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box .dropdown__trigger');
 
@@ -133,18 +139,20 @@ module('select-box (clicking option)', function (hooks) {
   test('clicking an option does not closes multiple select boxes', async function (assert) {
     assert.expect(2);
 
-    await render(<template>
-      <SelectBox @multiple={{true}} as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option />
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @multiple={{true}} as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box .dropdown__trigger');
 
@@ -167,14 +175,16 @@ module('select-box (clicking option)', function (hooks) {
 
     const handleChange = () => assert.step('change');
 
-    await render(<template>
-      <SelectBox @onChange={{handleChange}} as |sb|>
-        <sb.Options>
-          <sb.Option @value={{1}} />
-          <sb.Option @value={{2}} @disabled={{true}} />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onChange={{handleChange}} as |sb|>
+          <sb.Options>
+            <sb.Option @value={{1}} />
+            <sb.Option @value={{2}} @disabled={{true}} />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box__option:nth-child(2)');
 
@@ -187,13 +197,15 @@ module('select-box (clicking option)', function (hooks) {
 
     const handleSelect = () => assert.step('select');
 
-    await render(<template>
-      <SelectBox @onSelect={{handleSelect}} as |sb|>
-        <sb.Options>
-          <sb.Option @value="foo" />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onSelect={{handleSelect}} as |sb|>
+          <sb.Options>
+            <sb.Option @value="foo" />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box__option', { button: 2 });
 
@@ -207,15 +219,17 @@ module('select-box (clicking option)', function (hooks) {
 
     const handleMouseDown = (_event) => (event = _event);
 
-    await render(<template>
-      {{! template-lint-disable no-pointer-down-event-binding }}
-      <SelectBox as |sb|>
-        <sb.Input />
-        <sb.Options {{on "mousedown" handleMouseDown}}>
-          <sb.Option />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        {{! template-lint-disable no-pointer-down-event-binding }}
+        <SelectBox as |sb|>
+          <sb.Input />
+          <sb.Options {{on "mousedown" handleMouseDown}}>
+            <sb.Option />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box__option');
 

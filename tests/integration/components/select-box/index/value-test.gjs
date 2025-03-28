@@ -10,14 +10,16 @@ module('select-box (value)', function (hooks) {
   test('undefined', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox @value={{undefined}} as |sb|>
-        <sb.Options>
-          <sb.Option />
-          <sb.Option />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value={{undefined}} as |sb|>
+          <sb.Options>
+            <sb.Option />
+            <sb.Option />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert
       .dom('.select-box__option[aria-selected="true"]')
@@ -27,14 +29,16 @@ module('select-box (value)', function (hooks) {
   test('null', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox @value={{null}} as |sb|>
-        <sb.Options>
-          <sb.Option />
-          <sb.Option />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value={{null}} as |sb|>
+          <sb.Options>
+            <sb.Option />
+            <sb.Option />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__option[aria-selected="true"]').doesNotExist();
   });
@@ -42,18 +46,20 @@ module('select-box (value)', function (hooks) {
   test('unknown', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox @value="foo" as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger>
-            {{sb.value}}
-          </sb.Trigger>
-          <sb.Content>
-            <sb.Options />
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value="foo" as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger>
+              {{sb.value}}
+            </sb.Trigger>
+            <sb.Content>
+              <sb.Options />
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     assert
       .dom('.select-box .dropdown__trigger')
@@ -72,15 +78,17 @@ module('select-box (value)', function (hooks) {
 
     const value = bar;
 
-    await render(<template>
-      <SelectBox @value={{value}} as |sb|>
-        <sb.Options>
-          <sb.Option @value={{foo}} />
-          <sb.Option @value={{bar}} />
-          <sb.Option @value={{baz}} />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value={{value}} as |sb|>
+          <sb.Options>
+            <sb.Option @value={{foo}} />
+            <sb.Option @value={{bar}} />
+            <sb.Option @value={{baz}} />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert
       .dom('.select-box__option[aria-selected="true"]')
@@ -96,14 +104,16 @@ module('select-box (value)', function (hooks) {
 
     const promiseForFoo = Promise.resolve('foo');
 
-    await render(<template>
-      <SelectBox @value="foo" as |sb|>
-        <sb.Options>
-          <sb.Option @value="foo" />
-          <sb.Option @value={{promiseForFoo}} />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value="foo" as |sb|>
+          <sb.Options>
+            <sb.Option @value="foo" />
+            <sb.Option @value={{promiseForFoo}} />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert
       .dom('.select-box__option:nth-child(1)')
@@ -125,14 +135,16 @@ module('select-box (value)', function (hooks) {
       assert.step(value);
     };
 
-    await render(<template>
-      <SelectBox @value={{state.value}} @onChange={{handleChange}} as |sb|>
-        <sb.Options>
-          <sb.Option @value="a" />
-          <sb.Option @value="b" />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value={{state.value}} @onChange={{handleChange}} as |sb|>
+          <sb.Options>
+            <sb.Option @value="a" />
+            <sb.Option @value="b" />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert
       .dom('.select-box__option:nth-child(1)')
@@ -152,15 +164,17 @@ module('select-box (value)', function (hooks) {
   test('multiple (string value)', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox @value="b" @multiple={{true}} as |sb|>
-        <sb.Options>
-          <sb.Option @value="a" />
-          <sb.Option @value="b" />
-          <sb.Option @value="c" />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value="b" @multiple={{true}} as |sb|>
+          <sb.Options>
+            <sb.Option @value="a" />
+            <sb.Option @value="b" />
+            <sb.Option @value="c" />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert
       .dom('.select-box__option:nth-child(2)')
@@ -170,15 +184,17 @@ module('select-box (value)', function (hooks) {
   test('multiple (null value)', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox @value={{null}} @multiple={{true}} as |sb|>
-        <sb.Options>
-          <sb.Option @value="a" />
-          <sb.Option @value="b" />
-          <sb.Option @value="c" />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value={{null}} @multiple={{true}} as |sb|>
+          <sb.Options>
+            <sb.Option @value="a" />
+            <sb.Option @value="b" />
+            <sb.Option @value="c" />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert
       .dom('.select-box__option[aria-selected="true"]')
@@ -194,20 +210,22 @@ module('select-box (value)', function (hooks) {
 
     const array = ['b', 'c'];
 
-    await render(<template>
-      <SelectBox
-        @value={{array}}
-        @multiple={{true}}
-        @onReady={{handleReady}}
-        as |sb|
-      >
-        <sb.Options>
-          <sb.Option @value="a" />
-          <sb.Option @value="b" />
-          <sb.Option @value="c" />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox
+          @value={{array}}
+          @multiple={{true}}
+          @onReady={{handleReady}}
+          as |sb|
+        >
+          <sb.Options>
+            <sb.Option @value="a" />
+            <sb.Option @value="b" />
+            <sb.Option @value="c" />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.strictEqual(
       api.value,
@@ -225,14 +243,16 @@ module('select-box (value)', function (hooks) {
 
     const handleChange = (value) => assert.step(value);
 
-    await render(<template>
-      <SelectBox @value={{state.value}} @onChange={{handleChange}} as |sb|>
-        <sb.Options>
-          <sb.Option @value="a" />
-          <sb.Option @value="b" />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value={{state.value}} @onChange={{handleChange}} as |sb|>
+          <sb.Options>
+            <sb.Option @value="a" />
+            <sb.Option @value="b" />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.verifySteps([]);
 
@@ -260,13 +280,15 @@ module('select-box (value)', function (hooks) {
 
     const handleChange = (value) => assert.step(value);
 
-    await render(<template>
-      <SelectBox @value={{state.value}} @onChange={{handleChange}} as |sb|>
-        <sb.Options>
-          <sb.Option @value="a" @disabled={{true}} />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value={{state.value}} @onChange={{handleChange}} as |sb|>
+          <sb.Options>
+            <sb.Option @value="a" @disabled={{true}} />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert
       .dom('.select-box__option')

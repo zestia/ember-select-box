@@ -10,14 +10,16 @@ module('select-box (clicking input)', function (hooks) {
   test('clicking an input is undefined behaviour', async function (assert) {
     assert.expect(3);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown>
-          <sb.Input />
-          <sb.Trigger />
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown>
+            <sb.Input />
+            <sb.Trigger />
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box__input');
 
@@ -35,12 +37,14 @@ module('select-box (clicking input)', function (hooks) {
 
     const handleMouseDown = (_event) => (event = _event);
 
-    await render(<template>
-      {{! template-lint-disable no-pointer-down-event-binding }}
-      <SelectBox as |sb|>
-        <sb.Input {{on "mousedown" handleMouseDown}} />
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        {{! template-lint-disable no-pointer-down-event-binding }}
+        <SelectBox as |sb|>
+          <sb.Input {{on "mousedown" handleMouseDown}} />
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box__input');
 

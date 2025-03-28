@@ -14,11 +14,13 @@ module('dropdown (opening)', function (hooks) {
 
     const handleReady = (dd) => (api = dd);
 
-    await render(<template>
-      <Dropdown @onReady={{handleReady}} as |dd|>
-        <dd.Trigger />
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown @onReady={{handleReady}} as |dd|>
+          <dd.Trigger />
+        </Dropdown>
+      </template>
+    );
 
     assert.dom('.dropdown').hasAttribute('data-open', 'false');
 
@@ -32,12 +34,14 @@ module('dropdown (opening)', function (hooks) {
   test('can set initial open state', async function (assert) {
     assert.expect(3);
 
-    await render(<template>
-      <Dropdown @open={{true}} as |dd|>
-        <dd.Trigger />
-        <dd.Content />
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown @open={{true}} as |dd|>
+          <dd.Trigger />
+          <dd.Content />
+        </Dropdown>
+      </template>
+    );
 
     assert.dom('.dropdown').hasAttribute('data-open', 'true');
     assert.dom('.dropdown__trigger').hasAttribute('aria-expanded', 'true');
@@ -56,11 +60,13 @@ module('dropdown (opening)', function (hooks) {
       @tracked isOpen;
     })();
 
-    await render(<template>
-      <Dropdown @open={{state.isOpen}} as |dd|>
-        <dd.Trigger />
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown @open={{state.isOpen}} as |dd|>
+          <dd.Trigger />
+        </Dropdown>
+      </template>
+    );
 
     state.isOpen = true;
 

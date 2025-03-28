@@ -9,11 +9,13 @@ module('dropdown/content', function (hooks) {
   test('it renders', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <Dropdown as |dd|>
-        <dd.Content />
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown as |dd|>
+          <dd.Content />
+        </Dropdown>
+      </template>
+    );
 
     assert.dom('.dropdown__content').hasTagName('div');
   });
@@ -21,13 +23,15 @@ module('dropdown/content', function (hooks) {
   test('it renders', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <Dropdown as |dd|>
-        <dd.Content>
-          Hello World
-        </dd.Content>
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown as |dd|>
+          <dd.Content>
+            Hello World
+          </dd.Content>
+        </Dropdown>
+      </template>
+    );
 
     assert.dom('.dropdown__content').hasText('Hello World');
   });
@@ -35,11 +39,13 @@ module('dropdown/content', function (hooks) {
   test('splattributes', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <Dropdown as |dd|>
-        <dd.Content class="foo" />
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown as |dd|>
+          <dd.Content class="foo" />
+        </Dropdown>
+      </template>
+    );
 
     assert.dom('.dropdown__content').hasClass('foo');
   });
@@ -47,11 +53,13 @@ module('dropdown/content', function (hooks) {
   test('tabindex', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <Dropdown as |dd|>
-        <dd.Content />
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown as |dd|>
+          <dd.Content />
+        </Dropdown>
+      </template>
+    );
 
     assert.dom('.dropdown__content').doesNotHaveAttribute('tabindex');
   });
@@ -61,11 +69,13 @@ module('dropdown/content', function (hooks) {
 
     // So we can disable keyboard-focusable-scrollers
 
-    await render(<template>
-      <Dropdown as |dd|>
-        {{component dd.Content tabindex="-1"}}
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown as |dd|>
+          {{component dd.Content tabindex="-1"}}
+        </Dropdown>
+      </template>
+    );
 
     assert.dom('.dropdown__content').hasAttribute('tabindex', '-1');
   });

@@ -11,15 +11,17 @@ module('select-box (keydown on options)', function (hooks) {
 
     const handleActivateOption = (value) => assert.step(value);
 
-    await render(<template>
-      <SelectBox @onActivate={{handleActivateOption}} as |sb|>
-        <sb.Options>
-          <sb.Option @value="a" />
-          <sb.Option @value="b" @disabled={{true}} />
-          <sb.Option @value="c" />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onActivate={{handleActivateOption}} as |sb|>
+          <sb.Options>
+            <sb.Option @value="a" />
+            <sb.Option @value="b" @disabled={{true}} />
+            <sb.Option @value="c" />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
 
@@ -49,20 +51,22 @@ module('select-box (keydown on options)', function (hooks) {
 
     const handleActivateOption = (value) => assert.step(value);
 
-    await render(<template>
-      <SelectBox @onActivate={{handleActivateOption}} as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value="a" />
-              <sb.Option @value="b" @disabled={{true}} />
-              <sb.Option @value="c" />
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onActivate={{handleActivateOption}} as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option @value="a" />
+                <sb.Option @value="b" @disabled={{true}} />
+                <sb.Option @value="c" />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await triggerKeyEvent('.select-box__options', 'keydown', 'ArrowDown');
 

@@ -33,27 +33,34 @@ module('select-box (occlusion)', function (hooks) {
       assert.step(`scroll ${find('.select-box__options').scrollTop}`);
     };
 
-    await render(<template>
-      {{! template-lint-disable no-forbidden-elements }}
-      <style>
-        .select-box__options { height: 2em; overflow: auto; }
-        .select-box__option { line-height: 1; }
-      </style>
-      <SelectBox @options={{options}} as |sb|>
-        <sb.Options {{on "scroll" handleScroll}}>
-          <VerticalCollection
-            @items={{sb.options}}
-            @estimateHeight={{16}}
-            @bufferSize={{1}}
-            as |value|
-          >
-            <sb.Option @value={{value}}>
-              {{value}}
-            </sb.Option>
-          </VerticalCollection>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        {{! template-lint-disable no-forbidden-elements }}
+        <style>
+          .select-box__options {
+            height: 2em;
+            overflow: auto;
+          }
+          .select-box__option {
+            line-height: 1;
+          }
+        </style>
+        <SelectBox @options={{options}} as |sb|>
+          <sb.Options {{on "scroll" handleScroll}}>
+            <VerticalCollection
+              @items={{sb.options}}
+              @estimateHeight={{16}}
+              @bufferSize={{1}}
+              as |value|
+            >
+              <sb.Option @value={{value}}>
+                {{value}}
+              </sb.Option>
+            </VerticalCollection>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await raf();
     assert.dom('.select-box__option').exists({ count: 3 });
@@ -101,28 +108,35 @@ module('select-box (occlusion)', function (hooks) {
 
     const options = Array.from({ length: 100 }, (_, i) => `Item ${i}`);
 
-    await render(<template>
-      {{! template-lint-disable no-forbidden-elements }}
-      <style>
-        .select-box__options { height: 2em; overflow: auto; }
-        .select-box__option { line-height: 1; }
-      </style>
-      <SelectBox @options={{options}} as |sb|>
-        <sb.Input />
-        <sb.Options>
-          <VerticalCollection
-            @items={{sb.options}}
-            @estimateHeight={{16}}
-            @bufferSize={{1}}
-            as |value|
-          >
-            <sb.Option @value={{value}}>
-              {{value}}
-            </sb.Option>
-          </VerticalCollection>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        {{! template-lint-disable no-forbidden-elements }}
+        <style>
+          .select-box__options {
+            height: 2em;
+            overflow: auto;
+          }
+          .select-box__option {
+            line-height: 1;
+          }
+        </style>
+        <SelectBox @options={{options}} as |sb|>
+          <sb.Input />
+          <sb.Options>
+            <VerticalCollection
+              @items={{sb.options}}
+              @estimateHeight={{16}}
+              @bufferSize={{1}}
+              as |value|
+            >
+              <sb.Option @value={{value}}>
+                {{value}}
+              </sb.Option>
+            </VerticalCollection>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await raf();
     assert.dom('.select-box__option').exists({ count: 3 });

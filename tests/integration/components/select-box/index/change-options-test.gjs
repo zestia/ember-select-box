@@ -24,18 +24,20 @@ module('select-box (changing options)', function (hooks) {
       @tracked showThree = true;
     })();
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option />
-          <sb.Option />
-
-          {{#if state.showThree}}
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
             <sb.Option />
-          {{/if}}
-        </sb.Options>
-      </SelectBox>
-    </template>);
+            <sb.Option />
+
+            {{#if state.showThree}}
+              <sb.Option />
+            {{/if}}
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await triggerEvent('.select-box__option:nth-child(3)', 'mouseenter');
 
@@ -63,18 +65,20 @@ module('select-box (changing options)', function (hooks) {
       @tracked showOne = false;
     })();
 
-    await render(<template>
-      <SelectBox @value={{1}} as |sb|>
-        <sb.Options>
-          {{#if state.showOne}}
-            <sb.Option />
-          {{/if}}
+    await render(
+      <template>
+        <SelectBox @value={{1}} as |sb|>
+          <sb.Options>
+            {{#if state.showOne}}
+              <sb.Option />
+            {{/if}}
 
-          <sb.Option />
-          <sb.Option />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+            <sb.Option />
+            <sb.Option />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await triggerEvent('.select-box__option:nth-child(2)', 'mouseenter');
 
@@ -122,24 +126,31 @@ module('select-box (changing options)', function (hooks) {
       'c6'
     ];
 
-    await render(<template>
-      {{! template-lint-disable no-forbidden-elements }}
-      <style>
-        .select-box__options { height: 3em; overflow: auto; }
-        .select-box__option { line-height: 1em }
-      </style>
+    await render(
+      <template>
+        {{! template-lint-disable no-forbidden-elements }}
+        <style>
+          .select-box__options {
+            height: 3em;
+            overflow: auto;
+          }
+          .select-box__option {
+            line-height: 1em;
+          }
+        </style>
 
-      <SelectBox @value="a1" @options={{options}} as |sb|>
-        <sb.Input />
-        <sb.Options>
-          {{#each sb.options as |value|}}
-            <sb.Option @value={{value}}>
-              {{value}}
-            </sb.Option>
-          {{/each}}
-        </sb.Options>
-      </SelectBox>
-    </template>);
+        <SelectBox @value="a1" @options={{options}} as |sb|>
+          <sb.Input />
+          <sb.Options>
+            {{#each sb.options as |value|}}
+              <sb.Option @value={{value}}>
+                {{value}}
+              </sb.Option>
+            {{/each}}
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
     await triggerKeyEvent('.select-box__input', 'keydown', 'ArrowDown');
@@ -180,18 +191,20 @@ module('select-box (changing options)', function (hooks) {
   test('changing available options when searching (no active option)', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox @options={{array "foo" "bar" "baz"}} as |sb|>
-        <sb.Input />
-        <sb.Options>
-          {{#each sb.options as |value|}}
-            <sb.Option @value={{value}}>
-              {{value}}
-            </sb.Option>
-          {{/each}}
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @options={{array "foo" "bar" "baz"}} as |sb|>
+          <sb.Input />
+          <sb.Options>
+            {{#each sb.options as |value|}}
+              <sb.Option @value={{value}}>
+                {{value}}
+              </sb.Option>
+            {{/each}}
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await fillIn('.select-box__input', 'f');
 
@@ -215,24 +228,26 @@ module('select-box (changing options)', function (hooks) {
       return options;
     };
 
-    await render(<template>
-      <SelectBox @options={{options}} @onSearch={{handleSearch}} as |sb|>
-        <sb.Input />
-        <sb.Options>
-          {{#if sb.isBusy}}
-            <sb.Option @disabled={{true}}>
-              Please wait...
-            </sb.Option>
-          {{else}}
-            {{#each sb.options as |value|}}
-              <sb.Option @value={{value}}>
-                {{value}}
+    await render(
+      <template>
+        <SelectBox @options={{options}} @onSearch={{handleSearch}} as |sb|>
+          <sb.Input />
+          <sb.Options>
+            {{#if sb.isBusy}}
+              <sb.Option @disabled={{true}}>
+                Please wait...
               </sb.Option>
-            {{/each}}
-          {{/if}}
-        </sb.Options>
-      </SelectBox>
-    </template>);
+            {{else}}
+              {{#each sb.options as |value|}}
+                <sb.Option @value={{value}}>
+                  {{value}}
+                </sb.Option>
+              {{/each}}
+            {{/if}}
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await focus('.select-box__input');
     await triggerEvent('.select-box__option:nth-child(3)', 'mouseenter');
@@ -254,20 +269,22 @@ module('select-box (changing options)', function (hooks) {
 
     const options = ['foo', 'bar', 'baz'];
 
-    await render(<template>
-      <SelectBox @options={{options}} as |sb|>
-        <sb.Input />
-        <sb.Options>
-          {{#each sb.options as |value|}}
-            <sb.Option @value={{value}} as |option|>
-              {{value}}
-              -
-              {{option.index}}
-            </sb.Option>
-          {{/each}}
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @options={{options}} as |sb|>
+          <sb.Input />
+          <sb.Options>
+            {{#each sb.options as |value|}}
+              <sb.Option @value={{value}} as |option|>
+                {{value}}
+                -
+                {{option.index}}
+              </sb.Option>
+            {{/each}}
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__option:nth-child(1)').hasText('foo - 0');
     assert.dom('.select-box__option:nth-child(2)').hasText('bar - 1');

@@ -19,14 +19,16 @@ module('select-box (clicking trigger)', function (hooks) {
 
     const handleMouseDownTrigger = (_event) => (event = _event);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        {{! template-lint-disable no-pointer-down-event-binding }}
-        <sb.Dropdown>
-          <sb.Trigger {{on "mousedown" handleMouseDownTrigger}} />
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          {{! template-lint-disable no-pointer-down-event-binding }}
+          <sb.Dropdown>
+            <sb.Trigger {{on "mousedown" handleMouseDownTrigger}} />
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
     assert
@@ -59,13 +61,15 @@ module('select-box (clicking trigger)', function (hooks) {
   test('right clicking trigger does not open select box', async function (assert) {
     assert.expect(2);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box .dropdown__trigger', { button: 2 });
 
@@ -82,14 +86,16 @@ module('select-box (clicking trigger)', function (hooks) {
 
     const handleMouseDown = (_event) => (event = _event);
 
-    await render(<template>
-      {{! template-lint-disable no-pointer-down-event-binding }}
-      <SelectBox as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger {{on "mousedown" handleMouseDown}} />
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        {{! template-lint-disable no-pointer-down-event-binding }}
+        <SelectBox as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger {{on "mousedown" handleMouseDown}} />
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.dropdown__trigger');
 

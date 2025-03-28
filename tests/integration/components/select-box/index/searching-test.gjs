@@ -17,14 +17,16 @@ module('select-box (searching)', function (hooks) {
 
     const handleSearch = () => deferred.promise;
 
-    await render(<template>
-      <SelectBox @onSearch={{handleSearch}} as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Input />
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onSearch={{handleSearch}} as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Input />
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box').hasAttribute('data-busy', 'false');
     assert
@@ -65,12 +67,14 @@ module('select-box (searching)', function (hooks) {
       return searches[query].promise.then(() => assert.step(query));
     };
 
-    await render(<template>
-      <SelectBox @onSearch={{handleSearch}} as |sb|>
-        <sb.Input />
-        <span>{{sb.query}}</span>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onSearch={{handleSearch}} as |sb|>
+          <sb.Input />
+          <span>{{sb.query}}</span>
+        </SelectBox>
+      </template>
+    );
 
     await fillIn('.select-box__input', 'first');
 
@@ -110,21 +114,23 @@ module('select-box (searching)', function (hooks) {
 
     const deferred = Promise.withResolvers();
 
-    const handleSearch = async (query, sb) => {
+    const handleSearch = async () => {
       await deferred.promise;
     };
 
-    await render(<template>
-      <SelectBox @onSearch={{handleSearch}} as |sb|>
-        <sb.Input />
-        {{#unless sb.isBusy}}
-          <sb.Options>
-            <sb.Option @value="A">a</sb.Option>
-            <sb.Option @value="B">b</sb.Option>
-          </sb.Options>
-        {{/unless}}
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onSearch={{handleSearch}} as |sb|>
+          <sb.Input />
+          {{#unless sb.isBusy}}
+            <sb.Options>
+              <sb.Option @value="A">a</sb.Option>
+              <sb.Option @value="B">b</sb.Option>
+            </sb.Options>
+          {{/unless}}
+        </SelectBox>
+      </template>
+    );
 
     await fillIn('.select-box__input', 'b');
 
@@ -146,18 +152,20 @@ module('select-box (searching)', function (hooks) {
   test('active option after clearing search', async function (assert) {
     assert.expect(6);
 
-    await render(<template>
-      <SelectBox @value="c" @options={{array "a" "b" "c"}} as |sb|>
-        <sb.Options>
-          {{#each sb.options as |value|}}
-            <sb.Option @value={{value}}>
-              {{value}}
-            </sb.Option>
-          {{/each}}
-        </sb.Options>
-        <sb.Input />
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value="c" @options={{array "a" "b" "c"}} as |sb|>
+          <sb.Options>
+            {{#each sb.options as |value|}}
+              <sb.Option @value={{value}}>
+                {{value}}
+              </sb.Option>
+            {{/each}}
+          </sb.Options>
+          <sb.Input />
+        </SelectBox>
+      </template>
+    );
 
     assert
       .dom('.select-box__option:nth-child(3)')
@@ -190,18 +198,20 @@ module('select-box (searching)', function (hooks) {
       'United Kingdom' // does not contain
     ];
 
-    await render(<template>
-      <SelectBox @options={{options}} as |sb|>
-        <sb.Input />
-        <sb.Options>
-          {{#each sb.options as |value|}}
-            <sb.Option @value={{value}}>
-              {{value}}
-            </sb.Option>
-          {{/each}}
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @options={{options}} as |sb|>
+          <sb.Input />
+          <sb.Options>
+            {{#each sb.options as |value|}}
+              <sb.Option @value={{value}}>
+                {{value}}
+              </sb.Option>
+            {{/each}}
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box').doesNotHaveAttribute('data-busy');
     assert.dom('.select-box__input').doesNotHaveAttribute('aria-busy');
@@ -226,18 +236,20 @@ module('select-box (searching)', function (hooks) {
       @tracked options = ['foo', 'bar', 'baz'];
     })();
 
-    await render(<template>
-      <SelectBox @options={{state.options}} as |sb|>
-        <sb.Input />
-        <sb.Options>
-          {{#each sb.options as |value|}}
-            <sb.Option @value={{value}}>
-              {{value}}
-            </sb.Option>
-          {{/each}}
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @options={{state.options}} as |sb|>
+          <sb.Input />
+          <sb.Options>
+            {{#each sb.options as |value|}}
+              <sb.Option @value={{value}}>
+                {{value}}
+              </sb.Option>
+            {{/each}}
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.deepEqual(getOptions(), ['foo', 'bar', 'baz']);
 
@@ -266,11 +278,13 @@ module('select-box (searching)', function (hooks) {
         'no input has been collected yet - there has been no search, and so there is no query'
       );
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Input value="foo" {{on "click" (fn handleClickInput sb)}} />
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Input value="foo" {{on "click" (fn handleClickInput sb)}} />
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box__input');
   });
@@ -278,12 +292,14 @@ module('select-box (searching)', function (hooks) {
   test('default search @query null', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox @options={{array "foo" "bar" "baz"}} as |sb|>
-        <button type="button" {{on "click" (fn sb.search null)}}></button>
-        <sb.Options />
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @options={{array "foo" "bar" "baz"}} as |sb|>
+          <button type="button" {{on "click" (fn sb.search null)}}></button>
+          <sb.Options />
+        </SelectBox>
+      </template>
+    );
 
     await click('button');
 
@@ -296,12 +312,14 @@ module('select-box (searching)', function (hooks) {
     const handleSearch = (query) =>
       assert.strictEqual(query, '', 'search action always receives a string');
 
-    await render(<template>
-      <SelectBox @onSearch={{handleSearch}} as |sb|>
-        <button type="button" {{on "click" (fn sb.search null)}}></button>
-        <sb.Options />
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onSearch={{handleSearch}} as |sb|>
+          <button type="button" {{on "click" (fn sb.search null)}}></button>
+          <sb.Options />
+        </SelectBox>
+      </template>
+    );
 
     await click('button');
   });
@@ -309,20 +327,22 @@ module('select-box (searching)', function (hooks) {
   test('search argument passthrough', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox
-        @options={{array "foo" "bar" "baz"}}
-        @onSearch={{@onSearch}}
-        as |sb|
-      >
-        <sb.Input />
-        <sb.Options>
-          {{#each sb.options as |value|}}
-            <sb.Option>{{value}}</sb.Option>
-          {{/each}}
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox
+          @options={{array "foo" "bar" "baz"}}
+          @onSearch={{@onSearch}}
+          as |sb|
+        >
+          <sb.Input />
+          <sb.Options>
+            {{#each sb.options as |value|}}
+              <sb.Option>{{value}}</sb.Option>
+            {{/each}}
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await fillIn('.select-box__input', 'f');
 
@@ -336,26 +356,28 @@ module('select-box (searching)', function (hooks) {
 
     const deferred = Promise.withResolvers();
 
-    const handleSearch = (q) => deferred.promise;
+    const handleSearch = () => deferred.promise;
 
     const handleClickInput = (sb) => sb.search('f').then(sb.dropdown.open);
 
-    await render(<template>
-      <SelectBox @onSearch={{handleSearch}} as |sb|>
-        <sb.Dropdown as |dd|>
-          <sb.Input {{on "click" (fn handleClickInput sb)}} />
-          {{#if dd.isOpen}}
-            <sb.Content>
-              <sb.Options>
-                {{#each sb.options}}
-                  <sb.Option />
-                {{/each}}
-              </sb.Options>
-            </sb.Content>
-          {{/if}}
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onSearch={{handleSearch}} as |sb|>
+          <sb.Dropdown as |dd|>
+            <sb.Input {{on "click" (fn handleClickInput sb)}} />
+            {{#if dd.isOpen}}
+              <sb.Content>
+                <sb.Options>
+                  {{#each sb.options}}
+                    <sb.Option />
+                  {{/each}}
+                </sb.Options>
+              </sb.Content>
+            {{/if}}
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box__input');
 
@@ -371,21 +393,23 @@ module('select-box (searching)', function (hooks) {
   test('running a manual search does not set the input value', async function (assert) {
     assert.expect(2);
 
-    await render(<template>
-      <SelectBox @options={{array "foo" "bar" "baz"}} as |sb|>
-        <sb.Input />
-        <sb.Trigger {{on "click" (fn sb.search "bar")}} />
-        <sb.Dropdown>
-          <sb.Content>
-            <sb.Options>
-              {{#each sb.options as |value|}}
-                <sb.Option @value={{value}} />
-              {{/each}}
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @options={{array "foo" "bar" "baz"}} as |sb|>
+          <sb.Input />
+          <sb.Trigger {{on "click" (fn sb.search "bar")}} />
+          <sb.Dropdown>
+            <sb.Content>
+              <sb.Options>
+                {{#each sb.options as |value|}}
+                  <sb.Option @value={{value}} />
+                {{/each}}
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box .dropdown__trigger');
 

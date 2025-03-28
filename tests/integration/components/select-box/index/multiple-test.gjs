@@ -10,13 +10,15 @@ module('select-box (multiple)', function (hooks) {
   test('multiple with no initial value', async function (assert) {
     assert.expect(2);
 
-    await render(<template>
-      <SelectBox @multiple={{true}} as |sb|>
-        <sb.Options>
-          <sb.Option />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @multiple={{true}} as |sb|>
+          <sb.Options>
+            <sb.Option />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
 
@@ -28,15 +30,17 @@ module('select-box (multiple)', function (hooks) {
   test('multiple with an initial value', async function (assert) {
     assert.expect(2);
 
-    await render(<template>
-      <SelectBox @multiple={{true}} @value={{array 2 3}} as |sb|>
-        <sb.Options>
-          <sb.Option @value={{1}} />
-          <sb.Option @value={{2}} />
-          <sb.Option @value={{3}} />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @multiple={{true}} @value={{array 2 3}} as |sb|>
+          <sb.Options>
+            <sb.Option @value={{1}} />
+            <sb.Option @value={{2}} />
+            <sb.Option @value={{3}} />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
 
@@ -52,18 +56,20 @@ module('select-box (multiple)', function (hooks) {
 
     const handleChange = (_value) => (value = _value);
 
-    await render(<template>
-      <SelectBox
-        @value={{null}}
-        @multiple={{true}}
-        @onChange={{handleChange}}
-        as |sb|
-      >
-        <sb.Options>
-          <sb.Option @value={{1}}>One</sb.Option>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox
+          @value={{null}}
+          @multiple={{true}}
+          @onChange={{handleChange}}
+          as |sb|
+        >
+          <sb.Options>
+            <sb.Option @value={{1}}>One</sb.Option>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box__option');
 
@@ -77,14 +83,16 @@ module('select-box (multiple)', function (hooks) {
 
     const handleChange = (_value) => (value = _value);
 
-    await render(<template>
-      <SelectBox @multiple={{true}} @onChange={{handleChange}} as |sb|>
-        <sb.Options>
-          <sb.Option @value={{1}}>One</sb.Option>
-          <sb.Option @value={{2}}>Two</sb.Option>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @multiple={{true}} @onChange={{handleChange}} as |sb|>
+          <sb.Options>
+            <sb.Option @value={{1}}>One</sb.Option>
+            <sb.Option @value={{2}}>Two</sb.Option>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box__option:nth-child(1)');
 
@@ -118,19 +126,21 @@ module('select-box (multiple)', function (hooks) {
       return value;
     };
 
-    await render(<template>
-      <SelectBox
-        @multiple={{true}}
-        @onChange={{handleChange}}
-        @onBuildSelection={{buildSelection}}
-        as |sb|
-      >
-        <sb.Options>
-          <sb.Option @value={{1}}>One</sb.Option>
-          <sb.Option @value={{2}}>Two</sb.Option>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox
+          @multiple={{true}}
+          @onChange={{handleChange}}
+          @onBuildSelection={{buildSelection}}
+          as |sb|
+        >
+          <sb.Options>
+            <sb.Option @value={{1}}>One</sb.Option>
+            <sb.Option @value={{2}}>Two</sb.Option>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box__option:nth-child(1)');
 
@@ -155,19 +165,21 @@ module('select-box (multiple)', function (hooks) {
 
     const handleChange = (_value) => (value = _value);
 
-    await render(<template>
-      <SelectBox
-        @value={{2}}
-        @multiple={{true}}
-        @onChange={{handleChange}}
-        as |sb|
-      >
-        <sb.Options>
-          <sb.Option @value={{1}}>One</sb.Option>
-          <sb.Option @value={{2}}>Two</sb.Option>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox
+          @value={{2}}
+          @multiple={{true}}
+          @onChange={{handleChange}}
+          as |sb|
+        >
+          <sb.Options>
+            <sb.Option @value={{1}}>One</sb.Option>
+            <sb.Option @value={{2}}>Two</sb.Option>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert
       .dom('.select-box__option:nth-child(1)')

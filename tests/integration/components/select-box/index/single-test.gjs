@@ -10,14 +10,16 @@ module('select-box (single)', function (hooks) {
   test('single with no value', async function (assert) {
     assert.expect(2);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option />
-          <sb.Option />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Option />
+            <sb.Option />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert
       .dom('.select-box__option:nth-child(1)')
@@ -35,13 +37,15 @@ module('select-box (single)', function (hooks) {
   test('single with no initial value', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option @value={{1}} />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Option @value={{1}} />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert
       .dom('.select-box__option[aria-current="true"]')
@@ -51,15 +55,17 @@ module('select-box (single)', function (hooks) {
   test('single with an initial value', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox @value={{2}} as |sb|>
-        <sb.Options>
-          <sb.Option @value={{1}} />
-          <sb.Option @value={{2}} />
-          <sb.Option @value={{3}} />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value={{2}} as |sb|>
+          <sb.Options>
+            <sb.Option @value={{1}} />
+            <sb.Option @value={{2}} />
+            <sb.Option @value={{3}} />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert
       .dom('.select-box__option:nth-child(2)')
@@ -77,21 +83,28 @@ module('select-box (single)', function (hooks) {
       @tracked value = 2;
     })();
 
-    await render(<template>
-      {{! template-lint-disable no-forbidden-elements }}
-      <style>
-        .select-box__options { overflow: scroll; height: 1em; }
-        .select-box__option { line-height: 1 }
-      </style>
+    await render(
+      <template>
+        {{! template-lint-disable no-forbidden-elements }}
+        <style>
+          .select-box__options {
+            overflow: scroll;
+            height: 1em;
+          }
+          .select-box__option {
+            line-height: 1;
+          }
+        </style>
 
-      <SelectBox @value={{state.value}} as |sb|>
-        <sb.Options>
-          <sb.Option @value={{1}}>One</sb.Option>
-          <sb.Option @value={{2}}>Two</sb.Option>
-          <sb.Option @value={{3}}>Three</sb.Option>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+        <SelectBox @value={{state.value}} as |sb|>
+          <sb.Options>
+            <sb.Option @value={{1}}>One</sb.Option>
+            <sb.Option @value={{2}}>Two</sb.Option>
+            <sb.Option @value={{3}}>Three</sb.Option>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.strictEqual(
       find('.select-box__options').scrollTop,
@@ -139,22 +152,24 @@ module('select-box (single)', function (hooks) {
 
     const handleChange = (value) => (state.value = value);
 
-    await render(<template>
-      <SelectBox @value={{state.value}} @onChange={{handleChange}} as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger>
-            {{sb.value}}
-          </sb.Trigger>
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value={{1}}>1</sb.Option>
-              <sb.Option @value={{2}}>2</sb.Option>
-              <sb.Option @value={{3}}>3</sb.Option>
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value={{state.value}} @onChange={{handleChange}} as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger>
+              {{sb.value}}
+            </sb.Trigger>
+            <sb.Content>
+              <sb.Options>
+                <sb.Option @value={{1}}>1</sb.Option>
+                <sb.Option @value={{2}}>2</sb.Option>
+                <sb.Option @value={{3}}>3</sb.Option>
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     assert
       .dom('.select-box__option:nth-child(1)')
@@ -186,13 +201,15 @@ module('select-box (single)', function (hooks) {
 
     const handleActivate = () => assert.step('activate');
 
-    await render(<template>
-      <SelectBox @onActivate={{handleActivate}} @value={{1}} as |sb|>
-        <sb.Options>
-          <sb.Option @value={{1}} />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onActivate={{handleActivate}} @value={{1}} as |sb|>
+          <sb.Options>
+            <sb.Option @value={{1}} />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__option').hasAttribute('aria-current', 'true');
 
@@ -212,20 +229,22 @@ module('select-box (single)', function (hooks) {
       return null;
     };
 
-    await render(<template>
-      <SelectBox
-        @value={{1}}
-        @onChange={{handleChange}}
-        @onBuildSelection={{buildSelection}}
-        as |sb|
-      >
-        <sb.Options>
-          <sb.Option @value={{1}}>One</sb.Option>
-          <sb.Option @value={{2}}>Two</sb.Option>
-          <sb.Option @value={{3}}>Three</sb.Option>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox
+          @value={{1}}
+          @onChange={{handleChange}}
+          @onBuildSelection={{buildSelection}}
+          as |sb|
+        >
+          <sb.Options>
+            <sb.Option @value={{1}}>One</sb.Option>
+            <sb.Option @value={{2}}>Two</sb.Option>
+            <sb.Option @value={{3}}>Three</sb.Option>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box__option:nth-child(2)');
 
@@ -245,23 +264,25 @@ module('select-box (single)', function (hooks) {
       @tracked value = 2;
     })();
 
-    const handleChange = (value) => (state.value = 2);
+    const handleChange = () => (state.value = 2);
 
-    await render(<template>
-      <SelectBox @value={{state.value}} @onChange={{handleChange}} as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger>
-            {{state.value}},
-            {{sb.value}}
-          </sb.Trigger>
-          <sb.Options>
-            <sb.Option @value={{1}}>One</sb.Option>
-            <sb.Option @value={{2}}>Two</sb.Option>
-            <sb.Option @value={{3}}>Three</sb.Option>
-          </sb.Options>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @value={{state.value}} @onChange={{handleChange}} as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger>
+              {{state.value}},
+              {{sb.value}}
+            </sb.Trigger>
+            <sb.Options>
+              <sb.Option @value={{1}}>One</sb.Option>
+              <sb.Option @value={{2}}>Two</sb.Option>
+              <sb.Option @value={{3}}>Three</sb.Option>
+            </sb.Options>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box__option:nth-child(3)');
 
@@ -291,25 +312,27 @@ module('select-box (single)', function (hooks) {
       return oldValue;
     };
 
-    await render(<template>
-      <SelectBox
-        @value={{state.value}}
-        @onBuildSelection={{buildSelection}}
-        as |sb|
-      >
-        <sb.Dropdown>
-          <sb.Trigger>
-            {{state.value}},
-            {{sb.value}}
-          </sb.Trigger>
-          <sb.Options>
-            <sb.Option @value={{1}}>One</sb.Option>
-            <sb.Option @value={{2}}>Two</sb.Option>
-            <sb.Option @value={{3}}>Three</sb.Option>
-          </sb.Options>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox
+          @value={{state.value}}
+          @onBuildSelection={{buildSelection}}
+          as |sb|
+        >
+          <sb.Dropdown>
+            <sb.Trigger>
+              {{state.value}},
+              {{sb.value}}
+            </sb.Trigger>
+            <sb.Options>
+              <sb.Option @value={{1}}>One</sb.Option>
+              <sb.Option @value={{2}}>Two</sb.Option>
+              <sb.Option @value={{3}}>Three</sb.Option>
+            </sb.Options>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box__option:nth-child(3)');
 

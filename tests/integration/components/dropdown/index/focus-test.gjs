@@ -18,12 +18,14 @@ module('dropdown (focus)', function (hooks) {
   test('clicking an interactive element inside the dropdown container', async function (assert) {
     assert.expect(4);
 
-    await render(<template>
-      <Dropdown @onClose={{handleClose}} as |dd|>
-        <dd.Trigger />
-        <button type="button" class="inside" />
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown @onClose={{handleClose}} as |dd|>
+          <dd.Trigger />
+          <button type="button" class="inside" />
+        </Dropdown>
+      </template>
+    );
 
     await click('.dropdown__trigger');
 
@@ -43,19 +45,21 @@ module('dropdown (focus)', function (hooks) {
 
     const handleMouseDown = (_event) => (event = _event);
 
-    await render(<template>
-      {{! template-lint-disable no-pointer-down-event-binding }}
-      <Dropdown
-        @onClose={{handleClose}}
-        {{on "mousedown" handleMouseDown}}
-        as |dd|
-      >
-        <dd.Trigger />
-        <dd.Content>
-          <button type="button" class="inside" />
-        </dd.Content>
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        {{! template-lint-disable no-pointer-down-event-binding }}
+        <Dropdown
+          @onClose={{handleClose}}
+          {{on "mousedown" handleMouseDown}}
+          as |dd|
+        >
+          <dd.Trigger />
+          <dd.Content>
+            <button type="button" class="inside" />
+          </dd.Content>
+        </Dropdown>
+      </template>
+    );
 
     await click('.dropdown__trigger');
 
@@ -72,12 +76,14 @@ module('dropdown (focus)', function (hooks) {
   test('focus moving inside the dropdown', async function (assert) {
     assert.expect(3);
 
-    await render(<template>
-      <Dropdown as |dd|>
-        <dd.Trigger />
-        <button type="button" class="inside" />
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown as |dd|>
+          <dd.Trigger />
+          <button type="button" class="inside" />
+        </Dropdown>
+      </template>
+    );
 
     await click('.dropdown__trigger');
 
@@ -92,14 +98,16 @@ module('dropdown (focus)', function (hooks) {
   test('focus moving inside the content', async function (assert) {
     assert.expect(3);
 
-    await render(<template>
-      <Dropdown as |dd|>
-        <dd.Trigger />
-        <dd.Content>
-          <button type="button" class="inside" />
-        </dd.Content>
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown as |dd|>
+          <dd.Trigger />
+          <dd.Content>
+            <button type="button" class="inside" />
+          </dd.Content>
+        </Dropdown>
+      </template>
+    );
 
     await click('.dropdown__trigger');
 
@@ -123,13 +131,15 @@ module('dropdown (focus)', function (hooks) {
 
     const handleMouseDown = (_event) => (event = _event);
 
-    await render(<template>
-      {{! template-lint-disable no-pointer-down-event-binding }}
-      <Dropdown as |dd|>
-        <dd.Trigger />
-        <dd.Content {{on "mousedown" handleMouseDown}} />
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        {{! template-lint-disable no-pointer-down-event-binding }}
+        <Dropdown as |dd|>
+          <dd.Trigger />
+          <dd.Content {{on "mousedown" handleMouseDown}} />
+        </Dropdown>
+      </template>
+    );
 
     await click('.dropdown__trigger');
     await click('.dropdown__content');
@@ -149,23 +159,25 @@ module('dropdown (focus)', function (hooks) {
       state.showInput = true;
     };
 
-    await render(<template>
-      <Dropdown as |dd|>
-        <dd.Trigger />
-        <dd.Content>
-          <button
-            type="button"
-            class="inside"
-            {{on "click" handleClick}}
-            {{on "click" dd.close}}
-          />
-        </dd.Content>
-      </Dropdown>
+    await render(
+      <template>
+        <Dropdown as |dd|>
+          <dd.Trigger />
+          <dd.Content>
+            <button
+              type="button"
+              class="inside"
+              {{on "click" handleClick}}
+              {{on "click" dd.close}}
+            />
+          </dd.Content>
+        </Dropdown>
 
-      {{#if state.showInput}}
-        <input class="outside" aria-label="Example" {{autoFocus}} />
-      {{/if}}
-    </template>);
+        {{#if state.showInput}}
+          <input class="outside" aria-label="Example" {{autoFocus}} />
+        {{/if}}
+      </template>
+    );
 
     await click('.dropdown__trigger');
     await click('.inside');
@@ -176,16 +188,18 @@ module('dropdown (focus)', function (hooks) {
   test('auto focusing an element inside the dropdown content', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <Dropdown as |dd|>
-        <dd.Trigger />
-        {{#if dd.isOpen}}
-          <dd.Content>
-            <input aria-label="example" class="inside" {{autoFocus}} />
-          </dd.Content>
-        {{/if}}
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown as |dd|>
+          <dd.Trigger />
+          {{#if dd.isOpen}}
+            <dd.Content>
+              <input aria-label="example" class="inside" {{autoFocus}} />
+            </dd.Content>
+          {{/if}}
+        </Dropdown>
+      </template>
+    );
 
     await click('.dropdown__trigger');
 
@@ -203,15 +217,19 @@ module('dropdown (focus)', function (hooks) {
     // whereas the styles should only apply if the user had navigated
     // to the element using the keyboard
 
-    await render(<template>
-      {{! template-lint-disable no-forbidden-elements }}
-      <style>
-        .dropdown__trigger:focus-visible { outline: 2px solid red; }
-      </style>
-      <Dropdown as |dd|>
-        <dd.Trigger />
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        {{! template-lint-disable no-forbidden-elements }}
+        <style>
+          .dropdown__trigger:focus-visible {
+            outline: 2px solid red;
+          }
+        </style>
+        <Dropdown as |dd|>
+          <dd.Trigger />
+        </Dropdown>
+      </template>
+    );
 
     await click('.dropdown__trigger');
 

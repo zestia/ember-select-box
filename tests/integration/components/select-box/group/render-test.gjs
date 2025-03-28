@@ -9,13 +9,15 @@ module('select-box/group', function (hooks) {
   test('it renders', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Group />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Group />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__group').hasTagName('div');
   });
@@ -23,13 +25,15 @@ module('select-box/group', function (hooks) {
   test('splattributes', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Group class="foo" />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Group class="foo" />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__group').hasClass('foo');
   });
@@ -37,13 +41,15 @@ module('select-box/group', function (hooks) {
   test('whitespace', async function (assert) {
     assert.expect(2);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Group />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Group />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.strictEqual(find('.select-box__group-label').innerHTML, '');
     assert.strictEqual(find('.select-box__group-options').innerHTML, '');
@@ -52,13 +58,15 @@ module('select-box/group', function (hooks) {
   test('label', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Group @label="Foo" />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Group @label="Foo" />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__group-label').hasText('Foo');
   });
@@ -66,13 +74,15 @@ module('select-box/group', function (hooks) {
   test('role', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Group />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Group />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__group').hasAttribute('role', 'group');
   });
@@ -80,13 +90,15 @@ module('select-box/group', function (hooks) {
   test('aria', async function (assert) {
     assert.expect(3);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Group />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Group />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     const label = find('.select-box__group-label').getAttribute('id');
     const group = find('.select-box__group').getAttribute('aria-labelledby');
@@ -99,15 +111,17 @@ module('select-box/group', function (hooks) {
   test('block', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Group>
-            Hello World
-          </sb.Group>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Group>
+              Hello World
+            </sb.Group>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__group-options').hasText('Hello World');
   });

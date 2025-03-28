@@ -16,11 +16,13 @@ module('dropdown (escape)', function (hooks) {
   test('escape on trigger', async function (assert) {
     assert.expect(4);
 
-    await render(<template>
-      <Dropdown @onClose={{handleClose}} as |dd|>
-        <dd.Trigger />
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown @onClose={{handleClose}} as |dd|>
+          <dd.Trigger />
+        </Dropdown>
+      </template>
+    );
 
     await click('.dropdown__trigger');
 
@@ -38,14 +40,16 @@ module('dropdown (escape)', function (hooks) {
     // This ensures our listeners are on the dropdown itself,
     // and not just on the trigger.
 
-    await render(<template>
-      <Dropdown @onClose={{handleClose}} as |dd|>
-        <dd.Trigger />
-        <dd.Content>
-          <button type="button" class="inside" />
-        </dd.Content>
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown @onClose={{handleClose}} as |dd|>
+          <dd.Trigger />
+          <dd.Content>
+            <button type="button" class="inside" />
+          </dd.Content>
+        </Dropdown>
+      </template>
+    );
 
     await click('.dropdown__trigger');
 
@@ -65,16 +69,18 @@ module('dropdown (escape)', function (hooks) {
 
     const handleKeyDownParent = (_event) => (event = _event);
 
-    await render(<template>
-      {{! template-lint-disable no-invalid-interactive }}
-      <div {{on "keydown" handleKeyDownParent}}>
-        <Dropdown @onClose={{handleClose}} as |dd|>
-          <dd.Content>
-            <button type="button" class="test" />
-          </dd.Content>
-        </Dropdown>
-      </div>
-    </template>);
+    await render(
+      <template>
+        {{! template-lint-disable no-invalid-interactive }}
+        <div {{on "keydown" handleKeyDownParent}}>
+          <Dropdown @onClose={{handleClose}} as |dd|>
+            <dd.Content>
+              <button type="button" class="test" />
+            </dd.Content>
+          </Dropdown>
+        </div>
+      </template>
+    );
 
     await triggerKeyEvent('.dropdown', 'keydown', 'Escape');
 
@@ -91,23 +97,25 @@ module('dropdown (escape)', function (hooks) {
 
     const handleKeyDownParent = (_event) => (event = _event);
 
-    await render(<template>
-      {{! template-lint-disable no-invalid-interactive }}
-      <Dropdown
-        class="parent"
-        @onClose={{handleClose}}
-        {{on "keydown" handleKeyDownParent}}
-        as |dd|
-      >
-        <dd.Trigger />
-        <dd.Content>
-          <Dropdown class="child" @onClose={{handleClose}} as |dd|>
-            <dd.Trigger />
-            <dd.Content />
-          </Dropdown>
-        </dd.Content>
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        {{! template-lint-disable no-invalid-interactive }}
+        <Dropdown
+          class="parent"
+          @onClose={{handleClose}}
+          {{on "keydown" handleKeyDownParent}}
+          as |dd|
+        >
+          <dd.Trigger />
+          <dd.Content>
+            <Dropdown class="child" @onClose={{handleClose}} as |dd|>
+              <dd.Trigger />
+              <dd.Content />
+            </Dropdown>
+          </dd.Content>
+        </Dropdown>
+      </template>
+    );
 
     await click('.parent .dropdown__trigger');
     await click('.child .dropdown__trigger');

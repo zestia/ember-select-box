@@ -9,11 +9,13 @@ module('select-box', function (hooks) {
   test('it renders', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options />
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options />
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box').hasTagName('div');
   });
@@ -21,11 +23,13 @@ module('select-box', function (hooks) {
   test('splattributes', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox class="foo" as |sb|>
-        <sb.Options />
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox class="foo" as |sb|>
+          <sb.Options />
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box').hasClass('foo');
   });

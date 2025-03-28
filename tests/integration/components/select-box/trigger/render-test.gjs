@@ -12,15 +12,17 @@ module('select-box/trigger', function (hooks) {
     // The select box yields its own preconfigured
     // version of a dropdown trigger
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger class="foo">
-            Foo
-          </sb.Trigger>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger class="foo">
+              Foo
+            </sb.Trigger>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     assert
       .dom('.dropdown__trigger')
@@ -43,16 +45,18 @@ module('select-box/trigger', function (hooks) {
     // The select box's dropdown trigger (combobox) is
     // preconfigured to be coupled to the options (listbox).
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options />
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options />
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     const combobox = find('.dropdown__trigger').getAttribute('aria-controls');
     const listbox = find('.select-box__options').getAttribute('id');
@@ -65,14 +69,16 @@ module('select-box/trigger', function (hooks) {
   test('role (with input)', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown>
-          <sb.Input />
-          <sb.Trigger />
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown>
+            <sb.Input />
+            <sb.Trigger />
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     assert
       .dom('.dropdown__trigger')
@@ -86,17 +92,19 @@ module('select-box/trigger', function (hooks) {
   test('active descendant (with input)', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Input />
-          <sb.Options>
-            <sb.Option />
-          </sb.Options>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Input />
+            <sb.Options>
+              <sb.Option />
+            </sb.Options>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await triggerEvent('.select-box__option', 'mouseenter');
 

@@ -10,13 +10,15 @@ module('select-box/option', function (hooks) {
   test('it renders', async function (assert) {
     assert.expect(2);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Option />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__option').hasTagName('div');
     assert.dom('.select-box__option').doesNotHaveAttribute('tabindex');
@@ -25,13 +27,15 @@ module('select-box/option', function (hooks) {
   test('whitespace', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Option />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.strictEqual(find('.select-box__option').innerHTML, '');
   });
@@ -39,13 +43,15 @@ module('select-box/option', function (hooks) {
   test('role', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Option />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__option').hasAttribute('role', 'option');
   });
@@ -53,15 +59,17 @@ module('select-box/option', function (hooks) {
   test('id', async function (assert) {
     assert.expect(2);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option as |option|>
-            <input type="checkbox" aria-labelledby={{option.id}} />
-          </sb.Option>
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Option as |option|>
+              <input type="checkbox" aria-labelledby={{option.id}} />
+            </sb.Option>
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.ok(
       find('.select-box__option')
@@ -81,13 +89,15 @@ module('select-box/option', function (hooks) {
   test('class (closure component)', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          {{component sb.Option class="foo"}}
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            {{component sb.Option class="foo"}}
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__option').hasClass('foo');
   });
@@ -95,13 +105,15 @@ module('select-box/option', function (hooks) {
   test('tabindex (closure component)', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          {{component sb.Option tabindex="3"}}
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            {{component sb.Option tabindex="3"}}
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__option').hasAttribute('tabindex', '3');
   });
@@ -109,13 +121,15 @@ module('select-box/option', function (hooks) {
   test('disabled (no arg)', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Option />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__option').doesNotHaveAttribute('aria-disabled');
   });
@@ -127,13 +141,15 @@ module('select-box/option', function (hooks) {
       @tracked disableOne;
     })();
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option @disabled={{state.disableOne}} />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Option @disabled={{state.disableOne}} />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__option').hasAttribute('aria-disabled', 'false');
 
@@ -147,13 +163,15 @@ module('select-box/option', function (hooks) {
   test('disabled (non boolean)', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Options>
-          <sb.Option @disabled="foo" />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Option @disabled="foo" />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__option').hasAttribute('aria-disabled', 'true');
   });
@@ -161,13 +179,15 @@ module('select-box/option', function (hooks) {
   test('disabled parent', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox @disabled={{true}} as |sb|>
-        <sb.Options>
-          <sb.Option />
-        </sb.Options>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @disabled={{true}} as |sb|>
+          <sb.Options>
+            <sb.Option />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
 
     assert.dom('.select-box__option').hasAttribute('aria-disabled', 'true');
   });

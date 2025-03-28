@@ -9,11 +9,13 @@ module('dropdown/trigger', function (hooks) {
   test('it renders', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <Dropdown as |dd|>
-        <dd.Trigger />
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown as |dd|>
+          <dd.Trigger />
+        </Dropdown>
+      </template>
+    );
 
     assert.dom('.dropdown__trigger').hasTagName('div');
   });
@@ -21,11 +23,13 @@ module('dropdown/trigger', function (hooks) {
   test('splattributes', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <Dropdown as |dd|>
-        <dd.Trigger class="foo" />
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown as |dd|>
+          <dd.Trigger class="foo" />
+        </Dropdown>
+      </template>
+    );
 
     assert.dom('.dropdown__trigger').hasClass('foo');
   });
@@ -33,11 +37,13 @@ module('dropdown/trigger', function (hooks) {
   test('role', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <Dropdown as |dd|>
-        <dd.Trigger />
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown as |dd|>
+          <dd.Trigger />
+        </Dropdown>
+      </template>
+    );
 
     assert.dom('.dropdown__trigger').hasAttribute('role', 'button');
   });
@@ -45,11 +51,13 @@ module('dropdown/trigger', function (hooks) {
   test('role (closure component)', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <Dropdown as |dd|>
-        {{component dd.Trigger role="button"}}
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown as |dd|>
+          {{component dd.Trigger role="button"}}
+        </Dropdown>
+      </template>
+    );
 
     assert.dom('.dropdown__trigger').hasAttribute('role', 'button');
   });
@@ -60,11 +68,13 @@ module('dropdown/trigger', function (hooks) {
     // Requires tabindex so that Safari will populate relatedTarget
     // and handle focus properly.
 
-    await render(<template>
-      <Dropdown as |dd|>
-        <dd.Trigger />
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown as |dd|>
+          <dd.Trigger />
+        </Dropdown>
+      </template>
+    );
 
     assert.dom('.dropdown__trigger').hasAttribute('tabindex', '0');
   });
@@ -72,11 +82,13 @@ module('dropdown/trigger', function (hooks) {
   test('tabindex (closure component)', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <Dropdown as |dd|>
-        {{component dd.Trigger tabindex="-1"}}
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown as |dd|>
+          {{component dd.Trigger tabindex="-1"}}
+        </Dropdown>
+      </template>
+    );
 
     assert.dom('.dropdown__trigger').hasAttribute('tabindex', '-1');
   });
@@ -84,11 +96,13 @@ module('dropdown/trigger', function (hooks) {
   test('class (closure component)', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <Dropdown as |dd|>
-        {{component dd.Trigger class="foo"}}
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown as |dd|>
+          {{component dd.Trigger class="foo"}}
+        </Dropdown>
+      </template>
+    );
 
     assert.dom('.dropdown__trigger').hasClass('foo');
   });
@@ -96,11 +110,13 @@ module('dropdown/trigger', function (hooks) {
   test('whitespace', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <Dropdown as |dd|>
-        <dd.Trigger />
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown as |dd|>
+          <dd.Trigger />
+        </Dropdown>
+      </template>
+    );
 
     assert.strictEqual(find('.dropdown__trigger').innerHTML, '');
   });
@@ -108,11 +124,13 @@ module('dropdown/trigger', function (hooks) {
   test('aria defaults', async function (assert) {
     assert.expect(6);
 
-    await render(<template>
-      <Dropdown as |dd|>
-        <dd.Trigger />
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown as |dd|>
+          <dd.Trigger />
+        </Dropdown>
+      </template>
+    );
 
     assert
       .dom('.dropdown__trigger')
@@ -127,18 +145,20 @@ module('dropdown/trigger', function (hooks) {
   test('aria (closure component)', async function (assert) {
     assert.expect(6);
 
-    await render(<template>
-      <Dropdown as |dd|>
-        {{component
-          dd.Trigger
-          aria-expanded="true"
-          aria-busy="true"
-          aria-controls="foo"
-          aria-disabled="true"
-          aria-activedescendant="bar"
-        }}
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown as |dd|>
+          {{component
+            dd.Trigger
+            aria-expanded="true"
+            aria-busy="true"
+            aria-controls="foo"
+            aria-disabled="true"
+            aria-activedescendant="bar"
+          }}
+        </Dropdown>
+      </template>
+    );
 
     assert
       .dom('.dropdown__trigger')

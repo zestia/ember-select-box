@@ -12,12 +12,14 @@ module('dropdown (clicking trigger)', function (hooks) {
     // Whether or not the Content renders is up to the developer.
     // This allows it to be hidden with CSS instead if preferred.
 
-    await render(<template>
-      <Dropdown as |dd|>
-        <dd.Trigger />
-        <dd.Content />
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown as |dd|>
+          <dd.Trigger />
+          <dd.Content />
+        </Dropdown>
+      </template>
+    );
 
     assert.dom('.dropdown').hasAttribute('data-open', 'false');
     assert.dom('.dropdown__trigger').hasAttribute('aria-expanded', 'false');
@@ -37,11 +39,13 @@ module('dropdown (clicking trigger)', function (hooks) {
   test('right clicking trigger', async function (assert) {
     assert.expect(2);
 
-    await render(<template>
-      <Dropdown as |dd|>
-        <dd.Trigger />
-      </Dropdown>
-    </template>);
+    await render(
+      <template>
+        <Dropdown as |dd|>
+          <dd.Trigger />
+        </Dropdown>
+      </template>
+    );
 
     assert.dom('.dropdown').hasAttribute('data-open', 'false');
 

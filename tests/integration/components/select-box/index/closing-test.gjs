@@ -25,21 +25,23 @@ module('select-box (closing)', function (hooks) {
   test('closing with api', async function (assert) {
     assert.expect(8);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown @onClose={{handleClose}} as |dd|>
-          <sb.Content>
-            <button
-              type="button"
-              class="close"
-              {{on "click" dd.close}}
-            ></button>
-          </sb.Content>
-          <sb.Trigger />
-          <sb.Input />
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown @onClose={{handleClose}} as |dd|>
+            <sb.Content>
+              <button
+                type="button"
+                class="close"
+                {{on "click" dd.close}}
+              ></button>
+            </sb.Content>
+            <sb.Trigger />
+            <sb.Input />
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.dropdown__trigger');
 
@@ -65,14 +67,16 @@ module('select-box (closing)', function (hooks) {
   test('closes when trigger loses focus', async function (assert) {
     assert.expect(6);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Input />
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Input />
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box .dropdown__trigger');
 
@@ -95,14 +99,16 @@ module('select-box (closing)', function (hooks) {
   test('closes when input loses focus', async function (assert) {
     assert.expect(4);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Input />
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Input />
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box .dropdown__trigger');
 
@@ -126,27 +132,29 @@ module('select-box (closing)', function (hooks) {
 
     const handleChange = (value) => (state.value = value);
 
-    await render(<template>
-      <SelectBox @onChange={{handleChange}} as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value="foo" />
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
+    await render(
+      <template>
+        <SelectBox @onChange={{handleChange}} as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option @value="foo" />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
 
-      {{#if state.value}}
-        <input
-          class="outside"
-          value={{state.value}}
-          aria-label="Example"
-          {{autoFocus}}
-        />
-      {{/if}}
-    </template>);
+        {{#if state.value}}
+          <input
+            class="outside"
+            value={{state.value}}
+            aria-label="Example"
+            {{autoFocus}}
+          />
+        {{/if}}
+      </template>
+    );
 
     await click('.select-box .dropdown__trigger');
     await click('.select-box__option');
@@ -162,20 +170,22 @@ module('select-box (closing)', function (hooks) {
     // decides no, and drags their cursor outside the select box
     // and releases.
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown @onClose={{handleClose}}>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option />
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown @onClose={{handleClose}}>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
 
-      <div class="outside"></div>
-    </template>);
+        <div class="outside"></div>
+      </template>
+    );
 
     await triggerEvent('.select-box .dropdown__trigger', 'mousedown');
     await triggerEvent('.outside', 'mouseup');
@@ -187,15 +197,17 @@ module('select-box (closing)', function (hooks) {
   test('mousing up outside will close a manually opened dropdown', async function (assert) {
     assert.expect(4);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown @open={{true}} @onClose={{handleClose}}>
-          <sb.Trigger />
-        </sb.Dropdown>
-      </SelectBox>
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown @open={{true}} @onClose={{handleClose}}>
+            <sb.Trigger />
+          </sb.Dropdown>
+        </SelectBox>
 
-      <div class="outside"></div>
-    </template>);
+        <div class="outside"></div>
+      </template>
+    );
 
     assert.dom('.select-box .dropdown').hasAttribute('data-open', 'true');
 
@@ -208,18 +220,20 @@ module('select-box (closing)', function (hooks) {
   test('closing due to pressing escape', async function (assert) {
     assert.expect(3);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown @onClose={{handleClose}}>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option />
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown @onClose={{handleClose}}>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box .dropdown__trigger');
     await triggerKeyEvent(
@@ -237,16 +251,18 @@ module('select-box (closing)', function (hooks) {
 
     const handleSelect = () => false;
 
-    await render(<template>
-      <SelectBox @onSelect={{handleSelect}} as |sb|>
-        <sb.Dropdown @onClose={{handleClose}} as |dd|>
-          <sb.Trigger />
-          <sb.Content>
-            <button type="button" {{on "click" dd.close}}></button>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox @onSelect={{handleSelect}} as |sb|>
+          <sb.Dropdown @onClose={{handleClose}} as |dd|>
+            <sb.Trigger />
+            <sb.Content>
+              <button type="button" {{on "click" dd.close}}></button>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box .dropdown__trigger');
 
@@ -264,25 +280,27 @@ module('select-box (closing)', function (hooks) {
   test('clicking to programmatically close', async function (assert) {
     assert.expect(3);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown as |dd|>
-          <sb.Trigger />
-          {{#if dd.isOpen}}
-            <sb.Content>
-              <sb.Options>
-                <sb.Option />
-              </sb.Options>
-              <button
-                type="button"
-                class="close"
-                {{on "click" dd.close}}
-              ></button>
-            </sb.Content>
-          {{/if}}
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown as |dd|>
+            <sb.Trigger />
+            {{#if dd.isOpen}}
+              <sb.Content>
+                <sb.Options>
+                  <sb.Option />
+                </sb.Options>
+                <button
+                  type="button"
+                  class="close"
+                  {{on "click" dd.close}}
+                ></button>
+              </sb.Content>
+            {{/if}}
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box .dropdown__trigger');
 
@@ -298,20 +316,22 @@ module('select-box (closing)', function (hooks) {
   test('closing forgets previous active option', async function (assert) {
     assert.expect(2);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option @value={{1}} />
-              <sb.Option @value={{2}} />
-              <sb.Option @value={{3}} />
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option @value={{1}} />
+                <sb.Option @value={{2}} />
+                <sb.Option @value={{3}} />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box .dropdown__trigger');
     await triggerEvent('.select-box__option:nth-child(2)', 'mouseenter');
@@ -328,18 +348,20 @@ module('select-box (closing)', function (hooks) {
   test('closing due to clicking an option (trigger)', async function (assert) {
     assert.expect(2);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown @onClose={{handleClose}}>
-          <sb.Trigger />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option />
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown @onClose={{handleClose}}>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box .dropdown__trigger');
     await click('.select-box__option');
@@ -350,18 +372,20 @@ module('select-box (closing)', function (hooks) {
   test('closing due to clicking an option (input)', async function (assert) {
     assert.expect(1);
 
-    await render(<template>
-      <SelectBox as |sb|>
-        <sb.Dropdown @open={{true}} @onClose={{handleClose}}>
-          <sb.Input />
-          <sb.Content>
-            <sb.Options>
-              <sb.Option />
-            </sb.Options>
-          </sb.Content>
-        </sb.Dropdown>
-      </SelectBox>
-    </template>);
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown @open={{true}} @onClose={{handleClose}}>
+            <sb.Input />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
 
     await click('.select-box__option');
 
