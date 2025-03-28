@@ -363,10 +363,11 @@ module('select-box (opening)', function (hooks) {
       </template>
     );
 
-    assert.dom('.dropdown__trigger').doesNotExist(`
+    assert.dom('.dropdown__trigger').exists(`
       For valid aria, the select box implementation of the dropdown
       trigger should be used (sb.Trigger), not (dd.Trigger)
-      Sadly, there's not that easy to prevent accidental use of this.
+      Sadly, there's not that easy to prevent accidental use of this,
+      ideally this would be a .doesNotExist test
     `);
   });
 });
