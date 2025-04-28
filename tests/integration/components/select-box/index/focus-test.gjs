@@ -718,9 +718,11 @@ module('select-box (focus)', function (hooks) {
     assert.expect(3);
 
     // we use tabindex="-1" on the dropdown content to prevent
-    // keyboard-focusable-scrollers from stealing focus, but
-    // this has a down side of actually allowing the listbox
-    // to be focusable on click, so we must prevent that.
+    // keyboard-focusable-scrollers from stealing focus, from
+    // the primary interactive element, but this technique has
+    // a down side of actually allowing the listbox to become
+    // focusable on click, so we must take extra measures to
+    // prevent that.
     //
     // https://issues.chromium.org/issues/376718258
     // https://bugzilla.mozilla.org/show_bug.cgi?id=1930662
@@ -728,8 +730,9 @@ module('select-box (focus)', function (hooks) {
     // here, when the primary interactive element is focused,
     // and the user presses tab, we always want focus to move
     // to the next interactive element. skipping the dropdown
-    // content (if it was overflowing), and also skipping over
-    // the listbox (if it was overflowing).
+    // content (if it was overflowing, and therefore focusable),
+    // and also skipping over the listbox (if it was overflowing
+    // and therefore focusable) too.
 
     let event;
 

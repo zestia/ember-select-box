@@ -122,8 +122,8 @@ module('dropdown (focus)', function (hooks) {
   test('keyboard-focusable-scrollers', async function (assert) {
     assert.expect(2);
 
-    // we use do not employ any methods to prevent
-    // keyboard-focusable-scrollers from taking affect
+    // we do not employ any methods to prevent
+    // keyboard-focusable-scrollers from taking affect,
     // this allows focus to move to the dropdown content
     // when it is overflowing.
 
