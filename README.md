@@ -1,7 +1,6 @@
 # @zestia/ember-select-box
 
-[![Ember Observer][ember-observer-badge]][ember-observer-url]
-
+<!-- [![Ember Observer][ember-observer-badge]][ember-observer-url] -->
 <!-- [![GitHub Actions][github-actions-badge]][github-actions-url] -->
 
 [npm-badge]: https://img.shields.io/npm/v/@zestia/ember-select-box.svg
