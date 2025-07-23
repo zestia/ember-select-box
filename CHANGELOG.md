@@ -1,5 +1,9 @@
 # Changelog
 
+## 17.3.0
+
+- Convert to v2 addon
+
 ## 17.2.1
 
 - Prevent mouse events from interfering with keyboard navigation, when the mouse is over the options.
