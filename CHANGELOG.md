@@ -1,5 +1,9 @@
 # Changelog
 
+## 17.3.1
+
+- Remove use of `@action`
+
 ## 17.3.0
 
 - Convert to v2 addon
