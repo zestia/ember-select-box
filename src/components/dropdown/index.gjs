@@ -1,6 +1,6 @@
 /* eslint-disable ember/no-runloop, ember/no-tracked-properties-from-args */
 
-import { cached, tracked } from '@glimmer/tracking';
+import { tracked } from '@glimmer/tracking';
 import { concat, hash } from '@ember/helper';
 import { on } from '@ember/modifier';
 import Component from '@glimmer/component';
