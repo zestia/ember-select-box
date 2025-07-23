@@ -91,7 +91,18 @@
   "ember-addon": {
     "version": 2,
     "type": "addon",
-    "main": "addon-main.cjs"
+    "main": "addon-main.cjs",
+    "app-js": {
+      "./components/dropdown/content.js": "./dist/_app_/components/dropdown/content.js",
+      "./components/dropdown/index.js": "./dist/_app_/components/dropdown/index.js",
+      "./components/dropdown/trigger.js": "./dist/_app_/components/dropdown/trigger.js",
+      "./components/select-box/group.js": "./dist/_app_/components/select-box/group.js",
+      "./components/select-box/index.js": "./dist/_app_/components/select-box/index.js",
+      "./components/select-box/input.js": "./dist/_app_/components/select-box/input.js",
+      "./components/select-box/option.js": "./dist/_app_/components/select-box/option.js",
+      "./components/select-box/options.js": "./dist/_app_/components/select-box/options.js",
+      "./modifiers/lifecycle.js": "./dist/_app_/modifiers/lifecycle.js"
+    }
   },
   "imports": {
     "#app/*": "./demo/*",
