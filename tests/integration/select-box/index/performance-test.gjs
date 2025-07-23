@@ -3,7 +3,7 @@ import { click, render } from '@ember/test-helpers';
 import { setupRenderingTest } from 'ember-qunit';
 import SelectBox from '@zestia/ember-select-box/components/select-box';
 
-module('Acceptance | performance', function (hooks) {
+module('performance', function (hooks) {
   setupRenderingTest(hooks);
 
   const data = Array.from({ length: 10000 }, (_, i) => ({
