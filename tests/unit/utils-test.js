@@ -4,7 +4,7 @@ import {
   containsString as contains,
   startsWithString as startsWith
 } from '@zestia/ember-select-box/-private/utils';
-import { setupTest } from 'dummy/tests/helpers';
+import { setupTest } from 'ember-qunit';
 
 module('utils', function (hooks) {
   setupTest(hooks);
