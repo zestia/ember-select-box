@@ -94,10 +94,10 @@
     "main": "addon-main.cjs",
     "app-js": {
       "./components/dropdown/content.js": "./dist/_app_/components/dropdown/content.js",
-      "./components/dropdown/index.js": "./dist/_app_/components/dropdown/index.js",
+      "./components/dropdown.js": "./dist/_app_/components/dropdown.js",
       "./components/dropdown/trigger.js": "./dist/_app_/components/dropdown/trigger.js",
       "./components/select-box/group.js": "./dist/_app_/components/select-box/group.js",
-      "./components/select-box/index.js": "./dist/_app_/components/select-box/index.js",
+      "./components/select-box.js": "./dist/_app_/components/select-box.js",
       "./components/select-box/input.js": "./dist/_app_/components/select-box/input.js",
       "./components/select-box/option.js": "./dist/_app_/components/select-box/option.js",
       "./components/select-box/options.js": "./dist/_app_/components/select-box/options.js",
@@ -111,7 +111,9 @@
   "exports": {
     ".": "./dist/index.js",
     "./*": "./dist/*.js",
-    "./addon-main.js": "./addon-main.cjs"
+    "./addon-main.js": "./addon-main.cjs",
+    "./components/dropdown": "./dist/components/dropdown/index.js",
+    "./components/select-box": "./dist/components/select-box/index.js"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
