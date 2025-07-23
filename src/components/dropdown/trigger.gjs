@@ -1,15 +1,13 @@
 import { on } from '@ember/modifier';
 import lifecycle from '@zestia/ember-select-box/modifiers/lifecycle';
 import { concat } from '@ember/helper';
-import { action } from '@ember/object';
 import Component from '@glimmer/component';
 
 export default class DropdownTrigger extends Component {
-  @action
-  handleInsert(element) {
+  handleInsert = (element) => {
     this.args.onInsert?.(element);
     this.args.onInsertClosure?.(element);
-  }
+  };
 
   <template>
     {{! template-lint-disable no-positive-tabindex require-aria-activedescendant-tabindex no-pointer-down-event-binding }}

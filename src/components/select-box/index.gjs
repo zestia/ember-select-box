@@ -1,6 +1,5 @@
 /* eslint-disable ember/no-runloop */
 
-import { action } from '@ember/object';
 import { cached } from '@glimmer/tracking';
 import { filter } from '@zestia/ember-select-box/utils';
 import { hash } from '@ember/helper';
@@ -197,192 +196,165 @@ export default class SelectBox extends Component {
       });
   }
 
-  @action
-  handleInsertElement(element) {
+  handleInsertElement = (element) => {
     this.element = element;
     this.args.onReady?.(this.api);
-  }
+  };
 
-  @action
-  handleDestroyElement() {
+  handleDestroyElement = () => {
     this.element = null;
-  }
+  };
 
-  @action
-  handleInsertOption(option) {
+  handleInsertOption = (option) => {
     this._options.add(option);
-  }
+  };
 
-  @action
-  handleDestroyOption(option) {
+  handleDestroyOption = (option) => {
     this._options.delete(option);
-  }
+  };
 
-  @action
-  handleInsertOptions(element) {
+  handleInsertOptions = (element) => {
     this.optionsElement = element;
-  }
+  };
 
-  @action
-  handleDestroyOptions() {
+  handleDestroyOptions = () => {
     this.optionsElement = null;
-  }
+  };
 
-  @action
-  handleInsertTrigger(element) {
+  handleInsertTrigger = (element) => {
     this.triggerElement = element;
-  }
+  };
 
-  @action
-  handleDestroyTrigger() {
+  handleDestroyTrigger = () => {
     this.triggerElement = null;
-  }
+  };
 
-  @action
-  handleInsertInput(element) {
+  handleInsertInput = (element) => {
     this.inputElement = element;
-  }
+  };
 
-  @action
-  handleDestroyInput() {
+  handleDestroyInput = () => {
     this.inputElement = null;
-  }
+  };
 
-  @action
-  registerDropdown(dropdown) {
+  registerDropdown = (dropdown) => {
     this.dropdown = dropdown;
-  }
+  };
 
-  @action
-  handleDestroyDropdown() {
+  handleDestroyDropdown = () => {
     this.dropdown = null;
-  }
+  };
 
-  @action
-  handleInput() {
-    this._search(this.inputElement.value);
-  }
+  handleInput = () => {
+    this.#search(this.inputElement.value);
+  };
 
-  @action
-  handleMouseLeave() {
+  handleMouseLeave = () => {
     if (this.hasFocus) {
       return;
     }
 
-    this._forgetActiveOption();
-  }
+    this.#forgetActiveOption();
+  };
 
-  @action
-  handleMouseDown(event) {
+  handleMouseDown = (event) => {
     if (event.target === this.interactiveElement) {
       return;
     }
 
     event.preventDefault();
-    this._ensureFocus();
-  }
+    this.#ensureFocus();
+  };
 
-  @action
-  handleKeyDownTrigger(event) {
-    this._handleKeyDown(event);
-    this._handleInputChar(event);
-  }
+  handleKeyDownTrigger = (event) => {
+    this.#handleKeyDown(event);
+    this.#handleInputChar(event);
+  };
 
-  @action
-  handleKeyDownInput(event) {
-    this._handleKeyDown(event);
-  }
+  handleKeyDownInput = (event) => {
+    this.#handleKeyDown(event);
+  };
 
-  @action
-  handleKeyDownOptions(event) {
+  handleKeyDownOptions = (event) => {
     if (this.isComboBox) {
       return;
     }
 
-    this._handleKeyDown(event);
-    this._handleInputChar(event);
-  }
+    this.#handleKeyDown(event);
+    this.#handleInputChar(event);
+  };
 
-  @action
-  handleMouseEnterOption(option) {
+  handleMouseEnterOption = (option) => {
     if (this.keyboard) {
       return;
     }
 
-    this._activateOption(option);
-  }
+    this.#activateOption(option);
+  };
 
-  @action
-  handleMouseUpOption(option, event) {
+  handleMouseUpOption = (option, event) => {
     if (event.button !== 0) {
       return;
     }
 
-    this._activateOption(option);
-    this._selectOption(option);
-  }
+    this.#activateOption(option);
+    this.#selectOption(option);
+  };
 
-  @action
-  handleFocusInOption(option) {
-    this._activateOption(option);
-  }
+  handleFocusInOption = (option) => {
+    this.#activateOption(option);
+  };
 
-  @action
-  handleKeyDownOption(event) {
-    this._handleKeyDown(event);
-  }
+  handleKeyDownOption = (event) => {
+    this.#handleKeyDown(event);
+  };
 
-  @action
-  handleOpenDropdown() {
+  handleOpenDropdown = () => {
     this.activeOption?.scrollIntoView();
-    this._ensureFocus();
-  }
+    this.#ensureFocus();
+  };
 
-  @action
-  handleCloseDropdown(reason) {
-    this._forgetActiveOption();
+  handleCloseDropdown = (reason) => {
+    this.#forgetActiveOption();
 
     if (reason === SELECTED) {
-      this._ensureFocus();
+      this.#ensureFocus();
     }
-  }
+  };
 
-  @action
-  search(query) {
-    return this._search(query);
-  }
+  search = (query) => {
+    return this.#search(query);
+  };
 
-  @action
-  update(value) {
-    this._setValue(value);
-  }
+  update = (value) => {
+    this.#setValue(value);
+  };
 
-  @action
-  select(value) {
-    this._selectValue(value);
-  }
+  select = (value) => {
+    this.#selectValue(value);
+  };
 
-  _handleKeyDown(event) {
+  #handleKeyDown(event) {
     clearTimeout(this.keyboard);
     this.keyboard = setTimeout(() => (this.keyboard = false), 0);
 
     switch (event.key) {
       case 'ArrowUp':
-        this._handleArrowUp(event);
+        this.#handleArrowUp(event);
         break;
       case 'ArrowDown':
-        this._handleArrowDown(event);
+        this.#handleArrowDown(event);
         break;
       case 'Enter':
-        this._handleEnter(event);
+        this.#handleEnter(event);
         break;
       case ' ':
-        this._handleSpace(event);
+        this.#handleSpace(event);
         break;
     }
   }
 
-  _handleArrowUp(event) {
+  #handleArrowUp(event) {
     event.preventDefault();
 
     if (this.canAutoOpen) {
@@ -390,10 +362,10 @@ export default class SelectBox extends Component {
       return;
     }
 
-    this._activateOption(this.previousOption, true);
+    this.#activateOption(this.previousOption, true);
   }
 
-  _handleArrowDown(event) {
+  #handleArrowDown(event) {
     event.preventDefault();
 
     if (this.canAutoOpen) {
@@ -401,18 +373,18 @@ export default class SelectBox extends Component {
       return;
     }
 
-    this._activateOption(this.nextOption, true);
+    this.#activateOption(this.nextOption, true);
   }
 
-  _handleEnter(event) {
+  #handleEnter(event) {
     if (this.isComboBox) {
       event.preventDefault();
     }
 
-    this._handleEnterOrSpace();
+    this.#handleEnterOrSpace();
   }
 
-  _handleSpace(event) {
+  #handleSpace(event) {
     if (event.target === this.inputElement) {
       return;
     }
@@ -423,19 +395,19 @@ export default class SelectBox extends Component {
       return;
     }
 
-    this._handleEnterOrSpace();
+    this.#handleEnterOrSpace();
   }
 
-  _handleEnterOrSpace() {
+  #handleEnterOrSpace() {
     if (this.canAutoOpen) {
       this.dropdown.open();
       return;
     }
 
-    this._selectActiveOption();
+    this.#selectActiveOption();
   }
 
-  _handleSelected() {
+  #handleSelected() {
     this.args.onSelect?.(this.api);
 
     if (this.canAutoClose) {
@@ -447,7 +419,7 @@ export default class SelectBox extends Component {
     this.activeOption?.scrollIntoView();
   }
 
-  _handleInputChar(event) {
+  #handleInputChar(event) {
     const { key: char } = event;
 
     if (char.length > 1 || pressingModifier(event)) {
@@ -469,20 +441,20 @@ export default class SelectBox extends Component {
     const after = this.options.slice(index);
     const options = after.concat(before);
 
-    [option] = this._getOptionsByTextContent(options, string);
+    [option] = this.#getOptionsByTextContent(options, string);
 
-    this._activateOption(option, true);
+    this.#activateOption(option, true);
 
     if (this.canAutoSelect) {
-      this._selectActiveOption();
+      this.#selectActiveOption();
     }
   }
 
-  _forgetActiveOption() {
+  #forgetActiveOption() {
     this._activeOption = null;
   }
 
-  _activateOption(option, scrollIntoView = false) {
+  #activateOption(option, scrollIntoView = false) {
     if (!option || option.isDisabled || option.isActive) {
       return;
     }
@@ -496,44 +468,44 @@ export default class SelectBox extends Component {
     this.args.onActivate?.(option.args.value, this.api);
   }
 
-  _selectActiveOption() {
-    this._selectOption(this.activeOption);
+  #selectActiveOption() {
+    this.#selectOption(this.activeOption);
   }
 
-  _selectOption(option) {
+  #selectOption(option) {
     if (!option || option.isDisabled) {
       return;
     }
 
-    const value = this._buildSelection(option.args.value);
+    const value = this.#buildSelection(option.args.value);
 
-    this._selectValue(value);
+    this.#selectValue(value);
   }
 
-  _setValue(value) {
+  #setValue(value) {
     this._value = value;
   }
 
-  _valueChanged(value) {
+  #valueChanged(value) {
     return this.value !== value;
   }
 
-  _selectValue(value) {
-    if (this._valueChanged(value)) {
-      this._setValue(value);
+  #selectValue(value) {
+    if (this.#valueChanged(value)) {
+      this.#setValue(value);
       this.args.onChange?.(this.value, this.api);
     }
 
-    this._handleSelected();
+    this.#handleSelected();
   }
 
-  _ensureFocus() {
+  #ensureFocus() {
     this.interactiveElement?.focus({
       focusVisible: this.interactiveElement === this.inputElement
     });
   }
 
-  _getOptionsByTextContent(options, query) {
+  #getOptionsByTextContent(options, query) {
     return filter(options)
       .by((option) => option.element.textContent)
       .query(query)
@@ -541,14 +513,14 @@ export default class SelectBox extends Component {
       .run();
   }
 
-  _buildSelection(value) {
+  #buildSelection(value) {
     const build =
-      this.args.onBuildSelection ?? this._defaultBuildSelection.bind(this);
+      this.args.onBuildSelection ?? this.#defaultBuildSelection.bind(this);
 
     return build(value, this.value);
   }
 
-  _defaultBuildSelection(newValue, oldValue) {
+  #defaultBuildSelection(newValue, oldValue) {
     let value = newValue;
 
     if (this.isMultiple) {
@@ -566,14 +538,14 @@ export default class SelectBox extends Component {
     return value;
   }
 
-  _search(query) {
+  #search(query) {
     this.searchTask?.cancelAll();
     return this.searchTask.perform(query);
   }
 
   searchTask = task(async (query) => {
     const string = query ?? '';
-    const search = this.args.onSearch ?? this._defaultSearch.bind(this);
+    const search = this.args.onSearch ?? this.#defaultSearch.bind(this);
 
     this.results = await search(string, this.api);
     this.query = string;
@@ -581,11 +553,11 @@ export default class SelectBox extends Component {
     scheduleOnce('afterRender', this, '_handleSearched');
   });
 
-  _defaultSearch(query) {
+  #defaultSearch(query) {
     return filter(this.args.options).query(query).run();
   }
 
-  get _api() {
+  get #api() {
     return {
       // Components
       Dropdown: this.Dropdown,
@@ -611,7 +583,7 @@ export default class SelectBox extends Component {
 
   api = new Proxy(this, {
     get(target, key) {
-      return target._api[key];
+      return target.#api[key];
     },
     set() {}
   });

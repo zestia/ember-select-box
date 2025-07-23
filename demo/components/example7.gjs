@@ -2,17 +2,15 @@ import SelectBox from '@zestia/ember-select-box/components/select-box';
 import { on } from '@ember/modifier';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
 import { fn } from '@ember/helper';
 
 export default class extends Component {
   @tracked inputValue = '';
 
-  @action
-  handleSelect(sb) {
+  handleSelect = (sb) => {
     this.inputValue = '';
     sb.search('');
-  }
+  };
 
   <template>
     <SelectBox

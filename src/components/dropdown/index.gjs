@@ -1,6 +1,5 @@
 /* eslint-disable ember/no-runloop, ember/no-tracked-properties-from-args */
 
-import { action } from '@ember/object';
 import { cached, tracked } from '@glimmer/tracking';
 import { concat, hash } from '@ember/helper';
 import { on } from '@ember/modifier';
@@ -57,39 +56,32 @@ export default class Dropdown extends Component {
     };
   });
 
-  @action
-  handleInsertElement(element) {
+  handleInsertElement = (element) => {
     this.element = element;
     this.args.onReady?.(this.api);
-  }
+  };
 
-  @action
-  handleDestroyElement() {
+  handleDestroyElement = () => {
     this.element = null;
-  }
+  };
 
-  @action
-  handleInsertTrigger(element) {
+  handleInsertTrigger = (element) => {
     this.triggerElement = element;
-  }
+  };
 
-  @action
-  handleDestroyTrigger() {
+  handleDestroyTrigger = () => {
     this.triggerElement = null;
-  }
+  };
 
-  @action
-  handleInsertContent(element) {
+  handleInsertContent = (element) => {
     this.contentElement = element;
-  }
+  };
 
-  @action
-  handleDestroyContent() {
+  handleDestroyContent = () => {
     this.contentElement = null;
-  }
+  };
 
-  @action
-  handleMouseDownTrigger(event) {
+  handleMouseDownTrigger = (event) => {
     if (event.button !== 0) {
       return;
     }
@@ -98,56 +90,50 @@ export default class Dropdown extends Component {
 
     this.toggle();
 
-    this._ensureFocus();
-  }
+    this.#ensureFocus();
+  };
 
-  @action
-  handleMouseDown(event) {
+  handleMouseDown = (event) => {
     this.lastMouseDownElement = event.target;
-  }
+  };
 
-  @action
-  handleMouseUp(event) {
+  handleMouseUp = (event) => {
     if (!this.lastMouseDownElement) {
       return;
     }
 
     this.lastMouseDownElement = null;
 
-    if (this._isInside(event.target)) {
+    if (this.#isInside(event.target)) {
       return;
     }
 
-    this._handleClickOutside();
-  }
+    this.#handleClickOutside();
+  };
 
-  @action
-  handleFocusOut(event) {
+  handleFocusOut = (event) => {
     const element = event.relatedTarget || this.lastMouseDownElement;
 
-    if (this._isInside(element)) {
+    if (this.#isInside(element)) {
       return;
     }
 
-    this._handleFocusLeave();
-  }
+    this.#handleFocusLeave();
+  };
 
-  @action
-  handleKeyDownTrigger(event) {
+  handleKeyDownTrigger = (event) => {
     if (event.key === 'Enter' || event.key === ' ') {
-      this._handleEnterOrSpace(event);
+      this.#handleEnterOrSpace(event);
     }
-  }
+  };
 
-  @action
-  handleKeyDown(event) {
+  handleKeyDown = (event) => {
     if (event.key === 'Escape') {
-      this._handleEscape(event);
+      this.#handleEscape(event);
     }
-  }
+  };
 
-  @action
-  open() {
+  open = () => {
     if (!this.canOpen) {
       return;
     }
@@ -155,10 +141,9 @@ export default class Dropdown extends Component {
     this._isOpen = true;
 
     scheduleOnce('afterRender', this, '_handleOpened');
-  }
+  };
 
-  @action
-  close(reason) {
+  close = (reason) => {
     if (!this.canClose) {
       return;
     }
@@ -166,27 +151,26 @@ export default class Dropdown extends Component {
     this._isOpen = false;
 
     scheduleOnce('afterRender', this, '_handleClosed', reason);
-  }
+  };
 
-  @action
-  toggle() {
+  toggle = () => {
     if (this.isOpen) {
       this.close();
     } else {
       this.open();
     }
-  }
+  };
 
-  async _handleFocusLeave() {
+  async #handleFocusLeave() {
     await Promise.resolve();
     this.close(FOCUS_LEAVE);
   }
 
-  _handleClickOutside() {
+  #handleClickOutside() {
     this.close(CLICK_OUTSIDE);
   }
 
-  _handleEscape(event) {
+  #handleEscape(event) {
     if (!this.canClose) {
       return;
     }
@@ -196,11 +180,11 @@ export default class Dropdown extends Component {
     this.close(ESCAPE);
   }
 
-  _handleEnterOrSpace() {
+  #handleEnterOrSpace() {
     this.toggle();
   }
 
-  _isInside(element) {
+  #isInside(element) {
     return (
       element !== this.element &&
       (this.element.contains(element) || this.contentElement?.contains(element))
@@ -217,12 +201,11 @@ export default class Dropdown extends Component {
     this.args.onClose?.(reason);
   }
 
-  _ensureFocus() {
+  #ensureFocus() {
     this.triggerElement.focus({ focusVisible: false });
   }
 
-  @cached
-  get _api() {
+  get #api() {
     return {
       Trigger: this.Trigger,
       Content: this.Content,
@@ -236,7 +219,7 @@ export default class Dropdown extends Component {
 
   api = new Proxy(this, {
     get(target, key) {
-      return target._api[key];
+      return target.#api[key];
     },
     set() {}
   });

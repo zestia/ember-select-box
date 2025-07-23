@@ -1,4 +1,3 @@
-import { action } from '@ember/object';
 import { cached } from '@glimmer/tracking';
 import { concat, fn } from '@ember/helper';
 import { guidFor } from '@ember/object/internals';
@@ -39,17 +38,15 @@ export default class SelectBoxOption extends Component {
     return this.args.value === this.args.selectBox.value;
   }
 
-  @action
-  handleInsertElement(element) {
+  handleInsertElement = (element) => {
     this.element = element;
     this.args.onInsert?.(this);
-  }
+  };
 
-  @action
-  handleDestroyElement() {
+  handleDestroyElement = () => {
     this.element = null;
     this.args.onDestroy?.(this);
-  }
+  };
 
   scrollIntoView() {
     this.element.scrollIntoView({ block: 'nearest' });

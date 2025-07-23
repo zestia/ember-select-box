@@ -315,15 +315,14 @@ import { filter } from '@zestia/ember-select-box/utils';
  * }]
  */
 
-@action
-handleSearch(query) {
+handleSearch = (query) => {
   return filter(this.args.options)
     .by('name')
     .groups('items')
     .dropEmptyGroups()
     .query(query)
     .run();
-}
+};
 ```
 
 </details>
