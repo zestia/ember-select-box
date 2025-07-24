@@ -2,7 +2,7 @@ import { module, skip, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, click } from '@ember/test-helpers';
 import SelectBox from '@zestia/ember-select-box/components/select-box';
-import { modifier } from 'ember-modifier';
+import { modifier as _modifier } from 'ember-modifier';
 import { tracked } from '@glimmer/tracking';
 
 module('select-box (edge cases)', function (hooks) {
@@ -11,11 +11,11 @@ module('select-box (edge cases)', function (hooks) {
   // Regression test for issue
   // https://github.com/ember-modifier/ember-modifier/issues/851
 
-  const position = modifier(
+  const position = _modifier(
     (dropdown) => (dropdown.dataset.positioned = 'true')
   );
 
-  skip('it does not blow up', async function (assert) {
+  test('it does not blow up', async function (assert) {
     assert.expect(0);
 
     await render(
