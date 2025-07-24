@@ -158,6 +158,10 @@ Mimics the user making a selection, and so `@onChange` may fire.
 
 Updates the select box with a new value(s). `@onChange` will not fire.
 
+#### `search`
+
+Runs a search for a given query
+
 #### `element`
 
 The element of the select box
@@ -178,6 +182,10 @@ The query used to produce the latest search results. (This may be different to t
 
 These are the same options as given to the component via `@options`, yielded back to you.
 Unless a search has run, in which case they will be the return value from `@onSearch`
+
+#### `dropdown`
+
+The API of the dropdown associated with the select box
 
 ## `Option`
 
