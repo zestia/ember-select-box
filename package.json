@@ -31,7 +31,7 @@
     "lint:css": "stylelint '**/*.{css,scss}'",
     "lint:css:fix": "concurrently \"npm:lint:css -- --fix\"",
     "start": "vite dev",
-    "test": "vite build --mode=test --out-dir dist-tests && testem --file testem.cjs ci --port 0",
+    "test": "vite build --mode=development --out-dir dist-tests && testem --file testem.cjs ci --port 0",
     "prepack": "rollup --config",
     "release": "release-it"
   },
