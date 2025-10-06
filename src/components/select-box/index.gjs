@@ -539,11 +539,10 @@ export default class SelectBox extends Component {
   }
 
   #search(query) {
-    this.searchTask?.cancelAll();
     return this.searchTask.perform(query);
   }
 
-  searchTask = task(async (query) => {
+  searchTask = task({ restartable: true }, async (query) => {
     const string = query ?? '';
     const search = this.args.onSearch ?? this.#defaultSearch.bind(this);
 

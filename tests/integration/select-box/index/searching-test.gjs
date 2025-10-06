@@ -11,15 +11,20 @@ module('select-box (searching)', function (hooks) {
   setupRenderingTest(hooks);
 
   test('busy state whilst searching', async function (assert) {
-    assert.expect(9);
+    assert.expect(11);
 
     const deferred = Promise.withResolvers();
 
     const handleSearch = () => deferred.promise;
 
+    const captureBusy = () => assert.step('busy');
+
     await render(
       <template>
         <SelectBox @onSearch={{handleSearch}} as |sb|>
+          {{#if sb.isBusy}}
+            {{(captureBusy)}}
+          {{/if}}
           <sb.Dropdown>
             <sb.Trigger />
             <sb.Input />
@@ -35,6 +40,7 @@ module('select-box (searching)', function (hooks) {
     assert.dom('.select-box__input').hasAttribute('aria-busy', 'false');
 
     await fillIn('.select-box__input', 'x');
+    await fillIn('.select-box__input', 'y');
 
     assert.dom('.select-box').hasAttribute('data-busy', 'true');
     assert
@@ -51,6 +57,8 @@ module('select-box (searching)', function (hooks) {
       .dom('.select-box .dropdown__trigger')
       .hasAttribute('aria-busy', 'false');
     assert.dom('.select-box__input').hasAttribute('aria-busy', 'false');
+
+    assert.verifySteps(['busy'], 'does not re-compute if already busy');
   });
 
   test('search task', async function (assert) {
