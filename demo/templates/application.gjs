@@ -54,7 +54,7 @@ export default Route(
       These select boxes do not come with the addon. The addon provides the
       tools to create them, and many more variations. Check out the
       <a
-        href="https://github.com/zestia/ember-select-box/tree/main/tests/demo/components"
+        href="https://github.com/zestia/ember-select-box/tree/main/demo/components"
       >
         templates
       </a>.
