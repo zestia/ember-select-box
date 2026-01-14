@@ -6,6 +6,14 @@ import { babel } from '@rollup/plugin-babel';
 const isCompat = Boolean(process.env.ENABLE_COMPAT_BUILD);
 
 export default defineConfig({
+  resolve: {
+    alias: [
+      {
+        find: '@zestia/ember-select-box',
+        replacement: `${__dirname}/src`
+      }
+    ]
+  },
   plugins: [
     ...(isCompat ? [classicEmberSupport()] : []),
     ember(),
