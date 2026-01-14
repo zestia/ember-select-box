@@ -1,11 +1,23 @@
 import EmberApp from 'ember-strict-application-resolver';
 import EmberRouter from '@ember/routing/router';
 import PageTitleService from 'ember-page-title/services/page-title';
+import * as Example1Template from './templates/example1.gjs';
 
 class Router extends EmberRouter {
   location = 'history';
   rootURL = '/';
 }
+
+Router.map(function () {
+  this.route('example1');
+  this.route('example2');
+  this.route('example3');
+  this.route('example4');
+  this.route('example5');
+  this.route('example6');
+  this.route('example7');
+  this.route('dropdown');
+});
 
 export class App extends EmberApp {
   /**
@@ -20,6 +32,7 @@ export class App extends EmberApp {
   modules = {
     './router': Router,
     './services/page-title': PageTitleService,
+    ...import.meta.glob('./routes/**/*', { eager: true }),
     /**
      * NOTE: this glob will import everything matching the glob,
      *     and includes non-services in the services directory.
@@ -31,7 +44,7 @@ export class App extends EmberApp {
      *
      * See: https://rfcs.emberjs.com/id/1132-default-strict-resolver
      */
-    ...import.meta.glob('./templates/**/*', { eager: true })
+    ...import.meta.glob('./templates/**/*', { eager: true }),
   };
 }
 
