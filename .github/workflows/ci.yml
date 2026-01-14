@@ -22,7 +22,7 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 22
           cache: npm
       - name: Install Dependencies
         run: npm ci
@@ -70,9 +70,111 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 22
           cache: npm
       - name: Install Dependencies
         run: npm ci
       - name: Run Tests
+<<<<<<< HEAD
         run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }}
+||||||| parent of 0f4358c (v0.9.0...v0.16.1)
+        run: npm run test
+      # For the Try Scenarios
+      - id: set-matrix
+        run: |
+          
+           echo "matrix=$(npx @embroider/try list)" >> $GITHUB_OUTPUT
+
+  floating:
+    name: "Floating Dependencies"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+      - name: Install Dependencies
+        run: npm install --no-package-lock
+      - name: Run Tests
+        run: npm run test
+
+  try-scenarios:
+    name: ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    needs: "test"
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix: ${{fromJson(needs.test.outputs.matrix)}}
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+      - name: Apply Scenario
+        run: |
+          
+           npx @embroider/try apply ${{ matrix.name }}
+      - name: Install Dependencies
+        run: npm install --no-package-lock
+      - name: Run Tests
+        run: |
+          
+          npm test
+        env: ${{ matrix.env }}
+=======
+        run: npm run test
+      # For the Try Scenarios
+      - id: set-matrix
+        run: |
+          
+           echo "matrix=$(npx @embroider/try list)" >> $GITHUB_OUTPUT
+
+  floating:
+    name: "Floating Dependencies"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install Dependencies
+        run: npm install --no-package-lock
+      - name: Run Tests
+        run: npm run test
+
+  try-scenarios:
+    name: ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    needs: "test"
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix: ${{fromJson(needs.test.outputs.matrix)}}
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Apply Scenario
+        run: |
+          
+           npx @embroider/try apply ${{ matrix.name }}
+      - name: Install Dependencies
+        run: npm install --no-package-lock
+      - name: Run Tests
+        run: |
+          
+          npm test
+        env: ${{ matrix.env }}
+>>>>>>> 0f4358c (v0.9.0...v0.16.1)

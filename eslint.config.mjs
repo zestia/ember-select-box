@@ -14,6 +14,7 @@
  */
 import babelParser from '@babel/eslint-parser';
 import js from '@eslint/js';
+import { defineConfig, globalIgnores } from 'eslint/config';
 import prettier from 'eslint-config-prettier';
 import ember from 'eslint-plugin-ember/recommended';
 import importPlugin from 'eslint-plugin-import';
@@ -23,10 +24,11 @@ import zestia from '@zestia/eslint-config';
 
 const esmParserOptions = {
   ecmaFeatures: { modules: true },
-  ecmaVersion: 'latest'
+  ecmaVersion: 'latest',
 };
 
-const config = [
+export default defineConfig([
+  globalIgnores(['dist/', 'dist-*/', 'declarations/', 'coverage/', '!**/.*']),
   js.configs.recommended,
   prettier,
   ember.configs.base,
@@ -36,77 +38,58 @@ const config = [
   {
     rules: {
       'no-restricted-imports': 'off',
-      'ember/template-no-let-reference': 'off'
-    }
-  },
-  /**
-   * Ignores must be in their own object
-   * https://eslint.org/docs/latest/use/configure/ignore
-   */
-  {
-    ignores: [
-      'dist/',
-      'dist-*/',
-      'declarations/',
-      'node_modules/',
-      'coverage/',
-      '!**/.*'
-    ]
+      'ember/template-no-let-reference': 'off',
+    },
   },
   /**
    * https://eslint.org/docs/latest/use/configure/configuration-files#configuring-linter-options
    */
   {
     linterOptions: {
-      reportUnusedDisableDirectives: 'error'
-    }
+      reportUnusedDisableDirectives: 'error',
+    },
   },
   {
     files: ['**/*.js'],
     languageOptions: {
-      parser: babelParser
-    }
+      parser: babelParser,
+    },
   },
   {
     files: ['**/*.{js,gjs}'],
     languageOptions: {
       parserOptions: esmParserOptions,
       globals: {
-        ...globals.browser
-      }
-    }
+        ...globals.browser,
+      },
+    },
   },
   {
     files: ['src/**/*'],
     plugins: {
-      import: importPlugin
+      import: importPlugin,
     },
     rules: {
       // require relative imports use full extensions
-      'import/extensions': ['error', 'always', { ignorePackages: true }]
-    }
+      'import/extensions': ['error', 'always', { ignorePackages: true }],
+    },
   },
   /**
    * CJS node files
    */
   {
-    files: [
-      '**/*.cjs',
-      '.prettierrc.cjs',
-      '.template-lintrc.cjs',
-      'addon-main.cjs'
-    ],
+    files: ['**/*.cjs'],
     plugins: {
-      n
+      n,
     },
 
     languageOptions: {
       sourceType: 'script',
       ecmaVersion: 'latest',
       globals: {
-        ...globals.node
-      }
-    }
+        ...globals.node,
+      },
+    },
   },
   /**
    * ESM node files
@@ -114,7 +97,7 @@ const config = [
   {
     files: ['**/*.mjs'],
     plugins: {
-      n
+      n,
     },
 
     languageOptions: {
@@ -122,10 +105,8 @@ const config = [
       ecmaVersion: 'latest',
       parserOptions: esmParserOptions,
       globals: {
-        ...globals.node
-      }
-    }
-  }
-];
-
-export default config;
+        ...globals.node,
+      },
+    },
+  },
+]);
