@@ -9,10 +9,7 @@
         {
           "name": "@ember/addon-blueprint",
           "isBaseBlueprint": true,
-          "options": [
-            "--ci-provider=github",
-            "--npm"
-          ]
+          "options": ["--ci-provider=github", "--npm"]
         }
       ]
     }

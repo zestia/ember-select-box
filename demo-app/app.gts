@@ -31,7 +31,7 @@ export class App extends EmberApp {
      *
      * See: https://rfcs.emberjs.com/id/1132-default-strict-resolver
      */
-    ...import.meta.glob('./templates/**/*', { eager: true }),
+    ...import.meta.glob('./templates/**/*', { eager: true })
   };
 }
 

@@ -12,15 +12,15 @@ module.exports = async function (defaults) {
     'default-async-observers': true,
     'jquery-integration': false,
     'template-only-glimmer-components': true,
-    'no-implicit-route-model': true,
-  }),
+    'no-implicit-route-model': true
+  })
 };
 
 const compatDeps = {
   '@embroider/compat': '^4.0.3',
   'ember-cli': '^5.12.0',
   'ember-auto-import': '^2.10.0',
-  '@ember/optional-features': '^2.2.0',
+  '@ember/optional-features': '^2.2.0'
 };
 
 export default {
@@ -30,58 +30,58 @@ export default {
       npm: {
         devDependencies: {
           'ember-source': '~5.8.0',
-          ...compatDeps,
-        },
+          ...compatDeps
+        }
       },
       env: {
-        ENABLE_COMPAT_BUILD: true,
+        ENABLE_COMPAT_BUILD: true
       },
-      files: compatFiles,
+      files: compatFiles
     },
     {
       name: 'ember-lts-5.12',
       npm: {
         devDependencies: {
           'ember-source': '~5.12.0',
-          ...compatDeps,
-        },
+          ...compatDeps
+        }
       },
       env: {
-        ENABLE_COMPAT_BUILD: true,
+        ENABLE_COMPAT_BUILD: true
       },
-      files: compatFiles,
+      files: compatFiles
     },
     {
       name: 'ember-lts-6.4',
       npm: {
         devDependencies: {
-          'ember-source': 'npm:ember-source@~6.4.0',
-        },
-      },
+          'ember-source': 'npm:ember-source@~6.4.0'
+        }
+      }
     },
     {
       name: 'ember-latest',
       npm: {
         devDependencies: {
-          'ember-source': 'npm:ember-source@latest',
-        },
-      },
+          'ember-source': 'npm:ember-source@latest'
+        }
+      }
     },
     {
       name: 'ember-beta',
       npm: {
         devDependencies: {
-          'ember-source': 'npm:ember-source@beta',
-        },
-      },
+          'ember-source': 'npm:ember-source@beta'
+        }
+      }
     },
     {
       name: 'ember-alpha',
       npm: {
         devDependencies: {
-          'ember-source': 'npm:ember-source@alpha',
-        },
-      },
-    },
-  ],
+          'ember-source': 'npm:ember-source@alpha'
+        }
+      }
+    }
+  ]
 };

@@ -11,14 +11,14 @@ export default defineConfig({
     ember(),
     babel({
       babelHelpers: 'inline',
-      extensions,
-    }),
+      extensions
+    })
   ],
   build: {
     rollupOptions: {
       input: {
-        tests: 'tests/index.html',
-      },
-    },
-  },
+        tests: 'tests/index.html'
+      }
+    }
+  }
 });
