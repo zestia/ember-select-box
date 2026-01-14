@@ -1,40 +1,5 @@
 {
-  "name": "@zestia/ember-select-box",
-  "version": "17.3.2",
-  "description": "A faux select box for Ember apps",
-  "keywords": [
-    "ember-addon",
-    "select",
-    "select-box",
-    "autocomplete",
-    "dropdown",
-    "menu"
-  ],
-  "repository": "",
-  "license": "MIT",
   "author": "",
-  "files": [
-    "addon-main.cjs",
-    "declarations",
-    "dist"
-  ],
-  "scripts": {
-    "build": "rollup --config",
-    "format": "prettier . --cache --write",
-    "lint": "concurrently \"npm:lint:*(!fix)\" --names \"lint:\" --prefixColors auto",
-    "lint:fix": "concurrently \"npm:lint:*:fix\" --names \"fix:\" --prefixColors auto && npm run format",
-    "lint:format": "prettier . --cache --check",
-    "lint:hbs": "ember-template-lint . --no-error-on-unmatched-pattern",
-    "lint:js": "eslint . --cache",
-    "lint:hbs:fix": "ember-template-lint . --fix --no-error-on-unmatched-pattern",
-    "lint:js:fix": "eslint . --fix",
-    "lint:css": "stylelint '**/*.{css,scss}'",
-    "lint:css:fix": "concurrently \"npm:lint:css -- --fix\"",
-    "start": "vite dev",
-    "test": "vite build --mode=development --out-dir dist-tests && testem --file testem.cjs ci --port 0",
-    "prepack": "rollup --config",
-    "release": "release-it"
-  },
   "dependencies": {
     "@embroider/addon-shim": "^1.8.9",
     "decorator-transforms": "^2.2.2",
@@ -43,11 +8,13 @@
     "tracked-built-ins": "^3.3.0",
     "tracked-toolbox": "^2.0.0"
   },
+  "description": "A faux select box for Ember apps",
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@babel/eslint-parser": "^7.25.1",
     "@babel/runtime": "^7.25.6",
     "@ember/test-helpers": "^5.2.1",
+    "@ember/test-waiters": "^4.1.1",
     "@embroider/addon-dev": "^8.1.0",
     "@embroider/compat": "^4.1.0",
     "@embroider/core": "^4.1.0",
@@ -64,10 +31,11 @@
     "@zestia/template-lint-config": "^6.3.0",
     "babel-plugin-ember-template-compilation": "^2.2.5",
     "concurrently": "^9.0.1",
+    "ember-page-title": "^9.0.3",
     "ember-qunit": "^9.0.2",
-    "ember-resolver": "^13.1.0",
     "ember-route-template": "^1.0.3",
-    "ember-source": "^6.3.0",
+    "ember-source": "^6.7.0",
+    "ember-strict-application-resolver": "^0.1.0",
     "ember-template-lint": "^7.9.0",
     "eslint": "^9.17.0",
     "eslint-config-prettier": "^10.1.5",
@@ -83,38 +51,57 @@
     "rollup": "^4.22.5",
     "sass-embedded": "^1.89.2",
     "testem": "^3.15.1",
-    "vite": "^6.2.4"
+    "vite": "^7.1.9"
   },
   "ember": {
     "edition": "octane"
   },
   "ember-addon": {
-    "version": 2,
-    "type": "addon",
-    "main": "addon-main.cjs",
     "app-js": {
-      "./components/dropdown/content.js": "./dist/_app_/components/dropdown/content.js",
       "./components/dropdown.js": "./dist/_app_/components/dropdown.js",
+      "./components/dropdown/content.js": "./dist/_app_/components/dropdown/content.js",
       "./components/dropdown/trigger.js": "./dist/_app_/components/dropdown/trigger.js",
-      "./components/select-box/group.js": "./dist/_app_/components/select-box/group.js",
       "./components/select-box.js": "./dist/_app_/components/select-box.js",
+      "./components/select-box/group.js": "./dist/_app_/components/select-box/group.js",
       "./components/select-box/input.js": "./dist/_app_/components/select-box/input.js",
       "./components/select-box/option.js": "./dist/_app_/components/select-box/option.js",
       "./components/select-box/options.js": "./dist/_app_/components/select-box/options.js",
       "./modifiers/lifecycle.js": "./dist/_app_/modifiers/lifecycle.js"
-    }
-  },
-  "imports": {
-    "#app/*": "./demo/*",
-    "#src/*": "./src/*"
+    },
+    "main": "addon-main.cjs",
+    "type": "addon",
+    "version": 2
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./*": "./dist/*.js",
+    ".": {
+      "default": "./dist/index.js"
+    },
+    "./*": {
+      "default": "./dist/*.js"
+    },
     "./addon-main.js": "./addon-main.cjs",
     "./components/dropdown": "./dist/components/dropdown/index.js",
     "./components/select-box": "./dist/components/select-box/index.js"
   },
+  "files": [
+    "addon-main.cjs",
+    "declarations",
+    "dist",
+    "src"
+  ],
+  "imports": {
+    "#src/*": "./src/*"
+  },
+  "keywords": [
+    "ember-addon",
+    "select",
+    "select-box",
+    "autocomplete",
+    "dropdown",
+    "menu"
+  ],
+  "license": "MIT",
+  "name": "@zestia/ember-select-box",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
@@ -125,5 +112,24 @@
         "npm test"
       ]
     }
-  }
+  },
+  "repository": "",
+  "scripts": {
+    "build": "rollup --config",
+    "format": "prettier . --cache --write",
+    "lint": "concurrently \"npm:lint:*(!fix)\" --names \"lint:\" --prefixColors auto",
+    "lint:css": "stylelint '**/*.{css,scss}'",
+    "lint:css:fix": "concurrently \"npm:lint:css -- --fix\"",
+    "lint:fix": "concurrently \"npm:lint:*:fix\" --names \"fix:\" --prefixColors auto && npm run format",
+    "lint:format": "prettier . --cache --check",
+    "lint:hbs": "ember-template-lint . --no-error-on-unmatched-pattern",
+    "lint:hbs:fix": "ember-template-lint . --fix --no-error-on-unmatched-pattern",
+    "lint:js": "eslint . --cache",
+    "lint:js:fix": "eslint . --fix",
+    "prepack": "rollup --config",
+    "release": "release-it",
+    "start": "vite dev",
+    "test": "vite build --mode=development --out-dir dist-tests && testem --file testem.cjs ci --port 0"
+  },
+  "version": "17.3.2"
 }

@@ -1,6 +1,6 @@
 // When building your addon for older Ember versions you need to have the required files
 const compatFiles = {
-  'ember-cli-build.js': `const EmberApp = require('ember-cli/lib/broccoli/ember-app');
+  'ember-cli-build.cjs': `const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const { compatBuild } = require('@embroider/compat');
 module.exports = async function (defaults) {
   const { buildOnce } = await import('@embroider/vite');
@@ -52,34 +52,34 @@ export default {
       files: compatFiles
     },
     {
-      name: `ember-lts-6.4`,
+      name: 'ember-lts-6.4',
       npm: {
         devDependencies: {
-          'ember-source': `npm:ember-source@~6.4.0`
+          'ember-source': 'npm:ember-source@~6.4.0'
         }
       }
     },
     {
-      name: `ember-latest`,
+      name: 'ember-latest',
       npm: {
         devDependencies: {
-          'ember-source': `npm:ember-source@latest`
+          'ember-source': 'npm:ember-source@latest'
         }
       }
     },
     {
-      name: `ember-beta`,
+      name: 'ember-beta',
       npm: {
         devDependencies: {
-          'ember-source': `npm:ember-source@beta`
+          'ember-source': 'npm:ember-source@beta'
         }
       }
     },
     {
-      name: `ember-alpha`,
+      name: 'ember-alpha',
       npm: {
         devDependencies: {
-          'ember-source': `npm:ember-source@alpha`
+          'ember-source': 'npm:ember-source@alpha'
         }
       }
     }
