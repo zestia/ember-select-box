@@ -6,6 +6,7 @@ import lifecycle from '@zestia/ember-select-box/modifiers/lifecycle';
   {{! template-lint-disable no-positive-tabindex  }}
   {{#let (uniqueId) as |id|}}
     <div
+      aria-activedescendant="{{@aria-activedescendant}}"
       aria-multiselectable="{{@aria-multiselectable}}"
       class="select-box__options"
       id={{id}}

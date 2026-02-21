@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { focus, render, triggerKeyEvent } from '@ember/test-helpers';
+import { focus, find, render, triggerKeyEvent } from '@ember/test-helpers';
 import SelectBox from '@zestia/ember-select-box/components/select-box';
 
 module('select-box (keydown on options)', function (hooks) {
@@ -79,5 +79,32 @@ module('select-box (keydown on options)', function (hooks) {
       `the options element is not focusable when part of a combobox,
        only the input and trigger elements handle key events`
     );
+  });
+
+  test('listbox aria-activedescendant', async function (assert) {
+    assert.expect(1);
+
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Option @value="a" />
+            <sb.Option @value="b" />
+            <sb.Option @value="c" />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
+
+    await focus('.select-box__options');
+    await triggerKeyEvent('.select-box__options', 'keydown', 'ArrowDown');
+    await triggerKeyEvent('.select-box__options', 'keydown', 'ArrowDown');
+
+    assert
+      .dom('.select-box__options')
+      .hasAttribute(
+        'aria-activedescendant',
+        find('.select-box__option:nth-child(2)').id
+      );
   });
 });

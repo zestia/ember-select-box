@@ -1,5 +1,11 @@
 # Changelog
 
+## 17.4.0
+
+- Allow dropdown to be disabled
+- Fix disabled listbox still being focusable
+- Fix aria-activedesendant on listbox
+
 ## 17.3.2
 
 - Do not re-compute `isBusy` if already busy

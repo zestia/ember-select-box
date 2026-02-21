@@ -330,4 +330,94 @@ module('select-box (mouseenter option)', function (hooks) {
        (search the tests for the click abort test for more info)`
     );
   });
+
+  test('mousing into an option (listbox)', async function (assert) {
+    assert.expect(1);
+
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Option />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
+
+    await triggerEvent('.select-box__option:nth-child(1)', 'mouseenter');
+
+    assert
+      .dom('.select-box__options')
+      .hasAttribute(
+        'aria-activedescendant',
+        find('.select-box__option').getAttribute('id'),
+        'active descendant is defined on the primary interactive element'
+      );
+  });
+
+  test('mousing into an option (combobox with trigger)', async function (assert) {
+    assert.expect(2);
+
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
+
+    await triggerEvent('.select-box__option:nth-child(1)', 'mouseenter');
+
+    assert
+      .dom('.select-box__options')
+      .doesNotHaveAttribute('aria-activedescendant');
+
+    assert
+      .dom('.dropdown__trigger')
+      .hasAttribute(
+        'aria-activedescendant',
+        find('.select-box__option').getAttribute('id'),
+        'active descendant is defined on the primary interactive element'
+      );
+  });
+
+  test('mousing into an option (combobox with input)', async function (assert) {
+    assert.expect(2);
+
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown>
+            <sb.Input />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
+
+    await triggerEvent('.select-box__option:nth-child(1)', 'mouseenter');
+
+    assert
+      .dom('.select-box__options')
+      .doesNotHaveAttribute('aria-activedescendant');
+
+    assert
+      .dom('.select-box__input')
+      .hasAttribute(
+        'aria-activedescendant',
+        find('.select-box__option').getAttribute('id'),
+        'active descendant is defined on the primary interactive element'
+      );
+  });
 });

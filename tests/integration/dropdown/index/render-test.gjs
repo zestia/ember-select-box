@@ -7,11 +7,14 @@ module('dropdown', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function (assert) {
-    assert.expect(1);
+    assert.expect(2);
 
     await render(<template><Dropdown /></template>);
 
-    assert.dom('.dropdown').hasTagName('div');
+    assert
+      .dom('.dropdown')
+      .hasTagName('div')
+      .doesNotHaveAttribute('data-disabled');
   });
 
   test('open', async function (assert) {

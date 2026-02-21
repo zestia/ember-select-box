@@ -38,8 +38,12 @@ export default class Dropdown extends Component {
     return !this.isOpen;
   }
 
+  get isDisabled() {
+    return 'disabled' in this.args ? !!this.args.disabled : null;
+  }
+
   get canOpen() {
-    return this.isClosed;
+    return this.isClosed && !this.isDisabled;
   }
 
   get canClose() {
@@ -251,6 +255,7 @@ export default class Dropdown extends Component {
     <div
       class={{concat "dropdown" (if @class (concat " " @class))}}
       data-open="{{this.isOpen}}"
+      data-disabled="{{this.isDisabled}}"
       {{on "keydown" this.handleKeyDown}}
       {{on "focusout" this.handleFocusOut}}
       {{this.documentListeners}}

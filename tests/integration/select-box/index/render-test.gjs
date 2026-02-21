@@ -7,7 +7,7 @@ module('select-box', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function (assert) {
-    assert.expect(1);
+    assert.expect(2);
 
     await render(
       <template>
@@ -17,7 +17,10 @@ module('select-box', function (hooks) {
       </template>
     );
 
-    assert.dom('.select-box').hasTagName('div');
+    assert
+      .dom('.select-box')
+      .hasTagName('div')
+      .doesNotHaveAttribute('data-disabled');
   });
 
   test('splattributes', async function (assert) {

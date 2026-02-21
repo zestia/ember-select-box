@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, click } from '@ember/test-helpers';
+import { render, click, triggerKeyEvent } from '@ember/test-helpers';
 import SelectBox from '@zestia/ember-select-box/components/select-box';
 
 module('select-box (disabling)', function (hooks) {
@@ -140,5 +140,53 @@ module('select-box (disabling)', function (hooks) {
       [],
       'does not allow option to be selected / cause change action to fire'
     );
+  });
+
+  test('does not allow keyboard navigation', async function (assert) {
+    assert.expect(2);
+
+    await render(
+      <template>
+        <SelectBox @disabled={{true}} as |sb|>
+          <sb.Options>
+            <sb.Option />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
+
+    assert.dom('.select-box__options').hasAttribute('tabindex', '-1');
+
+    await triggerKeyEvent('.select-box__options', 'keydown', 'ArrowDown');
+
+    assert.dom('.select-box__option[aria-current="true"]').doesNotExist();
+  });
+
+  test('trigger does not open dropdown', async function (assert) {
+    assert.expect(3);
+
+    await render(
+      <template>
+        <SelectBox @disabled={{true}} as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+            <sb.Content>
+              <sb.Options>
+                <sb.Option />
+              </sb.Options>
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
+
+    await click('.select-box .dropdown__trigger');
+    await triggerKeyEvent('.select-box .dropdown__trigger', 'keydown', 'Enter');
+
+    assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
+    assert
+      .dom('.select-box .dropdown__trigger')
+      .hasAttribute('aria-expanded', 'false');
+    assert.dom('.select-box__option').doesNotHaveAttribute('aria-current');
   });
 });

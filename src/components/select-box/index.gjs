@@ -114,7 +114,7 @@ export default class SelectBox extends Component {
   }
 
   get optionsTabIndex() {
-    return this.isListBox ? '0' : '-1';
+    return this.isDisabled ? '-1' : this.isListBox ? '0' : '-1';
   }
 
   get triggerTabIndex() {
@@ -127,6 +127,10 @@ export default class SelectBox extends Component {
 
   get triggerActiveDescendant() {
     return this.hasInput ? null : this.activeOption?.element?.id;
+  }
+
+  get optionsActiveDescendant() {
+    return this.isListBox ? this.activeOption?.element?.id : null;
   }
 
   @cached
@@ -607,6 +611,7 @@ export default class SelectBox extends Component {
         Options=(component
           SelectBoxOptions
           aria-multiselectable=this.isMultiple
+          aria-activedescendant=this.optionsActiveDescendant
           tabindex=this.optionsTabIndex
           onInsert=this.handleInsertOptions
           onDestroy=this.handleDestroyOptions
@@ -624,6 +629,7 @@ export default class SelectBox extends Component {
         )
         Dropdown=(component
           Dropdown
+          disabled=this.isDisabled
           onReady=this.registerDropdown
           onOpenClosure=this.handleOpenDropdown
           onCloseClosure=this.handleCloseDropdown
