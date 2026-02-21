@@ -76,5 +76,5 @@ export default Route(
         data-recalc-dims="1"
       />
     </a>
-  </template>,
+  </template>
 );
