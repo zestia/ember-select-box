@@ -3,7 +3,7 @@ import { uniqueId } from '@ember/helper';
 import lifecycle from '@zestia/ember-select-box/modifiers/lifecycle';
 
 <template>
-  {{! template-lint-disable no-positive-tabindex  }}
+  {{! template-lint-disable no-positive-tabindex require-aria-activedescendant-tabindex }}
   {{#let (uniqueId) as |id|}}
     <div
       aria-activedescendant="{{@aria-activedescendant}}"

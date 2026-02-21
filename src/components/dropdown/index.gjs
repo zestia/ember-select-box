@@ -50,6 +50,10 @@ export default class Dropdown extends Component {
     return this.isOpen;
   }
 
+  get triggerTabIndex() {
+    return this.isDisabled ? '-1' : '0';
+  }
+
   documentListeners = modifier(() => {
     document.addEventListener('mousedown', this.handleMouseDown);
     document.addEventListener('mouseup', this.handleMouseUp);
@@ -234,10 +238,11 @@ export default class Dropdown extends Component {
       (hash
         Trigger=(component
           DropdownTrigger
+          aria-disabled=this.isDisabled
           aria-expanded=this.isOpen
           aria-haspopup="true"
           role="button"
-          tabindex="0"
+          tabindex=this.triggerTabIndex
           onMouseDown=this.handleMouseDownTrigger
           onKeyDown=this.handleKeyDownTrigger
           onInsert=this.handleInsertTrigger

@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, click, rerender, triggerKeyEvent } from '@ember/test-helpers';
+import { render, click, rerender } from '@ember/test-helpers';
 import Dropdown from '@zestia/ember-select-box/components/dropdown';
 import { tracked } from '@glimmer/tracking';
 
@@ -8,7 +8,7 @@ module('dropdown (disabling)', function (hooks) {
   setupRenderingTest(hooks);
 
   test('trigger does nothing', async function (assert) {
-    assert.expect(4);
+    assert.expect(6);
 
     await render(
       <template>
@@ -22,6 +22,12 @@ module('dropdown (disabling)', function (hooks) {
     );
 
     assert.dom('.dropdown').hasAttribute('data-disabled', 'true');
+
+    assert
+      .dom('.dropdown__trigger')
+      .hasAttribute('aria-disabled', 'true')
+      .hasAttribute('tabindex', '-1');
+
     assert.dom('.dropdown__content').doesNotExist();
 
     await click('.dropdown__trigger');
