@@ -44,4 +44,20 @@ module('select-box', function (hooks) {
 
     assert.strictEqual(find('.select-box').innerHTML, '');
   });
+
+  test('it renders with a dropdown', async function (assert) {
+    assert.expect(1);
+
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown>
+            <sb.Trigger />
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
+
+    assert.dom('.select-box .dropdown').doesNotHaveAttribute('data-disabled');
+  });
 });

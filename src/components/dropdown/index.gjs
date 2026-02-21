@@ -39,7 +39,7 @@ export default class Dropdown extends Component {
   }
 
   get isDisabled() {
-    return 'disabled' in this.args ? !!this.args.disabled : null;
+    return this.args.disabled;
   }
 
   get canOpen() {
