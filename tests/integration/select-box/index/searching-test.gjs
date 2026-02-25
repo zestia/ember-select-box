@@ -165,7 +165,9 @@ module('select-box (searching)', function (hooks) {
         <SelectBox @value="c" @options={{array "a" "b" "c"}} as |sb|>
           <sb.Options>
             {{#each sb.options as |value|}}
-              <sb.Option @value={{value}}>
+              <sb.Option @value={{value}} as |option|>
+                {{option.index}}
+                -
                 {{value}}
               </sb.Option>
             {{/each}}
@@ -177,21 +179,21 @@ module('select-box (searching)', function (hooks) {
 
     assert
       .dom('.select-box__option:nth-child(3)')
-      .hasText('c')
+      .hasText('2 - c')
       .hasAttribute('aria-current', 'true');
 
     await fillIn('.select-box__input', 'b');
 
     assert
       .dom('.select-box__option:nth-child(1)')
-      .hasText('b')
+      .hasText('0 - b')
       .hasAttribute('aria-current', 'false');
 
     await fillIn('.select-box__input', '');
 
     assert
       .dom('.select-box__option:nth-child(1)')
-      .hasText('a')
+      .hasText('0 - a')
       .hasAttribute('aria-current', 'false');
   });
 
