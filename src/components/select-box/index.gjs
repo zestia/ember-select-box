@@ -155,7 +155,7 @@ export default class SelectBox extends Component {
   get previousOptionIndex() {
     const index = this.activeOptionIndex;
 
-    return index === null ? this.options.length - 1 : index - 1;
+    return index === null ? this.orderedOptions.length - 1 : index - 1;
   }
 
   get nextOptionIndex() {
@@ -165,11 +165,11 @@ export default class SelectBox extends Component {
   }
 
   get previousOption() {
-    return this.options[this.previousOptionIndex];
+    return this.orderedOptions[this.previousOptionIndex];
   }
 
   get nextOption() {
-    return this.options[this.nextOptionIndex];
+    return this.orderedOptions[this.nextOptionIndex];
   }
 
   get interactiveElement() {
@@ -191,6 +191,16 @@ export default class SelectBox extends Component {
   @cached
   get options() {
     return [...this._options].filter((option) => !option.isDisabled);
+  }
+
+  @cached
+  get orderedOptions() {
+    return [...this.options].sort((a, b) => {
+      return a.element.compareDocumentPosition(b.element) ===
+        Node.DOCUMENT_POSITION_FOLLOWING
+        ? -1
+        : 1;
+    });
   }
 
   handleInsertElement = (element) => {
@@ -434,8 +444,8 @@ export default class SelectBox extends Component {
     const string = repeating ? char : this.chars;
     const offset = repeating ? 1 : 0;
     const index = (option ? option.index : -1) + offset;
-    const before = this.options.slice(0, index);
-    const after = this.options.slice(index);
+    const before = this.orderedOptions.slice(0, index);
+    const after = this.orderedOptions.slice(index);
     const options = after.concat(before);
 
     [option] = this.#getOptionsByTextContent(options, string);

@@ -11,7 +11,7 @@ export default class SelectBoxOption extends Component {
   id = guidFor(this);
 
   get index() {
-    return this.args.selectBox.options.indexOf(this);
+    return this.args.selectBox.orderedOptions.indexOf(this);
   }
 
   get isDisabled() {
