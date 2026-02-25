@@ -1,4 +1,4 @@
-import { module, skip } from 'qunit';
+import { module, test } from 'qunit';
 import { click, render } from '@ember/test-helpers';
 import { setupRenderingTest } from 'ember-qunit';
 import SelectBox from '@zestia/ember-select-box/components/select-box';
@@ -17,8 +17,8 @@ module('performance', function (hooks) {
     this.timeTaken = () => this.stopTime - this.startTime;
   });
 
-  skip('rendering options', async function (assert) {
-    assert.expect(4);
+  test('rendering options', async function (assert) {
+    assert.expect(3);
 
     await render(
       <template>
@@ -53,7 +53,9 @@ module('performance', function (hooks) {
 
     assert.dom('.select-box__option').exists({ count: 10000 });
 
-    assert.ok(this.timeTaken() > 500);
-    assert.ok(this.timeTaken() < 2250);
+    assert.ok(
+      this.timeTaken() < 1500,
+      `Expected < 1500ms, got ${this.timeTaken().toFixed(0)}ms`
+    );
   });
 });

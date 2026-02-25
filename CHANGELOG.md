@@ -1,5 +1,9 @@
 # Changelog
 
+## 17.4.1
+
+- Performance improvement
+
 ## 17.4.0
 
 - Allow dropdown to be disabled
