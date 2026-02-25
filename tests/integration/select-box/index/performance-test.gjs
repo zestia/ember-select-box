@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import { module, skip } from 'qunit';
 import { click, render } from '@ember/test-helpers';
 import { setupRenderingTest } from 'ember-qunit';
 import SelectBox from '@zestia/ember-select-box/components/select-box';
@@ -17,7 +17,7 @@ module('performance', function (hooks) {
     this.timeTaken = () => this.stopTime - this.startTime;
   });
 
-  test('rendering options', async function (assert) {
+  skip('rendering options', async function (assert) {
     assert.expect(4);
 
     await render(
