@@ -77,12 +77,11 @@
     ".": {
       "default": "./dist/index.js"
     },
+    "./addon-main.js": "./addon-main.cjs",
+    "./*.css": "./dist/*.css",
     "./*": {
       "default": "./dist/*.js"
-    },
-    "./addon-main.js": "./addon-main.cjs",
-    "./components/dropdown": "./dist/components/dropdown/index.js",
-    "./components/select-box": "./dist/components/select-box/index.js"
+    }
   },
   "files": [
     "addon-main.cjs",
