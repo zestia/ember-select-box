@@ -1,25 +1,22 @@
 /* eslint-disable ember/no-runloop */
 
 import { cached } from '@glimmer/tracking';
-import { filter } from '@zestia/ember-select-box/utils';
+import { filter } from '../../utils.js';
 import { hash } from '@ember/helper';
 import { localCopy } from 'tracked-toolbox';
 import { makeArray } from '@ember/array';
 import { on } from '@ember/modifier';
 import { scheduleOnce } from '@ember/runloop';
-import {
-  startsWithString,
-  pressingModifier
-} from '@zestia/ember-select-box/-private/utils';
+import { startsWithString, pressingModifier } from '../../-private/utils.js';
 import { task } from 'ember-concurrency';
 import { tracked } from 'tracked-built-ins';
 import Component from '@glimmer/component';
-import lifecycle from '@zestia/ember-select-box/modifiers/lifecycle';
-import Dropdown from '@zestia/ember-select-box/components/dropdown/index';
-import SelectBoxGroup from '@zestia/ember-select-box/components/select-box/group';
-import SelectBoxInput from '@zestia/ember-select-box/components/select-box/input';
-import SelectBoxOption from '@zestia/ember-select-box/components/select-box/option';
-import SelectBoxOptions from '@zestia/ember-select-box/components/select-box/options';
+import lifecycle from '../../modifiers/lifecycle.js';
+import Dropdown from '../dropdown/index.gjs';
+import SelectBoxGroup from './group.gjs';
+import SelectBoxInput from './input.gjs';
+import SelectBoxOption from './option.gjs';
+import SelectBoxOptions from './options.gjs';
 const { assign } = Object;
 
 const SELECTED = Symbol('SELECTED');

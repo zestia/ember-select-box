@@ -1,5 +1,5 @@
 import { on } from '@ember/modifier';
-import lifecycle from '@zestia/ember-select-box/modifiers/lifecycle';
+import lifecycle from '../../modifiers/lifecycle.js';
 
 <template>
   {{! template-lint-disable no-positive-tabindex require-aria-activedescendant-tabindex no-redundant-role }}

@@ -1,5 +1,5 @@
 import { on } from '@ember/modifier';
-import lifecycle from '@zestia/ember-select-box/modifiers/lifecycle';
+import lifecycle from '../../modifiers/lifecycle.js';
 import { concat } from '@ember/helper';
 import Component from '@glimmer/component';
 

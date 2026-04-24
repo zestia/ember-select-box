@@ -3,7 +3,7 @@ import { concat, fn } from '@ember/helper';
 import { guidFor } from '@ember/object/internals';
 import { on } from '@ember/modifier';
 import Component from '@glimmer/component';
-import lifecycle from '@zestia/ember-select-box/modifiers/lifecycle';
+import lifecycle from '../../modifiers/lifecycle.js';
 
 export default class SelectBoxOption extends Component {
   element = null;

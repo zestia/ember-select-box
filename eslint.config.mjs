@@ -37,7 +37,6 @@ export default defineConfig([
   // Temporary
   {
     rules: {
-      'no-restricted-imports': 'off',
       'ember/template-no-let-reference': 'off'
     }
   },

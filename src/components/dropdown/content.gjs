@@ -1,4 +1,4 @@
-import lifecycle from '@zestia/ember-select-box/modifiers/lifecycle';
+import lifecycle from '../../modifiers/lifecycle.js';
 
 const Destination = <template>
   {{#if @destination}}

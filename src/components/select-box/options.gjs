@@ -1,6 +1,6 @@
 import { on } from '@ember/modifier';
 import { uniqueId } from '@ember/helper';
-import lifecycle from '@zestia/ember-select-box/modifiers/lifecycle';
+import lifecycle from '../../modifiers/lifecycle.js';
 
 <template>
   {{! template-lint-disable no-positive-tabindex require-aria-activedescendant-tabindex }}

@@ -1,8 +1,5 @@
 import { assert } from '@ember/debug';
-import {
-  containsString,
-  startsWithString
-} from '@zestia/ember-select-box/-private/utils';
+import { containsString, startsWithString } from './-private/utils.js';
 const { isArray } = Array;
 
 function filter(options) {
