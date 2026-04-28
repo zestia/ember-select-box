@@ -10,7 +10,7 @@ import {
 import SelectBox from '@zestia/ember-select-box/components/select-box';
 // Can't import a v1 addon
 // import VerticalCollection from '@html-next/vertical-collection/components/vertical-collection/component';
-import { getOptions } from '../../../helpers';
+import { getOptions } from '#tests/helpers';
 import { on } from '@ember/modifier';
 
 module('select-box (occlusion)', function (hooks) {

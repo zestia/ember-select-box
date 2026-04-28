@@ -12,7 +12,7 @@ import {
 import { tracked } from '@glimmer/tracking';
 import SelectBox from '@zestia/ember-select-box/components/select-box';
 import { array } from '@ember/helper';
-import { wait } from '../../../helpers';
+import { wait } from '#tests/helpers';
 
 module('select-box (changing options)', function (hooks) {
   setupRenderingTest(hooks);

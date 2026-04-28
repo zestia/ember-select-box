@@ -90,7 +90,8 @@
     "src"
   ],
   "imports": {
-    "#src/*": "./src/*"
+    "#src/*": "./src/*",
+    "#tests/*": "./tests/*"
   },
   "keywords": [
     "ember-addon",

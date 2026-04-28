@@ -7,7 +7,7 @@ import {
   find,
   triggerKeyEvent
 } from '@ember/test-helpers';
-import { wait } from '../../../helpers';
+import { wait } from '#tests/helpers';
 import SelectBox from '@zestia/ember-select-box/components/select-box';
 
 module('select-box (jump to option)', function (hooks) {
