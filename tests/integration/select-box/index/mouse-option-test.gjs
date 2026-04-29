@@ -8,7 +8,7 @@ import {
   triggerEvent
 } from '@ember/test-helpers';
 import { tracked } from '@glimmer/tracking';
-import SelectBox from '@zestia/ember-select-box/components/select-box';
+import SelectBox from '#src/components/select-box';
 
 module('select-box (mouseenter option)', function (hooks) {
   setupRenderingTest(hooks);

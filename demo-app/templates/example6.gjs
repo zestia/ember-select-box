@@ -3,7 +3,7 @@ import Example6 from '../components/example6';
 import * as data from '../utils/data';
 import { tracked } from '@glimmer/tracking';
 import Component from '@glimmer/component';
-import { filter } from '@zestia/ember-select-box/utils';
+import { filter } from '#src/utils';
 
 const search = (query) => filter(data.breads).by('name').query(query).run();
 

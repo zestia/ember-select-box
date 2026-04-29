@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, settled, click, find } from '@ember/test-helpers';
-import SelectBox from '@zestia/ember-select-box/components/select-box';
+import SelectBox from '#src/components/select-box';
 import { tracked } from '@glimmer/tracking';
 
 module('select-box (single)', function (hooks) {

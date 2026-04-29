@@ -1,9 +1,9 @@
 import { module, test } from 'qunit';
-import { filter } from '@zestia/ember-select-box/utils';
+import { filter } from '#src/utils';
 import {
   containsString as contains,
   startsWithString as startsWith
-} from '@zestia/ember-select-box/-private/utils';
+} from '#src/-private/utils';
 import { setupTest } from 'ember-qunit';
 
 module('utils', function (hooks) {

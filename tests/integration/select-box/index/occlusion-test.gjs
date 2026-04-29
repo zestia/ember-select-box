@@ -7,7 +7,7 @@ import {
   settled,
   triggerKeyEvent
 } from '@ember/test-helpers';
-import SelectBox from '@zestia/ember-select-box/components/select-box';
+import SelectBox from '#src/components/select-box';
 // Can't import a v1 addon
 // import VerticalCollection from '@html-next/vertical-collection/components/vertical-collection/component';
 import { getOptions } from '#tests/helpers';

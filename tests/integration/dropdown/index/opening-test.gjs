@@ -2,7 +2,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, rerender } from '@ember/test-helpers';
 import { tracked } from '@glimmer/tracking';
-import Dropdown from '@zestia/ember-select-box/components/dropdown';
+import Dropdown from '#src/components/dropdown';
 
 module('dropdown (opening)', function (hooks) {
   setupRenderingTest(hooks);

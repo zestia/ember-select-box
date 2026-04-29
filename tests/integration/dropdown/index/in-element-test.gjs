@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { click, render, find } from '@ember/test-helpers';
-import Dropdown from '@zestia/ember-select-box/components/dropdown';
+import Dropdown from '#src/components/dropdown';
 
 module('dropdown (in-element)', function (hooks) {
   setupRenderingTest(hooks);

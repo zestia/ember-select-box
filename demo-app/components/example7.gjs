@@ -1,4 +1,4 @@
-import SelectBox from '@zestia/ember-select-box/components/select-box';
+import SelectBox from '#src/components/select-box';
 import { on } from '@ember/modifier';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';

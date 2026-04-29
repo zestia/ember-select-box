@@ -10,7 +10,7 @@ import {
 } from '@ember/test-helpers';
 import { on } from '@ember/modifier';
 import { array } from '@ember/helper';
-import SelectBox from '@zestia/ember-select-box/components/select-box';
+import SelectBox from '#src/components/select-box';
 
 module('select-box (opening)', function (hooks) {
   setupRenderingTest(hooks);

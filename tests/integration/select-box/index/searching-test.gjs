@@ -4,7 +4,7 @@ import { render, rerender, settled, fillIn, click } from '@ember/test-helpers';
 import { tracked } from '@glimmer/tracking';
 import { array, fn } from '@ember/helper';
 import { on } from '@ember/modifier';
-import SelectBox from '@zestia/ember-select-box/components/select-box';
+import SelectBox from '#src/components/select-box';
 import { getOptions } from '#tests/helpers';
 
 module('select-box (searching)', function (hooks) {

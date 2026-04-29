@@ -11,7 +11,7 @@ import {
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 import autoFocus from '@zestia/ember-auto-focus/modifiers/auto-focus';
-import SelectBox from '@zestia/ember-select-box/components/select-box';
+import SelectBox from '#src/components/select-box';
 
 module('select-box (closing)', function (hooks) {
   setupRenderingTest(hooks);

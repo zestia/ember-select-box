@@ -9,7 +9,7 @@ import {
   triggerEvent,
   triggerKeyEvent
 } from '@ember/test-helpers';
-import Dropdown from '@zestia/ember-select-box/components/dropdown';
+import Dropdown from '#src/components/dropdown';
 import { on } from '@ember/modifier';
 
 module('dropdown (closing)', function (hooks) {

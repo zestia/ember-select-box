@@ -1,7 +1,7 @@
 import { module, test, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, focus, click } from '@ember/test-helpers';
-import Dropdown from '@zestia/ember-select-box/components/dropdown';
+import Dropdown from '#src/components/dropdown';
 import { on } from '@ember/modifier';
 import { tracked } from '@glimmer/tracking';
 import autoFocus from '@zestia/ember-auto-focus/modifiers/auto-focus';

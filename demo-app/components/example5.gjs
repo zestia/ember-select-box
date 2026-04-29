@@ -1,4 +1,4 @@
-import SelectBox from '@zestia/ember-select-box/components/select-box';
+import SelectBox from '#src/components/select-box';
 
 function buildSelection(newValue, oldValue) {
   const value = [...oldValue];

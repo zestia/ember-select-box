@@ -8,7 +8,7 @@ import {
   triggerEvent
 } from '@ember/test-helpers';
 import { on } from '@ember/modifier';
-import SelectBox from '@zestia/ember-select-box/components/select-box';
+import SelectBox from '#src/components/select-box';
 
 module('select-box (enter)', function (hooks) {
   setupRenderingTest(hooks);

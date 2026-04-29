@@ -2,7 +2,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, click, triggerEvent } from '@ember/test-helpers';
 import { on } from '@ember/modifier';
-import SelectBox from '@zestia/ember-select-box/components/select-box';
+import SelectBox from '#src/components/select-box';
 
 module('select-box (clicking trigger)', function (hooks) {
   setupRenderingTest(hooks);

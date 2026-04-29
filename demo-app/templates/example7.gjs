@@ -4,7 +4,7 @@ import * as data from '../utils/data';
 import wait from '../utils/wait';
 import { tracked } from '@glimmer/tracking';
 import Component from '@glimmer/component';
-import { filter } from '@zestia/ember-select-box/utils';
+import { filter } from '#src/utils';
 
 const search = async (query) => {
   await wait(300);

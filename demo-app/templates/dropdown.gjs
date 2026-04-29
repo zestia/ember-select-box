@@ -1,6 +1,6 @@
 import Route from 'ember-route-template';
 import { LinkTo } from '@ember/routing';
-import Dropdown from '@zestia/ember-select-box/components/dropdown';
+import Dropdown from '#src/components/dropdown';
 
 export default Route(
   <template>

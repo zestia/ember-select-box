@@ -2,7 +2,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, click, focus, triggerKeyEvent } from '@ember/test-helpers';
 import { on } from '@ember/modifier';
-import Dropdown from '@zestia/ember-select-box/components/dropdown';
+import Dropdown from '#src/components/dropdown';
 
 module('dropdown (escape)', function (hooks) {
   setupRenderingTest(hooks);
