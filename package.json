@@ -13,6 +13,8 @@
     "@babel/core": "^7.25.2",
     "@babel/eslint-parser": "^7.25.1",
     "@babel/runtime": "^7.25.6",
+    "@ember/app-tsconfig": "^1.0.0",
+    "@ember/library-tsconfig": "^1.0.0",
     "@ember/test-helpers": "^5.2.1",
     "@ember/test-waiters": "^4.1.1",
     "@embroider/addon-dev": "^8.1.0",
