@@ -1,5 +1,9 @@
 # Changelog
 
+## 17.5.0
+
+- Couple trigger with dropdown content via CSS Anchor positioning
+
 ## 17.4.1
 
 - Performance improvement
