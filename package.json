@@ -80,6 +80,12 @@
     },
     "./addon-main.js": "./addon-main.cjs",
     "./*.css": "./dist/*.css",
+    "./components/dropdown": {
+      "default": "./dist/components/dropdown/index.js"
+    },
+    "./components/select-box": {
+      "default": "./dist/components/select-box/index.js"
+    },
     "./*": {
       "default": "./dist/*.js"
     }
