@@ -134,5 +134,5 @@
     "start": "vite dev",
     "test": "vite build --mode=development --out-dir dist-tests && testem --file testem.cjs ci --port 0"
   },
-  "version": "17.4.0"
+  "version": "17.5.0-0"
 }
