@@ -1,14 +1,16 @@
 /* eslint-disable ember/no-runloop, ember/no-tracked-properties-from-args */
 
-import { tracked } from '@glimmer/tracking';
 import { concat, hash } from '@ember/helper';
-import { on } from '@ember/modifier';
-import Component from '@glimmer/component';
-import lifecycle from '../../modifiers/lifecycle.js';
-import DropdownTrigger from './trigger.gjs';
-import DropdownContent from './content.gjs';
-import { scheduleOnce } from '@ember/runloop';
+import { guidFor } from '@ember/object/internals';
+import { htmlSafe } from '@ember/template';
 import { modifier } from 'ember-modifier';
+import { on } from '@ember/modifier';
+import { scheduleOnce } from '@ember/runloop';
+import { tracked } from '@glimmer/tracking';
+import Component from '@glimmer/component';
+import DropdownContent from './content.gjs';
+import DropdownTrigger from './trigger.gjs';
+import lifecycle from '../../modifiers/lifecycle.js';
 const { assign } = Object;
 
 const FOCUS_LEAVE = Symbol('FOCUS_LEAVE');
@@ -25,6 +27,8 @@ export default class Dropdown extends Component {
 
   Trigger;
   Content;
+
+  id = guidFor(this);
 
   registerComponents = (components) => {
     assign(this, components);
@@ -52,6 +56,18 @@ export default class Dropdown extends Component {
 
   get triggerTabIndex() {
     return this.isDisabled ? '-1' : '0';
+  }
+
+  get anchorName() {
+    return `--${this.id}`;
+  }
+
+  get triggerStyle() {
+    return htmlSafe(`anchor-name: ${this.anchorName}`);
+  }
+
+  get contentStyle() {
+    return htmlSafe(`position-anchor: ${this.anchorName}`);
   }
 
   documentListeners = modifier(() => {
@@ -242,6 +258,7 @@ export default class Dropdown extends Component {
           aria-expanded=this.isOpen
           aria-haspopup="true"
           role="button"
+          style=this.triggerStyle
           tabindex=this.triggerTabIndex
           onMouseDown=this.handleMouseDownTrigger
           onKeyDown=this.handleKeyDownTrigger
@@ -250,6 +267,7 @@ export default class Dropdown extends Component {
         )
         Content=(component
           DropdownContent
+          style=this.contentStyle
           onFocusOut=this.handleFocusOutContent
           onMouseDown=this.handleMouseDownContent
           onInsert=this.handleInsertContent

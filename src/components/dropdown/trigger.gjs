@@ -20,6 +20,7 @@ export default class DropdownTrigger extends Component {
       aria-disabled="{{@aria-disabled}}"
       aria-expanded="{{@aria-expanded}}"
       role="{{@role}}"
+      style={{@style}}
       tabindex="{{@tabindex}}"
       {{on "mousedown" @onMouseDown}}
       {{on "keydown" @onKeyDown}}

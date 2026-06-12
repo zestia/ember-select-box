@@ -15,6 +15,7 @@ const Destination = <template>
   <Destination @destination={{@destination}}>
     <div
       class="dropdown__content"
+      style={{@style}}
       tabindex={{@tabindex}}
       {{lifecycle onInsert=@onInsert onDestroy=@onDestroy}}
       ...attributes
