@@ -1,7 +1,7 @@
 import Route from 'ember-route-template';
 import { LinkTo } from '@ember/routing';
 import { on } from '@ember/modifier';
-import '../styles/app.scss';
+import '../styles/app.css';
 
 const handleSubmit = (event) => {
   event.preventDefault();

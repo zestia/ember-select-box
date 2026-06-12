@@ -1,0 +1,24 @@
+.dropdown.example .dropdown__trigger {
+  appearance: none;
+  all: unset;
+  cursor: pointer;
+  padding: var(--space-m);
+  outline: none;
+  display: inline-block;
+  border: 2px solid var(--light-grey);
+}
+
+.dropdown.example .dropdown__trigger:focus {
+  border-color: var(--dark-grey);
+}
+
+.dropdown.example .dropdown__content {
+  border: 2px solid var(--light-grey);
+  margin-top: var(--space-m);
+  padding: var(--space-xl);
+  width: 300px;
+}
+
+.dropdown.example .dropdown__content:focus-within {
+  border-color: var(--dark-grey);
+}
