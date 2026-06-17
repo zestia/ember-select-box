@@ -58,16 +58,20 @@ export default class Dropdown extends Component {
     return this.isDisabled ? '-1' : '0';
   }
 
+  get anchor() {
+    return 'anchor' in this.args ? !!this.args.anchor : true;
+  }
+
   get anchorName() {
     return `--${this.id}`;
   }
 
   get triggerStyle() {
-    return htmlSafe(`anchor-name: ${this.anchorName}`);
+    return this.anchor && htmlSafe(`anchor-name: ${this.anchorName}`);
   }
 
   get contentStyle() {
-    return htmlSafe(`position-anchor: ${this.anchorName}`);
+    return this.anchor && htmlSafe(`position-anchor: ${this.anchorName}`);
   }
 
   documentListeners = modifier(() => {

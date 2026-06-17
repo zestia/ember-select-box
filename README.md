@@ -269,6 +269,10 @@ Optional. Fired when the select box's dropdown is opened
 
 Optional. Fired when the select box's dropdown is closed
 
+#### `@anchor`
+
+Optional. Default is true, and will couple the dropdown content to the dropdown trigger. Set to false to use your own coupling, and/or use `anchorName`.
+
 ### API
 
 #### `isOpen`

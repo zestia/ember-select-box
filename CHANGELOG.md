@@ -1,5 +1,9 @@
 # Changelog
 
+## 17.5.2
+
+- Add ability to opt out of anchor coupling.
+
 ## 17.5.1
 
 - Expose dropdown `anchorName`
