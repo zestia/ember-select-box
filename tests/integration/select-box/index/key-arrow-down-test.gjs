@@ -227,6 +227,8 @@ module('select-box (down arrow key)', function (hooks) {
           .select-box .dropdown__content {
             height: 1em;
             overflow: auto;
+            border: 0;
+            padding: 0;
           }
           .select-box__option {
             line-height: 1;
