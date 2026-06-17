@@ -2,6 +2,8 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { find, render } from '@ember/test-helpers';
 import Dropdown from '#src/components/dropdown';
+import { htmlSafe } from '@ember/template';
+import { concat } from '@ember/helper';
 
 module('dropdown (anchor positioning)', function (hooks) {
   setupRenderingTest(hooks);
@@ -28,15 +30,22 @@ module('dropdown (anchor positioning)', function (hooks) {
   });
 
   test('opting out of anchor positioning', async function (assert) {
-    assert.expect(2);
+    assert.expect(3);
 
     await render(
       <template>
+        {{! template-lint-disable no-inline-styles }}
         <Dropdown @anchor={{false}} as |dd|>
-          <div class="test-anchor" style="anchor-name: {{dd.anchorName}}">
+          <div
+            class="test-anchor"
+            style={{htmlSafe (concat "anchor-name: " dd.anchorName)}}
+          >
             <dd.Trigger />
           </div>
-          <div class="test-content" style="position-anchor: {{dd.anchorName}}">
+          <div
+            class="test-content"
+            style={{htmlSafe (concat "position-anchor: " dd.anchorName)}}
+          >
             <dd.Content />
           </div>
         </Dropdown>
@@ -44,6 +53,7 @@ module('dropdown (anchor positioning)', function (hooks) {
     );
 
     assert.dom('.dropdown__trigger').doesNotHaveAttribute('style');
+    assert.dom('.dropdown__content').doesNotHaveAttribute('style');
 
     const [, id] = find('.test-anchor')
       .getAttribute('style')
