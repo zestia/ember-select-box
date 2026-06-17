@@ -291,6 +291,10 @@ Closes the select box's dropdown
 
 The element of the select box's dropdown
 
+#### `anchorName`
+
+Exposed anchor name, should you wish to couple the dropdown to an element other than the provided Trigger.
+
 # Filtering
 
 Since filtering options down (and accounting for diacritics) is a common requirement, this addon comes with a utility to help.

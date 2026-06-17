@@ -234,6 +234,7 @@ export default class Dropdown extends Component {
       Trigger: this.Trigger,
       Content: this.Content,
       element: this.element,
+      anchorName: this.anchorName,
       isOpen: this.isOpen,
       open: this.open,
       close: this.close,
