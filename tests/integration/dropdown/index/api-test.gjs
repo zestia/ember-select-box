@@ -7,7 +7,7 @@ module('dropdown (api)', function (hooks) {
   setupRenderingTest(hooks);
 
   test('api', async function (assert) {
-    assert.expect(9);
+    assert.expect(8);
 
     let api;
     let api2;
@@ -35,7 +35,6 @@ module('dropdown (api)', function (hooks) {
     // Properties
     assert.deepEqual(api.element, find('.dropdown'));
     assert.strictEqual(api.isOpen, false);
-    assert.ok(/--ember\d+/.test(api.anchorName));
 
     // Actions
     assert.strictEqual(typeof api.open, 'function');

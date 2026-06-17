@@ -1,5 +1,9 @@
 # Changelog
 
+## 17.6.0
+
+- Remove anchor positioning
+
 ## 17.5.2
 
 - Add ability to opt out of anchor coupling.

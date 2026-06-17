@@ -45,8 +45,6 @@ https://zestia.github.io/ember-select-box
 
 - Does not come with any styles
 - Does not concern itself with dropdown positioning<br>
-  (The component is already wired up for CSS anchor positioning, but because support is not wide yet, you may wish to use a positioning library instead)
-- The Dropdown component will be swapped for a Popover when browsers have better support for it.
 
 ## Example
 
@@ -269,10 +267,6 @@ Optional. Fired when the select box's dropdown is opened
 
 Optional. Fired when the select box's dropdown is closed
 
-#### `@anchor`
-
-Optional. Default is true, and will couple the dropdown content to the dropdown trigger. Set to false to use your own coupling, and/or use `anchorName`.
-
 ### API
 
 #### `isOpen`
@@ -294,10 +288,6 @@ Closes the select box's dropdown
 #### `element`
 
 The element of the select box's dropdown
-
-#### `anchorName`
-
-Exposed anchor name, should you wish to couple the dropdown to an element other than the provided Trigger.
 
 # Filtering
 

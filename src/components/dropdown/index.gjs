@@ -1,8 +1,6 @@
 /* eslint-disable ember/no-runloop, ember/no-tracked-properties-from-args */
 
 import { concat, hash } from '@ember/helper';
-import { guidFor } from '@ember/object/internals';
-import { htmlSafe } from '@ember/template';
 import { modifier } from 'ember-modifier';
 import { on } from '@ember/modifier';
 import { scheduleOnce } from '@ember/runloop';
@@ -27,8 +25,6 @@ export default class Dropdown extends Component {
 
   Trigger;
   Content;
-
-  id = guidFor(this);
 
   registerComponents = (components) => {
     assign(this, components);
@@ -56,22 +52,6 @@ export default class Dropdown extends Component {
 
   get triggerTabIndex() {
     return this.isDisabled ? '-1' : '0';
-  }
-
-  get anchor() {
-    return 'anchor' in this.args ? !!this.args.anchor : true;
-  }
-
-  get anchorName() {
-    return `--${this.id}`;
-  }
-
-  get triggerStyle() {
-    return this.anchor && htmlSafe(`anchor-name: ${this.anchorName}`);
-  }
-
-  get contentStyle() {
-    return this.anchor && htmlSafe(`position-anchor: ${this.anchorName}`);
   }
 
   documentListeners = modifier(() => {
@@ -238,7 +218,6 @@ export default class Dropdown extends Component {
       Trigger: this.Trigger,
       Content: this.Content,
       element: this.element,
-      anchorName: this.anchorName,
       isOpen: this.isOpen,
       open: this.open,
       close: this.close,
