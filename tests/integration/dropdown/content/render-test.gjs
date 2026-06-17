@@ -7,7 +7,7 @@ module('dropdown/content', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function (assert) {
-    assert.expect(1);
+    assert.expect(2);
 
     await render(
       <template>
@@ -17,7 +17,10 @@ module('dropdown/content', function (hooks) {
       </template>
     );
 
-    assert.dom('.dropdown__content').hasTagName('div');
+    assert
+      .dom('.dropdown__content')
+      .hasTagName('div')
+      .doesNotHaveAttribute('popover');
   });
 
   test('it renders', async function (assert) {

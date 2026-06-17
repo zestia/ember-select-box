@@ -251,7 +251,9 @@ export default class Dropdown extends Component {
         )
         Content=(component
           DropdownContent
-          style=this.contentStyle
+          isOpen=this.isOpen
+          usePopover=@usePopover
+          popoverTarget=this.triggerElement
           onFocusOut=this.handleFocusOutContent
           onMouseDown=this.handleMouseDownContent
           onInsert=this.handleInsertContent
