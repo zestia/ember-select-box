@@ -3,6 +3,7 @@
 ## 17.7.0
 
 - Add `@usePopover`, to get anchor coupling for free
+- Add `@popoverTarget`
 
 ## 17.6.0
 

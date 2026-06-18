@@ -7,14 +7,16 @@ import SelectBox from '#src/components/select-box';
 module('select-box (popover)', function (hooks) {
   setupRenderingTest(hooks);
 
+  let popoverSource;
+
+  const handleToggle = (event) => (popoverSource = event.source);
+
+  hooks.afterEach(function () {
+    popoverSource = null;
+  });
+
   test('opens and closes using the trigger as the popover source', async function (assert) {
     assert.expect(11);
-
-    let popoverSource;
-
-    const handleToggle = (event) => {
-      popoverSource = event.source;
-    };
 
     await render(
       <template>
@@ -62,5 +64,29 @@ module('select-box (popover)', function (hooks) {
     assert.false(content.matches(':popover-open'));
     assert.dom('.select-box .dropdown__content').exists();
     assert.dom('.select-box .dropdown').hasAttribute('data-open', 'false');
+  });
+
+  test('custom popover target', async function (assert) {
+    assert.expect(1);
+
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Dropdown
+            @usePopover={{true}}
+            @popoverTarget={{sb.dropdown.element}}
+          >
+            <sb.Trigger />
+            <sb.Content {{on "toggle" handleToggle}}>
+              <sb.Options />
+            </sb.Content>
+          </sb.Dropdown>
+        </SelectBox>
+      </template>
+    );
+
+    await click('.select-box .dropdown__trigger');
+
+    assert.deepEqual(popoverSource, find('.select-box .dropdown'));
   });
 });

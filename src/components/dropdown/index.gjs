@@ -54,6 +54,10 @@ export default class Dropdown extends Component {
     return this.isDisabled ? '-1' : '0';
   }
 
+  get popoverTarget() {
+    return this.args.popoverTarget || this.triggerElement;
+  }
+
   documentListeners = modifier(() => {
     document.addEventListener('mousedown', this.handleMouseDown);
     document.addEventListener('mouseup', this.handleMouseUp);
@@ -254,7 +258,7 @@ export default class Dropdown extends Component {
           DropdownContent
           isOpen=this.isOpen
           usePopover=@usePopover
-          popoverTarget=this.triggerElement
+          popoverTarget=this.popoverTarget
           onFocusOut=this.handleFocusOutContent
           onMouseDown=this.handleMouseDownContent
           onInsert=this.handleInsertContent

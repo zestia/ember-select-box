@@ -7,14 +7,16 @@ import Dropdown from '#src/components/dropdown';
 module('dropdown (popover)', function (hooks) {
   setupRenderingTest(hooks);
 
+  let popoverSource;
+
+  const handleToggle = (event) => (popoverSource = event.source);
+
+  hooks.afterEach(function () {
+    popoverSource = null;
+  });
+
   test('opens and closes using the trigger as the popover source', async function (assert) {
     assert.expect(11);
-
-    let popoverSource;
-
-    const handleToggle = (event) => {
-      popoverSource = event.source;
-    };
 
     await render(
       <template>
@@ -38,7 +40,7 @@ module('dropdown (popover)', function (hooks) {
 
     // Dropdown popover is open
 
-    assert.strictEqual(
+    assert.deepEqual(
       popoverSource,
       trigger,
       'content is coupled to the trigger to get css anchor scoped positioning for free'
@@ -58,5 +60,28 @@ module('dropdown (popover)', function (hooks) {
     assert.false(content.matches(':popover-open'));
     assert.dom('.dropdown__content').exists();
     assert.dom('.dropdown').hasAttribute('data-open', 'false');
+  });
+
+  test('custom popover target', async function (assert) {
+    assert.expect(1);
+
+    await render(
+      <template>
+        <div class="popover-target"></div>
+
+        <Dropdown
+          @usePopover={{true}}
+          @popoverTarget={{(find ".popover-target")}}
+          as |dd|
+        >
+          <dd.Trigger />
+          <dd.Content {{on "toggle" handleToggle}} />
+        </Dropdown>
+      </template>
+    );
+
+    await click('.dropdown__trigger');
+
+    assert.deepEqual(popoverSource, find('.popover-target'));
   });
 });

@@ -259,6 +259,10 @@ Optional. Wormhole/Portal element
 
 Optional. Opt in to native popover to benefit from CSS anchor position coupling. This will become the default in future.
 
+#### `@popoverTarget`
+
+Optional. By default, the dropdown content is coupled to the trigger that caused it to open. This argument allows you to change that.
+
 #### `@open`
 
 Optional. Whether or not the select box's dropdown should be in an open state initially.
