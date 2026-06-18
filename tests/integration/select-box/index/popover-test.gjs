@@ -76,6 +76,7 @@ module('select-box (popover)', function (hooks) {
             @usePopover={{true}}
             @popoverTarget={{sb.dropdown.element}}
           >
+            <sb.Input />
             <sb.Trigger />
             <sb.Content {{on "toggle" handleToggle}}>
               <sb.Options />

@@ -71,7 +71,7 @@ module('dropdown (popover)', function (hooks) {
 
         <Dropdown
           @usePopover={{true}}
-          @popoverTarget={{(find ".popover-target")}}
+          @popoverTarget={{find ".popover-target"}}
           as |dd|
         >
           <dd.Trigger />
