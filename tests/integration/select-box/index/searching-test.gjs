@@ -334,6 +334,46 @@ module('select-box (searching)', function (hooks) {
     await click('button');
   });
 
+  test('whitespace in query', async function (assert) {
+    assert.expect(3);
+
+    let api;
+    let query;
+
+    const handleReady = (sb) => (api = sb);
+    const handleSearch = (_query) => (query = _query);
+
+    await render(
+      <template>
+        <SelectBox @onReady={{handleReady}} @onSearch={{handleSearch}} as |sb|>
+          <sb.Input />
+          <sb.Options />
+        </SelectBox>
+      </template>
+    );
+
+    await fillIn('.select-box__input', ' foo ');
+
+    assert.strictEqual(
+      query,
+      ' foo ',
+      'white space is not trimmed (may change in future)'
+    );
+
+    assert.strictEqual(
+      api.query,
+      ' foo ',
+      'white space is not trimmed (may change in future)'
+    );
+
+    assert
+      .dom('.select-box__input')
+      .hasValue(
+        ' foo ',
+        'input value is not modified (should not change in future!)'
+      );
+  });
+
   test('search argument passthrough', async function (assert) {
     assert.expect(1);
 
