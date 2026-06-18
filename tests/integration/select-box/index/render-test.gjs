@@ -46,18 +46,22 @@ module('select-box', function (hooks) {
   });
 
   test('it renders with a dropdown', async function (assert) {
-    assert.expect(1);
+    assert.expect(2);
 
     await render(
       <template>
         <SelectBox as |sb|>
           <sb.Dropdown>
             <sb.Trigger />
+            <sb.Content />
           </sb.Dropdown>
         </SelectBox>
       </template>
     );
 
     assert.dom('.select-box .dropdown').doesNotHaveAttribute('data-disabled');
+    assert
+      .dom('.select-box .dropdown__content')
+      .doesNotHaveAttribute('popover');
   });
 });

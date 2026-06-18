@@ -255,6 +255,10 @@ Optional. Wormhole/Portal element
 
 ### Arguments
 
+#### `@usePopover`
+
+Optional. Opt in to native popover to benefit from CSS anchor position coupling. This will become the default in future.
+
 #### `@open`
 
 Optional. Whether or not the select box's dropdown should be in an open state initially.

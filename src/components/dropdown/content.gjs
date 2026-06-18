@@ -1,4 +1,12 @@
 import lifecycle from '../../modifiers/lifecycle.js';
+import { modifier } from 'ember-modifier';
+
+const popover = modifier((element, _, { enabled, source, isOpen }) => {
+  if (isOpen && enabled) {
+    element.showPopover({ source });
+  }
+  return () => enabled && element.hidePopover();
+});
 
 const Destination = <template>
   {{#if @destination}}
@@ -17,7 +25,9 @@ const Destination = <template>
       class="dropdown__content"
       style={{@style}}
       tabindex={{@tabindex}}
+      popover={{if @usePopover "manual"}}
       {{lifecycle onInsert=@onInsert onDestroy=@onDestroy}}
+      {{popover enabled=@usePopover source=@popoverTarget isOpen=@isOpen}}
       ...attributes
     >
       {{yield}}

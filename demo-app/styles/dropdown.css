@@ -16,6 +16,7 @@
   border: 2px solid var(--light-grey);
   margin-top: var(--space-m);
   padding: var(--space-xl);
+  position-area: bottom span-right;
   width: 300px;
 }
 

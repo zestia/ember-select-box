@@ -1,5 +1,9 @@
 # Changelog
 
+## 17.7.0
+
+- Add `@usePopover`, to get anchor coupling for free
+
 ## 17.6.0
 
 - Remove anchor positioning
