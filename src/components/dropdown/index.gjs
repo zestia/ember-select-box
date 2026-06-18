@@ -184,6 +184,7 @@ export default class Dropdown extends Component {
     }
 
     event.stopPropagation();
+    event.preventDefault();
 
     this.close(ESCAPE);
   }
