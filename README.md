@@ -183,7 +183,7 @@ Unless a search has run, in which case they will be the return value from `@onSe
 
 #### `dropdown`
 
-The API of the dropdown associated with the select box
+The API of the dropdown associated with the select box, if there is one.
 
 ## `Option`
 
