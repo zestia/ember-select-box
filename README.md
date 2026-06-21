@@ -247,10 +247,6 @@ A combobox, which toggles the select box's dropdown open/closed.
 
 An element to house the content that displays when the select box's dropdown is opened
 
-#### `@destination`
-
-Optional. Wormhole/Portal element
-
 ## `Dropdown`
 
 ### Arguments
@@ -258,6 +254,8 @@ Optional. Wormhole/Portal element
 #### `@usePopover`
 
 Optional. Opt in to native popover to benefit from CSS anchor position coupling. This will become the default in future.
+
+When you use this option `@destination` becomes irrelevant.
 
 #### `@popoverTarget`
 
@@ -274,6 +272,10 @@ Optional. Fired when the select box's dropdown is opened
 #### `@onClose`
 
 Optional. Fired when the select box's dropdown is closed
+
+#### `@destination`
+
+Optional. Wormhole/Portal element
 
 ### API
 
