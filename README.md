@@ -10,7 +10,7 @@
 [ember-observer-badge]: https://emberobserver.com/badges/-zestia-ember-select-box.svg
 [ember-observer-url]: https://emberobserver.com/addons/@zestia/ember-select-box
 
-This addon mimics a native select box. It is lightweight and highly flexible.
+This addon mimics a native select box. It is lightweight and highly flexible and designed to eventually be replaced by [customisable select elements](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Customizable_select?utm_source=chatgpt.com).
 
 ## Installation
 
