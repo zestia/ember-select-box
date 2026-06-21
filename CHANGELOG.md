@@ -5,22 +5,6 @@
 - Add `@usePopover`, to get anchor coupling for free
 - Add `@popoverTarget`
 
-## 17.6.0
-
-- Remove anchor positioning
-
-## 17.5.2
-
-- Add ability to opt out of anchor coupling.
-
-## 17.5.1
-
-- Expose dropdown `anchorName`
-
-## 17.5.0
-
-- Couple trigger with dropdown content via CSS Anchor positioning
-
 ## 17.4.1
 
 - Performance improvement
