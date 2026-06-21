@@ -124,6 +124,7 @@
   "repository": "",
   "scripts": {
     "build": "rollup --config",
+    "build:demo": "vite build --config vite.demo.config.mjs --out-dir dist-demo",
     "format": "prettier . --cache --write",
     "lint": "concurrently \"npm:lint:*(!fix)\" --names \"lint:\" --prefixColors auto",
     "lint:css": "stylelint '**/*.css'",

@@ -4,7 +4,7 @@ import PageTitleService from 'ember-page-title/services/page-title';
 import * as Example1Template from './templates/example1.gjs';
 
 class Router extends EmberRouter {
-  location = 'history';
+  location = 'hash';
   rootURL = '/';
 }
 

@@ -3,6 +3,7 @@
 
 # compiled output
 /dist/
+/dist-demo/
 /dist-tests/
 
 # addons
