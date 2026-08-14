@@ -1,5 +1,9 @@
 # Changelog
 
+## 17.7.1
+
+- Upgrade ember-concurrency
+
 ## 17.7.0
 
 - Add `@usePopover`, to get anchor coupling for free
