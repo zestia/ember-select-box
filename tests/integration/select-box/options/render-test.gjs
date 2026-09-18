@@ -193,4 +193,57 @@ module('select-box/options', function (hooks) {
       .dom('.select-box__options')
       .hasAttribute('aria-multiselectable', 'true');
   });
+
+  test('multiple (explicitly false)', async function (assert) {
+    assert.expect(1);
+
+    await render(
+      <template>
+        <SelectBox @multiple={{false}} as |sb|>
+          <sb.Options />
+        </SelectBox>
+      </template>
+    );
+
+    assert
+      .dom('.select-box__options')
+      .hasAttribute('aria-multiselectable', 'false');
+  });
+
+  test('multiple (null)', async function (assert) {
+    assert.expect(1);
+
+    await render(
+      <template>
+        <SelectBox @multiple={{null}} as |sb|>
+          <sb.Options />
+        </SelectBox>
+      </template>
+    );
+
+    assert
+      .dom('.select-box__options')
+      .doesNotHaveAttribute('aria-multiselectable');
+  });
+
+  test('multiple (passed through)', async function (assert) {
+    assert.expect(1);
+
+    // An app wrapping the select box. Writing `@multiple=` here must not be
+    // mistaken for supplying a value.
+    const PassThrough = <template>
+      <SelectBox @multiple={{@multiple}} as |sb|>
+        <sb.Options />
+      </SelectBox>
+    </template>;
+
+    await render(<template><PassThrough /></template>);
+
+    assert
+      .dom('.select-box__options')
+      .doesNotHaveAttribute(
+        'aria-multiselectable',
+        'passing an argument through is not the same as supplying it'
+      );
+  });
 });

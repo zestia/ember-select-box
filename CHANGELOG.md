@@ -1,5 +1,9 @@
 # Changelog
 
+## 17.7.2
+
+- Allow disabled and multiple arguments to be composed over properly
+
 ## 17.7.1
 
 - Upgrade ember-concurrency

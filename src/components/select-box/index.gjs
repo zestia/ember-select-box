@@ -3,6 +3,7 @@
 import { cached } from '@glimmer/tracking';
 import { filter } from '../../utils.js';
 import { hash } from '@ember/helper';
+import { isPresent } from '@ember/utils';
 import { localCopy } from 'tracked-toolbox';
 import { makeArray } from '@ember/array';
 import { on } from '@ember/modifier';
@@ -55,11 +56,11 @@ export default class SelectBox extends Component {
   }
 
   get isDisabled() {
-    return 'disabled' in this.args ? !!this.args.disabled : null;
+    return isPresent(this.args.disabled) ? !!this.args.disabled : null;
   }
 
   get isMultiple() {
-    return 'multiple' in this.args ? !!this.args.multiple : null;
+    return isPresent(this.args.multiple) ? !!this.args.multiple : null;
   }
 
   get isSingle() {

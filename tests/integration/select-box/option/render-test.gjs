@@ -151,7 +151,7 @@ module('select-box/option', function (hooks) {
       </template>
     );
 
-    assert.dom('.select-box__option').hasAttribute('aria-disabled', 'false');
+    assert.dom('.select-box__option').doesNotHaveAttribute('aria-disabled');
 
     state.disableOne = true;
 
@@ -190,5 +190,116 @@ module('select-box/option', function (hooks) {
     );
 
     assert.dom('.select-box__option').hasAttribute('aria-disabled', 'true');
+  });
+
+  test('disabled (explicitly false)', async function (assert) {
+    assert.expect(1);
+
+    await render(
+      <template>
+        <SelectBox as |sb|>
+          <sb.Options>
+            <sb.Option @disabled={{false}} />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
+
+    assert
+      .dom('.select-box__option')
+      .hasAttribute(
+        'aria-disabled',
+        'false',
+        'an explicit false is a value, and is not the same as no value'
+      );
+  });
+
+  test('disabled (explicitly false, disabled parent)', async function (assert) {
+    assert.expect(1);
+
+    await render(
+      <template>
+        <SelectBox @disabled={{true}} as |sb|>
+          <sb.Options>
+            <sb.Option @disabled={{false}} />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
+
+    assert
+      .dom('.select-box__option')
+      .hasAttribute(
+        'aria-disabled',
+        'true',
+        'a disabled select box disables its options regardless'
+      );
+  });
+
+  test('disabled (null)', async function (assert) {
+    assert.expect(1);
+
+    await render(
+      <template>
+        <SelectBox @disabled={{true}} as |sb|>
+          <sb.Options>
+            <sb.Option @disabled={{null}} />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
+
+    assert
+      .dom('.select-box__option')
+      .hasAttribute(
+        'aria-disabled',
+        'true',
+        'null is not a value, so the disabled parent still applies'
+      );
+  });
+
+  test('disabled (passed through)', async function (assert) {
+    assert.expect(1);
+
+    // An app wrapping the select box. Writing `@disabled=` here must not be
+    // mistaken for supplying a value.
+    const PassThrough = <template>
+      <SelectBox as |sb|>
+        <sb.Options>
+          <sb.Option @disabled={{@disabled}} />
+        </sb.Options>
+      </SelectBox>
+    </template>;
+
+    await render(<template><PassThrough /></template>);
+
+    assert
+      .dom('.select-box__option')
+      .doesNotHaveAttribute(
+        'aria-disabled',
+        'passing an argument through is not the same as supplying it'
+      );
+  });
+
+  test('disabled parent (passed through)', async function (assert) {
+    assert.expect(1);
+
+    const PassThrough = <template>
+      <SelectBox @disabled={{true}} as |sb|>
+        <sb.Options>
+          <sb.Option @disabled={{@disabled}} />
+        </sb.Options>
+      </SelectBox>
+    </template>;
+
+    await render(<template><PassThrough /></template>);
+
+    assert
+      .dom('.select-box__option')
+      .hasAttribute(
+        'aria-disabled',
+        'true',
+        'option still inherits from the disabled parent'
+      );
   });
 });

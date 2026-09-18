@@ -101,6 +101,28 @@ module('select-box (disabling)', function (hooks) {
     assert.dom('.select-box__option').hasAttribute('aria-disabled', 'true');
   });
 
+  test('an option cannot opt out of a disabled select box', async function (assert) {
+    assert.expect(2);
+
+    const handleChange = (value) => assert.step(value);
+
+    await render(
+      <template>
+        <SelectBox @disabled={{true}} @onChange={{handleChange}} as |sb|>
+          <sb.Options>
+            <sb.Option @value="a" @disabled={{false}} />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
+
+    assert.dom('.select-box__option').hasAttribute('aria-disabled', 'true');
+
+    await click('.select-box__option');
+
+    assert.verifySteps([], 'the option cannot be selected');
+  });
+
   test('clicking a disabled option', async function (assert) {
     assert.expect(2);
 
@@ -188,5 +210,62 @@ module('select-box (disabling)', function (hooks) {
       .dom('.select-box .dropdown__trigger')
       .hasAttribute('aria-expanded', 'false');
     assert.dom('.select-box__option').doesNotHaveAttribute('aria-current');
+  });
+
+  test('disabling with an explicit false', async function (assert) {
+    assert.expect(2);
+
+    await render(
+      <template>
+        <SelectBox @disabled={{false}} as |sb|>
+          <sb.Options>
+            <sb.Option />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
+
+    assert.dom('.select-box').hasAttribute('data-disabled', 'false');
+    assert.dom('.select-box__option').hasAttribute('aria-disabled', 'false');
+  });
+
+  test('disabling with null', async function (assert) {
+    assert.expect(2);
+
+    await render(
+      <template>
+        <SelectBox @disabled={{null}} as |sb|>
+          <sb.Options>
+            <sb.Option />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
+
+    assert.dom('.select-box').doesNotHaveAttribute('data-disabled');
+    assert.dom('.select-box__option').doesNotHaveAttribute('aria-disabled');
+  });
+
+  test('disabling with a passed through argument', async function (assert) {
+    assert.expect(2);
+
+    await render(
+      <template>
+        <SelectBox @disabled={{@disabled}} as |sb|>
+          <sb.Options>
+            <sb.Option />
+          </sb.Options>
+        </SelectBox>
+      </template>
+    );
+
+    assert
+      .dom('.select-box')
+      .doesNotHaveAttribute(
+        'data-disabled',
+        'passing an argument through is not the same as supplying it'
+      );
+
+    assert.dom('.select-box__option').doesNotHaveAttribute('aria-disabled');
   });
 });

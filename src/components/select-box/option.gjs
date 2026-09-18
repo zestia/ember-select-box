@@ -1,6 +1,7 @@
 import { cached } from '@glimmer/tracking';
 import { concat, fn } from '@ember/helper';
 import { guidFor } from '@ember/object/internals';
+import { isPresent } from '@ember/utils';
 import { on } from '@ember/modifier';
 import Component from '@glimmer/component';
 import lifecycle from '../../modifiers/lifecycle.js';
@@ -15,7 +16,11 @@ export default class SelectBoxOption extends Component {
   }
 
   get isDisabled() {
-    return 'disabled' in this.args
+    if (this.args.selectBox.isDisabled) {
+      return true;
+    }
+
+    return isPresent(this.args.disabled)
       ? !!this.args.disabled
       : this.args.selectBox.isDisabled;
   }
