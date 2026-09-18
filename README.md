@@ -25,7 +25,23 @@ Add the following to `~/.npmrc` to pull @zestia scoped packages from Github inst
 //npm.pkg.github.com/:_authToken=<YOUR_GH_TOKEN>
 ```
 
+<<<<<<< HEAD
 ## Demo
+||||||| parent of e73a988d (v0.17.1...v0.18.0)
+## Contributing
+=======
+> TODO: Document the package's public API.
+>
+> For each public api (including components, helpers, modifiers, and other apis) include:
+>
+> - The import path for a consumer (e.g. `import MyAddonsComponent from 'my-addon/components/my-addons-component'`)
+> - What it does
+> - Parameters/options
+> - Return value
+> - Example usage
+
+## Contributing
+>>>>>>> e73a988d (v0.17.1...v0.18.0)
 
 https://zestia.github.io/ember-select-box
 
