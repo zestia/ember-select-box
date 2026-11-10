@@ -1,5 +1,9 @@
 # Changelog
 
+## 18.0.0
+
+- Use `renderSettled` internally
+
 ## 17.7.2
 
 - Allow disabled and multiple arguments to be composed over properly
