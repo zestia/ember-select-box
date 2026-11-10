@@ -1,5 +1,3 @@
-/* eslint-disable ember/no-runloop */
-
 import { cached } from '@glimmer/tracking';
 import { filter } from '../../utils.js';
 import { hash } from '@ember/helper';
@@ -7,7 +5,7 @@ import { isPresent } from '@ember/utils';
 import { localCopy } from 'tracked-toolbox';
 import { makeArray } from '@ember/array';
 import { on } from '@ember/modifier';
-import { scheduleOnce } from '@ember/runloop';
+import { renderSettled } from '@ember/renderer';
 import { startsWithString, pressingModifier } from '../../-private/utils.js';
 import { task } from 'ember-concurrency';
 import { tracked } from 'tracked-built-ins';
@@ -420,7 +418,7 @@ export default class SelectBox extends Component {
     }
   }
 
-  _handleSearched() {
+  #handleSearched() {
     this.activeOption?.scrollIntoView();
   }
 
@@ -554,7 +552,9 @@ export default class SelectBox extends Component {
     this.results = await search(string, this.api);
     this.query = string;
 
-    scheduleOnce('afterRender', this, '_handleSearched');
+    await renderSettled();
+
+    this.#handleSearched();
   });
 
   #defaultSearch(query) {

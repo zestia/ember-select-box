@@ -1,9 +1,9 @@
-/* eslint-disable ember/no-runloop, ember/no-tracked-properties-from-args */
+/* eslint-disable ember/no-tracked-properties-from-args */
 
 import { concat, hash } from '@ember/helper';
 import { modifier } from 'ember-modifier';
 import { on } from '@ember/modifier';
-import { scheduleOnce } from '@ember/runloop';
+import { renderSettled } from '@ember/renderer';
 import { tracked } from '@glimmer/tracking';
 import Component from '@glimmer/component';
 import DropdownContent from './content.gjs';
@@ -145,24 +145,28 @@ export default class Dropdown extends Component {
     }
   };
 
-  open = () => {
+  open = async () => {
     if (!this.canOpen) {
       return;
     }
 
     this._isOpen = true;
 
-    scheduleOnce('afterRender', this, '_handleOpened');
+    await renderSettled();
+
+    this.#handleOpened();
   };
 
-  close = (reason) => {
+  close = async (reason) => {
     if (!this.canClose) {
       return;
     }
 
     this._isOpen = false;
 
-    scheduleOnce('afterRender', this, '_handleClosed', reason);
+    await renderSettled();
+
+    this.#handleClosed(reason);
   };
 
   toggle = () => {
@@ -204,12 +208,12 @@ export default class Dropdown extends Component {
     );
   }
 
-  _handleOpened() {
+  #handleOpened() {
     this.args.onOpenClosure?.();
     this.args.onOpen?.();
   }
 
-  _handleClosed(reason) {
+  #handleClosed(reason) {
     this.args.onCloseClosure?.(reason);
     this.args.onClose?.(reason);
   }
